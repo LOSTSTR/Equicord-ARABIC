@@ -6,12 +6,12 @@
 
 Equicord is a fork of [Vencord](https://github.com/Vendicated/Vencord), with over 300+ plugins.
 
-You can join our [discord server](https://discord.gg/5Xh2W87egW) for commits, changes, chat or even support.<br><br></br>
+You can join our [discord server](https://discord.gg/5Xh2W87egW) for commits, changes, chat or even support.
 
 ### Extra included plugins
 
 <details>
-<summary>183 additional plugins</summary>
+<summary>186 additional plugins</summary>
 
 ### All Platforms
 
@@ -20,6 +20,7 @@ You can join our [discord server](https://discord.gg/5Xh2W87egW) for commits, ch
 - AlwaysExpandProfile by thororen
 - AmITyping by MrDiamond
 - Anammox by Kyuuhachi
+- AudiobookShelfRPC by vMohammad
 - AtSomeone by Joona
 - BannersEverywhere by ImLvna & AutumnVN
 - BetterActivities by D3SOX, Arjix, AutumnVN
@@ -95,6 +96,7 @@ You can join our [discord server](https://discord.gg/5Xh2W87egW) for commits, ch
 - InRole by nin0dev
 - InstantScreenshare by HAHALOSAH & thororen
 - IRememberYou by zoodogood
+- JellyfinRichPresence by vMohammad
 - Jumpscare by Surgedevs
 - JumpToStart by Samwich
 - KeyboardSounds by HypedDomi
@@ -160,6 +162,7 @@ You can join our [discord server](https://discord.gg/5Xh2W87egW) for commits, ch
 - StatusPresets by iamme
 - SteamStatusSync by niko
 - StickerBlocker by Samwich
+- StreamingCodecDisabler by davidkra230
 - TalkInReverse by Tolgchu
 - TeX by Kyuuhachi
 - TextToSpeech by Samwich
