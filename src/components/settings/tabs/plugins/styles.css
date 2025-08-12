@@ -281,9 +281,19 @@
 }
 
 .vc-plugins-page-buttons {
-    margin-top: 12px;
+    margin-top: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
+    position: relative;
+}
+
+.vc-plugins-page-text {
+    width: 120px;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

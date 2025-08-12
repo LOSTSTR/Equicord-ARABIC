@@ -25,14 +25,13 @@ import { classNameFactory } from "@api/Styles";
 import { CogWheel, InfoIcon } from "@components/Icons";
 import { openPluginModal, SettingsTab } from "@components/settings";
 import { AddonCard } from "@components/settings/AddonCard";
-import { debounce } from "@shared/debounce";
 import { ChangeList } from "@utils/ChangeList";
 import { proxyLazy } from "@utils/lazy";
 import { Logger } from "@utils/Logger";
 import { Margins } from "@utils/margins";
 import { classes, isObjectEmpty } from "@utils/misc";
 import { ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalRoot, ModalSize, openModal } from "@utils/modal";
-import { useAwaiter, useIntersection } from "@utils/react";
+import { useAwaiter } from "@utils/react";
 import { Plugin } from "@utils/types";
 import { findByPropsLazy } from "@webpack";
 import { Alerts, Button, Card, Flex, Forms, lodash, Parser, React, Select, Text, TextInput, Toasts, Tooltip, useMemo } from "@webpack/common";
@@ -262,13 +261,17 @@ export default function PluginSettings() {
         .sort((a, b) => a.name.localeCompare(b.name)), []);
 
     const [searchValue, setSearchValue] = React.useState({ value: "", status: SearchStatus.ALL });
+    const [currentPage, setCurrentPage] = React.useState(1);
+    const pageSize = 36;
 
     const search = searchValue.value.toLowerCase();
     const onSearch = (query: string) => {
         setSearchValue(prev => ({ ...prev, value: query }));
+        setCurrentPage(1);
     };
     const onStatusChange = (status: SearchStatus) => {
         setSearchValue(prev => ({ ...prev, status }));
+        setCurrentPage(1);
     };
 
     const pluginFilter = (plugin: typeof Plugins[keyof typeof Plugins]) => {
@@ -473,22 +476,13 @@ export default function PluginSettings() {
     const totalUserPlugins = totalPlugins.filter(p => PluginMeta[p].userPlugin).length;
     const enabledStockPlugins = enabledPlugins.filter(p => !PluginMeta[p].userPlugin).length;
     const enabledUserPlugins = enabledPlugins.filter(p => PluginMeta[p].userPlugin).length;
-    const pluginsToLoad = Math.min(36, plugins.length);
-    const [visibleCount, setVisibleCount] = React.useState(pluginsToLoad);
-    const loadMore = React.useCallback(() => {
-        setVisibleCount(v => Math.min(v + pluginsToLoad, plugins.length));
-    }, [plugins.length]);
 
-    const dLoadMore = useMemo(() => debounce(loadMore, 100), [loadMore]);
+    const paginatedPlugins = plugins.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+    const totalPages = Math.ceil(plugins.length / pageSize);
 
-    const [sentinelRef, isSentinelVisible] = useIntersection();
-    React.useEffect(() => {
-        if (isSentinelVisible && visibleCount < plugins.length) {
-            dLoadMore();
-        }
-    }, [isSentinelVisible, visibleCount, plugins.length, dLoadMore]);
-
-    const visiblePlugins = plugins.slice(0, visibleCount);
+    function goToPage(page: number) {
+        setCurrentPage(Math.max(1, Math.min(page, totalPages)));
+    }
 
     return (
         <SettingsTab title="Plugins">
@@ -541,13 +535,32 @@ export default function PluginSettings() {
                 ? (
                     <>
                         <div className={cl("grid")}>
-                            {visiblePlugins.length
-                                ? visiblePlugins
+                            {paginatedPlugins.length
+                                ? paginatedPlugins
                                 : <Text variant="text-md/normal">No plugins meet the search criteria.</Text>
                             }
                         </div>
-                        {visibleCount < plugins.length && (
-                            <div ref={sentinelRef} style={{ height: 32 }} />
+
+                        {totalPages > 1 && (
+                            <div className={cl("page-buttons")}>
+                                <Button
+                                    size={Button.Sizes.SMALL}
+                                    disabled={currentPage === 1}
+                                    onClick={() => goToPage(currentPage - 1)}
+                                >
+                                    Prev
+                                </Button>
+                                <div className={cl("page-text")}>
+                                    <Text>{`Page ${currentPage} of ${totalPages}`}</Text>
+                                </div>
+                                <Button
+                                    size={Button.Sizes.SMALL}
+                                    disabled={currentPage === totalPages}
+                                    onClick={() => goToPage(currentPage + 1)}
+                                >
+                                    Next
+                                </Button>
+                            </div>
                         )}
                     </>
                 )
