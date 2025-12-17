@@ -1,5 +1,5 @@
 .vc-addon-card {
-    background-color: var(--background-surface-high);
+    background-color: var(--card-background-default);
     color: var(--interactive-icon-active);
     border: 1px solid var(--border-subtle);
     border-radius: 8px;
@@ -101,4 +101,8 @@
     background: transparent;
     color: inherit;
     font: inherit;
+}
+
+.vc-addon-footer {
+    font-size: small;
 }

@@ -26,7 +26,7 @@
 
     &:focus-visible {
         /* stylelint-disable-next-line custom-property-pattern */
-        box-shadow: 0 0 0 4px var(--__adaptive-focus-ring-color, var(--focus-primary, #00b0f4));
+        box-shadow: 0 0 0 4px var(--__adaptive-focus-ring-color, var(--border-focus, #00b0f4));
     }
 }
 
@@ -94,8 +94,8 @@
 
     &:hover {
         background-color: var(--control-critical-primary-background-hover);
-        border-color: var(--control-secondary-background-hover);
-        color: var(--control-secondary-background-hover);
+        border-color: var(--control-critical-primary-border-hover);
+        color: var(--control-critical-primary-text-hover);
     }
 }
 
@@ -125,8 +125,7 @@
 
 .vc-btn-positive {
     background-color: var(--redesign-button-positive-background);
-    border-color: var(--redesign-button-positive-background);
-    color: var(--redesign-button-positive-text);
+    color: var(--white);
 
     &:hover {
         background-color: var(--redesign-button-positive-pressed-background);
@@ -136,7 +135,7 @@
 .vc-btn-none {
     background-color: transparent;
     border-color: transparent;
-    color: var(--control-icon-icon-only-default);
+    color: var(--control-icon-only-icon-default);
 
     &:hover {
         background-color: var(--control-icon-only-background-hover);
@@ -178,7 +177,7 @@
 
     &:focus-visible {
         /* stylelint-disable-next-line custom-property-pattern */
-        box-shadow: 0 0 0 4px var(--__adaptive-focus-ring-color, var(--focus-primary, #00b0f4));
+        box-shadow: 0 0 0 4px var(--__adaptive-focus-ring-color, var(--border-focus, #00b0f4));
     }
 }
 
@@ -187,11 +186,11 @@
 }
 
 .vc-text-btn-secondary {
-    color: var(--text-strong);
+    color: var(--text-strong, var(--text-default));
 }
 
 .vc-text-btn-danger {
-    color: var(--text-feedback-critical, var(--text-feedback-critical));
+    color: var(--text-feedback-critical);
 }
 
 .vc-text-btn-link {
