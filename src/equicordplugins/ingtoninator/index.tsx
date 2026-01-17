@@ -31,9 +31,9 @@ const settings = definePluginSettings({
 });
 
 const isLegal = (word: string): boolean => {
-    if (word == "i" || word == "I") return false;
-    if (word == "http" || word == "https") return false;
-    
+    if (word === "i" || word === "I") return false;
+    if (word === "http" || word === "https") return false;
+
     const lastChar = word.slice(-1).toLowerCase();
     if (["a", "e", "o", "u", "y"].includes(lastChar)) return false;
 
@@ -43,13 +43,13 @@ const isLegal = (word: string): boolean => {
 const getWordBoundaries = (string: string): WordMatch[] => {
     const regex = /[.,!?;:'"\-_()[\]{}<>/\\|@#$%^&*+=`~…—–\s0-9]+/g;
 
-    let matches: WordMatch[] = [];
+    const matches: WordMatch[] = [];
     let startIndex: number = 0;
 
     for (const match of string.matchAll(regex)) {
         const word = string.slice(startIndex, match.index);
         if (word.length > 0) {
-          matches.push({word, startIndex});
+            matches.push({ word, startIndex });
         }
 
         startIndex = match.index + match[0].length;
@@ -57,7 +57,7 @@ const getWordBoundaries = (string: string): WordMatch[] => {
 
     if (startIndex < string.length) {
         const word = string.slice(startIndex);
-        matches.push({word, startIndex});
+        matches.push({ word, startIndex });
     }
 
     return matches;
@@ -71,8 +71,8 @@ const chooseRandomWord = (message: string): WordMatch | null => {
         const wordMatch: WordMatch = words[index];
 
         if (!isLegal(wordMatch.word)) {
-          words.splice(index, 1);
-          continue;
+            words.splice(index, 1);
+            continue;
         }
 
         return wordMatch;
@@ -100,7 +100,7 @@ const handleMessage = ((channelId, message) => {
     const wordMatch: WordMatch | null = chooseRandomWord(msg);
     if (wordMatch === null) return;
 
-    const word = wordMatch.word;
+    const { word } = wordMatch;
     const wordLower = word.toLowerCase();
     const isLower = word === wordLower;
 
@@ -112,7 +112,6 @@ const handleMessage = ((channelId, message) => {
     const idx: number = wordMatch.startIndex + word.length;
     message.content = msg.slice(0, idx) + append + msg.slice(idx);
 });
-
 
 const IngtoninatorButton: ChatBarButtonFactory = ({ isMainChat }) => {
     const { isEnabled, showIcon } = settings.use(["isEnabled", "showIcon"]);
