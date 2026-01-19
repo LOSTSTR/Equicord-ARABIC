@@ -6,16 +6,11 @@
 
 import "./style.css";
 
-import { definePluginSettings, migratePluginSettings } from "@api/Settings";
+import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
 import definePlugin, { makeRange, OptionType } from "@utils/types";
 
 export const settings = definePluginSettings({
-    reactionCount: {
-        description: "Number of reactions (0-42)",
-        type: OptionType.NUMBER,
-        default: 5
-    },
     frequentEmojis: {
         description: "Use frequently used emojis instead of favourite emojis",
         type: OptionType.BOOLEAN,
@@ -48,23 +43,13 @@ export const settings = definePluginSettings({
     }
 });
 
-migratePluginSettings("MoreQuickReactions", "BetterQuickReact");
-
 export default definePlugin({
-    name: "MoreQuickReactions",
+    name: "BetterQuickReact",
     description: "Improves the quick react buttons in the message context menu.",
-    authors: [Devs.Ven, Devs.Sqaaakoi, Devs.iamme],
-    isModified: true,
+    authors: [Devs.Ven, Devs.Sqaaakoi],
     settings,
 
     patches: [
-        {
-            find: "#{intl::MESSAGE_UTILITIES_A11Y_LABEL}",
-            replacement: {
-                match: /(?<=length>=3\?.{0,40})\.slice\(0,3\)/,
-                replace: ".slice(0,$self.reactionCount)"
-            }
-        },
         // Remove favourite emojis from being inserted at the start of the reaction list
         {
             find: "this.favoriteEmojisWithoutFetchingLatest.concat",
@@ -85,7 +70,7 @@ export default definePlugin({
                 // Override limit of emojis to display with offset hook.
                 {
                     match: /(\i)\.length>4&&\((\i)\.length=4\);/,
-                    replace: "let [moreQuickReactionsScrollValue,setMoreQuickReactionScrollValue]=Vencord.Webpack.Common.React.useState(0);MoreQuickReactionsScrollValue;"
+                    replace: "let [betterQuickReactScrollValue,setBetterQuickReactScrollValue]=Vencord.Webpack.Common.React.useState(0);betterQuickReactScrollValue;"
                 },
                 // Add a custom class to identify the quick reactions have been modified and a CSS variable for the number of columns to display
                 {
@@ -95,7 +80,7 @@ export default definePlugin({
                 // Scroll handler + Apply the emoji count limit from earlier with custom logic
                 {
                     match: /children:(\i)\.map\(/,
-                    replace: "onWheel:$self.onWheelWrapper(moreQuickReactionsScrollValue,setMoreQuickReactionsScrollValue,$1.length),children:$self.applyScroll($1,moreQuickReactionsScrollValue).map("
+                    replace: "onWheel:$self.onWheelWrapper(betterQuickReactScrollValue,setBetterQuickReactScrollValue,$1.length),children:$self.applyScroll($1,betterQuickReactScrollValue).map("
                 }
             ]
         },
@@ -110,9 +95,6 @@ export default definePlugin({
     ],
     getMaxQuickReactions() {
         return settings.store.rows * settings.store.columns;
-    },
-    get reactionCount() {
-        return settings.store.reactionCount;
     },
     applyScroll(emojis: any[], index: number) {
         return emojis.slice(index, index + this.getMaxQuickReactions());
