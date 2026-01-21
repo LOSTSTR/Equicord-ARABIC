@@ -193,11 +193,11 @@ function isMessageReplyable(msg: Message) {
     return MessageTypeSets.REPLYABLE.has(msg.type) && !msg.hasFlag(MessageFlags.EPHEMERAL);
 }
 
-async function toggleReaction(channelId: string, messageId: string, emoji: string, channel: { id: string; }, msg: Message) {
+async function toggleReaction(channelId: string, messageId: string, emoji: string, channel: { id: string; guild_id?: string | null; }, msg: Message) {
     const trimmed = emoji.trim();
     if (!trimmed) return;
 
-    if (!PermissionStore.can(PermissionsBits.ADD_REACTIONS, channel) || !PermissionStore.can(PermissionsBits.READ_MESSAGE_HISTORY, channel)) {
+    if (channel.guild_id && (!PermissionStore.can(PermissionsBits.ADD_REACTIONS, channel) || !PermissionStore.can(PermissionsBits.READ_MESSAGE_HISTORY, channel))) {
         showWarning("Cannot react: Missing permissions");
         return;
     }
@@ -473,6 +473,10 @@ export default definePlugin({
     },
 
     onMessageClick(msg, channel, event) {
+        const target = event.target as HTMLElement;
+        if (target.closest('a, button, input, img, [class*="repliedTextPreview"], [class*="threadMessageAccessory"]')) return;
+        if (!target.closest('[class*="message"]')) return;
+
         const myId = AuthenticationStore.getId();
         const isMe = msg.author.id === myId;
         const isDM = channel.isDM();
@@ -516,6 +520,11 @@ export default definePlugin({
         const canTripleClick = isModifierPressed(tripleClickModifier) && tripleClickAction !== "NONE";
 
         if (isDoubleClick) {
+            if (singleClickTimeout) {
+                clearTimeout(singleClickTimeout);
+                singleClickTimeout = null;
+            }
+
             const executeDoubleClick = () => {
                 if (channel.guild_id && !PermissionStore.can(PermissionsBits.SEND_MESSAGES, channel)) return;
                 if (msg.deleted === true) return;
