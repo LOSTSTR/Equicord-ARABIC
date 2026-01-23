@@ -7,12 +7,12 @@
 import { BaseText } from "@components/BaseText";
 import ErrorBoundary from "@components/ErrorBoundary";
 import { Flex } from "@components/Flex";
+import { quickSelect, quickSelectArrow, quickSelectLabel, quickSelectQuick, quickSelectValue } from "@equicordplugins/holyNotes";
 import HelpIcon from "@equicordplugins/holyNotes/components/icons/HelpIcon";
 import { noteHandler } from "@equicordplugins/holyNotes/NoteHandler";
 import { HolyNotes } from "@equicordplugins/holyNotes/types";
 import { classes } from "@utils/misc";
 import { ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalProps, ModalRoot, ModalSize, openModal } from "@utils/modal";
-import { findByProps } from "@webpack";
 import { ContextMenuApi, FluxDispatcher, Menu, React, TextInput } from "@webpack/common";
 
 import Errors from "./Error";
@@ -68,8 +68,6 @@ export const NoteModal = (props: ModalProps & { onClose: () => void; }) => {
     const [searchInput, setSearch] = React.useState("");
     const [sortDirection, setSortDirection] = React.useState(true);
     const [currentNotebook, setCurrentNotebook] = React.useState("Main");
-
-    const { quickSelect, quickSelectLabel, quickSelectQuick, quickSelectValue, quickSelectArrow } = findByProps("quickSelect") || {};
 
     const forceUpdate = React.useReducer(() => ({}), {})[1] as () => void;
 
