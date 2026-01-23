@@ -128,7 +128,7 @@ export default definePlugin({
             find: "#{intl::GUEST_NAME_SUFFIX})]",
             replacement: [
                 {
-                    match: /#{intl::GUEST_NAME_SUFFIX}\)\].+?\](?=.*?userId:(\i\.id),contextGuildId:(\i))/,
+                    match: /#{intl::GUEST_NAME_SUFFIX}\)\].+?\](?=\}\).*?userId:(\i\.id),contextGuildId:(\i))/,
                     replace: "$&,style:$self.getColorStyle($1,$2),"
                 }
             ],
