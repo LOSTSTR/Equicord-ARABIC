@@ -340,7 +340,7 @@ export default definePlugin({
             ]
         },
         {
-            find: '="interactive-normal",overflowCountClassName:',
+            find: '="interactive-text-default",overflowCountClassName:',
             replacement: [
                 {
                     // Create a variable for the channel prop
