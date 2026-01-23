@@ -56,7 +56,7 @@ interface DiscordStatus {
     status: "online" | "dnd" | "idle" | "invisible";
 }
 
-const StatusStyles = findCssClassesLazy("statusItem");
+const StatusStyles = findCssClassesLazy("statusItem", "status", "menuDivider", "clearCustomStatusHint", "customEmojiPlaceholder");
 // TODO: find clearCustomStatusHint original css/svg or replace
 const PMenu = findComponentByCodeLazy(".menuItemLabel", ".menuItemInner");
 const EmojiComponent = findComponentByCodeLazy(/\.translateSurrogatesToInlineEmoji\(\i\.name\);/);

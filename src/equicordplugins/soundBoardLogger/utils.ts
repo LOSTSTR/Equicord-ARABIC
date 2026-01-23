@@ -70,4 +70,4 @@ export function removeListener(fn): void {
 
 // Taken from https://github.com/Vendicated/Vencord/blob/86e94343cca10b950f2dc8d18d496d6db9f3b728/src/components/PluginSettings/PluginModal.tsx#L45
 export const UserSummaryItem = LazyComponent(() => findByCode("defaultRenderUser", "showDefaultAvatarsForNullUsers"));
-export const AvatarStyles = findCssClassesLazy("moreUsers", "emptyUser", "avatarContainer", "clickableAvatar");
+export const AvatarStyles = findCssClassesLazy("moreUsers", "emptyUser", "avatarContainer", "clickableAvatar", "avatar");
