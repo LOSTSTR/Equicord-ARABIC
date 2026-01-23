@@ -26,7 +26,7 @@ import { classes } from "@utils/misc";
 import { openModal } from "@utils/modal";
 import definePlugin from "@utils/types";
 import { Message } from "@vencord/discord-types";
-import { findByCodeLazy, findCssClassesLazy } from "@webpack";
+import { findByCodeLazy, findComponentByCodeLazy, findCssClassesLazy } from "@webpack";
 import { ChannelStore, Menu } from "@webpack/common";
 
 import { Popover as NoteButtonPopover, Popover } from "./components/icons/NoteButton";
@@ -35,7 +35,13 @@ import { noteHandler, noteHandlerCache } from "./NoteHandler";
 import { DataStoreToCache, HolyNoteStore } from "./utils";
 
 export const MessageType = findByCodeLazy("isEdited(){");
-const iconClasses = findCssClassesLazy("iconWrapper", "clickable");
+export const { statusTagGreen } = findCssClassesLazy("statusTagGreen");
+export const iconClasses = findCssClassesLazy("iconWrapper", "clickable");
+export const resultsClasses = findCssClassesLazy("emptyResultsWrap", "emptyResultsContent", "errorImage", "emptyResultsText", "noResultsImage", "alt");
+export const { quickSelect, quickSelectLabel, quickSelectQuick, quickSelectValue, quickSelectArrow } = findCssClassesLazy("quickSelect", "quickSelectLabel", "quickSelectQuick", "quickSelectValue", "quickSelectArrow");
+export const messageClasses = findCssClassesLazy("message", "groupStart", "cozyMessage");
+export const Channel = findByCodeLazy("computeLurkerPermissionsAllowList(){");
+export const ChannelMessage = findComponentByCodeLazy("Message must not be a thread");
 
 const messageContextMenuPatch: NavContextMenuPatchCallback = async (children, { message }: { message: Message; }) => {
     children.push(
