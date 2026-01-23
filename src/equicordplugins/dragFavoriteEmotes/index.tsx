@@ -54,7 +54,7 @@ export default definePlugin({
                     replace: "$1arguments[0]?.collected?.isDragging?$self.dragItem():$2",
                 },
                 {
-                    match: /\[(\i\.emojiItemSelected)\]/,
+                    match: /\[(\i\.\i)\](?=.{0,5}\[null!=)/,
                     replace: '[arguments[0].collected.isDragging?"":$1]',
                 },
                 {

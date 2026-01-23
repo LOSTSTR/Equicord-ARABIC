@@ -266,7 +266,7 @@ export default definePlugin({
         {
             find: 'backgroundColor:"COMPLETE"',
             replacement: {
-                match: /(?<=backgroundImage.+?children:)!\i.{0,100}gifTag\}\)/,
+                match: /(?<=backgroundImage.+?children:)!\i.{0,100}className:\i\.\i\}\)/,
                 replace: "[$self.renderProfileTimezone(arguments[0]),$&]"
             }
         },
