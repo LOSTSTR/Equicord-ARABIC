@@ -14,6 +14,8 @@ import { classes } from "@utils/misc";
 import { ModalProps } from "@utils/modal";
 import { ContextMenuApi, FluxDispatcher, Menu, NavigationRouter, React } from "@webpack/common";
 
+import { Channel } from "../..";
+
 export const RenderMessage = ({
     note,
     notebook,

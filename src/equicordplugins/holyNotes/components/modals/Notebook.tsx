@@ -7,7 +7,7 @@
 import { BaseText } from "@components/BaseText";
 import ErrorBoundary from "@components/ErrorBoundary";
 import { Flex } from "@components/Flex";
-import { quickSelect, quickSelectArrow, quickSelectLabel, quickSelectQuick, quickSelectValue } from "@equicordplugins/holyNotes";
+import { quickSelectClasses } from "@equicordplugins/holyNotes";
 import HelpIcon from "@equicordplugins/holyNotes/components/icons/HelpIcon";
 import { noteHandler } from "@equicordplugins/holyNotes/NoteHandler";
 import { HolyNotes } from "@equicordplugins/holyNotes/types";
@@ -124,7 +124,7 @@ export const NoteModal = (props: ModalProps & { onClose: () => void; }) => {
                     <div className={classes("sort-button-container", "vc-notebook-display-left")}>
                         <Flex
                             alignItems="center"
-                            className={quickSelect}
+                            className={quickSelectClasses.quickSelect}
                             onClick={(event: React.MouseEvent<HTMLDivElement>) => {
                                 ContextMenuApi.openContextMenu(event, () => (
                                     <Menu.Menu
@@ -162,13 +162,13 @@ export const NoteModal = (props: ModalProps & { onClose: () => void; }) => {
                                 ));
                             }}
                         >
-                            <BaseText className={quickSelectLabel}>Change Sorting:</BaseText>
-                            <Flex style={{ flexGrow: 0 }} alignItems="center" className={quickSelectQuick}>
-                                <BaseText className={quickSelectValue}>
+                            <BaseText className={quickSelectClasses.quickSelectLabel}>Change Sorting:</BaseText>
+                            <Flex style={{ flexGrow: 0 }} alignItems="center" className={quickSelectClasses.quickSelectClick}>
+                                <BaseText className={quickSelectClasses.quickSelectValue}>
                                     {sortDirection ? "Ascending" : "Descending"} /{" "}
                                     {sortType ? "Date Added" : "Message Date"}
                                 </BaseText>
-                                <div className={quickSelectArrow} />
+                                <div className={quickSelectClasses.quickSelectArrow} />
                             </Flex>
                         </Flex>
                     </div>
