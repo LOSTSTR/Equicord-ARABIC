@@ -68,7 +68,7 @@ function Watching({ userIds, guildId }: WatchingProps): JSX.Element {
 const ApplicationStreamingStore = findStoreLazy("ApplicationStreamingStore");
 
 const UserSummaryItem = findComponentByCodeLazy("defaultRenderUser", "showDefaultAvatarsForNullUsers");
-const AvatarStyles = findCssClassesLazy("moreUsers", "emptyUser", "avatarContainer", "clickableAvatar");
+const AvatarStyles = findCssClassesLazy("moreUsers", "emptyUser", "avatarContainer", "clickableAvatar", "avatar");
 
 export default definePlugin({
     name: "WhosWatching",

@@ -14,7 +14,6 @@ import { filters, findByCodeLazy, findByPropsLazy, findComponentByCodeLazy, find
 import {
     GuildStore,
     ListScrollerAuto,
-    ListScrollerNone,
     ListScrollerThin,
     OAuth2AuthorizeModal,
     ScrollerAuto,
@@ -102,7 +101,6 @@ export {
     GuildStore,
     Heading,
     ListScrollerAuto,
-    ListScrollerNone,
     ListScrollerThin,
     OAuth2AuthorizeModal,
     Paragraph,

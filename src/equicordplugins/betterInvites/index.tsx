@@ -15,7 +15,7 @@ import { Guild } from "@vencord/discord-types";
 import { findByPropsLazy, findCssClassesLazy } from "@webpack";
 import { Parser, Tooltip, UserStore } from "@webpack/common";
 
-const AvatarStyles = findCssClassesLazy("avatar", "zalgo");
+const AvatarStyles = findCssClassesLazy("avatar", "zalgo", "clickable");
 const GuildManager = findByPropsLazy("joinGuild");
 
 interface User {
