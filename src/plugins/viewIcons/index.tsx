@@ -221,7 +221,7 @@ export default definePlugin({
         },
         // User DMs top small icon
         {
-            find: ".cursorPointer:null,children",
+            find: ".channel.getRecipientId(),",
             replacement: {
                 match: /(?=,src:(\i.getAvatarURL\(.+?[)]))/,
                 replace: (_, avatarUrl) => `,onClick:()=>$self.openAvatar(${avatarUrl})`
