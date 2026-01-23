@@ -130,8 +130,8 @@ export default definePlugin({
                     predicate: () => !settings.store.showWithoutHover,
                 },
                 {
-                    match: /function \i\(\)\{.+:""(?=.*?userId:(\i))/,
-                    replace: "$&,$self.renderTimer($1.id),",
+                    match: /#{intl::GUEST_NAME_SUFFIX}\)\]\}\):""/,
+                    replace: "$&,$self.renderTimer(arguments[0].id)",
                     predicate: () => settings.store.showWithoutHover,
                 }
             ]
