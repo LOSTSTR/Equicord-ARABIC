@@ -58,7 +58,7 @@ interface DiscordStatus {
 
 const StatusStyles = findCssClassesLazy("statusItem", "status", "menuDivider", "clearCustomStatusHint", "customEmojiPlaceholder");
 // TODO: find clearCustomStatusHint original css/svg or replace
-const PMenu = findComponentByCodeLazy(".menuItemLabel", ".menuItemInner");
+const PMenu = findComponentByCodeLazy("#{intl::MORE_OPTIONS}", ".ChevronSmallRightIcon");
 const EmojiComponent = findComponentByCodeLazy(/\.translateSurrogatesToInlineEmoji\(\i\.name\);/);
 
 const CustomStatusSettings = getUserSettingLazy("status", "customStatus")!;
