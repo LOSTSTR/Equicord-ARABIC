@@ -128,8 +128,8 @@ export default definePlugin({
             find: "#{intl::GUEST_NAME_SUFFIX})]",
             replacement: [
                 {
-                    match: /#{intl::GUEST_NAME_SUFFIX}\)\].+?\](?<=guildId:(\i),.+?user:(\i).+?)/,
-                    replace: "$&,style:$self.getColorStyle($2.id,$1),"
+                    match: /#{intl::GUEST_NAME_SUFFIX}\)\].+?\](?=.*?userId:(\i\.id),contextGuildId:(\i))/,
+                    replace: "$&,style:$self.getColorStyle($1,$2),"
                 }
             ],
             predicate: () => settings.store.voiceUsers
