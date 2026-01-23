@@ -187,10 +187,6 @@ export default definePlugin({
     openAvatar,
     openBanner,
 
-    getAvatarUrl(user: User) {
-        return IconUtils.getUserAvatarURL(user, true);
-    },
-
     contextMenus: {
         "user-context": UserContext,
         "guild-context": GuildContext,

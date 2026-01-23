@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-import { definePluginSettings, migratePluginSettings, migrateSettingsFromPlugin } from "@api/Settings";
+import { definePluginSettings, migratePluginSettings } from "@api/Settings";
 import { Button } from "@components/Button";
 import { Devs, EquicordDevs } from "@utils/constants";
 import { getIntlMessage } from "@utils/discord";

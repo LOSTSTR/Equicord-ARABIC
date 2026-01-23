@@ -138,7 +138,7 @@ export const ChatBarButton = ErrorBoundary.wrap((props: ChatBarButtonProps) => {
     return (
         <Tooltip text={props.tooltip}>
             {({ onMouseEnter, onMouseLeave }) => (
-                <div className={`expression-picker-chat-input-button ${ChannelTextAreaClasses?.buttonContainer ?? ""} ${cl("button")}`}>
+                <div className={`expression-picker-chat-input-button ${ChannelTextAreaClasses?.buttonContainer ?? ""}`}>
                     <Clickable
                         aria-label={props.tooltip}
                         onMouseEnter={onMouseEnter}
