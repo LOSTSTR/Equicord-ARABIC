@@ -37,20 +37,20 @@ export default definePlugin({
     authors: [EquicordDevs.iamme, Devs.thororen],
     patches: [
         {
-            find: ".hideDetailsButtonContainer,",
+            find: "#{intl::xdCLeM::raw}",
             replacement: [
                 {
-                    match: /banner\}\),.{0,25}profile:\i\}\),.{0,15}profile:\i/,
+                    match: /profile:\i\}\),.{0,15}profile:\i/,
                     replace: "$&,invite:arguments[0].invite"
                 }
             ]
         },
         {
-            find: ".guildNameContainer,onClick:",
+            find: "onlineCount})})]",
             replacement: [
                 {
                     // make the button clickable
-                    match: /children:(\i)\.name\}\).{0,100}\.guildNameContainer/,
+                    match: /children:(\i)\.name\}\)\}\)\}\)/,
                     replace: "onClick:$self.Lurkable($1),$&"
                 },
                 {
