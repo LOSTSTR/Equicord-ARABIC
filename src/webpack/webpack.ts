@@ -390,7 +390,7 @@ export function findModuleFactory(...code: CodeFilter) {
 }
 
 // FIXME: give this a better name
-export type TypeWebpackSearchHistory = "find" | "findByProps" | "findByCode" | "findStore" | "findComponent" | "findComponentByCode" | "findExportedComponent" | "waitFor" | "waitForComponent" | "waitForStore" | "proxyLazyWebpack" | "LazyComponentWebpack" | "extractAndLoadChunks" | "mapMangledModule";
+export type TypeWebpackSearchHistory = "find" | "findByProps" | "findByCode" | "findStore" | "findComponent" | "findComponentByCode" | "findExportedComponent" | "waitFor" | "waitForComponent" | "waitForStore" | "proxyLazyWebpack" | "LazyComponentWebpack" | "extractAndLoadChunks" | "mapMangledModule" | "findCssClasses";
 export const lazyWebpackSearchHistory = [] as Array<[TypeWebpackSearchHistory, any[]]>;
 
 /**
