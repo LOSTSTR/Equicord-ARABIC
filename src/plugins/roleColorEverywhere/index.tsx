@@ -156,7 +156,7 @@ export default definePlugin({
         {
             find: ".SEND_FAILED,",
             replacement: {
-                match: /(?<=\i\.\i\]:(\i)\.isUnsupported\}\),)(?=children:\[)/,
+                match: /(?<=\]:(\i)\.isUnsupported.+?,)(?=children:\[)/,
                 replace: "style:$self.useMessageColorsStyle($1),"
             },
             predicate: () => settings.store.colorChatMessages
