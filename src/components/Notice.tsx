@@ -18,7 +18,7 @@ export const NoticeTypes: Record<"WARNING" | "INFO" | "ERROR" | "POSITIVE" | "PR
 };
 
 const { HelpMessage } = mapMangledModuleLazy('POSITIVE="positive"', {
-    HelpMessage: filters.byClassNames("iconDiv")
+    HelpMessage: filters.byCode("messageType:")
 });
 
 export interface NoticeProps {
