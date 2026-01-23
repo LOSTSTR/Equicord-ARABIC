@@ -239,5 +239,9 @@ export default definePlugin({
                 replace: (_, avatarUrl) => `onClick:()=>$self.openAvatar(${avatarUrl}),`
             }
         }
-    ]
+    ],
+
+    getAvatarUrl(user: User) {
+        return IconUtils.getUserAvatarURL(user, true);
+    },
 });

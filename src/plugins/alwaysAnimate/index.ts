@@ -80,10 +80,10 @@ export default definePlugin({
         },
         {
             // Guild Banner
-            find: ".animatedBannerHoverLayer,onMouseEnter:",
+            find: '"data-banner-visible":',
             predicate: () => settings.store.serverBanners,
             replacement: {
-                match: /(\.headerContent.+?guildBanner:\i,animate:)\i/,
+                match: /(guildBanner:\i,animate:)\i(?=}\):null)/,
                 replace: "$1!0"
             }
         },
