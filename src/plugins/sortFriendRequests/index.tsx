@@ -82,14 +82,6 @@ export default definePlugin({
                 match: /(?<=children:\[)\(0,.{0,100}user:\i,hovered:\i.+?(?=,\(0)(?<=user:(\i).+?)/,
                 replace: (children, user) => `$self.WrapperDateComponent({user:${user},children:${children}})`
             }
-        },
-        {
-            find: "#{intl::FRIEND_REQUEST_CANCEL}",
-            replacement: {
-                predicate: () => settings.store.showDates,
-                match: /(?<=children:\[)\(0,.{0,100}user:\i,hovered:\i.+?(?=,\(0)(?<=user:(\i).+?)/,
-                replace: (children, user) => `$self.WrapperDateComponent({user:${user},children:${children}})`
-            }
         }
     ],
 
