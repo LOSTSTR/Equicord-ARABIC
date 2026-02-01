@@ -8,7 +8,7 @@ import { getUserSettingLazy } from "@api/UserSettings";
 import { Logger } from "@utils/Logger";
 import { CustomStatus, ProfileEffect, ProfilePreset } from "@vencord/discord-types";
 import { findStoreLazy } from "@webpack";
-import { FluxDispatcher, UserProfileStore, UserStore } from "@webpack/common";
+import { FluxDispatcher, IconUtils, UserProfileStore, UserStore } from "@webpack/common";
 
 const logger = new Logger("ProfilePresets");
 const UserProfileSettingsStore = findStoreLazy("UserProfileSettingsStore");
@@ -140,7 +140,8 @@ export async function getCurrentProfile(guildId?: string): Promise<Omit<ProfileP
         ? pendingChanges.pendingAvatar
         : currentUser.avatar;
 
-    const avatarDataUrl = await processImage(avatarToUse, currentUser.id, "avatar");
+    const avatarDataUrl = await processImage(avatarToUse, currentUser.id, "avatar")
+        || IconUtils.getDefaultAvatarURL(currentUser.id);
 
     const bannerToUse = pendingChanges.pendingBanner !== undefined
         ? pendingChanges.pendingBanner
