@@ -123,8 +123,8 @@ export default definePlugin({
         {
             find: "{PlaygroundEmbed:()=>",
             replacement: {
-                match: /getCurrentUser\(\);return\(null==\i\?void 0:\i\.isStaff\(\)\)/,
-                replace: "getCurrentUser();return(true"
+                match: /PotionIcon.{0,250}getCurrentUser\(\);return/,
+                replace: "$& true||"
             }
         }
     ],

@@ -21,6 +21,13 @@ const settings = definePluginSettings({
         default: 2,
         stickToMarkers: true,
     },
+    rejoinTimeout: {
+        type: OptionType.SLIDER,
+        description: "Don't attempt to rejoin after this many seconds have passed since disconnecting.",
+        markers: makeRange(5, 120, 5),
+        default: 30,
+        stickToMarkers: true,
+    },
     preventReconnectIfCallEnded: {
         type: OptionType.SELECT,
         description: "Do not reconnect if the call has ended or the voice channel is empty or does not exist.",
@@ -41,9 +48,7 @@ export default definePlugin({
 
     flux: {
         VOICE_STATE_UPDATES({ voiceStates }: { voiceStates: any[]; }) {
-            const myUserId = UserStore?.getCurrentUser?.()?.id;
-            if (!myUserId) return;
-
+            const myUserId = UserStore.getCurrentUser().id;
             const myState = voiceStates.find(s => s.userId === myUserId);
             if (!myState) return;
 
@@ -51,6 +56,7 @@ export default definePlugin({
                 const saved = {
                     guildId: myState.guildId ?? null,
                     channelId: myState.channelId,
+                    timestamp: Date.now(),
                 };
                 DataStore.set(DATASTORE_KEY, saved);
                 DataStore.set(DATASTORE_SESSION_KEY, true);
@@ -69,6 +75,12 @@ export default definePlugin({
             setTimeout(async () => {
                 const saved = await DataStore.get(DATASTORE_KEY);
                 if (!saved?.channelId) return;
+
+                const timeoutMs = settings.store.rejoinTimeout * 1000;
+                if (saved.timestamp && Date.now() - saved.timestamp > timeoutMs) {
+                    DataStore.set(DATASTORE_SESSION_KEY, false);
+                    return;
+                }
 
                 const preventionMode = settings.store.preventReconnectIfCallEnded;
                 if (preventionMode !== "none") {
@@ -96,6 +108,14 @@ export default definePlugin({
                             return;
                         }
                     }
+                }
+
+                const myUserId = UserStore.getCurrentUser().id;
+                const myVoiceState = VoiceStateStore.getVoiceStateForUser(myUserId);
+
+                if (myVoiceState?.channelId) {
+                    DataStore.set(DATASTORE_SESSION_KEY, false);
+                    return;
                 }
 
                 FluxDispatcher.dispatch({
