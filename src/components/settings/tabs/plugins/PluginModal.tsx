@@ -35,7 +35,7 @@ import { ModalContent, ModalFooter, ModalHeader, ModalProps, ModalRoot, ModalSiz
 import { OptionType, Plugin } from "@utils/types";
 import { User } from "@vencord/discord-types";
 import { findComponentByCodeLazy, findCssClassesLazy } from "@webpack";
-import { Clickable, FluxDispatcher, React, Toasts, Tooltip, useEffect, UserStore, UserSummaryItem, UserUtils, useState } from "@webpack/common";
+import { Clickable, FluxDispatcher, React, Toasts, Tooltip, useEffect, useMemo, UserStore, UserSummaryItem, UserUtils, useState } from "@webpack/common";
 import { Constructor } from "type-fest";
 
 import { PluginMeta } from "~plugins";
@@ -78,9 +78,9 @@ export default function PluginModal({ plugin, onRestartNeeded, onClose, transiti
     const pluginSettings = useSettings([`plugins.${plugin.name}.*`]).plugins[plugin.name];
     const hasSettings = Boolean(pluginSettings && plugin.options && !isObjectEmpty(plugin.options));
 
-    // prefill dummy user to avoid layout shift
-    const dummyAuthor = makeDummyUser({ username: "Loading...", id: "-1465912127305809920" });
-    const [authors, setAuthors] = useState<Partial<User>[]>(() => [dummyAuthor]);
+    // avoid layout shift by showing dummy users while loading users
+    const fallbackAuthors = useMemo(() => [makeDummyUser({ username: "Loading...", id: "-1465912127305809920" })], []);
+    const [authors, setAuthors] = useState<Partial<User>[]>([]);
 
     useEffect(() => {
         (async () => {
@@ -91,7 +91,7 @@ export default function PluginModal({ plugin, onRestartNeeded, onClose, transiti
                             .catch(() => makeDummyUser({ username: user.name }))
                         : makeDummyUser({ username: user.name });
 
-                    setAuthors(a => index === 0 ? [author] : [...a, author]);
+                    setAuthors(a => [...a, author]);
                 } catch (e) {
                     continue;
                 }
@@ -186,7 +186,7 @@ export default function PluginModal({ plugin, onRestartNeeded, onClose, transiti
                     <div style={{ width: "fit-content" }}>
                         <ErrorBoundary noop>
                             <UserSummaryItem
-                                users={authors}
+                                users={authors.length ? authors : fallbackAuthors}
                                 guildId={undefined}
                                 renderIcon={false}
                                 showDefaultAvatarsForNullUsers
