@@ -42,7 +42,7 @@ export default definePlugin({
             label: "Icon Finder",
             element: IconsTab,
             className: "vc-discord-icons",
-            id: "IconViewer"
+            id: "EquicordIconViewer"
         }));
 
         settingsSectionMap.push(["EquicordDiscordIcons", "equicord_icon_viewer"]);
@@ -50,8 +50,10 @@ export default definePlugin({
     stop() {
         const { customEntries, customSections } = SettingsPlugin;
         const entryIdx = customEntries.findIndex(e => e.key === "equicord_icon_viewer");
-        const sectionIdx = customSections.findIndex(s => s({} as any).id === "IconViewer");
         if (entryIdx !== -1) customEntries.splice(entryIdx, 1);
+        const sectionIdx = customSections.findIndex(s => s({} as any).id === "EquicordIconViewer");
         if (sectionIdx !== -1) customSections.splice(sectionIdx, 1);
+        const map = settingsSectionMap.findIndex(entry => entry[1] === "equicord_icon_viewer");
+        if (map !== -1) settingsSectionMap.splice(map, 1);
     },
 });

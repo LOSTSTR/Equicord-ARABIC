@@ -6,7 +6,7 @@
 
 import "./styles.css";
 
-import SettingsPlugin from "@plugins/_core/settings";
+import SettingsPlugin, { settingsSectionMap } from "@plugins/_core/settings";
 import { EquicordDevs } from "@utils/constants";
 import definePlugin, { StartAt } from "@utils/types";
 import { openUserSettingsPanel } from "@webpack/common";
@@ -65,12 +65,16 @@ export default definePlugin({
             className: "vc-discord-components",
             id: "Components"
         }));
+
+        settingsSectionMap.push(["EquicordDiscordComponents", "equicord_components"]);
     },
     stop() {
         const { customEntries, customSections } = SettingsPlugin;
         const entryIdx = customEntries.findIndex(e => e.key === "equicord_components");
-        const sectionIdx = customSections.findIndex(s => s({} as any).id === "Components");
         if (entryIdx !== -1) customEntries.splice(entryIdx, 1);
+        const sectionIdx = customSections.findIndex(s => s({} as any).id === "Components");
         if (sectionIdx !== -1) customSections.splice(sectionIdx, 1);
+        const map = settingsSectionMap.findIndex(entry => entry[1] === "equicord_components");
+        if (map !== -1) settingsSectionMap.splice(map, 1);
     },
 });
