@@ -1289,7 +1289,7 @@ export default definePlugin({
             find: "QUESTS_BAR,questId",
             replacement: {
                 match: /return null==(\i)\?null:\(/,
-                replace: "return !$self.shouldHideQuestPopup($1)&&"
+                replace: "return !$self.shouldHideQuestPopup($1)&&("
             }
         },
         {
