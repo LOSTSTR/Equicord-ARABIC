@@ -1288,7 +1288,7 @@ export default definePlugin({
             // Allows in-progress Quests to still show.
             find: "QUESTS_BAR,questId",
             replacement: {
-                match: /(?<=quest:(\i)\}\);)return/,
+                match: /return null==(\i)\?null:\(/,
                 replace: "return !$self.shouldHideQuestPopup($1)&&"
             }
         },
