@@ -63,7 +63,7 @@ export default definePlugin({
             label: "Components",
             element: ComponentsTab,
             className: "vc-discord-components",
-            id: "Components"
+            id: "EquicordDiscordComponents"
         }));
 
         settingsSectionMap.push(["EquicordDiscordComponents", "equicord_components"]);
@@ -72,7 +72,7 @@ export default definePlugin({
         const { customEntries, customSections } = SettingsPlugin;
         const entryIdx = customEntries.findIndex(e => e.key === "equicord_components");
         if (entryIdx !== -1) customEntries.splice(entryIdx, 1);
-        const sectionIdx = customSections.findIndex(s => s({} as any).id === "Components");
+        const sectionIdx = customSections.findIndex(s => s({} as any).id === "EquicordDiscordComponents");
         if (sectionIdx !== -1) customSections.splice(sectionIdx, 1);
         const map = settingsSectionMap.findIndex(entry => entry[1] === "equicord_components");
         if (map !== -1) settingsSectionMap.splice(map, 1);

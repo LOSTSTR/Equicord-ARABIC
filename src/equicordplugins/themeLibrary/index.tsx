@@ -38,7 +38,7 @@ export default definePlugin({
             label: "Theme Library",
             searchableTitles: ["Theme Library"],
             element: require("./components/ThemeTab").default,
-            id: "ThemeLibrary",
+            id: "EquicordThemeLibrary",
         }));
 
         settingsSectionMap.push(["EquicordThemeLibrary", "equicord_theme_library"]);
@@ -48,7 +48,7 @@ export default definePlugin({
         const { customEntries, customSections } = SettingsPlugin;
         const entry = customEntries.findIndex(entry => entry.key === "equicord_theme_library");
         if (entry !== -1) customEntries.splice(entry, 1);
-        const section = customSections.findIndex(section => section({} as any).id === "ThemeLibrary");
+        const section = customSections.findIndex(section => section({} as any).id === "EquicordThemeLibrary");
         if (section !== -1) customSections.splice(section, 1);
         const map = settingsSectionMap.findIndex(entry => entry[1] === "equicord_theme_library");
         if (map !== -1) settingsSectionMap.splice(map, 1);

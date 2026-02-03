@@ -73,7 +73,7 @@ export default definePlugin({
             label: getIntlMessage("USER_SETTINGS_SCAN_QR_CODE"),
             searchableTitles: [getIntlMessage("USER_SETTINGS_SCAN_QR_CODE")],
             element: openQrModal,
-            id: "LoginWithQR",
+            id: "EquicordLoginWithQR",
         }));
 
         settingsSectionMap.push(["EquicordLoginWithQR", "equicord_login_with_qr"]);

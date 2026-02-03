@@ -42,7 +42,7 @@ export default definePlugin({
             label: "Startup Timings",
             searchableTitles: ["Startup Timings"],
             element: StartupTimingPage,
-            id: "StartupTimings",
+            id: "EquicordStartupTimings",
         }));
 
         settingsSectionMap.push(["EquicordStartupTimings", "equicord_startup_timings"]);
