@@ -32,7 +32,7 @@ export default definePlugin({
 
         customEntries.push({
             key: "equicord_startup_timings",
-            title: "Components",
+            title: "Startup Timings",
             Component: StartupTimingPage,
             Icon: ClockIcon
         });
