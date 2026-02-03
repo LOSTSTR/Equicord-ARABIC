@@ -38,6 +38,11 @@ const settings = definePluginSettings({
             { label: "DMs and Servers", value: "both", default: true },
         ],
     },
+    applyOnlyToDms: {
+        type: OptionType.BOOLEAN,
+        description: "Only apply to DMs.",
+        default: false,
+    }
 });
 
 export default definePlugin({
@@ -76,22 +81,29 @@ export default definePlugin({
                 const saved = await DataStore.get(DATASTORE_KEY);
                 if (!saved?.channelId) return;
 
+                const channel = ChannelStore.getChannel(saved.channelId);
+                const isDM = channel.isDM() || channel.isGroupDM() || channel.isMultiUserDM();
+                const myUserId = UserStore.getCurrentUser().id;
+                const myVoiceState = VoiceStateStore.getVoiceStateForUser(myUserId);
+                const preventionMode = settings.store.preventReconnectIfCallEnded;
                 const timeoutMs = settings.store.rejoinTimeout * 1000;
+
                 if (saved.timestamp && Date.now() - saved.timestamp > timeoutMs) {
                     DataStore.set(DATASTORE_SESSION_KEY, false);
                     return;
                 }
 
-                const preventionMode = settings.store.preventReconnectIfCallEnded;
-                if (preventionMode !== "none") {
-                    const channel = ChannelStore.getChannel(saved.channelId);
+                if (settings.store.applyOnlyToDms && !isDM) {
+                    DataStore.set(DATASTORE_SESSION_KEY, false);
+                    return;
+                }
 
+                if (preventionMode !== "none") {
                     if (!channel) {
                         DataStore.set(DATASTORE_SESSION_KEY, false);
                         return;
                     }
 
-                    const isDM = !saved.guildId;
                     const shouldPrevent =
                         preventionMode === "both" ||
                         (preventionMode === "dms" && isDM) ||
@@ -109,9 +121,6 @@ export default definePlugin({
                         }
                     }
                 }
-
-                const myUserId = UserStore.getCurrentUser().id;
-                const myVoiceState = VoiceStateStore.getVoiceStateForUser(myUserId);
 
                 if (myVoiceState?.channelId) {
                     DataStore.set(DATASTORE_SESSION_KEY, false);
