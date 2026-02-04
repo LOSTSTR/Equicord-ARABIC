@@ -4,13 +4,13 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-import { EquicordDevs } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "HeaderBarAPI",
     description: "API to add buttons to the header bar and channel toolbar.",
-    authors: [EquicordDevs.prism],
+    authors: [Devs.prism],
 
     patches: [
         {
