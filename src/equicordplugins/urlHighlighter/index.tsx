@@ -126,9 +126,9 @@ export default definePlugin({
 
     patches: [
         {
-            find: '"messageId","channelId"',
+            find: ".MASKED_LINK),",
             replacement: {
-                match: /,children:null!=\i\?\i:\i/,
+                match: /,children:\i\?\?\i/,
                 replace: "$&,...$self.getProps(arguments[0])"
             }
         }
