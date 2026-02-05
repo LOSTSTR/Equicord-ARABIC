@@ -20,7 +20,7 @@ function formatMessageDate(timestamp: string | Date): string {
     return `${month}/${day}/${year}`;
 }
 
-const GroupDmsRecipientsIcon = findComponentByCodeLazy("\"recipients\",\"size\",");
+const GroupDmsRecipientsIcon = findComponentByCodeLazy('["aria-hidden"],"aria-label":');
 const SelectedChannelActionCreators = findByPropsLazy("selectPrivateChannel");
 
 function GroupDmsIcon({ channel }: { channel: Channel; }) {
