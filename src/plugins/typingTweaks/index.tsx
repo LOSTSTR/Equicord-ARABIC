@@ -150,7 +150,7 @@ export default definePlugin({
             ]
         },
         {
-            find: "\"handleDismissInviteEducation\"",
+            find: "this.handleDismissInviteEducation",
             predicate: () => settings.store.amITyping,
             replacement: {
                 match: /\i\.default\.getCurrentUser\(\)/,

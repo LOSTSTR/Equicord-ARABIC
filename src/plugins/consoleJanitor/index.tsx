@@ -150,10 +150,6 @@ export default definePlugin({
             find: "is not a valid locale.",
             replacement: [
                 {
-                    match: /\i\.error(?=\(""\.concat\(\i," is not a valid locale."\)\))/,
-                    replace: "$self.Noop"
-                },
-                {
                     match: /\i\.error(?=\(`\$\{\i\} is not a valid locale.`)/,
                     replace: "$self.Noop"
                 }
@@ -169,10 +165,6 @@ export default definePlugin({
         {
             find: "RPCServer:WSS",
             replacement: [
-                {
-                    match: /\i\.error\("Error: "\.concat\((\i)\.message/,
-                    replace: '!$1.message.includes("EADDRINUSE")&&$&'
-                },
                 {
                     match: /\i\.error\(`Error: \$\{(\i)\.message\}/,
                     replace: '!$1.message.includes("EADDRINUSE")&&$&'
@@ -196,10 +188,6 @@ export default definePlugin({
         {
             find: "failed to send analytics events",
             replacement: [
-                {
-                    match: /console\.error\("\[analytics\] failed to send analytics events query: "\.concat\(\i\)\)/,
-                    replace: ""
-                },
                 {
                     match: /console\.error\(`\[analytics\] failed to send analytics events query: \$\{\i\}`\)/,
                     replace: ""

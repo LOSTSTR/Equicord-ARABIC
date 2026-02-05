@@ -27,7 +27,7 @@ export default definePlugin({
     patches: [
         {
             // Patch activity icons
-            find: '"StackedActivityStatus"',
+            find: '"ActivityStatus"),',
             replacement: [
                 {
                     match: /(?<=className:\i,children:\[).*?(?=\i\(\),\i&&)/g,
