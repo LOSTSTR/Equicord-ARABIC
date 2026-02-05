@@ -1255,7 +1255,7 @@ export default definePlugin({
             group: true,
             replacement: [
                 {
-                    match: /(?<=voiceActivityChannel:\i\?\i:null}\);)/,
+                    match: /(?<=\i\)&&"xs"===\i;)/,
                     replace: "const shouldHideMembersListActivelyPlayingIcon=$self.shouldHideMembersListActivelyPlayingIcon();"
                 },
                 {
