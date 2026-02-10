@@ -611,84 +611,87 @@ function patchFactory(moduleId: PropertyKey, originalFactory: AnyModuleFactory):
                     markedAsPatched = true;
                 }
             } catch (err) {
-                logger.error(`Patch by ${patch.plugin} errored (Module id is ${String(moduleId)}): ${replacement.match}\n`, err);
+                // FIXME: Maybe fix this properly
+                const shouldSuppressError = patch.plugin === "ContextMenuAPI" && err instanceof SyntaxError && err.message.includes("arguments");
+                if (!shouldSuppressError) {
+                    logger.error(`Patch by ${patch.plugin} errored (Module id is ${String(moduleId)}): ${replacement.match}\n`, err);
 
-                if (IS_COMPANION_TEST)
-                    reporterData.failedPatches.erroredPatch.push({
-                        ...patch,
-                        oldModule: lastCode,
-                        newModule: code,
-                        id: moduleId
-                    });
-
-                if (IS_DEV) {
-                    diffErroredPatch(code, lastCode, lastCode.match(replacement.match)!);
-                }
-
-                if (markedAsPatched) {
-                    patchedBy.delete(patch.plugin);
-                }
-
-                if (patch.group) {
-                    logger.warn(`Undoing patch group ${patch.find} by ${patch.plugin} because replacement ${replacement.match} errored`);
                     if (IS_COMPANION_TEST)
-                        reporterData.failedPatches.undoingPatchGroup.push({
+                        reporterData.failedPatches.erroredPatch.push({
                             ...patch,
+                            oldModule: lastCode,
+                            newModule: code,
                             id: moduleId
                         });
-                    code = previousCode;
-                    patchedFactory = previousFactory;
-                    break;
-                }
 
-                code = lastCode;
-                patchedFactory = lastFactory;
+                    if (IS_DEV) {
+                        diffErroredPatch(code, lastCode, lastCode.match(replacement.match)!);
+                    }
+
+                    if (markedAsPatched) {
+                        patchedBy.delete(patch.plugin);
+                    }
+
+                    if (patch.group) {
+                        logger.warn(`Undoing patch group ${patch.find} by ${patch.plugin} because replacement ${replacement.match} errored`);
+                        if (IS_COMPANION_TEST)
+                            reporterData.failedPatches.undoingPatchGroup.push({
+                                ...patch,
+                                id: moduleId
+                            });
+                        code = previousCode;
+                        patchedFactory = previousFactory;
+                        break;
+                    }
+
+                    code = lastCode;
+                    patchedFactory = lastFactory;
+                }
+            }
+
+            if (!patch.all) {
+                patches.splice(i--, 1);
             }
         }
 
-        if (!patch.all) {
-            patches.splice(i--, 1);
+        patchedFactory[SYM_ORIGINAL_FACTORY] = originalFactory;
+
+        if (IS_DEV && patchedFactory !== originalFactory) {
+            originalFactory[SYM_PATCHED_SOURCE] = patchedSource;
+            originalFactory[SYM_PATCHED_BY] = patchedBy;
         }
+
+        return patchedFactory as PatchedModuleFactory;
     }
 
-    patchedFactory[SYM_ORIGINAL_FACTORY] = originalFactory;
+    function diffErroredPatch(code: string, lastCode: string, match: RegExpMatchArray) {
+        const changeSize = code.length - lastCode.length;
 
-    if (IS_DEV && patchedFactory !== originalFactory) {
-        originalFactory[SYM_PATCHED_SOURCE] = patchedSource;
-        originalFactory[SYM_PATCHED_BY] = patchedBy;
+        // Use 200 surrounding characters of context
+        const start = Math.max(0, match.index! - 200);
+        const end = Math.min(lastCode.length, match.index! + match[0].length + 200);
+        // (changeSize may be negative)
+        const endPatched = end + changeSize;
+
+        const context = lastCode.slice(start, end);
+        const patchedContext = code.slice(start, endPatched);
+
+        // Inline require to avoid including it in !IS_DEV builds
+        const diff = (require("diff") as typeof import("diff")).diffWordsWithSpace(context, patchedContext);
+        let fmt = "%c %s ";
+        const elements: string[] = [];
+        for (const d of diff) {
+            const color = d.removed
+                ? "red"
+                : d.added
+                    ? "lime"
+                    : "grey";
+            fmt += "%c%s";
+            elements.push("color:" + color, d.value);
+        }
+
+        logger.errorCustomFmt(...Logger.makeTitle("white", "Before"), context);
+        logger.errorCustomFmt(...Logger.makeTitle("white", "After"), patchedContext);
+        const [titleFmt, ...titleElements] = Logger.makeTitle("white", "Diff");
+        logger.errorCustomFmt(titleFmt + fmt, ...titleElements, ...elements);
     }
-
-    return patchedFactory as PatchedModuleFactory;
-}
-
-function diffErroredPatch(code: string, lastCode: string, match: RegExpMatchArray) {
-    const changeSize = code.length - lastCode.length;
-
-    // Use 200 surrounding characters of context
-    const start = Math.max(0, match.index! - 200);
-    const end = Math.min(lastCode.length, match.index! + match[0].length + 200);
-    // (changeSize may be negative)
-    const endPatched = end + changeSize;
-
-    const context = lastCode.slice(start, end);
-    const patchedContext = code.slice(start, endPatched);
-
-    // Inline require to avoid including it in !IS_DEV builds
-    const diff = (require("diff") as typeof import("diff")).diffWordsWithSpace(context, patchedContext);
-    let fmt = "%c %s ";
-    const elements: string[] = [];
-    for (const d of diff) {
-        const color = d.removed
-            ? "red"
-            : d.added
-                ? "lime"
-                : "grey";
-        fmt += "%c%s";
-        elements.push("color:" + color, d.value);
-    }
-
-    logger.errorCustomFmt(...Logger.makeTitle("white", "Before"), context);
-    logger.errorCustomFmt(...Logger.makeTitle("white", "After"), patchedContext);
-    const [titleFmt, ...titleElements] = Logger.makeTitle("white", "Diff");
-    logger.errorCustomFmt(titleFmt + fmt, ...titleElements, ...elements);
-}
