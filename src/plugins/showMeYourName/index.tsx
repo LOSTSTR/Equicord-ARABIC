@@ -1000,7 +1000,7 @@ export default definePlugin({
                 },
                 {
                     // Replace names in reaction popouts.
-                    match: /(?<=Child,{className:\i.\i,children:)/,
+                    match: /(?<=Child,{className:\i.\i,children:)/g,
                     replace: "($self.getMemberListProfilesReactionsVoiceNameElement({user:arguments[0].user,guildId:arguments[0].guildId,type:\"reactionsPopout\"}))??"
                 }
             ]
