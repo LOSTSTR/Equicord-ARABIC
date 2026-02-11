@@ -9,6 +9,7 @@ import "./style.css";
 import { DecoratorProps } from "@api/MemberListDecorators";
 import { isPluginEnabled } from "@api/PluginManager";
 import betterActivities from "@equicordplugins/betterActivities";
+import { customNicknames } from "@plugins/showMeYourName";
 import { Devs, EquicordDevs } from "@utils/constants";
 import { classNameFactory } from "@utils/css";
 import { classes } from "@utils/misc";
@@ -16,7 +17,7 @@ import definePlugin from "@utils/types";
 import { Activity, ApplicationStream, Channel, Message, OnlineStatus, User } from "@vencord/discord-types";
 import { MessageFlags } from "@vencord/discord-types/enums";
 import { findByCodeLazy, findByPropsLazy, findComponentByCodeLazy, findCssClassesLazy, findExportedComponentLazy } from "@webpack";
-import { ChannelStore, MessageStore, SnowflakeUtils, UserStore, useStateFromStores } from "@webpack/common";
+import { ChannelStore, MessageStore, RelationshipStore, SnowflakeUtils, UserStore, useStateFromStores } from "@webpack/common";
 
 const cl = classNameFactory("vc-message-peek-");
 
@@ -110,7 +111,7 @@ function pluralize(count: number, singular: string, plural = singular + "s") {
 
 function getMessageContent(message: Message): MessageContent | null {
     if (message.content) {
-        if (/https?:\/\/(\S+\.gif|tenor\.com|giphy\.com)/i.test(message.content)) {
+        if (/https?:\/\/(\S+\.gif|tenor\.com|giphy\.com|klipy\.com)/i.test(message.content)) {
             return { text: "sent a GIF", icon: "gif" };
         }
         return { text: message.content };
@@ -160,7 +161,7 @@ function MessagePreviewContent({ channel }: { channel: Channel; }) {
 
     const currentUserId = UserStore.getCurrentUser()?.id;
     const isOwnMessage = lastMessage.author.id === currentUserId;
-    const authorName = isOwnMessage ? "You" : (lastMessage.author.globalName ?? lastMessage.author.username);
+    const authorName = isOwnMessage ? "You" : (RelationshipStore.getNickname(lastMessage.author.id) ?? customNicknames[lastMessage.author.id] ?? lastMessage.author.globalName ?? lastMessage.author.username);
     const Icon = content.icon ? Icons[content.icon] : null;
 
     return (
