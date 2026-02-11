@@ -28,7 +28,7 @@ const symbolPattern = /^[\p{S}\p{P}]{1,3}$/iu;
 const templatePattern = /(?:\{(?:custom|friend|nick|display|user)(?:,\s*(?:custom|friend|nick|display|user))*\})/iu;
 
 type CustomNicknameData = Record<string, string>;
-export let customNicknames: CustomNicknameData = {};
+let customNicknames: CustomNicknameData = {};
 
 function adjustHex(color: string, percent: number): string {
     let hex = color.replace("#", "");
@@ -897,7 +897,6 @@ export default definePlugin({
     tags: ["SMYN", "Nicknames", "Custom Nicknames",],
     isModified: true,
     settings,
-    customNicknames,
 
     patches: [
         {
@@ -1059,6 +1058,7 @@ export default definePlugin({
     handleHoveringMessage,
     addHoveringReactionPopout,
     removeHoveringReactionPopout,
+    getMessageName,
     getMessageNameText,
     getMessageNameElement,
     getMentionNameElement,
