@@ -16,6 +16,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+import { isPluginEnabled } from "@api/PluginManager";
+import emojiAlias from "@equicordplugins/emojiAlias";
 import { Devs } from "@utils/constants";
 import definePlugin from "@utils/types";
 import { Emoji } from "@vencord/discord-types";
@@ -51,17 +53,19 @@ export default definePlugin({
 
         {
             find: "numEmojiResults:",
+            predicate: () => isPluginEnabled(emojiAlias.name),
             replacement: [
                 // set maxCount to Infinity so our sortEmojis callback gets the entire list, not just the first 10
                 // and remove Discord's emojiResult slice, storing the endIndex on the array for us to use later
                 {
-                    // https://regex101.com/r/x2mobQ/1
-                    // searchEmojis(...,maxCount: stuff) ... endEmojis = emojis.slice(0, maxCount - gifResults.length)
-                    match: /,maxCount:(\i)(.{1,500}\i)=(\i)\.slice\(0,(Math\.max\(\i,\i(?:-\i\.length){2}\))\)/,
-                    // ,maxCount:Infinity ... endEmojis = (emojis.sliceTo = n, emojis)
-                    replace: ",maxCount:Infinity$2=($3.sliceTo = $4, $3)"
+                    match: /(intention:\i\.emojiIntention,maxCount:)\i/,
+                    replace: "$1Infinity"
+                },
+                {
+                    match: /(\i)\.slice\(0,(Math\.max\(\i,\i(?:-\i\.length){2}\))\)/,
+                    replace: "($1.sliceTo = $2, $1)"
                 }
-            ]
+            ],
         }
     ],
 
