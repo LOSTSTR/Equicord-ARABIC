@@ -12,12 +12,12 @@ import { definePluginSettings } from "@api/Settings";
 import { BaseText } from "@components/BaseText";
 import { Button } from "@components/Button";
 import { Paragraph } from "@components/Paragraph";
-import { EquicordDevs } from "@utils/constants";
+import { Devs, EquicordDevs } from "@utils/constants";
 import { classNameFactory } from "@utils/css";
 import { Logger } from "@utils/Logger";
 import { openModal } from "@utils/modal";
 import definePlugin, { OptionType } from "@utils/types";
-import { Message } from "@vencord/discord-types";
+import { Emoji, Message } from "@vencord/discord-types";
 import { findByPropsLazy, findExportedComponentLazy } from "@webpack";
 import { EmojiStore, Menu, TextInput, Toasts, useEffect, useState } from "@webpack/common";
 
@@ -1085,9 +1085,10 @@ const messageContextMenuPatch: NavContextMenuPatchCallback = (children, ...args:
 };
 
 export default definePlugin({
-    name: "EmojiAlias",
-    description: "Set custom aliases for emojis and prioritize them in autocomplete.",
-    authors: [EquicordDevs.justjxke],
+    name: "FavoriteEmojiFirst",
+    authors: [Devs.Aria, Devs.Ven, EquicordDevs.justjxke],
+    tags: ["EmojiAlias"],
+    description: "Puts your favorite emoji first in the emoji autocomplete and also has emoji alias.",
     settings,
     contextMenus: {
         "expression-picker": expressionPickerPatch,
@@ -1095,7 +1096,18 @@ export default definePlugin({
         "message-actions": messageContextMenuPatch,
         "textarea-context": messageContextMenuPatch
     },
+    isModified: true,
     patches: [
+        {
+            find: "renderResults({results:",
+            replacement: [
+                {
+                    // https://regex101.com/r/N7kpLM/1
+                    match: /let \i=.{1,100}renderResults\({results:(\i)\.query\.results,/,
+                    replace: "$self.sortEmojis($1);$&"
+                },
+            ],
+        },
         {
             find: "renderResults({results:",
             replacement: {
@@ -1122,9 +1134,7 @@ export default definePlugin({
         }
     ],
 
-    injectAliasResults(emojis: EmojiResult[], queryText: string, channel: unknown, intention: unknown) {
-        return injectAliasResults(emojis, queryText, channel, intention);
-    },
+    injectAliasResults,
 
     async start() {
         await loadAliases();
@@ -1158,14 +1168,14 @@ export default definePlugin({
     },
 
     sortEmojis(state: EmojiAutocompleteState) {
-        if (!state.query?.results?.emojis?.length) {
-            return;
-        }
+        if (!state.query?.results?.emojis?.length) return;
 
         const query = normalizeAlias(getAutocompleteQuery(state.query));
         if (!query) return;
+
         const { channel, intention } = state.query as { channel?: unknown; intention?: unknown; };
         const injectedResults = injectAliasResults(state.query.results.emojis, query, channel, intention);
+        const emojiContext = EmojiStore.getDisambiguatedEmojiContext();
 
         const priorities = new Map<string, number>();
         const refsByIdentity = new Map<string, StoredEmojiRef>();
@@ -1182,8 +1192,6 @@ export default definePlugin({
             }
         }
 
-        if (!priorities.size) return;
-
         const exact: EmojiResult[] = [];
         const prefix: EmojiResult[] = [];
         const rest: EmojiResult[] = [];
@@ -1198,11 +1206,14 @@ export default definePlugin({
             seen.add(identity);
 
             const priority = priorities.get(identity) ?? 0;
+            const isFavorite = emojiContext.isFavoriteEmojiWithoutFetchingLatest(emoji as unknown as Emoji);
 
             if (priority === 2) {
                 exact.push(emoji);
             } else if (priority === 1) {
                 prefix.push(emoji);
+            } else if (isFavorite) {
+                exact.push(emoji);
             } else {
                 rest.push(emoji);
             }
@@ -1211,9 +1222,7 @@ export default definePlugin({
         for (const [identity, priority] of priorities.entries()) {
             if (seen.has(identity)) continue;
             const ref = refsByIdentity.get(identity);
-            if (!ref) continue;
-
-            if (ref.kind === "unicode") continue;
+            if (!ref || ref.kind === "unicode") continue;
 
             const fallback = fallbackAliasEmojiResult(ref, template);
             if (!fallback) continue;
