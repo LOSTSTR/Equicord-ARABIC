@@ -27,7 +27,7 @@ export default definePlugin({
                 },
                 // fix discord weird shrink with extra buttons
                 {
-                    match: /(?<=\{ref:\i,)style:(\i)(?=,onMouseEnter:\i,onMouseDown:\i,onClick)/,
+                    match: /(?<=\{ref:\i,)style:(\i)/,
                     replace: "style:{...$1,minWidth:0}"
                 }
             ]
