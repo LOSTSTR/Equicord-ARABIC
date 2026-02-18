@@ -233,7 +233,7 @@ export default definePlugin({
         {
             find: ']="BADGES"',
             replacement: {
-                match: /(?<=textDecorationColor:.{0,400})(?=onClick:\i,onContextMenu:\i,)/,
+                match: /(?<=includeConvenienceGlow:.*?)(?=onClick:\i,onContextMenu:\i,)/,
                 replace: "draggable:!0,onDragStart:e=>$self.onUserDragStart(e,arguments[0].author),\"data-dragify-user\":!0,\"data-user-id\":arguments[0].author.id,"
             }
         },
