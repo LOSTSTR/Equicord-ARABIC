@@ -19,7 +19,7 @@ export default definePlugin({
 
     patches: [
         {
-            find: "#{intl::ACCOUNT_SPEAKING_WHILE_MUTED}",
+            find: ".NITRO_PRIVACY_PERK_BETA_COACHMARK));",
             replacement: [
                 {
                     match: /(?<=className:(\i)\.\i,style:\i,)children:\[/,

@@ -54,7 +54,7 @@ export default definePlugin({
     settings,
     patches: [
         {
-            find: "#{intl::ACCOUNT_SPEAKING_WHILE_MUTED}",
+            find: ".NITRO_PRIVACY_PERK_BETA_COACHMARK));",
             replacement: {
                 match: /,nameplate:\i,selectedGuildId:(\i),avatarDecoration/,
                 replace: ",nameplate:null,selectedGuildId:$1,avatarDecoration"
@@ -62,18 +62,24 @@ export default definePlugin({
             predicate: () => settings.store.removeNameplate
         },
         {
-            find: "#{intl::ACCOUNT_SPEAKING_WHILE_MUTED}",
+            find: '"MicrophoneButton"',
             replacement: [
                 {
                     match: /(?<=#{intl::MUTE}\),)className:\i\.\i,/,
                     replace: ""
                 },
                 {
-                    match: /(?<=#{intl::DEAFEN}\),)className:\i\.\i,/,
+                    match: /,\(0,\i\.jsxs?\)\(\i\.\i,\{.{0,600}#{intl::ACCOUNT_INPUT_OPTIONS}\)\}\)(?=\])/,
                     replace: ""
                 },
+            ],
+            predicate: () => settings.store.removeAudioMenus
+        },
+        {
+            find: "#{intl::f+DDY/::raw}",
+            replacement: [
                 {
-                    match: /,\(0,\i\.jsxs?\)\(\i\.\i,\{.{0,600}#{intl::ACCOUNT_INPUT_OPTIONS}\)\}\)(?=\])/,
+                    match: /(?<=#{intl::DEAFEN}\),)className:\i\.\i,/,
                     replace: ""
                 },
                 {
@@ -84,7 +90,7 @@ export default definePlugin({
             predicate: () => settings.store.removeAudioMenus
         },
         {
-            find: "#{intl::ACCOUNT_SPEAKING_WHILE_MUTED}",
+            find: ".NITRO_PRIVACY_PERK_BETA_COACHMARK));",
             replacement: {
                 match: /hoverText:(\i),forceHover:\i,children:/g,
                 replace: "hoverText:$1,forceHover:!0,children:"
@@ -92,25 +98,31 @@ export default definePlugin({
             predicate: () => settings.store.alwaysShowUsername
         },
         {
-            find: "#{intl::ACCOUNT_SPEAKING_WHILE_MUTED}",
-            replacement: [
-                {
-                    match: /:\{tooltipText:\i\};/,
-                    replace: ":{tooltipText:void 0};"
-                },
-                {
-                    match: /(?<=role:"switch",)tooltipText:\i\}/,
-                    replace: "tooltipText:void 0}"
-                },
-                {
-                    match: /tooltipText:\i,tooltipPositionKey/,
-                    replace: "tooltipText:void 0,tooltipPositionKey"
-                }
-            ],
+            find: '"MicrophoneButton"',
+            replacement: {
+                match: /:\{tooltipText:\i\};/,
+                replace: ":{tooltipText:void 0};"
+            },
             predicate: () => settings.store.removeButtonTooltips
         },
         {
-            find: "#{intl::ACCOUNT_SPEAKING_WHILE_MUTED}",
+            find: "#{intl::f+DDY/::raw}",
+            replacement: {
+                match: /(?<=role:"switch",)tooltipText:\i\}/,
+                replace: "tooltipText:void 0}"
+            },
+            predicate: () => settings.store.removeButtonTooltips
+        },
+        {
+            find: "#{intl::USER_SETTINGS_WITH_BUILD_OVERRIDE}",
+            replacement: {
+                match: /tooltipText:\i,tooltipPositionKey/,
+                replace: "tooltipText:void 0,tooltipPositionKey"
+            },
+            predicate: () => settings.store.removeButtonTooltips
+        },
+        {
+            find: ".NITRO_PRIVACY_PERK_BETA_COACHMARK));",
             replacement: {
                 match: /avatarDecoration:(.{0,70}),size:/,
                 replace: "avatarDecoration:void 0,size:"
@@ -118,7 +130,7 @@ export default definePlugin({
             predicate: () => settings.store.removeAvatarDecoration
         },
         {
-            find: "#{intl::ACCOUNT_SPEAKING_WHILE_MUTED}",
+            find: ".NITRO_PRIVACY_PERK_BETA_COACHMARK));",
             replacement: {
                 match: /displayNameStyles:(\i),/,
                 replace: "displayNameStyles:void 0,"
