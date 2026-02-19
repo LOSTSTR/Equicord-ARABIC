@@ -76,7 +76,7 @@ export default definePlugin({
             predicate: () => settings.store.removeAudioMenus
         },
         {
-            find: "#{intl::f+DDY/::raw}",
+            find: '?"undeafen":"deafen"',
             replacement: [
                 {
                     match: /(?<=#{intl::DEAFEN}\),)className:\i\.\i,/,
