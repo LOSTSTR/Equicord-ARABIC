@@ -99,7 +99,7 @@ export default definePlugin({
             ],
         },
         {
-            find: '?"undeafen":"deafen"',
+            find: "#{intl::f+DDY/::raw},{outputDeviceName",
             replacement: [
                 {
                     match: /(?<=role:"switch",)tooltipText:\i\}/,
