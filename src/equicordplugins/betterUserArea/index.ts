@@ -55,63 +55,68 @@ export default definePlugin({
     patches: [
         {
             find: ".NITRO_PRIVACY_PERK_BETA_COACHMARK));",
-            replacement: {
-                match: /,nameplate:\i,selectedGuildId:(\i),avatarDecoration/,
-                replace: ",nameplate:null,selectedGuildId:$1,avatarDecoration"
-            },
-            predicate: () => settings.store.removeNameplate
+            replacement: [
+                {
+                    match: /,nameplate:\i,selectedGuildId:(\i),avatarDecoration/,
+                    replace: ",nameplate:null,selectedGuildId:$1,avatarDecoration",
+                    predicate: () => settings.store.removeNameplate
+                },
+                {
+                    match: /hoverText:(\i),forceHover:\i,children:/g,
+                    replace: "hoverText:$1,forceHover:!0,children:",
+                    predicate: () => settings.store.alwaysShowUsername
+                },
+                {
+                    match: /avatarDecoration:(.{0,70}),size:/,
+                    replace: "avatarDecoration:void 0,size:",
+                    predicate: () => settings.store.removeAvatarDecoration
+                },
+                {
+                    match: /displayNameStyles:(\i),/,
+                    replace: "displayNameStyles:void 0,",
+                    predicate: () => settings.store.removeUsernameStyles
+                }
+            ],
         },
         {
             find: '"MicrophoneButton"',
             replacement: [
                 {
+                    match: /:\{tooltipText:\i\};/,
+                    replace: ":{tooltipText:void 0};",
+                    predicate: () => settings.store.removeButtonTooltips
+                },
+                {
                     match: /(?<=#{intl::MUTE}\),)className:\i\.\i,/,
-                    replace: ""
+                    replace: "",
+                    predicate: () => settings.store.removeAudioMenus
                 },
                 {
                     match: /,\(0,\i\.jsxs?\)\(\i\.\i,\{.{0,600}#{intl::ACCOUNT_INPUT_OPTIONS}\)\}\)(?=\])/,
-                    replace: ""
+                    replace: "",
+                    predicate: () => settings.store.removeAudioMenus
                 },
             ],
-            predicate: () => settings.store.removeAudioMenus
         },
         {
             find: '?"undeafen":"deafen"',
             replacement: [
                 {
+                    match: /(?<=role:"switch",)tooltipText:\i\}/,
+                    replace: "tooltipText:void 0}",
+                    predicate: () => settings.store.removeButtonTooltips
+                },
+                {
                     match: /(?<=#{intl::DEAFEN}\),)className:\i\.\i,/,
-                    replace: ""
+                    replace: "",
+                    predicate: () => settings.store.removeAudioMenus
                 },
                 {
                     match: /,\(0,\i\.jsxs?\)\(\i\.\i,\{.{0,650}#{intl::ACCOUNT_OUTPUT_OPTIONS}\)\}\)(?=\])/,
-                    replace: ""
+                    replace: "",
+                    predicate: () => settings.store.removeAudioMenus
                 }
             ],
-            predicate: () => settings.store.removeAudioMenus
-        },
-        {
-            find: ".NITRO_PRIVACY_PERK_BETA_COACHMARK));",
-            replacement: {
-                match: /hoverText:(\i),forceHover:\i,children:/g,
-                replace: "hoverText:$1,forceHover:!0,children:"
-            },
-            predicate: () => settings.store.alwaysShowUsername
-        },
-        {
-            find: '"MicrophoneButton"',
-            replacement: {
-                match: /:\{tooltipText:\i\};/,
-                replace: ":{tooltipText:void 0};"
-            },
-            predicate: () => settings.store.removeButtonTooltips
-        },
-        {
-            find: "#{intl::f+DDY/::raw}",
-            replacement: {
-                match: /(?<=role:"switch",)tooltipText:\i\}/,
-                replace: "tooltipText:void 0}"
-            },
-            predicate: () => settings.store.removeButtonTooltips
         },
         {
             find: "#{intl::USER_SETTINGS_WITH_BUILD_OVERRIDE}",
@@ -121,21 +126,5 @@ export default definePlugin({
             },
             predicate: () => settings.store.removeButtonTooltips
         },
-        {
-            find: ".NITRO_PRIVACY_PERK_BETA_COACHMARK));",
-            replacement: {
-                match: /avatarDecoration:(.{0,70}),size:/,
-                replace: "avatarDecoration:void 0,size:"
-            },
-            predicate: () => settings.store.removeAvatarDecoration
-        },
-        {
-            find: ".NITRO_PRIVACY_PERK_BETA_COACHMARK));",
-            replacement: {
-                match: /displayNameStyles:(\i),/,
-                replace: "displayNameStyles:void 0,"
-            },
-            predicate: () => settings.store.removeUsernameStyles
-        }
     ],
 });
