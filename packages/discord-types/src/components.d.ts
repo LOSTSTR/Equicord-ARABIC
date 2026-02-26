@@ -436,7 +436,7 @@ export interface ScrollerBaseProps {
     paddingFix?: boolean;
     onClose?(): void;
     onScroll?(): void;
-    ref: Ref<ScrollerBaseRef>;
+    ref?: Ref<ScrollerBaseRef>;
 }
 
 export type ScrollerThin = ComponentType<PropsWithChildren<ScrollerBaseProps & {
