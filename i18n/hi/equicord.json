@@ -94,13 +94,13 @@
         },
         "settings": {
             "allActivitiesStyle": "सभी गतिविधियों को प्रदर्शित करने की शैली",
-            "hideTooltip": "गतिविधि आइकन पर टूलटिप छुपाएं",
+            "hideTooltip": "गतिविधि icons पर tooltip छुपाएं",
             "iconSize": "गतिविधि चिह्न का आकार",
             "memberList": "सदस्य सूची में गतिविधियाँ दिखाएँ",
             "removeGameActivityStatus": "गेम गतिविधि स्थिति संकेतक हटाएं",
             "renderGifs": "गतिविधि आइकन में GIF प्रस्तुत करें",
             "specialFirst": "पहले विशेष गतिविधियाँ दिखाएँ",
-            "userPopout": "उपयोगकर्ता पॉपआउट में सभी गतिविधियां दिखाएं"
+            "userPopout": "उपयोगकर्ता popout में सभी गतिविधियां दिखाएं"
         }
     },
     "betterAudioPlayer": {
