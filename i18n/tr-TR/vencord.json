@@ -139,6 +139,7 @@
         "description": "Kullanıcılara rozet eklemek için API"
     },
     "betterFolders": {
+        "description": "Sunucu klasörlerini özel bir yan çubukta gösterir ve klasörlerle ilgili iyileştirmeler ekler",
         "settings": {
             "closeAllFolders": "Klasörde olmayan bir sunucuyu seçerken tüm klasörleri kapatın",
             "closeAllHomeButton": "Giriş düğmesine tıkladığınızda tüm klasörleri kapatın",
@@ -188,6 +189,7 @@
         }
     },
     "betterSessions": {
+        "description": "Oturumlar (cihazlar) menüsünü geliştirir. Tam zaman damgalarını görüntülemenizi, her oturuma özel bir ad vermenizi ve yeni oturumlar hakkında bildirim almanızı sağlar.",
         "newBadge": "YENİ",
         "newSession": "Yeni oturum:",
         "rename": "Yeniden isimlendirmek",
@@ -203,6 +205,7 @@
         }
     },
     "betterSettings": {
+        "description": "Ayarlar menüsünü açma deneyiminizi iyileştirir",
         "settings": {
             "disableFade": "Crossfade animasyonunu devre dışı bırak",
             "eagerLoad": "Menüyü ilk kez açarken yükleme gecikmesini ortadan kaldırır",
@@ -384,6 +387,7 @@
         "button1Url": "Düğme1 URL",
         "button2Text": "Düğme2 Metni",
         "button2Url": "Düğme2 URL",
+        "description": "Discord profilinize tamamen özelleştirilebilir bir Oynuyor (Oyun durumu) ekleyin",
         "detailLine1": "Ayrıntı (satır 1)",
         "detailUrl": "Ayrıntı URL",
         "endTimestamp": "Bitiş Zaman Damgası (milisaniye cinsinden)",
