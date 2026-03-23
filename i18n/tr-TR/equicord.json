@@ -5,7 +5,7 @@
             "description": "Şu anda oynatılan sesli kitaplarınızı Discord Zengin Durum olarak görüntülemek için AudioBookShelf sunucunuzu URL, kullanıcı adınızı ve şifrenizi girin.",
             "title": "AudioBookShelf'e nasıl bağlanılır"
         },
-        "description": "AudioBookShelf medya sunucusu için zengin varlık",
+        "description": "AudioBookShelf medya sunucusu için Oynuyor",
         "settings": {
             "password": "AudioBookShelf şifresi",
             "serverUrl": "AudioBookShelf sunucusu URL (ör. https://abs.example.com)",
