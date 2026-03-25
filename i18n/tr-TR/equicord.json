@@ -55,6 +55,9 @@
         },
         "description": "Birinden rastgele bahsedin"
     },
+    "audioPlayerAPI": {
+        "description": "Dahili Discord ses dosyalarını veya harici ses bağlantılarını oynatmak için API."
+    },
     "autoZipper": {
         "description": "Belirtilen dosya türlerini ve klasörleri Discord'a yüklemeden önce otomatik olarak sıkıştırır",
         "settings": {
@@ -551,6 +554,11 @@
             "reset": "Sıfırla"
         }
     },
+    "equicordDonor": {
+        "description": "Bu Rozet, Equicord (Vencord Değil) Bağışçıları için özel bir ayrıcalıktır",
+        "description2": "Lütfen bağışçı olarak Equicord'un geliştirilmesini desteklemeyi düşünün. Bu bizim için çok şey ifade eder!!",
+        "title": "Equicord Bağışçısı"
+    },
     "equicordHelper": {
         "alerts": {
             "equicordSupport": "Equicord Destek",
@@ -598,6 +606,10 @@
             "themes": "Temalar",
             "tooltip": "Equicord Araç Kutusu"
         }
+    },
+    "equicordTranslator": {
+        "description": "Topluluk için içerik çevirerek Equicord'un dil desteğini genişleten katkıda bulunanlara verilir.",
+        "title": "Equicord Çevirmeni"
     },
     "equissant": {
         "description": "Belirtilen her tıklama miktarında kruvasan :tramvay:",
@@ -934,6 +946,9 @@
             "hideTags": "Etiketleri gizle"
         }
     },
+    "headerBarAPI": {
+        "description": "Üst bilgi çubuğuna ve kanal araç çubuğuna düğme eklemek için API."
+    },
     "hideChatButtons": {
         "description": "Sohbet düğmelerini gizleyebiliyor",
         "settings": {
@@ -976,7 +991,7 @@
         "description": "Dms'inizdeki biri yazıyorsa ana sayfa düğmesini yazma göstergesine dönüştürür"
     },
     "hopOn": {
-        "description": "Fortnite'a atla veya balonlara atla :3",
+        "description": "Mevcut kanaldaki bir mesaj özel bir regex (düzenli ifade) ile eşleştiğinde yapılandırılabilir bir URL açar.",
         "settings": {
             "regex": "Tetiklenecek Regex",
             "url": "URL açmak için"
@@ -1315,6 +1330,10 @@
             "scanQrCode": "QR Kodunu Tara"
         }
     },
+    "mainWindowFrameless": {
+        "description": "Daha temiz bir görünüm için yerel pencere çerçevesini kaldırın. Pencereyi yine de başlık çubuğu alanından sürükleyerek taşıyabilirsiniz.",
+        "title": "Ana Pencere Çerçevesini Devre Dışı Bırak"
+    },
     "mediaPlaybackSpeed": {
         "description": "Sesli mesajlar, videolar ve ses ekleri için medya oynatma hızını kontrol edin",
         "settings": {
@@ -1496,7 +1515,7 @@
         }
     },
     "moyai": {
-        "description": "🗿 emoji kullanıldığında moyai ses efektini çal",
+        "description": "Mevcut kanalınızda bir moyai emojisi gönderildiğinde, tepki verildiğinde veya ses efekti olarak kullanıldığında bir 🗿 ses efekti çalar.",
         "settings": {
             "ignoreBlocked": "Engellenen kullanıcılardan gelen mesajları yoksay",
             "ignoreBots": "Botlardan gelen mesajları dikkate almayın",
@@ -2148,6 +2167,9 @@
             "patternPlaceholder": "*.example.com",
             "urlPatterns": "URL Desenler"
         }
+    },
+    "userAreaAPI": {
+        "description": "Kullanıcı alanı paneline düğme eklemek için API."
     },
     "userpfp": {
         "avatarOptions": {
