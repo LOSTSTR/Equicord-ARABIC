@@ -29,7 +29,6 @@ import { SpotifyLyrics } from "./spotify/lyrics/components/lyrics";
 import { SpotifyPlayer } from "./spotify/PlayerComponent";
 import { TidalLyrics } from "./tidal/lyrics/components/lyrics";
 import { TidalPlayer } from "./tidal/TidalPlayer";
-import { YtmPlayer } from "./youtubeMusic/PlayerComponent";
 
 export default definePlugin({
     name: "MusicControls",
@@ -45,15 +44,11 @@ export default definePlugin({
         "Tidal",
         "TidalControls",
         "TidalLyrics",
-        // Youtube
-        "Youtube",
-        "YoutubeMusic",
-        "YoutubeMusicControls"
     ],
 
     patches: [
         {
-            find: ".DISPLAY_NAME_STYLES_COACHMARK),",
+            find: ".DISPLAY_NAME_STYLES_COACHMARK)",
             replacement: {
                 // react.jsx)(AccountPanel, { ..., showTaglessAccountPanel: blah })
                 match: /(?<=\i\.jsxs?\)\()(\i),{(?=[^}]*?userTag:\i,occluded:)/,
@@ -92,7 +87,7 @@ export default definePlugin({
     ],
 
     PanelWrapper({ VencordOriginal, ...props }) {
-        const { showTidalControls, showTidalLyrics, showSpotifyLyrics, showSpotifyControls, LyricsPosition, showYoutubeMusicControls } = settings.store;
+        const { showTidalControls, showTidalLyrics, showSpotifyLyrics, showSpotifyControls, lyricsPosition } = settings.store;
         return (
             <>
                 <ErrorBoundary
@@ -103,13 +98,12 @@ export default definePlugin({
                         </div>
                     )}
                 >
-                    {showTidalLyrics && LyricsPosition === "above" && <TidalLyrics />}
+                    {showTidalLyrics && lyricsPosition === "above" && <TidalLyrics />}
                     {showTidalControls && <TidalPlayer />}
-                    {showTidalLyrics && LyricsPosition === "below" && <TidalLyrics />}
-                    {showSpotifyLyrics && LyricsPosition === "above" && <SpotifyLyrics />}
+                    {showTidalLyrics && lyricsPosition === "below" && <TidalLyrics />}
+                    {showSpotifyLyrics && lyricsPosition === "above" && <SpotifyLyrics />}
                     {showSpotifyControls && <SpotifyPlayer />}
-                    {showSpotifyLyrics && LyricsPosition === "below" && <SpotifyLyrics />}
-                    {showYoutubeMusicControls && <YtmPlayer />}
+                    {showSpotifyLyrics && lyricsPosition === "below" && <SpotifyLyrics />}
                 </ErrorBoundary>
 
                 <VencordOriginal {...props} />

@@ -16,31 +16,43 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+import "./styles.css";
+
 import { definePluginSettings } from "@api/Settings";
-import { Divider } from "@components/Divider";
+import { Button } from "@components/Button";
+import { ExpandableSection } from "@components/ExpandableCard";
 import { Flex } from "@components/Flex";
-import { HeadingTertiary } from "@components/Heading";
-import { DeleteIcon } from "@components/Icons";
+import { HeadingSecondary } from "@components/Heading";
+import { Paragraph } from "@components/Paragraph";
+import { Span } from "@components/Span";
+import { TooltipContainer } from "@components/TooltipContainer";
 import { Devs, EquicordDevs } from "@utils/constants";
+import { classNameFactory } from "@utils/index";
 import { Logger } from "@utils/Logger";
 import { t } from "@utils/translation";
 import definePlugin, { OptionType } from "@utils/types";
 import { Message } from "@vencord/discord-types";
-import { Button, React, Select, TextInput, UserStore, useState } from "@webpack/common";
+import { React, Select, TextInput, UserStore, useState } from "@webpack/common";
 
-type Rule = Record<"find" | "replace" | "onlyIfIncludes" | "scope", string>;
+const cl = classNameFactory("vc-textReplace-");
+
+type Rule = Record<"find" | "replace" | "onlyIfIncludes" | "scope" | "id", string>;
 
 interface TextReplaceProps {
     title: string;
+    description: string;
     rulesArray: Rule[];
+    isRegex?: boolean;
 }
 
 const makeEmptyRule: () => Rule = () => ({
     find: "",
     replace: "",
     onlyIfIncludes: "",
-    scope: "myMessages"
+    scope: "myMessages",
+    id: crypto.randomUUID()
 });
+
 const makeEmptyRuleArray = () => [makeEmptyRule()];
 
 const settings = definePluginSettings({
@@ -51,15 +63,18 @@ const settings = definePluginSettings({
 
             return (
                 <>
+                    <TextReplaceTesting />
                     <TextReplace
                         title={t("vencord.textReplace.usingString")}
+                        description={t("vencord.textReplace.stringRules")}
                         rulesArray={stringRules}
                     />
                     <TextReplace
                         title={t("vencord.textReplace.usingRegex")}
+                        description={t("vencord.textReplace.regexRules")}
                         rulesArray={regexRules}
+                        isRegex
                     />
-                    <TextReplaceTesting />
                 </>
             );
         }
@@ -115,26 +130,37 @@ function Input({ initialValue, onChange, placeholder }: {
             value={value}
             onChange={setValue}
             spellCheck={false}
-            onBlur={() => value !== initialValue && onChange(value)}
+            onBlur={() => value !== initialValue && setTimeout(() => onChange(value), 0)}
         />
     );
 }
 
-function TextReplace({ title, rulesArray }: TextReplaceProps) {
-    const isRegexRules = title === t("vencord.textReplace.usingRegex");
+function TextRow({ label, description, value, onChange }: { label: string; description: string; value: string; onChange(value: string): void; }) {
+    return (
+        <>
+            <TooltipContainer text={description}>
+                <Span weight="medium" size="md">{label}</Span>
+            </TooltipContainer>
+            <Input
+                placeholder={description}
+                initialValue={value}
+                onChange={onChange}
+            />
+        </>
+    );
+}
 
-    async function onClickRemove(index: number) {
-        if (index === rulesArray.length - 1) return;
+const isEmptyRule = (rule: Rule) => !rule.find;
+
+function TextReplace({ title, description, rulesArray, isRegex = false }: TextReplaceProps) {
+    function onClickRemove(index: number) {
         rulesArray.splice(index, 1);
     }
 
-    async function onChange(e: string, index: number, key: string) {
-        if (index === rulesArray.length - 1) {
-            rulesArray.push(makeEmptyRule());
-        }
-
+    function onChange(e: string, index: number, key: string) {
         rulesArray[index][key] = e;
 
+        // If a rule is empty after editing and is not the last rule, remove it
         if (rulesArray[index].find === "" && rulesArray[index].replace === "" && rulesArray[index].onlyIfIncludes === "" && index !== rulesArray.length - 1) {
             rulesArray.splice(index, 1);
         }
@@ -148,30 +174,37 @@ function TextReplace({ title, rulesArray }: TextReplaceProps) {
 
     return (
         <>
-            <HeadingTertiary>{title}</HeadingTertiary>
+            <div>
+                <HeadingSecondary>{title}</HeadingSecondary>
+                <Paragraph>{description}</Paragraph>
+            </div>
             <Flex flexDirection="column" style={{ gap: "0.5em", paddingBottom: "1.25em" }}>
-                {
-                    rulesArray.map((rule, index) =>
-                        <React.Fragment key={`${rule.find}-${index}`}>
-                            <Flex gap="0.5em" flexDirection="row" style={{ flexGrow: 1 }}>
-                                <Input
-                                    placeholder={t("vencord.textReplace.find")}
-                                    initialValue={rule.find}
-                                    onChange={e => onChange(e, index, "find")}
-                                />
-                                <Input
-                                    placeholder={t("vencord.textReplace.replace")}
-                                    initialValue={rule.replace}
-                                    onChange={e => onChange(e, index, "replace")}
-                                />
-                                <Input
-                                    placeholder={t("vencord.textReplace.onlyIfIncludes")}
-                                    initialValue={rule.onlyIfIncludes}
-                                    onChange={e => onChange(e, index, "onlyIfIncludes")}
-                                />
-                            </Flex>
-                            {(index !== rulesArray.length - 1) && <Flex flexDirection="row" style={{ gap: "0.5em" }}>
-                                <div style={{ flex: 0.9 }}>
+                {rulesArray.map((rule, index) =>
+                    <ExpandableSection
+                        key={rule.id}
+                        renderContent={() => (
+                            <>
+                                <div className={cl("input-grid")}>
+                                    <TextRow
+                                        label={t("vencord.textReplace.find")}
+                                        description={isRegex ? t("vencord.textReplace.findDescRegex") : t("vencord.textReplace.findDesc")}
+                                        value={rule.find}
+                                        onChange={e => onChange(e, index, "find")}
+                                    />
+                                    <TextRow
+                                        label={t("vencord.textReplace.replace")}
+                                        description={t("vencord.textReplace.replaceDesc")}
+                                        value={rule.replace}
+                                        onChange={e => onChange(e, index, "replace")}
+                                    />
+                                    <TextRow
+                                        label={t("vencord.textReplace.onlyIfIncludes")}
+                                        description={t("vencord.textReplace.onlyIfIncludesDesc")}
+                                        value={rule.onlyIfIncludes}
+                                        onChange={e => onChange(e, index, "onlyIfIncludes")}
+                                    />
+                                </div>
+                                <div style={{ marginTop: "0.25em" }}>
                                     <Select
                                         options={scopeOptions}
                                         isSelected={e => e === rule.scope}
@@ -179,19 +212,31 @@ function TextReplace({ title, rulesArray }: TextReplaceProps) {
                                         serialize={e => e}
                                     />
                                 </div>
+                                {isRegex && renderFindError(rule.find)}
                                 <Button
-                                    size={Button.Sizes.MIN}
+                                    className={cl("delete-button")}
+                                    variant="dangerPrimary"
                                     onClick={() => onClickRemove(index)}
-                                    style={{ flex: 0.10, backgroundColor: "var(--input-background)", border: "1px solid var(--input-border)", color: "var(--status-danger)" }}
                                 >
-                                    <DeleteIcon style={{ verticalAlign: "middle" }} />
+                                    Delete Rule
                                 </Button>
-                            </Flex>}
-                            {(index !== rulesArray.length - 1) && <Divider style={{ width: "unset", margin: "0.5em 0" }}></Divider>}
-                            {isRegexRules && renderFindError(rule.find)}
-                        </React.Fragment>
-                    )
-                }
+                            </>
+                        )}
+                    >
+                        <Paragraph weight="medium" size="md">
+                            {isEmptyRule(rule)
+                                ? `Empty Rule ${index + 1}`
+                                : `Rule ${index + 1} - ${rule.find}`
+                            }
+                        </Paragraph>
+                    </ExpandableSection>
+                )}
+                <Button
+                    onClick={() => rulesArray.push(makeEmptyRule())}
+                    disabled={rulesArray.length > 0 && isEmptyRule(rulesArray[rulesArray.length - 1])}
+                >
+                    Add Rule
+                </Button>
             </Flex>
         </>
     );
@@ -199,12 +244,15 @@ function TextReplace({ title, rulesArray }: TextReplaceProps) {
 
 function TextReplaceTesting() {
     const [value, setValue] = useState("");
+
     return (
-        <>
-            <HeadingTertiary>{t("vencord.textReplace.testRules")}</HeadingTertiary>
-            <TextInput placeholder={t("vencord.textReplace.typeMessage")} onChange={setValue} />
-            <TextInput placeholder={t("vencord.textReplace.messageWithRules")} editable={false} value={applyRules(value, "allMessages")} />
-        </>
+        <div>
+            <HeadingSecondary>Rule Tester</HeadingSecondary>
+            <Flex flexDirection="column" gap={6}>
+                <TextInput placeholder={t("vencord.textReplace.testMessage")} onChange={setValue} />
+                <TextInput placeholder={t("vencord.textReplace.messageWithRules")} editable={false} value={applyRules(value, "allMessages")} style={{ opacity: 0.7 }} />
+            </Flex>
+        </div>
     );
 }
 
@@ -275,8 +323,16 @@ export default definePlugin({
 
     start() {
         const { stringRules, regexRules } = settings.store;
-        stringRules.forEach(rule => { if (!rule.scope) rule.scope = "myMessages"; });
-        regexRules.forEach(rule => { if (!rule.scope) rule.scope = "myMessages"; });
+
+        stringRules.forEach(rule => {
+            rule.scope ??= "myMessages";
+            rule.id ??= crypto.randomUUID();
+        });
+
+        regexRules.forEach(rule => {
+            rule.scope ??= "myMessages";
+            rule.id ??= crypto.randomUUID();
+        });
     },
 
     onBeforeMessageSend(channelId, msg) {

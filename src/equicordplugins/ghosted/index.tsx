@@ -53,6 +53,18 @@ export const settings = definePluginSettings({
         description: t("equicord.ghosted.settings.ignoreBots"),
         default: true,
         restartNeeded: false
+    },
+    maxInactiveTimeMs: {
+        type: OptionType.SELECT,
+        description: "Only ghost DMs active within this timeframe",
+        options: [
+            { label: "No limit", value: 0, default: true },
+            { label: "1 hour", value: 60 * 60 * 1000 },
+            { label: "1 day", value: 24 * 60 * 60 * 1000 },
+            { label: "1 week", value: 7 * 24 * 60 * 60 * 1000 },
+            { label: "1 month", value: 30 * 24 * 60 * 60 * 1000 },
+        ],
+        restartNeeded: false
     }
 });
 

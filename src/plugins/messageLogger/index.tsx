@@ -322,7 +322,7 @@ export function parseEditContent(content: string, message: Message, previousCont
     });
 }
 
-const settings = definePluginSettings({
+export const settings = definePluginSettings({
     deleteStyle: {
         type: OptionType.SELECT,
         description: t("vencord.messageLogger.settings.deleteStyleDescription"),
@@ -364,6 +364,11 @@ const settings = definePluginSettings({
         description: t("vencord.messageLogger.settings.ignoreSelfDescription"),
         default: false,
     },
+    ignoreSelfEdits: {
+        type: OptionType.BOOLEAN,
+        description: "Whether to ignore edits by yourself",
+        default: false,
+    },
     ignoreUsers: {
         type: OptionType.STRING,
         description: t("vencord.messageLogger.settings.ignoreUsersDescription"),
@@ -401,6 +406,11 @@ const settings = definePluginSettings({
     separatedDiffs: {
         disabled() {
             return !this.store.showEditDiffs;
+        },
+    },
+    ignoreSelfEdits: {
+        disabled() {
+            return this.store.ignoreSelf;
         },
     },
 });
@@ -586,6 +596,7 @@ export default definePlugin({
             const {
                 ignoreBots,
                 ignoreSelf,
+                ignoreSelfEdits,
                 ignoreUsers,
                 ignoreChannels,
                 ignoreGuilds,
@@ -597,6 +608,7 @@ export default definePlugin({
             return (
                 (ignoreBots && message.author?.bot) ||
                 (ignoreSelf && message.author?.id === myId) ||
+                (ignoreSelfEdits && isEdit && message.author?.id === myId) ||
                 ignoreUsers.includes(message.author?.id) ||
                 ignoreChannels.includes(message.channel_id) ||
                 ignoreChannels.includes(

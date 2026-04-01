@@ -16,7 +16,7 @@ import { EquicordDevs } from "@utils/constants";
 import { copyToClipboard } from "@utils/index";
 import { t } from "@utils/translation";
 import definePlugin, { PluginNative, StartAt } from "@utils/types";
-import { onceReady } from "@webpack";
+import { findStoreLazy, onceReady } from "@webpack";
 import { ContextMenuApi, Menu, NavigationRouter, RestAPI, useEffect, useState } from "@webpack/common";
 import { JSX } from "react";
 
@@ -24,6 +24,7 @@ import { addIgnoredQuest, addRerenderCallback, autoFetchCompatible, fetchAndAler
 import { ActiveQuestIntervalsMap, ExcludedQuestMap, GuildlessServerListItem, Quest, QuestIcon, QuestMap, QuestStatus, QuestTaskType, RGB } from "./utils/components";
 import { adjustRGB, decimalToRGB, fetchAndDispatchQuests, formatLowerBadge, getFormattedNow, getIgnoredQuestIDs, getQuestProgress, getQuestStatus, getQuestTarget, getQuestTask, isDarkish, leftClick, middleClick, normalizeQuestName, q, QuestifyLogger, questPath, QuestsStore, refreshQuest, reportPlayGameQuestProgress, reportVideoQuestProgress, rightClick, setIgnoredQuestIDs, videoQuestLeeway, waitUntilEnrolled } from "./utils/misc";
 
+const AuthorizedAppsStore = findStoreLazy("AuthorizedAppsStore");
 let initialQuestDataFetched = false;
 const QuestifyNative = VencordNative.pluginHelpers.Questify as PluginNative<typeof import("./native")>;
 const patchedMobileQuests = new Set<string>();
@@ -853,7 +854,6 @@ async function startAchievementActivityProgressTracking(quest: Quest, target: { 
     if (!result.success) {
         const errorReason = result.error || "An error occurred while completing the Quest.";
         QuestifyLogger.error(`[${getFormattedNow()}] Failed to complete Quest ${questName}:`, errorReason);
-        return;
     } else {
         QuestifyLogger.info(`[${getFormattedNow()}] Quest ${questName} completed.`);
 
@@ -865,6 +865,20 @@ async function startAchievementActivityProgressTracking(quest: Quest, target: { 
                 onClick: () => NavigationRouter.transitionTo(`${questPath}#${quest.id}`),
             });
         }
+    }
+
+    try {
+        const deauthToken = AuthorizedAppsStore.getNewestTokenForApplication(appID)?.id;
+
+        if (!deauthToken) {
+            throw new Error("Deauthorization token not found.");
+        }
+
+        await RestAPI.del({
+            url: `/oauth2/tokens/${deauthToken}/`,
+        });
+    } catch (error) {
+        QuestifyLogger.error(`[${getFormattedNow()}] Failed to deauthorize application for Quest ${questName}:`, error);
     }
 }
 
@@ -1127,12 +1141,24 @@ function getLastFilterChoices(): { group: string; filter: string; }[] | null {
 }
 
 function setLastSortChoice(sort: string): void {
+    if (!sort) sort = "questify";
     settings.store.lastQuestPageSort = sort;
 }
 
-function setLastFilterChoices(filters: { group: string; filter: string; }[]): void {
-    if (!filters || !Object.keys(filters).length || !Object.values(filters).every(f => f.group && f.filter)) { return; }
-    settings.store.lastQuestPageFilters = JSON.parse(JSON.stringify(filters)).reduce((acc, item) => ({ ...acc, [item.filter]: item }), {});
+function setLastFilterChoices(filters: { group: string; filter: string; }[] | null): void {
+    if (!filters || filters.length === 0) {
+        settings.store.lastQuestPageFilters = {};
+        return;
+    }
+
+    if (!filters.every(f => f && f.group && f.filter)) {
+        return;
+    }
+
+    settings.store.lastQuestPageFilters = (JSON.parse(JSON.stringify(filters)) as { group: string; filter: string; }[]).reduce((acc, item) => {
+        acc[item.filter] = item;
+        return acc;
+    }, {});
 }
 
 function getQuestAcceptedButtonProps(quest: Quest, text: string, disabled: boolean, onClick?: () => void) {
@@ -1244,12 +1270,12 @@ export default definePlugin({
             group: true,
             replacement: [
                 {
-                    match: /(?<=resetSortingFiltering\(\)},\[\]\);)/,
+                    match: /(?<=scrollToQuest\(\i\)\}\)\},\[\]\);)/,
                     replace: "const shouldHideSponsoredQuestBanner=$self.shouldHideSponsoredQuestBanner();"
                 },
                 {
-                    match: /(?<=if\(null!=\i\))return(.{0,60}?}\))/,
-                    replace: "if(!shouldHideSponsoredQuestBanner)return $1"
+                    match: /(?<=return null;if\(\i)(\).{0,30}?null!=\i)/,
+                    replace: "&&!shouldHideSponsoredQuestBanner$1&&!shouldHideSponsoredQuestBanner"
                 }
             ]
         },
@@ -1289,8 +1315,8 @@ export default definePlugin({
             // Allows in-progress Quests to still show.
             find: "QUESTS_BAR,questId",
             replacement: {
-                match: /(?=if\(null==(\i)\)return null;)(.{0,125}?quest:\i}\);return)/,
-                replace: "const hidePopup=$self.shouldHideQuestPopup($1);$2!hidePopup&&"
+                match: /(?<=function\(\){let (\i)=\(0,\i.\i\)\(\);)(return)/,
+                replace: "const hidePopup=$self.shouldHideQuestPopup($1);$2 hidePopup||"
             }
         },
         {
@@ -1377,8 +1403,8 @@ export default definePlugin({
                 },
                 {
                     // Prevent SearchableSelect from force-scrolling into view, causing the dropdown to close.
-                    match: /(?<=\.scrollIntoView\()/,
-                    replace: "{block:\"nearest\",inline:\"nearest\"}"
+                    match: /(&&\i.current\?\.scrollIntoView\(\))/,
+                    replace: ""
                 },
                 {
                     // Passes a popoutClassName and optionClassName to the popout handler.
@@ -1407,6 +1433,14 @@ export default definePlugin({
                     replace: ",...arguments[0]"
                 }
             ]
+        },
+        {
+            // Prevent the new version of SearchableSelect from force-scrolling into view.
+            find: '"data-mana-component":"combobox",',
+            replacement: {
+                match: /\i.current\?\.scrollIntoView\({.{0,50}?}\)/,
+                replace: ""
+            }
         },
         {
             // Formats the Orbs balance on the Quests page with locale string formatting.
@@ -1534,24 +1568,18 @@ export default definePlugin({
                     replace: "$self.getLastSortChoice()??$1"
                 },
                 {
-                    // Set the initial filters.
-                    match: /(get\(\i\)\)\?\?)(\i)/,
-                    replace: "$1$self.getLastFilterChoices()??$2"
-                },
-                {
-                    // Update the last used sort method when it changes.
-                    match: /(onChange:)(\i)(.{0,40}?selectedSortMethod)/,
-                    replace: "$1(value)=>{$self.settings.store.lastQuestPageSort=value;$2(value);}$3"
-                },
-                {
-                    // Update the last used filter choices when they change.
-                    match: /(onChange:)(\i)(.{0,40}?selectedFilters)/,
-                    replace: "$1(value)=>{$self.settings.store.lastQuestPageFilters=value.reduce((acc,item)=>({...acc,[item.filter]:item}),{});$2(value);}$3"
+                    // Set the initial filters and update the filters and sort method when they change.
+                    match: /(get\(\i\)\)\?\?)(\i,\[\i\]\),\i=\i.useCallback\((\i)=>{)(.{0,60}?useCallback\((\i)=>{)/,
+                    replace: "$1$self.getLastFilterChoices()??$2$self.setLastSortChoice($3);$4$self.setLastFilterChoices($5);"
                 },
                 {
                     // Update the last used sort and filter choices when the toggle setting for either is changed.
                     match: /(?<=ALL,\i.useMemo\(\(\)=>\()({sortMethod:(\i),filters:(\i))/,
                     replace: "$self.setLastSortChoice($2),$self.setLastFilterChoices($3),$1"
+                },
+                {
+                    match: /(?<=resetSortingFiltering:\(\)=>{\i\(\),\i\()\i.\i.SUGGESTED/,
+                    replace: '"questify"'
                 }
             ]
         },
@@ -1559,7 +1587,7 @@ export default definePlugin({
             // Whether preloading assets is enabled or not, the placeholders loading
             // before the assets causes a lot of element shifting, whereas if
             // the elements load immediately instead, it doesn't.
-            find: ",{rewardWithArticleHook:()",
+            find: ".LEARN_MORE_CTA_AND_EXPRESSIVE_BUTTON_TREATMENT_FOUR_OPEN_GAME_LINK,sourceQuestContent:",
             replacement: {
                 match: /showPlaceholder:!\i/,
                 replace: "showPlaceholder:false"

@@ -19,14 +19,13 @@
 import { showNotification } from "@api/Notifications";
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
-import { openInviteModal } from "@utils/discord";
 import { Logger } from "@utils/Logger";
 import { closeAllModals } from "@utils/modal";
 import { t } from "@utils/translation";
 import definePlugin, { OptionType } from "@utils/types";
 import { maybePromptToUpdate } from "@utils/updater";
 import { filters, findBulk, proxyLazyWebpack } from "@webpack";
-import { DraftType, ExpressionPickerStore, FluxDispatcher, NavigationRouter, SelectedChannelStore, showToast } from "@webpack/common";
+import { DraftType, ExpressionPickerStore, FluxDispatcher, NavigationRouter, SelectedChannelStore } from "@webpack/common";
 
 const CrashHandlerLogger = new Logger("CrashHandler");
 
@@ -102,9 +101,6 @@ export default definePlugin({
                             title: t("vencord.crashHandler.notifications.crashedTitle"),
                             body: t("vencord.crashHandler.notifications.crashedBody"),
                             noPersist: true,
-                            onClick: () => openInviteModal("wKgT9j2xfN").catch(() =>
-                                showToast(t("vencord.crashHandler.notifications.invalidInvite")),
-                            )
                         });
                     } catch { }
 
@@ -140,9 +136,6 @@ export default definePlugin({
                 title: t("vencord.crashHandler.notifications.crashedTitle"),
                 body: t("vencord.crashHandler.notifications.recoveringBody"),
                 noPersist: true,
-                onClick: () => openInviteModal("wKgT9j2xfN").catch(() =>
-                    showToast(t("vencord.crashHandler.notifications.invalidInvite")),
-                )
             });
         } catch { }
 

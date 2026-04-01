@@ -24,6 +24,7 @@ import { PluginCards } from "./pluginCards";
 
 migratePluginToSettings(true, "EquicordHelper", "NoBulletPoints", "noBulletPoints");
 migratePluginToSettings(true, "EquicordHelper", "NoModalAnimation", "noModalAnimation");
+migratePluginToSettings(true, "EquicordHelper", "GuildTagSettings", "disableAdoptTagPrompt");
 
 let clicked = false;
 
@@ -87,12 +88,6 @@ const settings = definePluginSettings({
         restartNeeded: true,
         default: false,
     },
-    noDefaultHangStatus: {
-        type: OptionType.BOOLEAN,
-        description: t("equicord.equicordHelper.settings.noDefaultHangStatus"),
-        restartNeeded: true,
-        default: false,
-    },
     refreshSlashCommands: {
         type: OptionType.BOOLEAN,
         description: t("equicord.equicordHelper.settings.refreshSlashCommands"),
@@ -127,6 +122,12 @@ const settings = definePluginSettings({
         description: t("equicord.noModalAnimation.description"),
         restartNeeded: true,
         default: false
+    },
+    disableAdoptTagPrompt: {
+        type: OptionType.BOOLEAN,
+        description: "Disable the prompt to adopt tags",
+        default: true,
+        restartNeeded: true
     },
 });
 
@@ -211,18 +212,9 @@ export default definePlugin({
                 replace: "$& && false"
             }
         },
-        // No Default Hang Status
-        {
-            find: ".CHILLING)",
-            predicate: () => settings.store.noDefaultHangStatus,
-            replacement: {
-                match: /{enableHangStatus:(\i),/,
-                replace: "{_enableHangStatus:$1=false,"
-            }
-        },
         // Force Role Icon
         {
-            find: "Message Username",
+            find: "#{intl::GUILD_COMMUNICATION_DISABLED_ICON_TOOLTIP_BODY}",
             predicate: () => settings.store.forceRoleIcon,
             replacement: {
                 match: /(?<=\}\):null\].{0,150}\?2:)0(?=\})/,
@@ -273,6 +265,14 @@ export default definePlugin({
                 match: /200:300/g,
                 replace: "0:0",
             },
+        },
+        {
+            find: "GuildTagAvailableCoachmark",
+            replacement: {
+                match: /return.{0,100}shouldShow/g,
+                replace: "return null;$&"
+            },
+            predicate: () => settings.store.disableAdoptTagPrompt
         }
     ],
     renderMessageAccessory(props) {

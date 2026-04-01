@@ -42,6 +42,7 @@ export { Plugins as plugins };
 import { traceFunction } from "../debug/Tracer";
 import { addAudioProcessor, removeAudioProcessor } from "./AudioPlayer";
 import { addChannelToolbarButton, addHeaderBarButton, removeChannelToolbarButton, removeHeaderBarButton } from "./HeaderBar";
+import { addProfileCollection, removeProfileCollection } from "./ProfileCollections";
 import { addUserAreaButton, removeUserAreaButton } from "./UserArea";
 
 const logger = new Logger("PluginManager", "#a6d189");
@@ -193,9 +194,9 @@ export const startPlugin = traceFunction("startPlugin", function startPlugin(p: 
     const {
         name, commands, contextMenus, managedStyle, userProfileBadges,
         onBeforeMessageEdit, onBeforeMessageSend, onMessageClick,
-        renderChatBarButton, chatBarButton, renderMemberListDecorator, renderMessageAccessory, renderMessageDecoration, renderMessagePopoverButton, messagePopoverButton,
+        chatBarButton, renderMemberListDecorator, renderMessageAccessory, renderMessageDecoration, messagePopoverButton,
         // Custom
-        renderNicknameIcon, headerBarButton, audioProcessor, userAreaButton
+        renderNicknameIcon, headerBarButton, audioProcessor, userAreaButton, renderProfileCollection
     } = p;
 
     if (p.start) {
@@ -246,14 +247,10 @@ export const startPlugin = traceFunction("startPlugin", function startPlugin(p: 
     if (onMessageClick) addMessageClickListener(onMessageClick);
 
     if (chatBarButton) addChatBarButton(name, chatBarButton.render, chatBarButton.icon);
-    // @ts-expect-error: legacy code doesn't have icon
-    else if (renderChatBarButton) addChatBarButton(name, renderChatBarButton);
     if (renderMemberListDecorator) addMemberListDecorator(name, renderMemberListDecorator);
     if (renderMessageDecoration) addMessageDecoration(name, renderMessageDecoration);
     if (renderMessageAccessory) addMessageAccessory(name, renderMessageAccessory);
     if (messagePopoverButton) addMessagePopoverButton(name, messagePopoverButton.render, messagePopoverButton.icon);
-    // @ts-expect-error: legacy code doesn't have icon
-    else if (renderMessagePopoverButton) addMessagePopoverButton(name, renderMessagePopoverButton);
 
     // Custom
     if (renderNicknameIcon) addNicknameIcon(name, renderNicknameIcon);
@@ -266,6 +263,7 @@ export const startPlugin = traceFunction("startPlugin", function startPlugin(p: 
     }
     if (audioProcessor) addAudioProcessor(name, audioProcessor);
     if (userAreaButton) addUserAreaButton(name, userAreaButton.render, userAreaButton.priority);
+    if (renderProfileCollection) addProfileCollection(name, renderProfileCollection);
 
     return true;
 }, p => `startPlugin ${p.name}`);
@@ -274,9 +272,9 @@ export const stopPlugin = traceFunction("stopPlugin", function stopPlugin(p: Plu
     const {
         name, commands, contextMenus, managedStyle, userProfileBadges,
         onBeforeMessageEdit, onBeforeMessageSend, onMessageClick,
-        renderChatBarButton, chatBarButton, renderMemberListDecorator, renderMessageAccessory, renderMessageDecoration, renderMessagePopoverButton, messagePopoverButton,
+        chatBarButton, renderMemberListDecorator, renderMessageAccessory, renderMessageDecoration, messagePopoverButton,
         // Custom
-        renderNicknameIcon, headerBarButton, audioProcessor, userAreaButton
+        renderNicknameIcon, headerBarButton, audioProcessor, userAreaButton, renderProfileCollection
     } = p;
 
     if (p.stop) {
@@ -324,11 +322,11 @@ export const stopPlugin = traceFunction("stopPlugin", function stopPlugin(p: Plu
     if (onBeforeMessageSend) removeMessagePreSendListener(onBeforeMessageSend);
     if (onMessageClick) removeMessageClickListener(onMessageClick);
 
-    if (chatBarButton || renderChatBarButton) removeChatBarButton(name);
+    if (chatBarButton) removeChatBarButton(name);
     if (renderMemberListDecorator) removeMemberListDecorator(name);
     if (renderMessageDecoration) removeMessageDecoration(name);
     if (renderMessageAccessory) removeMessageAccessory(name);
-    if (messagePopoverButton || renderMessagePopoverButton) removeMessagePopoverButton(name);
+    if (messagePopoverButton) removeMessagePopoverButton(name);
 
     // Custom
     if (renderNicknameIcon) removeNicknameIcon(name);
@@ -341,6 +339,7 @@ export const stopPlugin = traceFunction("stopPlugin", function stopPlugin(p: Plu
     }
     if (audioProcessor) removeAudioProcessor(name);
     if (userAreaButton) removeUserAreaButton(name);
+    if (renderProfileCollection) removeProfileCollection(name);
 
     return true;
 }, p => `stopPlugin ${p.name}`);
@@ -351,9 +350,9 @@ export const initPluginManager = onlyOnce(function init() {
 
     const pluginKeysToBind: Array<keyof PluginDef & `${"on" | "render"}${string}`> = [
         "onBeforeMessageEdit", "onBeforeMessageSend", "onMessageClick",
-        "renderChatBarButton", "renderMemberListDecorator", "renderMessageAccessory", "renderMessageDecoration", "renderMessagePopoverButton",
+        "renderMemberListDecorator", "renderMessageAccessory", "renderMessageDecoration",
         // Custom
-        "renderNicknameIcon"
+        "renderNicknameIcon", "renderProfileCollection"
     ];
 
     const neededApiPlugins = new Set<string>();
@@ -383,11 +382,11 @@ export const initPluginManager = onlyOnce(function init() {
 
         if (p.commands?.length) neededApiPlugins.add("CommandsAPI");
         if (p.onBeforeMessageEdit || p.onBeforeMessageSend || p.onMessageClick) neededApiPlugins.add("MessageEventsAPI");
-        if (p.chatBarButton || p.renderChatBarButton) neededApiPlugins.add("ChatInputButtonAPI");
+        if (p.chatBarButton) neededApiPlugins.add("ChatInputButtonAPI");
         if (p.renderMemberListDecorator) neededApiPlugins.add("MemberListDecoratorsAPI");
         if (p.renderMessageAccessory) neededApiPlugins.add("MessageAccessoriesAPI");
         if (p.renderMessageDecoration) neededApiPlugins.add("MessageDecorationsAPI");
-        if (p.messagePopoverButton || p.renderMessagePopoverButton) neededApiPlugins.add("MessagePopoverAPI");
+        if (p.messagePopoverButton) neededApiPlugins.add("MessagePopoverAPI");
         if (p.userProfileBadge) neededApiPlugins.add("BadgeAPI");
 
         // Custom
@@ -395,6 +394,7 @@ export const initPluginManager = onlyOnce(function init() {
         if (p.headerBarButton) neededApiPlugins.add("HeaderBarAPI");
         if (p.audioProcessor) neededApiPlugins.add("AudioPlayerAPI");
         if (p.userAreaButton) neededApiPlugins.add("UserAreaAPI");
+        if (p.renderProfileCollection) neededApiPlugins.add("ProfileCollectionsAPI");
 
         for (const key of pluginKeysToBind) {
             p[key] &&= p[key].bind(p) as any;

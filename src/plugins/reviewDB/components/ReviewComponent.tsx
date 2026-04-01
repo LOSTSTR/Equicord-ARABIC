@@ -25,7 +25,7 @@ import { openUserProfile } from "@utils/discord";
 import { classes } from "@utils/misc";
 import { t } from "@utils/translation";
 import { findCssClassesLazy } from "@webpack";
-import { Alerts, Parser, Timestamp, useState } from "@webpack/common";
+import { Alerts, IconUtils, Parser, Timestamp, useState } from "@webpack/common";
 
 import { openBlockModal } from "./BlockedUserModal";
 import { BlockButton, DeleteButton, ReportButton } from "./MessageButton";
@@ -117,8 +117,9 @@ export default function ReviewComponent({ review, refetch, profileId }: { review
             <img
                 className={classes(AvatarClasses.avatar, AvatarClasses.clickable)}
                 onClick={openModal}
-                src={review.sender.profilePhoto || "/assets/1f0bfc0865d324c2587920a7d80c609b.png?size=128"}
+                src={review.sender.profilePhoto || IconUtils.getDefaultAvatarURL(review.sender.discordID)}
                 style={{ left: "0px", zIndex: 0 }}
+                onError={e => e.currentTarget.src = IconUtils.getDefaultAvatarURL(review.sender.discordID)}
             />
             <div style={{ display: "inline-flex", justifyContent: "center", alignItems: "center" }}>
                 <span

@@ -7,7 +7,6 @@
 import "./styles.css";
 
 import { definePluginSettings } from "@api/Settings";
-import { BaseText } from "@components/BaseText";
 import ErrorBoundary from "@components/ErrorBoundary";
 import { EquicordDevs } from "@utils/constants";
 import { classNameFactory } from "@utils/css";
@@ -17,7 +16,10 @@ import { User } from "@vencord/discord-types";
 import { findByCodeLazy } from "@webpack";
 import { React } from "@webpack/common";
 
-import { GitHubReposComponent } from "./components/GitHubReposComponent";
+import { ProfilePopoutComponent } from "./components/ProfilePopoutComponent";
+import { ProfileTabComponent } from "./components/ProfileTabComponent";
+
+const getProfileThemeProps = findByCodeLazy(".getPreviewThemeColors", "primaryColor:");
 
 export const cl = classNameFactory("vc-github-repos-");
 
@@ -32,51 +34,7 @@ export const settings = definePluginSettings({
         description: t("equicord.githubRepos.settings.showLanguage"),
         default: true
     },
-    showInMiniProfile: {
-        type: OptionType.BOOLEAN,
-        description: t("equicord.githubRepos.settings.showInMiniProfile"),
-        default: true
-    },
-    showRepositoryTab: {
-        type: OptionType.BOOLEAN,
-        description: t("equicord.githubRepos.settings.showRepositoryTab"),
-        default: true
-    },
 });
-
-const getProfileThemeProps = findByCodeLazy(".getPreviewThemeColors", "primaryColor:");
-
-const ProfilePopoutComponent = ErrorBoundary.wrap(
-    (props: { user: User; displayProfile?: any; }) => {
-        return (
-            <GitHubReposComponent
-                {...props}
-                id={props.user.id}
-                theme={getProfileThemeProps(props).theme}
-            />
-        );
-    },
-    {
-        noop: true,
-        fallback: () => <BaseText size="xs" weight="semibold" className="vc-github-repos-error" style={{ color: "var(--text-feedback-critical)" }}>
-            {t("equicord.githubRepos.ui.error")}
-        </BaseText>
-    }
-);
-
-const ProfileRepositoriesTab = ErrorBoundary.wrap(
-    (props: { user: User; displayProfile?: any; }) => {
-        return (
-            <GitHubReposComponent
-                {...props}
-                id={props.user.id}
-                theme={getProfileThemeProps(props).theme}
-                variant="tab"
-            />
-        );
-    },
-    { noop: true }
-);
 
 export default definePlugin({
     name: "GitHubRepos",
@@ -85,30 +43,12 @@ export default definePlugin({
     settings,
 
     patches: [
-        // User Popout
-        {
-            find: /onOpenUserProfileModal:\i\}\),\i/,
-            replacement: {
-                match: /userId:\i\.id,guild:\i.{0,15}\}\).{0,100}(?=\])/,
-                replace: "$&,$self.ProfilePopoutComponent(arguments[0])"
-            }
-        },
-        // User Profile Modal v2
-        {
-            find: ".MODAL_V2,onClose:",
-            replacement: {
-                match: /displayProfile:(\i).*?connections:\i.{0,25}\i.\i\}\)\}\)/,
-                replace: "$&,$self.ProfilePopoutComponent({ user: arguments[0].user, displayProfile: $1 }),",
-                predicate: () => !settings.store.showRepositoryTab,
-            }
-        },
         // User Profile Modal v2 tab bar
         {
             find: "#{intl::USER_PROFILE_ACTIVITY}",
             replacement: {
                 match: /\.MUTUAL_GUILDS\}\)\)(?=,(\i))/,
                 replace: '$&,$1.push({text:"GitHub",section:"GITHUB"})',
-                predicate: () => settings.store.showRepositoryTab,
             }
         },
         // User Profile Modal v2 tab content
@@ -116,10 +56,25 @@ export default definePlugin({
             find: ".WIDGETS?",
             replacement: {
                 match: /(\i)===\i\.\i\.WISHLIST/,
-                replace: '$1==="GITHUB"?$self.ProfileRepositoriesTab(arguments[0]):$&'
+                replace: '$1==="GITHUB"?$self.renderProfileRepositoriesTab(arguments[0]):$&',
             }
         }
     ],
-    ProfilePopoutComponent,
-    ProfileRepositoriesTab
+    renderProfileCollection: (props: { user: User; displayProfile?: any; }) => {
+        return (
+            <ProfilePopoutComponent
+                {...props}
+                id={props.user.id}
+            />
+        );
+    },
+    renderProfileRepositoriesTab: ErrorBoundary.wrap((props: { user: User; displayProfile?: any; }) => {
+        return (
+            <ProfileTabComponent
+                {...props}
+                id={props.user.id}
+                theme={getProfileThemeProps(props).theme}
+            />
+        );
+    }, { noop: true }),
 });

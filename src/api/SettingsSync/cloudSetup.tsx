@@ -97,19 +97,22 @@ export async function authorizeCloud() {
                 const res = await fetch(location, {
                     headers: { Accept: "application/json" }
                 });
-                const { secret } = await res.json();
-                if (secret) {
-                    logger.info("Authorized with secret");
-                    await setAuthorization(secret);
+                const data = await res.json();
+                if (data.secret) {
+                    logger.info("Authorized with cloud");
+                    await setAuthorization(data.secret);
                     showNotification({
                         title: t("vencord.cloud.integrations.header"),
                         body: t("vencord.cloud.integrations.enabled")
                     });
                     Settings.cloud.authenticated = true;
                 } else {
+                    logger.error("OAuth callback returned no secret", data);
                     showNotification({
                         title: t("vencord.cloud.integrations.header"),
-                        body: t("vencord.cloud.integrations.noSecret")
+                        body: data.error
+                            ? `Setup failed: ${data.error}`
+                            : t("vencord.cloud.integrations.noSecret")
                     });
                     Settings.cloud.authenticated = false;
                 }

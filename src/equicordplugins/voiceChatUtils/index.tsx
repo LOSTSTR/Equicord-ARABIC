@@ -6,7 +6,7 @@
 
 import { NavContextMenuPatchCallback } from "@api/ContextMenu";
 import { definePluginSettings } from "@api/Settings";
-import { Devs } from "@utils/constants";
+import { Devs, EquicordDevs } from "@utils/constants";
 import { insertTextIntoChatInputBox } from "@utils/discord";
 import { t } from "@utils/translation";
 import definePlugin, { makeRange, OptionType } from "@utils/types";
@@ -175,7 +175,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "VoiceChatUtilities",
     description: t("equicord.voiceChatUtils.description"),
-    authors: [Devs.D3SOX],
+    authors: [Devs.D3SOX, EquicordDevs.nickwoah],
 
     settings,
 
