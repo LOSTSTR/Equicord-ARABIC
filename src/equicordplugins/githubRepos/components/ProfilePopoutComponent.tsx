@@ -10,6 +10,7 @@ import { fetchReposByUserId, fetchReposByUsername, fetchUserInfo, GitHubUserInfo
 import { GitHubRepo } from "@equicordplugins/githubRepos/types";
 import { classes } from "@utils/misc";
 import { openModal } from "@utils/modal";
+import { t } from "@utils/translation";
 import { findCssClassesLazy } from "@webpack";
 import { Clickable, React, useEffect, UserProfileStore, useState } from "@webpack/common";
 
@@ -100,7 +101,7 @@ export function ProfilePopoutComponent({ id, isSideBar = false }: { id: string, 
                     <Clickable className={ProfileCardContainerClasses.breadcrumb} onClick={openReposModal}>
                         <div className={classes(ProfileCardOverlayClasses.overlay, ProfileCardContainerClasses.innerContainer, ProfileCardClasses.card)}>
                             <Paragraph size={isSideBar ? "sm" : "xs"} weight="medium">
-                                GitHub Repositories
+                                {t("equicordplugins.githubRepos.githubRepos")}
                             </Paragraph>
                             {!!repos.length && (
                                 <div className={ProfileCardContainerClasses.icons}>

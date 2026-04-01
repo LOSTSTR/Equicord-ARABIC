@@ -281,7 +281,9 @@
             "syncFromCloud": "Could not synchronize settings from the cloud ({e}).",
             "upToDate": "Your settings are up to date.",
             "updated": "Your settings have been updated! Click here to restart to fully apply changes!",
-            "updatedRemote": "Your settings have been updated! Click here to restart to fully apply changes!"
+            "updatedRemote": "Settings synchronized to the cloud!",
+            "syncedCloud": "Cloud data synchronized.",
+            "manifest": "Could not fetch manifest for deletion (API returned {e})."
         }
     },
     "colorSighted": {
@@ -1461,7 +1463,8 @@
         "system": "System",
         "unblockUser": "Unblock user",
         "viewReviews": "View Reviews",
-        "description": "Review other users (Adds a new settings to profiles)"
+        "description": "Review other users (Adds a new settings to profiles)",
+        "userReviews": "User Reviews"
     },
     "roleColorEverywhere": {
         "description": "Adds the top role color anywhere possible",

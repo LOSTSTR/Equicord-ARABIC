@@ -51,7 +51,7 @@
             "oscilloscopeSolidColor": "Use solid color for oscilloscope",
             "oscilloscopeColor": "Color for oscilloscope",
             "spectrographSolidColor": "Use solid color for spectrograph",
-            "spectrographColor": "Color for spectrograph",
+            "spectrographColor": "Color for spectrograph (R, G, B or #hex)",
             "forceMoveBelow": "Force the visualizer below the audio player"
         },
         "toasts": {
@@ -160,7 +160,7 @@
         }
     },
     "betterCommands": {
-        "description": "Enhances the command system with miscellaneous improvements.",
+        "description": "Refreshes the specified applications commands locally.",
         "settings": {
             "autoFillArguments": "Automatically fill command with all arguements instead of just required ones",
             "allowNewlinesInCommands": "Allow newlines in command inputs (CTRL + Shift + Enter)"
@@ -320,7 +320,9 @@
             },
             "showTags": "Display tag chips for commands",
             "enableTagFilter": "Show the tag filter bar",
-            "customCommands": "Manage custom command palette entries"
+            "customCommands": "Manage custom command palette entries",
+            "compactStartEnabled": "Open the palette in compact mode first.",
+            "closeAfterExecute": "Close palette after executing a command."
         },
         "ui": {
             "hotkeyTitle": "Command Palette Hotkey",
@@ -1100,7 +1102,8 @@
         },
         "ui": {
             "error": "Error, Failed to render GithubRepos"
-        }
+        },
+        "githubRepos": "GitHub Repositories"
     },
     "globalBadges": {
         "description": "Adds global badges from other client mods",

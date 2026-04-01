@@ -8,6 +8,7 @@ import { BaseText } from "@components/BaseText";
 import { fetchReposByUserId, fetchReposByUsername, fetchUserInfo, GitHubUserInfo } from "@equicordplugins/githubRepos/githubApi";
 import { GitHubRepo } from "@equicordplugins/githubRepos/types";
 import { openModal } from "@utils/modal";
+import { t } from "@utils/translation";
 import { React, useEffect, UserProfileStore, useState } from "@webpack/common";
 
 import { cl, settings } from "..";
@@ -98,7 +99,7 @@ export function ProfileTabComponent({ id }: { id: string, theme: string; }) {
     return (
         <div className={cl("container", "tab")}>
             <BaseText size="xs" weight="semibold" className={cl("header")}>
-                GitHub Repositories
+                {t("equicordplugins.githubRepos.githubRepos")}
                 {userInfo && (
                     <span className={cl("count")}>
                         {` (${repos.length})`}
