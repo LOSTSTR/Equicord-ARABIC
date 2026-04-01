@@ -1939,18 +1939,23 @@
     "textReplace": {
         "description": "Replace text in your or others' messages. You can find pre-made rules in the #textreplace-rules channel in Vencord's Server.",
         "find": "Find",
+        "findDesc": "The text to replace",
+        "findDescRegex": "The regex pattern",
         "messageWithRules": "Message with rules applied",
         "onlyIfIncludes": "Only if includes",
+        "onlyIfIncludesDesc": "This rule will only be applied if the message includes this text. This is optional",
         "replace": "Replace",
+        "replaceDesc": "The text to replace the found text with",
         "scope.allMessages": "Apply to all messages",
         "scope.myMessages": "Apply to your messages (visible to everyone)",
         "scope.othersMessages": "Apply to others' messages (only visible to you)",
         "testRules": "Test Rules",
         "typeMessage": "Type a message",
-        "usingRegex": "Using Regex",
-        "usingString": "Using String",
-        "stringRules": "Rules for replacing text using string matching.",
-        "regexRules": "Rules for replacing text using regular expressions."
+        "usingRegex": "Regex Replacements",
+        "usingString": "Simple Replacements",
+        "stringRules": "Simple find and replace rules. For example, find 'brb' and replace it with 'be right back'",
+        "regexRules": "More powerful replacements using Regular Expressions. This section is for advanced users. If you don't understand it, just ignore it",
+        "testMessage": "Type a message to test rules on"
     },
     "themeAttributes": {
         "description": "Adds data attributes to various elements for theming purposes"
