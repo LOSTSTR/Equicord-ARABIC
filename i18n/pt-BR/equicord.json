@@ -114,7 +114,7 @@
             "oscilloscopeColor": "Cor para osciloscópio",
             "oscilloscopeSolidColor": "Usar cor sólida para o osciloscópio",
             "spectrograph": "Ativar visualizador espectrográfico",
-            "spectrographColor": "Cor para espectrográfico",
+            "spectrographColor": "Cor para espectrográfico (R, G, B ou #hex)",
             "spectrographSolidColor": "Usar cores sólidas para o espectrógrafo"
         },
         "toasts": {
@@ -149,7 +149,7 @@
                 "userOption": "usuário específico para tentar atualizar"
             }
         },
-        "description": "Melhora o sistema de comandos com diversas melhorias.",
+        "description": "Atualiza localmente os comandos dos aplicativos especificados.",
         "settings": {
             "allowNewlinesInCommands": "Permitir novas linhas em entradas de comando (CTRL + Shift + Enter)",
             "autoFillArguments": "Preencher automaticamente o comando com todos os argumentos em vez de apenas os necessários"
@@ -337,6 +337,8 @@
     "commandPalette": {
         "description": "Executa ações rapidamente através de uma paleta de comandos pesquisável",
         "settings": {
+            "closeAfterExecute": "Fechar a paleta após executar um comando.",
+            "compactStartEnabled": "Primeiro, abra a paleta no modo compacto.",
             "customCommands": "Gerenciar entradas personalizadas da paleta de comandos",
             "enableTagFilter": "Mostrar a barra de filtro de tags",
             "hotkey": "Atalho usado para abrir a paleta de comandos",
@@ -902,6 +904,7 @@
     },
     "githubRepos": {
         "description": "Exibe os repositórios GitHub públicos de um usuário em seu perfil",
+        "githubRepos": "Repositórios do GitHub",
         "settings": {
             "showInMiniProfile": "Mostrar interface do usuário completa no miniperfil em vez de apenas um botão",
             "showLanguage": "Mostrar idioma do repositório",
