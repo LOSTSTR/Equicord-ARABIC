@@ -275,13 +275,15 @@
             "failedToDelete": "Não foi possível excluir as configurações ({e}).",
             "failedToSync": "Não foi possível sincronizar as configurações com a nuvem ({e}).",
             "header": "Configurações de Nuvem",
+            "manifest": "Não foi possível buscar o manifesto para exclusão (API retornou {e}).",
             "newerThanCloud": "Suas configurações locais são mais recentes do que as da nuvem.",
             "noSettings": "Não há nenhuma configuração na nuvem.",
             "success": "Configurações sincronizadas com a nuvem!",
             "syncFromCloud": "Não foi possível sincronizar as configurações da nuvem ({e}).",
+            "syncedCloud": "Dados na nuvem sincronizados.",
             "upToDate": "Suas configurações estão atualizadas.",
             "updated": "Suas configurações foram atualizadas! Clique aqui para reiniciar e aplicar todas as alterações!",
-            "updatedRemote": "Suas configurações foram atualizadas! Clique aqui para reiniciar e aplicar todas as alterações!"
+            "updatedRemote": "Configurações sincronizadas com a nuvem!"
         }
     },
     "colorSighted": {
@@ -1461,6 +1463,7 @@
         },
         "system": "Sistema",
         "unblockUser": "Desbloquear usuário",
+        "userReviews": "User Reviews",
         "viewReviews": "Ver Avaliações"
     },
     "roleColorEverywhere": {
@@ -1951,18 +1954,23 @@
     "textReplace": {
         "description": "Substitua texto em suas mensagens ou nas de outros. Você pode encontrar regras prontas no canal #textreplace-rules no servidor do Vencord.",
         "find": "Encontrar",
+        "findDesc": "O texto a ser substituído",
+        "findDescRegex": "O padrão de regex",
         "messageWithRules": "Mensagem com regras aplicadas",
         "onlyIfIncludes": "Somente se incluir",
-        "regexRules": "Regras para substituir texto usando expressões regulares.",
+        "onlyIfIncludesDesc": "Esta regra só será aplicada se a mensagem incluir este texto. Isso é opcional",
+        "regexRules": "Substituições mais avançadas usando expressões regulares. Esta seção é destinada a usuários avançados. Se você não entender, simplesmente ignore",
         "replace": "Substituir",
+        "replaceDesc": "O texto que substituirá o texto encontrado",
         "scope.allMessages": "Aplicar a todas as mensagens",
         "scope.myMessages": "Aplicar às suas mensagens (visíveis para todos)",
         "scope.othersMessages": "Aplicar às mensagens de outras pessoas (visíveis apenas para você)",
-        "stringRules": "Regras para substituir texto usando correspondência de strings.",
+        "stringRules": "Regras simples de localizar e substituir. Por exemplo, localizar 'blz' e substituí-lo por 'beleza'",
+        "testMessage": "Digite uma mensagem para testar as regras",
         "testRules": "Regras de teste",
         "typeMessage": "Digite uma mensagem",
-        "usingRegex": "Usando Regex",
-        "usingString": "Usando String"
+        "usingRegex": "Substituições Regex",
+        "usingString": "Substituições Simples"
     },
     "themeAttributes": {
         "description": "Adiciona atributos de dados a vários elementos para fins de personalização de temas."
