@@ -275,13 +275,15 @@
             "failedToDelete": "Không thể xóa cài đặt ({e}).",
             "failedToSync": "Không thể đồng bộ hóa cài đặt với đám mây ({e}).",
             "header": "Cài đặt Đám mây",
+            "manifest": "Không thể lấy tệp kê khai để xóa (API trả về {e}).",
             "newerThanCloud": "Cài đặt cục bộ của bạn mới hơn cài đặt đám mây.",
             "noSettings": "Không có cài đặt nào trên đám mây.",
             "success": "Cài đặt được đồng bộ hóa lên đám mây!",
             "syncFromCloud": "Không thể đồng bộ hóa cài đặt từ đám mây ({e}).",
+            "syncedCloud": "Dữ liệu đám mây đã được đồng bộ.",
             "upToDate": "Cài đặt của bạn đã được cập nhật.",
             "updated": "Cài đặt của bạn đã được cập nhật! Bấm vào đây để khởi động lại để áp dụng hoàn toàn các thay đổi!",
-            "updatedRemote": "Cài đặt của bạn đã được cập nhật! Bấm vào đây để khởi động lại để áp dụng hoàn toàn các thay đổi!"
+            "updatedRemote": "Cài đặt đã được đồng bộ lên đám mây!"
         }
     },
     "colorSighted": {
@@ -1461,6 +1463,7 @@
         },
         "system": "Hệ Thống",
         "unblockUser": "Bỏ chặn người dùng",
+        "userReviews": "Đánh Giá Người Dùng",
         "viewReviews": "Xem đánh giá"
     },
     "roleColorEverywhere": {
@@ -1951,18 +1954,23 @@
     "textReplace": {
         "description": "Thay thế văn bản trong tin nhắn của bạn hoặc của người khác. Bạn có thể tìm thấy các quy tắc sẵn trong kênh #textreplace-rules tại máy chủ Vencord.",
         "find": "Tìm",
+        "findDesc": "Văn bản để thay thế",
+        "findDescRegex": "Mẫu regex",
         "messageWithRules": "Tin nhắn có áp dụng quy tắc",
         "onlyIfIncludes": "Chỉ khi bao gồm",
-        "regexRules": "Các quy tắc thay thế văn bản bằng cách sử dụng biểu thức chính quy.",
+        "onlyIfIncludesDesc": "Quy tắc này chỉ được áp dụng nếu tin nhắn chứa đoạn văn bản này. Không bắt buộc.",
+        "regexRules": "Các phép thay thế mạnh mẽ hơn sử dụng Biểu thức Chính quy (Regex). Phần này dành cho người dùng nâng cao. Nếu bạn không hiểu, hãy bỏ qua",
         "replace": "Thay thế",
+        "replaceDesc": "Văn bản được dùng để thay thế phần văn bản được tìm thấy",
         "scope.allMessages": "Áp dụng cho tất cả tin nhắn",
         "scope.myMessages": "Áp dụng cho tin nhắn của bạn (hiển thị đến mọi người)",
         "scope.othersMessages": "Áp dụng cho tin nhắn của người khác (chi hiển thị đối với bạn)",
-        "stringRules": "Các quy tắc thay thế văn bản bằng cách sử dụng đối sánh xâu.",
+        "stringRules": "Các quy tắc tìm và thay thế đơn giản. Ví dụ, tìm 'brb' và thay thế bằng 'be right back'",
+        "testMessage": "Nhập một tin nhắn để kiểm tra các quy tắc",
         "testRules": "Quy tắc kiểm tra",
         "typeMessage": "Nhập tin nhắn",
-        "usingRegex": "Sử dụng Regex",
-        "usingString": "Sử dụng chuỗi"
+        "usingRegex": "Thay thế bằng Regex",
+        "usingString": "Thay thế đơn giản"
     },
     "themeAttributes": {
         "description": "Thêm thuộc tính dữ liệu vào các thành phần khác nhau cho mục đích tạo chủ đề"
