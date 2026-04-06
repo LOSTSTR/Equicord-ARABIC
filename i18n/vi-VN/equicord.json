@@ -114,7 +114,7 @@
             "oscilloscopeColor": "Màu sắc cho dao động ký",
             "oscilloscopeSolidColor": "Sử dụng màu đồng nhất cho dao động ký",
             "spectrograph": "Bật trình quang phổ",
-            "spectrographColor": "Màu sắc cho trình quang phổ",
+            "spectrographColor": "Màu sắc cho trình quang phổ (R, G, B hoặc #hex)",
             "spectrographSolidColor": "Sử dụng màu đồng nhất cho trình quang phổ"
         },
         "toasts": {
@@ -149,7 +149,7 @@
                 "userOption": "người dùng cụ thể để thử và làm mới"
             }
         },
-        "description": "Cải thiện hệ thống lệnh với những cải tiến khác.",
+        "description": "Làm mới cục bộ các lệnh của ứng dụng đã chỉ định.",
         "settings": {
             "allowNewlinesInCommands": "Cho phép xuống dòng trong ô nhập lệnh (CTRL + Shift + Enter)",
             "autoFillArguments": "Tự động điền lệnh với tất cả các tùy chọn thay vì chỉ những tùy chọn bắt buộc"
@@ -337,6 +337,8 @@
     "commandPalette": {
         "description": "Nhanh chóng thực hiện các hành động thông qua bảng lệnh có thể tìm kiếm",
         "settings": {
+            "closeAfterExecute": "Đóng bảng công cụ sau khi thực hiện một lệnh.",
+            "compactStartEnabled": "Mở bảng công cụ ở chế độ thu gọn trước.",
             "customCommands": "Quản lý các mục bảng lệnh tùy chỉnh",
             "enableTagFilter": "Hiển thị thanh bộ lọc thẻ",
             "hotkey": "Phím tắt dùng để mở bảng lệnh",
@@ -902,6 +904,7 @@
     },
     "githubRepos": {
         "description": "Hiển thị kho lưu trữ GitHub công khai của người dùng trong hồ sơ của họ",
+        "githubRepos": "Kho Lưu Trữ GitHub",
         "settings": {
             "showInMiniProfile": "Hiển thị giao diện người dùng đầy đủ trong hồ sơ mini thay vì chỉ một nút",
             "showLanguage": "Hiển thị ngôn ngữ của kho lưu trữ",
