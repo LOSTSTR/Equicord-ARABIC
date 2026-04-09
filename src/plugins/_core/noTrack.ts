@@ -26,7 +26,7 @@ import { WebpackRequire } from "@vencord/discord-types/webpack";
 const settings = definePluginSettings({
     disableAnalytics: {
         type: OptionType.BOOLEAN,
-        description: t("noTrack.settings.disableAnalytics"),
+        description: t("vencord.noTrack.settings.disableAnalytics"),
         default: true,
         restartNeeded: true
     }
@@ -34,7 +34,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "NoTrack",
-    description: t("noTrack.description"),
+    description: t("vencord.noTrack.description"),
     authors: [Devs.Cyn, Devs.Ven, Devs.Nuckyz, Devs.Arrow],
     required: true,
 
