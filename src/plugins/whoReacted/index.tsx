@@ -88,7 +88,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "WhoReacted",
-    description: t("vencord.whoReacted.settings.description"),
+    description: t("vencord.whoReacted.description"),
     authors: [Devs.Ven, Devs.KannaDev, Devs.newwares],
     isModified: true,
     settings,
