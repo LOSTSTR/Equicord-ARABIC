@@ -2211,5 +2211,21 @@
         "description": "Helps us provide support to you",
         "debug": "Send Equicord debug info",
         "plugins": "Send Equicord plugin list"
+    },
+    "noTrack": {
+        "description": "Disable Discord's tracking (analytics/'science'), metrics and Sentry crash reporting",
+        "settings": {
+            "disableAnalytics": "Disable Discord's tracking (analytics/'science')"
+        }
+    },
+    "translation": {
+        "description": "Assists with translating Equicord",
+        "settings": {
+            "forceLocale": {
+                "description": "Force a different locale for Equicord to use",
+                "followDiscord": "Default (follow Discord)"
+            },
+            "showMissingKeys": "If the current locale is missing translations, show the keys instead of falling back to English"
+        }
     }
 }

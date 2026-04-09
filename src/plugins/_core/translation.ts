@@ -13,10 +13,10 @@ import { i18n } from "@webpack/common";
 const settings = definePluginSettings({
     forceLocale: {
         type: OptionType.SELECT,
-        description: t("translation.settings.forceLocale.description"),
+        description: t("vencord.translation.settings.forceLocale.description"),
         options: [
             {
-                label: t("translation.settings.forceLocale.followDiscord"),
+                label: t("vencord.translation.settings.forceLocale.followDiscord"),
                 value: "",
                 default: true,
             },
@@ -31,7 +31,7 @@ const settings = definePluginSettings({
     },
     showMissingKeys: {
         type: OptionType.BOOLEAN,
-        description: t("translation.settings.showMissingKeys"),
+        description: t("vencord.translation.settings.showMissingKeys"),
         default: false
     }
 });
@@ -39,7 +39,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "Translation",
     required: true,
-    description: t("translation.description"),
+    description: t("vencord.translation.description"),
     authors: [Devs.lewisakura],
 
     settings,
