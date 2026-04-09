@@ -114,6 +114,7 @@
         }
     },
     "arRPC": {
+        "description": "Client plugin for arRPC to enable RPC on Discord Web (experimental)",
         "connected": "Connected to arRPC",
         "connectionFailed": "Failed to connect to arRPC, is it running?",
         "retry": "Retry",
