@@ -55,6 +55,9 @@
         },
         "description": "Erwähnen Sie jemanden zufällig"
     },
+    "audioPlayerAPI": {
+        "description": "API zum Abspielen internen Discord Audiodateien oder externen Audiolinks."
+    },
     "autoZipper": {
         "description": "Komprimiert bestimmte Dateitypen und Ordner automatisch vor dem Hochladen nach Discord",
         "settings": {
@@ -551,6 +554,11 @@
             "reset": "Zurücksetzen"
         }
     },
+    "equicordDonor": {
+        "description": "Diese Badge ist ein besonderer Vorteil für Equicord (nicht Vencord) Spender",
+        "description2": "Bitte unterstütze die Entwicklung von Equicord, indem du ein Spender wirst. Es würde uns sehr viel bedeuten!!",
+        "title": "Equicord Spender"
+    },
     "equicordHelper": {
         "alerts": {
             "equicordSupport": "Equicord Support",
@@ -598,6 +606,10 @@
             "themes": "Themes",
             "tooltip": "Equicord Toolbox"
         }
+    },
+    "equicordTranslator": {
+        "description": "Wird Mitwirkenden verliehen, die die Sprachunterstützung von Equicord erweitern, indem sie Inhalte für die Community übersetzen.",
+        "title": "Equicord Übersetzer"
     },
     "equissant": {
         "description": "Croissant jede angegebene Anzahl an Klicks :trolley:",
@@ -934,6 +946,9 @@
             "hideTags": "Tags ausblenden"
         }
     },
+    "headerBarAPI": {
+        "description": "API zum Hinzufügen von Schaltflächen zur Header Leiste und Kanal Symbolleiste."
+    },
     "hideChatButtons": {
         "description": "Die Chat-Schaltflächen können ausgeblendet werden",
         "settings": {
@@ -976,7 +991,7 @@
         "description": "Ändert die Home-Taste in eine Tippanzeige, wenn jemand in Ihrem DMS gerade tippt"
     },
     "hopOn": {
-        "description": "Hop on Fortnite oder Hop on bloons :3",
+        "description": "Spring auf! Öffnet eine konfigurierbare URL, wenn eine Nachricht mit einem benutzerdefinierten RegEx im aktuellen Kanal übereinstimmt.",
         "settings": {
             "regex": "Regex, auf den getriggert werden soll",
             "url": "URL zum Öffnen"
@@ -1315,6 +1330,10 @@
             "scanQrCode": "QR-Code scannen"
         }
     },
+    "mainWindowFrameless": {
+        "description": "Entferne den nativen Fensterrahmen für eine sauberere Optik. Du kannst das Fenster weiterhin verschieben, indem du den Bereich der Titelleiste ziehst.",
+        "title": "Hauptfenster Rahmen deaktivieren"
+    },
     "mediaPlaybackSpeed": {
         "description": "Steuern Sie die Medienwiedergabegeschwindigkeit für Sprachnachrichten, Videos und Audioanhänge",
         "settings": {
@@ -1496,7 +1515,7 @@
         }
     },
     "moyai": {
-        "description": "Spielen Sie den Moyai-Soundeffekt ab, wenn das Emoji 🗿 verwendet wird",
+        "description": "Spielt einen 🗿 Soundeffekt ab, wann immer ein Moyai-Emoji im aktuellen Kanal gesendet, als Reaktion verwendet oder als Voice-Effekt benutzt wird.",
         "settings": {
             "ignoreBlocked": "Ignorieren Sie Nachrichten von blockierten Benutzern",
             "ignoreBots": "Nachrichten von Bots ignorieren",
@@ -2148,6 +2167,9 @@
             "patternPlaceholder": "*.example.com",
             "urlPatterns": "URL Muster"
         }
+    },
+    "userAreaAPI": {
+        "description": "API zum Hinzufügen von Schaltflächen zum Benutzerbereich Panel."
     },
     "userpfp": {
         "avatarOptions": {
