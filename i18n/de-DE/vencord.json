@@ -68,16 +68,16 @@
     },
     "appleMusicRichPresence": {
         "activityTypes": {
-            "listening": "Hören",
-            "playing": "Spielen"
+            "listening": "Hört Musik",
+            "playing": "Wird abgespielt"
         },
         "assetImageTypes": {
             "album": "Albumcover",
-            "artist": "Künstlerische Kunstwerke",
+            "artist": "Künstlerbild",
             "disabled": "Deaktiviert"
         },
         "buttons": {
-            "listenOnAppleMusic": "Hören Sie auf Apple Music",
+            "listenOnAppleMusic": "Auf Apple Music hören",
             "viewOnSongLink": "Auf SongLink ansehen"
         },
         "defaultDetails": "{name}",
@@ -139,6 +139,7 @@
         "description": "API zum Hinzufügen von Badges zu Benutzern"
     },
     "betterFolders": {
+        "description": "Zeigt Serverordner in einer speziellen Seitenleiste an und fügt ordnerbezogene Verbesserungen hinzu.",
         "settings": {
             "closeAllFolders": "Schließen Sie alle Ordner, wenn Sie einen Server auswählen, der sich nicht in einem Ordner befindet",
             "closeAllHomeButton": "Schließen Sie alle Ordner, wenn Sie auf die Home-Schaltfläche klicken",
@@ -188,6 +189,7 @@
         }
     },
     "betterSessions": {
+        "description": "Verbessert das Sitzungsmenü (Geräte). Ermöglicht die Anzeige genauer Zeitstempel, die Vergabe benutzerdefinierter Namen für jede Sitzung und den Erhalt von Benachrichtigungen über neue Sitzungen.",
         "newBadge": "NEU",
         "newSession": "Neue Sitzung:",
         "rename": "Umbenennen",
@@ -203,6 +205,7 @@
         }
     },
     "betterSettings": {
+        "description": "Verbessert das Erlebnis beim Öffnen des Einstellungsmenüs.",
         "settings": {
             "disableFade": "Deaktivieren Sie die Crossfade-Animation",
             "eagerLoad": "Entfernt die Ladeverzögerung beim ersten Öffnen des Menüs",
@@ -384,6 +387,7 @@
         "button1Url": "Button1 URL",
         "button2Text": "Button2 Text",
         "button2Url": "Button2 URL",
+        "description": "Füge deinem Discord-Profil eine vollständig anpassbare Rich Presence (Spielstatus) hinzu.",
         "detailLine1": "Detail (Zeile 1)",
         "detailUrl": "Detail URL",
         "endTimestamp": "Endzeitstempel (in Millisekunden)",
@@ -449,6 +453,8 @@
     },
     "decor": {
         "accessFromProfiles": "Sie können auch über die Seite {link} auf Dekordekorationen zugreifen.",
+        "agreedToGuidelines": "Den Richtlinien zugestimmt",
+        "baseUrl": "URL für die Decor-API",
         "changeDecoration": "Dekoration ändern",
         "description": "Erstellen und verwenden Sie Ihre eigenen benutzerdefinierten Avatar-Dekorationen oder wählen Sie Ihren Favoriten aus den Voreinstellungen aus.",
         "enableAndRestart": "Aktivieren Sie Dekor und starten Sie Ihren Client neu, um die Dekoration Ihres Avatars zu ändern.",
@@ -505,6 +511,7 @@
         "cloneTo": "Klonen nach {guild}",
         "clonedSuccess": "{name} erfolgreich nach {guild} geklont!",
         "customName": "Benutzerdefinierter Name",
+        "description": "Ermöglicht das Klonen von Emotes & Stickern auf deinen eigenen Server (Rechtsklick darauf).",
         "failedToClone": "Klonen fehlgeschlagen: {error}",
         "nameValidation": "Der Name muss zwischen 2 und 32 Zeichen lang sein",
         "somethingWentWrong": "Etwas ist schief gelaufen (Konsole überprüfen!)"
@@ -699,6 +706,7 @@
         "description": "Verstecken Sie keine Nachrichten vor „wahrscheinlichen Spammern“"
     },
     "ignoreActivities": {
+        "description": "Ignoriere Aktivitäten NUR in deinem Status. Du kannst in den Tabs „Registrierte Spiele“ und „Aktivitäten“ konfigurieren, welche spezifisch ignoriert werden sollen, oder die allgemeinen Einstellungen unten verwenden.",
         "disableActivity": "Aktivität deaktivieren",
         "enableActivity": "Aktivität aktivieren",
         "filterList": {
@@ -732,6 +740,7 @@
         "description": "Verstecken Sie niemals Bildlinks in Nachrichten, auch wenn dies der einzige Inhalt ist"
     },
     "imageZoom": {
+        "description": "Ermöglicht das Zoomen in Bildern und GIFs. Benutze das Scrollrad zum Herunzoomen und Umschalt (Shift) + Scrollrad, um den Linsenradius / die Größe zu erhöhen.",
         "lensSize": "Linsengröße",
         "nearestNeighbour": "Nächster Nachbar",
         "settings": {
@@ -840,6 +849,7 @@
         "showLogs": "Protokolle anzeigen"
     },
     "memberCount": {
+        "description": "Zeigt die Anzahl der Online-Mitglieder, die Gesamtzahl der Mitglieder und die Benutzer in Sprachkanälen auf dem Server an – in der Mitgliederliste und im Tooltip.",
         "settings": {
             "memberList": "Mitgliederzahl in der Mitgliederliste anzeigen",
             "toolTip": "Mitgliederzahl im Server-Tooltip anzeigen",
@@ -930,6 +940,7 @@
     "messageLatency": {
         "clockAhead": "Die Uhr dieses Benutzers ist {delta} voraus.",
         "delayedMessage": "Verzögerte Nachricht",
+        "description": "Zeigt einen Indikator für Nachrichten an, deren Senden ≥n Sekunden gedauert hat",
         "messageDelayed": "Diese Nachricht wurde mit einer Verzögerung von {delta} gesendet.",
         "oldAndroidClient": "Alter Discord Android-Client",
         "oldDiscordAndroid": "Es wird vermutet, dass der Benutzer einen alten Android-Client Discord verwendet",
@@ -989,6 +1000,7 @@
         "deletedMessages_one": "{count} Nachricht gelöscht",
         "deletedMessages_other": "{count} gelöschte Nachrichten",
         "deletedMessages_zero": "Keine gelöschten Nachrichten",
+        "description": "Protokolliert vorübergehend gelöschte und bearbeitete Nachrichten.",
         "disableDiffView": "Deaktivieren Sie die Diff-Ansicht",
         "editHistory": "Verlauf der Nachrichtenbearbeitung",
         "enableDiffView": "Aktivieren Sie die Diff-Ansicht",
@@ -1230,6 +1242,7 @@
         }
     },
     "permissionsViewer": {
+        "description": "Zeige die Berechtigungen eines Benutzers oder Kanals sowie die Rollen eines Servers an.",
         "noPermissions": "Keine Berechtigung zum Anzeigen!",
         "owner": "Eigentümer",
         "permissions": "Berechtigungen",
@@ -1280,6 +1293,7 @@
         "color": "Farbe",
         "create": "Erstellen",
         "deleteCategory": "Kategorie löschen",
+        "description": "Ermöglicht es dir, private Kanäle oben in deiner DM-Liste anzupinnen. Zum Anpinnen/Lösen oder Ändern der Reihenfolge rechtsklicke auf die DMs.",
         "editCategory": "Kategorie bearbeiten",
         "editCategoryTitle": "Kategorie bearbeiten",
         "moveDown": "Nach unten bewegen",
@@ -1414,6 +1428,7 @@
         "confirmDelete": "Möchten Sie diese Bewertung wirklich löschen?",
         "confirmReport": "Möchten Sie diese Bewertung wirklich melden?",
         "delete": "Löschen",
+        "description": "Bewerte andere Benutzer (Fügt den Profilen eine neue Einstellung hinzu)",
         "failedToFetchBlocks": "Blockierungen konnten nicht abgerufen werden: {error}",
         "mustBeLoggedInBlock": "Sie müssen angemeldet sein, um Benutzer zu blockieren.",
         "mustBeLoggedInDelete": "Sie müssen angemeldet sein, um Bewertungen zu löschen.",
@@ -1604,7 +1619,7 @@
         },
         "frameless": {
             "description": "Entfernen Sie den nativen Fensterrahmen, um ein saubereres Aussehen zu erzielen. Sie können das Fenster weiterhin verschieben, indem Sie den Titelleistenbereich ziehen.",
-            "title": "Fensterrahmen deaktivieren"
+            "title": "Alle Fensterrahmen deaktivieren"
         },
         "hint": "Hinweis: Sie können die Position dieses Einstellungsbereichs in den <0>Einstellungen des Einstellungen Plugin</0> ändern!",
         "macosVibrancyStyle": {
@@ -1653,6 +1668,16 @@
             "description": "Ersetzen Sie Discords benutzerdefinierte Titelleiste mit der Standard-Windows-Titelleiste. Dies kann die Kompatibilität mit einigen Fensterverwaltungswerkzeugen verbessern.",
             "title": "Benutze die native Titelleiste von Windows anstelle der benutzerdefinierten Titelleiste von Discord."
         }
+    },
+    "settingsPlugin": {
+        "aboveActivity": "Über den Aktivitätseinstellungen",
+        "aboveNitro": "Über dem Nitro Bereich",
+        "belowActivity": "Unter den Aktivitätseinstellungen",
+        "belowNitro": "Unter dem Nitro Bereich",
+        "bottom": "Ganz unten",
+        "description": "Fügt Einstellungs Menü und Debug Infos hinzu",
+        "settingsLocation": "Wo der Equicord Einstellungsbereich platziert werden soll",
+        "top": "Ganz oben"
     },
     "settingsSync": {
         "failedToImport": "Fehler beim Importieren der Einstellungen: {e}",
@@ -1853,6 +1878,7 @@
             "membersListIndicators": "Mitgliederlistenindikatoren",
             "silentTyping": "Leises Tippen"
         },
+        "description": "Verstecke deine Tippanzeige im Chat.",
         "noChanges": "Es wurden keine Änderungen an den Einstellungen für die stille Eingabe vorgenommen.",
         "settings": {
             "chatContextMenu": "Zeigen Sie im Chat-Kontextmenü ein Dropdown-Menü an, um die Plugin-Einstellungen unterwegs zu ändern.",
@@ -1914,17 +1940,25 @@
             "unlimitedSuperReactionPlaying": "Entferne das Limit für die gleichzeitige Wiedergabe von Superreaktionen"
         }
     },
+    "supportHelper": {
+        "debug": "Sende Equicord Debug Infos",
+        "description": "Hilft uns dabei dich zu unterstützen",
+        "plugins": "Sende Equicord Plugin Liste"
+    },
     "tabs": {
         "settings": "Equicord Einstellungen"
     },
     "textReplace": {
+        "description": "Ersetze Text in deinen oder den Nachrichten anderer. Vorgefertigte Regeln findest du im Kanal #textreplace-rules auf dem Vencord-Server.",
         "find": "Suchen",
         "messageWithRules": "Nachricht mit angewendeten Regeln",
         "onlyIfIncludes": "Nur wenn enthalten",
+        "regexRules": "Regeln für das Ersetzen von Text mittels regulärer Ausdrücke.",
         "replace": "Ersetzen",
         "scope.allMessages": "Apply to all messages",
         "scope.myMessages": "Apply to your messages (visible to everyone)",
         "scope.othersMessages": "Apply to others' messages (only visible to you)",
+        "stringRules": "Regeln für das Ersetzen von Text mittels String-Matching.",
         "testRules": "Testregeln",
         "typeMessage": "Geben Sie eine Nachricht ein",
         "usingRegex": "Verwenden von Regex",
@@ -1940,6 +1974,7 @@
             "title": "Equicord Automatische Übersetzung aktiviert"
         },
         "autoTranslateEnabledLabel": "Automatische Übersetzung aktiviert",
+        "description": "Übersetze Nachrichten mit Google Translate oder DeepL",
         "disableAutoTranslate": "Deaktivieren Sie die automatische Übersetzung",
         "dontShowAgain": "Nicht mehr anzeigen",
         "gotIt": "Habe es",
@@ -2061,6 +2096,11 @@
         },
         "speechSynthesisNotSupported": "SpeechSynthesis wird nicht unterstützt oder es wurden keine Erzählerstimmen gefunden. Daher funktioniert dieses Plugin nicht. Weitere Informationen finden Sie in meinen Einstellungen"
     },
+    "vencordDonor": {
+        "description": "Dieses Abzeichen ist ein besonderer Vorteil für Vencord-Spender",
+        "description2": "Bitte unterstütze die Entwicklung von Vencord, indem du Spender wirst. Es würde uns sehr viel bedeuten!!",
+        "title": "Vencord Spender"
+    },
     "viewIcons": {
         "description": "Macht Avatare und Banner in Benutzerprofilen anklickbar und fügt View Icon/Banner-Einträge im Benutzer-, Server- und Gruppenkanal-Kontextmenü hinzu.",
         "settings": {
@@ -2094,6 +2134,7 @@
         "downloadVoiceMessage": "Sprachnachricht herunterladen"
     },
     "voiceMessages": {
+        "description": "Ermöglicht es dir, Sprachnachrichten wie auf dem Handy zu versenden. Klicke dazu mit der rechten Maustaste auf die Schaltfläche zum Hochladen und wähle Sprachnachricht senden.",
         "echoCancellation": "Echo unterdrücken",
         "failedToParse": "Ausgewählte Audiodatei konnte nicht analysiert werden: {error}",
         "failedToUpload": "Die Sprachnachricht konnte nicht hochgeladen werden",
@@ -2126,6 +2167,7 @@
         "description": "Entfernt die Bitratenbeschränkung von 2500 Kbit/s auf Chromium- und Vesktop-Clients."
     },
     "whoReacted": {
+        "description": "Zeigt die Avatare der Benutzer an, die auf eine Nachricht reagiert haben",
         "settings": {
             "avatarClick": "Klicken Sie auf Avatare in Reaktionen"
         }
