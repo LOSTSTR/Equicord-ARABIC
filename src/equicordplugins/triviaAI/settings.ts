@@ -41,10 +41,14 @@ export const settings = definePluginSettings({
         default: "https://openrouter.ai/api/v1/chat/completions",
         placeholder: "Enter your OpenAI compatible AI endpoint here."
     },
-    autoRespond: {
-        type: OptionType.BOOLEAN,
+    mode: {
+        type: OptionType.SELECT,
         description: t("equicord.triviaAI.settings.autoRespond"),
-        default: false
+        options: [
+            { label: t("equicord.triviaAI.settings.autoReply"), value: "autoreply" },
+            { label: t("equicord.triviaAI.settings.chatBar"), value: "chatbar", default: true },
+            { label: t("equicord.triviaAI.settings.bot"), value: "bot" }
+        ]
     },
     supportImages: {
         type: OptionType.BOOLEAN,

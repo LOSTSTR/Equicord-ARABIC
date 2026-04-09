@@ -22,11 +22,8 @@ import { Devs } from "@utils/constants";
 import { openImageModal } from "@utils/discord";
 import { t } from "@utils/translation";
 import definePlugin from "@utils/types";
-import { Channel, User } from "@vencord/discord-types";
-import { Menu } from "@webpack/common";
-
-import { ApplicationStreamingStore, ApplicationStreamPreviewStore } from "./webpack/stores";
-import { ApplicationStream, Stream } from "./webpack/types/stores";
+import { ApplicationStream, Channel, Stream, User } from "@vencord/discord-types";
+import { ApplicationStreamingStore, ApplicationStreamPreviewStore, Menu } from "@webpack/common";
 
 export interface UserContextProps {
     channel: Channel,
