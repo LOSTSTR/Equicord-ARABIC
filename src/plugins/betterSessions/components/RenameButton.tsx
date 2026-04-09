@@ -39,7 +39,7 @@ export function NewButton() {
             size="min"
             className="vc-betterSessions-new-btn"
         >
-            NEW
+            {t("vencord.betterSessions.newBadge")}
         </Button>
     );
 }

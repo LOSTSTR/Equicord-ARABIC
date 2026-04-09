@@ -1933,8 +1933,11 @@
             "systemPrompt": "System Prompt for the AI.",
             "maxTokens": "Maximum number of tokens in the response.",
             "endpoint": "OpenAI Compatible AI Endpoint.",
-            "autoRespond": "Automatically respond to messages on receiving a response.",
-            "supportImages": "Pass images to the AI for context (if any). This is not supported by all models."
+            "autoRespond": "How should answers be handled?",
+            "supportImages": "Pass images to the AI for context (if any). This is not supported by all models.",
+            "autoReply": "Auto Reply",
+            "chatbar": "Replace Chatbar Text",
+            "bot": "Clyde"
         },
         "ui": {
             "answerWithAI": "Answer With AI"
