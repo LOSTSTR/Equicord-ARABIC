@@ -153,7 +153,7 @@ async function getTranslation(node: Node): Promise<string | null> {
 
     // load the namespace
     const bundle = JSON.parse(
-        await readFile(`./i18n/en/${namespace}.json`, "utf-8")
+        await readFile(join(__dirname, "../i18n/en/${namespace}.json"), "utf-8")
     );
 
     const dotProp = (key: string, object: any) =>
