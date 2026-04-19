@@ -79,7 +79,7 @@ function IconsTab() {
 
     const filteredIcons = useMemo(() =>
         Object.entries(icons).filter(([name, Icon]) => searchMatch(search, name, Icon, searchByFunction)),
-        [icons, search, searchByFunction]
+    [icons, search, searchByFunction]
     );
 
     const iconsToLoad = 120;

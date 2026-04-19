@@ -116,9 +116,9 @@ export function makeContextItem(a: folderProp) {
                         </ModalRoot>
                     );
                 },
-                    {
-                        modalKey: "custom-folder-icon"
-                    });
+                {
+                    modalKey: "custom-folder-icon"
+                });
             }} />
     );
 }

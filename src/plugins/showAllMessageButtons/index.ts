@@ -5,7 +5,7 @@
  */
 
 import { definePluginSettings } from "@api/Settings";
-import { Devs } from "@utils/constants";
+import { Devs, EquicordDevs } from "@utils/constants";
 import definePlugin, { OptionType } from "@utils/types";
 import { MessageActions, PinActions } from "@webpack/common";
 
@@ -26,7 +26,7 @@ export default definePlugin({
     name: "ShowAllMessageButtons",
     description: "Always show all message buttons no matter if you are holding the shift key or not.",
     tags: ["Chat", "Utility"],
-    authors: [Devs.Nuckyz],
+    authors: [Devs.Nuckyz, EquicordDevs.mochienya],
     settings,
 
     patches: [

@@ -471,16 +471,16 @@ export default function ChannelTab(props: ChannelTabsProps & { index: number; })
     const hasActiveQuests = activeQuestIntervals.size > 0;
     return <div
         className={cl("tab", {
-                "tab-compact": compact,
-                "tab-selected": isTabSelected(id),
-                "tab-entering": isEntering,
-                "tab-closing": isClosing,
-                "tab-dragging": isDragging,
-                "tab-drop-target": isDropTarget,
-                "tab-nitro": channelId === "__nitro__",
-                "tab-quests-active": channelId === "__quests__" && hasActiveQuests,
-                wider: settings.store.widerTabsAndBookmarks
-            })}
+            "tab-compact": compact,
+            "tab-selected": isTabSelected(id),
+            "tab-entering": isEntering,
+            "tab-closing": isClosing,
+            "tab-dragging": isDragging,
+            "tab-drop-target": isDropTarget,
+            "tab-nitro": channelId === "__nitro__",
+            "tab-quests-active": channelId === "__quests__" && hasActiveQuests,
+            wider: settings.store.widerTabsAndBookmarks
+        })}
         key={index}
         ref={ref}
         onMouseEnter={() => setIsHovered(true)}

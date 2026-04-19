@@ -44,11 +44,11 @@ async function fetchMediaData(): Promise<JfMediaData | null> {
 
         const contentType = res.headers.get("content-type") ?? "";
         if (!contentType.includes("application/json")) {
-        if (!hasShownError) {
-            logger.error("Jellyfin returned non-JSON response. Check your server URL and API key.");
-            showToast("Jellyfin returned an invalid response. Your API key may be wrong.", "failure", { duration: 15000 });
-            hasShownError = true;
-        }
+            if (!hasShownError) {
+                logger.error("Jellyfin returned non-JSON response. Check your server URL and API key.");
+                showToast("Jellyfin returned an invalid response. Your API key may be wrong.", "failure", { duration: 15000 });
+                hasShownError = true;
+            }
             return null;
         }
 

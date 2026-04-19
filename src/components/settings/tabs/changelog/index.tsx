@@ -181,26 +181,26 @@ function UpdateLogCard({
 
                     {log.newSettings &&
                         getNewSettingsSize(log.newSettings) > 0 && (
-                            <div className="vc-changelog-log-plugins">
-                                <Heading className={Margins.bottom8}>
-                                    {t("vencord.settings.changelog.updateCard.newSettings")}
-                                </Heading>
-                                <div className="vc-changelog-new-plugins-list">
-                                    {getNewSettingsEntries(log.newSettings).map(
-                                        ([pluginName, settings]) =>
-                                            settings.map(setting => (
-                                                <span
-                                                    key={`${pluginName}-${setting}`}
-                                                    className="vc-changelog-new-plugin-tag"
-                                                    title={t("vencord.settings.changelog.updateCard.newSettingInPlugin", { pluginName: pluginName })}
-                                                >
-                                                    {pluginName}.{setting}
-                                                </span>
-                                            )),
-                                    )}
-                                </div>
+                        <div className="vc-changelog-log-plugins">
+                            <Heading className={Margins.bottom8}>
+                                {t("vencord.settings.changelog.updateCard.newSettings")}
+                            </Heading>
+                            <div className="vc-changelog-new-plugins-list">
+                                {getNewSettingsEntries(log.newSettings).map(
+                                    ([pluginName, settings]) =>
+                                        settings.map(setting => (
+                                            <span
+                                                key={`${pluginName}-${setting}`}
+                                                className="vc-changelog-new-plugin-tag"
+                                                title={t("vencord.settings.changelog.updateCard.newSettingInPlugin", { pluginName: pluginName })}
+                                            >
+                                                {pluginName}.{setting}
+                                            </span>
+                                        )),
+                                )}
                             </div>
-                        )}
+                        </div>
+                    )}
 
                     {log.commits.length > 0 && (
                         <div className="vc-changelog-log-commits">

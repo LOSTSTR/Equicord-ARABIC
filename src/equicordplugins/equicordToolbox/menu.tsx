@@ -45,7 +45,7 @@ export function buildPluginMenuEntries(includeEmpty = false) {
 
     const sortedPlugins = useMemo(() =>
         Object.values(plugins).sort((a, b) => a.name.localeCompare(b.name)),
-        []
+    []
     );
 
     const candidates = useMemo(() =>
@@ -57,7 +57,7 @@ export function buildPluginMenuEntries(includeEmpty = false) {
                 const name = p.name.toLowerCase();
                 return name.includes(lowerSearch);
             }),
-        [lowerSearch]
+    [lowerSearch]
     );
 
     return (

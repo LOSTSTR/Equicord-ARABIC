@@ -273,8 +273,8 @@ export default definePlugin({
             const hide = !this.keepSuppressedMessage(message.author.id) || (
                 message.interaction && !this.keepSuppressedMessage((message.interaction as any).user.id)
             ) || (
-                    prefixCMDReference && !this.keepSuppressedMessage(prefixCMDReference.author.id)
-                );
+                prefixCMDReference && !this.keepSuppressedMessage(prefixCMDReference.author.id)
+            );
             return { suppressed, hide };
         } catch (e) {
             new Logger("NoBlockedMessages").error("Failed to check if message is blocked or ignored:", e);

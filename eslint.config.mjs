@@ -87,6 +87,7 @@ export default defineConfig(
             "@stylistic/object-curly-spacing": ["error", "always"],
             "@stylistic/spaced-comment": ["error", "always", { "markers": ["!"] }],
             "@stylistic/no-extra-semi": "error",
+            "@stylistic/indent": ["error", 4, { "SwitchCase": 1 }],
             "no-multiple-empty-lines": ["error", { "max": 1, "maxBOF": 0, "maxEOF": 0 }],
 
             // TS Rules

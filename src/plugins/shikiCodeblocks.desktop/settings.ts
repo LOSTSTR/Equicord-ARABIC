@@ -20,8 +20,8 @@ import { definePluginSettings } from "@api/Settings";
 import { disableStyle, enableStyle } from "@api/Styles";
 import { parseUrl } from "@utils/misc";
 import { wordsFromPascal, wordsToTitle } from "@utils/text";
-import { OptionType } from "@utils/types";
 import { t } from "@utils/translation";
+import { OptionType } from "@utils/types";
 
 import { shiki } from "./api/shiki";
 import { themes } from "./api/themes";

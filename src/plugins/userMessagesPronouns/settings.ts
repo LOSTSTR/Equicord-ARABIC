@@ -17,8 +17,8 @@
 */
 
 import { definePluginSettings } from "@api/Settings";
-import { OptionType } from "@utils/types";
 import { t } from "@utils/translation";
+import { OptionType } from "@utils/types";
 
 export const enum PronounsFormat {
     Lowercase = "LOWERCASE",

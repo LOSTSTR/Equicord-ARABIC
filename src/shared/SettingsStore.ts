@@ -12,16 +12,16 @@ export const SYM_GET_RAW_TARGET = Symbol("SettingsStore.getRawTarget");
 // Resolves a possibly nested prop in the form of "some.nested.prop" to type of T.some.nested.prop
 type ResolvePropDeep<T, P> =
     P extends `${infer Pre}.*` ?
-    Pre extends keyof T
-    ? T[Pre][keyof T[Pre]]
-    : any
-    : P extends `${infer Pre}.${infer Suf}`
-    ? Pre extends keyof T
-    ? ResolvePropDeep<T[Pre], Suf>
-    : any
-    : P extends keyof T
-    ? T[P]
-    : any;
+        Pre extends keyof T
+            ? T[Pre][keyof T[Pre]]
+            : any
+        : P extends `${infer Pre}.${infer Suf}`
+            ? Pre extends keyof T
+                ? ResolvePropDeep<T[Pre], Suf>
+                : any
+            : P extends keyof T
+                ? T[P]
+                : any;
 
 interface SettingsStoreOptions {
     readOnly?: boolean;

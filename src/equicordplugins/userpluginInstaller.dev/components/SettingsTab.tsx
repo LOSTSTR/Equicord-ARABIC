@@ -251,61 +251,61 @@ function UserPluginsTab() {
                                             {Object.keys(
                                                 pluginsWithUpdates,
                                             ).includes(plugin.directory!) && (
-                                                    <Button
-                                                        size="small"
-                                                        onClick={async () => {
-                                                            try {
-                                                                await Native.updatePlugin(
+                                                <Button
+                                                    size="small"
+                                                    onClick={async () => {
+                                                        try {
+                                                            await Native.updatePlugin(
+                                                                plugin.directory!,
+                                                            );
+                                                            const oldPWU =
+                                                                userpluginInstaller.pluginsWithUpdates.value()
+                                                                    .plugins;
+                                                            oldPWU.splice(
+                                                                oldPWU.indexOf(
                                                                     plugin.directory!,
-                                                                );
-                                                                const oldPWU =
-                                                                    userpluginInstaller.pluginsWithUpdates.value()
-                                                                        .plugins;
-                                                                oldPWU.splice(
-                                                                    oldPWU.indexOf(
-                                                                        plugin.directory!,
-                                                                    ),
-                                                                    1,
-                                                                );
-                                                                userpluginInstaller.pluginsWithUpdates.value(
-                                                                    {
-                                                                        finished: true,
-                                                                        plugins: oldPWU,
-                                                                    },
-                                                                );
-                                                                Alerts.show({
-                                                                    title: "Done!",
-                                                                    body: `${plugin.name} has been updated. A ${plugin.usesNative ? "restart" : "refresh"} is needed to apply the update.`,
-                                                                    confirmText:
+                                                                ),
+                                                                1,
+                                                            );
+                                                            userpluginInstaller.pluginsWithUpdates.value(
+                                                                {
+                                                                    finished: true,
+                                                                    plugins: oldPWU,
+                                                                },
+                                                            );
+                                                            Alerts.show({
+                                                                title: "Done!",
+                                                                body: `${plugin.name} has been updated. A ${plugin.usesNative ? "restart" : "refresh"} is needed to apply the update.`,
+                                                                confirmText:
                                                                         plugin.usesNative
                                                                             ? "Restart"
                                                                             : "Refresh",
-                                                                    cancelText: "Later",
-                                                                    onConfirm() {
-                                                                        plugin.usesNative
-                                                                            ? relaunch()
-                                                                            : window.location.reload();
-                                                                    },
-                                                                });
-                                                            } catch (e: any) {
-                                                                if (
-                                                                    e
-                                                                        .toString()
-                                                                        .includes(
-                                                                            "silentStop",
-                                                                        )
-                                                                )
-                                                                    return;
-                                                                Alerts.show({
-                                                                    title: "Update error",
-                                                                    body: e.toString(),
-                                                                });
-                                                            }
-                                                        }}
-                                                    >
-                                                        Update
-                                                    </Button>
-                                                )}
+                                                                cancelText: "Later",
+                                                                onConfirm() {
+                                                                    plugin.usesNative
+                                                                        ? relaunch()
+                                                                        : window.location.reload();
+                                                                },
+                                                            });
+                                                        } catch (e: any) {
+                                                            if (
+                                                                e
+                                                                    .toString()
+                                                                    .includes(
+                                                                        "silentStop",
+                                                                    )
+                                                            )
+                                                                return;
+                                                            Alerts.show({
+                                                                title: "Update error",
+                                                                body: e.toString(),
+                                                            });
+                                                        }
+                                                    }}
+                                                >
+                                                    Update
+                                                </Button>
+                                            )}
                                             <Button
                                                 variant="secondary"
                                                 size="small"

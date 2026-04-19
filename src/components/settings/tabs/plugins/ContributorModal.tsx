@@ -79,22 +79,22 @@ function ContributorModal({ user }: { user: User; }) {
                     <HeadingPrimary className={cl("name")}>{user.username}</HeadingPrimary>
                 </div>
 
-            {plugins.length ? (
-                <Paragraph>
-                    <Translate
-                        i18nKey="vencord.settings.plugins.contributorModal.contributorInfo.plugins"
-                        variables={{ count: plugins.length }}>
-                        This person has {ContributedHyperLink} to some plugins!
-                    </Translate>
-                </Paragraph>
-            ) : (
-                <Paragraph >
-                    <Translate i18nKey="vencord.settings.plugins.contributorModal.contributorInfo.noPlugins">
-                        This person has not made any plugins. They likely {ContributedHyperLink}
-                        to Equicord in other ways!
-                    </Translate>
-                </Paragraph >
-            )}
+                {plugins.length ? (
+                    <Paragraph>
+                        <Translate
+                            i18nKey="vencord.settings.plugins.contributorModal.contributorInfo.plugins"
+                            variables={{ count: plugins.length }}>
+                            This person has {ContributedHyperLink} to some plugins!
+                        </Translate>
+                    </Paragraph>
+                ) : (
+                    <Paragraph >
+                        <Translate i18nKey="vencord.settings.plugins.contributorModal.contributorInfo.noPlugins">
+                            This person has not made any plugins. They likely {ContributedHyperLink}
+                            to Equicord in other ways!
+                        </Translate>
+                    </Paragraph >
+                )}
 
                 {!!plugins.length && (
                     <div className={cl("plugins")}>

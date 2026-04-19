@@ -34,7 +34,7 @@ const noDrag = {
 };
 
 const StickerPackMetadata = ({ meta, hoveredStickerPackId, setHoveredStickerPackId, refreshStickerPackMetas }:
-    { meta: StickerPackMeta, [key: string]: any; }
+{ meta: StickerPackMeta, [key: string]: any; }
 ) => {
     return (
         <div className="sticker-pack"

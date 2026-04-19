@@ -167,14 +167,14 @@ function GensokyoRadioSettings() {
         <>
             <SettingsSection name="" description="Discord rich presence for Gensokyo Radio. Just enable it and listen!" />
             <SettingsSection name="Refresh Interval" description="Refresh interval in seconds.">
-            <Slider
-                markers={[1, 2, 2.5, 3, 5, 10, 15]}
-                initialValue={value}
-                onValueChange={v => { setValue(v); settings.store.gr_refreshInterval = v; }}
-                onValueRender={v => `${v}s`}
-                stickToMarkers
-            />
-        </SettingsSection>
+                <Slider
+                    markers={[1, 2, 2.5, 3, 5, 10, 15]}
+                    initialValue={value}
+                    onValueChange={v => { setValue(v); settings.store.gr_refreshInterval = v; }}
+                    onValueRender={v => `${v}s`}
+                    stickToMarkers
+                />
+            </SettingsSection>
         </>
     );
 }
