@@ -67,6 +67,7 @@ const ReadAllButton = () => (
 export default definePlugin({
     name: "ReadAllNotificationsButton",
     description: t("vencord.readAllNotificationsButton.description"),
+    tags: ["Notifications", "Shortcuts"],
     authors: [Devs.kemo, EquicordDevs.KrystalSkull],
     dependencies: ["ServerListAPI"],
 

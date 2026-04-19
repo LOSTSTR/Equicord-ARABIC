@@ -13,6 +13,7 @@ export default definePlugin({
     name: "CtrlEnterSend",
     authors: [Devs.UlyssesZhan],
     description: t("vencord.ctrlEnterSend.description"),
+    tags: ["Shortcuts", "Chat"],
     settings: definePluginSettings({
         submitRule: {
             description: t("vencord.ctrlEnterSend.settings.submitRule"),

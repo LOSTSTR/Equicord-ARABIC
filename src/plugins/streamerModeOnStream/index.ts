@@ -17,8 +17,8 @@
 */
 
 import { Devs } from "@utils/constants";
-import definePlugin from "@utils/types";
 import { t } from "@utils/translation";
+import definePlugin from "@utils/types";
 import { FluxDispatcher, UserStore } from "@webpack/common";
 
 interface StreamEvent {
@@ -38,6 +38,7 @@ function toggleStreamerMode({ streamKey }: StreamEvent, value: boolean) {
 export default definePlugin({
     name: "StreamerModeOn",
     description: t("vencord.streamerModeOnStream.description"),
+    tags: ["Privacy", "Utility"],
     authors: [Devs.IcedMarina],
     flux: {
         STREAM_CREATE: d => toggleStreamerMode(d, true),

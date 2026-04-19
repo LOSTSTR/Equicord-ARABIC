@@ -167,6 +167,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "TypingIndicator",
     description: t("vencord.typingIndicator.description"),
+    tags: ["Notifications", "Appearance", "Servers"],
     authors: [Devs.Nuckyz, Devs.fawn, Devs.Sqaaakoi],
     isModified: true,
     settings,

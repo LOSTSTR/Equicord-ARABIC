@@ -7,6 +7,7 @@
 import "./style.css";
 
 import { Devs, EquicordDevs } from "@utils/constants";
+import { t } from "@utils/translation";
 import definePlugin from "@utils/types";
 import { FluxDispatcher } from "@webpack/common";
 
@@ -17,7 +18,6 @@ import { cache_collections, refreshCacheCollection, updateGif } from "./utils/co
 import { getFormat } from "./utils/getFormat";
 import { logger, stripPrefix } from "./utils/misc";
 import { batchRefreshAttachmentUrls, isCdnUrlExpired } from "./utils/refreshUrl";
-import { t } from "@utils/translation";
 
 let GIF_COLLECTION_PREFIX: string;
 let GIF_ITEM_PREFIX: string;
@@ -28,6 +28,7 @@ export default definePlugin({
     name: "GifCollections",
     description: t("equicord.gifCollections.description"),
     authors: [Devs.Aria, EquicordDevs.creations],
+    tags: ["Chat", "Emotes"],
     settings,
     contextMenus: {
         "message": addCollectionContextMenuPatch,
@@ -158,7 +159,7 @@ export default definePlugin({
                 oldTrendingCat = instance.props.trendingCategories;
             }
             if (settings.store.onlyShowCollections) {
-                instance.props.trendingCategories = [...this.sortedCollections(), ...instance.props.favorites];
+                instance.props.trendingCategories = this.sortedCollections();
             } else if (oldTrendingCat != null) {
                 instance.props.trendingCategories = [...this.sortedCollections(), ...oldTrendingCat];
             }

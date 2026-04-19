@@ -61,6 +61,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "NoReplyMention",
     description: t("vencord.noReplyMention.description"),
+    tags: ["Chat", "Notifications"],
     authors: [Devs.DustyAngel47, Devs.rae, Devs.pylix, Devs.outfoxxed],
     settings,
 

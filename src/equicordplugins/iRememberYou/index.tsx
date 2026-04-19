@@ -20,6 +20,7 @@ import DataUI from "./components/ui";
 export default definePlugin({
     name: "IRememberYou",
     description: t("equicord.iRememberYou.description"),
+    tags: ["Chat", "Servers"],
     authors: [EquicordDevs.zoodogood, EquicordDevs.keircn],
     dependencies: ["MessageEventsAPI"],
 

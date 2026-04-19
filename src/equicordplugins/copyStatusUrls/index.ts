@@ -24,6 +24,7 @@ const getMetadataFromApi: (activity: any, userId: string) => Promise<any> = find
 export default definePlugin({
     name: "CopyStatusUrls",
     description: t("equicord.copyStatusUrls.description"),
+    tags: ["Activity", "Utility"],
     authors: [Devs.sadan],
 
     patches: [

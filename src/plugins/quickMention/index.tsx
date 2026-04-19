@@ -42,6 +42,8 @@ export default definePlugin({
     name: "QuickMention",
     authors: [Devs.kemo],
     description: t("vencord.quickMention.description"),
+    dependencies: ["MessagePopoverAPI"],
+    tags: ["Chat", "Shortcuts"],
 
     messagePopoverButton: {
         icon: Icon,

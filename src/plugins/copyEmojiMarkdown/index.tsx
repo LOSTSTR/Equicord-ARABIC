@@ -52,6 +52,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "CopyEmojiMarkdown",
     description: t("vencord.copyEmojiMarkdown.description"),
+    tags: ["Emotes", "Utility"],
     authors: [Devs.HappyEnderman, Devs.Vishnya],
     settings,
 

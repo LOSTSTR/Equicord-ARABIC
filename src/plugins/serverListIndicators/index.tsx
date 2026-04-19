@@ -142,6 +142,7 @@ export const settings = definePluginSettings({
 export default definePlugin({
     name: "ServerListIndicators",
     description: t("vencord.serverListIndicators.description"),
+    tags: ["Servers", "Appearance"],
     authors: [Devs.dzshn, EquicordDevs.Panniku],
     dependencies: ["ServerListAPI"],
     settings,

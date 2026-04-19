@@ -11,6 +11,7 @@ import definePlugin from "@utils/types";
 export default definePlugin({
     name: "DisableCameras",
     description: t("equicord.disableCameras.description"),
+    tags: ["Appearance", "Customisation", "Media", "Privacy"],
     authors: [Devs.Joona],
     patches: [
         {

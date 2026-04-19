@@ -177,6 +177,8 @@ const devContextCallback: NavContextMenuPatchCallback = (children, { id }: { id:
 export default definePlugin({
     name: "ViewRaw",
     description: t("vencord.viewRaw.description"),
+    dependencies: ["MessagePopoverAPI"],
+    tags: ["Chat", "Developers"],
     authors: [Devs.KingFish, Devs.Ven, Devs.rad, Devs.ImLvna],
     settings,
 

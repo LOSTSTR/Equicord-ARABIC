@@ -86,6 +86,7 @@ export const settings = definePluginSettings({
 export default definePlugin({
     name: "SteamStatusSync",
     description: t("equicord.steamStatusSync.description"),
+    tags: ["Activity", "Appearance", "Customisation"],
     authors: [EquicordDevs.niko],
 
     settings,

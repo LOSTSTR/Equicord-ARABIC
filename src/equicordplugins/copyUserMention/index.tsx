@@ -49,6 +49,7 @@ export default definePlugin({
     name: "CopyUserMention",
     authors: [EquicordDevs.Cortex, Devs.castdrian],
     description: t("equicord.copyUserMention.description"),
+    tags: ["Chat", "Utility"],
     contextMenus: {
         "user-context": UserContextMenuPatch
     }

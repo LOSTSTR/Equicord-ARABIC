@@ -34,6 +34,7 @@ migratePluginSettings("AlwaysExpandRoles", "ShowAllRoles");
 export default definePlugin({
     name: "AlwaysExpandRoles",
     description: t("vencord.alwaysExpandRoles.description"),
+    tags: ["Appearance", "Roles"],
     authors: [Devs.surgedevs],
     isModified: true,
     settings,

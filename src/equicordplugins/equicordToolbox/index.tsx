@@ -78,11 +78,10 @@ migratePluginSettings("EquicordToolbox", "VencordToolbox");
 export default definePlugin({
     name: "EquicordToolbox",
     description: t("equicord.equicordToolbox.description"),
+    tags: ["Voice", "Accessibility"],
     authors: [Devs.Ven, Devs.AutumnVN],
     dependencies: ["HeaderBarAPI"],
-
     settings,
-
     headerBarButton: {
         icon: Icon,
         render: VencordPopoutButton,

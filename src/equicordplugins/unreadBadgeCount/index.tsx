@@ -34,6 +34,7 @@ export default definePlugin({
     name: "UnreadCountBadge",
     authors: [Devs.Joona],
     description: t("equicord.unreadBadgeCount.description"),
+    tags: ["Appearance", "Customisation", "Servers"],
     settings,
 
     patches: [

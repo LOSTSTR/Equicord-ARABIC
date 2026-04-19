@@ -25,6 +25,7 @@ export default definePlugin({
     name: "DontRoundMyTimestamps",
     authors: [Devs.Lexi],
     description: t("vencord.dontRoundMyTimestamps.description"),
+    tags: ["Appearance", "Utility"],
 
     start() {
         moment.relativeTimeRounding(Math.floor);

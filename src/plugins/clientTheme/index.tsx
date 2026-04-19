@@ -30,6 +30,7 @@ export default definePlugin({
     name: "ClientTheme",
     authors: [Devs.Nuckyz],
     description: t("vencord.clientTheme.themeColorDescription"),
+    tags: ["Appearance", "Customisation"],
     settings,
 
     startAt: StartAt.DOMContentLoaded,

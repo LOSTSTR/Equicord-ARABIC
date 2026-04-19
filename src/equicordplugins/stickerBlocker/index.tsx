@@ -131,6 +131,7 @@ function isStickerBlocked(name) {
 export default definePlugin({
     name: "StickerBlocker",
     description: t("equicord.stickerBlocker.description"),
+    tags: ["Chat", "Emotes", "Utility"],
     authors: [Devs.Samwich],
     patches: [
         {

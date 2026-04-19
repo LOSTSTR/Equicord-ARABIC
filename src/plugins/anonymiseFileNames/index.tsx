@@ -76,6 +76,8 @@ export default definePlugin({
     name: "AnonymiseFileNames",
     authors: [Devs.fawn],
     description: t("vencord.anonymiseFileNames.description"),
+    dependencies: ["CommandsAPI"],
+    tags: ["Privacy", "Utility"],
     isModified: true,
     settings,
 

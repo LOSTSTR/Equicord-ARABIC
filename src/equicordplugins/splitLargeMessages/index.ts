@@ -117,6 +117,8 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "SplitLargeMessages",
     description: t("equicord.splitLargeMessages.description"),
+    dependencies: ["MessageEventsAPI"],
+    tags: ["Appearance", "Customisation", "Chat"],
     authors: [EquicordDevs.Reycko],
     settings,
     onBeforeMessageSend: listener,

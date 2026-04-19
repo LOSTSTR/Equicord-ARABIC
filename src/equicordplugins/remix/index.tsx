@@ -72,6 +72,7 @@ export function sendRemix(blob: Blob) {
 export default definePlugin({
     name: "RemixRevived",
     description: t("equicord.remix.description"),
+    tags: ["Customisation", "Fun"],
     authors: [EquicordDevs.MrDiamond, EquicordDevs.meowabyte],
     contextMenus: {
         "channel-attach": UploadContextMenuPatch,

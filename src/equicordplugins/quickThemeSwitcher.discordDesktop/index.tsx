@@ -245,6 +245,7 @@ const handleThemeNamesChange = () => settings.store.autoRefresh && debouncedRefr
 export default definePlugin({
     name: "QuickThemeSwitcher",
     description: t("equicord.quickThemeSwitcher.description"),
+    tags: ["Appearance", "Utility"],
     authors: [Devs.prism],
     settings,
     startAt: StartAt.DOMContentLoaded,

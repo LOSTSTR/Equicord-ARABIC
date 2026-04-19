@@ -19,6 +19,7 @@ const PrivateChannelSortStore = findStoreLazy("PrivateChannelSortStore") as { ge
 export default definePlugin({
     name: "HomeTyping",
     description: t("equicord.homeTyping.description"),
+    tags: ["Chat"],
     authors: [Devs.Samwich],
     TypingIcon() {
         return <ThreeDots className={cl("dots")} dotRadius={3} themed={true} />;

@@ -210,6 +210,7 @@ const userPatch: NavContextMenuPatchCallback = (children, { user }) => {
 export default definePlugin({
     name: "FriendTags",
     description: t("equicord.friendTags.description"),
+    tags: ["Shortcuts"],
     authors: [Devs.Samwich],
     settings,
     contextMenus: {

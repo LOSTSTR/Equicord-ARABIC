@@ -171,6 +171,8 @@ const SendTimestampButton: ChatBarButtonFactory = ({ isAnyChat }) => {
 export default definePlugin({
     name: "SendTimestamps",
     description: t("vencord.sendTimestamps.description"),
+    dependencies: ["ChatInputButtonAPI", "MessagePopoverAPI"],
+    tags: ["Chat", "Commands"],
     authors: [Devs.Ven, Devs.Tyler, Devs.Grzesiek11],
     settings,
 

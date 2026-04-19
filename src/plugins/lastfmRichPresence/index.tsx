@@ -187,6 +187,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "LastFMRichPresence",
     description: t("vencord.lastfmRichPresence.description"),
+    tags: ["Activity", "Media"],
     authors: [Devs.dzshn, Devs.RuiNtD, Devs.blahajZip, Devs.archeruwu],
 
     settings,

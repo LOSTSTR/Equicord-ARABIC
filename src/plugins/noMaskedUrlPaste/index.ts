@@ -12,6 +12,7 @@ export default definePlugin({
     name: "NoMaskedUrlPaste",
     authors: [Devs.CatNoir],
     description: t("vencord.noMaskedUrlPaste.description"),
+    tags: ["Chat", "Utility"],
     patches: [
         {
             find: ".selection,preventEmojiSurrogates:",

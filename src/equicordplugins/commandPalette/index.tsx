@@ -203,6 +203,7 @@ export default definePlugin({
     name: "CommandPalette",
     description: t("equicord.commandPalette.description"),
     authors: [EquicordDevs.justjxke, EquicordDevs.Ethan],
+    tags: ["Appearance", "Customisation", "Commands", "Shortcuts"],
     settings,
     patches: [
         {

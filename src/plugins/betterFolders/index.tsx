@@ -255,9 +255,9 @@ const GRID_STYLE_NAME = "vc-betterFolders-sidebar-grid";
 export default definePlugin({
     name: "BetterFolders",
     description: t("vencord.betterFolders.description"),
+    tags: ["Organisation", "Servers", "Appearance"],
     authors: [Devs.juby, Devs.AutumnVN, Devs.Nuckyz],
     isModified: true,
-
     settings,
     start() {
         settings.store.nestedFolders = getNestedFolderMap();

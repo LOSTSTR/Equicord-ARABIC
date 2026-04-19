@@ -105,6 +105,7 @@ let original: typeof ChannelActions.selectVoiceChannel;
 export default definePlugin({
     name: "ExitSounds",
     description: t("equicord.exitSounds.description"),
+    tags: ["Fun", "Voice"],
     authors: [Devs.prism],
     dependencies: ["AudioPlayerAPI"],
     settings,

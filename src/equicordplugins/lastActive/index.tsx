@@ -136,6 +136,7 @@ export function LastActiveIcon() {
 export default definePlugin({
     name: "LastActive",
     description: t("equicord.lastActive.description"),
+    tags: ["Chat", "Utility"],
     authors: [EquicordDevs.Crxa],
     contextMenus: {
         "channel-context": ChannelContextMenuPatch,

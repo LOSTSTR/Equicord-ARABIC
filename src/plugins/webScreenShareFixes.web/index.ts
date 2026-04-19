@@ -5,13 +5,14 @@
  */
 
 import { Devs } from "@utils/constants";
-import definePlugin from "@utils/types";
 import { t } from "@utils/translation";
+import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "WebScreenShareFixes",
     authors: [Devs.Kaitlyn],
     description: t("vencord.webScreenShareFixes.description"),
+    tags: ["Voice"],
     enabledByDefault: true,
 
     patches: [

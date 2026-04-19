@@ -18,6 +18,7 @@ let updateFunc = (v: any) => { };
 export default definePlugin({
     name: "BetterBlockedUsers",
     description: t("equicord.betterBlockedUsers.description"),
+    tags: ["Appearance", "Shortcuts"],
     authors: [EquicordDevs.TheArmagan],
     patches: [
         {

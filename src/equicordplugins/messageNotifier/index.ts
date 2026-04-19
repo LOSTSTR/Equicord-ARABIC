@@ -39,6 +39,7 @@ export default definePlugin({
     authors: [EquicordDevs.cassie, EquicordDevs.mochienya],
     name: "MessageNotifier",
     description: t("equicord.messageNotifier.description"),
+    tags: ["Chat", "Notifications"],
     settings,
     flux: {
         MESSAGE_CREATE({ message, channelId, guildId }: MessageCreatePayload) {

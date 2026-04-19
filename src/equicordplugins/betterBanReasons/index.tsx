@@ -75,6 +75,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "BetterBanReasons",
     description: t("equicord.betterBanReasons.description"),
+    tags: ["Appearance", "Customisation"],
     authors: [Devs.Inbestigator],
     patches: [
         {

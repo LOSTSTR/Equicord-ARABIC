@@ -23,6 +23,7 @@ import definePlugin from "@utils/types";
 export default definePlugin({
     name: "NoF1",
     description: t("vencord.noF1.description"),
+    tags: ["Utility"],
     authors: [Devs.Cyn],
     patches: [
         {

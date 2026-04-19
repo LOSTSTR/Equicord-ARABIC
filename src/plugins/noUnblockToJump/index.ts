@@ -23,6 +23,7 @@ import definePlugin from "@utils/types";
 export default definePlugin({
     name: "NoUnblockToJump",
     description: t("vencord.noUnblockToJump.description"),
+    tags: ["Utility"],
     authors: [Devs.dzshn],
     patches: [
         {

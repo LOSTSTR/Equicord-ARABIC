@@ -319,6 +319,7 @@ export default definePlugin({
     name: "KeywordNotify",
     authors: [EquicordDevs.camila314, EquicordDevs.x3rt],
     description: t("equicord.keywordNotify.description"),
+    tags: ["Chat", "Notifications"],
     settings,
     patches: [
         {

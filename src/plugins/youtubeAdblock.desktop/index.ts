@@ -5,12 +5,13 @@
  */
 
 import { Devs } from "@utils/constants";
-import definePlugin from "@utils/types";
 import { t } from "@utils/translation";
+import definePlugin from "@utils/types";
 
 // The entire code of this plugin can be found in native.ts
 export default definePlugin({
     name: "YoutubeAdblock",
     description: t("vencord.youtubeAdblock.description"),
+    tags: ["Media", "Utility"],
     authors: [Devs.ImLvna, Devs.Ven],
 });

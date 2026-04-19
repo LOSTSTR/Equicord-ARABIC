@@ -45,6 +45,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "PartyMode",
     description: t("equicord.partyMode.description"),
+    tags: ["Fun"],
     authors: [Devs.UwUDev],
     reporterTestable: ReporterTestable.None,
     settings,

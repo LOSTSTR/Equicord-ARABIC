@@ -144,6 +144,7 @@ function getBadgesToApply() {
 export default definePlugin({
     name: "FriendshipRanks",
     description: t("equicord.friendshipRanks.description"),
+    tags: ["Friends"],
     authors: [Devs.Samwich],
     start() {
         getBadgesToApply().forEach(b => Badges.addProfileBadge(b));

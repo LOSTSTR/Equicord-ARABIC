@@ -143,7 +143,7 @@ function activeNowView(cards) {
 export default definePlugin({
     name: "ClientSideBlock",
     description: t("equicord.clientSideBlock.description"),
-    tags: ["blocked", "block", "hide", "hidden", "noblockedmessages"],
+    tags: ["Utility"],
     authors: [Devs.Samwich, EquicordDevs.KamiRu],
     settings,
     activeNowView,

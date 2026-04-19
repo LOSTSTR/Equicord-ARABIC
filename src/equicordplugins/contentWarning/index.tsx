@@ -153,6 +153,7 @@ export default definePlugin({
     name: "ContentWarning",
     authors: [EquicordDevs.camila314],
     description: t("equicord.contentWarning.description"),
+    tags: ["Appearance", "Utility"],
     settings,
     patches: [
         {

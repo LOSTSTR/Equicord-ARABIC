@@ -88,6 +88,7 @@ const expressionPickerPatch: NavContextMenuPatchCallback = (children, props: { t
 export default definePlugin({
     name: "CopyStickerLinks",
     description: t("vencord.copyStickerLinks.description"),
+    tags: ["Emotes", "Utility"],
     authors: [Devs.Ven, Devs.Byeoon],
     contextMenus: {
         "message": messageContextMenuPatch,

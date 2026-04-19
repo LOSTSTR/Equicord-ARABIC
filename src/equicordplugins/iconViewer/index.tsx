@@ -20,6 +20,7 @@ import { SettingsAbout } from "./components/Modals";
 export default definePlugin({
     name: "IconViewer",
     description: t("equicord.iconViewer.description"),
+    tags: ["Developers"],
     authors: [EquicordDevs.iamme],
     dependencies: ["Settings"],
     startAt: StartAt.WebpackReady,

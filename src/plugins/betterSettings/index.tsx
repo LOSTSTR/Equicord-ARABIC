@@ -79,6 +79,7 @@ export default definePlugin({
     name: "BetterSettings",
     description: t("vencord.betterSettings.description"),
     authors: [Devs.Kyuuhachi],
+    tags: ["Appearance", "Customisation", "Organisation"],
     settings,
 
     start() {

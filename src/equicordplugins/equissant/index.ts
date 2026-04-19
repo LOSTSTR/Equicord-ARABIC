@@ -34,6 +34,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "Equissant",
     description: t("equicord.equissant.description"),
+    tags: ["Fun"],
     authors: [EquicordDevs.SomeAspy, Devs.thororen],
     dependencies: ["AudioPlayerAPI"],
     settings,

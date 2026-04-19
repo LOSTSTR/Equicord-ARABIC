@@ -11,8 +11,7 @@ import ErrorBoundary from "@components/ErrorBoundary";
 import { EquicordDevs } from "@utils/constants";
 import { t } from "@utils/translation";
 import definePlugin from "@utils/types";
-import { FluxDispatcher } from "@webpack/common";
-import { Tooltip } from "webpack/common/components";
+import { FluxDispatcher, Tooltip } from "@webpack/common";
 
 function SearchIcon() {
     return (
@@ -30,6 +29,7 @@ export default definePlugin({
     name: "ServerSearch",
     authors: [EquicordDevs.camila314],
     description: t("equicord.serverSearch.description"),
+    tags: ["Shortcuts", "Servers"],
 
     renderButton() {
         return <ErrorBoundary noop>

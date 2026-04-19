@@ -28,6 +28,7 @@ export default definePlugin({
     authors: [EquicordDevs.Hen],
     name: "MessageColors",
     description: t("equicord.messageColors.description"),
+    tags: ["Appearance", "Chat"],
     settings,
     patches: [
         // Create a new markdown rule, so it parses just like any other features

@@ -23,6 +23,7 @@ const CheckMarkIcon = () => {
 export default definePlugin({
     name: "CopyFileContents",
     description: t("vencord.copyFileContents.description"),
+    tags: ["Utility"],
     authors: [Devs.Obsidian, Devs.Nuckyz],
     patches: [
         {

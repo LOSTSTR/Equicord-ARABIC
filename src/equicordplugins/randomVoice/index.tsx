@@ -672,6 +672,8 @@ function renderOperationGroup({
 export default definePlugin({
     name: "RandomVoice",
     description: t("equicord.randomVoice.description"),
+    dependencies: ["UserAreaAPI"],
+    tags: ["Fun", "Voice"],
     authors: [EquicordDevs.xijexo, EquicordDevs.omaw, Devs.thororen],
     settings,
 

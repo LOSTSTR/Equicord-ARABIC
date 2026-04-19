@@ -156,8 +156,9 @@ const imageContextMenuPatch: NavContextMenuPatchCallback = (children, props) => 
 export default definePlugin({
     name: "ImageZoom",
     description: t("vencord.imageZoom.description"),
+    tags: ["Media", "Utility"],
     authors: [Devs.Aria],
-    tags: ["ImageUtilities"],
+    searchTerms: ["ImageUtilities"],
 
     managedStyle,
 

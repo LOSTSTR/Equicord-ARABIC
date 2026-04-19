@@ -92,6 +92,7 @@ export default definePlugin({
     name: "Moyai",
     authors: [Devs.Megu, Devs.Nuckyz],
     description: t("equicord.moyai.description"),
+    tags: ["Fun"],
     settings,
 
     flux: {

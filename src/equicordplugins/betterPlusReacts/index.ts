@@ -13,6 +13,7 @@ export default definePlugin({
     name: "BetterPlusReacts",
     authors: [Devs.Joona],
     description: t("equicord.betterPlusReacts.description"),
+    tags: ["Chat", "Emotes"],
     patches: [
         {
             find: ".SLASH_COMMAND_USED,",

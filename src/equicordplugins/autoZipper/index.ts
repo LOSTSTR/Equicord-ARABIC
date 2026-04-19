@@ -210,6 +210,7 @@ function handlePaste(event: ClipboardEvent) {
 export default definePlugin({
     name: "AutoZipper",
     description: t("equicord.autoZipper.description"),
+    tags: ["Chat", "Organisation"],
     authors: [EquicordDevs.SSnowly],
     settings,
 

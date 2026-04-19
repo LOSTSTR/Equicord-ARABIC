@@ -51,9 +51,10 @@ export const settings = definePluginSettings({
 export default definePlugin({
     name: "ServerInfo",
     description: t("vencord.serverInfo.description"),
+    tags: ["Servers", "Utility"],
     authors: [Devs.Ven, Devs.Nuckyz, EquicordDevs.Z1xus],
     dependencies: ["DynamicImageModalAPI"],
-    tags: ["guild", "info", "ServerProfile"],
+    searchTerms: ["guild", "info", "ServerProfile"],
     isModified: true,
     contextMenus: {
         "guild-context": Patch,

@@ -31,6 +31,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "OverrideForumDefaults",
     description: t("vencord.overrideForumDefaults.description"),
+    tags: ["Servers", "Organisation", "Customisation"],
     authors: [Devs.Inbestigator],
     patches: [
         {

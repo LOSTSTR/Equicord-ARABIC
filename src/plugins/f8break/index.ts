@@ -23,6 +23,7 @@ import definePlugin from "@utils/types";
 export default definePlugin({
     name: "F8Break",
     description: t("vencord.f8break.description"),
+    tags: ["Developers", "Shortcuts"],
     authors: [Devs.lewisakura],
 
     start() {

@@ -11,6 +11,7 @@ import definePlugin from "@utils/types";
 export default definePlugin({
     name: "CleanerChannelGroups",
     description: t("equicord.cleanerChannelGroups.description"),
+    tags: ["Appearance", "Customisation", "Chat", "Organisation", "Servers"],
     authors: [EquicordDevs.justjxke],
     patches: [
         {

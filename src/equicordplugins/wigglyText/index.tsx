@@ -113,6 +113,7 @@ const updateStyles = () => {
 export default definePlugin({
     name: "WigglyText",
     description: t("equicord.wigglyText.description"),
+    tags: ["Appearance", "Customisation", "Fun"],
     authors: [EquicordDevs.nexpid],
     settings,
     settingsAboutComponent: () => (

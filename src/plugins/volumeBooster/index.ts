@@ -18,8 +18,8 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
-import definePlugin, { makeRange, OptionType } from "@utils/types";
 import { t } from "@utils/translation";
+import definePlugin, { makeRange, OptionType } from "@utils/types";
 
 const settings = definePluginSettings({
     multiplier: {
@@ -52,6 +52,7 @@ export default definePlugin({
     name: "VolumeBooster",
     authors: [Devs.Nuckyz, Devs.sadan],
     description: t("vencord.volumeBooster.description"),
+    tags: ["Voice", "Utility"],
     settings,
 
     patches: [

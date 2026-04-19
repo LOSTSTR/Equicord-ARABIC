@@ -16,6 +16,7 @@ let recoder: MediaRecorder;
 export default definePlugin({
     name: "ScreenRecorder",
     description: t("equicord.screenRecorder.description"),
+    tags: ["Chat"],
     authors: [Devs.AutumnVN],
     contextMenus: {
         "channel-attach": startRecording
@@ -55,7 +56,7 @@ function stopRecording(children, props) {
             }
             action={() => {
                 recoder.addEventListener("dataavailable", e => {
-                    const file = new File([e.data], "watch if cute.webm", { type: "video/webm" });
+                    const file = new File([e.data], "recording.webm", { type: "video/webm" });
                     UploadHandler.promptToUpload([file], props.channel, 0);
                 });
                 recoder.stop();

@@ -6,8 +6,8 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
-import definePlugin, { makeRange, OptionType } from "@utils/types";
 import { t } from "@utils/translation";
+import definePlugin, { makeRange, OptionType } from "@utils/types";
 
 const settings = definePluginSettings({
     zoomMultiplier: {
@@ -21,6 +21,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "UnlockedAvatarZoom",
     description: t("vencord.unlockedAvatarZoom.description"),
+    tags: ["Media", "Utility"],
     authors: [Devs.nakoyasha],
     settings,
     patches: [

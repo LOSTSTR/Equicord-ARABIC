@@ -71,6 +71,7 @@ export function containsBlockedKeywords(message: Message) {
 export default definePlugin({
     name: "BlockKeywords",
     description: t("equicord.blockKeywords.description"),
+    tags: ["Appearance", "Customisation", "Privacy"],
     authors: [EquicordDevs.catcraft],
     patches: [
         {

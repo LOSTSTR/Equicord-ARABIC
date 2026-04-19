@@ -75,6 +75,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "FastDeleteChannels",
     description: t("equicord.fastDeleteChannels.description"),
+    tags: ["Servers", "Utility"],
     authors: [Devs.thororen],
     settings,
     patches: [

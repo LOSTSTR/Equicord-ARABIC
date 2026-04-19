@@ -5,12 +5,13 @@
  */
 
 import { Devs } from "@utils/constants";
-import definePlugin from "@utils/types";
 import { t } from "@utils/translation";
+import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "StickerPaste",
     description: t("vencord.stickerPaste.description"),
+    tags: ["Emotes", "Chat"],
     authors: [Devs.ImBanana],
 
     patches: [

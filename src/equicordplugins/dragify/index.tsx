@@ -150,13 +150,14 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "Dragify",
     description: t("equicord.dragify.description"),
+    tags: ["Chat", "Servers", "Utility", "Voice"],
     authors: [EquicordDevs.justjxke],
     settings,
 
     patches: [
         // Voice user rows (voice channel sidebar list)
         {
-            find: '"system:click_outside","user:escape"',
+            find: ".VOICE_USER],shouldShow:",
             replacement: {
                 match: /(?<=GuildChannelUserContextMenu.{0,150})"data-dnd-name":\i/,
                 replace: "\"data-dragify-user\":!0,\"data-user-id\":arguments[0].user?.id,draggable:!0,onDragStart:e=>$self.onUserDragStart(e,arguments[0].user),$&"

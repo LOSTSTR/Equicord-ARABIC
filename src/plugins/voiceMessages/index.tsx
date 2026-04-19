@@ -280,8 +280,8 @@ export default definePlugin({
     name: "VoiceMessages",
     description: t("vencord.voiceMessages.description"),
     authors: [Devs.Ven, Devs.Vap, Devs.Nickyux, EquicordDevs.Z1xus, Devs.prism],
+    tags: ["Voice"],
     settings,
-
     contextMenus: {
         "channel-attach": ctxMenuPatch
     }

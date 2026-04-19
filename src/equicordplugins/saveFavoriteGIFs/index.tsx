@@ -116,6 +116,8 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "SaveFavoriteGIFs",
     description: t("equicord.saveFavoriteGIFs.description"),
+    dependencies: ["CommandsAPI"],
+    tags: ["Emotes", "Utility"],
     authors: [Devs.thororen],
     settings,
     commands: [

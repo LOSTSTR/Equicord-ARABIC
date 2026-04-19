@@ -44,6 +44,7 @@ let previousCache: PreviousChannel | undefined;
 export default definePlugin({
     name: "KeepCurrentChannel",
     description: t("vencord.keepCurrentChannel.description"),
+    tags: ["Utility", "Organisation"],
     authors: [Devs.Nuckyz],
 
     patches: [

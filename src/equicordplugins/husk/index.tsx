@@ -100,6 +100,8 @@ function getEmojiIdThatShouldBeUsed(guildId: string) {
 export default definePlugin({
     name: "Husk",
     description: t("equicord.husk.description"),
+    dependencies: ["MessagePopoverAPI"],
+    tags: ["Emotes", "Fun"],
     authors: [Devs.nin0dev],
     settings,
     messagePopoverButton: {

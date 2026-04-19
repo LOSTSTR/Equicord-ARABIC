@@ -132,6 +132,7 @@ migratePluginSettings("ReplaceGoogleSearch", "Search");
 export default definePlugin({
     name: "ReplaceGoogleSearch",
     description: t("vencord.replaceGoogleSearch.description"),
+    tags: ["Utility", "Customisation"],
     authors: [Devs.Moxxie, Devs.Ethan],
 
     settings,

@@ -21,6 +21,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "BetterGifPicker",
     description: t("vencord.betterGifPicker.description"),
+    tags: ["Emotes", "Customisation"],
     authors: [Devs.Samwich, EquicordDevs.justjxke],
     isModified: true,
     settings,

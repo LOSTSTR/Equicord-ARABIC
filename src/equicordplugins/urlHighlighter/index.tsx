@@ -122,6 +122,7 @@ function getMatchingPattern(url: string): PatternEntry | null {
 export default definePlugin({
     name: "UrlHighlighter",
     description: t("equicord.urlHighlighter.description"),
+    tags: ["Appearance", "Customisation"],
     authors: [Devs.prism],
     settings,
 

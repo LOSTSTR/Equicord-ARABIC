@@ -147,6 +147,8 @@ function disabledIcon() {
 export default definePlugin({
     name: "Ingtoninator",
     description: t("equicord.ingtoninator.description"),
+    dependencies: ["ChatInputButtonAPI"],
+    tags: ["Fun"],
     authors: [EquicordDevs.zyqunix, EquicordDevs.BioTomateDE],
     settings,
     chatBarButton: {

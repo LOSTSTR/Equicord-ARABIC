@@ -94,6 +94,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "IgnoreCalls",
     description: t("equicord.ignoreCalls.description"),
+    tags: ["Voice"],
     authors: [EquicordDevs.TheArmagan, Devs.thororen],
     settings,
     patches: [

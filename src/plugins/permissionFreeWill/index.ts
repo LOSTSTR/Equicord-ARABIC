@@ -28,6 +28,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "PermissionFreeWill",
     description: t("vencord.permissionFreeWill.description"),
+    tags: ["Servers", "Roles"],
     authors: [Devs.lewisakura],
 
     patches: [

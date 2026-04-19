@@ -46,6 +46,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "InviteDefaults",
     description: t("equicord.inviteDefaults.description"),
+    tags: ["Servers"],
     authors: [EquicordDevs.VillainsRule],
     settings,
     patches: [

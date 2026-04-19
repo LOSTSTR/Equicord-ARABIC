@@ -35,7 +35,8 @@ export default definePlugin({
     description: t("equicord.musicControls.description"),
     authors: [Devs.Ven, Devs.afn, Devs.KraXen72, Devs.Av32000, Devs.nin0dev, Devs.thororen, EquicordDevs.vmohammad, Devs.Joona],
     settings,
-    tags: [
+    tags: ["Media", "Activity"],
+    searchTerms: [
         // Spotify
         "Spotify",
         "SpotifyControls",

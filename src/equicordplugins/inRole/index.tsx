@@ -35,8 +35,9 @@ function getMembersInRole(roleId: string, guildId: string) {
 export default definePlugin({
     name: "InRole",
     description: t("equicord.inRole.description"),
+    tags: ["Commands", "Roles"],
     authors: [Devs.nin0dev],
-    dependencies: ["UserSettingsAPI"],
+    dependencies: ["UserSettingsAPI", "CommandsAPI"],
     start() {
         DeveloperMode.updateSetting(true);
     },

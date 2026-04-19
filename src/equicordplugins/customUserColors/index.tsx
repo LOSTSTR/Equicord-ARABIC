@@ -101,6 +101,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "CustomUserColors",
     description: t("equicord.customUserColors.description"),
+    tags: ["Appearance", "Customisation", "Chat"],
     authors: [EquicordDevs.mochienya],
     contextMenus: {
         "user-context": userContextMenuPatch,

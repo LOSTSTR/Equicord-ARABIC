@@ -6,8 +6,8 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
-import definePlugin, { OptionType } from "@utils/types";
 import { t } from "@utils/translation";
+import definePlugin, { OptionType } from "@utils/types";
 import { OverridePremiumTypeStore } from "@webpack/common";
 
 export const settings = definePluginSettings({
@@ -38,6 +38,7 @@ export const settings = definePluginSettings({
 export default definePlugin({
     name: "SuperReactionTweaks",
     description: t("vencord.superReactionTweaks.description"),
+    tags: ["Reactions", "Emotes"],
     authors: [Devs.FieryFlames, Devs.ant0n],
     patches: [
         {

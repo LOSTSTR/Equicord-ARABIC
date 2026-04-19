@@ -34,6 +34,7 @@ export default definePlugin({
     name: "DragFavoriteEmotes",
     authors: [EquicordDevs.PWall],
     description: t("equicord.dragFavoriteEmotes.description"),
+    tags: ["Customisation", "Chat", "Emotes"],
     patches: [
         {
             find: "#{intl::EMOJI_FAVORITE_TOOLTIP}",

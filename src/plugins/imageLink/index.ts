@@ -5,12 +5,13 @@
  */
 
 import { Devs } from "@utils/constants";
-import definePlugin from "@utils/types";
 import { t } from "@utils/translation";
+import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "ImageLink",
     description: t("vencord.imageLink.description"),
+    tags: ["Media", "Appearance"],
     authors: [Devs.Kyuuhachi, Devs.Sqaaakoi],
 
     patches: [

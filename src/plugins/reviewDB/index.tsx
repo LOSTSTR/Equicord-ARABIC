@@ -58,6 +58,8 @@ const userContextPatch: NavContextMenuPatchCallback = (children, { user }: { use
 export default definePlugin({
     name: "ReviewDB",
     description: t("vencord.reviewDB.description"),
+    dependencies: ["ProfileCollectionsAPI"],
+    tags: ["Friends", "Servers"],
     authors: [Devs.mantikafasi, Devs.Ven],
     isModified: true,
 

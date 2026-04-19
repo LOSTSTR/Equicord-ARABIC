@@ -51,6 +51,8 @@ interface RuleSet {
 export default definePlugin({
     name: "ClearURLs",
     description: t("vencord.clearURLs.description"),
+    dependencies: ["MessageEventsAPI"],
+    tags: ["Privacy", "Utility"],
     authors: [Devs.adryd, Devs.thororen],
 
     rules: [] as RuleSet[],

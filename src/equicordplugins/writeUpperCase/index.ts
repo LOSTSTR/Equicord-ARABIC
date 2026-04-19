@@ -38,6 +38,7 @@ const presendObject: MessageSendListener = (_, msg) => {
 export default definePlugin({
     name: "WriteUpperCase",
     description: t("equicord.writeUpperCase.description"),
+    tags: ["Appearance", "Customisation", "Chat"],
     authors: [Devs.Samwich, EquicordDevs.KrystalSkull],
     settings,
 

@@ -171,6 +171,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "Dearrow",
     description: t("vencord.dearrow.description"),
+    tags: ["Media", "Utility"],
     authors: [Devs.Ven],
     settings,
 

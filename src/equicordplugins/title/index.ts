@@ -30,6 +30,7 @@ function setTitle(v: string) {
 export default definePlugin({
     name: "Title",
     description: t("equicord.title.description"),
+    tags: ["Customisation"],
     authors: [Devs.Kyuuhachi],
     settings,
 

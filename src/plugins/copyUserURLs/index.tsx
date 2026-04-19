@@ -48,6 +48,7 @@ export default definePlugin({
     name: "CopyUserURLs",
     authors: [Devs.castdrian],
     description: t("vencord.copyUserURLs.description"),
+    tags: ["Utility", "Friends"],
     contextMenus: {
         "user-context": UserContextMenuPatch
     }

@@ -6,8 +6,8 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
-import definePlugin, { OptionType } from "@utils/types";
 import { t } from "@utils/translation";
+import definePlugin, { OptionType } from "@utils/types";
 
 const settings = definePluginSettings({
     onlySnow: {
@@ -21,6 +21,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "SecretRingToneEnabler",
     description: t("vencord.secretRingTone.description"),
+    tags: ["Notifications", "Fun"],
     authors: [Devs.AndrewDLO, Devs.FieryFlames, Devs.RamziAH],
     settings,
     patches: [

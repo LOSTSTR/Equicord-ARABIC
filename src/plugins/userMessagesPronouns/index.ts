@@ -18,8 +18,8 @@
 
 import { migratePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
-import definePlugin from "@utils/types";
 import { t } from "@utils/translation";
+import definePlugin from "@utils/types";
 
 import { CompactPronounsChatComponentWrapper, PronounsChatComponentWrapper } from "./PronounsChatComponent";
 import { settings } from "./settings";
@@ -29,6 +29,7 @@ export default definePlugin({
     name: "UserMessagesPronouns",
     authors: [Devs.Tyman, Devs.TheKodeToad, Devs.Ven, Devs.Elvyra],
     description: t("vencord.userMessagesPronouns.description"),
+    tags: ["Chat", "Appearance"],
     settings,
 
     patches: [

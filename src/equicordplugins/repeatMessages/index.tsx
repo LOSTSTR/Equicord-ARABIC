@@ -133,6 +133,8 @@ migratePluginSettings("RepeatMessages", "RepeatMessage");
 export default definePlugin({
     name: "RepeatMessages",
     description: t("equicord.repeatMessages.description"),
+    dependencies: ["MessagePopoverAPI"],
+    tags: ["Chat"],
     authors: [EquicordDevs.Tolgchu, Devs.thororen],
     contextMenus: {
         "message": messageCtxPatch

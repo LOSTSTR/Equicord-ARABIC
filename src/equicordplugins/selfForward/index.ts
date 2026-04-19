@@ -11,6 +11,7 @@ import definePlugin from "@utils/types";
 export default definePlugin({
     name: "SelfForward",
     description: t("equicord.selfForward.description"),
+    tags: ["Utility"],
     authors: [EquicordDevs.VillainsRule],
     patches: [
         {

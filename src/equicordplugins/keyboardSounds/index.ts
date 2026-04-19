@@ -127,6 +127,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "KeyboardSounds",
     description: t("equicord.keyboardSounds.description"),
+    tags: ["Fun"],
     authors: [Devs.HypedDomi, EquicordDevs.Etorix],
     dependencies: ["AudioPlayerAPI"],
     settings,

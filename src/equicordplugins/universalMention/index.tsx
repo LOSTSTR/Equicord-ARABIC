@@ -40,6 +40,7 @@ export default definePlugin({
     name: "UniversalMention",
     authors: [EquicordDevs.justjxke],
     description: t("equicord.universalMention.description"),
+    tags: ["Chat", "Servers", "Utility"],
     settings,
     settingsAboutComponent: () => (
         <Notice.Warning>

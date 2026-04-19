@@ -240,6 +240,8 @@ function shouldShowActivity(lastMessage: Message | undefined, hasActivity: boole
 export default definePlugin({
     name: "MessagePeek",
     description: t("equicord.messagePeek.description"),
+    dependencies: ["MemberListDecoratorsAPI"],
+    tags: ["Appearance", "Chat"],
     authors: [Devs.prism, EquicordDevs.justjxke],
     settings,
     patches: [

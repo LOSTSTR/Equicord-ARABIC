@@ -27,6 +27,8 @@ const FriendInvites = findByPropsLazy("createFriendInvite");
 export default definePlugin({
     name: "FriendInvites",
     description: t("vencord.friendInvites.description"),
+    dependencies: ["CommandsAPI"],
+    tags: ["Friends", "Commands"],
     authors: [Devs.afn, Devs.Dziurwa],
     commands: [
         {

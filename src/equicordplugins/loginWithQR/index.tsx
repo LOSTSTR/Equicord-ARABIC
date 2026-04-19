@@ -43,6 +43,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "LoginWithQR",
     description: t("equicord.loginWithQR.description"),
+    tags: ["Utility"],
     authors: [EquicordDevs.nexpid],
 
     settings,

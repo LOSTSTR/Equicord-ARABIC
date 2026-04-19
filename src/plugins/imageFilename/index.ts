@@ -6,8 +6,8 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
-import definePlugin, { OptionType } from "@utils/types";
 import { t } from "@utils/translation";
+import definePlugin, { OptionType } from "@utils/types";
 
 const ImageExtensionRe = /\.(png|jpg|jpeg|gif|webp|avif)$/i;
 const GifHostRegex = /^(.+?\.)?(tenor|giphy|imgur)\.com$/i;
@@ -24,6 +24,7 @@ export default definePlugin({
     name: "ImageFilename",
     authors: [Devs.Ven],
     description: t("vencord.imageFilename.description"),
+    tags: ["Media", "Utility"],
     settings,
 
     patches: [

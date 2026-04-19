@@ -89,6 +89,8 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "SpotifyActivityToggle",
     description: t("equicord.spotifyActivityToggle.description"),
+    dependencies: ["UserAreaAPI"],
+    tags: ["Activity", "Utility"],
     authors: [Devs.thororen],
     settings,
 

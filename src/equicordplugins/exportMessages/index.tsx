@@ -130,6 +130,7 @@ function getUsernames(contacts: ContactsList[], type: number): string[] {
 export default definePlugin({
     name: "ExportMessages",
     description: t("equicord.exportMessages.description"),
+    tags: ["Chat", "Utility"],
     authors: [EquicordDevs.veygax, EquicordDevs.dat_insanity],
     settings,
     contextMenus: {

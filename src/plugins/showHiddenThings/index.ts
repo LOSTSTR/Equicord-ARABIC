@@ -19,8 +19,8 @@
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
 import { Logger } from "@utils/Logger";
-import definePlugin, { OptionType, PluginSettingDef } from "@utils/types";
 import { t } from "@utils/translation";
+import definePlugin, { OptionType, PluginSettingDef } from "@utils/types";
 import { GuildMember, Role } from "@vencord/discord-types";
 
 const opt = (description: string) => ({
@@ -38,8 +38,8 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "ShowHiddenThings",
-    tags: ["ShowTimeouts", "ShowInvitesPaused", "ShowModView", "DisableDiscoveryFilters"],
     description: t("vencord.showHiddenThings.description"),
+    tags: ["Servers", "Utility"],
     authors: [Devs.Dolfies],
     settings,
 

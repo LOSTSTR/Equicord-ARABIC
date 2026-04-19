@@ -90,6 +90,7 @@ export const userContextPatch: NavContextMenuPatchCallback = (children, { user }
 export default definePlugin({
     name: "BiggerStreamPreview",
     description: t("vencord.biggerStreamPreview.description"),
+    tags: ["Media", "Appearance"],
     authors: [Devs.phil],
     contextMenus: {
         "user-context": userContextPatch,

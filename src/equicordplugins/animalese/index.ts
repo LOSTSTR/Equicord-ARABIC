@@ -194,6 +194,7 @@ async function playSound(buffer: AudioBuffer, volume: number) {
 export default definePlugin({
     name: "Animalese",
     description: t("equicord.animalese.description"),
+    tags: ["Customisation", "Fun"],
     authors: [EquicordDevs.ryanamay, EquicordDevs.Mocha],
     settings,
 

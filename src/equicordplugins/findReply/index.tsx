@@ -90,6 +90,8 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "FindReply",
     description: t("equicord.findReply.description"),
+    dependencies: ["MessagePopoverAPI"],
+    tags: ["Chat", "Shortcuts"],
     authors: [Devs.newwares],
     settings,
     messagePopoverButton: {

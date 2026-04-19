@@ -83,6 +83,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "WhosWatching",
     description: t("equicord.whosWatching.description"),
+    tags: ["Activity"],
     authors: [EquicordDevs.Fres, Devs.thororen],
     settings,
     patches: [

@@ -63,6 +63,7 @@ export const cl = classNameFactory("vc-membercount-");
 export default definePlugin({
     name: "MemberCount",
     description: t("vencord.memberCount.description"),
+    tags: ["Servers", "Utility"],
     authors: [Devs.Ven, Devs.Commandtechno, Devs.Apexo],
     settings,
 

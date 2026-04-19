@@ -67,7 +67,8 @@ export default definePlugin({
     name: "TalkInReverse",
     authors: [EquicordDevs.Tolgchu],
     description: t("equicord.talkInReverse.description"),
-    dependencies: ["MessageEventsAPI"],
+    dependencies: ["MessageEventsAPI", "ChatInputButtonAPI"],
+    tags: ["Chat", "Fun"],
     chatBarButton: {
         icon: ReverseMessageIcon,
         render: ReverseMessageToggle

@@ -25,6 +25,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "PictureInPicture",
     description: t("vencord.pictureInPicture.description"),
+    tags: ["Media", "Utility"],
     authors: [Devs.Lumap],
     settings,
     patches: [

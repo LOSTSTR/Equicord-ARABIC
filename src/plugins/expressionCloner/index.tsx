@@ -233,7 +233,7 @@ function CloneModal({ data }: { data: Sticker | Emoji; }) {
         <>
             <Heading className={Margins.top20}>{t("vencord.expressionCloner.customName")}</Heading>
             <CheckedTextInput
-                value={name}
+                initialValue={name}
                 onChange={v => {
                     data.name = v;
                     setName(v);
@@ -412,7 +412,7 @@ migratePluginSettings("ExpressionCloner", "EmoteCloner");
 export default definePlugin({
     name: "ExpressionCloner",
     description: t("vencord.expressionCloner.description"),
-    tags: ["StickerCloner", "EmoteCloner", "EmojiCloner"],
+    tags: ["Emotes", "Servers"],
     authors: [Devs.Ven, Devs.Nuckyz],
     contextMenus: {
         "message": messageContextMenuPatch,

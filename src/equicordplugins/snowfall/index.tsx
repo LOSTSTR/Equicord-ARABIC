@@ -164,7 +164,7 @@ class CopleSnow {
 
     private static readonly transitionEndEvent =
         { WebkitTransition: "webkitTransitionEnd", OTransition: "oTransitionEnd", Moztransition: "transitionend", transition: "transitionend" }[
-        this.cssPrefixedNames.transition ?? "transition"
+            this.cssPrefixedNames.transition ?? "transition"
         ] ?? "transitionend";
 
     private static random(min: number, max: number, deviation?: number): number {
@@ -452,6 +452,7 @@ let container: HTMLDivElement | null = null;
 export default definePlugin({
     name: "Snowfall",
     description: t("equicord.snowfall.description"),
+    tags: ["Appearance"],
     authors: [EquicordDevs.ZcraftElite, EquicordDevs.square],
 
     settingsAboutComponent: () => (

@@ -44,6 +44,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "BlurNSFW",
     description: t("vencord.blurNsfw.description"),
+    tags: ["Privacy", "Appearance"],
     authors: [Devs.Ven],
     isModified: true,
     settings,

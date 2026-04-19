@@ -55,6 +55,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "USRBG",
     description: t("vencord.usrbg.description"),
+    tags: ["Appearance", "Customisation"],
     authors: [Devs.AutumnVN, Devs.katlyn, Devs.pylix, Devs.TheKodeToad],
     settings,
     patches: [

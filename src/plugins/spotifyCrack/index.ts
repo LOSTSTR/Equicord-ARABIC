@@ -18,8 +18,8 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
-import definePlugin, { OptionType } from "@utils/types";
 import { t } from "@utils/translation";
+import definePlugin, { OptionType } from "@utils/types";
 
 const settings = definePluginSettings({
     noSpotifyAutoPause: {
@@ -39,6 +39,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "SpotifyCrack",
     description: t("vencord.spotifyCrack.description"),
+    tags: ["Media", "Utility"],
     authors: [Devs.Cyn, Devs.Nuckyz],
     settings,
 

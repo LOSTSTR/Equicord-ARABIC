@@ -122,6 +122,7 @@ const MessageMenuPatch: NavContextMenuPatchCallback = (children, { message }: { 
 export default definePlugin({
     name: "JumpTo",
     description: t("equicord.jumpTo.description"),
+    tags: ["Chat", "Utility"],
     authors: [Devs.Samwich, Devs.thororen],
     contextMenus: {
         "channel-context": ChannelMenuPatch,

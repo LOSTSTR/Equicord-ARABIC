@@ -25,6 +25,7 @@ import definePlugin from "@utils/types";
 export default definePlugin({
     name: "PlainFolderIcon",
     description: t("vencord.plainFolderIcon.description"),
+    tags: ["Appearance", "Customisation"],
     authors: [Devs.botato],
 
     patches: [

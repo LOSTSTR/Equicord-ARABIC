@@ -158,6 +158,7 @@ function getImageAsset(type: AssetImageType, data: TrackData) {
 export default definePlugin({
     name: "AppleMusicRichPresence",
     description: t("vencord.appleMusicRichPresence.description"),
+    tags: ["Activity", "Media"],
     authors: [Devs.RyanCaoDev],
     hidden: !IS_MAC,
     reporterTestable: ReporterTestable.None,

@@ -91,6 +91,7 @@ const userContextMenuPatch: NavContextMenuPatchCallback = (children, { user }) =
 export default definePlugin({
     name: "CopyProfileColors",
     description: t("equicord.copyProfileColors.description"),
+    tags: ["Appearance", "Customisation"],
     authors: [EquicordDevs.Crxa, EquicordDevs.Cortex],
     contextMenus: {
         "user-context": userContextMenuPatch,

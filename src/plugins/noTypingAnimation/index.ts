@@ -12,6 +12,7 @@ export default definePlugin({
     name: "NoTypingAnimation",
     authors: [Devs.AutumnVN],
     description: t("vencord.noTypingAnimation.description"),
+    tags: ["Appearance"],
     patches: [
         {
             find: "dotCycle",

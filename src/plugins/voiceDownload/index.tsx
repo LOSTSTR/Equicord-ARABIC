@@ -13,6 +13,7 @@ import definePlugin from "@utils/types";
 export default definePlugin({
     name: "VoiceDownload",
     description: t("vencord.voiceDownload.description"),
+    tags: ["Voice", "Media"],
     authors: [Devs.puv],
     patches: [
         {

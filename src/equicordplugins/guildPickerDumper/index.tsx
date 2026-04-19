@@ -95,6 +95,7 @@ async function zipGuildAssets(guild: Guild, type: "emojis" | "stickers") {
 export default definePlugin({
     name: "GuildPickerDumper",
     description: t("equicord.guildPickerDumper.description"),
+    tags: ["Emotes", "Servers", "Utility"],
     authors: [EquicordDevs.Cortex, Devs.Samwich, EquicordDevs.Synth, Devs.thororen],
     contextMenus: {
         "guild-context": Patch,

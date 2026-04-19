@@ -315,6 +315,7 @@ export default definePlugin({
     name: "VoiceMessageTranscriber",
     authors: [Devs.TheSun],
     description: t("equicord.voiceMessageTranscriber.description"),
+    tags: ["Chat", "Media", "Utility", "Voice"],
     patches: [
         {
             find: ".VOICE_MESSAGE)),",

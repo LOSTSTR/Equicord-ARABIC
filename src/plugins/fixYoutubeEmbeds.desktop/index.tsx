@@ -28,6 +28,7 @@ migratePluginSettings("FixYoutubeEmbeds", "YoutubeDescription");
 export default definePlugin({
     name: "FixYoutubeEmbeds",
     description: t("vencord.fixYoutubeEmbeds.description"),
+    tags: ["Media", "Utility"],
     authors: [Devs.coolelectronics, Devs.arHSM],
     settings,
     patches: [

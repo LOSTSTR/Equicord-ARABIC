@@ -26,6 +26,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "ForwardAnywhere",
     description: t("equicord.forwardAnywhere.description"),
+    tags: ["Chat", "Utility"],
     authors: [Devs.thororen],
     settings,
     patches: [

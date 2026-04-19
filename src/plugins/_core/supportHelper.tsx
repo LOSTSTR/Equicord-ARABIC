@@ -290,7 +290,7 @@ export default definePlugin({
     required: true,
     description: t("vencord.supportHelper.description"),
     authors: [Devs.Ven],
-    dependencies: ["UserSettingsAPI"],
+    dependencies: ["UserSettingsAPI", "CommandsAPI", "MessageAccessoriesAPI"],
 
     settings,
 

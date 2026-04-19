@@ -11,8 +11,9 @@ import definePlugin from "@utils/types";
 export default definePlugin({
     name: "TidalEmbeds",
     description: t("equicord.tidalEmbeds.description"),
+    tags: ["Appearance", "Chat", "Media"],
     authors: [EquicordDevs.vmohammad],
-    dependencies: ["MessageUpdaterAPI"],
+    dependencies: ["MessageUpdaterAPI", "MessageAccessoriesAPI"],
     patches: [
         {
             find: "renderEmbeds(",

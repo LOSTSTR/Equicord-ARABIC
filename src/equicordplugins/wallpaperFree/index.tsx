@@ -34,13 +34,14 @@ export default definePlugin({
     name: "WallpaperFree",
     authors: [Devs.Joona],
     description: t("equicord.wallpaperFree.description"),
+    tags: ["Appearance", "Chat", "Customisation"],
     patches: [
         {
             find: ".handleSendMessage,onResize",
             group: true,
             replacement: [
                 {
-                    match: /return.{1,150},(?=keyboardModeEnabled)/,
+                    match: /return.{1,200},(?=keyboardModeEnabled)/,
                     replace: "const vcWallpaperFreeUrl=$self.WallpaperState(arguments[0].channel);$&vcWallpaperFreeUrl,"
                 },
                 {

@@ -216,6 +216,7 @@ export async function setRpc(disable?: boolean) {
 export default definePlugin({
     name: "CustomRPC",
     description: t("vencord.customRPC.description"),
+    tags: ["Activity", "Customisation"],
     authors: [Devs.captain, Devs.AutumnVN, Devs.nin0dev],
     dependencies: ["UserSettingsAPI"],
     // This plugin's patch is not important for functionality, so don't require a restart

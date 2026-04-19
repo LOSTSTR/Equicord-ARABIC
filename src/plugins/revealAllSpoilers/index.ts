@@ -28,7 +28,7 @@ export default definePlugin({
     name: "RevealAllSpoilers",
     description: t("vencord.revealAllSpoilers.description"),
     authors: [Devs.whqwert],
-
+    tags: ["Accessibility", "Chat", "Shortcuts", "Utility"],
     patches: [
         {
             find: ".removeObscurity,",

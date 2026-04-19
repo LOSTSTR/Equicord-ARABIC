@@ -41,6 +41,7 @@ export default definePlugin({
     name: "BetterRoleDot",
     authors: [Devs.Ven, Devs.AutumnVN],
     description: t("vencord.betterRoleDot.description"),
+    tags: ["Roles", "Appearance"],
     settings,
 
     patches: [

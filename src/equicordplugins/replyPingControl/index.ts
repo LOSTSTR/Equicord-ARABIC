@@ -28,6 +28,7 @@ export const settings = definePluginSettings({
 export default definePlugin({
     name: "ReplyPingControl",
     description: t("equicord.replyPingControl.description"),
+    tags: ["Chat", "Notifications"],
     authors: [Devs.ant0n, EquicordDevs.MrDiamond],
     settings,
 

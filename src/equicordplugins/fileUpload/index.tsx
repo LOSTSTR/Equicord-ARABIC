@@ -217,6 +217,7 @@ const channelAttachMenuPatch: NavContextMenuPatchCallback = (children, props) =>
 export default definePlugin({
     name: "FileUpload",
     description: t("equicord.fileUpload.description"),
+    tags: ["Media"],
     authors: [EquicordDevs.creations, EquicordDevs.keircn, Devs.ScattrdBlade],
     settings,
     patches: [

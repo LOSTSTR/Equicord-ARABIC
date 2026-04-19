@@ -110,6 +110,7 @@ export default definePlugin({
     name: "ConsoleJanitor",
     description: t("vencord.consoleJanitor.description"),
     authors: [Devs.Nuckyz, Devs.sadan],
+    tags: ["Developers", "Console", "Utility"],
     settings,
 
     startAt: StartAt.Init,

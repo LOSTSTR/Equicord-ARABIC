@@ -43,6 +43,7 @@ migratePluginSettings("WebRichPresence", "WebRichPresence (arRPC)");
 export default definePlugin({
     name: "WebRichPresence",
     description: t("vencord.arRPC.description"),
+    tags: ["Activity", "Utility"],
     authors: [Devs.Ducko],
     reporterTestable: ReporterTestable.None,
     hidden: !IS_EQUIBOP && !IS_VESKTOP && !("legcord" in window),

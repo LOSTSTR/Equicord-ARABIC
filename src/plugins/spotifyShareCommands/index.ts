@@ -19,8 +19,8 @@
 import { ApplicationCommandInputType, findOption, OptionalMessageOption, sendBotMessage } from "@api/Commands";
 import { Devs } from "@utils/constants";
 import { sendMessage } from "@utils/discord";
-import definePlugin from "@utils/types";
 import { t } from "@utils/translation";
+import definePlugin from "@utils/types";
 import { Command } from "@vencord/discord-types";
 import { findByPropsLazy } from "@webpack";
 import { FluxDispatcher, MessageActions, PendingReplyStore } from "@webpack/common";
@@ -99,6 +99,8 @@ function makeCommand(name: string, formatUrl: (track: Track) => string): Command
 export default definePlugin({
     name: "SpotifyShareCommands",
     description: t("vencord.spotifyShareCommands.description"),
+    dependencies: ["CommandsAPI"],
+    tags: ["Media", "Commands"],
     authors: [Devs.katlyn],
     commands: [
         makeCommand("track", track => `https://open.spotify.com/track/${track.id}`),

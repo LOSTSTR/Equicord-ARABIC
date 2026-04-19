@@ -19,6 +19,7 @@ import ComponentsTab from "./components/ComponentsTab";
 export default definePlugin({
     name: "Components",
     description: t("equicord.components.description"),
+    tags: ["Appearance", "Customisation", "Console", "Developers", "Organisation"],
     authors: [Devs.prism],
     dependencies: ["Settings"],
     startAt: StartAt.WebpackReady,

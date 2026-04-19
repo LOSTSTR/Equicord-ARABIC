@@ -63,6 +63,7 @@ export default definePlugin({
     name: "UnsuppressEmbeds",
     authors: [Devs.rad, Devs.HypedDomi],
     description: t("vencord.unsuppressEmbeds.description"),
+    tags: ["Chat", "Utility"],
     contextMenus: {
         "message": messageContextMenuPatch
     }

@@ -23,5 +23,6 @@ export default definePlugin({
     name: "FixSpotifyEmbeds",
     description: t("vencord.fixSpotifyEmbeds.description"),
     authors: [Devs.Ven],
+    tags: ["Media", "Customisation"],
     settings,
 });

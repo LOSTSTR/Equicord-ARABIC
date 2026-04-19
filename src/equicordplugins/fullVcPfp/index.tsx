@@ -15,6 +15,7 @@ import style from "./style.css?managed";
 export default definePlugin({
     name: "FullVCPFP",
     description: t("equicord.fullVcPfp.description"),
+    tags: ["Appearance", "Voice"],
     authors: [EquicordDevs.mochienya],
     patches: [
         {

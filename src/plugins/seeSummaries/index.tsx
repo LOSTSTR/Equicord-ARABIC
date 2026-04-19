@@ -53,6 +53,7 @@ interface ChannelSummaries {
 export default definePlugin({
     name: "Summaries",
     description: t("vencord.seeSummaries.description"),
+    tags: ["Chat", "Fun"],
     authors: [Devs.mantikafasi],
     settings,
     patches: [

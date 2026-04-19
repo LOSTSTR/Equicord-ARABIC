@@ -20,6 +20,7 @@ import { Paragraph } from "@components/Paragraph";
 import { openContributorModal, openPluginModal, SettingsTab, wrapTab } from "@components/settings";
 import { QuickAction, QuickActionCard } from "@components/settings/QuickAction";
 import { SpecialCard } from "@components/settings/SpecialCard";
+import BadgeAPI from "@plugins/_api/badges";
 import { gitRemote } from "@shared/vencordUserAgent";
 import { DONOR_ROLE_ID, GUILD_ID, IS_MAC, IS_WINDOWS, VC_DONOR_ROLE_ID, VC_GUILD_ID } from "@utils/constants";
 import { classNameFactory } from "@utils/css";
@@ -27,8 +28,7 @@ import { Margins } from "@utils/margins";
 import { identity, isAnyPluginDev } from "@utils/misc";
 import { relaunch } from "@utils/native";
 import { t } from "@utils/translation";
-import { GuildMemberStore, React, Select, UserStore } from "@webpack/common";
-import BadgeAPI from "plugins/_api/badges";
+import { Alerts, GuildMemberStore, React, Select, UserStore } from "@webpack/common";
 
 import { DonateButtonComponent } from "./DonateButton";
 import { openNotificationSettingsModal } from "./NotificationSettings";
@@ -68,28 +68,28 @@ function EquicordSettings() {
         warning: { enabled: boolean; message?: string; };
     }
     > = [
-            {
-                key: "useQuickCss",
-                title: t("vencord.settings.useQuickCss.title"),
-                description: t("vencord.settings.useQuickCss.description"),
-                restartRequired: true,
-                warning: { enabled: false },
-            },
-            !IS_WEB && {
-                key: "enableReactDevtools",
-                title: t("vencord.settings.enableReactDevtools.title"),
-                description: t("vencord.settings.enableReactDevtools.description"),
-                restartRequired: true,
-                warning: { enabled: false },
-            },
-            (!IS_WEB && !IS_DISCORD_DESKTOP || !IS_WINDOWS) && {
-                key: "mainWindowFrameless",
-                title: t("equicord.mainWindowFrameless.title"),
-                description: t("equicord.mainWindowFrameless.description"),
-                restartRequired: true,
-                warning: { enabled: false },
-            },
-            !IS_WEB &&
+        {
+            key: "useQuickCss",
+            title: t("vencord.settings.useQuickCss.title"),
+            description: t("vencord.settings.useQuickCss.description"),
+            restartRequired: true,
+            warning: { enabled: false },
+        },
+        !IS_WEB && {
+            key: "enableReactDevtools",
+            title: t("vencord.settings.enableReactDevtools.title"),
+            description: t("vencord.settings.enableReactDevtools.description"),
+            restartRequired: true,
+            warning: { enabled: false },
+        },
+        (!IS_WEB && !IS_DISCORD_DESKTOP || !IS_WINDOWS) && {
+            key: "mainWindowFrameless",
+            title: t("equicord.mainWindowFrameless.title"),
+            description: t("equicord.mainWindowFrameless.description"),
+            restartRequired: true,
+            warning: { enabled: false },
+        },
+        !IS_WEB &&
             (!IS_DISCORD_DESKTOP || !IS_WINDOWS
                 ? {
                     key: "frameless",
@@ -106,34 +106,34 @@ function EquicordSettings() {
                     warning: { enabled: false },
                 }
             ),
-            !IS_WEB && {
-                key: "transparent",
-                title: t("vencord.settings.transparent.title"),
-                description: t("vencord.settings.transparent.description"),
-                restartRequired: true,
-                warning: {
-                    enabled: true,
-                    message: IS_WINDOWS
-                        ? t("vencord.settings.transparent.noteWindows")
-                        : t("vencord.settings.transparent.note"),
-                },
+        !IS_WEB && {
+            key: "transparent",
+            title: t("vencord.settings.transparent.title"),
+            description: t("vencord.settings.transparent.description"),
+            restartRequired: true,
+            warning: {
+                enabled: true,
+                message: IS_WINDOWS
+                    ? t("vencord.settings.transparent.noteWindows")
+                    : t("vencord.settings.transparent.note"),
             },
-            IS_DISCORD_DESKTOP && {
-                key: "disableMinSize",
-                title: t("vencord.settings.disableMinSize.title"),
-                description: t("vencord.settings.disableMinSize.description"),
-                restartRequired: true,
-                warning: { enabled: false },
-            },
-            !IS_WEB &&
+        },
+        IS_DISCORD_DESKTOP && {
+            key: "disableMinSize",
+            title: t("vencord.settings.disableMinSize.title"),
+            description: t("vencord.settings.disableMinSize.description"),
+            restartRequired: true,
+            warning: { enabled: false },
+        },
+        !IS_WEB &&
             IS_WINDOWS && {
-                key: "winCtrlQ",
-                title: t("vencord.settings.winCtrlQ.title"),
-                description: t("vencord.settings.winCtrlQ.description"),
-                restartRequired: true,
-                warning: { enabled: false },
-            },
-        ];
+            key: "winCtrlQ",
+            title: t("vencord.settings.winCtrlQ.title"),
+            description: t("vencord.settings.winCtrlQ.description"),
+            restartRequired: true,
+            warning: { enabled: false },
+        },
+    ];
 
     return (
         <SettingsTab>
@@ -250,7 +250,19 @@ function EquicordSettings() {
                     <FormSwitch
                         key={s.key}
                         value={settings[s.key]}
-                        onChange={v => (settings[s.key] = v)}
+                        onChange={v => {
+                            settings[s.key] = v;
+
+                            if (s.restartRequired) {
+                                Alerts.show({
+                                    title: "Restart Required",
+                                    body: "A restart is required to apply this change",
+                                    confirmText: "Restart now",
+                                    cancelText: "Later!",
+                                    onConfirm: relaunch
+                                });
+                            }
+                        }}
                         title={s.title}
                         description={
                             s.warning.enabled ? (

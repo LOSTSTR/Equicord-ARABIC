@@ -82,6 +82,7 @@ migratePluginSettings("FullSearchContext", "SearchReply");
 export default definePlugin({
     name: "FullSearchContext",
     description: t("vencord.fullSearchContext.description"),
+    tags: ["Utility"],
     authors: [Devs.Ven, Devs.Aria],
 
     patches: [{

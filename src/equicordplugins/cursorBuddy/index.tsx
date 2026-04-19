@@ -236,8 +236,9 @@ migratePluginSettings("CursorBuddy", "Oneko", "oneko");
 export default definePlugin({
     name: "CursorBuddy",
     description: t("equicord.cursorBuddy.description"),
+    tags: ["Appearance", "Customisation", "Fun"],
     authors: [Devs.Ven, Devs.adryd, EquicordDevs.nexpid, EquicordDevs.ZcraftElite],
-    tags: ["Oneko", "FatassHorse", "Pet"],
+    searchTerms: ["Oneko", "FatassHorse", "Pet"],
     settings,
     isModified: true,
 

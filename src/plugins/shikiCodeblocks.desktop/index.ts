@@ -20,8 +20,8 @@ import "./shiki.css";
 
 import { enableStyle } from "@api/Styles";
 import { Devs } from "@utils/constants";
-import definePlugin, { ReporterTestable } from "@utils/types";
 import { t } from "@utils/translation";
+import definePlugin, { ReporterTestable } from "@utils/types";
 import previewExampleText from "file://previewExample.tsx";
 
 import { shiki } from "./api/shiki";
@@ -34,6 +34,7 @@ import { clearStyles } from "./utils/createStyle";
 export default definePlugin({
     name: "ShikiCodeblocks",
     description: t("vencord.shikiCodeblocks.description"),
+    tags: ["Appearance", "Chat", "Customisation"],
     authors: [Devs.Vap],
     reporterTestable: ReporterTestable.Patches,
     settings,

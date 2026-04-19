@@ -73,6 +73,8 @@ function ToolBarHeader() {
 export default definePlugin({
     name: "HolyNotes",
     description: t("equicord.holyNotes.description"),
+    dependencies: ["MessagePopoverAPI", "HeaderBarAPI"],
+    tags: ["Chat", "Organisation"],
     authors: [EquicordDevs.Wolfie],
 
     toolboxActions: {

@@ -77,8 +77,9 @@ export function removeIndicator() {
 export default definePlugin({
     name: "HideServers",
     description: t("equicord.hideServers.description"),
+    tags: ["Servers", "Utility"],
     authors: [EquicordDevs.bep],
-    tags: ["guild", "server", "hide", "folder"],
+    searchTerms: ["guild", "server", "hide", "folder"],
 
     dependencies: ["ServerListAPI"],
     contextMenus: {

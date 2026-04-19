@@ -91,6 +91,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "BetterRoleContext",
     description: t("vencord.betterRoleContext.description"),
+    tags: ["Roles", "Appearance"],
     authors: [Devs.Ven, Devs.goodbee],
     dependencies: ["UserSettingsAPI"],
 

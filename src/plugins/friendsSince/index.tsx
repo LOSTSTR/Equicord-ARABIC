@@ -24,6 +24,7 @@ const Section = findComponentByCodeLazy("headingVariant:", '"section"', "heading
 export default definePlugin({
     name: "FriendsSince",
     description: t("vencord.friendsSince.description"),
+    tags: ["Friends"],
     authors: [Devs.Elvyra, Devs.Antti],
     patches: [
         // DM User Sidebar

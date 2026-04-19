@@ -175,6 +175,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "VoiceChatUtilities",
     description: t("equicord.voiceChatUtils.description"),
+    tags: ["Chat", "Servers", "Voice"],
     authors: [Devs.D3SOX, EquicordDevs.nickwoah],
 
     settings,

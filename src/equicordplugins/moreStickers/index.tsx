@@ -35,6 +35,7 @@ export const settings = definePluginSettings({
 export default definePlugin({
     name: "MoreStickers",
     description: t("equicord.moreStickers.description"),
+    tags: ["Chat", "Emotes", "Media"],
     authors: [EquicordDevs.Leko, Devs.Arjix],
     settings,
 

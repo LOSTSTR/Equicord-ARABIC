@@ -223,6 +223,8 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "PlatformIndicators",
     description: t("vencord.platformIndicators.description"),
+    dependencies: ["MemberListDecoratorsAPI", "MessageDecorationsAPI", "NicknameIconsAPI"],
+    tags: ["Appearance"],
     authors: [Devs.kemo, Devs.TheSun, Devs.Nuckyz, Devs.Ven, EquicordDevs.neoarz],
     isModified: true,
     settings,

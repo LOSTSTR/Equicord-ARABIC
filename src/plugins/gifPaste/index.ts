@@ -27,6 +27,7 @@ import { ExpressionPickerStore } from "@webpack/common";
 export default definePlugin({
     name: "GifPaste",
     description: t("vencord.gifPaste.description"),
+    tags: ["Media", "Chat"],
     authors: [Devs.Ven],
 
     patches: [{

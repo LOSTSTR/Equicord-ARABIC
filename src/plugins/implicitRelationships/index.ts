@@ -22,12 +22,25 @@ import { Logger } from "@utils/Logger";
 import { t } from "@utils/translation";
 import definePlugin, { OptionType } from "@utils/types";
 import { Constants, FluxDispatcher, GuildStore, RelationshipStore, SnowflakeUtils, UserAffinitiesStore, UserStore } from "@webpack/common";
-import { Settings } from "Vencord";
+
+const settings = definePluginSettings(
+    {
+        sortByAffinity: {
+            type: OptionType.BOOLEAN,
+            default: true,
+            description: t("vencord.implicitRelationships.settings.sortByAffinity"),
+            restartNeeded: true
+        },
+    }
+);
 
 export default definePlugin({
     name: "ImplicitRelationships",
     description: t("vencord.implicitRelationships.description"),
+    tags: ["Friends", "Servers"],
     authors: [Devs.Dolfies],
+    settings,
+
     patches: [
         // Counts header
         {
@@ -74,7 +87,7 @@ export default definePlugin({
         {
             find: "getRelationshipCounts(){",
             replacement: {
-                predicate: () => Settings.plugins.ImplicitRelationships.sortByAffinity,
+                predicate: () => settings.store.sortByAffinity,
                 match: /\}\)\.sortBy\((.+?)\)\.value\(\)/,
                 replace: "}).sortBy(row => $self.wrapSort(($1), row)).value()"
             }
@@ -103,16 +116,6 @@ export default definePlugin({
             },
         }
     ],
-    settings: definePluginSettings(
-        {
-            sortByAffinity: {
-                type: OptionType.BOOLEAN,
-                default: true,
-                description: t("vencord.implicitRelationships.settings.sortByAffinity"),
-                restartNeeded: true
-            },
-        }
-    ),
 
     wrapSort(comparator: Function, row: any) {
         return row.type === 5

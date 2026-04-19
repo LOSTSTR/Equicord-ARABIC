@@ -26,6 +26,7 @@ export default definePlugin({
     name: "ForceOwnerCrown",
     description: t("vencord.forceOwnerCrown.description"),
     authors: [Devs.D3SOX, Devs.Nickyux],
+    tags: ["Roles", "Appearance", "Servers"],
     patches: [
         {
             find: "#{intl::GUILD_OWNER}),children:",

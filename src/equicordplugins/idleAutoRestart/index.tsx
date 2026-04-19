@@ -37,6 +37,7 @@ function onActivity() {
 export default definePlugin({
     name: "IdleAutoRestart",
     description: t("equicord.idleAutoRestart.description"),
+    tags: ["Utility"],
     authors: [EquicordDevs.SteelTech],
     settings,
 

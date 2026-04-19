@@ -11,6 +11,7 @@ import definePlugin from "@utils/types";
 export default definePlugin({
     name: "NormalizeMessageLinks",
     description: t("equicord.normalizeMessageLinks.description"),
+    tags: ["Chat"],
     authors: [Devs.bb010g],
     patches: [
         {

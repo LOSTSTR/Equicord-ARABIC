@@ -14,6 +14,7 @@ export default definePlugin({
     name: "AtSomeone",
     authors: [Devs.Joona],
     description: t("equicord.atSomeone.description"),
+    tags: ["Chat", "Fun"],
     patches: [
         {
             find: ".LAUNCHABLE_APPLICATIONS;",

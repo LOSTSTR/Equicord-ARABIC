@@ -153,6 +153,7 @@ function GreetMenu({ channel, message }: { message: Message, channel: Channel; }
 export default definePlugin({
     name: "GreetStickerPicker",
     description: t("vencord.greetStickerPicker.description"),
+    tags: ["Emotes", "Customisation"],
     authors: [Devs.Ven],
 
     settings,

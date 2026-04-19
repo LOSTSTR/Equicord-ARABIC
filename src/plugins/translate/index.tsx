@@ -64,6 +64,8 @@ let tooltipTimeout: any;
 export default definePlugin({
     name: "Translate",
     description: t("vencord.translate.description"),
+    dependencies: ["ChatInputButtonAPI", "MessageAccessoriesAPI", "MessagePopoverAPI"],
+    tags: ["Chat", "Utility"],
     authors: [Devs.Ven, Devs.AshtonMemer],
     settings,
     contextMenus: {

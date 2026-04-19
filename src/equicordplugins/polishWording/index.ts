@@ -65,6 +65,8 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "PolishWording",
     description: t("equicord.polishWording.description"),
+    dependencies: ["MessageEventsAPI"],
+    tags: ["Chat"],
     authors: [Devs.Samwich, EquicordDevs.WKoA],
     onBeforeMessageSend: presendObject,
     settings,

@@ -99,8 +99,9 @@ function GameActivityToggleButton({ iconForeground, hideTooltips, nameplate }: U
 export default definePlugin({
     name: "GameActivityToggle",
     description: t("vencord.gameActivityToggle.description"),
+    tags: ["Activity", "Shortcuts"],
     authors: [Devs.Nuckyz, Devs.RuukuLada],
-    dependencies: ["UserSettingsAPI"],
+    dependencies: ["UserSettingsAPI", "UserAreaAPI"],
     settings,
 
     userAreaButton: {

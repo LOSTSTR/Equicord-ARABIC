@@ -150,8 +150,9 @@ export async function buildEmbed(message: any, revealed: string): Promise<void> 
 export default definePlugin({
     name: "InvisibleChat",
     description: t("equicord.invisibleChat.description"),
+    tags: ["Chat"],
     authors: [Devs.SammCheese],
-    dependencies: ["MessageUpdaterAPI"],
+    dependencies: ["MessageUpdaterAPI", "ChatInputButtonAPI", "MessagePopoverAPI"],
     reporterTestable: ReporterTestable.Patches,
     settings,
 

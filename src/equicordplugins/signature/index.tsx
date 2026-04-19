@@ -101,6 +101,8 @@ const ChatBarContextCheckbox: NavContextMenuPatchCallback = children => {
 export default definePlugin({
     name: "Signature",
     description: t("equicord.signature.description"),
+    dependencies: ["CommandsAPI", "ChatInputButtonAPI", "MessagePopoverAPI"],
+    tags: ["Appearance", "Chat"],
     authors: [Devs.Ven, Devs.Rini, Devs.ImBanana, EquicordDevs.KrystalSkull],
     onBeforeMessageSend(channelId, msg) {
         if (!settings.store.isEnabled) {

@@ -11,6 +11,7 @@ import definePlugin from "@utils/types";
 export default definePlugin({
     name: "NoRPC",
     description: t("equicord.noRPC.description"),
+    tags: ["Privacy", "Servers"],
     authors: [Devs.Cyn],
     patches: [
         {

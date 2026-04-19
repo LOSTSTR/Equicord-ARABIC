@@ -49,6 +49,7 @@ type MediaRef = RefObject<HTMLMediaElement> | undefined;
 export default definePlugin({
     name: "MediaPlaybackSpeed",
     description: t("equicord.mediaPlaybackSpeed.description"),
+    tags: ["Chat", "Media"],
     authors: [Devs.D3SOX],
     settings,
     patches: [

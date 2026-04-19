@@ -68,6 +68,7 @@ export const settings = definePluginSettings({
 export default definePlugin({
     name: "PinDMs",
     description: t("vencord.pinDms.description"),
+    tags: ["Friends", "Organisation"],
     authors: [Devs.Ven, Devs.Aria],
     settings,
     contextMenus,

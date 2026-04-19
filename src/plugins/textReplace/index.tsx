@@ -305,9 +305,10 @@ const TEXT_REPLACE_RULES_EXEMPT_CHANNEL_IDS = [
 export default definePlugin({
     name: "TextReplace",
     description: t("vencord.textReplace.description"),
+    dependencies: ["MessagePopoverAPI"],
+    tags: ["Chat", "Customisation", "Utility"],
     authors: [Devs.AutumnVN, Devs.TheKodeToad, EquicordDevs.Etorix],
     isModified: true,
-
     settings,
     modifyIncomingMessage,
 

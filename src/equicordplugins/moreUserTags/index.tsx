@@ -38,6 +38,8 @@ migratePluginToSettings(true, "MoreUserTags", "NoAppsAllowed", "noAppsAllowed");
 export default definePlugin({
     name: "MoreUserTags",
     description: t("equicord.moreUserTags.description"),
+    dependencies: ["MemberListDecoratorsAPI", "MessageDecorationsAPI", "NicknameIconsAPI"],
+    tags: ["Appearance", "Chat"],
     authors: [Devs.Cyn, Devs.TheSun, Devs.RyanCaoDev, Devs.LordElias, Devs.AutumnVN, EquicordDevs.Hen, EquicordDevs.meowabyte],
     settings,
     patches: [

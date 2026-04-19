@@ -57,6 +57,7 @@ export default definePlugin({
     name: "SortFriends",
     authors: [Devs.Megu, EquicordDevs.CallMeGii],
     description: t("vencord.sortFriendRequests.description"),
+    tags: ["Friends", "Organisation"],
     isModified: true,
     settings,
 

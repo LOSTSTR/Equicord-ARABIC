@@ -30,6 +30,7 @@ export const settings = definePluginSettings({
 export default definePlugin({
     name: "ProfileSets",
     description: t("equicord.profileSets.description"),
+    tags: ["Appearance", "Customisation", "Utility"],
     authors: [EquicordDevs.omaw, EquicordDevs.justjxke],
     settings,
     patches: [

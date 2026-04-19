@@ -19,8 +19,8 @@
 import { definePluginSettings } from "@api/Settings";
 import { copyToClipboard } from "@utils/clipboard";
 import { Devs } from "@utils/constants";
-import definePlugin, { OptionType } from "@utils/types";
 import { t } from "@utils/translation";
+import definePlugin, { OptionType } from "@utils/types";
 import { saveFile } from "@utils/web";
 import { filters, mapMangledModuleLazy } from "@webpack";
 import { ComponentDispatch } from "@webpack/common";
@@ -89,6 +89,7 @@ function fixImageUrl(urlString: string) {
 export default definePlugin({
     name: "WebContextMenus",
     description: t("vencord.webContextMenus.description"),
+    tags: ["Utility"],
     authors: [Devs.Ven],
     enabledByDefault: true,
     required: requiredByPlatform,

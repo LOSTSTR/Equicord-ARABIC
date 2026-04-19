@@ -57,7 +57,7 @@ export default definePlugin({
     name: "BetterSessions",
     description: t("vencord.betterSessions.description"),
     authors: [Devs.amia],
-
+    tags: ["Notifications", "Customisation", "Utility"],
     settings: settings,
 
     patches: [

@@ -147,14 +147,14 @@ function OutputDeviceComponent() {
             <Select options={Object.values(configModule.getOutputDevices()).map((device: any /* i am NOT typing this*/) => {
                 return { value: device.id, label: settings.store.showOutputDeviceHeader ? device.name : `🔊 ${device.name}` };
             })}
-                serialize={identity}
-                isSelected={value => value === outputDevice}
-                select={id => {
-                    FluxDispatcher.dispatch({
-                        type: "AUDIO_SET_OUTPUT_DEVICE",
-                        id
-                    });
-                }}>
+            serialize={identity}
+            isSelected={value => value === outputDevice}
+            select={id => {
+                FluxDispatcher.dispatch({
+                    type: "AUDIO_SET_OUTPUT_DEVICE",
+                    id
+                });
+            }}>
 
             </Select>
         </>
@@ -175,14 +175,14 @@ function InputDeviceComponent() {
             <Select options={Object.values(configModule.getInputDevices()).map((device: any /* i am NOT typing this*/) => {
                 return { value: device.id, label: settings.store.showInputDeviceHeader ? device.name : `🎤 ${device.name}` };
             })}
-                serialize={identity}
-                isSelected={value => value === inputDevice}
-                select={id => {
-                    FluxDispatcher.dispatch({
-                        type: "AUDIO_SET_INPUT_DEVICE",
-                        id
-                    });
-                }}>
+            serialize={identity}
+            isSelected={value => value === inputDevice}
+            select={id => {
+                FluxDispatcher.dispatch({
+                    type: "AUDIO_SET_INPUT_DEVICE",
+                    id
+                });
+            }}>
 
             </Select>
         </div>
@@ -203,14 +203,14 @@ function VideoDeviceComponent() {
             <Select options={Object.values(configModule.getVideoDevices()).map((device: any /* i am NOT typing this*/) => {
                 return { value: device.id, label: settings.store.showVideoDeviceHeader ? device.name : `📷 ${device.name}` };
             })}
-                serialize={identity}
-                isSelected={value => value === videoDevice}
-                select={id => {
-                    FluxDispatcher.dispatch({
-                        type: "MEDIA_ENGINE_SET_VIDEO_DEVICE",
-                        id
-                    });
-                }}>
+            serialize={identity}
+            isSelected={value => value === videoDevice}
+            select={id => {
+                FluxDispatcher.dispatch({
+                    type: "MEDIA_ENGINE_SET_VIDEO_DEVICE",
+                    id
+                });
+            }}>
 
             </Select>
         </div>
@@ -239,6 +239,7 @@ function VoiceSettings() {
 export default definePlugin({
     name: "VCPanelSettings",
     description: t("equicord.vcPanelSettings.description"),
+    tags: ["Utility", "Voice"],
     authors: [Devs.nin0dev],
     settings,
     renderVoiceSettings() { return <VoiceSettings />; },

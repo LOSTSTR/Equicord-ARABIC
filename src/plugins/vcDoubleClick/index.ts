@@ -17,8 +17,8 @@
 */
 
 import { Devs } from "@utils/constants";
-import definePlugin from "@utils/types";
 import { t } from "@utils/translation";
+import definePlugin from "@utils/types";
 import { ChannelRouter, ChannelStore, SelectedChannelStore } from "@webpack/common";
 
 const timers = {} as Record<string, {
@@ -29,6 +29,7 @@ const timers = {} as Record<string, {
 export default definePlugin({
     name: "VoiceChatDoubleClick",
     description: t("vencord.vcDoubleClick.description"),
+    tags: ["Voice"],
     authors: [Devs.Ven, Devs.D3SOX, Devs.sadan],
     patches: [
         ...[

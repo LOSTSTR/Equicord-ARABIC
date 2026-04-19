@@ -315,6 +315,7 @@ const createWebsocket = () => {
 export default definePlugin({
     name: "OrbolayBridge",
     description: t("equicord.orbolayBridge.description"),
+    tags: ["Utility", "Voice"],
     authors: [EquicordDevs.SpikeHD],
     settings,
     flux: {

@@ -33,6 +33,7 @@ function renderBadge(id: number, title: string) {
 export default definePlugin({
     name: "ChannelBadges",
     description: t("equicord.channelBadges.description"),
+    tags: ["Appearance", "Customisation", "Servers"],
     authors: [EquicordDevs.creations, Devs.thororen],
     settings,
     patches: [

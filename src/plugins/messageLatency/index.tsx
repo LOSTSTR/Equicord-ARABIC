@@ -30,6 +30,7 @@ const DISCORD_KT_DELAY = 1471228928;
 export default definePlugin({
     name: "MessageLatency",
     description: t("vencord.messageLatency.description"),
+    tags: ["Chat", "Utility"],
     authors: [Devs.arHSM],
 
     settings: definePluginSettings({

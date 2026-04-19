@@ -52,6 +52,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "AlwaysAnimate",
     description: t("vencord.alwaysAnimate.description"),
+    tags: ["Appearance", "Fun"],
     authors: [Devs.FieryFlames],
     settings,
     patches: [

@@ -111,6 +111,8 @@ export default definePlugin({
     name: "SilentMessageToggle",
     authors: [Devs.Nuckyz, Devs.CatNoir, EquicordDevs.Z1xus],
     description: t("vencord.silentMessageToggle.description"),
+    dependencies: ["ChatInputButtonAPI"],
+    tags: ["Chat", "Utility"],
     settings,
 
     chatBarButton: {

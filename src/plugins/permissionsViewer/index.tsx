@@ -161,6 +161,7 @@ function makeContextMenuPatch(childId: string | string[], type?: MenuItemParentT
 export default definePlugin({
     name: "PermissionsViewer",
     description: t("vencord.permissionsViewer.description"),
+    tags: ["Servers", "Roles", "Utility"],
     authors: [Devs.Nuckyz, Devs.Ven],
     settings,
 

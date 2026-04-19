@@ -19,8 +19,8 @@
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
 import { Logger } from "@utils/Logger";
-import definePlugin, { OptionType, ReporterTestable } from "@utils/types";
 import { t } from "@utils/translation";
+import definePlugin, { OptionType, ReporterTestable } from "@utils/types";
 
 import { initWs, socket, stopWs } from "./initWs";
 export const PORT = 8485;
@@ -49,6 +49,7 @@ export const settings = definePluginSettings({
 export default definePlugin({
     name: "DevCompanion",
     description: t("vencord.devCompanion.description"),
+    tags: ["Developers", "Utility"],
     authors: [Devs.Ven, Devs.sadan],
     reporterTestable: ReporterTestable.None,
     isModified: true,

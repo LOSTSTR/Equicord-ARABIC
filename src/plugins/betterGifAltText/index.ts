@@ -24,6 +24,7 @@ export default definePlugin({
     name: "BetterGifAltText",
     authors: [Devs.Ven],
     description: t("vencord.betterGifAltText.description"),
+    tags: ["Media", "Accessibility", "Customisation"],
     patches: [
         {
             find: ".modalContext})};",

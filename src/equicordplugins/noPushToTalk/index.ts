@@ -11,6 +11,7 @@ import definePlugin from "@utils/types";
 export default definePlugin({
     name: "NoPushToTalk",
     description: t("equicord.noPushToTalk.description"),
+    tags: ["Servers", "Voice"],
     authors: [EquicordDevs.omaw],
     patches: [
         {

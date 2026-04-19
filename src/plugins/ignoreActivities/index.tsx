@@ -233,6 +233,7 @@ export default definePlugin({
     name: "IgnoreActivities",
     authors: [Devs.Nuckyz, Devs.Kylie],
     description: t("vencord.ignoreActivities.description"),
+    tags: ["Activity", "Privacy", "Customisation"],
     dependencies: ["UserSettingsAPI"],
 
     settings,

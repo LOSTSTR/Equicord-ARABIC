@@ -112,6 +112,7 @@ let clientOldChannelId: string | undefined;
 export default definePlugin({
     name: "VoiceJoinMessages",
     description: t("equicord.voiceJoinMessages.description"),
+    tags: ["Servers", "Utility", "Voice"],
     authors: [Devs.Sqaaakoi, Devs.thororen],
     settings,
     flux: {

@@ -12,6 +12,7 @@ import definePlugin from "@utils/types";
 export default definePlugin({
     name: "AlwaysExpandProfiles",
     description: t("equicord.alwaysExpandProfiles.description"),
+    tags: ["Appearance", "Utility"],
     authors: [Devs.thororen],
     patches: [
         {

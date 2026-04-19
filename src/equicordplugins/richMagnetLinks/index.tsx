@@ -14,6 +14,7 @@ export default definePlugin({
     authors: [EquicordDevs.cassie, EquicordDevs.mochienya, EquicordDevs.secp192k1],
     name: "RichMagnetLinks",
     description: t("equicord.richMagnetLinks.description"),
+    tags: ["Appearance", "Chat"],
     patches: [
         {
             find: "AUTO_MODERATION_SYSTEM_MESSAGE_RULES:",

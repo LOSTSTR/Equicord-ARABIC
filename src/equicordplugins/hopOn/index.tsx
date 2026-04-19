@@ -33,6 +33,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "HopOn",
     description: t("equicord.hopOn.description"),
+    tags: ["Fun"],
     authors: [Devs.ImLvna],
     settings,
     flux: {

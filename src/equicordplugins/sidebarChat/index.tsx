@@ -131,6 +131,7 @@ export default definePlugin({
     name: "SidebarChat",
     authors: [Devs.Joona],
     description: t("equicord.sidebarChat.description"),
+    tags: ["Appearance", "Chat", "Servers"],
     patches: [
         {
             find: 'case"pendingFriends":',

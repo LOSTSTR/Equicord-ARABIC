@@ -258,6 +258,7 @@ export default definePlugin({
     name: "Timezones",
     authors: [Devs.Aria, EquicordDevs.creations],
     description: t("equicord.timezones.description"),
+    tags: ["Appearance", "Chat", "Utility"],
     contextMenus: {
         "user-context": userContextMenuPatch
     },

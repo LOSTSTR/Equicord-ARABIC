@@ -158,6 +158,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "BypassStatus",
     description: t("equicord.bypassStatus.description"),
+    tags: ["Activity", "Customisation", "Notifications", "Servers"],
     authors: [Devs.Inbestigator],
     dependencies: ["AudioPlayerAPI"],
     flux: {

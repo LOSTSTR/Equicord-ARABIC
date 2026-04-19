@@ -103,8 +103,9 @@ const imageContextMenuPatch: NavContextMenuPatchCallback = (children, props) => 
 export default definePlugin({
     name: "ReverseImageSearch",
     description: t("vencord.reverseImageSearch.description"),
+    tags: ["Media", "Utility"],
     authors: [Devs.Ven, Devs.Nuckyz],
-    tags: ["ImageUtilities"],
+    searchTerms: ["ImageUtilities"],
 
     patches: [
         {

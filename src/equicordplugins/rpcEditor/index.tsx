@@ -74,6 +74,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "RPCEditor",
     description: t("equicord.rpcEditor.description"),
+    tags: ["Customisation"],
     authors: [Devs.Nyako, Devs.nin0dev],
     patches: [
         {

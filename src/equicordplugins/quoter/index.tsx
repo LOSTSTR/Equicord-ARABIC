@@ -59,6 +59,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "Quoter",
     description: t("equicord.quoter.description"),
+    tags: ["Chat"],
     authors: [Devs.Samwich, Devs.thororen, EquicordDevs.neoarz, Devs.prism],
     settings,
 

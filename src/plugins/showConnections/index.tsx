@@ -162,6 +162,7 @@ function CompactConnectionComponent({ connection, theme }: { connection: Connect
 export default definePlugin({
     name: "ShowConnections",
     description: t("vencord.showConnections.description"),
+    tags: ["Friends", "Appearance"],
     authors: [Devs.TheKodeToad],
     settings,
 

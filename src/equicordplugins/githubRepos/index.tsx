@@ -39,6 +39,8 @@ export const settings = definePluginSettings({
 export default definePlugin({
     name: "GitHubRepos",
     description: t("equicord.githubRepos.description"),
+    dependencies: ["ProfileCollectionsAPI"],
+    tags: ["Appearance"],
     authors: [EquicordDevs.talhakf, EquicordDevs.Panniku, EquicordDevs.benjii],
     settings,
 

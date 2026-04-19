@@ -143,6 +143,7 @@ function playSample(type: string) {
 export default definePlugin({
     name: "VcNarrator",
     description: t("vencord.vcNarrator.description"),
+    tags: ["Voice", "Accessibility"],
     authors: [Devs.Ven],
     reporterTestable: ReporterTestable.None,
 

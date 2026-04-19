@@ -49,6 +49,7 @@ function getJumpscareRoot(): Root {
 export default definePlugin({
     name: "Jumpscare",
     description: t("equicord.jumpscare.description"),
+    tags: ["Fun"],
     authors: [Devs.surgedevs],
     dependencies: ["AudioPlayerAPI"],
     settings,

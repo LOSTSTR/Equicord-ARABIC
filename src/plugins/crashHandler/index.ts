@@ -62,8 +62,8 @@ export default definePlugin({
     name: "CrashHandler",
     description: t("vencord.crashHandler.description"),
     authors: [Devs.Nuckyz],
+    tags: ["Utility", "Developers"],
     enabledByDefault: true,
-
     settings,
 
     patches: [

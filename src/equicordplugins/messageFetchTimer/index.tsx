@@ -148,6 +148,8 @@ function handleMessageLoad(data: any) {
 export default definePlugin({
     name: "MessageFetchTimer",
     description: t("equicord.messageFetchTimer.description"),
+    dependencies: ["ChatInputButtonAPI"],
+    tags: ["Chat", "Utility"],
     authors: [EquicordDevs.GroupXyz],
     settings,
 

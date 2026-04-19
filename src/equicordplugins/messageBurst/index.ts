@@ -67,6 +67,8 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "MessageBurst",
     description: t("equicord.messageBurst.description"),
+    dependencies: ["MessagePopoverAPI"],
+    tags: ["Chat"],
     authors: [EquicordDevs.port22exposed],
     settings,
     onBeforeMessageSend(channelId, message) {

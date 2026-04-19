@@ -18,12 +18,14 @@
 
 import { MessageObject } from "@api/MessageEvents";
 import { Devs } from "@utils/constants";
-import definePlugin from "@utils/types";
 import { t } from "@utils/translation";
+import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "Unindent",
     description: t("vencord.unindent.description"),
+    dependencies: ["MessageEventsAPI"],
+    tags: ["Chat", "Utility"],
     authors: [Devs.Ven],
 
     patches: [

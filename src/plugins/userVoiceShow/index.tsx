@@ -49,6 +49,8 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "UserVoiceShow",
     description: t("vencord.userVoiceShow.description"),
+    dependencies: ["MemberListDecoratorsAPI", "MessageDecorationsAPI", "NicknameIconsAPI"],
+    tags: ["Voice", "Appearance", "Friends"],
     authors: [Devs.Nuckyz, Devs.LordElias, EquicordDevs.omaw],
     settings,
     renderNicknameIcon({ userId }) {

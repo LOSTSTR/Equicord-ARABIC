@@ -16,8 +16,8 @@ import { ChannelStore, Menu } from "@webpack/common";
 import { JSX } from "react";
 
 import ChannelsTabsContainer from "./components/ChannelTabsContainer";
-import { BasicChannelTabsProps, createTab, handleChannelSwitch, settings } from "./util";
 import * as ChannelTabsUtils from "./util";
+import { BasicChannelTabsProps, createTab, handleChannelSwitch, settings } from "./util";
 
 const contextMenuPatch: NavContextMenuPatchCallback = (children, props: { channel: Channel, messageId?: string; }) => {
     const { channel, messageId } = props;
@@ -48,6 +48,7 @@ const contextMenuPatch: NavContextMenuPatchCallback = (children, props: { channe
 export default definePlugin({
     name: "ChannelTabs",
     description: t("equicord.channelTabs.description"),
+    tags: ["Appearance", "Customisation", "Organisation", "Servers"],
     authors: [Devs.TheSun, Devs.TheKodeToad, EquicordDevs.keifufu, Devs.Nickyux, EquicordDevs.DiabeloDEV, EquicordDevs.justjxke],
     dependencies: ["ContextMenuAPI"],
     contextMenus: {

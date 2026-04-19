@@ -34,6 +34,8 @@ let IS_FONTS_LOADED = false;
 export default definePlugin({
     name: "SekaiStickers",
     description: t("equicord.sekaiStickers.description"),
+    dependencies: ["ChatInputButtonAPI"],
+    tags: ["Chat", "Emotes"],
     authors: [Devs.MaiKokain],
     settings,
     chatBarButton: {

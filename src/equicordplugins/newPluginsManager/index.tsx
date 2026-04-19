@@ -15,6 +15,7 @@ import { openNewPluginsModal } from "./NewPluginsModal";
 export default definePlugin({
     name: "NewPluginsManager",
     description: t("equicord.newPluginsManager.description"),
+    tags: ["Utility"],
     authors: [Devs.Sqaaakoi],
     enabledByDefault: true,
     flux: {

@@ -189,8 +189,9 @@ const Native = VencordNative.pluginHelpers.XSOverlay as PluginNative<typeof impo
 export default definePlugin({
     name: "XSOverlay",
     description: t("vencord.xsOverlay.description"),
+    tags: ["Notifications"],
     authors: [Devs.Nyako],
-    tags: ["vr", "notify"],
+    searchTerms: ["vr", "notify"],
     reporterTestable: ReporterTestable.None,
     settings,
 

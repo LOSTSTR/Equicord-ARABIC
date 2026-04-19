@@ -70,6 +70,7 @@ function renderTimeout(message: Message, inline: boolean) {
 export default definePlugin({
     name: "ShowTimeoutDuration",
     description: t("vencord.showTimeoutDuration.description"),
+    tags: ["Servers", "Utility"],
     authors: [Devs.Ven, Devs.Sqaaakoi],
 
     settings,

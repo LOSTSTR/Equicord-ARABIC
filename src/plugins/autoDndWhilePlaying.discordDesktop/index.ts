@@ -49,6 +49,7 @@ migratePluginSettings("AutoDNDWhilePlaying", "StatusWhilePlaying");
 export default definePlugin({
     name: "AutoDNDWhilePlaying",
     description: t("vencord.autoDndWhilePlaying.description"),
+    tags: ["Activity", "Utility"],
     authors: [Devs.thororen],
     isModified: true,
     settings,

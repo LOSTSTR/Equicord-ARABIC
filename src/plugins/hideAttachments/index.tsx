@@ -57,8 +57,9 @@ async function toggleHide(channelId: string, messageId: string) {
 export default definePlugin({
     name: "HideMedia",
     description: t("vencord.hideAttachments.description"),
+    tags: ["Chat", "Appearance"],
     authors: [Devs.Ven],
-    dependencies: ["MessageUpdaterAPI"],
+    dependencies: ["MessageUpdaterAPI", "MessageAccessoriesAPI", "MessagePopoverAPI"],
 
     patches: [{
         find: "this.renderAttachments(",

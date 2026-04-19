@@ -5,8 +5,8 @@
  */
 
 import { Devs } from "@utils/constants";
-import definePlugin from "@utils/types";
 import { t } from "@utils/translation";
+import definePlugin from "@utils/types";
 import { Channel, Message, User } from "@vencord/discord-types";
 import { findByCodeLazy } from "@webpack";
 import { FluxDispatcher, RestAPI } from "@webpack/common";
@@ -34,6 +34,7 @@ const createMessageRecord = findByCodeLazy(".createFromServer(", ".isBlockedForM
 export default definePlugin({
     name: "ValidReply",
     description: t("vencord.validReply.description"),
+    tags: ["Chat", "Utility"],
     authors: [Devs.newwares],
     patches: [
         {

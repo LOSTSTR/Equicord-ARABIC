@@ -35,6 +35,7 @@ function lurk(id: string) {
 export default definePlugin({
     name: "BetterInvites",
     description: t("equicord.betterInvites.description"),
+    tags: ["Appearance", "Customisation", "Chat", "Servers"],
     authors: [EquicordDevs.iamme, Devs.thororen],
     patches: [
         {

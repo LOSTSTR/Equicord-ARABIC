@@ -152,7 +152,7 @@ function applyDefaultSettings(guildId: string | null) {
 export default definePlugin({
     name: "NewGuildSettings",
     description: t("vencord.newGuildSettings.description"),
-    tags: ["MuteNewGuild", "mute", "server"],
+    tags: ["Servers", "Customisation"],
     authors: [Devs.Glitch, Devs.Nuckyz, Devs.carince, Devs.Mopi, Devs.GabiRP],
     isModified: true,
     contextMenus: {

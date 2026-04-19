@@ -275,6 +275,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "BetterAudioPlayer",
     description: t("equicord.betterAudioPlayer.description"),
+    tags: ["Appearance", "Media", "Voice"],
     authors: [EquicordDevs.creations],
     settings,
 

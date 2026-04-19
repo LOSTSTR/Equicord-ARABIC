@@ -50,6 +50,8 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "HideMessages",
     description: t("equicord.hideMessages.description"),
+    dependencies: ["MessagePopoverAPI"],
+    tags: ["Chat", "Utility"],
     authors: [EquicordDevs.yash],
     contextMenus: {
         "message": messageCtxPatch

@@ -25,6 +25,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "FixImagesQuality",
     description: t("vencord.fixImagesQuality.description"),
+    tags: ["Media", "Appearance"],
     authors: [Devs.Nuckyz, Devs.Ven],
     settings,
 

@@ -201,6 +201,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "FontLoader",
     description: t("equicord.fontLoader.description"),
+    tags: ["Appearance", "Customisation"],
     authors: [EquicordDevs.vmohammad],
     settings,
 

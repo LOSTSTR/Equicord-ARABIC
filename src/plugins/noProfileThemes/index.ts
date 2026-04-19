@@ -24,6 +24,7 @@ import { UserStore } from "@webpack/common";
 export default definePlugin({
     name: "NoProfileThemes",
     description: t("vencord.noProfileThemes.description"),
+    tags: ["Appearance"],
     authors: [Devs.TheKodeToad],
     patches: [
         {

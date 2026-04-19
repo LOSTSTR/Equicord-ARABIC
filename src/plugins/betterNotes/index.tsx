@@ -41,6 +41,7 @@ export default definePlugin({
     name: "BetterNotesBox",
     description: t("vencord.betterNotesBox.description"),
     authors: [Devs.Ven],
+    tags: ["Customisation", "Utility"],
     settings,
 
     patches: [

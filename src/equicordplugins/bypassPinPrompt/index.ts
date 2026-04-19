@@ -11,6 +11,7 @@ import definePlugin from "@utils/types";
 export default definePlugin({
     name: "BypassPinPrompt",
     description: t("equicord.bypassPinPrompt.description"),
+    tags: ["Shortcuts"],
     authors: [Devs.thororen],
     patches: [
         ...[

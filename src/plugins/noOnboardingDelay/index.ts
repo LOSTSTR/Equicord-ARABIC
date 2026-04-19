@@ -23,6 +23,7 @@ import definePlugin from "@utils/types";
 export default definePlugin({
     name: "NoOnboardingDelay",
     description: t("vencord.noOnboardingDelay.description"),
+    tags: ["Utility", "Servers"],
     authors: [Devs.nekohaxx],
     patches: [
         {

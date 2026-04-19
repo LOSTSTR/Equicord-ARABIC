@@ -20,14 +20,15 @@ import { ClockIcon } from "@components/Icons";
 import SettingsPlugin from "@plugins/_core/settings";
 import { Devs } from "@utils/constants";
 import { removeFromArray } from "@utils/misc";
-import definePlugin from "@utils/types";
 import { t } from "@utils/translation";
+import definePlugin from "@utils/types";
 
 import StartupTimingPage from "./StartupTimingPage";
 
 export default definePlugin({
     name: "StartupTimings",
     description: t("vencord.startupTimings.description"),
+    tags: ["Developers"],
     authors: [Devs.Megu],
     start() {
         SettingsPlugin.customEntries.push({

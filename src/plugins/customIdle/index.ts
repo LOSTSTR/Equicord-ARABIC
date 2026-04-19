@@ -30,6 +30,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "CustomIdle",
     description: t("vencord.customIdle.description"),
+    tags: ["Activity", "Customisation"],
     authors: [Devs.newwares],
     settings,
     patches: [

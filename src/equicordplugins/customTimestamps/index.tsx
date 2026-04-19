@@ -126,6 +126,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "CustomTimestamps",
     description: t("equicord.customTimestamps.description"),
+    tags: ["Appearance", "Customisation"],
     authors: [Devs.Rini, EquicordDevs.nvhhr, EquicordDevs.Suffocate, Devs.Obsidian],
     settings,
     settingsAboutComponent: () => (

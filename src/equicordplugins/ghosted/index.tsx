@@ -148,6 +148,7 @@ function makeContextItem(props) {
 export default definePlugin({
     name: "Ghosted",
     description: t("equicord.ghosted.description"),
+    tags: ["Chat", "Utility"],
     authors: [EquicordDevs.vei, Devs.sadan, EquicordDevs.justjxke, EquicordDevs.iamme],
     settings,
     dependencies: ["AudioPlayerAPI", "ServerListAPI"],

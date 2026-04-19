@@ -194,6 +194,7 @@ function showFailureToast(message: string) {
 export default definePlugin({
     name: "ShowMessageEmbeds",
     description: t("equicord.showMessageEmbeds.description"),
+    tags: ["Appearance", "Chat"],
     authors: [EquicordDevs.Suffocate],
 
     patches: [

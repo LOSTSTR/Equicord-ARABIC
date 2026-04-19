@@ -24,6 +24,7 @@ export default definePlugin({
     name: "ColorSighted",
     description: t("vencord.colorSighted.description"),
     authors: [Devs.lewisakura],
+    tags: ["Appearance", "Accessibility"],
     patches: [
         {
             find: "Masks.STATUS_ONLINE",

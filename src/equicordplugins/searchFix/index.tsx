@@ -40,6 +40,7 @@ function settingsComponent() {
 export default definePlugin({
     name: "SearchFix",
     description: t("equicord.searchFix.description"),
+    tags: ["Utility"],
     settingsAboutComponent: () => settingsComponent(),
     authors: [EquicordDevs.Jaxx],
     patches: [

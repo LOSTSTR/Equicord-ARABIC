@@ -30,6 +30,7 @@ export default definePlugin({
     name: "FixFileExtensions",
     authors: [Devs.thororen],
     description: t("equicord.fixFileExtensions.description"),
+    tags: ["Media", "Utility"],
     reporterTestable: ReporterTestable.None,
     patches: [
         // Taken from AnonymiseFileNames

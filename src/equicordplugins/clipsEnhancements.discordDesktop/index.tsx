@@ -73,6 +73,7 @@ migratePluginSettings("ClipsEnhancements", "TimelessClips");
 export default definePlugin({
     name: "ClipsEnhancements",
     description: t("equicord.clipsEnhancements.description"),
+    tags: ["Activity", "Media", "Utility"],
     authors: [Devs.niko, Devs.Joona, EquicordDevs.keircn],
     settings,
     patches: [

@@ -24,6 +24,7 @@ export default definePlugin({
     name: "NoDevtoolsWarning",
     description: t("vencord.noDevtoolsWarning.description"),
     authors: [Devs.Ven],
+    tags: ["Developers", "Console"],
     patches: [{
         find: "setDevtoolsCallbacks",
         replacement: {

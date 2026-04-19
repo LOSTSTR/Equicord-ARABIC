@@ -298,6 +298,8 @@ export default definePlugin({
     name: "SilentTyping",
     authors: [Devs.Ven, Devs.Rini, Devs.ImBanana, EquicordDevs.Etorix],
     description: t("vencord.silentTyping.description"),
+    dependencies: ["CommandsAPI", "ChatInputButtonAPI"],
+    tags: ["Chat", "Privacy"],
     isModified: true,
     settings,
 

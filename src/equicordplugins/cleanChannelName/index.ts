@@ -13,6 +13,7 @@ export default definePlugin({
     name: "CleanChannelName",
     authors: [Devs.AutumnVN],
     description: t("equicord.cleanChannelName.description"),
+    tags: ["Appearance", "Customisation", "Chat", "Emotes", "Servers"],
     patches: [
         {
             find: "loadAllGuildAndPrivateChannelsFromDisk(){",

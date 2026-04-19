@@ -115,6 +115,7 @@ migratePluginToSettings(true, "TypingTweaks", "AmITyping", "amITyping");
 export default definePlugin({
     name: "TypingTweaks",
     description: t("vencord.typingTweaks.description"),
+    tags: ["Appearance", "Customisation"],
     authors: [Devs.zt, Devs.sadan, EquicordDevs.MrDiamond],
     settings,
     isModified: true,

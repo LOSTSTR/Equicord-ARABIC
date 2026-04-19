@@ -59,6 +59,7 @@ function ReplyTimestamp({
 export default definePlugin({
     name: "ReplyTimestamp",
     description: t("vencord.replyTimestamp.description"),
+    tags: ["Chat", "Appearance"],
     authors: [Devs.Kyuuhachi],
 
     patches: [

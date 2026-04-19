@@ -1102,8 +1102,9 @@ const messageSendListener = (_channelId: string, messageObj: { content: string; 
 export default definePlugin({
     name: "FavoriteEmojiFirst",
     authors: [Devs.Aria, Devs.Ven, EquicordDevs.justjxke],
-    tags: ["EmojiAlias"],
     description: t("vencord.favEmojiFirst.description"),
+    dependencies: ["MessagePopoverAPI"],
+    tags: ["Emotes", "Customisation"],
     settings,
     contextMenus: {
         "expression-picker": expressionPickerPatch,

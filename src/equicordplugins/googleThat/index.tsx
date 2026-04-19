@@ -76,8 +76,10 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "GoogleThat",
     description: t("equicord.googleThat.description"),
+    dependencies: ["CommandsAPI"],
+    tags: ["Commands", "Utility"],
     authors: [Devs.Samwich, EquicordDevs.KrystalSkull],
-    tags: ["search", "google", "query", "duckduckgo", "command"],
+    searchTerms: ["search", "google", "query", "duckduckgo", "command"],
     settings,
     commands: [
         {

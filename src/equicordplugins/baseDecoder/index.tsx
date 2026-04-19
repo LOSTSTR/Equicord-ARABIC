@@ -108,6 +108,8 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "DecodeBase64",
     description: t("equicord.baseDecoder.description"),
+    dependencies: ["MessagePopoverAPI"],
+    tags: ["Appearance", "Customisation", "Chat"],
     authors: [EquicordDevs.ThePirateStoner],
     settings,
     messagePopoverButton: {

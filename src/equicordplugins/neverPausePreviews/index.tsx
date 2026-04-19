@@ -24,6 +24,7 @@ import definePlugin from "@utils/types";
 export default definePlugin({
     name: "NeverPausePreviews",
     description: t("equicord.neverPausePreviews.description"),
+    tags: ["Media"],
     authors: [EquicordDevs.vappstar],
     settingsAboutComponent: () => (
         <Notice.Warning>

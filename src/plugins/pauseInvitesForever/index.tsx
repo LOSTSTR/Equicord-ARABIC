@@ -44,8 +44,8 @@ function disableInvites(guildId: string) {
 
 export default definePlugin({
     name: "PauseInvitesForever",
-    tags: ["DisableInvitesForever"],
     description: t("vencord.pauseInvitesForever.description"),
+    tags: ["Servers"],
     authors: [Devs.Dolfies, Devs.amia],
 
     patches: [

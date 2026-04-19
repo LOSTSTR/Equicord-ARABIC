@@ -23,6 +23,7 @@ import definePlugin from "@utils/types";
 export default definePlugin({
     name: "DisableCallIdle",
     description: t("vencord.disableCallIdle.description"),
+    tags: ["Voice", "Utility"],
     authors: [Devs.Nuckyz],
     patches: [
         {

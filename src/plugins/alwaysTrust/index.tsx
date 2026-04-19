@@ -61,6 +61,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "AlwaysTrust",
     description: t("vencord.alwaysTrust.description"),
+    tags: ["Utility"],
     authors: [Devs.zt, Devs.Trwy],
     isModified: true,
     settings,

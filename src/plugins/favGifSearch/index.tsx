@@ -85,6 +85,7 @@ export default definePlugin({
     name: "FavoriteGifSearch",
     authors: [Devs.Aria],
     description: t("vencord.favGifSearch.description"),
+    tags: ["Media", "Customisation"],
 
     patches: [
         {
