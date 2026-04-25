@@ -24,6 +24,15 @@ export default definePlugin({
     authors: [EquicordDevs.iamme],
     dependencies: ["Settings"],
     startAt: StartAt.WebpackReady,
+    patches: [
+        {
+            find: "AngleBracketsIcon",
+            replacement: {
+                match: /SectionDivider:\(\)=>\i,(?=.*?(\i),\{AIcon)/,
+                replace: "$&icons:()=>$1,"
+            }
+        }
+    ],
     toolboxActions: {
         [t("equicord.iconViewer.ui.openIconsTab")]() {
             SettingsRouter.openUserSettings("equicord_icon_viewer_panel");

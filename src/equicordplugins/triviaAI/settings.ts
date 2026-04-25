@@ -27,8 +27,9 @@ export const settings = definePluginSettings({
     systemPrompt: {
         type: OptionType.STRING,
         description: t("equicord.triviaAI.settings.systemPrompt"),
-        default: "You are a helpful assistant who answers questions for the user in a concise and short way while using the least amount of words and punctuation.",
-        placeholder: "Enter system prompt."
+        default: "You are a helpful assistant who answers questions for the user in a concise and short way while using the least amount of words and punctuation.\nCurrent user: {current_user}\nCurrent time: {current_time}",
+        placeholder: "Enter system prompt.",
+        multiline: true
     },
     maxTokens: {
         type: OptionType.NUMBER,
@@ -40,6 +41,21 @@ export const settings = definePluginSettings({
         description: t("equicord.triviaAI.settings.endpoint"),
         default: "https://openrouter.ai/api/v1/chat/completions",
         placeholder: "Enter your OpenAI compatible AI endpoint here."
+    },
+    context: {
+        type: OptionType.NUMBER,
+        description: "Number of previous messages to include as context.",
+        default: 0
+    },
+    passMessageAuthorName: {
+        type: OptionType.BOOLEAN,
+        description: "Prepend the author's name to the message content when passing it to the AI. This can help the AI distinguish between different users in a conversation.",
+        default: true
+    },
+    treatSelfAsAssistant: {
+        type: OptionType.BOOLEAN,
+        description: "When enabled, your own messages will be treated as assistant messages in the context. This causes some models to start generating fanfic.",
+        default: false
     },
     mode: {
         type: OptionType.SELECT,

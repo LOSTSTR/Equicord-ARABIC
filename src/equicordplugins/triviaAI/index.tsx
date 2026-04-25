@@ -9,17 +9,17 @@ import { EquicordDevs } from "@utils/constants";
 import { t } from "@utils/translation";
 import definePlugin, { IconComponent } from "@utils/types";
 import { Message } from "@vencord/discord-types";
-import { findExportedComponentLazy } from "@webpack";
+import { findComponentByCodeLazy } from "@webpack";
 import { ChannelStore, Menu } from "@webpack/common";
 
 import { settings } from "./settings";
-import { getResponse, handleResponse, parseMessageContent } from "./utils";
+import { getPayload, getResponse, handleResponse } from "./utils";
 
-const RobotIconLazy = findExportedComponentLazy("RobotIcon");
+const RobotIconLazy = findComponentByCodeLazy("14.93-4H15a1 ");
 const RobotIcon: IconComponent = props => <RobotIconLazy {...props} />;
 
 const messageCtxPatch: NavContextMenuPatchCallback = (children, { message }: { message: Message; }) => {
-    const payload = parseMessageContent(message);
+    const payload = getPayload(message);
     if (!payload) return;
 
     const group = findGroupChildrenByChildId("copy-text", children);
@@ -51,7 +51,7 @@ export default definePlugin({
     messagePopoverButton: {
         icon: RobotIcon,
         render(message: Message) {
-            const payload = parseMessageContent(message);
+            const payload = getPayload(message);
             if (!payload) return null;
 
             return {

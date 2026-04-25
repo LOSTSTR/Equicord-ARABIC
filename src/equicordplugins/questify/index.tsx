@@ -1400,11 +1400,11 @@ export default definePlugin({
 
     patches: [
         {
-            // Hides the notice in the gift inventory that Quests have been relocated to the Discovery tab.
-            find: "quests-wumpus-hikes-mountain-transparent-background",
+            // Needed for GuildlessServerListItemComponent component in components.tsx
+            find: "=\"DOWNLOAD_APPS\";function",
             replacement: {
-                match: /return(?=\(0,\i.\i\)\("div",{className:)/,
-                replace: "return $self.shouldHideGiftInventoryRelocationNotice()?null:"
+                match: /(?<=function\(\i,\i,\i\){\i.\i\(\i,{)(?=.{0,25000}?ariaHidden:!0,asContainer:!\i,children:\i}\)}var \i=\i\(\d+\);let (\i)=\i.forwardRef\(function)/,
+                replace: "GuildlessServerListItemComponent:()=>$1,"
             }
         },
         {
@@ -1429,16 +1429,20 @@ export default definePlugin({
         },
         {
             // Hides the sponsored banner on the Quests page.
-            find: "{isInDiscoverQuestHomeTab:",
+            find: "resetSortingFiltering(),requestAnimationFrame",
             group: true,
             replacement: [
                 {
-                    match: /(?<=scrollToQuest\(\i\)\}\)\},\[\]\);)/,
+                    match: /(?=let{topLevelRoute)/,
                     replace: "const shouldHideSponsoredQuestBanner=$self.shouldHideSponsoredQuestBanner();"
                 },
                 {
-                    match: /(?<=return null;if\(\i)(\).{0,30}?null!=\i)/,
-                    replace: "&&!shouldHideSponsoredQuestBanner$1&&!shouldHideSponsoredQuestBanner"
+                    match: /(?<=\{onAssetLoad:\i,onQuestCtaClick:\i)(?=\}\),)/,
+                    replace: ",shouldHideSponsoredQuestBanner"
+                },
+                {
+                    match: /(?<=(\i),isLoading:(\i)}=\(0,\i.\i\)\(\);)/,
+                    replace: "if(arguments[0].shouldHideSponsoredQuestBanner){$1=null;$2=false;};"
                 }
             ]
         },
@@ -1654,8 +1658,13 @@ export default definePlugin({
                 },
                 {
                     // Encourages banners to load quicker if the setting is enabled.
-                    match: /(warningHints:\i,)isVisibleInViewport:(\i)/,
-                    replace: "$1isVisibleInViewport:$self.shouldPreloadQuestAssets()?true:$2"
+                    match: /(hideAssets:)(!\i)/,
+                    replace: "$1$self.shouldPreloadQuestAssets()?!1:$2"
+                },
+                {
+                    // Encourages banners to load quicker if the setting is enabled.
+                    match: /(showPlaceholder:)(!\i)/,
+                    replace: "$1$self.shouldPreloadQuestAssets()?!1:$2"
                 },
                 {
                     // Encourages reward icons to load quicker if the setting is enabled.
@@ -1679,8 +1688,8 @@ export default definePlugin({
             // Adds the "Questify" sort option to the sort enum.
             find: "SUGGESTED=\"suggested\",",
             replacement: {
-                match: /return ((\i).SUGGESTED="suggested",)/,
-                replace: "return $2.QUESTIFY=\"questify\",$1"
+                match: /(\(\((\i)=\{\}\))(.SUGGESTED="suggested",)/,
+                replace: "$1.QUESTIFY=\"questify\",$2$3"
             }
         },
         {
@@ -1699,8 +1708,12 @@ export default definePlugin({
                     // Run Questify's sort function every time due to hook requirements but return
                     // early if not applicable. If the sort method is set to "Questify", replace the
                     // Quests with the sorted ones. Also, setup a trigger to rerender the memo.
-                    match: /(return \i.useMemo\(\(\)=>{)(?=if\(0===(\i).length\))/,
-                    replace: "const questRerenderTrigger=$self.useQuestRerender();const questifySorted=$self.sortQuests($2,arguments[1].sortMethod!==\"questify\");$1if(arguments[1].sortMethod===\"questify\"){$2=questifySorted;};"
+                    match: /(?<=quests:(\i).{0,150}"use_filtered_quests".{0,25}\i\.id,\i\]\)\)),/,
+                    replace: ";const questRerenderTrigger=$self.useQuestRerender();const questifySorted=$self.sortQuests($1,arguments[1].sortMethod!==\"questify\");let "
+                },
+                {
+                    match: /(?=if\(0===(\i).length\).{0,100}\.sortMethod&&\i\.current)/,
+                    replace: "if(arguments[1].sortMethod===\"questify\"){$1=questifySorted;};"
                 },
                 {
                     // Account for Quest status changes.
@@ -1709,7 +1722,7 @@ export default definePlugin({
                 },
                 {
                     // If we already applied Questify's sort, skip further sorting.
-                    match: /(?<=sortMethod:(\i).{0,115}?return )((\i).sort)/,
+                    match: /(?<=\{sortMethod:(\i).*?return )((\i).sort)/,
                     replace: "$1===\"questify\"?$3:$2"
                 },
                 {
@@ -1820,7 +1833,7 @@ export default definePlugin({
             find: ".ACCEPT_QUEST),",
             replacement: [
                 {
-                    match: /(?=let{quest:)/,
+                    match: /(?=let{quest:)/g,
                     replace: "const questifyText=$self.getQuestUnacceptedButtonText(arguments[0].quest)??$self.getQuestAcceptedButtonText(arguments[0].quest);"
                 },
                 {
@@ -1829,7 +1842,7 @@ export default definePlugin({
                 },
                 {
                     match: /(?<="primary",onClick:)(\i)/,
-                    replace: "()=>{!$self.processQuestForAutoComplete(arguments[0].quest,true)&&$1}"
+                    replace: "()=>{!$self.processQuestForAutoComplete(arguments[0].quest,true)&&$1()}"
                 }
             ]
         },
@@ -1844,7 +1857,7 @@ export default definePlugin({
         {
             // Sets intervals to progress Play Game Quests in the background.
             // Triggers if a Quest has already been started but was interrupted, such as by a reload.
-            find: "WATCH_VIDEO,skipEnrollmentCheck:!0})",
+            find: "),handleOpenExternalLink:",
             group: true,
             replacement: [
                 {
@@ -2018,7 +2031,8 @@ export default definePlugin({
 
             clearInterval(intervalData.progressTimeout);
             clearTimeout(intervalData.rerenderTimeout);
-            activeQuestIntervals.delete(questId);
         });
+
+        activeQuestIntervals.clear();
     }
 });

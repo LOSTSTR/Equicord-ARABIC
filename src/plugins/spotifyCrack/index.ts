@@ -39,7 +39,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "SpotifyCrack",
     description: t("vencord.spotifyCrack.description"),
-    tags: ["Media", "Utility"],
+    tags: ["Media", "Utility", "Activity"],
     authors: [Devs.Cyn, Devs.Nuckyz],
     settings,
 

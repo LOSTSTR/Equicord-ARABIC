@@ -39,6 +39,11 @@ const litterboxOptions = [
     { label: "72 hours", value: "72h" }
 ];
 
+const embedProxyOptions = [
+    { label: "CORS Proxy", value: "cors", default: true },
+    { label: "discord.nfp.is", value: "nfp" }
+];
+
 export const settings = definePluginSettings({
     serviceType: {
         type: OptionType.SELECT,
@@ -195,6 +200,19 @@ export const settings = definePluginSettings({
         type: OptionType.BOOLEAN,
         description: "Strip query params from uploaded URLs",
         default: false,
+        hidden: true
+    },
+    embedProxyEnabled: {
+        type: OptionType.BOOLEAN,
+        description: "Proxy uploaded video links through an embed helper service.",
+        default: false,
+        hidden: true
+    },
+    embedProxyService: {
+        type: OptionType.SELECT,
+        description: "Embed helper service to wrap uploaded video links.",
+        options: embedProxyOptions,
+        default: "cors",
         hidden: true
     },
     corsProxyUrl: {
@@ -494,6 +512,31 @@ export function SettingsComponent() {
                     onChange={v => store.stripQueryParams = v}
                 />
             </SettingsSection>
+
+            <SettingsSection tag="label" name="Use Embed Proxy" description="Wrap uploaded video links with an embed proxy service for better Discord previews" inlineSetting>
+                <Switch
+                    checked={store.embedProxyEnabled}
+                    onChange={v => {
+                        store.embedProxyEnabled = v;
+                        update();
+                    }}
+                />
+            </SettingsSection>
+
+            {store.embedProxyEnabled && (
+                <SettingsSection name="Embed Proxy Service" description="Choose which embed proxy service to use for uploaded video links">
+                    <Select
+                        options={embedProxyOptions}
+                        isSelected={v => v === store.embedProxyService}
+                        select={v => {
+                            store.embedProxyService = v;
+                            update();
+                        }}
+                        serialize={v => v}
+                        placeholder="Select an embed proxy service"
+                    />
+                </SettingsSection>
+            )}
 
             <SettingTextInput
                 name="CORS Proxy URL"

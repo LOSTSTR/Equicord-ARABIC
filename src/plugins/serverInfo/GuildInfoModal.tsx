@@ -21,7 +21,7 @@ import { FluxDispatcher, GuildChannelStore, GuildMemberStore, GuildRoleStore, Gu
 import { settings } from ".";
 
 const IconClasses = findCssClassesLazy("icon", "acronym", "childWrapper");
-const FriendRow = findComponentByCodeLazy("discriminatorClass:", ".isMobileOnline", "getAvatarURL");
+const FriendRow = findComponentByCodeLazy("discriminatorClass:", ".isMobileOnline", "avatarSrc:");
 
 const cl = classNameFactory("vc-gp-");
 

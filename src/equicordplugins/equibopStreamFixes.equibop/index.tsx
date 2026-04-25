@@ -5,7 +5,7 @@
  */
 
 import { isPluginEnabled } from "@api/PluginManager";
-import { definePluginSettings } from "@api/Settings";
+import { definePluginSettings, Settings } from "@api/Settings";
 import fakeNitro from "@plugins/fakeNitro";
 import { EquicordDevs } from "@utils/constants";
 import { localStorage } from "@utils/localStorage";
@@ -120,15 +120,15 @@ export default definePlugin({
             find: "canUseCustomStickersEverywhere:",
             replacement: [
                 {
-                    match: /canStreamQuality:\i,/,
-                    replace: "canStreamQuality:()=>true,",
+                    match: /(?<=canUseHighVideoUploadQuality:function\(\i\)\{)/,
+                    replace: "return true;",
                 },
                 {
-                    match: /canUseHighVideoUploadQuality:\i,/,
-                    replace: "canUseHighVideoUploadQuality:()=>true,",
+                    match: /(?<=canStreamQuality:function\(\i,\i\)\{)/,
+                    replace: "return true;",
                 },
             ],
-            predicate: () => settings.store.unlockQualityOptions && !isPluginEnabled(fakeNitro.name),
+            predicate: () => settings.store.unlockQualityOptions && !isPluginEnabled(fakeNitro.name) && !Settings.plugins[fakeNitro.name].enableStreamQualityBypass,
             noWarn: true,
         },
         // remove guild premium tier restriction from stream fps options
@@ -143,10 +143,10 @@ export default definePlugin({
         },
         // allow resolutions above 720p at 60fps
         {
-            find: ".RESOLUTION_720&&",
+            find: ",setIsForceShowSharingPopout:",
             replacement: {
-                match: /\i===\i\.\i\.RESOLUTION_720&&\i!==\i\.\i\.FPS_60/,
-                replace: "false",
+                match: /\i!==\i\.\i\.RESOLUTION_720\|\|\i===\i\.\i\.FPS_60/,
+                replace: "true",
             },
             predicate: () => settings.store.removeResolutionCap,
         },
