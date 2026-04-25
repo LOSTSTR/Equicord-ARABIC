@@ -114,7 +114,7 @@
             "oscilloscopeColor": "Farbe für das Oszilloskop",
             "oscilloscopeSolidColor": "Einfarbige Darstellung für das Oszilloskop verwenden",
             "spectrograph": "Spektrogramm-Visualizer aktivieren",
-            "spectrographColor": "Farbe für das Spektrogramm",
+            "spectrographColor": "Farbe für Spektrograph (R, G, B oder #hex)",
             "spectrographSolidColor": "Einfarbige Darstellung für das Spektrogramm verwenden"
         },
         "toasts": {
