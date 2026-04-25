@@ -149,7 +149,7 @@
                 "userOption": "Bestimmter Benutzer zum Ausprobieren und Aktualisieren"
             }
         },
-        "description": "Verbessert das Befehlssystem durch verschiedene Verbesserungen.",
+        "description": "Aktualisiert die angegebenen App-Befehle lokal.",
         "settings": {
             "allowNewlinesInCommands": "Zeilenumbrüche in Befehlseingaben zulassen (STRG + Umschalt + Eingabetaste)",
             "autoFillArguments": "Füllen Sie den Befehl automatisch mit allen Argumenten statt nur mit den erforderlichen aus"
@@ -337,6 +337,8 @@
     "commandPalette": {
         "description": "Führen Sie Aktionen schnell über eine durchsuchbare Befehlspalette aus",
         "settings": {
+            "closeAfterExecute": "Palette nach dem Befehl schließen.",
+            "compactStartEnabled": "Palette zuerst kompakt öffnen.",
             "customCommands": "Verwalten Sie benutzerdefinierte Befehlspaletteneinträge",
             "enableTagFilter": "Zeigt die Tag-Filterleiste an",
             "hotkey": "Hotkey zum Öffnen der Befehlspalette",
@@ -901,6 +903,7 @@
     },
     "githubRepos": {
         "description": "Zeigt die öffentlichen GitHub-Repositorys eines Benutzers in seinem Profil an",
+        "githubRepos": "GitHub-Repositorys",
         "settings": {
             "showInMiniProfile": "Zeigen Sie im Miniprofil die vollständige Benutzeroberfläche anstelle nur einer Schaltfläche an",
             "showLanguage": "Repository-Sprache anzeigen",
@@ -2110,7 +2113,10 @@
         "description": "Ein Plugin, das Ihnen hilft, Quizfragen mithilfe von KI zu beantworten.",
         "settings": {
             "apiKey": "API-Taste.",
-            "autoRespond": "Reagieren Sie automatisch auf Nachrichten, wenn Sie eine Antwort erhalten.",
+            "autoReply": "Auto-Antwort",
+            "autoRespond": "Wie sollen Antworten behandelt werden?",
+            "bot": "Clyde",
+            "chatbar": "Chatbar-Text ersetzen",
             "endpoint": "OpenAI-kompatibler KI-Endpunkt.",
             "maxTokens": "Maximale Anzahl von Tokens in der Antwort.",
             "model": "Zu verwendendes KI-Modell.",
