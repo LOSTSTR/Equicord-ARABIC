@@ -116,6 +116,7 @@
     "arRPC": {
         "connected": "Verbunden mit arRPC",
         "connectionFailed": "Verbindung zu arRPC konnte nicht hergestellt werden. Läuft es?",
+        "description": "Client-Plugin für arRPC zur Aktivierung von RPC auf Discord Web (experimentell)",
         "retry": "Erneut versuchen",
         "settingsAbout": {
             "description": "Befolgen Sie die Anweisungen im GitHub-Repository, um den Server zum Laufen zu bringen, und aktivieren Sie dann das Plugin.",
@@ -275,13 +276,15 @@
             "failedToDelete": "Einstellungen konnten nicht gelöscht werden ({e}).",
             "failedToSync": "Einstellungen zur Cloud konnten nicht synchronisiert werden ({e}).",
             "header": "Cloud Einstellungen",
+            "manifest": "Konnte Manifest zum Löschen nicht abrufen (API: {e}).",
             "newerThanCloud": "Ihre lokalen Einstellungen sind neuer, als die in der Cloud.",
             "noSettings": "Es gibt keine Einstellungen in der Cloud.",
             "success": "Einstellungen mit der Cloud synchronisiert!",
             "syncFromCloud": "Einstellungen aus der Cloud konnten nicht synchronisiert werden ({e}).",
+            "syncedCloud": "Clouddaten synchronisiert.",
             "upToDate": "Ihre Einstellungen sind aktuell.",
             "updated": "Deine Einstellungen wurden aktualisiert! Klicke hier, um neu zu Starten und die Änderungen vollständig zu bestätigen!",
-            "updatedRemote": "Deine Einstellungen wurden aktualisiert! Klicke hier, um neu zu Starten und die Änderungen vollständig zu bestätigen!"
+            "updatedRemote": "Einstellungen in die Cloud synchronisiert!"
         }
     },
     "colorSighted": {
@@ -1169,6 +1172,12 @@
     "noSystemBadge": {
         "description": "Deaktiviert das Symbol für die Ungelesen-Zählung in der Taskleiste und der Taskleiste."
     },
+    "noTrack": {
+        "description": "Deaktiviere Discords Tracking (Analytics/„Science“), Metriken und Sentry-Absturzberichte",
+        "settings": {
+            "disableAnalytics": "Deaktiviere Discords Tracking (Analytics/„Science“)"
+        }
+    },
     "noTypingAnimation": {
         "description": "Deaktiviert die CPU-intensive Tipppunktanimation"
     },
@@ -1461,6 +1470,7 @@
         },
         "system": "System",
         "unblockUser": "Benutzer entsperren",
+        "userReviews": "Nutzerbewertungen",
         "viewReviews": "Bewertungen anzeigen"
     },
     "roleColorEverywhere": {
@@ -1951,18 +1961,23 @@
     "textReplace": {
         "description": "Ersetze Text in deinen oder den Nachrichten anderer. Vorgefertigte Regeln findest du im Kanal #textreplace-rules auf dem Vencord-Server.",
         "find": "Suchen",
+        "findDesc": "Text zum Ersetzen",
+        "findDescRegex": "Das Regex-Muster",
         "messageWithRules": "Nachricht mit angewendeten Regeln",
         "onlyIfIncludes": "Nur wenn enthalten",
-        "regexRules": "Regeln für das Ersetzen von Text mittels regulärer Ausdrücke.",
+        "onlyIfIncludesDesc": "Diese Regel wird nur angewendet, wenn die Nachricht diesen Text enthält. Optional.",
+        "regexRules": "Erweiterte Ersetzungen mit Regex. Für Fortgeschrittene. Wenn du es nicht verstehst, ignorieren.",
         "replace": "Ersetzen",
+        "replaceDesc": "Ersatztext",
         "scope.allMessages": "Apply to all messages",
         "scope.myMessages": "Apply to your messages (visible to everyone)",
         "scope.othersMessages": "Apply to others' messages (only visible to you)",
-        "stringRules": "Regeln für das Ersetzen von Text mittels String-Matching.",
+        "stringRules": "Einfache Suchen-und-Ersetzen-Regeln. Z. B. „brb“ durch „be right back“ ersetzen.",
+        "testMessage": "Nachricht zum Testen der Regeln eingeben",
         "testRules": "Testregeln",
         "typeMessage": "Geben Sie eine Nachricht ein",
-        "usingRegex": "Verwenden von Regex",
-        "usingString": "String verwenden"
+        "usingRegex": "Regex ersetzen",
+        "usingString": "Einfache Ersetzungen"
     },
     "themeAttributes": {
         "description": "Fügt zu Themenzwecken Datenattribute zu verschiedenen Elementen hinzu"
@@ -1982,6 +1997,16 @@
         "openTranslateModal": "Öffnen Sie „Translate Modal“.",
         "selectLanguage": "Wählen Sie eine Sprache aus",
         "translate": "Übersetzen"
+    },
+    "translation": {
+        "description": "Hilft bei der Übersetzung von Equicord",
+        "settings": {
+            "forceLocale": {
+                "description": "Erzwinge eine andere Gebietsschema Einstellen für Equicord",
+                "followDiscord": "Standard (wie Discord)"
+            },
+            "showMissingKeys": "Wenn für die aktuelle Sprache Übersetzungen fehlen, werden die Schlüssel statt Englisch angezeigt."
+        }
     },
     "typingIndicator": {
         "description": "Fügt einen Indikator hinzu, wenn jemand auf einem Kanal tippt.",
