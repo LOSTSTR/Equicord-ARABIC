@@ -130,7 +130,7 @@
             "statusToSet": "Status, der beim Spielen eines Spiels festgelegt werden soll"
         },
         "statusOptions": {
-            "dnd": "Bitte nicht stören",
+            "dnd": "Nicht stören",
             "idle": "Abwesend",
             "invisible": "Unsichtbar",
             "online": "Online"
@@ -151,8 +151,8 @@
             "folderIconNever": "Nie",
             "forceOpen": "Erzwingen Sie das Öffnen eines Ordners, wenn Sie zu einem Server dieses Ordners wechseln",
             "keepIcons": "Gildensymbole werden weiterhin im primären Gildenleistenordner angezeigt, wenn dieser in der BetterFolders-Seitenleiste geöffnet ist",
-            "showFolderIcon": "Zeigen Sie das Ordnersymbol über den Ordnergilden in der BetterFolders-Seitenleiste an",
-            "sidebar": "Zeigen Sie Server aus dem Ordner in der speziellen Seitenleiste an",
+            "showFolderIcon": "Zeigen Sie das Ordner Symbol über den Ordnergilden in der BetterFolders-Seitenleiste an",
+            "sidebar": "Server aus dem Ordner in einer separaten Seitenleiste anzeigen",
             "sidebarAnim": "Animiert das Öffnen der Ordneransicht."
         }
     },
@@ -160,7 +160,7 @@
         "description": "Ändern Sie den GIF-Alt-Text von einfach „GIF“ so, dass er die GIF-Tags/den Dateinamen enthält"
     },
     "betterGifPicker": {
-        "description": "Lässt die GIF-Auswahl standardmäßig die Lieblingskategorie öffnen",
+        "description": "Die GIF-Auswahl sollte standardmäßig die Favoriten Kategorie öffnen.",
         "settings": {
             "keepOpen": "Hält die GIF-Auswahl geöffnet, nachdem ein GIF ausgewählt wurde"
         }
@@ -174,11 +174,11 @@
     },
     "betterRoleContext": {
         "copyRoleColor": "Rollenfarbe kopieren",
-        "description": "Fügt Optionen zum Kopieren der Rollenfarbe, Bearbeiten der Rolle und Anzeigen des Rollensymbols hinzu, wenn Sie mit der rechten Maustaste auf Rollen im Benutzerprofil klicken",
+        "description": "Fügt Optionen zum Kopieren der Rolle Farbe, Bearbeiten der Rolle und Anzeigen des Rollensymbols hinzu, wenn Sie mit der rechten Maustaste auf Rollen im Benutzerprofil klicken",
         "editRole": "Rolle bearbeiten",
         "name": "BetterRoleContext",
         "settings": {
-            "roleIconFileFormat": "Beim Anzeigen von Rollensymbolen zu verwendendes Dateiformat"
+            "roleIconFileFormat": "Dateiformat zum Anzeigen von Rollensymbolen"
         },
         "viewRoleIcon": "Rollensymbol anzeigen"
     },
@@ -186,17 +186,17 @@
         "description": "Rollenfarbe auf RoleDot kopieren (Einstellung für Barrierefreiheit) klicken. Ermöglicht außerdem die gleichzeitige Verwendung von RoleDot- und farbigen Namen",
         "settings": {
             "bothStyles": "Zeigen Sie sowohl gepunktete als auch farbige Rollennamen an",
-            "copyRoleColorInProfilePopout": "Klicken Sie im Profil-Popout auf den Rollenpunkt, um die Rollenfarbe zu kopieren"
+            "copyRoleColorInProfilePopout": "Erlauben Sie das Klicken Sie im Profil-Popout auf den Rollenpunkt, um die Rollenfarbe zu kopieren"
         }
     },
     "betterSessions": {
-        "description": "Verbessert das Sitzungsmenü (Geräte). Ermöglicht die Anzeige genauer Zeitstempel, die Vergabe benutzerdefinierter Namen für jede Sitzung und den Erhalt von Benachrichtigungen über neue Sitzungen.",
+        "description": "Verbessert das Sitzungsmenü (Gerätemenu). Ermöglicht die Anzeige genauer Zeitstempel, die Vergabe benutzerdefinierter Namen für jede Sitzung und den Erhalt von Benachrichtigungen über neue Sitzungen.",
         "newBadge": "NEU",
         "newSession": "Neue Sitzung:",
         "rename": "Umbenennen",
         "renameModal": {
             "newDeviceName": "Neuer Gerätename",
-            "resetName": "Namen zurücksetzen",
+            "resetName": "Name zurücksetzen",
             "save": "Speichern",
             "title": "Umbenennen"
         },
@@ -222,7 +222,7 @@
         "viewStreamPreview": "Stream-Vorschau anzeigen"
     },
     "blurNsfw": {
-        "description": "Verwischen Sie Anhänge in NSFW-Kanälen, bis Sie mit der Maus darüber fahren",
+        "description": "Anhänge in NSFW-Kanälen werden erst sichtbar, wenn man mit dem Mauszeiger darüberfährt.",
         "settings": {
             "blurAllChannels": "Unscharfe Anhänge in allen Kanälen (nicht nur NSFW)",
             "blurAmount": "Unschärfebetrag (in Pixel)"
@@ -236,7 +236,7 @@
             "showRoleColor": "Zeigt die Rollenfarbe des Benutzers an (wenn dieses Plugin aktiviert ist)",
             "showSeconds": "Sekunden im Timer anzeigen",
             "showWithoutHover": "Zeigt den Timer immer an, ohne mit der Maus darüber sein zu müssen.",
-            "trackSelf": "Verfolgen Sie auch sich selbst",
+            "trackSelf": "Verfolgen dich auch selbst",
             "watchLargeGuilds": "Verfolgen Sie Benutzer in großen Gilden. Dies kann zu Verzögerungen führen, wenn Sie vielen großen Gilden mit aktiven Sprachbenutzern angehören. Getestet mit bis zu 2.000 aktiven Sprachbenutzern ohne Probleme."
         }
     },
