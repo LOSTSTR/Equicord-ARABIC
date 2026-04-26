@@ -1,37 +1,37 @@
 {
     "accountPanelServerProfile": {
-        "description": "Faites un clic droit sur votre panneau de compte en bas à gauche pour afficher votre profil sur le serveur actuel",
-        "prioritizeServerProfile": "Prioriser le profil du serveur",
-        "prioritizeServerProfileDescription": "Donnez la priorité au profil du serveur lorsque vous cliquez avec le bouton gauche sur le panneau de votre compte",
-        "viewAccountProfile": "Afficher le profil du compte",
-        "viewServerProfile": "Afficher le profil du serveur"
+        "description": "Afficher le profil de serveur au lieu du profil global en bas à gauche avec un clic droit",
+        "prioritizeServerProfile": "Prioriser le profil de serveur",
+        "prioritizeServerProfileDescription": "Afficher le profil de serveur avec un clic gauche sur la section du compte",
+        "viewAccountProfile": "Afficher le profil global",
+        "viewServerProfile": "Afficher le profil de serveur"
     },
     "addonCard": {
-        "new": "NOUVEAU"
+        "new": "NOUV"
     },
     "alwaysAnimate": {
         "description": "Anime tout ce qui peut être animé",
         "settings": {
-            "icons": "Animez toujours les icônes du serveur, les avatars, le décor et plus encore",
-            "nameplates": "Toujours animer les plaques signalétiques",
-            "roleGradients": "Toujours animer les dégradés de rôles",
-            "serverBanners": "Animez toujours les bannières du serveur",
-            "statusEmojis": "Animez toujours les émojis de statut"
+            "icons": "Animez toujours les icônes de serveur, les avatars, les décorations d'avatar et plus",
+            "nameplates": "Toujours animer les plaques nominatives",
+            "roleGradients": "Toujours animer les dégradés de rôle",
+            "serverBanners": "Toujours animer les bannières de serveur",
+            "statusEmojis": "Toujours animer les émojis de statut"
         }
     },
     "alwaysExpandRoles": {
-        "description": "Développe toujours la liste des rôles dans les fenêtres contextuelles du profil",
+        "description": "Toujours afficher la liste de rôles complète dans les profils",
         "settings": {
             "hideArrow": "Masquer la flèche"
         }
     },
     "alwaysTrust": {
-        "description": "Supprime le domaine non fiable ennuyeux et la fenêtre contextuelle de fichier suspect",
+        "description": "Supprime l'alerte de site web inconnu et de fichier suspect",
         "settings": {
-            "confirmModal": "Un modal « êtes-vous sûr de vouloir supprimer » doit-il s'afficher ?",
-            "domain": "Supprimez la fenêtre contextuelle de domaine non fiable lors de l'ouverture de liens",
-            "file": "Supprimez la fenêtre contextuelle « Téléchargement potentiellement dangereux » lors de l'ouverture de liens",
-            "noDeleteSafety": "Supprime l'exigence de saisie du nom du serveur lors de la suppression d'un serveur"
+            "confirmModal": "Afficher la confirmation de suppression",
+            "domain": "Supprimer l'alerte de site web inconnu à l'ouverture de liens",
+            "file": "Supprime l'alerte de fichier suspect quand un lien est ouvert",
+            "noDeleteSafety": "Retire la saisie du nom du serveur lors de la suppression de celui-ci"
         },
         "ui": {
             "deleteServerBody": "C'est permanent, si ce n'était pas évident.",
