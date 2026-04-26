@@ -1,22 +1,22 @@
 {
     "absRPC": {
         "about": {
-            "automaticAuth": "Le plugin authentifiera automatiquement votre compte et récupérera votre progression d'écoute.",
-            "description": "Entrez l'URL de votre serveur AudioBookShelf, votre pseudo et votre mot de passe pour afficher les livres audio que vous écoutez actuellement sous forme de Rich Presence Discord.",
+            "automaticAuth": "Le plugin se connectera automatiquement à votre compte et récupérera votre progression d'écoute.",
+            "description": "Entrez l'URL de votre serveur AudioBookShelf, votre pseudo et votre mot de passe pour afficher les livres audio que vous écoutez actuellement sous forme d'activité sur votre profil.",
             "title": "Comment se connecter à AudioBookShelf"
         },
         "description": "Rich Presence pour le serveur multimédia AudioBookShelf",
         "settings": {
             "password": "Mot de passe AudioBookShelf",
             "serverUrl": "URL du serveur AudioBookShelf (ex., https://abs.example.com)",
-            "username": "Pseudo AudioBookShelf"
+            "username": "Nom d'utilisateur AudioBookShelf"
         },
         "toasts": {
             "notConfigured": "AudioBookShelf RPC n'est pas configuré."
         }
     },
     "altKrispSwitch": {
-        "description": "Fait en sorte que le pop‑up de suppression de bruit bascule entre Aucun et Krisp au lieu de Krisp et Standard"
+        "description": "Fait en sorte que le menu de suppression de bruit aie Aucun et Krisp au lieu de Standard et Krisp"
     },
     "alwaysExpandProfiles": {
         "description": "Toujours agrandir les fenêtres de profil en grand"
@@ -65,25 +65,25 @@
         }
     },
     "bannersEverywhere": {
-        "description": "Affiche les bannières dans la liste des membres. ",
+        "description": "Afficher les bannières dans la liste des membres ",
         "settings": {
             "animate": "Animer les bannières",
-            "preferNameplate": "préférer la plaque de nom a la bannière"
+            "preferNameplate": "Favoriser les plaques nominatives au lieu des bannières"
         }
     },
     "baseDecoder": {
         "description": "Décoder le contenu base64 de n'importe quel message et copier le contenu décodé.",
         "settings": {
-            "clickMethod": "Modifie le bouton pour décoder le contenu base64 de n'importe quel message.",
+            "clickMethod": "Changer le bouton de la souris pour décoder le contenu base64",
             "clickMethodOptions": {
-                "left": "Clique gauche pour décoder le contenu base64.",
-                "right": "Clique droit pour décoder le contenu base64."
+                "left": "Clic gauche",
+                "right": "Clic droit"
             }
         },
         "ui": {
             "copiedToast": "Contenu décodé copié dans le presse-papiers !",
             "copyDecoded": "Copier le contenu décodé",
-            "decodedContent": "Contenu decodé",
+            "decodedContent": "Contenu décodé",
             "modalTitle": "Contenu Base64 décodé",
             "tooltipLeft": "Copier décodé (clic gauche) / Décoder Base64 (clic droit)",
             "tooltipRight": "Décoder Base64 (clic gauche) / Copier le résultat décodé (clic droit)"
