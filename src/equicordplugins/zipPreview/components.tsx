@@ -9,10 +9,10 @@ import { CodeBlock } from "@components/CodeBlock";
 import ErrorBoundary from "@components/ErrorBoundary";
 import { Flex } from "@components/Flex";
 import { Heading } from "@components/Heading";
+import { iconsModule } from "@equicordplugins/_core/concatenatedModules";
 import { classNameFactory } from "@utils/css";
 import { copyWithToast } from "@utils/discord";
 import { closeModal, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalRoot, ModalSize, openModal } from "@utils/modal";
-import { findExportedComponentLazy } from "@webpack";
 import { useEffect, useMemo, useRef, useState } from "@webpack/common";
 
 import {
@@ -29,10 +29,6 @@ import {
     ZipPreviewAttachmentProps,
     ZipPreviewCacheState
 } from "./utils";
-
-const ChevronSmallDownIcon = findExportedComponentLazy("ChevronSmallDownIcon");
-const ChevronSmallUpIcon = findExportedComponentLazy("ChevronSmallUpIcon");
-const FolderIcon = findExportedComponentLazy("FolderIcon");
 
 export const cl = classNameFactory("vc-zip-preview-");
 
@@ -153,8 +149,8 @@ export function ZipPreviewInline(props: ZipPreviewAttachmentProps) {
                 }}
             >
                 {isExpanded
-                    ? <ChevronSmallUpIcon className={cl("toggle-icon")} />
-                    : <ChevronSmallDownIcon className={cl("toggle-icon")} />}
+                    ? <iconsModule.ChevronSmallUpIcon className={cl("toggle-icon")} />
+                    : <iconsModule.ChevronSmallDownIcon className={cl("toggle-icon")} />}
             </button>
         </div>
     );
@@ -197,7 +193,7 @@ function ZipPreviewBreadcrumb({ path, onNavigate }: { path: string; onNavigate: 
     if (!path) {
         return (
             <div className={cl("breadcrumb")}>
-                <FolderIcon className={cl("breadcrumb-icon")} />
+                <iconsModule.FolderIcon className={cl("breadcrumb-icon")} />
                 <span className={cl("breadcrumb-current")}>/</span>
             </div>
         );
@@ -207,7 +203,7 @@ function ZipPreviewBreadcrumb({ path, onNavigate }: { path: string; onNavigate: 
 
     return (
         <div className={cl("breadcrumb")}>
-            <FolderIcon className={cl("breadcrumb-icon")} />
+            <iconsModule.FolderIcon className={cl("breadcrumb-icon")} />
             <button
                 className={cl("breadcrumb-segment")}
                 type="button"
