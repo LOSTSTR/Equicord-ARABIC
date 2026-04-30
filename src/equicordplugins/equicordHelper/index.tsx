@@ -309,6 +309,20 @@ export default definePlugin({
                 }
             ],
             predicate: () => Settings.winNativeTitleBar,
+        },
+        {
+            find: ".completeOperation(",
+            replacement: {
+                match: /(?<=this\.nextId\(\);)(\i\(\i\)),(.{0,200}reject:\i\}\))/,
+                replace: "$2,$1"
+            }
+        },
+        {
+            find: "discarding speculative database",
+            replacement: {
+                match: /await (\i)\((\i)\)(?=;.{0,15}this\.databases)/,
+                replace: "$&.catch(()=>null)"
+            }
         }
     ],
     renderMessageAccessory(props) {
