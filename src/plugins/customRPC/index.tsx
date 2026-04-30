@@ -231,7 +231,7 @@ function startTimestampLoop() {
     if (timestampMode !== TimestampMode.CUSTOM || !startTime || !endTime) return;
     const duration = endTime - startTime;
     if (duration <= 0) return;
-    
+
     stopTimestampLoop();
     loopAnchor = Date.now();
 
@@ -263,7 +263,7 @@ export default definePlugin({
     settings,
 
     start() {
-		startTimestampLoop();
+        startTimestampLoop();
         setRpc();
     },
     stop() {

@@ -66,8 +66,8 @@ function EquicordSettings() {
         description?: string;
         restartRequired?: boolean;
         warning?: string;
-    }
-    > = [
+    }>
+        = [
             {
                 key: "useQuickCss",
                 title: t("vencord.settings.useQuickCss.title"),
@@ -120,7 +120,7 @@ function EquicordSettings() {
                 title: t("vencord.settings.winCtrlQ.title"),
                 description: t("vencord.settings.winCtrlQ.description"),
                 restartRequired: true,
-            },
+            }
         ];
 
     return (
