@@ -139,8 +139,14 @@ async function createActivity(): Promise<Activity | undefined> {
         case TimestampMode.CUSTOM:
             if (startTime || endTime) {
                 activity.timestamps = {};
-                if (startTime) activity.timestamps.start = startTime;
-                if (endTime) activity.timestamps.end = endTime;
+                if (startTime && endTime && endTime > startTime) {
+                    const anchor = getLoopAnchor();
+                    activity.timestamps.start = anchor;
+                    activity.timestamps.end = anchor + (endTime - startTime);
+                } else {
+                    if (startTime) activity.timestamps.start = startTime;
+                    if (endTime) activity.timestamps.end = endTime;
+                }
             }
             break;
         case TimestampMode.NONE:
@@ -213,6 +219,39 @@ export async function setRpc(disable?: boolean) {
     });
 }
 
+let loopInterval: ReturnType<typeof setInterval> | undefined;
+let loopAnchor = 0;
+
+function getLoopAnchor() {
+    return loopAnchor;
+}
+
+function startTimestampLoop() {
+    const { timestampMode, startTime, endTime } = settings.store;
+    if (timestampMode !== TimestampMode.CUSTOM || !startTime || !endTime) return;
+    const duration = endTime - startTime;
+    if (duration <= 0) return;
+    
+    stopTimestampLoop();
+    loopAnchor = Date.now();
+
+    loopInterval = setInterval(() => {
+
+        if (Date.now() >= loopAnchor + duration) {
+            loopAnchor = Date.now();
+            setRpc();
+        }
+    }, 1000);
+}
+
+function stopTimestampLoop() {
+    if (loopInterval !== undefined) {
+        clearInterval(loopInterval);
+        loopInterval = undefined;
+    }
+    loopAnchor = 0;
+}
+
 export default definePlugin({
     name: "CustomRPC",
     description: t("vencord.customRPC.description"),
@@ -223,8 +262,14 @@ export default definePlugin({
     requiresRestart: false,
     settings,
 
-    start: setRpc,
-    stop: () => setRpc(true),
+    start() {
+		startTimestampLoop();
+        setRpc();
+    },
+    stop() {
+        setRpc(true);
+        stopTimestampLoop();
+    },
 
     // Discord hides buttons on your own Rich Presence for some reason. This patch disables that behaviour
     patches: [

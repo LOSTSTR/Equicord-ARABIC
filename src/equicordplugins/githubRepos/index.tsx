@@ -14,7 +14,7 @@ import { t } from "@utils/translation";
 import definePlugin, { OptionType } from "@utils/types";
 import { User } from "@vencord/discord-types";
 import { findByCodeLazy } from "@webpack";
-import { React } from "@webpack/common";
+import { React, UserProfileStore } from "@webpack/common";
 
 import { ProfilePopoutComponent } from "./components/ProfilePopoutComponent";
 import { ProfileTabComponent } from "./components/ProfileTabComponent";
@@ -49,8 +49,8 @@ export default definePlugin({
         {
             find: "#{intl::USER_PROFILE_ACTIVITY}",
             replacement: {
-                match: /\.MUTUAL_GUILDS\}\)\)(?=,(\i))/,
-                replace: '$&,$1.push({text:"GitHub",section:"GITHUB"})',
+                match: /(\i)\.id!==\i\?\.id&&\i&&\(.{0,300}\.MUTUAL_GUILDS\}\)\)(?=,(\i))/,
+                replace: '$&,$self.shouldShowGitHub($1.id)&&$2.push({text:"GitHub",section:"GITHUB"})',
             }
         },
         // User Profile Modal v2 tab content
@@ -62,6 +62,9 @@ export default definePlugin({
             }
         }
     ],
+    shouldShowGitHub(userId: string) {
+        return UserProfileStore.getUserProfile(userId)?.connectedAccounts?.some((c: any) => c.type === "github") ?? false;
+    },
     renderProfileCollection: (props: { user: User; displayProfile?: any; }) => {
         return (
             <ProfilePopoutComponent

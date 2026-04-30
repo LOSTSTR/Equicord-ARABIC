@@ -23,6 +23,7 @@ import { cancelCurrentUpload, getUploadState, isConfigured, subscribeUploadState
 const cl = classNameFactory("vc-file-upload-");
 const { getUserMaxFileSize } = findByPropsLazy("getUserMaxFileSize");
 let uploadAddFilesInterceptor: ((event: unknown) => void) | null = null;
+let pasteEventListener: ((event: ClipboardEvent) => void) | null = null;
 
 type UploadAddFilesEvent = {
     type: string;
@@ -38,7 +39,7 @@ type UploadAddFilesEvent = {
 };
 
 function shouldInterceptUploadFiles(files: readonly File[], payload: UploadAddFilesEvent): boolean {
-    if (!settings.store.interceptDiscordUploadOnlyOverLimit) return true;
+    if (!settings.store.bypassDiscordUploadOnlyOverLimit) return true;
 
     const directLimit = [payload.maxFileSize, payload.fileSizeLimit, payload.limits?.fileSize].find(limit => Number.isFinite(limit)) as number | undefined;
     const fallbackLimit = getUserMaxFileSize(UserStore.getCurrentUser());
@@ -90,6 +91,18 @@ function interceptUploadAddFiles(event: unknown): void {
     payload.uploads = [];
     payload.items = [];
     void uploadProvidedFiles(uniqueFiles);
+}
+
+function handlePaste(event: ClipboardEvent) {
+    const files = Array.from(event.clipboardData?.files || []);
+    if (files.length === 0) return;
+
+    if (!settings.store.autoUploadPastedFiles || !isConfigured()) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    void uploadProvidedFiles(files);
 }
 
 const ProgressBarInner = () => {
@@ -249,6 +262,9 @@ export default definePlugin({
 
         uploadAddFilesInterceptor = event => interceptUploadAddFiles(event);
         FluxDispatcher.addInterceptor(uploadAddFilesInterceptor);
+
+        pasteEventListener = event => handlePaste(event);
+        document.addEventListener("paste", pasteEventListener, true);
     },
     stop() {
         if (!uploadAddFilesInterceptor) {
@@ -261,6 +277,11 @@ export default definePlugin({
         }
 
         uploadAddFilesInterceptor = null;
+
+        if (pasteEventListener) {
+            document.removeEventListener("paste", pasteEventListener, true);
+            pasteEventListener = null;
+        }
     },
     shouldBypassDiscordUploadSizeCheck(): boolean {
         return Boolean((settings.store as { interceptDiscordUpload?: boolean; }).interceptDiscordUpload) && isConfigured();
