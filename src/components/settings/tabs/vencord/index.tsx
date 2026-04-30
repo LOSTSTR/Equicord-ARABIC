@@ -65,8 +65,8 @@ function EquicordSettings() {
         description?: string;
         restartRequired?: boolean;
         warning?: string;
-    }
-    > = [
+    }>
+        = [
             {
                 key: "useQuickCss",
                 title: "Enable Custom CSS",
