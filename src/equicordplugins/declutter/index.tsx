@@ -171,7 +171,7 @@ export default definePlugin({
             // Avatar decoration
             find: "{avatarDecoration:void 0!==",
             replacement: {
-                match: /\{avatarDecoration:(.{0,30}void 0!==\i\?\i:)\i/,
+                match: /\{avatarDecoration:(.{0,40}void 0!==\i\?\i:)\i/,
                 replace: "{avatarDecoration:$1null"
             },
             predicate: () => settings.store.removeAvatarDecoration && !isPluginEnabled(decor.name),
