@@ -75,10 +75,10 @@ export default definePlugin({
             ]
         },
         {
-            find: '"2025-01-virtual-currency-rollout"',
+            find: ".ORBS,label:",
             replacement: {
-                match: /enabled:!1\}:\{enabled:\i\.enabled/,
-                replace: "enabled:true}:{enabled:true"
+                match: /\{enabled:(\i).{0,25}"collectibles_shop_header_bar"\}\)/,
+                replace: "$1=true"
             }
         }
     ],
