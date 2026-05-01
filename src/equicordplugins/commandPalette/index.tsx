@@ -208,8 +208,8 @@ export default definePlugin({
         {
             find: '"sticker")',
             replacement: {
-                match: /("div",\{.{0,15}children:)(.+?)\}/,
-                replace: "$1$self.wrapChatBarChildren($2)}"
+                match: /(?<="div",\{className:\i\.\i,children:)(\i)\}/,
+                replace: "$self.wrapChatBarChildren($2)}"
             }
         }
     ],

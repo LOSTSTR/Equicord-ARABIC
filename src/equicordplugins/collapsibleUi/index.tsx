@@ -133,7 +133,7 @@ export default definePlugin({
         {
             find: '"sticker")',
             replacement: {
-                match: /(?<="div",\{.{0,15}children:)(.+?)\}/,
+                match: /(?<="div",\{className:\i\.\i,children:)(\i)\}/,
                 replace: "$self.wrapChatButtons($1)}"
             }
         }
