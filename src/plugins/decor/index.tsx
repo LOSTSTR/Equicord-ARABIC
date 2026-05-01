@@ -111,10 +111,16 @@ export default definePlugin({
         // Patch avatar decoration preview to display Decor avatar decorations as if they are purchased
         {
             find: "#{intl::PREMIUM_UPSELL_PROFILE_AVATAR_DECO_INLINE_UPSELL_DESCRIPTION}",
-            replacement: {
-                match: /(?<==)\i=>{let{user:\i,guildId:\i,avatarDecoration:/,
-                replace: "$self.AvatarDecorationModalPreview=$&"
-            }
+            replacement: [
+                {
+                    match: /(#{intl::PREMIUM_UPSELL_PROFILE_AVATAR_DECO_INLINE_UPSELL_DESCRIPTION}.+?return null!=(\i)&&\()(null==\i)/,
+                    replace: (_, rest, avatarDecoration, hasPurchase) => `${rest}(${avatarDecoration}.skuId!==$self.SKU_ID&&${avatarDecoration}.skuId!==$self.RAW_SKU_ID&&${hasPurchase})`
+                },
+                {
+                    match: /(?<==)\i=>{let{user:\i,guildId:\i,avatarDecoration:/,
+                    replace: "$self.AvatarDecorationModalPreview=$&"
+                }
+            ]
         }
     ],
     settings,
