@@ -74,6 +74,13 @@ export default definePlugin({
                 },
             ]
         },
+        {
+            find: '"2025-01-virtual-currency-rollout"',
+            replacement: {
+                match: /enabled:!1\}:\{enabled:\i\.enabled/,
+                replace: "enabled:true}:{enabled:true"
+            }
+        }
     ],
     getPlatform(bypass, userId?: any) {
         const platform = settings.store.platform ?? "desktop";
