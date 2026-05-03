@@ -248,10 +248,10 @@
         "description": "Entfernt automatisch Tracking-Elemente aus den von Ihnen gesendeten URLs"
     },
     "clientTheme": {
-        "contrastWarning": "Die ausgewählte Farbe bildet keinen guten Kontrast zum Text",
+        "contrastWarning": "Die ausgewählte Farbe bildet keinen guten Kontrast zu Text",
         "disableNitroTheme": "Deaktivieren Sie das Nitro-Design",
         "nitroNotSupported": "Nitro-Themes werden nicht unterstützt",
-        "resetThemeColor": "Designfarbe zurücksetzen",
+        "resetThemeColor": "Themenfarbe zurücksetzen",
         "switchToMode": "Wechseln Sie in den Modus {mode}.",
         "themeColor": "Themenfarbe",
         "themeColorDescription": "Fügen Sie Ihrem Discord-Kundendesign eine Farbe hinzu",
@@ -294,7 +294,7 @@
         "description": "API die für alles benötigt wird, was Befehle verwendet."
     },
     "consoleJanitor": {
-        "alwaysAllowLoggers": "Erlauben Sie immer Logger dieser Art",
+        "alwaysAllowLoggers": "Protokollierung dieser Art sollte immer zugelassen werden",
         "description": "Deaktiviert lästige Konsolenmeldungen/Fehler",
         "filterList": "Filterliste",
         "name": "ConsoleJanitor",
