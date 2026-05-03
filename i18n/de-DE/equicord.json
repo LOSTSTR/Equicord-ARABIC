@@ -338,7 +338,7 @@
         "description": "Führen Sie Aktionen schnell über eine durchsuchbare Befehlspalette aus",
         "settings": {
             "closeAfterExecute": "Palette nach dem Befehl schließen.",
-            "compactStartEnabled": "Palette zuerst kompakt öffnen.",
+            "compactStartEnabled": "Palette kompakt öffnen.",
             "customCommands": "Verwalten Sie benutzerdefinierte Befehlspaletteneinträge",
             "enableTagFilter": "Zeigt die Tag-Filterleiste an",
             "hotkey": "Hotkey zum Öffnen der Befehlspalette",
