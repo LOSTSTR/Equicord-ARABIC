@@ -148,21 +148,40 @@ function closeFolders() {
 }
 
 // Nuckyz: Unsure if this should be a general utility or not
-function containsTargetNode(children: any, predicate: (node: any) => boolean, visited = new WeakSet<object>(), depth = 0): boolean {
-    if (children == null) return false;
-    if (depth > MAX_TREE_FILTER_DEPTH) return false;
+function filterTreeWithTargetNode(children: any, predicate: (node: any) => boolean, visited = new WeakSet<object>(), depth = 0) {
+    if (children == null) {
+        return false;
+    }
+
+    if (depth > MAX_TREE_FILTER_DEPTH) {
+        return false;
+    }
 
     if (typeof children === "object") {
         if (visited.has(children)) return false;
         visited.add(children);
     }
 
-    if (Array.isArray(children)) {
-        return children.some(child => containsTargetNode(child, predicate, visited, depth + 1));
+    if (!Array.isArray(children)) {
+        if (predicate(children)) {
+            return true;
+        }
+
+        return filterTreeWithTargetNode(children.props?.children, predicate, visited, depth + 1);
     }
 
-    if (predicate(children)) return true;
-    return containsTargetNode(children.props?.children, predicate, visited, depth + 1);
+    let childIsTargetChild = false;
+    for (let i = 0; i < children.length; i++) {
+        const shouldKeep = filterTreeWithTargetNode(children[i], predicate, visited, depth + 1);
+        if (shouldKeep) {
+            childIsTargetChild = true;
+            continue;
+        }
+
+        children.splice(i--, 1);
+    }
+
+    return childIsTargetChild;
 }
 
 function getNestedFolderMap(): Record<string, string> {
@@ -834,7 +853,7 @@ export default definePlugin({
             }
 
             try {
-                return containsTargetNode(child, c => c?.props?.renderTreeNode != null);
+                return filterTreeWithTargetNode(child, c => c?.props?.renderTreeNode != null);
             } catch {
                 return true;
             }
