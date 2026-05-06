@@ -178,7 +178,90 @@ export default definePlugin({
         Scroll = scroll;
     },
 
+<<<<<<< plugin/voicestats
+    renderUsers(props: RootObject) {
+        if (!props?.message || props.hideCount) return null;
+        return props.message.reactions.length > 10 ? null : (
+            <ErrorBoundary noop>
+                <this.UsersComponent {...props} />
+            </ErrorBoundary>
+        );
+    },
+
+    UsersComponent({ message, emoji, type }: RootObject) {
+        const forceUpdate = useForceUpdater();
+
+        useLayoutEffect(() => { // bc need to prevent autoscrolling
+            if (Scroll?.scrollCounter > 0) {
+                Scroll.setAutomaticAnchor(null);
+            }
+        });
+
+        useEffect(() => {
+            const cb = (e: any) => {
+                if (e?.messageId === message.id)
+                    forceUpdate();
+            };
+            FluxDispatcher.subscribe("MESSAGE_REACTION_ADD_USERS", cb);
+
+            return () => FluxDispatcher.unsubscribe("MESSAGE_REACTION_ADD_USERS", cb);
+        }, [message.id, forceUpdate]);
+
+        const reactions = getReactionsWithQueue(message, emoji, type);
+        const users = Array.from(reactions, ([id]) => UserStore.getUser(id)).filter(Boolean);
+
+        return (
+            <div
+                style={{ marginLeft: "0.5em", transform: "scale(0.9)" }}
+            >
+                <div
+                    onClick={handleClickAvatar}
+                    onKeyDown={handleClickAvatar}
+                    style={settings.store.avatarClick ? {} : { pointerEvents: "none" }}
+                >
+                    <UserSummaryItem
+                        users={users}
+                        guildId={ChannelStore.getChannel(message.channel_id)?.guild_id}
+                        renderIcon={false}
+                        max={5}
+                        showDefaultAvatarsForNullUsers
+                        showUserPopout
+                    />
+                </div>
+            </div>
+        );
+    },
+
+=======
+>>>>>>> dev
     set reactions(value: any) {
         reactions = value;
     }
 });
+<<<<<<< plugin/voicestats
+
+interface ReactionCacheEntry {
+    fetched: boolean;
+    users: Map<string, User>;
+}
+
+interface RootObject {
+    message: Message;
+    readOnly: boolean;
+    isLurking: boolean;
+    isPendingMember: boolean;
+    useChatFontScaling: boolean;
+    emoji: CustomEmoji;
+    count: number;
+    burst_user_ids: any[];
+    burst_count: number;
+    burst_colors: any[];
+    burst_me: boolean;
+    me: boolean;
+    type: number;
+    hideCount: boolean;
+    hideEmoji: boolean;
+    remainingBurstCurrency: number;
+}
+=======
+>>>>>>> dev
