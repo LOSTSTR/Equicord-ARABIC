@@ -56,7 +56,7 @@ jobs:
               id: date
               run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
             - name: Upload Equicord Stable
-              if: ${{ !vars.ACT }}
+              if: ${{ vars.ACT == 'false' }}
               run: |
                   gh release create ${{ steps.date.outputs.date }} --latest=false
                   gh release upload ${{ steps.date.outputs.date }} --clobber dist/release/*
