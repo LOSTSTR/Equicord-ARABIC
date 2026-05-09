@@ -71,7 +71,7 @@ async function searchGoogleFonts(query: string) {
 }
 
 const preloadFont = (family: string) =>
-    loadFontStyle(createGoogleFontUrl(family, "&text=The quick brown fox jumps over the lazy dog"));
+    loadFontStyle(createGoogleFontUrl(family, ":wght@400;700"));
 
 let styleElement: HTMLStyleElement | null = null;
 
