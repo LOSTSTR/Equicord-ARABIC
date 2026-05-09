@@ -111,12 +111,12 @@ const aliasResultCache = new Map<string, EmojiResult | null>();
 const settings = definePluginSettings({
     aliases: {
         type: OptionType.COMPONENT,
-        description: "Manage your emoji aliases.",
+        description: "إدارة اختصارات الإيموجي الخاصة بك.",
         component: AliasListSetting
     },
     clearAll: {
         type: OptionType.COMPONENT,
-        description: "Delete all aliases.",
+        description: "حذف جميع الاختصارات.",
         component: ClearAllAliasesSetting
     }
 });
@@ -1102,7 +1102,7 @@ export default definePlugin({
     name: "FavoriteEmojiFirst",
     authors: [Devs.Aria, Devs.Ven, EquicordDevs.justjxke],
     tags: ["Emotes", "Customisation"],
-    description: "Puts your favorite emoji first in the emoji autocomplete and also has emoji alias.",
+    description: "يُقدّم إيموجياتك المفضلة في الإكمال التلقائي ويدعم اختصارات الإيموجي.",
     dependencies: ["MessagePopoverAPI"],
     settings,
     contextMenus: {

@@ -34,7 +34,7 @@ const settings = definePluginSettings({
             { label: "Greet (you can only greet 3 times)", value: GreetMode.Greet, default: true },
             { label: "Normal Message (you can greet spam)", value: GreetMode.NormalMessage }
         ],
-        description: "Choose the greet mode"
+        description: "اختر وضع الترحيب"
     }
 }).withPrivateSettings<{
     multiGreetChoices?: string[];
@@ -150,7 +150,7 @@ function GreetMenu({ channel, message }: { message: Message, channel: Channel; }
 
 export default definePlugin({
     name: "GreetStickerPicker",
-    description: "Allows you to use any greet sticker instead of only the random one by right-clicking the 'Wave to say hi!' button",
+    description: "يتيح استخدام أي ستيكر ترحيب بدلاً من العشوائي بالنقر الأيمن على زر 'الترحيب'",
     tags: ["Emotes", "Customisation"],
     authors: [Devs.Ven],
 

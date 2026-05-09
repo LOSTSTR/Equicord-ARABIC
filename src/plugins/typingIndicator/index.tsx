@@ -135,27 +135,27 @@ function TypingIndicator({ channelId, guildId }: { channelId: string; guildId: s
 const settings = definePluginSettings({
     includeCurrentChannel: {
         type: OptionType.BOOLEAN,
-        description: "Whether to show the typing indicator for the currently selected channel",
+        description: "عرض مؤشر الكتابة للقناة المحددة حالياً",
         default: true
     },
     includeMutedChannels: {
         type: OptionType.BOOLEAN,
-        description: "Whether to show the typing indicator for muted channels.",
+        description: "عرض مؤشر الكتابة للقنوات المكتومة.",
         default: false
     },
     includeIgnoredUsers: {
         type: OptionType.BOOLEAN,
-        description: "Whether to show the typing indicator for ignored users.",
+        description: "عرض مؤشر الكتابة للمستخدمين المتجاهَلين.",
         default: false
     },
     includeBlockedUsers: {
         type: OptionType.BOOLEAN,
-        description: "Whether to show the typing indicator for blocked users.",
+        description: "عرض مؤشر الكتابة للمستخدمين المحظورين.",
         default: false
     },
     indicatorMode: {
         type: OptionType.SELECT,
-        description: "How should the indicator be displayed?",
+        description: "كيف يُعرض المؤشر؟",
         options: [
             { label: "Avatars and animated dots", value: IndicatorMode.Dots | IndicatorMode.Avatars, default: true },
             { label: "Animated dots", value: IndicatorMode.Dots },
@@ -166,7 +166,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "TypingIndicator",
-    description: "Adds an indicator if someone is typing on a channel.",
+    description: "يضيف مؤشراً عند كتابة شخص ما في قناة.",
     tags: ["Notifications", "Appearance", "Servers"],
     authors: [Devs.Nuckyz, Devs.fawn, Devs.Sqaaakoi],
     isModified: true,

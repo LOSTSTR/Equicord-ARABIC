@@ -15,7 +15,7 @@ interface ToggleableDescriptionProps { embed: Embed, original: () => any; }
 
 const settings = definePluginSettings({
     youtubeDescription: {
-        description: "Adds descriptions to youtube video embeds",
+        description: "يضيف وصف الفيديو داخل مشغلات YouTube المضمّنة",
         type: OptionType.BOOLEAN,
         default: false,
         restartNeeded: true
@@ -26,7 +26,7 @@ migratePluginSettings("FixYoutubeEmbeds", "YoutubeDescription");
 
 export default definePlugin({
     name: "FixYoutubeEmbeds",
-    description: "Bypasses youtube videos being blocked from display on Discord (for example by UMG)",
+    description: "يتخطى حجب مقاطع YouTube من العرض في Discord (كالمحتوى المحجوب بحقوق النشر)",
     tags: ["Media", "Utility"],
     authors: [Devs.coolelectronics, Devs.arHSM],
     settings,

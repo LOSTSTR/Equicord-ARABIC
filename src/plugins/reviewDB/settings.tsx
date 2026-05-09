@@ -36,22 +36,22 @@ export const settings = definePluginSettings({
     },
     notifyReviews: {
         type: OptionType.BOOLEAN,
-        description: "Notify about new reviews on startup",
+        description: "أشعرني بالتقييمات الجديدة عند تشغيل Discord",
         default: true,
     },
     showWarning: {
         type: OptionType.BOOLEAN,
-        description: "Display warning to be respectful at the top of the reviews list",
+        description: "اعرض تحذيراً بالاحترام في أعلى قائمة التقييمات",
         default: true,
     },
     hideTimestamps: {
         type: OptionType.BOOLEAN,
-        description: "Hide timestamps on reviews",
+        description: "أخفِ التواريخ من التقييمات",
         default: false,
     },
     hideBlockedUsers: {
         type: OptionType.BOOLEAN,
-        description: "Hide reviews from blocked users",
+        description: "أخفِ تقييمات المستخدمين المحظورين",
         default: true,
     },
     buttons: {

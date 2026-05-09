@@ -41,12 +41,12 @@ const collapsedChannels = findByPropsLazy("toggleCollapseGuild");
 
 const settings = definePluginSettings({
     guild: {
-        description: "Mute Guild automatically",
+        description: "يكتم السيرفر تلقائياً",
         type: OptionType.BOOLEAN,
         default: true
     },
     messages: {
-        description: "Server Notification Settings",
+        description: "إعدادات إشعارات السيرفر",
         type: OptionType.SELECT,
         options: [
             { label: "All messages", value: 0 },
@@ -56,37 +56,37 @@ const settings = definePluginSettings({
         ],
     },
     everyone: {
-        description: "Suppress @everyone and @here",
+        description: "إيقاف تنبيهات @everyone و @here",
         type: OptionType.BOOLEAN,
         default: true
     },
     role: {
-        description: "Suppress All Role @mentions",
+        description: "إيقاف جميع منشنات الرتب",
         type: OptionType.BOOLEAN,
         default: true
     },
     highlights: {
-        description: "Suppress Highlights automatically",
+        description: "إيقاف الهايلايتس تلقائياً",
         type: OptionType.BOOLEAN,
         default: true
     },
     events: {
-        description: "Mute New Events automatically",
+        description: "كتم الأحداث الجديدة تلقائياً",
         type: OptionType.BOOLEAN,
         default: true
     },
     showAllChannels: {
-        description: "Show all channels automatically",
+        description: "إظهار جميع القنوات تلقائياً",
         type: OptionType.BOOLEAN,
         default: true
     },
     mobilePush: {
-        description: "Mute Mobile Push Notifications automatically",
+        description: "كتم إشعارات الجوال تلقائياً",
         type: OptionType.BOOLEAN,
         default: true
     },
     voiceChannels: {
-        description: "Hide names in Voice channels automatically",
+        description: "إخفاء الأسماء في قنوات الصوت تلقائياً",
         type: OptionType.BOOLEAN,
         default: false
     }
@@ -150,7 +150,7 @@ function applyDefaultSettings(guildId: string | null) {
 
 export default definePlugin({
     name: "NewGuildSettings",
-    description: "Automatically mute new servers and change various other settings upon joining",
+    description: "يكتم السيرفرات الجديدة تلقائياً ويعدّل إعدادات متنوعة عند الانضمام",
     tags: ["Servers", "Customisation"],
     searchTerms: ["MuteNewGuild", "mute", "server"],
     authors: [Devs.Glitch, Devs.Nuckyz, Devs.carince, Devs.Mopi, Devs.GabiRP],

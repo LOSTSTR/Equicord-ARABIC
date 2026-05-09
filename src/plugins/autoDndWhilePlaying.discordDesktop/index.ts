@@ -16,7 +16,7 @@ const StatusSettings = getUserSettingLazy<string>("status", "status")!;
 const settings = definePluginSettings({
     statusToSet: {
         type: OptionType.SELECT,
-        description: "Status to set while playing a game",
+        description: "الحالة التي تُضبط أثناء تشغيل لعبة",
         options: [
             {
                 label: "Online",
@@ -39,7 +39,7 @@ const settings = definePluginSettings({
     },
     excludeInvisible: {
         type: OptionType.BOOLEAN,
-        description: "Prevent automatic status changes while your status is set to invisible",
+        description: "منع تغيير الحالة تلقائياً عند ضبطها على غير مرئي",
         default: false
     },
 });
@@ -47,7 +47,7 @@ const settings = definePluginSettings({
 migratePluginSettings("AutoDNDWhilePlaying", "StatusWhilePlaying");
 export default definePlugin({
     name: "AutoDNDWhilePlaying",
-    description: "Automatically updates your online status (online, idle, dnd) when launching games",
+    description: "يحدّث حالتك تلقائياً (متصل، خامل، لا تزعج) عند تشغيل الألعاب",
     tags: ["Activity", "Utility"],
     authors: [Devs.thororen],
     isModified: true,

@@ -10,7 +10,7 @@ import definePlugin from "@utils/types";
 export default definePlugin({
     name: "NoMaskedUrlPaste",
     authors: [Devs.CatNoir],
-    description: "Pasting a link while having text selected will not paste as masked URL",
+    description: "لصق رابط مع نص محدد لن يحوّله إلى رابط مخفي",
     tags: ["Chat", "Utility"],
     patches: [
         {

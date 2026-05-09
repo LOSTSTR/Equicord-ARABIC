@@ -21,7 +21,7 @@ import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "NoOnboardingDelay",
-    description: "Skips the slow and annoying onboarding delay",
+    description: "يتخطى تأخير الإعداد الأولي البطيء والمزعج",
     tags: ["Utility", "Servers"],
     authors: [Devs.nekohaxx],
     patches: [

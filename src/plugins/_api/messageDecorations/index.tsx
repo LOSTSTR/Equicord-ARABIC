@@ -23,7 +23,7 @@ import managedStyle from "./style.css?managed";
 
 export default definePlugin({
     name: "MessageDecorationsAPI",
-    description: "API to add decorations to messages",
+    description: "واجهة برمجية لإضافة زخارف على الرسائل",
     authors: [Devs.TheSun],
 
     managedStyle,

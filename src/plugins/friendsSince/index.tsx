@@ -72,7 +72,7 @@ const FriendsSinceSection = ErrorBoundary.wrap(({ userId, isSideBar }: { userId:
 
 export default definePlugin({
     name: "FriendsSince",
-    description: "Shows when you became friends with someone in the user popout",
+    description: "يعرض تاريخ صداقتك مع شخص ما في نافذة معلومات المستخدم",
     tags: ["Friends"],
     authors: [Devs.Elvyra, Devs.Antti],
     dependencies: ["ProfileSectionsAPI"],

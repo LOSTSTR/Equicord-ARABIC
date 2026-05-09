@@ -49,38 +49,38 @@ migratePluginSetting("NoBlockedMessages", "alsoHideIgnoredUsers", "applyToIgnore
 
 const settings = definePluginSettings({
     alsoHideIgnoredUsers: {
-        description: "Also hide messages from ignored users.",
+        description: "إخفاء رسائل المستخدمين المتجاهلين أيضاً.",
         type: OptionType.BOOLEAN,
         default: true,
         restartNeeded: false
     },
     disableNotifications: {
-        description: "Hide new message notifications for blocked users. Always true if \"Default Hide Users\" is enabled below and the user triggering the notification is not exempted in \"Override Users\".",
+        description: "إخفاء إشعارات الرسائل الجديدة من المحظورين. يكون دائماً مفعلاً إذا كان \"إخفاء المستخدمين افتراضياً\" مفعلاً والمستخدم غير مستثنى.",
         type: OptionType.BOOLEAN,
         default: false,
         restartNeeded: false
     },
     allowAutoModMessages: {
-        description: "Allow messages sent by AutoMod to bypass filtering.",
+        description: "السماح لرسائل AutoMod بتجاوز التصفية.",
         type: OptionType.BOOLEAN,
         default: true,
         restartNeeded: false,
     },
     hideBlockedUserReplies: {
-        description: "Hide replies to blocked users.",
+        description: "إخفاء الردود على المستخدمين المحظورين.",
         type: OptionType.BOOLEAN,
         default: false,
         restartNeeded: false,
     },
     defaultHideUsers: {
         type: OptionType.BOOLEAN,
-        description: "If enabled, messages from blocked users will be completely hidden and any messages from user IDs in the override list will be collapsed (default Discord behavior) instead. If disabled, messages from blocked users will be collapsed and any messages from user IDs in the override list will be completely hidden instead.",
+        description: "عند التفعيل، تُخفى رسائل المحظورين كلياً وتُطوى رسائل معرّفات قائمة الاستثناء. عند الإيقاف، تُطوى رسائل المحظورين وتُخفى رسائل قائمة الاستثناء.",
         default: true,
         restartNeeded: false,
     },
     overrideUsers: {
         type: OptionType.STRING,
-        description: "Comma separated list of user IDs which will be hidden or collapsed instead of the default behavior selected above.",
+        description: "قائمة معرّفات المستخدمين مفصولة بفواصل لإخفائها أو طيّها بدلاً من السلوك الافتراضي.",
         restartNeeded: false,
         default: ""
     },
@@ -88,7 +88,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "NoBlockedMessages",
-    description: "Hide all blocked/ignored messages from chat completely.",
+    description: "يخفي رسائل المحظورين والمتجاهلين من المحادثة تماماً.",
     authors: [Devs.rushii, Devs.Samu, Devs.jamesbt365, Devs.Elvyra, EquicordDevs.Etorix],
     tags: ["Accessibility", "Chat"],
     isModified: true,

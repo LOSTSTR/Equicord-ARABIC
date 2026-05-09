@@ -262,19 +262,19 @@ function Modal({ modalProps }: { modalProps: ModalProps; }) {
 export const settings = definePluginSettings({
     noiseSuppression: {
         type: OptionType.BOOLEAN,
-        description: "Noise Suppression",
+        description: "تقليل الضوضاء",
         default: true,
     },
     echoCancellation: {
         type: OptionType.BOOLEAN,
-        description: "Echo Cancellation",
+        description: "إلغاء الصدى",
         default: true,
     },
 });
 
 export default definePlugin({
     name: "VoiceMessages",
-    description: "Allows you to send voice messages like on mobile. To do so, right click the upload button and click Send Voice Message",
+    description: "يتيح إرسال رسائل صوتية كما في الموبايل. انقر بزر الماوس الأيمن على زر الرفع واختر إرسال رسالة صوتية",
     tags: ["Voice"],
     authors: [Devs.Ven, Devs.Vap, Devs.Nickyux],
     settings,

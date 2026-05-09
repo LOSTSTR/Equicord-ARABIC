@@ -21,7 +21,7 @@ import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "MessagePopoverAPI",
-    description: "API to add buttons to message popovers.",
+    description: "واجهة برمجية لإضافة أزرار إلى قوائم الرسائل المنبثقة",
     authors: [Devs.KingFish, Devs.Ven, Devs.Nuckyz],
     patches: [
         {

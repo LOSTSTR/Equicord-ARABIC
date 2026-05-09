@@ -109,7 +109,7 @@ function applyPaletteTransparent(data: Uint8Array | Uint8ClampedArray, palette: 
 migratePluginSettings("PetPet", "petpet");
 export default definePlugin({
     name: "PetPet",
-    description: "Adds a /petpet slash command to create headpet gifs from any image",
+    description: "يضيف أمر /petpet لإنشاء صور GIF متحركة من أي صورة",
     dependencies: ["CommandsAPI"],
     tags: ["Fun", "Commands"],
     authors: [Devs.Ven, Devs.u32],
@@ -117,36 +117,36 @@ export default definePlugin({
         {
             inputType: ApplicationCommandInputType.BUILT_IN,
             name: "petpet",
-            description: "Create a petpet gif. You can only specify one of the image options",
+            description: "إنشاء صورة GIF petpet. يمكنك تحديد خيار صورة واحد فقط",
             options: [
                 {
                     name: "delay",
-                    description: "The delay between each frame in ms. Rounded to nearest 10ms. Defaults to the minimum value of 20.",
+                    description: "التأخير بين كل إطار بالمللي ثانية. يُقرّب إلى أقرب 10ms. الافتراضي هو الحد الأدنى 20.",
                     type: ApplicationCommandOptionType.INTEGER
                 },
                 {
                     name: "resolution",
-                    description: "Resolution for the gif. Defaults to 120. If you enter an insane number and it freezes Discord that's your fault.",
+                    description: "دقة الصورة. الافتراضي 120. إذا أدخلت رقماً كبيراً وتجمّد Discord فأنت المسؤول.",
                     type: ApplicationCommandOptionType.INTEGER
                 },
                 {
                     name: "image",
-                    description: "Image attachment to use",
+                    description: "الصورة المرفقة المراد استخدامها",
                     type: ApplicationCommandOptionType.ATTACHMENT
                 },
                 {
                     name: "url",
-                    description: "URL to fetch image from",
+                    description: "رابط URL لجلب الصورة منه",
                     type: ApplicationCommandOptionType.STRING
                 },
                 {
                     name: "user",
-                    description: "User whose avatar to use as image",
+                    description: "المستخدم الذي سيُستخدم أفاتاره كصورة",
                     type: ApplicationCommandOptionType.USER
                 },
                 {
                     name: "no-server-pfp",
-                    description: "Use the normal avatar instead of the server specific one when using the 'user' option",
+                    description: "استخدام الأفاتار العادي بدلاً من أفاتار السيرفر عند اختيار 'user'",
                     type: ApplicationCommandOptionType.BOOLEAN
                 }
             ],

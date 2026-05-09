@@ -119,7 +119,7 @@ function openViewRawModalMessage(msg: Message) {
 
 const settings = definePluginSettings({
     clickMethod: {
-        description: "Change the button to view the raw content/data of any message.",
+        description: "تغيير الزر لعرض المحتوى/البيانات الخام لأي رسالة.",
         type: OptionType.SELECT,
         options: [
             { label: "Left Click to view the raw content.", value: "Left", default: true },
@@ -127,7 +127,7 @@ const settings = definePluginSettings({
         ]
     },
     messageContextMenu: {
-        description: "Show in message context menu",
+        description: "عرض في قائمة سياق الرسالة",
         type: OptionType.BOOLEAN,
         default: false
     }
@@ -179,7 +179,7 @@ const devContextCallback: NavContextMenuPatchCallback = (children, { id }: { id:
 
 export default definePlugin({
     name: "ViewRaw",
-    description: "Copy and view the raw content/data of any message, channel or guild",
+    description: "نسخ وعرض المحتوى/البيانات الخام لأي رسالة أو قناة أو سيرفر",
     dependencies: ["MessagePopoverAPI"],
     tags: ["Chat", "Developers"],
     authors: [Devs.KingFish, Devs.Ven, Devs.rad, Devs.ImLvna],

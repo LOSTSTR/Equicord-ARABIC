@@ -12,19 +12,19 @@ import { MessageActions, PinActions } from "@webpack/common";
 const settings = definePluginSettings({
     noShiftDelete: {
         type: OptionType.BOOLEAN,
-        description: "Remove requirement to hold shift for deleting a message.",
+        description: "إزالة اشتراط الضغط على Shift لحذف رسالة.",
         default: true,
     },
     noShiftPin: {
         type: OptionType.BOOLEAN,
-        description: "Remove requirement to hold shift for pinning a message.",
+        description: "إزالة اشتراط الضغط على Shift لتثبيت رسالة.",
         default: true,
     },
 });
 
 export default definePlugin({
     name: "ShowAllMessageButtons",
-    description: "Always show all message buttons no matter if you are holding the shift key or not.",
+    description: "يعرض جميع أزرار الرسالة دائماً بغض النظر عن الضغط على Shift.",
     tags: ["Chat", "Utility"],
     authors: [Devs.Nuckyz],
     settings,

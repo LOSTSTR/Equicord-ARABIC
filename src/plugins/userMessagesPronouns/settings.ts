@@ -27,7 +27,7 @@ export const enum PronounsFormat {
 export const settings = definePluginSettings({
     pronounsFormat: {
         type: OptionType.SELECT,
-        description: "The format for pronouns to appear in chat",
+        description: "صيغة عرض الضمائر في الدردشة",
         options: [
             {
                 label: "Lowercase",
@@ -42,7 +42,7 @@ export const settings = definePluginSettings({
     },
     showSelf: {
         type: OptionType.BOOLEAN,
-        description: "Enable or disable showing pronouns for yourself",
+        description: "تفعيل أو تعطيل عرض ضمائرك الخاصة",
         default: true
     }
 });

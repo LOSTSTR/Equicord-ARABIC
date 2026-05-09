@@ -4,15 +4,14 @@
 
 ### النسخة العربية المطورة من Equicord
 
-**تجربة ديسكورد فائقة الأداء، بتخصيصات حصرية من تطوير LOSTSTR**
+**تجربة ديسكورد فائقة الأداء، بتخصيصات حصرية من تطوير**
+**LOSTSTR و krym511 و 𝚁𝙰𝚈𝙼𝙾𝙽𝙳♞ و Abo Ahmed و S99**
 
 ---
 
-**Modified by [LOSTSTR](https://github.com/LOSTSTR) — Equicord-ARABIC**
-
 [![GitHub Release](https://img.shields.io/github/v/release/LOSTSTR/Equicord-ARABIC?style=flat&color=5865F2&label=إصدار)](https://github.com/LOSTSTR/Equicord-ARABIC/releases/latest)
 [![Tests](https://github.com/LOSTSTR/Equicord-ARABIC/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/LOSTSTR/Equicord-ARABIC/actions/workflows/test.yml)
-[![Discord](https://img.shields.io/discord/QamdqDNEDa?color=5865F2&label=Discord&logo=discord&logoColor=white)](https://discord.gg/QamdqDNEDa)
+[![Discord](https://img.shields.io/badge/Discord-5865F2?style=flat&logo=discord&logoColor=white)](https://discord.gg/QamdqDNEDa)
 [![License](https://img.shields.io/github/license/LOSTSTR/Equicord-ARABIC?color=green&label=رخصة)](LICENSE)
 
 </div>
@@ -26,12 +25,25 @@
 تتميز هذه النسخة بـ:
 
 - ⚡ **أداء فائق وسلاسة تامة** — تحسينات مخصصة لتجربة أسرع وأخف
-- 🌐 **دعم كامل للغة العربية** — واجهة وتخصيصات موجهة للمجتمع العربي
-- 🔧 **تخصيصات حصرية** — إضافات وتعديلات من تطوير LOSTSTR لا تجدها في غيرها
+- 🌐 **تعريب شامل** — جميع أوصاف الإضافات (300+) مترجمة للعربية
+- 🔧 **تخصيصات حصرية** — إضافات وتعديلات من تطوير الفريق لا تجدها في غيرها
 - 🧩 **أكثر من 300 إضافة** — جميع إضافات Equicord الأصلية مع إضافات عربية حصرية
+- 🔒 **أمان مُحقَّق** — فحص أمني شامل وصفر ثغرات في التبعيات
 - 🔄 **تحديثات مستمرة** — مزامنة دورية مع المصدر الأصلي مع تطبيق التحسينات
 
 للتواصل والدعم، انضم إلى سيرفر الديسكورد: **[discord.gg/QamdqDNEDa](https://discord.gg/QamdqDNEDa)**
+
+---
+
+## 👥 فريق المشروع
+
+| العضو | الدور |
+|-------|-------|
+| **LOSTSTR** | مطور رئيسي — بناء المشروع وإدارته |
+| **krym511** | داعم رئيسي — دعم ومساهمة في التطوير |
+| **𝚁𝙰𝚈𝙼𝙾𝙽𝙳♞** | مساهم في التطوير |
+| **Abo Ahmed** | مساهم في التطوير |
+| **S99** | مساهم في التطوير |
 
 ---
 
@@ -124,6 +136,33 @@ pnpm buildWeb
 
 ---
 
+## 💝 شكر خاص
+
+<div align="center">
+
+### شكر خاص لـ krym511
+
+شكراً جزيلاً لـ **krym511** على دعمه المتواصل لهذا المشروع منذ البداية.
+دعمه وإيمانه بهذا المشروع كان له دور كبير في استمراره وتطوره.
+هذا المشروع لم يكن ليصل لما وصل إليه بدونك، شكراً يا صديق. 🙌
+
+</div>
+
+---
+
+## ❤️ دعم المشروع
+
+إذا أعجبك المشروع وأفادك، يمكنك دعمنا بـ:
+
+- ⭐ **Star** للمستودع على GitHub
+- 📢 مشاركة المشروع مع أصدقائك
+- 💬 الانضمام لسيرفر الديسكورد والمساهمة في التطوير: **[discord.gg/QamdqDNEDa](https://discord.gg/QamdqDNEDa)**
+- 🐛 الإبلاغ عن أي مشكلة أو اقتراح عبر [Issues](https://github.com/LOSTSTR/Equicord-ARABIC/issues)
+
+دعمكم هو ما يجعلنا نستمر في تطوير وتحسين هذا المشروع! 💪
+
+---
+
 ## 🙏 شكر وتقدير
 
 - [Vendicated](https://github.com/Vendicated) — لإنشاء [Vencord](https://github.com/Vendicated/Vencord)
@@ -163,7 +202,7 @@ Discord هي علامة تجارية مسجلة لشركة Discord Inc.، ولا
 
 <div align="center">
 
-**Equicord-ARABIC** • Modified by [LOSTSTR](https://github.com/LOSTSTR) • [GPL-3.0 License](LICENSE)
+**Equicord-ARABIC** • Made with ❤️ by LOSTSTR & Team • [GPL-3.0 License](LICENSE)
 
 [⬆ العودة للأعلى](#)
 

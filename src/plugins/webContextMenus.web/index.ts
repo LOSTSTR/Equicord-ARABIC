@@ -52,7 +52,7 @@ const settings = definePluginSettings({
     // menu handler instead of the web one, which breaks the other menus that aren't enabled
     addBack: {
         type: OptionType.BOOLEAN,
-        description: "Add back the Discord context menus for images, links and the chat input bar",
+        description: "إعادة قوائم سياق Discord للصور والروابط وشريط إدخال الدردشة",
         default: hideSetting,
         restartNeeded: true,
         // Web slate menu has proper spellcheck suggestions and image context menu is also pretty good,
@@ -87,7 +87,7 @@ function fixImageUrl(urlString: string) {
 
 export default definePlugin({
     name: "WebContextMenus",
-    description: "Re-adds context menus missing in the web version of Discord: Links & Images (Copy/Open Link/Image), Text Area (Copy, Cut, Paste, SpellCheck)",
+    description: "يُعيد قوائم السياق المفقودة في نسخة Discord الويب: الروابط والصور (نسخ/فتح الرابط/الصورة)، ومنطقة النص (نسخ، قص، لصق، تدقيق إملائي)",
     tags: ["Utility"],
     authors: [Devs.Ven],
     enabledByDefault: true,

@@ -47,12 +47,12 @@ const getSpacingPx = (spacing: Spacing | undefined) => (spacing ?? Spacing.COMPA
 const settings = definePluginSettings({
     iconSize: {
         type: OptionType.NUMBER,
-        description: "Icon size (px)",
+        description: "حجم الأيقونة (بكسل)",
         default: 32
     },
     iconSpacing: {
         type: OptionType.SELECT,
-        description: "Icon margin",
+        description: "الهامش بين الأيقونات",
         default: Spacing.COZY,
         options: [
             { label: "Compact", value: Spacing.COMPACT },
@@ -160,7 +160,7 @@ function CompactConnectionComponent({ connection, theme }: { connection: Connect
 
 export default definePlugin({
     name: "ShowConnections",
-    description: "Show connected accounts in user popouts",
+    description: "يعرض الحسابات المرتبطة في نافذة المستخدم المنبثقة",
     tags: ["Friends", "Appearance"],
     authors: [Devs.TheKodeToad],
     settings,

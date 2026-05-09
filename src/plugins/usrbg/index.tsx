@@ -36,7 +36,7 @@ interface UsrbgApiReturn {
 
 const settings = definePluginSettings({
     nitroFirst: {
-        description: "Banner to use if both Nitro and USRBG banners are present",
+        description: "البانر المستخدم عند توفّر بانر نيترو وبانر USRBG معاً",
         type: OptionType.SELECT,
         options: [
             { label: "Nitro banner", value: true, default: true },
@@ -44,7 +44,7 @@ const settings = definePluginSettings({
         ]
     },
     voiceBackground: {
-        description: "Use USRBG banners as voice chat backgrounds",
+        description: "استخدام بانرات USRBG كخلفيات في الدردشة الصوتية",
         type: OptionType.BOOLEAN,
         default: true,
         restartNeeded: true
@@ -53,7 +53,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "USRBG",
-    description: "Displays user banners from USRBG, allowing anyone to get a banner without Nitro",
+    description: "يعرض بانرات المستخدمين من USRBG، ما يتيح للجميع الحصول على بانر بدون نيترو",
     tags: ["Appearance", "Customisation"],
     authors: [Devs.AutumnVN, Devs.katlyn, Devs.pylix, Devs.TheKodeToad],
     settings,

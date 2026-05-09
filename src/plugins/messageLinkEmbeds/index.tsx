@@ -75,11 +75,11 @@ const messageFetchQueue = new Queue();
 
 const settings = definePluginSettings({
     messageBackgroundColor: {
-        description: "Background color for messages in rich embeds",
+        description: "لون خلفية الرسائل في الـ Embeds المتقدمة",
         type: OptionType.BOOLEAN
     },
     automodEmbeds: {
-        description: "Use automod embeds instead of rich embeds (smaller but less info)",
+        description: "استخدام Automod Embeds بدلاً من Rich Embeds (أصغر حجماً لكن أقل معلومات)",
         type: OptionType.SELECT,
         options: [
             {
@@ -98,7 +98,7 @@ const settings = definePluginSettings({
         ]
     },
     listMode: {
-        description: "Whether to use ID list as blacklist or whitelist",
+        description: "استخدام قائمة المعرّفات كقائمة سوداء أو بيضاء",
         type: OptionType.SELECT,
         options: [
             {
@@ -113,7 +113,7 @@ const settings = definePluginSettings({
         ]
     },
     idList: {
-        description: "Guild/channel/user IDs to blacklist or whitelist (separate with comma)",
+        description: "معرّفات السيرفر/القناة/المستخدم للقائمة السوداء أو البيضاء (مفصولة بفاصلة)",
         type: OptionType.STRING,
         default: "",
         multiline: true,
@@ -363,7 +363,7 @@ function AutomodEmbedAccessory(props: MessageEmbedProps): JSX.Element | null {
 
 export default definePlugin({
     name: "MessageLinkEmbeds",
-    description: "Adds a preview to messages that link another message",
+    description: "يضيف معاينة للرسائل التي تحتوي على رابط لرسالة أخرى",
     tags: ["Chat", "Appearance"],
     authors: [Devs.TheSun, Devs.Ven, Devs.RyanCaoDev],
     dependencies: ["MessageAccessoriesAPI", "MessageUpdaterAPI", "UserSettingsAPI"],

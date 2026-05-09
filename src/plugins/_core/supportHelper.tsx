@@ -287,7 +287,7 @@ const settings = definePluginSettings({}).withPrivateSettings<{
 export default definePlugin({
     name: "SupportHelper",
     required: true,
-    description: "Helps us provide support to you",
+    description: "يساعدنا على تقديم الدعم الفني لك",
     authors: [Devs.Ven],
     dependencies: ["UserSettingsAPI", "CommandsAPI", "MessageAccessoriesAPI"],
 

@@ -9,7 +9,7 @@ import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "NicknameIconsAPI",
-    description: "API to add icons to the nickname, in profiles",
+    description: "واجهة برمجية لإضافة أيقونات بجانب الأسماء في الملفات الشخصية",
     authors: [Devs.Nuckyz],
     patches: [
         {

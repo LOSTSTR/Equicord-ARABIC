@@ -25,20 +25,20 @@ import { ChannelStore, GuildMemberStore } from "@webpack/common";
 const settings = definePluginSettings({
     userList: {
         description:
-            "List of user ids to allow or exempt pings for (separated by commas or spaces)",
+            "قائمة معرّفات المستخدمين المسموح لهم أو المستثنين من المنشن (مفصولة بفواصل أو مسافات)",
         type: OptionType.STRING,
         default: "1234567890123445,1234567890123445",
         multiline: true
     },
     roleList: {
         description:
-            "List of role ids to allow or exempt pings for (separated by commas or spaces)",
+            "قائمة معرّفات الرتب المسموح بمنشنها أو المستثناة (مفصولة بفواصل أو مسافات)",
         type: OptionType.STRING,
         default: "1234567890123445,1234567890123445",
         multiline: true
     },
     shouldPingListed: {
-        description: "Behaviour",
+        description: "السلوك",
         type: OptionType.SELECT,
         options: [
             {
@@ -53,7 +53,7 @@ const settings = definePluginSettings({
         ],
     },
     inverseShiftReply: {
-        description: "Invert Discord's shift replying behaviour (enable to make shift reply mention user)",
+        description: "عكس سلوك Shift عند الرد (فعّله لجعل Shift+رد يذكر المستخدم)",
         type: OptionType.BOOLEAN,
         default: false,
     }
@@ -61,7 +61,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "NoReplyMention",
-    description: "Disables reply pings by default",
+    description: "يعطّل منشن الرد افتراضياً",
     tags: ["Chat", "Notifications"],
     authors: [Devs.DustyAngel47, Devs.rae, Devs.pylix, Devs.outfoxxed],
     settings,

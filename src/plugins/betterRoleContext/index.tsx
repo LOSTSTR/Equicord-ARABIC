@@ -82,7 +82,7 @@ function RoleMembersIcon() {
 const settings = definePluginSettings({
     roleIconFileFormat: {
         type: OptionType.SELECT,
-        description: "File format to use when viewing role icons",
+        description: "صيغة الملف عند عرض أيقونات الرتب",
         options: [
             {
                 label: "png",
@@ -198,7 +198,7 @@ export function buildExtraRoleContextMenuItems(role: Role, guild: Guild, popoutR
 
 export default definePlugin({
     name: "BetterRoleContext",
-    description: "Adds options to copy role color / edit role / view role icon when right clicking roles in the user profile",
+    description: "يضيف خيارات نسخ لون الرتبة وتعديلها وعرض أيقونتها عند النقر بزر الفأرة الأيمن في الملف الشخصي",
     tags: ["Roles", "Appearance"],
     authors: [Devs.Ven, Devs.goodbee],
     dependencies: ["UserSettingsAPI"],

@@ -78,7 +78,7 @@ function decode(bio: string): Array<number> | null {
 
 const settings = definePluginSettings({
     nitroFirst: {
-        description: "Default color source if both are present",
+        description: "مصدر الألوان الافتراضي عند توفر كليهما",
         type: OptionType.SELECT,
         options: [
             { label: "Nitro colors", value: true, default: true },
@@ -199,7 +199,7 @@ function SettingsAboutComponent() {
 
 export default definePlugin({
     name: "FakeProfileThemes",
-    description: "Allows profile theming by hiding the colors in your bio thanks to invisible 3y3 encoding",
+    description: "يتيح تخصيص ألوان ملفك الشخصي عبر تشفير ألوانك بشكل خفي في البايو",
     tags: ["Appearance", "Customisation"],
     authors: [Devs.Alyxia, Devs.Remty],
     patches: [

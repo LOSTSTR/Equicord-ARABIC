@@ -22,19 +22,19 @@ const Classes = findCssClassesLazy("animating", "baseLayer", "bg", "layer", "lay
 
 const settings = definePluginSettings({
     disableFade: {
-        description: "Disable the crossfade animation",
+        description: "تعطيل تأثير الانتقال التدريجي",
         type: OptionType.BOOLEAN,
         default: true,
         restartNeeded: true
     },
     organizeMenu: {
-        description: "Organizes the settings cog context menu into categories",
+        description: "ترتيب قائمة ترس الإعدادات في تصنيفات منظمة",
         type: OptionType.BOOLEAN,
         default: true,
         restartNeeded: true
     },
     eagerLoad: {
-        description: "Removes the loading delay when opening the menu for the first time",
+        description: "إزالة تأخير التحميل عند فتح القائمة للمرة الأولى",
         type: OptionType.BOOLEAN,
         default: true,
         restartNeeded: true
@@ -76,7 +76,7 @@ function Layer({ mode, baseLayer = false, ...props }: LayerProps) {
 
 export default definePlugin({
     name: "BetterSettings",
-    description: "Enhances your settings-menu-opening experience",
+    description: "يحسّن تجربة فتح قائمة الإعدادات",
     authors: [Devs.Kyuuhachi],
     tags: ["Appearance", "Customisation", "Organisation"],
     settings,

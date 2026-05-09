@@ -144,13 +144,13 @@ function DearrowButton({ component }: { component: Component<Props>; }) {
 
 const settings = definePluginSettings({
     hideButton: {
-        description: "Hides the Dearrow button from YouTube embeds",
+        description: "يخفي زر Dearrow من مقاطع YouTube المضمّنة",
         type: OptionType.BOOLEAN,
         default: false,
         restartNeeded: true
     },
     replaceElements: {
-        description: "Choose which elements of the embed will be replaced",
+        description: "اختر العناصر التي سيتم استبدالها في المقطع المضمّن",
         type: OptionType.SELECT,
         restartNeeded: true,
         options: [
@@ -160,7 +160,7 @@ const settings = definePluginSettings({
         ],
     },
     dearrowByDefault: {
-        description: "Dearrow videos automatically",
+        description: "يطبّق Dearrow على مقاطع YouTube تلقائيًا",
         type: OptionType.BOOLEAN,
         default: true,
         restartNeeded: false
@@ -169,7 +169,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "Dearrow",
-    description: "Makes YouTube embed titles and thumbnails less sensationalist, powered by Dearrow",
+    description: "يجعل عناوين وصور مقاطع YouTube المضمّنة أقل إثارة، مدعومة بـ Dearrow",
     tags: ["Media", "Utility"],
     authors: [Devs.Ven],
     settings,

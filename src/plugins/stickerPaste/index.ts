@@ -9,7 +9,7 @@ import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "StickerPaste",
-    description: "Makes picking a sticker in the sticker picker insert it into the chatbox instead of instantly sending",
+    description: "يجعل اختيار ستيكر في منتقي الستيكرات يُدرجه في صندوق الدردشة بدلاً من إرساله فوراً",
     tags: ["Emotes", "Chat"],
     authors: [Devs.ImBanana],
 

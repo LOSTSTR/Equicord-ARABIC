@@ -86,7 +86,7 @@ const IS_PATCHED = Symbol("MutualGroupDMs.Patched");
 
 export default definePlugin({
     name: "MutualGroupDMs",
-    description: "Shows mutual group dms in profiles",
+    description: "يعرض المجموعات المشتركة في ملفات المستخدمين الشخصية",
     tags: ["Friends", "Appearance"],
     authors: [Devs.amia],
 

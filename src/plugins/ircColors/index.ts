@@ -33,24 +33,24 @@ function calculateNameColorForUser(id?: string) {
 
 const settings = definePluginSettings({
     lightness: {
-        description: "Lightness, in %. Change if the colors are too light or too dark",
+        description: "السطوع بالنسبة المئوية. عدّله إذا كانت الألوان فاتحة أو داكنة جداً",
         type: OptionType.NUMBER,
         default: 70,
     },
     memberListColors: {
-        description: "Replace role colors in the member list",
+        description: "استبدال ألوان الرتب في قائمة الأعضاء",
         restartNeeded: true,
         type: OptionType.BOOLEAN,
         default: true
     },
     applyColorOnlyToUsersWithoutColor: {
-        description: "Apply colors only to users who don't have a predefined color",
+        description: "تطبيق الألوان فقط على المستخدمين الذين لا يملكون لوناً محدداً مسبقاً",
         restartNeeded: false,
         type: OptionType.BOOLEAN,
         default: false
     },
     applyColorOnlyInDms: {
-        description: "Apply colors only in direct messages; do not apply colors in servers.",
+        description: "تطبيق الألوان في الرسائل المباشرة فقط، دون السيرفرات",
         restartNeeded: false,
         type: OptionType.BOOLEAN,
         default: false
@@ -59,7 +59,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "IrcColors",
-    description: "Makes username colors in chat unique, like in IRC clients",
+    description: "يمنح كل مستخدم لوناً فريداً في الشات، على طريقة عملاء IRC",
     tags: ["Appearance", "Customisation"],
     authors: [Devs.Grzesiek11, Devs.jamesbt365],
     settings,

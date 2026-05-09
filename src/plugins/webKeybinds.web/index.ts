@@ -25,7 +25,7 @@ const KeyBinds = findByPropsLazy("JUMP_TO_GUILD", "SERVER_NEXT");
 
 export default definePlugin({
     name: "WebKeybinds",
-    description: "Re-adds keybinds missing in the web version of Discord: ctrl+t, ctrl+shift+t, ctrl+tab, ctrl+shift+tab, ctrl+1-9, ctrl+,. Only works fully on Vesktop/Legcord, not inside your browser",
+    description: "يُعيد اختصارات لوحة المفاتيح المفقودة في نسخة Discord الويب: ctrl+t، ctrl+shift+t، ctrl+tab، ctrl+1-9، ctrl+,. يعمل بالكامل على Vesktop/Legcord فقط",
     tags: ["Shortcuts"],
     authors: [Devs.Ven],
     enabledByDefault: true,

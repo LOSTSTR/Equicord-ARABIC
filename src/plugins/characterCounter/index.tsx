@@ -20,7 +20,7 @@ const SlateUtils = findByPropsLazy("getSelectedText");
 const settings = definePluginSettings({
     colorEffects: {
         type: OptionType.BOOLEAN,
-        description: "Enable yellow/red colouring as you get closer to the character limit",
+        description: "يفعّل التلوين الأصفر/الأحمر كلما اقتربت من حد الأحرف",
         default: true,
     }
 });
@@ -35,7 +35,7 @@ function getCounterColor(percentage: number) {
 
 export default definePlugin({
     name: "CharacterCounter",
-    description: "Adds a character counter to the chat input",
+    description: "يضيف عداد أحرف إلى حقل الكتابة",
     authors: [Devs.thororen, EquicordDevs.creations],
     tags: ["Utility"],
     settings,

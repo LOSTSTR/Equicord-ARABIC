@@ -11,7 +11,7 @@ import type { Channel, Emoji } from "@vencord/discord-types";
 
 const settings = definePluginSettings({
     shownEmojis: {
-        description: "The types of emojis to show in the autocomplete menu.",
+        description: "أنواع الإيموجيات التي تظهر في قائمة الإكمال التلقائي.",
         type: OptionType.SELECT,
         default: "onlyUnicode",
         options: [
@@ -25,7 +25,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "NoServerEmojis",
     authors: [Devs.UlyssesZhan],
-    description: "Do not show server emojis in the autocomplete menu.",
+    description: "يخفي إيموجيات السيرفر من قائمة الإكمال التلقائي.",
     tags: ["Emotes", "Servers"],
     settings,
 

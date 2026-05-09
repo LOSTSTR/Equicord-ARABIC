@@ -14,7 +14,7 @@ import { Tooltip } from "@webpack/common";
 
 const settings = definePluginSettings({
     loop: {
-        description: "Whether to make the PiP video loop or not",
+        description: "تشغيل فيديو PiP بشكل متكرر أم لا",
         type: OptionType.BOOLEAN,
         default: true,
         restartNeeded: false
@@ -23,7 +23,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "PictureInPicture",
-    description: "Adds picture in picture to videos (next to the Download button)",
+    description: "يضيف زر الصورة داخل الصورة للفيديوهات (بجانب زر التنزيل)",
     tags: ["Media", "Utility"],
     authors: [Devs.Lumap],
     settings,

@@ -10,7 +10,7 @@ import definePlugin from "@utils/types";
 // The entire code of this plugin can be found in native.ts
 export default definePlugin({
     name: "YoutubeAdblock",
-    description: "Block ads in YouTube embeds and the WatchTogether activity via AdGuard",
+    description: "يحجب الإعلانات في مقاطع YouTube المضمّنة وفي نشاط WatchTogether عبر AdGuard",
     tags: ["Media", "Utility"],
     authors: [Devs.ImLvna, Devs.Ven],
 });

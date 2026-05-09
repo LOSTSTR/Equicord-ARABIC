@@ -30,15 +30,15 @@ const opt = (description: string) => ({
 } satisfies PluginSettingDef);
 
 const settings = definePluginSettings({
-    showTimeouts: opt("Show member timeout icons in chat."),
-    showInvitesPaused: opt("Show the invites paused tooltip in the server list."),
-    showModView: opt("Show the member mod view context menu item in all servers.")
+    showTimeouts: opt("اعرض أيقونات حظر التكلم للأعضاء في المحادثة."),
+    showInvitesPaused: opt("اعرض تلميح إيقاف الدعوات في قائمة السيرفرات."),
+    showModView: opt("اعرض خيار عرض بيانات المشرف في قائمة السياق لجميع السيرفرات.")
 });
 
 export default definePlugin({
     name: "ShowHiddenThings",
     searchTerms: ["ShowTimeouts", "ShowInvitesPaused", "ShowModView", "DisableDiscoveryFilters"],
-    description: "Displays various hidden & moderator-only things regardless of permissions.",
+    description: "يعرض عناصر مخفية ومقتصرة على المشرفين بغض النظر عن الصلاحيات.",
     tags: ["Servers", "Utility"],
     authors: [Devs.Dolfies],
     settings,

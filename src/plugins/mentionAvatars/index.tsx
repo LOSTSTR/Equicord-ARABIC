@@ -19,7 +19,7 @@ import { JSX } from "react";
 const settings = definePluginSettings({
     showAtSymbol: {
         type: OptionType.BOOLEAN,
-        description: "Whether the the @ symbol should be displayed on user mentions",
+        description: "عرض رمز @ عند الإشارة إلى المستخدمين",
         default: true
     }
 });
@@ -47,7 +47,7 @@ function DefaultRoleIcon() {
 
 export default definePlugin({
     name: "MentionAvatars",
-    description: "Shows user avatars and role icons inside mentions",
+    description: "يعرض صور المستخدمين وأيقونات الرتب داخل الإشارات",
     tags: ["Appearance", "Customisation"],
     authors: [Devs.Ven, Devs.SerStars],
     patches: [{

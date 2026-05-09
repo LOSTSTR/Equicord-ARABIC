@@ -45,7 +45,7 @@ function getSince(user: User) {
 const settings = definePluginSettings({
     showDates: {
         type: OptionType.BOOLEAN,
-        description: "Show dates on friend requests",
+        description: "اعرض التواريخ على طلبات الصداقة",
         default: false,
         restartNeeded: true
     }
@@ -55,7 +55,7 @@ migratePluginSettings("SortFriends", "SortFriendRequests");
 export default definePlugin({
     name: "SortFriends",
     authors: [Devs.Megu, EquicordDevs.CallMeGii],
-    description: "Sorts friend requests by date of receipt",
+    description: "يرتّب طلبات الصداقة حسب تاريخ الاستلام",
     tags: ["Friends", "Organisation"],
     isModified: true,
     settings,

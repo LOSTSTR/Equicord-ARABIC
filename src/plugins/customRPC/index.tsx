@@ -253,7 +253,7 @@ function stopTimestampLoop() {
 
 export default definePlugin({
     name: "CustomRPC",
-    description: "Add a fully customisable Rich Presence (Game status) to your Discord profile",
+    description: "يضيف حالة نشاط (Rich Presence) قابلة للتخصيص الكامل إلى ملفك الشخصي على Discord",
     tags: ["Activity", "Customisation"],
     authors: [Devs.captain, Devs.AutumnVN, Devs.nin0dev],
     dependencies: ["UserSettingsAPI"],

@@ -28,7 +28,7 @@ const Patch: NavContextMenuPatchCallback = (children, { guild }: { guild: Guild;
 export const settings = definePluginSettings({
     sorting: {
         type: OptionType.SELECT,
-        description: "Username or if applicable Display Name",
+        description: "اسم المستخدم أو الاسم المعروض إن وُجد",
         options: [
             {
                 label: "Username",
@@ -49,7 +49,7 @@ export const settings = definePluginSettings({
 
 export default definePlugin({
     name: "ServerInfo",
-    description: "Allows you to view info about a server",
+    description: "يتيح عرض معلومات تفصيلية عن السيرفر",
     tags: ["Servers", "Utility"],
     authors: [Devs.Ven, Devs.Nuckyz, EquicordDevs.Z1xus],
     dependencies: ["DynamicImageModalAPI"],

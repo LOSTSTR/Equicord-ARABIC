@@ -141,7 +141,7 @@ function playSample(type: string) {
 
 export default definePlugin({
     name: "VcNarrator",
-    description: "Announces when users join, leave, or move voice channels via narrator",
+    description: "يُعلن عبر الراوي عند انضمام المستخدمين أو مغادرتهم أو تنقّلهم بين القنوات الصوتية",
     tags: ["Voice", "Accessibility"],
     authors: [Devs.Ven],
     reporterTestable: ReporterTestable.None,

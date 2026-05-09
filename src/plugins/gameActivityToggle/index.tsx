@@ -30,12 +30,12 @@ const ShowCurrentGame = getUserSettingLazy<boolean>("status", "showCurrentGame")
 const settings = definePluginSettings({
     oldIcon: {
         type: OptionType.BOOLEAN,
-        description: "Use the old icon style before Discord icon redesign",
+        description: "استخدام شكل الأيقونة القديم قبل تحديث تصميم Discord",
         default: false
     },
     location: {
         type: OptionType.SELECT,
-        description: "Where to show the game activity toggle button",
+        description: "مكان ظهور زر تفعيل/إيقاف نشاط الألعاب",
         options: [
             { label: "Next to Mute/Deafen", value: "PANEL", default: true },
             { label: "Equicord Toolbox", value: "TOOLBOX" }
@@ -97,7 +97,7 @@ function GameActivityToggleButton({ iconForeground, hideTooltips, nameplate }: U
 
 export default definePlugin({
     name: "GameActivityToggle",
-    description: "Adds a button next to the mic and deafen button to toggle game activity.",
+    description: "يضيف زراً بجانب الميكروفون لتشغيل/إيقاف ظهور نشاط الألعاب.",
     tags: ["Activity", "Shortcuts"],
     authors: [Devs.Nuckyz, Devs.RuukuLada],
     dependencies: ["UserSettingsAPI", "UserAreaAPI"],

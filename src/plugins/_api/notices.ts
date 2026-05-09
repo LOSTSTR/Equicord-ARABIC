@@ -21,7 +21,7 @@ import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "NoticesAPI",
-    description: "Fixes notices being automatically dismissed",
+    description: "يمنع إغلاق الإشعارات تلقائياً",
     authors: [Devs.Ven],
     required: true,
     patches: [

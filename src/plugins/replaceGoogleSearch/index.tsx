@@ -31,17 +31,17 @@ const enum ReplacementEngineValue {
 
 const settings = definePluginSettings({
     customEngineName: {
-        description: "Name of the custom search engine",
+        description: "اسم محرك البحث المخصص",
         type: OptionType.STRING,
         placeholder: "Google"
     },
     customEngineURL: {
-        description: "The URL of your Engine",
+        description: "رابط محرك البحث الخاص بك",
         type: OptionType.STRING,
         placeholder: "https://google.com/search?q="
     },
     replacementEngine: {
-        description: "Replace with a specific search engine instead of adding a menu",
+        description: "استبدل بمحرك بحث محدد بدلاً من إضافة قائمة",
         type: OptionType.SELECT,
         options: [
             { label: "Off", value: ReplacementEngineValue.OFF, default: true },
@@ -130,7 +130,7 @@ const messageContextMenuPatch: NavContextMenuPatchCallback = (children, _props) 
 migratePluginSettings("ReplaceGoogleSearch", "Search");
 export default definePlugin({
     name: "ReplaceGoogleSearch",
-    description: "Replaces the Google search with different Engine(s)",
+    description: "يستبدل بحث Google بمحركات بحث أخرى",
     tags: ["Utility", "Customisation"],
     authors: [Devs.Moxxie, Devs.Ethan],
 

@@ -62,7 +62,7 @@ export function registerTagCommand(tag: Tag) {
             })),
             {
                 name: "ephemeral",
-                description: "Whether the response should only be visible to you",
+                description: "هل يكون الرد مرئيًا لك فقط",
                 type: ApplicationCommandOptionType.BOOLEAN,
                 required: false
             }
@@ -89,7 +89,7 @@ export function registerTagCommand(tag: Tag) {
 migratePluginSettings("CustomCommands", "MessageTags");
 export default definePlugin({
     name: "CustomCommands",
-    description: "Allows you to create custom slash commands / tags",
+    description: "يتيح إنشاء أوامر slash مخصصة وعلامات (tags) خاصة بك",
     dependencies: ["CommandsAPI"],
     searchTerms: ["MessageTags"],
     authors: [Devs.Ven, Devs.Luna,],
@@ -106,28 +106,28 @@ export default definePlugin({
     commands: [
         {
             name: "tags",
-            description: "Manage all custom commands",
+            description: "إدارة جميع الأوامر المخصصة",
             inputType: ApplicationCommandInputType.BUILT_IN,
             options: [
                 {
                     name: "create",
-                    description: "Create a new tag",
+                    description: "إنشاء علامة (tag) جديدة",
                     type: ApplicationCommandOptionType.SUB_COMMAND,
                 },
                 {
                     name: "list",
-                    description: "List all your tags",
+                    description: "عرض جميع علاماتك (tags)",
                     type: ApplicationCommandOptionType.SUB_COMMAND,
                     options: []
                 },
                 {
                     name: "delete",
-                    description: "Remove a tag by name",
+                    description: "حذف علامة (tag) باسمها",
                     type: ApplicationCommandOptionType.SUB_COMMAND,
                     options: [
                         {
                             name: "tag-name",
-                            description: "The name of the tag",
+                            description: "اسم العلامة (tag)",
                             type: ApplicationCommandOptionType.STRING,
                             required: true
                         }

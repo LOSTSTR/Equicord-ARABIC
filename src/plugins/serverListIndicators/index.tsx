@@ -121,7 +121,7 @@ function ServersIndicator() {
 
 export const settings = definePluginSettings({
     mode: {
-        description: "Mode",
+        description: "وضع العرض",
         type: OptionType.SELECT,
         options: [
             { label: "Only online friend count", value: IndicatorType.FRIEND, default: true },
@@ -131,7 +131,7 @@ export const settings = definePluginSettings({
         restartNeeded: true // Restart needed just to force update
     },
     useCompact: {
-        description: "Makes the indicator appear with only text",
+        description: "اعرض المؤشر بالنص فقط دون أيقونات",
         type: OptionType.BOOLEAN,
         default: false,
         restartNeeded: true // Restart needed just to force update
@@ -140,7 +140,7 @@ export const settings = definePluginSettings({
 
 export default definePlugin({
     name: "ServerListIndicators",
-    description: "Add online friend count or server count in the server list",
+    description: "يضيف عداد الأصدقاء المتصلين أو عدد السيرفرات في قائمة السيرفرات",
     tags: ["Servers", "Appearance"],
     authors: [Devs.dzshn, EquicordDevs.Panniku],
     dependencies: ["ServerListAPI"],

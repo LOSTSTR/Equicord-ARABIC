@@ -27,28 +27,28 @@ const noQuotesQuote = "Did you really disable all loading quotes? What a buffoon
 
 const settings = definePluginSettings({
     replaceEvents: {
-        description: "Should this plugin also apply during events with special event themed quotes? (e.g. Halloween)",
+        description: "تطبيق الإضافة أيضاً خلال الفعاليات ذات الاقتباسات الخاصة (مثل الهالوين)",
         type: OptionType.BOOLEAN,
         default: true
     },
     enablePluginPresetQuotes: {
-        description: "Enable the quotes preset by this plugin",
+        description: "تفعيل الاقتباسات المضمّنة في هذه الإضافة",
         type: OptionType.BOOLEAN,
         default: true
     },
     enableDiscordPresetQuotes: {
-        description: "Enable Discord's preset quotes (including event quotes, during events)",
+        description: "تفعيل اقتباسات Discord الافتراضية (بما فيها اقتباسات الفعاليات)",
         type: OptionType.BOOLEAN,
         default: false
     },
     additionalQuotes: {
-        description: "Additional custom quotes to possibly appear, separated by the below delimiter",
+        description: "اقتباسات مخصصة إضافية قد تظهر، مفصولة بالفاصل المحدد أدناه",
         type: OptionType.STRING,
         default: "",
         multiline: true
     },
     additionalQuotesDelimiter: {
-        description: "Delimiter for additional quotes",
+        description: "الفاصل المستخدم بين الاقتباسات الإضافية",
         type: OptionType.STRING,
         default: "|",
     },
@@ -56,7 +56,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "LoadingQuotes",
-    description: "Replace Discords loading quotes",
+    description: "يستبدل اقتباسات شاشة التحميل في Discord",
     tags: ["Appearance", "Fun", "Customisation"],
     authors: [Devs.Ven, Devs.KraXen72, Devs.UlyssesZhan],
 

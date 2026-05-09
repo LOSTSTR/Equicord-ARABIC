@@ -42,12 +42,12 @@ export const settings = definePluginSettings({
     baseUrl: {
         type: OptionType.STRING,
         hidden: true,
-        description: "Decor api url",
+        description: "رابط Decor API",
         default: "https://decor.fieryflames.dev"
     },
     agreedToGuidelines: {
         type: OptionType.BOOLEAN,
-        description: "Agreed to guidelines",
+        description: "موافقة على الإرشادات",
         hidden: true,
         default: false
     }

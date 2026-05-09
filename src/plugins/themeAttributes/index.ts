@@ -12,7 +12,7 @@ import { UserStore } from "@webpack/common";
 
 export default definePlugin({
     name: "ThemeAttributes",
-    description: "Adds data attributes to various elements for theming purposes",
+    description: "يضيف سمات بيانات لعناصر متعددة لأغراض تخصيص الثيمات",
     tags: ["Appearance", "Customisation"],
     authors: [Devs.Ven, Devs.Board],
 

@@ -27,19 +27,19 @@ import { VoiceChannelIndicator } from "./components";
 const settings = definePluginSettings({
     showInUserProfileModal: {
         type: OptionType.BOOLEAN,
-        description: "Show a user's Voice Channel indicator in their profile next to the name",
+        description: "عرض مؤشر القناة الصوتية للمستخدم في ملفه الشخصي بجانب الاسم",
         default: true,
         restartNeeded: true
     },
     showInMemberList: {
         type: OptionType.BOOLEAN,
-        description: "Show a user's Voice Channel indicator in the member and DMs list",
+        description: "عرض مؤشر القناة الصوتية للمستخدم في قائمة الأعضاء والرسائل المباشرة",
         default: true,
         restartNeeded: true
     },
     showInMessages: {
         type: OptionType.BOOLEAN,
-        description: "Show a user's Voice Channel indicator in messages",
+        description: "عرض مؤشر القناة الصوتية للمستخدم في الرسائل",
         default: true,
         restartNeeded: true
     }
@@ -47,7 +47,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "UserVoiceShow",
-    description: "Shows an indicator when a user is in a Voice Channel",
+    description: "يعرض مؤشراً عند وجود مستخدم في قناة صوتية",
     tags: ["Voice", "Appearance", "Friends"],
     dependencies: ["MemberListDecoratorsAPI", "MessageDecorationsAPI", "NicknameIconsAPI"],
     authors: [Devs.Nuckyz, Devs.LordElias, EquicordDevs.omaw],

@@ -76,69 +76,69 @@ const hyperLinkRegex = /\[.+?\]\((https?:\/\/.+?)\)/;
 
 const settings = definePluginSettings({
     enableEmojiBypass: {
-        description: "Allows sending fake emojis (also bypasses missing permission to use custom emojis)",
+        description: "يتيح إرسال إيموجي وهمية (يتخطى أيضاً قيود الصلاحيات)",
         type: OptionType.BOOLEAN,
         default: true,
         restartNeeded: true
     },
     emojiSize: {
-        description: "Size of the emojis when sending",
+        description: "حجم الإيموجي عند الإرسال",
         type: OptionType.SLIDER,
         default: 48,
         markers: [32, 48, 56, 64, 96, 128, 160, 256, 512]
     },
     transformEmojis: {
-        description: "Whether to transform fake emojis into real ones",
+        description: "تحويل الإيموجي الوهمية إلى حقيقية عند العرض",
         type: OptionType.BOOLEAN,
         default: true,
         restartNeeded: true
     },
     enableStickerBypass: {
-        description: "Allows sending fake stickers (also bypasses missing permission to use stickers)",
+        description: "يتيح إرسال ستيكرات وهمية (يتخطى أيضاً قيود الصلاحيات)",
         type: OptionType.BOOLEAN,
         default: true,
         restartNeeded: true
     },
     stickerSize: {
-        description: "Size of the stickers when sending",
+        description: "حجم الستيكرات عند الإرسال",
         type: OptionType.SLIDER,
         default: 160,
         markers: [32, 64, 128, 160, 256, 512]
     },
     transformStickers: {
-        description: "Whether to transform fake stickers into real ones",
+        description: "تحويل الستيكرات الوهمية إلى حقيقية عند العرض",
         type: OptionType.BOOLEAN,
         default: true,
         restartNeeded: true
     },
     transformCompoundSentence: {
-        description: "Whether to transform fake stickers and emojis in compound sentences (sentences with more content than just the fake emoji or sticker link)",
+        description: "تحويل الإيموجي والستيكرات الوهمية داخل الجمل المركبة",
         type: OptionType.BOOLEAN,
         default: false
     },
     enableStreamQualityBypass: {
-        description: "Allow streaming in nitro quality",
+        description: "تفعيل البث بجودة نيترو",
         type: OptionType.BOOLEAN,
         default: true,
         restartNeeded: true
     },
     useStickerHyperLinks: {
-        description: "Whether to use hyperlinks when sending fake stickers",
+        description: "استخدام روابط تشعبية عند إرسال الستيكرات الوهمية",
         type: OptionType.BOOLEAN,
         default: true
     },
     useEmojiHyperLinks: {
-        description: "Whether to use hyperlinks when sending fake emojis",
+        description: "استخدام روابط تشعبية عند إرسال الإيموجي الوهمية",
         type: OptionType.BOOLEAN,
         default: true
     },
     hyperLinkText: {
-        description: "What text the hyperlink should use. {{NAME}} will be replaced with the emoji/sticker name.",
+        description: "نص الرابط التشعبي. {{NAME}} سيُستبدل باسم الإيموجي أو الستيكر.",
         type: OptionType.STRING,
         default: "{{NAME}}"
     },
     disableEmbedPermissionCheck: {
-        description: "Whether to disable the embed permission check when sending fake emojis and stickers",
+        description: "تعطيل فحص صلاحية التضمين عند إرسال الإيموجي والستيكرات الوهمية",
         type: OptionType.BOOLEAN,
         default: false
     },
@@ -160,7 +160,7 @@ const hasAttachmentPerms = (channelId: string) => hasPermission(channelId, Permi
 export default definePlugin({
     name: "FakeNitro",
     authors: [Devs.Arjix, Devs.D3SOX, Devs.Ven, Devs.fawn, Devs.captain, Devs.Nuckyz, Devs.AutumnVN, Devs.sadan],
-    description: "Allows you to send fake emojis/stickers, use nitro themes, and stream in nitro quality",
+    description: "يتيح إرسال إيموجي وستيكرات وهمية، واستخدام ثيمات نيترو، والبث بجودة نيترو",
     tags: ["Emotes", "Appearance", "Customisation", "Chat"],
     dependencies: ["MessageEventsAPI"],
 

@@ -21,7 +21,7 @@ import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "UserSettingsAPI",
-    description: "Patches Discord's UserSettings to expose their group and name.",
+    description: "يعدّل إعدادات المستخدم في Discord لكشف المجموعة والاسم",
     authors: [Devs.Nuckyz],
 
     patches: [

@@ -23,34 +23,34 @@ import definePlugin, { OptionType } from "@utils/types";
 const settings = definePluginSettings({
     icons: {
         type: OptionType.BOOLEAN,
-        description: "Always animate server icons, avatars, decor and more",
+        description: "تشغيل صور السيرفرات والصور الشخصية والزخارف دائماً",
         default: true,
     },
     statusEmojis: {
         type: OptionType.BOOLEAN,
-        description: "Always animate status emojis",
+        description: "تشغيل إيموجي الحالة دائماً",
         default: true,
     },
     serverBanners: {
         type: OptionType.BOOLEAN,
-        description: "Always animate server banners",
+        description: "تشغيل بانرات السيرفرات دائماً",
         default: true,
     },
     nameplates: {
         type: OptionType.BOOLEAN,
-        description: "Always animate nameplates",
+        description: "تشغيل بطاقات الأسماء دائماً",
         default: true,
     },
     roleGradients: {
         type: OptionType.BOOLEAN,
-        description: "Always animate role gradients",
+        description: "تشغيل تدرجات ألوان الرتب دائماً",
         default: true,
     }
 });
 
 export default definePlugin({
     name: "AlwaysAnimate",
-    description: "Animates anything that can be animated",
+    description: "يحرّك كل ما يمكن تحريكه في Discord",
     tags: ["Appearance", "Fun"],
     authors: [Devs.FieryFlames],
     settings,

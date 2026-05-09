@@ -28,7 +28,7 @@ const enum DisplayStyle {
 
 const settings = definePluginSettings({
     displayStyle: {
-        description: "How to display the timeout duration",
+        description: "طريقة عرض مدة الحظر",
         type: OptionType.SELECT,
         options: [
             { label: "In the Tooltip", value: DisplayStyle.Tooltip },
@@ -67,7 +67,7 @@ function renderTimeout(message: Message, inline: boolean) {
 
 export default definePlugin({
     name: "ShowTimeoutDuration",
-    description: "Shows how much longer a user's timeout will last, either in the timeout icon tooltip or next to it",
+    description: "يعرض المدة المتبقية لحظر تكلم المستخدم، في تلميح أيقونة الحظر أو بجانبها",
     tags: ["Servers", "Utility"],
     authors: [Devs.Ven, Devs.Sqaaakoi],
 

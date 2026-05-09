@@ -43,14 +43,14 @@ function getEmojiMarkdown(target: Target, copyUnicode: boolean): string {
 const settings = definePluginSettings({
     copyUnicode: {
         type: OptionType.BOOLEAN,
-        description: "Copy the raw unicode character instead of :name: for default emojis (👽)",
+        description: "ينسخ حرف الـ unicode الخام بدلًا من :name: للإيموجي الافتراضية (👽)",
         default: true,
     },
 });
 
 export default definePlugin({
     name: "CopyEmojiMarkdown",
-    description: "Allows you to copy emojis as formatted string (<:blobcatcozy:1026533070955872337>)",
+    description: "يتيح نسخ الإيموجي كنص منسّق (<:blobcatcozy:1026533070955872337>)",
     tags: ["Emotes", "Utility"],
     authors: [Devs.HappyEnderman, Devs.Vishnya],
     settings,

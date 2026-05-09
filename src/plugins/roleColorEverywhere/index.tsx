@@ -31,42 +31,42 @@ const settings = definePluginSettings({
     chatMentions: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Show role colors in chat mentions (including in the message box)",
+        description: "اعرض ألوان الرتب في الإشارات بالمحادثة (بما فيها صندوق الرسائل)",
         restartNeeded: true
     },
     memberList: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Show role colors in member list role headers",
+        description: "اعرض ألوان الرتب في عناوين قائمة الأعضاء",
         restartNeeded: true
     },
     voiceUsers: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Show role colors in the voice chat user list",
+        description: "اعرض ألوان الرتب في قائمة مستخدمي الصوت",
         restartNeeded: true
     },
     reactorsList: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Show role colors in the reactors list",
+        description: "اعرض ألوان الرتب في قائمة المتفاعلين",
         restartNeeded: true
     },
     pollResults: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Show role colors in the poll results",
+        description: "اعرض ألوان الرتب في نتائج التصويت",
         restartNeeded: true
     },
     colorChatMessages: {
         type: OptionType.BOOLEAN,
         default: false,
-        description: "Color chat messages based on the author's role color",
+        description: "لوّن رسائل المحادثة بناءً على لون رتبة المرسل",
         restartNeeded: true,
     },
     messageSaturation: {
         type: OptionType.SLIDER,
-        description: "Intensity of message coloring.",
+        description: "شدة تلوين الرسائل.",
         markers: makeRange(0, 100, 10),
         default: 30
     }
@@ -75,7 +75,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "RoleColorEverywhere",
     authors: [Devs.KingFish, Devs.lewisakura, Devs.AutumnVN, Devs.Kyuuhachi, Devs.jamesbt365],
-    description: "Adds the top role color anywhere possible",
+    description: "يعرض لون الرتبة الأعلى في كل مكان ممكن",
     tags: ["Roles", "Appearance"],
     settings,
 

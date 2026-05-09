@@ -61,7 +61,7 @@ interface Instance {
 export const settings = definePluginSettings({
     searchOption: {
         type: OptionType.SELECT,
-        description: "The part of the url you want to search",
+        description: "الجزء من الرابط الذي تريد البحث فيه",
         options: [
             {
                 label: "Entire Url",
@@ -83,7 +83,7 @@ export const settings = definePluginSettings({
 export default definePlugin({
     name: "FavoriteGifSearch",
     authors: [Devs.Aria],
-    description: "Adds a search bar to favorite gifs.",
+    description: "يضيف شريط بحث لقائمة GIF المفضلة.",
     tags: ["Media", "Customisation"],
 
     patches: [

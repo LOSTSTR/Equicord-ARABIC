@@ -5,6 +5,20 @@ node_modules
 .secrets
 .input
 
+# Environment & secrets — never commit these
+.env
+.env.*
+.env.local
+.env.production
+.env.development
+*.pem
+*.key
+*.p12
+*.pfx
+credentials.json
+secrets.json
+*.secret
+
 *.exe
 vencord_installer
 equicord_installer

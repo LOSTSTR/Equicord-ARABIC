@@ -15,7 +15,7 @@ function preventMiddleClick(e: MouseEvent) {
 
 export default definePlugin({
     name: "NoMiddleClickPaste",
-    description: "Disable Linux middle-click paste - Linux only",
+    description: "يعطّل اللصق بزر الفأرة الأوسط في Linux - لنظام Linux فقط",
     authors: [Devs.Darxoon],
     hidden: !IS_LINUX,
 

@@ -248,55 +248,55 @@ function areNestedRelated(firstId: string, secondId: string): boolean {
 export const settings = definePluginSettings({
     sidebar: {
         type: OptionType.BOOLEAN,
-        description: "Display servers from folder on dedicated sidebar",
+        description: "عرض السيرفرات من المجلد في شريط جانبي مخصص",
         restartNeeded: true,
         default: true
     },
     sidebarAnim: {
         type: OptionType.BOOLEAN,
-        description: "Animate opening the folder sidebar",
+        description: "تحريك فتح الشريط الجانبي للمجلد",
         default: true
     },
     closeAllFolders: {
         type: OptionType.BOOLEAN,
-        description: "Close all folders when selecting a server not in a folder",
+        description: "إغلاق جميع المجلدات عند اختيار سيرفر خارج أي مجلد",
         default: false
     },
     closeAllHomeButton: {
         type: OptionType.BOOLEAN,
-        description: "Close all folders when clicking on the home button",
+        description: "إغلاق جميع المجلدات عند النقر على زر الرئيسية",
         restartNeeded: true,
         default: false
     },
     closeOthers: {
         type: OptionType.BOOLEAN,
-        description: "Close other folders when opening a folder",
+        description: "إغلاق المجلدات الأخرى عند فتح مجلد",
         default: false
     },
     closeServerFolder: {
         type: OptionType.BOOLEAN,
-        description: "Close folder when selecting a server in that folder",
+        description: "إغلاق المجلد عند اختيار سيرفر داخله",
         default: false,
     },
     forceOpen: {
         type: OptionType.BOOLEAN,
-        description: "Force a folder to open when switching to a server of that folder",
+        description: "فتح المجلد إجبارياً عند التبديل إلى سيرفر داخله",
         default: false
     },
     enableNestedFolders: {
         type: OptionType.BOOLEAN,
-        description: "Allow nesting folders inside other folders by dragging.",
+        description: "السماح بتداخل المجلدات داخل بعضها عبر السحب والإفلات",
         default: true
     },
     keepIcons: {
         type: OptionType.BOOLEAN,
-        description: "Keep showing guild icons in the primary guild bar folder when it's open in the BetterFolders sidebar",
+        description: "إبقاء أيقونات السيرفرات في شريط السيرفرات الرئيسي عند فتح مجلد في الشريط الجانبي",
         restartNeeded: true,
         default: false
     },
     showFolderIcon: {
         type: OptionType.SELECT,
-        description: "Show the folder icon above the folder guilds in the BetterFolders sidebar",
+        description: "عرض أيقونة المجلد فوق سيرفراته في الشريط الجانبي",
         options: [
             { label: "Never", value: FolderIconDisplay.Never },
             { label: "Always", value: FolderIconDisplay.Always, default: true },
@@ -314,7 +314,7 @@ const GRID_STYLE_NAME = "vc-betterFolders-sidebar-grid";
 
 export default definePlugin({
     name: "BetterFolders",
-    description: "Shows server folders on dedicated sidebar and adds folder related improvements",
+    description: "يعرض مجلدات السيرفرات في شريط جانبي مخصص مع تحسينات إضافية",
     tags: ["Organisation", "Servers", "Appearance"],
     authors: [Devs.juby, Devs.AutumnVN, Devs.Nuckyz, EquicordDevs.justjxke],
     isModified: true,

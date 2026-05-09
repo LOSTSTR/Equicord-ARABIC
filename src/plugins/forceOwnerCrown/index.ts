@@ -23,7 +23,7 @@ import { GuildStore } from "@webpack/common";
 
 export default definePlugin({
     name: "ForceOwnerCrown",
-    description: "Force the owner crown next to usernames even if the server is large.",
+    description: "يُظهر تاج المالك بجانب اسمه دائماً حتى في السيرفرات الكبيرة.",
     authors: [Devs.D3SOX, Devs.Nickyux],
     tags: ["Roles", "Appearance", "Servers"],
     patches: [

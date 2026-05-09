@@ -12,37 +12,37 @@ import definePlugin, { makeRange, OptionType } from "@utils/types";
 
 const settings = definePluginSettings({
     reactionCount: {
-        description: "Number of reactions (0-42)",
+        description: "عدد التفاعلات السريعة (0-42)",
         type: OptionType.NUMBER,
         default: 5
     },
     frequentEmojis: {
-        description: "Use frequently used emojis instead of favourite emojis",
+        description: "استخدام الإيموجيات الأكثر استخداماً بدلاً من المفضلة",
         type: OptionType.BOOLEAN,
         restartNeeded: true,
         default: true
     },
     rows: {
-        description: "Rows of quick reactions to display",
+        description: "عدد صفوف التفاعلات السريعة المعروضة",
         type: OptionType.SLIDER,
         default: 2,
         markers: makeRange(1, 16, 1),
         stickToMarkers: true
     },
     columns: {
-        description: "Columns of quick reactions to display",
+        description: "عدد أعمدة التفاعلات السريعة المعروضة",
         type: OptionType.SLIDER,
         default: 4,
         markers: makeRange(1, 12, 1),
         stickToMarkers: true
     },
     compactMode: {
-        description: "Scales the buttons to 75% of their original scale, whilst increasing the inner emoji to 125% scale. Emojis will be 93.75% of the original size. Recommended to have a minimum of 5 columns",
+        description: "تصغير الأزرار إلى 75% مع تكبير الإيموجي الداخلي إلى 125%. يُنصح بـ 5 أعمدة على الأقل",
         type: OptionType.BOOLEAN,
         default: false
     },
     scroll: {
-        description: "Enable scrolling the list of emojis",
+        description: "تفعيل التمرير في قائمة الإيموجيات",
         type: OptionType.BOOLEAN,
         default: true
     }
@@ -51,7 +51,7 @@ const settings = definePluginSettings({
 migratePluginSettings("MoreQuickReactions", "BetterQuickReact");
 export default definePlugin({
     name: "MoreQuickReactions",
-    description: "Improves the quick react buttons in the message context menu.",
+    description: "يُحسّن أزرار التفاعل السريع في قائمة سياق الرسائل",
     tags: ["Emotes", "Reactions", "Customisation", "Shortcuts"],
     authors: [Devs.Ven, Devs.Sqaaakoi, Devs.iamme],
     isModified: true,

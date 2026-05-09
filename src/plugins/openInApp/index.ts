@@ -35,36 +35,36 @@ const UrlReplacementRules: Record<string, URLReplacementRule> = {
     spotify: {
         match: /^https:\/\/open\.spotify\.com\/(?:intl-[a-z]{2}\/)?(track|album|artist|playlist|user|episode|prerelease)\/(.+)(?:\?.+?)?$/,
         replace: (_, type, id) => `spotify://${type}/${id}`,
-        description: "Open Spotify links in the Spotify app",
+        description: "فتح روابط Spotify في تطبيق Spotify",
         shortlinkMatch: /^https:\/\/spotify\.link\/.+$/,
         accountViewReplace: userId => `spotify:user:${userId}`,
     },
     steam: {
         match: /^https:\/\/(steamcommunity\.com|(?:help|store)\.steampowered\.com)\/.+$/,
         replace: match => `steam://openurl/${match}`,
-        description: "Open Steam links in the Steam app",
+        description: "فتح روابط Steam في تطبيق Steam",
         shortlinkMatch: /^https:\/\/s.team\/.+$/,
         accountViewReplace: userId => `steam://openurl/https://steamcommunity.com/profiles/${userId}`,
     },
     epic: {
         match: /^https:\/\/store\.epicgames\.com\/(.+)$/,
         replace: (_, id) => `com.epicgames.launcher://store/${id}`,
-        description: "Open Epic Games links in the Epic Games Launcher",
+        description: "فتح روابط Epic Games في تطبيق Epic Games Launcher",
     },
     tidal: {
         match: /^https:\/\/(?:listen\.)?tidal\.com\/(?:browse\/)?(track|album|artist|playlist|user|video|mix)\/([a-f0-9-]+).*/,
         replace: (_, type, id) => `tidal://${type}/${id}`,
-        description: "Open Tidal links in the Tidal app",
+        description: "فتح روابط Tidal في تطبيق Tidal",
     },
     itunes: {
         match: /^https:\/\/(?:geo\.)?music\.apple\.com\/([a-z]{2}\/)?(album|artist|playlist|song|curator)\/([^/?#]+)\/?([^/?#]+)?(?:\?.*)?(?:#.*)?$/,
         replace: (_, lang, type, name, id) => id ? `itunes://music.apple.com/us/${type}/${name}/${id}` : `itunes://music.apple.com/us/${type}/${name}`,
-        description: "Open Apple Music links in the iTunes app"
+        description: "فتح روابط Apple Music في تطبيق iTunes"
     },
     vrcx: {
         match: /^https:\/\/vrchat.com\/home\/(user|avatar|world|group)\/(.+)$/,
         replace: (_, type, id) => `vrcx://${type}/${id}`,
-        description: "Open VRChat links in the VRCX app"
+        description: "فتح روابط VRChat في تطبيق VRCX"
     }
 };
 
@@ -83,7 +83,7 @@ const Native = VencordNative.pluginHelpers.OpenInApp as PluginNative<typeof impo
 
 export default definePlugin({
     name: "OpenInApp",
-    description: "Open links in their respective apps instead of your browser",
+    description: "يفتح الروابط في تطبيقاتها الأصلية بدلاً من المتصفح",
     tags: ["Utility"],
     authors: [Devs.Ven, Devs.surgedevs],
     settings: pluginSettings,

@@ -19,7 +19,7 @@ import { Timer } from "./Timer";
 export const settings = definePluginSettings({
     format: {
         type: OptionType.SELECT,
-        description: "Compact or human readable format:",
+        description: "صيغة مضغوطة أو قابلة للقراءة:",
         options: [
             {
                 label: "30:23:00:42",
@@ -34,37 +34,37 @@ export const settings = definePluginSettings({
     },
     allCallTimers: {
         type: OptionType.BOOLEAN,
-        description: "Add call timer to all users in a server voice channel",
+        description: "يضيف مؤقت مكالمة لجميع المستخدمين في القناة الصوتية بالسيرفر",
         restartNeeded: true,
         default: false
     },
     showWithoutHover: {
         type: OptionType.BOOLEAN,
-        description: "Always show the timer without needing to hover",
+        description: "يعرض المؤقت دائمًا دون الحاجة للمرور بالماوس عليه",
         restartNeeded: true,
         default: false
     },
     showRoleColor: {
         type: OptionType.BOOLEAN,
-        description: "Show the user's role color (if this plugin in enabled)",
+        description: "يعرض لون رتبة المستخدم (إذا كانت الإضافة المخصصة مفعّلة)",
         restartNeeded: false,
         default: false
     },
     trackSelf: {
         type: OptionType.BOOLEAN,
-        description: "Also track yourself",
+        description: "تتبع وقت انضمامك الخاص أيضًا",
         restartNeeded: false,
         default: false
     },
     showSeconds: {
         type: OptionType.BOOLEAN,
-        description: "Show seconds in the timer",
+        description: "يعرض الثواني في المؤقت",
         restartNeeded: false,
         default: false
     },
     watchLargeGuilds: {
         type: OptionType.BOOLEAN,
-        description: "Track users in large guilds. This may cause lag if you're in a lot of large guilds with active voice users. Tested with up to 2000 active voice users with no issues.",
+        description: "تتبع المستخدمين في السيرفرات الكبيرة. قد يسبب بطءًا إذا كنت في سيرفرات كبيرة كثيرة. تم الاختبار حتى 2000 مستخدم صوتي نشط دون مشاكل.",
         restartNeeded: true,
         default: false
     }
@@ -108,7 +108,7 @@ let runOneTime = true;
 
 export default definePlugin({
     name: "CallTimer",
-    description: "Add call timers for all users in voice channels and in the connection status.",
+    description: "يضيف مؤقتات مكالمة لجميع المستخدمين في القنوات الصوتية وفي شريط حالة الاتصال.",
     tags: ["Voice", "Utility"],
     authors: [Devs.Ven, EquicordDevs.MaxHerbold, Devs.D3SOX],
     managedStyle: alignedChatInputFix,

@@ -14,7 +14,7 @@ import { ChannelStore, ReadStateStore, UserStore } from "@webpack/common";
 const settings = definePluginSettings({
     channelToAffect: {
         type: OptionType.SELECT,
-        description: "Select the type of DM for the plugin to affect",
+        description: "اختر نوع المحادثة الخاصة التي تؤثر عليها الإضافة",
         options: [
             { label: "Both", value: "both_dms", default: true },
             { label: "User DMs", value: "user_dm" },
@@ -23,23 +23,23 @@ const settings = definePluginSettings({
     },
     allowMentions: {
         type: OptionType.BOOLEAN,
-        description: "Receive audio pings for @mentions",
+        description: "تشغيل صوت الإشعار عند @mentions",
         default: false,
     },
     allowEveryone: {
         type: OptionType.BOOLEAN,
-        description: "Receive audio pings for @everyone and @here in group DMs",
+        description: "تشغيل صوت الإشعار عند @everyone و @here في المجموعات",
         default: false,
     },
     ignoreUsers: {
         type: OptionType.STRING,
-        description: "User IDs (comma + space) whose pings should NEVER be throttled",
+        description: "معرّفات المستخدمين (مفصولة بفاصلة ومسافة) الذين لن يُطبّق عليهم التحديد أبداً",
         restartNeeded: true,
         default: ""
     },
     alwaysPlaySound: {
         type: OptionType.BOOLEAN,
-        description: "Play the message notification sound even when its disabled",
+        description: "تشغيل صوت إشعار الرسالة حتى عند تعطيله",
         restartNeeded: true,
         default: false
     }
@@ -47,7 +47,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "OnePingPerDM",
-    description: "If unread messages are sent by a user in DMs multiple times, you'll only receive one audio ping. Read the messages to reset the limit",
+    description: "عند إرسال رسائل متعددة في المحادثة الخاصة، لن تسمع إلا صوت إشعار واحد. اقرأ الرسائل لإعادة الضبط",
     tags: ["Notifications", "Customisation"],
     authors: [Devs.ProffDea],
     isModified: true,

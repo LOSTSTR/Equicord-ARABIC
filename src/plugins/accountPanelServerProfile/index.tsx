@@ -62,14 +62,14 @@ const AccountPanelContextMenu = ErrorBoundary.wrap(() => {
 const settings = definePluginSettings({
     prioritizeServerProfile: {
         type: OptionType.BOOLEAN,
-        description: "Prioritize Server Profile when left clicking your account panel",
+        description: "إعطاء الأولوية لملف سيرفر عند النقر بزر الفأرة الأيسر على لوحة حسابك",
         default: false
     }
 });
 
 export default definePlugin({
     name: "AccountPanelServerProfile",
-    description: "Right click your account panel in the bottom left to view your profile in the current server",
+    description: "انقر بزر الفأرة الأيمن على لوحة حسابك في أسفل اليسار لعرض ملفك الشخصي في السيرفر الحالي",
     tags: ["Appearance", "Servers"],
     authors: [Devs.Nuckyz, Devs.relitrix],
     settings,

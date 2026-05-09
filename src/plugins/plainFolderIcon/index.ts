@@ -23,7 +23,7 @@ import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "PlainFolderIcon",
-    description: "Dont show the small guild icons in folders",
+    description: "يخفي أيقونات السيرفرات الصغيرة داخل المجلدات",
     tags: ["Appearance", "Customisation"],
     authors: [Devs.botato],
 

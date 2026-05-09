@@ -133,7 +133,7 @@ function ReactionUsers({ message, emoji, type }: ReactionProps) {
 
 const settings = definePluginSettings({
     avatarClick: {
-        description: "Toggle clicking avatars in reactions",
+        description: "تبديل النقر على الصور الرمزية في التفاعلات",
         type: OptionType.BOOLEAN,
         default: false,
         restartNeeded: true
@@ -142,7 +142,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "WhoReacted",
-    description: "Renders the avatars of users who reacted to a message",
+    description: "يعرض صور المستخدمين الذين تفاعلوا مع الرسالة",
     tags: ["Reactions", "Chat", "Appearance"],
     authors: [Devs.Ven, Devs.KannaDev, Devs.newwares],
     isModified: true,

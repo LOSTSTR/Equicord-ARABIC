@@ -30,7 +30,7 @@ export { lastState };
 const settings = definePluginSettings({
     persistState: {
         type: OptionType.SELECT,
-        description: "How to persist the silent message toggle state",
+        description: "كيفية الاحتفاظ بحالة تبديل الرسائل الصامتة",
         options: [
             { label: "Don't persist (reset on channel change)", value: "none", default: true },
             { label: "Persist between channels", value: "channels" },
@@ -42,7 +42,7 @@ const settings = definePluginSettings({
     },
     autoDisable: {
         type: OptionType.BOOLEAN,
-        description: "Automatically disable the silent message toggle again after sending one",
+        description: "يُعطّل تبديل الرسائل الصامتة تلقائياً بعد إرسال رسالة واحدة",
         default: true
     }
 });
@@ -109,7 +109,7 @@ const SilentMessageToggle: ChatBarButtonFactory = ({ isMainChat }) => {
 export default definePlugin({
     name: "SilentMessageToggle",
     authors: [Devs.Nuckyz, Devs.CatNoir, EquicordDevs.Z1xus],
-    description: "Adds a button to the chat bar to toggle sending a silent message.",
+    description: "يضيف زراً في شريط المحادثة لتبديل إرسال رسائل صامتة.",
     dependencies: ["ChatInputButtonAPI"],
     tags: ["Chat", "Utility"],
     settings,

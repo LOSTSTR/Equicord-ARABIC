@@ -16,14 +16,14 @@ import definePlugin, { OptionType } from "@utils/types";
 const settings = definePluginSettings({
     originalImagesInChat: {
         type: OptionType.BOOLEAN,
-        description: "Also load the original image in Chat. WARNING: Read the caveats above",
+        description: "تحميل الصورة الأصلية أيضاً في الدردشة. تحذير: اقرأ التنبيهات أعلاه",
         default: false,
     }
 });
 
 export default definePlugin({
     name: "FixImagesQuality",
-    description: "Improves quality of images by loading them at their original resolution",
+    description: "يحسّن جودة الصور بتحميلها بدقتها الأصلية الكاملة",
     tags: ["Media", "Appearance"],
     authors: [Devs.Nuckyz, Devs.Ven],
     settings,

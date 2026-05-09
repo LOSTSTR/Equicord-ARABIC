@@ -11,7 +11,7 @@ import definePlugin, { OptionType } from "@utils/types";
 let closeSuppressCount = 0;
 const settings = definePluginSettings({
     keepOpen: {
-        description: "Keeps the gif picker open after selecting a gif",
+        description: "إبقاء منتقي الـ GIF مفتوحاً بعد الاختيار",
         type: OptionType.BOOLEAN,
         default: false
     },
@@ -19,7 +19,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "BetterGifPicker",
-    description: "Makes the gif picker open the favourite category by default",
+    description: "يجعل منتقي الـ GIF يفتح قائمة المفضلة افتراضياً",
     tags: ["Emotes", "Customisation"],
     authors: [Devs.Samwich, EquicordDevs.justjxke],
     isModified: true,

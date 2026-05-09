@@ -40,7 +40,7 @@ export const enum PinOrder {
 export const settings = definePluginSettings({
     pinOrder: {
         type: OptionType.SELECT,
-        description: "Which order should pinned DMs be displayed in?",
+        description: "ترتيب عرض المحادثات الخاصة المثبتة",
         options: [
             { label: "Most recent message", value: PinOrder.LastMessage, default: true },
             { label: "Custom (right click channels to reorder)", value: PinOrder.Custom }
@@ -48,12 +48,12 @@ export const settings = definePluginSettings({
     },
     canCollapseDmSection: {
         type: OptionType.BOOLEAN,
-        description: "Allow uncategorised DMs section to be collapsable",
+        description: "السماح بطي قسم المحادثات غير المصنّفة",
         default: false
     },
     dmSectionCollapsed: {
         type: OptionType.BOOLEAN,
-        description: "Collapse DM section",
+        description: "طي قسم المحادثات الخاصة",
         default: false,
         hidden: true
     },
@@ -66,7 +66,7 @@ export const settings = definePluginSettings({
 
 export default definePlugin({
     name: "PinDMs",
-    description: "Allows you to pin private channels to the top of your DM list. To pin/unpin or re-order pins, right click DMs",
+    description: "تثبيت المحادثات الخاصة في أعلى القائمة. انقر بزر الفأرة الأيمن على أي محادثة لتثبيتها أو إعادة ترتيبها",
     tags: ["Friends", "Organisation"],
     authors: [Devs.Ven, Devs.Aria],
     settings,

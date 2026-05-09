@@ -32,7 +32,7 @@ import { Button, Parser, Select, useMemo, useState } from "@webpack/common";
 
 const settings = definePluginSettings({
     replaceMessageContents: {
-        description: "Replace timestamps in message contents",
+        description: "استبدل الطوابع الزمنية في محتوى الرسائل",
         type: OptionType.BOOLEAN,
         default: true,
     },
@@ -169,7 +169,7 @@ const SendTimestampButton: ChatBarButtonFactory = ({ isAnyChat }) => {
 
 export default definePlugin({
     name: "SendTimestamps",
-    description: "Send timestamps easily via chat box button & text shortcuts. Read the extended description!",
+    description: "أرسل طوابع زمنية بسهولة عبر زر المحادثة أو اختصارات النص. اقرأ الوصف الموسّع!",
     dependencies: ["ChatInputButtonAPI", "MessagePopoverAPI"],
     tags: ["Chat", "Commands"],
     authors: [Devs.Ven, Devs.Tyler, Devs.Grzesiek11],

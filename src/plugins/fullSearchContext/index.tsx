@@ -80,7 +80,7 @@ const contextMenuPatch: NavContextMenuPatchCallback = (children, props: MessageA
 migratePluginSettings("FullSearchContext", "SearchReply");
 export default definePlugin({
     name: "FullSearchContext",
-    description: "Makes the message context menu in message search results have all options you'd expect",
+    description: "يضيف جميع خيارات القائمة السياقية للرسائل في نتائج البحث",
     tags: ["Utility"],
     authors: [Devs.Ven, Devs.Aria],
 

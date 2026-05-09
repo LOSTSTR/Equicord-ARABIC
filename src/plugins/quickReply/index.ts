@@ -38,7 +38,7 @@ const enum MentionOptions {
 const settings = definePluginSettings({
     shouldMention: {
         type: OptionType.SELECT,
-        description: "Ping reply by default",
+        description: "الإشارة (@) في الرد بشكل افتراضي",
         options: [
             {
                 label: "Follow NoReplyMention plugin (if enabled)",
@@ -51,7 +51,7 @@ const settings = definePluginSettings({
     },
     ignoreBlockedAndIgnored: {
         type: OptionType.BOOLEAN,
-        description: "Ignore messages by blocked/ignored users when navigating",
+        description: "تجاهل رسائل المستخدمين المحظورين عند التنقل",
         default: true
     }
 });
@@ -59,7 +59,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "QuickReply",
     authors: [Devs.fawn, Devs.Ven, Devs.pylix],
-    description: "Reply to (ctrl + up/down) and edit (ctrl + shift + up/down) messages via keybinds",
+    description: "ردّ على الرسائل (Ctrl+↑/↓) أو عدّلها (Ctrl+Shift+↑/↓) عبر اختصارات لوحة المفاتيح",
     tags: ["Chat", "Shortcuts"],
     settings,
 

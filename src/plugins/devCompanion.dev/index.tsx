@@ -29,17 +29,17 @@ export const logger = new Logger("DevCompanion");
 
 export const settings = definePluginSettings({
     notifyOnAutoConnect: {
-        description: "Whether to notify when Dev Companion has automatically connected.",
+        description: "إشعار عند اتصال Dev Companion تلقائيًا.",
         type: OptionType.BOOLEAN,
         default: true
     },
     usePatchedModule: {
-        description: "On extract requests, reply with the current patched module (if it is patched) instead of the original.",
+        description: "عند طلبات الاستخراج، الردّ بالوحدة المعدّلة الحالية (إن وُجدت) بدلًا من الأصلية.",
         default: true,
         type: OptionType.BOOLEAN,
     },
     reloadAfterToggle: {
-        description: "Reload after a disable/enable plugin command is recived.",
+        description: "إعادة التحميل عند استقبال أمر تعطيل/تفعيل إضافة.",
         default: true,
         type: OptionType.BOOLEAN
     }
@@ -47,7 +47,7 @@ export const settings = definePluginSettings({
 
 export default definePlugin({
     name: "DevCompanion",
-    description: "Dev Companion Plugin. Please report anything not working or being weird (most likely its a bug) to sadan, either ping or dm, thanks!",
+    description: "إضافة Dev Companion. أبلغ عن أي خلل أو سلوك غريب لـ sadan عبر ping أو رسالة مباشرة، شكرًا!",
     tags: ["Developers", "Utility"],
     authors: [Devs.Ven, Devs.sadan],
     reporterTestable: ReporterTestable.None,

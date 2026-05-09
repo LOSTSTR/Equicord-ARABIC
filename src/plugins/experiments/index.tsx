@@ -26,7 +26,7 @@ const altKey = IS_MAC ? "opt" : "alt";
 const settings = definePluginSettings({
     toolbarDevMenu: {
         type: OptionType.BOOLEAN,
-        description: "Change the Help (?) toolbar button (top right in chat) to Discord's developer menu",
+        description: "يحوّل زر المساعدة (?) في شريط الأدوات إلى قائمة المطورين",
         default: false,
         restartNeeded: true
     }
@@ -34,7 +34,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "Experiments",
-    description: "Enable Access to Experiments & other dev-only features in Discord!",
+    description: "يفتح الوصول للتجارب التجريبية وميزات المطورين في Discord!",
     tags: ["Developers", "Utility"],
     authors: [
         Devs.Megu,

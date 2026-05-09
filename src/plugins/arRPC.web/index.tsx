@@ -41,7 +41,7 @@ let ws: WebSocket;
 migratePluginSettings("WebRichPresence", "WebRichPresence (arRPC)");
 export default definePlugin({
     name: "WebRichPresence",
-    description: "Client plugin for arRPC to enable RPC on Discord Web (experimental)",
+    description: "إضافة عميل arRPC لتفعيل RPC على Discord Web (تجريبية)",
     tags: ["Activity", "Utility"],
     authors: [Devs.Ducko],
     reporterTestable: ReporterTestable.None,

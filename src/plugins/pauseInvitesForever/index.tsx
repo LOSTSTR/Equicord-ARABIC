@@ -44,7 +44,7 @@ function disableInvites(guildId: string) {
 export default definePlugin({
     name: "PauseInvitesForever",
     searchTerms: ["DisableInvitesForever"],
-    description: "Brings back the option to pause invites indefinitely that stupit Discord removed.",
+    description: "يعيد خيار إيقاف الدعوات إلى الأبد الذي أزاله Discord.",
     tags: ["Servers"],
     authors: [Devs.Dolfies, Devs.amia],
 

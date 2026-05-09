@@ -138,72 +138,72 @@ let secondMouseDownTime = 0;
 export const settings = definePluginSettings({
     singleClickAction: {
         type: OptionType.SELECT,
-        description: "Action on single click (your messages)",
+        description: "الإجراء عند النقر مرة واحدة (رسائلك)",
         options: actions,
         default: "DELETE"
     },
     singleClickModifier: {
         type: OptionType.SELECT,
-        description: "Modifier required for single click action (your messages)",
+        description: "المفتاح المعدِّل المطلوب لنقرة واحدة (رسائلك)",
         options: singleClickModifiers,
         default: "BACKSPACE"
     },
     singleClickOthersAction: {
         type: OptionType.SELECT,
-        description: "Action on single click (others' messages)",
+        description: "الإجراء عند النقر مرة واحدة (رسائل الآخرين)",
         options: actions,
         default: "DELETE"
     },
     singleClickOthersModifier: {
         type: OptionType.SELECT,
-        description: "Modifier required for single click action (others' messages)",
+        description: "المفتاح المعدِّل المطلوب لنقرة واحدة (رسائل الآخرين)",
         options: singleClickModifiers,
         default: "BACKSPACE"
     },
     doubleClickAction: {
         type: OptionType.SELECT,
-        description: "Action on double-click (your messages)",
+        description: "الإجراء عند النقر مرتين (رسائلك)",
         options: doubleClickOwnActions,
         default: "EDIT"
     },
     doubleClickOthersAction: {
         type: OptionType.SELECT,
-        description: "Action on double-click (others' messages)",
+        description: "الإجراء عند النقر مرتين (رسائل الآخرين)",
         options: doubleClickOthersActions,
         default: "REPLY"
     },
     doubleClickModifier: {
         type: OptionType.SELECT,
-        description: "Modifier required for double-click action",
+        description: "المفتاح المعدِّل المطلوب للنقر المزدوج",
         options: modifiers,
         default: "NONE"
     },
     tripleClickAction: {
         type: OptionType.SELECT,
-        description: "Action on triple-click",
+        description: "الإجراء عند النقر ثلاث مرات",
         options: actions,
         default: "REACT"
     },
     tripleClickModifier: {
         type: OptionType.SELECT,
-        description: "Modifier required for triple-click action",
+        description: "المفتاح المعدِّل المطلوب للنقر الثلاثي",
         options: modifiers,
         default: "NONE"
     },
     reactEmoji: {
         type: OptionType.COMPONENT,
-        description: "Emoji to use for react actions.",
+        description: "الإيموجي المستخدم لإجراءات التفاعل",
         component: ReactEmojiSetting,
         default: "💀"
     },
     addAdditionalReacts: {
         type: OptionType.BOOLEAN,
-        description: "Also add additional configured reaction emojis",
+        description: "إضافة إيموجيات تفاعل إضافية مُعدَّة مسبقاً",
         default: false
     },
     additionalReactEmojis: {
         type: OptionType.COMPONENT,
-        description: `Additional emojis to add when using React action (comma/newline separated, max ${MAX_ADDITIONAL_REACT_EMOJIS})`,
+        description: `إيموجيات إضافية للتفاعل (مفصولة بفاصلة أو سطر جديد، بحد أقصى ${MAX_ADDITIONAL_REACT_EMOJIS})`,
         component: AdditionalReactEmojisSetting,
         get hidden() {
             return !settings.store.addAdditionalReacts;
@@ -212,45 +212,45 @@ export const settings = definePluginSettings({
     },
     disableInDms: {
         type: OptionType.BOOLEAN,
-        description: "Disable all click actions in direct messages",
+        description: "تعطيل جميع إجراءات النقر في الرسائل المباشرة",
         default: false
     },
     disableInSystemDms: {
         type: OptionType.BOOLEAN,
-        description: "Disable all click actions in system DMs",
+        description: "تعطيل جميع إجراءات النقر في رسائل النظام",
         default: true
     },
     clickTimeout: {
         type: OptionType.NUMBER,
-        description: "Timeout to distinguish double/triple clicks (ms)",
+        description: "مهلة التمييز بين النقر المزدوج والثلاثي (بالملي ثانية)",
         markers: makeRange(100, 500, 50),
         default: 300
     },
     doubleClickHoldThreshold: {
         type: OptionType.NUMBER,
-        description: "Max hold time for double-click actions (ms). Holding longer allows text selection",
+        description: "أقصى وقت ضغط للنقر المزدوج (بالملي ثانية). الضغط أطول يسمح بتحديد النص",
         markers: makeRange(50, 500, 50),
         default: 150
     },
     deferDoubleClickForTriple: {
         type: OptionType.BOOLEAN,
-        description: "Delay double-click to allow triple-click actions (disables triple-click when off)",
+        description: "تأخير النقر المزدوج للسماح بإجراءات النقر الثلاثي (يعطّل الثلاثي عند إيقافه)",
         default: false
     },
     selectionHoldTimeout: {
         type: OptionType.NUMBER,
-        description: "Timeout to allow text selection (ms)",
+        description: "مهلة السماح بتحديد النص (بالملي ثانية)",
         markers: makeRange(100, 1000, 100),
         default: 300
     },
     quoteWithReply: {
         type: OptionType.BOOLEAN,
-        description: "When quoting, also reply to the message",
+        description: "عند الاقتباس، الرد على الرسالة أيضاً",
         default: true
     },
     useSelectionForQuote: {
         type: OptionType.BOOLEAN,
-        description: "When quoting, use selected text if available",
+        description: "عند الاقتباس، استخدام النص المحدد إن وُجد",
         default: false
     }
 });
@@ -576,7 +576,7 @@ async function executeAction(
 
 export default definePlugin({
     name: "MessageClickActions",
-    description: "Customize click actions on messages.",
+    description: "يتيح تخصيص إجراءات النقر على الرسائل",
     tags: ["Chat", "Shortcuts"],
     authors: [Devs.Ven, EquicordDevs.keircn, EquicordDevs.ZcraftElite, EquicordDevs.omaw],
     isModified: true,

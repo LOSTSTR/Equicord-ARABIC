@@ -22,7 +22,7 @@ interface UserMentionComponentProps {
 
 export default definePlugin({
     name: "FullUserInChatbox",
-    description: "Makes the user mention in the chatbox have more functionalities, like left/right clicking",
+    description: "يضيف وظائف إضافية لذكر المستخدم في صندوق الكتابة كالنقر الأيمن والأيسر",
     tags: ["Shortcuts", "Utility"],
     authors: [Devs.sadan],
 

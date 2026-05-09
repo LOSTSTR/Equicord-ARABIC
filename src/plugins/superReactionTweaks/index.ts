@@ -12,17 +12,17 @@ import { OverridePremiumTypeStore } from "@webpack/common";
 export const settings = definePluginSettings({
     superReactByDefault: {
         type: OptionType.BOOLEAN,
-        description: "Reaction picker will default to Super Reactions",
+        description: "يجعل منتقي التفاعلات يختار التفاعلات الفائقة افتراضياً",
         default: true,
     },
     unlimitedSuperReactionPlaying: {
         type: OptionType.BOOLEAN,
-        description: "Remove the limit on Super Reactions playing at once",
+        description: "إزالة الحد من التفاعلات الفائقة المشغّلة في آنٍ واحد",
         default: false,
     },
 
     superReactionPlayingLimit: {
-        description: "Max Super Reactions to play at once. 0 to disable playing Super Reactions",
+        description: "الحد الأقصى للتفاعلات الفائقة في آنٍ واحد. 0 لتعطيل تشغيلها",
         type: OptionType.SLIDER,
         default: 20,
         markers: [0, 5, 10, 20, 40, 60, 80, 100],
@@ -36,7 +36,7 @@ export const settings = definePluginSettings({
 
 export default definePlugin({
     name: "SuperReactionTweaks",
-    description: "Customize the limit of Super Reactions playing at once, and super react by default",
+    description: "تخصيص حد التفاعلات الفائقة المشغّلة في آنٍ واحد، والتفاعل الفائق افتراضياً",
     tags: ["Reactions", "Emotes"],
     authors: [Devs.FieryFlames, Devs.ant0n],
     patches: [

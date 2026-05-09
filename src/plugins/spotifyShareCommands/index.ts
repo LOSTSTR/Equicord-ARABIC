@@ -59,7 +59,7 @@ const Spotify = findByPropsLazy("getPlayerState");
 function makeCommand(name: string, formatUrl: (track: Track) => string): Command {
     return {
         name,
-        description: `Share your current Spotify ${name} in chat`,
+        description: `شارك ${name} الحالي على Spotify في المحادثة`,
         inputType: ApplicationCommandInputType.BUILT_IN,
         options: [OptionalMessageOption],
         execute(options, { channel }) {
@@ -97,7 +97,7 @@ function makeCommand(name: string, formatUrl: (track: Track) => string): Command
 
 export default definePlugin({
     name: "SpotifyShareCommands",
-    description: "Share your current Spotify track, album or artist via slash command (/track, /album, /artist)",
+    description: "شارك أغنيتك أو ألبومك أو فنانك الحالي على Spotify عبر أوامر (/track، /album، /artist)",
     dependencies: ["CommandsAPI"],
     tags: ["Media", "Commands"],
     authors: [Devs.katlyn],

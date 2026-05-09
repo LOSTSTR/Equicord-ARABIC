@@ -98,7 +98,7 @@ interface SettingsLayoutBuilder {
 const settings = definePluginSettings({
     settingsLocation: {
         type: OptionType.SELECT,
-        description: "Where to put the Equicord settings section",
+        description: "مكان عرض قسم إعدادات Equicord",
         options: [
             { label: "At the very top", value: "top" },
             { label: "Above the Nitro section", value: "aboveNitro", default: true },
@@ -110,14 +110,14 @@ const settings = definePluginSettings({
     },
     includeVencordInfoWhenCopying: {
         type: OptionType.BOOLEAN,
-        description: "Also copy Vencord info (Vencord, Electron, Chromium) when clicking the version info in the bottom left area of the Settings page",
+        description: "نسخ معلومات Vencord (Vencord، Electron، Chromium) عند النقر على معلومات الإصدار في أسفل يسار صفحة الإعدادات",
         default: true
     }
 });
 
 export default definePlugin({
     name: "Settings",
-    description: "Adds Settings UI and debug info",
+    description: "يضيف واجهة الإعدادات ومعلومات التشخيص",
     authors: [Devs.Ven, Devs.Megu],
     required: true,
 

@@ -34,23 +34,23 @@ const settings = definePluginSettings({
     showAvatars: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Show avatars in the typing indicator"
+        description: "عرض الصور الرمزية في مؤشر الكتابة"
     },
     showRoleColors: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Show role colors in the typing indicator"
+        description: "عرض ألوان الأدوار في مؤشر الكتابة"
     },
     alternativeFormatting: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Show a more useful message when several users are typing"
+        description: "عرض رسالة أوضح عند كتابة عدة مستخدمين في آنٍ واحد"
     },
     amITyping: {
         type: OptionType.BOOLEAN,
         default: false,
         restartNeeded: true,
-        description: "Shows you if other people can see you typing"
+        description: "يُظهر لك ما إذا كان الآخرون يرونك تكتب"
     }
 });
 
@@ -113,7 +113,7 @@ const TypingUser = ErrorBoundary.wrap(function TypingUser({ user, guildId }: Typ
 migratePluginToSettings(true, "TypingTweaks", "AmITyping", "amITyping");
 export default definePlugin({
     name: "TypingTweaks",
-    description: "Show avatars and role colours in the typing indicator",
+    description: "عرض الصور الرمزية وألوان الأدوار في مؤشر الكتابة",
     tags: ["Appearance", "Customisation"],
     authors: [Devs.zt, Devs.sadan, EquicordDevs.MrDiamond],
     settings,

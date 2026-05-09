@@ -24,7 +24,7 @@ const settings = definePluginSettings({
     hideArrow: {
         type: OptionType.BOOLEAN,
         default: false,
-        description: "Hide Arrow",
+        description: "إخفاء السهم",
         restartNeeded: true
     },
 });
@@ -32,7 +32,7 @@ const settings = definePluginSettings({
 migratePluginSettings("AlwaysExpandRoles", "ShowAllRoles");
 export default definePlugin({
     name: "AlwaysExpandRoles",
-    description: "Always expands the role list in profile popouts",
+    description: "يوسّع قائمة الرتب دائماً في النوافذ المنبثقة للملف الشخصي",
     tags: ["Appearance", "Roles"],
     authors: [Devs.surgedevs],
     isModified: true,

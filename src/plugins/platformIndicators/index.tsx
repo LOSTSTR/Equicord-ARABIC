@@ -169,34 +169,34 @@ migratePluginSetting("PlatformIndicators", "profiles", "badges");
 const settings = definePluginSettings({
     list: {
         type: OptionType.BOOLEAN,
-        description: "Show indicators in the member list",
+        description: "إظهار الأيقونات في قائمة الأعضاء",
         default: true,
     },
     profiles: {
         type: OptionType.BOOLEAN,
-        description: "Show indicators in user profiles",
+        description: "إظهار الأيقونات في الملفات الشخصية",
         default: true,
     },
     messages: {
         type: OptionType.BOOLEAN,
-        description: "Show indicators inside messages",
+        description: "إظهار الأيقونات داخل الرسائل",
         default: true,
     },
     colorMobileIndicator: {
         type: OptionType.BOOLEAN,
-        description: "Whether to make the mobile indicator match the color of the user status.",
+        description: "جعل أيقونة الجوال تطابق لون حالة المستخدم.",
         default: true,
         restartNeeded: true
     },
     showBots: {
         type: OptionType.BOOLEAN,
-        description: "Whether to show platform indicators on bots",
+        description: "إظهار أيقونات المنصة على البوتات",
         default: false,
         restartNeeded: false
     },
     ConsoleIcon: {
         type: OptionType.SELECT,
-        description: "What console icon to use",
+        description: "أيقونة الكونسول المستخدمة",
         restartNeeded: true,
         options: [
             {
@@ -218,7 +218,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "PlatformIndicators",
-    description: "Adds platform indicators (Desktop, Mobile, Web...) to users",
+    description: "يعرض أيقونة المنصة (ديسكتوب، جوال، ويب...) لكل مستخدم",
     dependencies: ["MemberListDecoratorsAPI", "MessageDecorationsAPI", "NicknameIconsAPI"],
     tags: ["Appearance"],
     authors: [Devs.kemo, Devs.TheSun, Devs.Nuckyz, Devs.Ven, EquicordDevs.neoarz],

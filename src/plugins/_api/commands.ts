@@ -22,7 +22,7 @@ import definePlugin from "@utils/types";
 export default definePlugin({
     name: "CommandsAPI",
     authors: [Devs.Arjix],
-    description: "Api required by anything that uses commands",
+    description: "واجهة برمجية مطلوبة لكل ما يستخدم الأوامر",
     patches: [
         // obtain BUILT_IN_COMMANDS instance
         {

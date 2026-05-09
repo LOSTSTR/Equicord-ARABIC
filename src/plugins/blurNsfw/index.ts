@@ -15,13 +15,13 @@ let style: HTMLStyleElement;
 const settings = definePluginSettings({
     blurAmount: {
         type: OptionType.NUMBER,
-        description: "Blur Amount (in pixels)",
+        description: "مقدار التعتيم (بالبكسل)",
         default: 10,
         onChange: setCss
     },
     blurAllChannels: {
         type: OptionType.BOOLEAN,
-        description: "Blur attachments in all channels (not just NSFW)",
+        description: "تعتيم المرفقات في جميع القنوات (وليس فقط قنوات المحتوى الحساس)",
         default: false
     },
 });
@@ -42,7 +42,7 @@ function setCss() {
 
 export default definePlugin({
     name: "BlurNSFW",
-    description: "Blur attachments in NSFW channels until hovered",
+    description: "يعتم المرفقات في قنوات المحتوى الحساس حتى يمرر عليها الماوس",
     tags: ["Privacy", "Appearance"],
     authors: [Devs.Ven],
     isModified: true,
