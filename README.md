@@ -1,7 +1,8 @@
-# [<img src="./browser/icon.png" width="40" align="left" alt="Equicord">](https://github.com/Equicord/Equicord) Equicord
+# [<img src="./browser/icon.png" width="40" align="left" alt="Equicord-ARABIC">](https://github.com/LOSTSTR/Equicord-ARABIC) Equicord-ARABIC
 
-[![Equibop](https://img.shields.io/badge/Equibop-grey?style=flat)](https://github.com/Equicord/Equibop)
-[![Tests](https://github.com/Equicord/Equicord/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/Equicord/Equicord/actions/workflows/test.yml)
+> Modified by [LOSTSTR](https://github.com/LOSTSTR/Equicord-ARABIC)
+
+[![Tests](https://github.com/LOSTSTR/Equicord-ARABIC/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/LOSTSTR/Equicord-ARABIC/actions/workflows/test.yml)
 [![Discord](https://img.shields.io/discord/1173279886065029291.svg?color=768AD4&label=Discord&logo=discord&logoColor=white)](https://equicord.org/discord)
 
 Equicord is a fork of [Vencord](https://github.com/Vendicated/Vencord), with over 300+ plugins.
@@ -16,22 +17,21 @@ Our included plugins can be found [here](https://equicord.org/plugins).
 
 Windows
 
-- [GUI](https://github.com/Equicord/Equilotl/releases/latest/download/Equilotl.exe)
-- [CLI](https://github.com/Equicord/Equilotl/releases/latest/download/EquilotlCli.exe)
+- [GUI](https://github.com/LOSTSTR/Equicord-ARABIC/releases/latest/download/Equilotl.exe)
+- [CLI](https://github.com/LOSTSTR/Equicord-ARABIC/releases/latest/download/EquilotlCli.exe)
 
 MacOS
 
-- [X64 GUI](https://github.com/Equicord/Equilotl/releases/latest/download/Equilotl-darwin-x64.zip)
-- [ARM64 GUI](https://github.com/Equicord/Equilotl/releases/latest/download/Equilotl-darwin-arm64.zip)
+- [X64 GUI](https://github.com/LOSTSTR/Equicord-ARABIC/releases/latest/download/Equilotl-darwin-x64.zip)
+- [ARM64 GUI](https://github.com/LOSTSTR/Equicord-ARABIC/releases/latest/download/Equilotl-darwin-arm64.zip)
 
 Linux
 
-- [GUI](https://github.com/Equicord/Equilotl/releases/latest/download/Equilotl-x11)
-- [CLI](https://github.com/Equicord/Equilotl/releases/latest/download/EquilotlCli-Linux)
-- [AUR](https://aur.archlinux.org/packages?O=0&K=equicord)
+- [GUI](https://github.com/LOSTSTR/Equicord-ARABIC/releases/latest/download/Equilotl-x11)
+- [CLI](https://github.com/LOSTSTR/Equicord-ARABIC/releases/latest/download/EquilotlCli-Linux)
 
 ```shell
-sh -c "$(curl -sS https://raw.githubusercontent.com/Equicord/Equicord/refs/heads/main/misc/install.sh)"
+sh -c "$(curl -sS https://raw.githubusercontent.com/LOSTSTR/Equicord-ARABIC/refs/heads/main/misc/install.sh)"
 ```
 
 ## Installing Equicord Devbuild
@@ -50,11 +50,11 @@ npm i -g pnpm
 
 > :exclamation: **IMPORTANT** Make sure you aren't using an admin/root terminal from here onwards. It **will** mess up your Discord/Equicord instance and you **will** most likely have to reinstall.
 
-Clone Equicord:
+Clone Equicord-ARABIC:
 
 ```shell
-git clone https://github.com/Equicord/Equicord
-cd Equicord
+git clone https://github.com/LOSTSTR/Equicord-ARABIC
+cd Equicord-ARABIC
 ```
 
 Install dependencies:
@@ -91,11 +91,11 @@ Thank you to [Vendicated](https://github.com/Vendicated) for creating [Vencord](
 
 ## Star History
 
-<a href="https://star-history.com/#Equicord/Equicord&Timeline">
+<a href="https://star-history.com/#LOSTSTR/Equicord-ARABIC&Timeline">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=Equicord/Equicord&type=Timeline&theme=dark" />
-    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=Equicord/Equicord&type=Timeline" />
-    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=Equicord/Equicord&type=Timeline" />
+    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=LOSTSTR/Equicord-ARABIC&type=Timeline&theme=dark" />
+    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=LOSTSTR/Equicord-ARABIC&type=Timeline" />
+    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=LOSTSTR/Equicord-ARABIC&type=Timeline" />
   </picture>
 </a>
 

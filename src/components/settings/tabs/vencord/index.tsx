@@ -355,6 +355,15 @@ function EquicordSettings() {
                     View Notification Log
                 </Button>
             </Flex>
+
+            <Divider className={Margins.top20} />
+
+            <Paragraph className={Margins.top16} style={{ textAlign: "center", opacity: 0.6, fontSize: "12px" }}>
+                Equicord-ARABIC • Modified by{" "}
+                <a href="https://github.com/LOSTSTR/Equicord-ARABIC" target="_blank" rel="noreferrer" style={{ color: "var(--text-link)" }}>
+                    LOSTSTR
+                </a>
+            </Paragraph>
         </SettingsTab>
     );
 }
