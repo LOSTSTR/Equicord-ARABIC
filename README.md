@@ -1,95 +1,138 @@
-# [<img src="./browser/icon.png" width="40" align="left" alt="Equicord-ARABIC">](https://github.com/LOSTSTR/Equicord-ARABIC) Equicord-ARABIC
+<div align="center">
 
-> Modified by [LOSTSTR](https://github.com/LOSTSTR/Equicord-ARABIC)
+# [<img src="./browser/icon.png" width="45" align="center" alt="Equicord-ARABIC">](https://github.com/LOSTSTR/Equicord-ARABIC) Equicord-ARABIC
 
+### النسخة العربية المطورة من Equicord
+
+**تجربة ديسكورد فائقة الأداء، بتخصيصات حصرية من تطوير LOSTSTR**
+
+---
+
+**Modified by [LOSTSTR](https://github.com/LOSTSTR) — Equicord-ARABIC**
+
+[![GitHub Release](https://img.shields.io/github/v/release/LOSTSTR/Equicord-ARABIC?style=flat&color=5865F2&label=إصدار)](https://github.com/LOSTSTR/Equicord-ARABIC/releases/latest)
 [![Tests](https://github.com/LOSTSTR/Equicord-ARABIC/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/LOSTSTR/Equicord-ARABIC/actions/workflows/test.yml)
-[![Discord](https://img.shields.io/discord/1173279886065029291.svg?color=768AD4&label=Discord&logo=discord&logoColor=white)](https://equicord.org/discord)
+[![Discord](https://img.shields.io/discord/QamdqDNEDa?color=5865F2&label=Discord&logo=discord&logoColor=white)](https://discord.gg/QamdqDNEDa)
+[![License](https://img.shields.io/github/license/LOSTSTR/Equicord-ARABIC?color=green&label=رخصة)](LICENSE)
 
-Equicord is a fork of [Vencord](https://github.com/Vendicated/Vencord), with over 300+ plugins.
+</div>
 
-You can join our [Discord server](https://equicord.org/discord) for commits, changes, chatting, or even support.
+---
 
-### Included Plugins
+## 📖 عن المشروع
 
-Our included plugins can be found [here](https://equicord.org/plugins).
+**Equicord-ARABIC** هي النسخة العربية المطورة من [Equicord](https://github.com/Equicord/Equicord)، وهو بدوره مشتق من [Vencord](https://github.com/Vendicated/Vencord).
 
-## Installing / Uninstalling
+تتميز هذه النسخة بـ:
 
-Windows
+- ⚡ **أداء فائق وسلاسة تامة** — تحسينات مخصصة لتجربة أسرع وأخف
+- 🌐 **دعم كامل للغة العربية** — واجهة وتخصيصات موجهة للمجتمع العربي
+- 🔧 **تخصيصات حصرية** — إضافات وتعديلات من تطوير LOSTSTR لا تجدها في غيرها
+- 🧩 **أكثر من 300 إضافة** — جميع إضافات Equicord الأصلية مع إضافات عربية حصرية
+- 🔄 **تحديثات مستمرة** — مزامنة دورية مع المصدر الأصلي مع تطبيق التحسينات
 
-- [GUI](https://github.com/LOSTSTR/Equicord-ARABIC/releases/latest/download/Equilotl.exe)
-- [CLI](https://github.com/LOSTSTR/Equicord-ARABIC/releases/latest/download/EquilotlCli.exe)
+للتواصل والدعم، انضم إلى سيرفر الديسكورد: **[discord.gg/QamdqDNEDa](https://discord.gg/QamdqDNEDa)**
 
-MacOS
+---
 
-- [X64 GUI](https://github.com/LOSTSTR/Equicord-ARABIC/releases/latest/download/Equilotl-darwin-x64.zip)
-- [ARM64 GUI](https://github.com/LOSTSTR/Equicord-ARABIC/releases/latest/download/Equilotl-darwin-arm64.zip)
+## 📥 التثبيت / الإلغاء
 
-Linux
+### Windows
 
-- [GUI](https://github.com/LOSTSTR/Equicord-ARABIC/releases/latest/download/Equilotl-x11)
-- [CLI](https://github.com/LOSTSTR/Equicord-ARABIC/releases/latest/download/EquilotlCli-Linux)
+| النوع | التحميل |
+|-------|---------|
+| GUI (واجهة رسومية) | [**تحميل Equicord-ARABIC.exe**](https://github.com/LOSTSTR/Equicord-ARABIC/releases/latest) |
+| CLI (سطر أوامر) | [**تحميل CLI**](https://github.com/LOSTSTR/Equicord-ARABIC/releases/latest) |
+
+### macOS
+
+| النوع | التحميل |
+|-------|---------|
+| X64 GUI | [**تحميل (Intel)**](https://github.com/LOSTSTR/Equicord-ARABIC/releases/latest) |
+| ARM64 GUI | [**تحميل (Apple Silicon)**](https://github.com/LOSTSTR/Equicord-ARABIC/releases/latest) |
+
+### Linux
+
+| النوع | التحميل |
+|-------|---------|
+| GUI | [**تحميل (X11)**](https://github.com/LOSTSTR/Equicord-ARABIC/releases/latest) |
+| CLI | [**تحميل (CLI)**](https://github.com/LOSTSTR/Equicord-ARABIC/releases/latest) |
+
+أو عبر سطر الأوامر:
 
 ```shell
 sh -c "$(curl -sS https://raw.githubusercontent.com/LOSTSTR/Equicord-ARABIC/refs/heads/main/misc/install.sh)"
 ```
 
-## Installing Equicord Devbuild
+> تجد جميع الإصدارات في صفحة [**Releases**](https://github.com/LOSTSTR/Equicord-ARABIC/releases).
 
-### Dependencies
+---
 
-[Git](https://git-scm.com/download) and [Node.JS LTS](https://nodejs.dev/en/) are required.
+## 🛠️ البناء من المصدر (Devbuild)
 
-Install `pnpm`:
+### المتطلبات
 
-> :exclamation: This next command may need to be run as admin/root depending on your system, and you may need to close and reopen your terminal for pnpm to be in your PATH.
+- [Git](https://git-scm.com/download)
+- [Node.JS LTS](https://nodejs.dev/en/)
+
+### الخطوات
+
+**1. تثبيت pnpm**
+
+> قد يحتاج هذا الأمر صلاحيات المدير (admin/root). أغلق الطرفية وأعد فتحها بعد التثبيت.
 
 ```shell
 npm i -g pnpm
 ```
 
-> :exclamation: **IMPORTANT** Make sure you aren't using an admin/root terminal from here onwards. It **will** mess up your Discord/Equicord instance and you **will** most likely have to reinstall.
+> ⚠️ **مهم:** لا تستخدم طرفية المدير في الخطوات التالية، فقد يؤدي ذلك إلى تلف تثبيت Discord.
 
-Clone Equicord-ARABIC:
+**2. استنساخ المستودع**
 
 ```shell
 git clone https://github.com/LOSTSTR/Equicord-ARABIC
 cd Equicord-ARABIC
 ```
 
-Install dependencies:
+**3. تثبيت التبعيات**
 
 ```shell
 pnpm install --frozen-lockfile
 ```
 
-Build Equicord:
+**4. بناء المشروع**
 
 ```shell
 pnpm build
 ```
 
-Inject Equicord into your desktop client:
+**5. حقن Equicord-ARABIC في Discord**
 
 ```shell
 pnpm inject
 ```
 
-Build Equicord for web:
+**6. بناء نسخة الويب (اختياري)**
 
 ```shell
 pnpm buildWeb
 ```
 
-After building Equicord's web extension, locate the appropriate ZIP file in the `dist` directory and follow your browser’s guide for installing custom extensions, if supported.
+بعد البناء، ابحث عن ملف ZIP في مجلد `dist` وثبّت الامتداد في متصفحك.
 
-Note: Firefox extension zip requires Firefox for developers
+> ملاحظة: امتداد Firefox يتطلب [Firefox for Developers](https://www.mozilla.org/en-US/firefox/developer/).
 
-## Credits
+---
 
-Thank you to [Vendicated](https://github.com/Vendicated) for creating [Vencord](https://github.com/Vendicated/Vencord) & [Suncord](https://github.com/verticalsync/Suncord) by [verticalsync](https://github.com/verticalsync) for helping when needed.
+## 🙏 شكر وتقدير
 
-## Star History
+- [Vendicated](https://github.com/Vendicated) — لإنشاء [Vencord](https://github.com/Vendicated/Vencord)
+- [Equicord Team](https://github.com/Equicord) — لبناء [Equicord](https://github.com/Equicord/Equicord) فوق Vencord
+- [verticalsync](https://github.com/verticalsync) — لإنشاء [Suncord](https://github.com/verticalsync/Suncord)
+
+---
+
+## 📊 Star History
 
 <a href="https://star-history.com/#LOSTSTR/Equicord-ARABIC&Timeline">
   <picture>
@@ -99,21 +142,29 @@ Thank you to [Vendicated](https://github.com/Vendicated) for creating [Vencord](
   </picture>
 </a>
 
-## Disclaimer
+---
 
-Discord is trademark of Discord Inc., and solely mentioned for the sake of descriptivity.
-Mentioning it does not imply any affiliation with or endorsement by Discord Inc.
-Vencord is not connected to Equicord and as such, all donation links go to Vendicated's donation link.
+## ⚠️ إخلاء المسؤولية
+
+Discord هي علامة تجارية مسجلة لشركة Discord Inc.، ولا يُعدّ هذا المشروع تابعاً لها أو معتمداً منها.
 
 <details>
-<summary>Using Equicord violates Discord's terms of service</summary>
+<summary>استخدام Equicord-ARABIC ينتهك شروط خدمة Discord</summary>
 
-Client modifications are against Discord’s Terms of Service.
+تعديلات العميل (Client modifications) تتعارض مع شروط خدمة Discord.
 
-However, Discord is pretty indifferent about them and there are no known cases of users getting banned for using client mods! So you should generally be fine if you don’t use plugins that implement abusive behaviour. But no worries, all inbuilt plugins are safe to use!
+غير أن Discord لا تتخذ إجراءات صارمة ضد مستخدمي تعديلات العميل في الغالب، ولا توجد حالات موثقة لحظر حسابات بسبب ذلك طالما لا تُستخدم إضافات ذات سلوك مسيء.
 
-Regardless, if your account is essential to you and getting disabled would be a disaster for you, you should probably not use any client mods (not exclusive to Equicord), just to be safe.
-
-Additionally, make sure not to post screenshots with Equicord in a server where you might get banned for it.
+إذا كان حسابك بالغ الأهمية بالنسبة لك، فالأفضل تجنب جميع تعديلات العميل احتياطاً.
 
 </details>
+
+---
+
+<div align="center">
+
+**Equicord-ARABIC** • Modified by [LOSTSTR](https://github.com/LOSTSTR) • [GPL-3.0 License](LICENSE)
+
+[⬆ العودة للأعلى](#)
+
+</div>
