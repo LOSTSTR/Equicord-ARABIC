@@ -27,6 +27,7 @@ export const EQUICORD_TEAM = "1173520023239786538";
 export const EQUICORD_HELPERS = "1326406112144265257";
 export const VENCORD_CONTRIB_ROLE_ID = "1173343399470964856";
 export const EQUIBOT_USER_ID = "1243063117852835941";
+export const TESTCORD_GUILD_ID = "1173279886065029291";
 
 // Vencord
 export const VC_SUPPORT_CHANNEL_ID = "1026515880080842772";
@@ -884,6 +885,10 @@ export const EquicordDevs = Object.freeze({
         name: "bep",
         id: 0n
     },
+    Benjii: {
+        name: "Benjii",
+        id: 463702169443368970n
+    },
     llytz: {
         name: "llytz",
         id: 1271128098301022240n
@@ -1327,6 +1332,73 @@ export const EquicordDevs = Object.freeze({
     },
 } satisfies Record<string, Dev>);
 
+export const TestcordDevs = /* #__PURE__*/ Object.freeze({
+    sirphantom89: {
+        name: "SirPhantom89",
+        id: 1464279455844274188n,
+    },
+    x2b: {
+        name: "x2b",
+        id: 996137713432530976n
+    },
+    x2b2: {
+        name: "0gfm",
+        id: 209389868080562176n
+    },
+    deracul: {
+        name: "deracul",
+        id: 1454268753629024529n
+    },
+    Benjii: {
+        name: "Benjii",
+        id: 463702169443368970n
+    },
+    babystarsz: {
+        name: "babystarsz",
+        id: 1455985625441501209n
+    },
+    vampireslover: {
+        name: "vampireslover",
+        id: 1455033270709256284n
+    },
+    czox: {
+        name: "czokapika",
+        id: 484404620580618250n
+    },
+    dxrx99: {
+        name: "SirPhantom89",
+        id: 1464279455844274188n // this vro got hacked so i need to change there his id to the new acc and also add a new record with his new name js so 2 plugins wont break.
+    },
+    SirPhantom89: {
+        name: "SirPhantom89",
+        id: 1464279455844274188n
+    },
+    omaw: {
+        name: "oma",
+        id: 1155026301791514655n
+    },
+    nnenaza: {
+        name: "www.miau.com",
+        id: 1485706082080002140n
+    },
+    neoarz: {
+        name: "neoarz",
+        id: 1485706082080002140n
+    },
+    milo: {
+        name: "milo",
+        id: 1162512757220986941n
+    },
+    xxx: {
+        name: "xxx",
+        id: 1491847142367822026n
+    },
+    dot: {
+        name: "dot",
+        id: 1400610916285812776n
+    }
+} satisfies Record<string, Dev>);
+
 // iife so #__PURE__ works correctly
 export const VencordDevsById = /* #__PURE__*/ (() =>
     Object.freeze(Object.fromEntries(
@@ -1339,6 +1411,14 @@ export const VencordDevsById = /* #__PURE__*/ (() =>
 export const EquicordDevsById = /* #__PURE__*/ (() =>
     Object.freeze(Object.fromEntries(
         Object.entries(EquicordDevs)
+            .filter(d => d[1].id !== 0n)
+            .map(([_, v]) => [v.id, v] as const)
+    ))
+)() as Record<string, Dev>;
+
+export const TestcordDevsById = /* #__PURE__*/ (() =>
+    Object.freeze(Object.fromEntries(
+        Object.entries(TestcordDevs)
             .filter(d => d[1].id !== 0n)
             .map(([_, v]) => [v.id, v] as const)
     ))
