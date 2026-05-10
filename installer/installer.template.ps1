@@ -27,7 +27,8 @@ $USER_AGENT   = "EquicordArabic-Installer/$INSTALLER_VER (+https://github.com/$R
 $DataDir = if ($env:EQUICORD_USER_DATA_DIR) {
     $env:EQUICORD_USER_DATA_DIR
 } else {
-    Join-Path $env:APPDATA "Equicord-ARABIC"
+    $appData = if ($env:APPDATA) { $env:APPDATA } else { [System.Environment]::GetFolderPath("ApplicationData") }
+    Join-Path $appData "Equicord-ARABIC"
 }
 $AsarTarget = Join-Path $DataDir "equicord.asar"
 
@@ -56,7 +57,8 @@ function Get-DiscordInstalls {
     )
     $found = [System.Collections.Generic.List[hashtable]]::new()
     foreach ($v in $variants) {
-        $base = Join-Path $env:LOCALAPPDATA $v.Dir
+        $localApp = if ($env:LOCALAPPDATA) { $env:LOCALAPPDATA } else { [System.Environment]::GetFolderPath("LocalApplicationData") }
+        $base = Join-Path $localApp $v.Dir
         if (-not (Test-Path $base)) { continue }
         $appDir = Get-ChildItem $base -Directory -Filter "app-*" -EA SilentlyContinue |
                   Sort-Object Name -Descending | Select-Object -First 1
@@ -138,7 +140,7 @@ function Install-Mod {
     & $Progress 10
 
     New-Item -ItemType Directory -Path $DataDir -Force | Out-Null
-    $tmp = Join-Path $env:TEMP ("eq_ar_" + [guid]::NewGuid().ToString("N") + ".asar")
+    $tmp = Join-Path ([System.IO.Path]::GetTempPath()) ("eq_ar_" + [guid]::NewGuid().ToString("N") + ".asar")
 
     Invoke-Download -Url $asset.browser_download_url -Dest $tmp -OnProgress {
         param($p,$dl,$tot)
@@ -171,7 +173,7 @@ function Install-OpenAsar {
     param([string]$ResourcesPath, [scriptblock]$Status, [scriptblock]$Progress)
     & $Status "جارٍ تنزيل OpenAsar..."
     & $Progress 10
-    $tmp = Join-Path $env:TEMP ("openasar_" + [guid]::NewGuid().ToString("N") + ".asar")
+    $tmp = Join-Path ([System.IO.Path]::GetTempPath()) ("openasar_" + [guid]::NewGuid().ToString("N") + ".asar")
     Invoke-Download "https://github.com/GooseMod/OpenAsar/releases/download/nightly/app.asar" $tmp {
         param($p) & $Progress ([int](10 + $p * 0.85))
     }
@@ -200,16 +202,16 @@ function Show-Installer {
     $form.MaximizeBox     = $false
     $form.Font            = New-Object System.Drawing.Font("Segoe UI", 11)
 
-    $icoPath = Join-Path $PSScriptRoot "icon.ico"
-    if (Test-Path $icoPath) {
-        try { $form.Icon = New-Object System.Drawing.Icon($icoPath) } catch {}
-    }
+    try {
+        $form.Icon = [System.Drawing.Icon]::ExtractAssociatedIcon(
+            [System.Diagnostics.Process]::GetCurrentProcess().MainModule.FileName)
+    } catch {}
 
     # ── دالة مساعدة للتسميات ──────────────────────────────────────────
     function Lbl {
-        param([string]$T, [int]$X, [int]$Y, [int]$W=0, [int]$H=0,
-              [System.Drawing.Color]$C, [float]$FS=11,
-              [System.Drawing.FontStyle]$FS2=[System.Drawing.FontStyle]::Regular)
+        param([string]$T, [int]$X, [int]$Y, [System.Drawing.Color]$C,
+              [float]$FS=11, [System.Drawing.FontStyle]$FS2=[System.Drawing.FontStyle]::Regular,
+              [int]$W=0, [int]$H=0)
         if (-not $C) { $C = $FG_WHITE }
         $l = New-Object System.Windows.Forms.Label
         $l.Text      = $T
@@ -223,7 +225,7 @@ function Show-Installer {
     }
 
     # ── العنوان ─────────────────────────────────────────────────────
-    $title = Lbl "Equicord-ARABIC" 0 24 1200 60 $FG_WHITE 28 Bold
+    $title = Lbl "Equicord-ARABIC" 0 24 $FG_WHITE 28 Bold -W 1200 -H 60
     $title.TextAlign = [System.Drawing.ContentAlignment]::MiddleCenter
     $title.AutoSize  = $false
     $form.Controls.Add($title)
@@ -433,20 +435,6 @@ function Show-Installer {
             $i++
         }
     }
-
-    # ── تحميل معلومات الإصدار في الخلفية ──────────────────────────
-    $jobLatest = [System.Threading.Tasks.Task[string]]::Run({
-        try {
-            $r = Invoke-RestMethod $RELEASE_API -Headers @{"User-Agent"=$USER_AGENT} -EA Stop
-            return $r.tag_name
-        } catch { return "غير متاح" }
-    }.GetType().GetMethod("Run").MakeGenericMethod([string]).Invoke($null, @({
-        try {
-            (Invoke-RestMethod $RELEASE_API `
-                -Headers @{"User-Agent"=$USER_AGENT} `
-                -EA Stop).tag_name
-        } catch { "غير متاح" }
-    })))
 
     # تحديث حقول الإصدار فور تحميل الشكل
     $form.Add_Shown({
