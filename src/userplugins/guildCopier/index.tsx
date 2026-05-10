@@ -6,7 +6,7 @@
 
 import { NavContextMenuPatchCallback } from "@api/ContextMenu";
 import { definePluginSettings } from "@api/Settings";
-import { TestcordDevs } from "@utils/constants";
+
 import definePlugin, { OptionType } from "@utils/types";
 import { findByCodeLazy } from "@webpack";
 import {
@@ -500,7 +500,7 @@ export default definePlugin({
     name: "GuildCopier",
     description: "نسخ سيرفر كامل بما يشمل القنوات والأدوار والأذونات والإيموجي والستيكرات والفئات لإنشاء سيرفر مطابق.",
     tags: ["Servers", "Utility"],
-    authors: [TestcordDevs.x2b, TestcordDevs.nnenaza],
+    authors: [{ name: "x2b", id: 0n }, { name: "nnenaza", id: 0n }],
     dependencies: [],
 
     settings,

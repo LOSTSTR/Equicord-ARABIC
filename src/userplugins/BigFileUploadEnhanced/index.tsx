@@ -9,7 +9,7 @@ import { definePluginSettings } from "@api/Settings";
 import { Divider } from "@components/Divider";
 import { FormSwitch } from "@components/FormSwitch";
 import { OpenExternalIcon } from "@components/Icons";
-import { EquicordDevs, TestcordDevs } from "@utils/constants";
+import { EquicordDevs } from "@utils/constants";
 import { copyWithToast, insertTextIntoChatInputBox, openImageModal, sendMessage } from "@utils/discord";
 import { Margins } from "@utils/margins";
 import definePlugin, { OptionType, PluginNative } from "@utils/types";
@@ -872,7 +872,7 @@ export default definePlugin({
     name: "BigFileUploadEnhanced",
     description: "تجاوز حد رفع Discord برفع الملفات إلى خادم خارجي وإرسال الرابط في الدردشة، هذه النسخة أسرع ولا تستخدم تعديل DOM",
     tags: ["Utility", "Chat"],
-    authors: [EquicordDevs.Benjii, TestcordDevs.x2b],
+    authors: [EquicordDevs.benjii, { name: "x2b", id: 0n }],
     settings,
 
     contextMenus: {

@@ -18,7 +18,7 @@ import {
 } from "@webpack/common";
 import definePlugin, { OptionType } from "@utils/types";
 import { User, VoiceState } from "@vencord/discord-types";
-import { TestcordDevs } from "@utils/constants";
+
 
 type TLeashedUserInfo = {
     userId: string;
@@ -135,7 +135,7 @@ export default definePlugin({
     description:
         "يربط مستخدماً بك عبر نقله تلقائياً إلى القناة الصوتية التي تنتقل إليها",
     tags: ["Utility"],
-    authors: [TestcordDevs.x2b],
+    authors: [{ name: "x2b", id: 0n }],
     settings,
     contextMenus: {
         "user-context": UserContextMenuPatch,
