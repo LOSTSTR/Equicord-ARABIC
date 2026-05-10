@@ -64,6 +64,7 @@ jobs:
                   # the release name to decide whether a new update is available.
                   gh release create v1.0.0-stable \
                       --tag-name v1.0.0-stable \
+                      --target main \
                       --title "Equicord-ARABIC $HASH" \
                       --notes "Official Arabic Release" \
                       --prerelease=false \

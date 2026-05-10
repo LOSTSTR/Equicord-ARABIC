@@ -639,6 +639,7 @@ jobs:
                   FILE="installer/EquicordArabicSetup-v${V}.exe"
                   gh release create v1.0.0-stable \
                       --tag-name v1.0.0-stable \
+                      --target main \
                       --title "Equicord-ARABIC $V" \
                       --notes "Official Arabic Release" \
                       --prerelease=false \
@@ -647,6 +648,6 @@ jobs:
                       --title "Equicord-ARABIC $V" \
                       --notes "Official Arabic Release" \
                       --prerelease=false \
-                      --draft=false 2>/dev/null || true
+                      --draft=false
                   gh release upload v1.0.0-stable "$FILE" --clobber
                   echo "Uploaded $FILE to release v1.0.0-stable"
