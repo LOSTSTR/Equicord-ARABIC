@@ -450,8 +450,10 @@ jobs:
               id: compile
               shell: pwsh
               run: |
-                  $v   = "${{ steps.ver.outputs.version }}"
-                  $out = "installer\EquicordArabicSetup-v$v.exe"
+                  $v    = "${{ steps.ver.outputs.version }}"
+                  $out  = "installer\EquicordArabicSetup-v$v.exe"
+                  # ps2exe requires n.n.n.n — pad to 4 parts if package.json has fewer
+                  $ver4 = if (($v -split '\.').Count -lt 4) { "$v.0" } else { $v }
 
                   Invoke-ps2exe `
                       -InputFile   "installer\EquicordArabic-Installer.ps1" `
@@ -461,7 +463,7 @@ jobs:
                       -Description "مُثبِّت Equicord-ARABIC — LOSTSTR/Equicord-ARABIC" `
                       -Company     "LOSTSTR" `
                       -Product     "Equicord-ARABIC" `
-                      -Version     "$v.0" `
+                      -Version     $ver4 `
                       -Copyright   "Copyright (c) 2026 LOSTSTR" `
                       -NoConsole   `
                       -RequireAdmin

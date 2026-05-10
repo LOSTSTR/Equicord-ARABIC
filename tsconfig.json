@@ -80,5 +80,8 @@
         "browser/**/*",
         "scripts/**/*",
         "eslint.config.mjs"
+    ],
+    "exclude": [
+        "src/userplugins"
     ]
 }
