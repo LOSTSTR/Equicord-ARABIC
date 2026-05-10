@@ -621,8 +621,11 @@ jobs:
               if: github.event_name == 'release'
               uses: softprops/action-gh-release@v2
               with:
+                  tag_name: latest
                   files: installer/EquicordArabicSetup-*.exe
                   fail_on_unmatched_files: false
+                  prerelease: false
+                  draft: false
               env:
                   GITHUB_TOKEN: ${{ secrets.ETOKEN }}
 
@@ -634,13 +637,16 @@ jobs:
               run: |
                   V=”${{ steps.ver.outputs.version }}”
                   FILE=”installer/EquicordArabicSetup-v${V}.exe”
-                  # Create the release if it doesn't exist yet (allowUpdates behaviour)
                   gh release create latest \
+                      --tag-name latest \
                       --title “Equicord-ARABIC $V” \
-                      --notes “آخر إصدار من Equicord-ARABIC — $V” \
-                      --prerelease 2>/dev/null || \
+                      --notes “Official Arabic Release” \
+                      --prerelease=false \
+                      --draft=false 2>/dev/null || \
                   gh release edit latest \
                       --title “Equicord-ARABIC $V” \
-                      --notes “آخر إصدار من Equicord-ARABIC — $V” 2>/dev/null || true
+                      --notes “Official Arabic Release” \
+                      --prerelease=false \
+                      --draft=false 2>/dev/null || true
                   gh release upload latest “$FILE” --clobber
                   echo “Uploaded $FILE to release latest”

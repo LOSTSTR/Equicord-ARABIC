@@ -63,12 +63,16 @@ jobs:
                   # to include the current commit hash. The HTTP updater reads the hash from
                   # the release name to decide whether a new update is available.
                   gh release create latest \
+                      --tag-name latest \
                       --title "Equicord-ARABIC $HASH" \
-                      --notes "آخر إصدار من Equicord-ARABIC — $HASH" \
-                      --prerelease 2>/dev/null || \
+                      --notes "Official Arabic Release" \
+                      --prerelease=false \
+                      --draft=false 2>/dev/null || \
                   gh release edit latest \
                       --title "Equicord-ARABIC $HASH" \
-                      --notes "آخر إصدار من Equicord-ARABIC — $HASH"
+                      --notes "Official Arabic Release" \
+                      --prerelease=false \
+                      --draft=false
                   gh release upload latest --clobber dist/release/*.asar
 
             # ── Equicord-ARABIC: trigger installer build after ASAR release ──
