@@ -161,6 +161,9 @@ importers:
       html-minifier-terser:
         specifier: ^7.2.0
         version: 7.2.0
+      jszip:
+        specifier: ^3.10.1
+        version: 3.10.1
       moment:
         specifier: ^2.22.2
         version: 2.30.1

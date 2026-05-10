@@ -21,11 +21,8 @@
 
 import { readFileSync, statSync } from "fs";
 import { appendFile, mkdir, readdir, readFile, rm, writeFile } from "fs/promises";
+import JSZip from "jszip";
 import path, { join } from "path";
-import { createRequire } from "module";
-
-const require = createRequire(import.meta.url);
-const JSZip = require("jszip");
 
 import { BUILD_TIMESTAMP, commonOpts, globPlugins, IS_DEV, IS_REPORTER, IS_COMPANION_TEST, VERSION, commonRendererPlugins, buildOrWatchAll, stringifyValues, IS_ANTI_CRASH_TEST } from "./common.mjs";
 
