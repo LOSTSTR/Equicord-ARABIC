@@ -48,12 +48,12 @@ jobs:
 
             - name: Collect files to be released
               run: |
-                  cd dist
-                  mkdir release
+                  mkdir -p dist/release
                   # Only desktop.asar — required by the HTTP auto-updater (http.ts).
+                  # Built at dist/desktop.asar by pnpm buildStandalone.
                   # The EXE installer is uploaded separately by build-installer.yml.
-                  cp desktop/desktop.asar release/
-                  find release -size 0 -delete
+                  cp dist/desktop.asar dist/release/
+                  find dist/release -size 0 -delete
 
             - name: Upload Equicord Stable
               if: ${{ vars.ACT == 'false' }}
@@ -69,7 +69,7 @@ jobs:
                   gh release edit latest \
                       --title "Equicord-ARABIC $HASH" \
                       --notes "آخر إصدار من Equicord-ARABIC — $HASH"
-                  gh release upload latest --clobber dist/release/desktop.asar
+                  gh release upload latest --clobber dist/release/*.asar
 
             # ── Equicord-ARABIC: trigger installer build after ASAR release ──
             - name: Trigger installer build workflow
