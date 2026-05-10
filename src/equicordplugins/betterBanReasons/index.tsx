@@ -94,20 +94,20 @@ function ReasonsComponent() {
 
 const settings = definePluginSettings({
     reasons: {
-        description: "Your custom reasons",
+        description: "أسباب الحظر المخصصة الخاصة بك",
         type: OptionType.COMPONENT,
         default: [] as BanReason[],
         component: ReasonsComponent,
     },
     isTextInputDefault: {
         type: OptionType.BOOLEAN,
-        description: 'Shows a text input instead of a select menu by default. (Equivalent to clicking the "Other" option)'
+        description: 'عرض حقل نص بدلاً من قائمة الاختيار افتراضياً. (يعادل النقر على خيار "أخرى")'
     }
 });
 
 export default definePlugin({
     name: "BetterBanReasons",
-    description: "Create custom reasons to use in the Discord ban modal, and/or show a text input by default instead of the options.",
+    description: "إنشاء أسباب مخصصة لاستخدامها في نافذة الحظر، و/أو عرض حقل نص افتراضياً بدلاً من الخيارات.",
     tags: ["Appearance", "Customisation"],
     authors: [Devs.Inbestigator, EquicordDevs.yonn2222],
 

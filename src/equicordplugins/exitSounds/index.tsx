@@ -74,12 +74,12 @@ function SoundIdInput() {
 const settings = definePluginSettings({
     soundGuildId: {
         type: OptionType.COMPONENT,
-        description: "Select the server containing the sound.",
+        description: "اختر السيرفر الذي يحتوي الصوت.",
         component: GuildSelector
     },
     soundId: {
         type: OptionType.COMPONENT,
-        description: "Enter the ID of the sound you want to play.",
+        description: "أدخل معرّف الصوت الذي تريد تشغيله.",
         component: SoundIdInput
     }
 });
@@ -103,7 +103,7 @@ let original: typeof ChannelActions.selectVoiceChannel;
 
 export default definePlugin({
     name: "ExitSounds",
-    description: "Play soundboard sounds when you disconnect from voice.",
+    description: "يُشغّل أصوات السبورة الصوتية عند مغادرة القناة الصوتية.",
     tags: ["Fun", "Voice"],
     authors: [Devs.prism],
     dependencies: ["AudioPlayerAPI"],

@@ -21,31 +21,31 @@ const Millis = {
 const settings = definePluginSettings({
     showForeverOnTop: {
         type: OptionType.BOOLEAN,
-        description: "Show the Forever option at the top of the list instead of the bottom.",
+        description: "عرض خيار 'للأبد' في أعلى القائمة بدلاً من الأسفل.",
         restartNeeded: true,
         default: true
     },
     extraSeconds: {
         type: OptionType.STRING,
-        description: "Extra seconds to add, separated by a comma (e.g. 5, 10, 30)",
+        description: "ثوانٍ إضافية مفصولة بفاصلة (مثال: 5, 10, 30)",
         restartNeeded: true,
         default: "15, 30, 45"
     },
     extraMinutes: {
         type: OptionType.STRING,
-        description: "Extra minutes to add, separated by a comma (e.g. 5, 10, 30)",
+        description: "دقائق إضافية مفصولة بفاصلة (مثال: 5, 10, 30)",
         restartNeeded: true,
         default: "5, 10, 30"
     },
     extraHours: {
         type: OptionType.STRING,
-        description: "Extra hours to add, separated by a comma (e.g. 2, 4, 6, 12)",
+        description: "ساعات إضافية مفصولة بفاصلة (مثال: 2, 4, 6, 12)",
         restartNeeded: true,
         default: "2, 4, 6, 12"
     },
     extraDays: {
         type: OptionType.STRING,
-        description: "Extra days to add, separated by a comma (e.g. 1, 2)",
+        description: "أيام إضافية مفصولة بفاصلة (مثال: 1, 2)",
         restartNeeded: true,
         default: "1, 2"
     },
@@ -53,7 +53,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "CustomStatusTimeouts",
-    description: "Adds configurable timeout presets to the status (presence) menu.",
+    description: "يضيف خيارات مدة مخصصة قابلة للإعداد في قائمة الحالة.",
     tags: ["Activity", "Utility"],
     authors: [EquicordDevs.Kiri, EquicordDevs.thororen],
     settings,

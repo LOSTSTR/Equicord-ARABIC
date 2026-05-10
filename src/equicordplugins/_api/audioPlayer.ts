@@ -10,7 +10,7 @@ import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "AudioPlayerAPI",
-    description: "API to play internal Discord audio files or external audio links.",
+    description: "واجهة برمجية لتشغيل ملفات صوت Discord الداخلية أو روابط صوتية خارجية.",
     authors: [EquicordDevs.Etorix],
     AudioType,
     playAudio,

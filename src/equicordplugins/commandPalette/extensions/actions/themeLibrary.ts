@@ -50,7 +50,7 @@ export function createThemeLibraryExtensionCommand(): CommandEntry {
     return {
         id: "extension-theme-library-open",
         label: "Open Theme Library",
-        description: "Open the ThemeLibrary settings page.",
+        description: "فتح صفحة إعدادات ThemeLibrary.",
         keywords: ["theme", "library", "themes", "settings", "plugin", "extension"],
         categoryId: DEFAULT_CATEGORY_ID,
         tags: [TAG_PLUGINS, TAG_UTILITY, TAG_NAVIGATION],

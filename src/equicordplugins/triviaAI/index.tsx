@@ -36,7 +36,7 @@ const messageCtxPatch: NavContextMenuPatchCallback = (children, { message }: { m
 
 export default definePlugin({
     name: "TriviaAI",
-    description: "A plugin that helps you answer trivia questions using AI.",
+    description: "إضافة تساعدك على الإجابة على أسئلة المسابقات باستخدام الذكاء الاصطناعي.",
     dependencies: ["MessagePopoverAPI"],
     tags: ["Appearance", "Customisation", "Fun"],
     authors: [EquicordDevs.yash],

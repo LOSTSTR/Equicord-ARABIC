@@ -14,37 +14,37 @@ import { ChannelStore, GuildMemberStore, GuildRoleStore, React, RelationshipStor
 const settings = definePluginSettings({
     hideVc: {
         type: OptionType.BOOLEAN,
-        description: "Hide voice channels containing blocked users.",
+        description: "إخفاء قنوات الصوت التي تحتوي مستخدمين محجوبين.",
         default: false,
         restartNeeded: true
     },
     usersToBlock: {
         type: OptionType.STRING,
-        description: "User IDs seperated by a comma and a space",
+        description: "معرّفات المستخدمين مفصولة بفاصلة ومسافة",
         restartNeeded: true,
         default: ""
     },
     hideBlockedUsers: {
         type: OptionType.BOOLEAN,
-        description: "Should blocked users should also be hidden everywhere",
+        description: "إخفاء المستخدمين المحجوبين في كل مكان",
         default: true,
         restartNeeded: true
     },
     hideBlockedMessages: {
         type: OptionType.BOOLEAN,
-        description: "Should messages from blocked users should be hidden fully (same as the old noblockedmessages plugin)",
+        description: "إخفاء رسائل المستخدمين المحجوبين بالكامل",
         default: true,
         restartNeeded: true
     },
     hideEmptyRoles: {
         type: OptionType.BOOLEAN,
-        description: "Should role headers be hidden if all of their members are blocked",
+        description: "إخفاء رأس الرتبة إذا كان جميع أعضائها محجوبين",
         restartNeeded: true,
         default: true
     },
     blockedReplyDisplay: {
         type: OptionType.SELECT,
-        description: "What should display instead of the message when someone replies to someone you have hidden",
+        description: "ما يظهر بدلاً من الرسالة عند الرد على مستخدم مخفي",
         restartNeeded: true,
         options: [
             { value: "displayText", label: "Display text saying a hidden message was replied to", default: true },
@@ -53,13 +53,13 @@ const settings = definePluginSettings({
     },
     guildBlackList: {
         type: OptionType.STRING,
-        description: "Guild ids to disable functionality in",
+        description: "معرّفات السيرفرات التي يُعطّل فيها الحجب",
         restartNeeded: true,
         default: ""
     },
     guildWhiteList: {
         type: OptionType.STRING,
-        description: "Guild ids to enable functionality in",
+        description: "معرّفات السيرفرات التي يُفعّل فيها الحجب فقط",
         restartNeeded: true,
         default: ""
     }
@@ -141,7 +141,7 @@ function activeNowView(cards) {
 
 export default definePlugin({
     name: "ClientSideBlock",
-    description: "Allows you to locally hide almost all content from any user",
+    description: "يتيح إخفاء محتوى أي مستخدم محلياً بشكل شبه كامل",
     tags: ["Utility"],
     searchTerms: ["blocked", "block", "hide", "hidden", "noblockedmessages"],
     authors: [Devs.Samwich, EquicordDevs.KamiRu],

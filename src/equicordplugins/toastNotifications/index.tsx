@@ -32,7 +32,7 @@ enum NotificationLevel {
 export const settings = definePluginSettings({
     position: {
         type: OptionType.SELECT,
-        description: "The position of the toast notification.",
+        description: "موضع الإشعار المنبثق.",
         options: [
             {
                 label: "Bottom Left",
@@ -56,71 +56,71 @@ export const settings = definePluginSettings({
     },
     timeout: {
         type: OptionType.SLIDER,
-        description: "Time in seconds notifications will be shown for.",
+        description: "مدة عرض الإشعارات بالثواني.",
         default: 5,
         markers: makeRange(1, 15, 1)
     },
     opacity: {
         type: OptionType.SLIDER,
-        description: "The visible opacity of the notification.",
+        description: "شفافية الإشعار المرئي.",
         default: 100,
         markers: makeRange(10, 100, 10)
     },
     maxNotifications: {
         type: OptionType.SLIDER,
-        description: "Maximum number of notifications displayed at once.",
+        description: "الحد الأقصى للإشعارات المعروضة في وقت واحد.",
         default: 3,
         markers: makeRange(1, 5, 1)
     },
     disableInStreamerMode: {
         type: OptionType.BOOLEAN,
-        description: "Do not show notifications when streamer mode is enabled.",
+        description: "لا يعرض إشعارات عند تفعيل وضع البث.",
         default: true
     },
     respectDoNotDisturb: {
         type: OptionType.BOOLEAN,
-        description: "Do not show notifications when your status is Do Not Disturb.",
+        description: "لا يعرض إشعارات عندما تكون حالتك عدم الإزعاج.",
         default: false
     },
     directMessages: {
         type: OptionType.BOOLEAN,
-        description: "Show notifications for direct messages.",
+        description: "يعرض إشعارات للرسائل الخاصة.",
         default: true
     },
     groupMessages: {
         type: OptionType.BOOLEAN,
-        description: "Show notifications for group messages.",
+        description: "يعرض إشعارات لرسائل المجموعات.",
         default: true
     },
     friendServerNotifications: {
         type: OptionType.BOOLEAN,
-        description: "Show notifications when friends send messages in servers they share with you.",
+        description: "يعرض إشعارات عندما يرسل أصدقاؤك رسائل في سيرفرات مشتركة معك.",
         default: true
     },
     ignoreUsers: {
         type: OptionType.STRING,
-        description: "A list of user IDs (separate by commas) to ignore displaying notifications for.",
+        description: "قائمة معرّفات المستخدمين (مفصولة بفواصل) لتجاهل إشعاراتهم.",
         onChange: () => { ignoredUsers = parseIdList(settings.store.ignoreUsers); },
         default: "",
         placeholder: "000000000000000000,111111111111111111,222222222222222222"
     },
     notifyFor: {
         type: OptionType.STRING,
-        description: "A list of channel IDs (separate by commas) to always receive notifications from.",
+        description: "قائمة معرّفات القنوات (مفصولة بفواصل) لاستقبال الإشعارات منها دائماً.",
         onChange: () => { notifyFor = parseIdList(settings.store.notifyFor); },
         default: "",
         placeholder: "000000000000000000,111111111111111111,222222222222222222"
     },
     exampleButton: {
         type: OptionType.COMPONENT,
-        description: "Show an example toast notification.",
+        description: "يعرض مثالاً على الإشعار المنبثق.",
         component: () => <Button onClick={showExampleNotification}>Show Example Notification</Button>
     }
 });
 
 export default definePlugin({
     name: "ToastNotifications",
-    description: "Show a pop-up toast notification, configurable for DMs, group, friends, or guild channels.",
+    description: "يعرض إشعارات منبثقة، قابلة للضبط للرسائل الخاصة والجماعية والأصدقاء وقنوات السيرفر.",
     tags: ["Appearance", "Customisation", "Notifications"],
     authors: [EquicordDevs.Skully, EquicordDevs.Ethan, EquicordDevs.Buzzy],
     settings,

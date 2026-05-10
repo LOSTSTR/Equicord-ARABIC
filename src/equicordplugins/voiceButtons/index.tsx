@@ -15,7 +15,7 @@ import { UserChatButton, UserDeafenButton, UserMuteButton } from "./utils";
 
 export default definePlugin({
     name: "VoiceButtons",
-    description: "Quickly DM, mute, or deafen any user right from the voice-call panel.",
+    description: "إرسال رسالة خاصة أو كتم أو تصميم أي مستخدم مباشرةً من لوحة المكالمة الصوتية",
     tags: ["Servers", "Utility", "Voice"],
     authors: [EquicordDevs.nicola02nb, EquicordDevs.omaw],
     settings,

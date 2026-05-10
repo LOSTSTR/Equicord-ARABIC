@@ -105,7 +105,7 @@ export function createSilentMessageToggleExtensionCommand(extensionKeybinds: Map
     return {
         id: "extension-silent-message-toggle-plugin",
         label: "Toggle SilentMessageToggle",
-        description: "Toggle the SilentMessageToggle plugin.",
+        description: "تفعيل/تعطيل إضافة SilentMessageToggle.",
         keywords: ["silent", "message", "toggle", "plugin", "extension", "auto disable", "settings"],
         categoryId: DEFAULT_CATEGORY_ID,
         tags: [TAG_PLUGINS, TAG_UTILITY],

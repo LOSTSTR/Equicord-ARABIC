@@ -258,7 +258,7 @@ async function processMessageFetch(response: FetchMessagesResponse) {
 export default definePlugin({
     name: "MessageLoggerEnhanced",
     authors: [Devs.Aria, EquicordDevs.keircn],
-    description: "Improves MessageLogger with edited message history, ghost ping detection and more",
+    description: "يُحسّن MessageLogger بإضافة سجل تعديلات الرسائل وكشف الـ Ghost Ping والمزيد",
     tags: ["Chat", "Servers"],
     dependencies: ["MessageLogger", "HeaderBarAPI"],
 

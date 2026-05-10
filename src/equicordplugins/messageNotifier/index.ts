@@ -22,7 +22,7 @@ interface MessageCreatePayload {
 const settings = definePluginSettings({
     users: {
         type: OptionType.STRING,
-        description: "Comma separated list of user ids to get message toasts for",
+        description: "قائمة معرّفات المستخدمين مفصولة بفاصلة للحصول على إشعارات رسائلهم",
         default: "",
         isValid(value: string) {
             if (value === "") return true;
@@ -37,7 +37,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     authors: [EquicordDevs.cassie, EquicordDevs.mochienya],
     name: "MessageNotifier",
-    description: "Get toasts for when chosen users send a message",
+    description: "يُظهر إشعارات عند إرسال مستخدمين محددين رسائل جديدة",
     tags: ["Chat", "Notifications"],
     settings,
     flux: {

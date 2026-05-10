@@ -22,7 +22,7 @@ import definePlugin, { OptionType } from "@utils/types";
 
 const settings = definePluginSettings({
     maxAccounts: {
-        description: "Number of accounts that can be added, or 0 for no limit",
+        description: "عدد الحسابات القابلة للإضافة، أو 0 لإزالة الحد",
         default: 0,
         type: OptionType.NUMBER,
         restartNeeded: true,
@@ -31,7 +31,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "UnlimitedAccounts",
-    description: "Increases the amount of accounts you can add.",
+    description: "يزيد الحد الأقصى لعدد حسابات Discord التي يمكن إضافتها",
     tags: ["Utility"],
     authors: [Devs.thororen],
     settings,

@@ -94,7 +94,7 @@ async function zipGuildAssets(guild: Guild, type: "emojis" | "stickers") {
 
 export default definePlugin({
     name: "GuildPickerDumper",
-    description: "Context menu to dump and download a server's emojis and stickers.",
+    description: "يضيف خياراً في القائمة السياقية لتنزيل الإيموجيات والستيكرات من أي سيرفر",
     tags: ["Emotes", "Servers", "Utility"],
     authors: [EquicordDevs.Cortex, Devs.Samwich, EquicordDevs.Synth, Devs.thororen],
     contextMenus: {

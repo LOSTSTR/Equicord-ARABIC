@@ -33,25 +33,25 @@ const populateMessagePrototype = findByCodeLazy("isProbablyAValidSnowflake", "me
 export const timeFormats: Record<string, TimeFormat> = {
     cozyFormat: {
         name: "Cozy mode",
-        description: "Time format to use in messages on cozy mode",
+        description: "صيغة الوقت للرسائل في الوضع المريح",
         default: "[calendar]",
         offset: 0,
     },
     compactFormat: {
         name: "Compact mode",
-        description: "Time format on compact mode and hovering messages",
+        description: "صيغة الوقت في الوضع المدمج وعند التحريك على الرسائل",
         default: "LT",
         offset: 0,
     },
     tooltipFormat: {
         name: "Tooltip",
-        description: "Time format to use on tooltips",
+        description: "صيغة الوقت للتلميحات",
         default: "LLLL • [relative]",
         offset: 0,
     },
     ariaLabelFormat: {
         name: "Aria label",
-        description: "Time format to use on aria labels",
+        description: "صيغة الوقت للتسميات الوصفية",
         default: "[calendar]",
         offset: 0,
     },

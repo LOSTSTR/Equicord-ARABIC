@@ -23,14 +23,14 @@ export const settings = definePluginSettings({
     patched: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Include patched modules",
+        description: "تضمين الوحدات المُعدَّلة في الأرشيف",
         restartNeeded: true,
     },
 });
 
 export default definePlugin({
     name: "WebpackTarball",
-    description: "Converts Discord's webpack sources into a tarball.",
+    description: "يحوّل مصادر webpack الخاصة بـ Discord إلى أرشيف tarball",
     tags: ["Developers", "Utility"],
     authors: [Devs.Kyuuhachi],
     settings,

@@ -76,7 +76,7 @@ const listener: MessageSendListener = async (channelId, msg) => {
 const settings = definePluginSettings({
     maxLength: {
         type: OptionType.NUMBER,
-        description: "Maximum length of a message before it is split. Set to 0 to automatically detect.",
+        description: "الحد الأقصى لطول الرسالة قبل التقسيم. اضبطه على 0 للكشف التلقائي.",
         default: 0,
         max: 4000,
         onChange(newValue) {
@@ -86,27 +86,27 @@ const settings = definePluginSettings({
     },
     disableFileConversion: {
         type: OptionType.BOOLEAN,
-        description: "If true, disables file conversion for large messages.",
+        description: "إذا كان مفعلاً، يعطّل تحويل الملفات للرسائل الطويلة.",
         default: true,
     },
     sendDelay: {
         type: OptionType.SLIDER,
-        description: "Delay between each chunk in seconds.",
+        description: "التأخير بين كل جزء بالثواني.",
         default: 1,
         markers: [1, 2, 3, 5, 10],
     },
     hardSplit: {
         type: OptionType.BOOLEAN,
-        description: "If true, splits on the last character instead of the last space/newline.",
+        description: "إذا كان مفعلاً، يقسم عند آخر حرف بدلاً من آخر مسافة/سطر.",
         default: false,
     },
     splitInSlowmode: {
         type: OptionType.BOOLEAN,
-        description: "Should messages be split if the channel has slowmode enabled?",
+        description: "هل يجب تقسيم الرسائل إذا كانت القناة في وضع السلو موود؟",
     },
     slowmodeMax: {
         type: OptionType.NUMBER,
-        description: "Maximum slowmode time if splitting in slowmode.",
+        description: "الحد الأقصى لوقت السلو موود عند التقسيم.",
         default: 5,
         min: 1,
         max: 30,
@@ -115,7 +115,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "SplitLargeMessages",
-    description: "Splits large messages into multiple to fit Discord's message limit.",
+    description: "يقسم الرسائل الطويلة إلى رسائل متعددة لتناسب حد Discord.",
     dependencies: ["MessageEventsAPI"],
     tags: ["Appearance", "Customisation", "Chat"],
     authors: [EquicordDevs.Reycko],

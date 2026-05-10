@@ -48,17 +48,17 @@ const searchEngines = {
 const settings = definePluginSettings({
     hyperlink: {
         type: OptionType.BOOLEAN,
-        description: "If the sent link should hyperlink with the query as the label",
+        description: "يجعل الرابط المرسل نصاً مشار إليه باستخدام الاستعلام كعنوان",
         default: false
     },
     embed: {
         type: OptionType.BOOLEAN,
-        description: "If the sent link should render an embed",
+        description: "يعرض الرابط المرسل كبطاقة تفاعلية",
         default: true
     },
     defaultEngine: {
         type: OptionType.SELECT,
-        description: "The search engine to use",
+        description: "محرك البحث المستخدم",
         options: Object.keys(searchEngines).map((key, index) => ({
             label: key,
             value: key,
@@ -66,7 +66,7 @@ const settings = definePluginSettings({
         }))
     },
     customEngineURL: {
-        description: "The URL of the Engine you wish to use",
+        description: "رابط محرك البحث المخصص الذي تريد استخدامه",
         type: OptionType.STRING,
         placeholder: ""
     }
@@ -74,7 +74,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "GoogleThat",
-    description: "Adds a command to send a internet search link",
+    description: "يضيف أمراً لإرسال رابط بحث على الإنترنت",
     dependencies: ["CommandsAPI"],
     tags: ["Commands", "Utility"],
     authors: [Devs.Samwich, EquicordDevs.KrystalSkull],
@@ -83,11 +83,11 @@ export default definePlugin({
     commands: [
         {
             name: "googlethat",
-            description: "send a search engine link",
+            description: "يرسل رابط بحث على الإنترنت",
             options: [
                 {
                     name: "input",
-                    description: "The search query",
+                    description: "استعلام البحث",
                     type: ApplicationCommandOptionType.STRING,
                     required: true,
                 }

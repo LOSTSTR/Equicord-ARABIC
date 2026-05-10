@@ -26,36 +26,36 @@ export const cl = classNameFactory("vc-boo-");
 export const settings = definePluginSettings({
     showIndicator: {
         type: OptionType.BOOLEAN,
-        description: "Show the ghost counter at the top of the server list",
+        description: "يعرض عداد الأشباح أعلى قائمة السيرفرات",
         default: true,
         restartNeeded: false
     },
     showDmIcons: {
         type: OptionType.BOOLEAN,
-        description: "Show ghost icons next to individual DMs",
+        description: "يعرض أيقونات الشبح بجانب المحادثات الخاصة الفردية",
         default: true,
         restartNeeded: false
     },
     ignoreGroupDms: {
         type: OptionType.BOOLEAN,
-        description: "Exclude all group dms from ghosting",
+        description: "يستثني المحادثات الجماعية من ميزة الشبح",
         default: false
     },
     exemptedChannels: {
         type: OptionType.STRING,
-        description: "Comma-separated list of channel IDs to exempt from ghosting (right-click a DM channel to copy its ID)",
+        description: "قائمة معرّفات القنوات المعفاة من الشبح مفصولة بفواصل (انقر بالزر الأيمن على قناة DM لنسخ معرّفها)",
         default: "",
         restartNeeded: false
     },
     ignoreBots: {
         type: OptionType.BOOLEAN,
-        description: "Ignore DMs from bots",
+        description: "يتجاهل الرسائل الواردة من البوتات",
         default: true,
         restartNeeded: false
     },
     maxInactiveTimeMs: {
         type: OptionType.SELECT,
-        description: "Only ghost DMs active within this timeframe",
+        description: "يطبّق الشبح فقط على المحادثات النشطة ضمن هذا الإطار الزمني",
         options: [
             { label: "No limit", value: 0, default: true },
             { label: "1 hour", value: 60 * 60 * 1000 },
@@ -146,7 +146,7 @@ function makeContextItem(props) {
 
 export default definePlugin({
     name: "Ghosted",
-    description: "A cute ghost will appear if you don't answer their DMs",
+    description: "يظهر شبح لطيف على المحادثات الخاصة التي لم تردّ عليها",
     tags: ["Chat", "Utility"],
     authors: [EquicordDevs.vei, Devs.sadan, EquicordDevs.justjxke, EquicordDevs.iamme],
     settings,

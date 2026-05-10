@@ -72,7 +72,7 @@ function Watching({ userIds, guildId }: WatchingProps): JSX.Element {
 
 const settings = definePluginSettings({
     showPanel: {
-        description: "Show spectators under screenshare panel",
+        description: "عرض المشاهدين أسفل لوحة مشاركة الشاشة",
         type: OptionType.BOOLEAN,
         default: true,
         restartNeeded: true
@@ -81,7 +81,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "WhosWatching",
-    description: "Hover over the screenshare icon to view what users are watching your stream",
+    description: "مرّر الماوس فوق أيقونة مشاركة الشاشة لعرض المستخدمين الذين يشاهدون بثك",
     tags: ["Activity"],
     authors: [EquicordDevs.Fres, Devs.thororen],
     settings,

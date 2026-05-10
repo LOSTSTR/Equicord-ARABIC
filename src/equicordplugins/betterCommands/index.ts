@@ -12,12 +12,12 @@ import { FluxDispatcher, UserStore } from "@webpack/common";
 
 const settings = definePluginSettings({
     autoFillArguments: {
-        description: "Automatically fill command with all arguements instead of just required ones",
+        description: "ملء الأمر تلقائياً بجميع المعطيات بدلاً من المطلوبة فقط",
         type: OptionType.BOOLEAN,
         default: true,
     },
     allowNewlinesInCommands: {
-        description: "Allow newlines in command inputs (CTRL + Shift + Enter)",
+        description: "السماح بالأسطر الجديدة في مدخلات الأوامر (CTRL + Shift + Enter)",
         type: OptionType.BOOLEAN,
         default: true,
     }
@@ -32,7 +32,7 @@ function fetchIndex(target: object) {
 
 export default definePlugin({
     name: "BetterCommands",
-    description: "Enhances the command system with miscellaneous improvements.",
+    description: "يحسّن نظام الأوامر بتحسينات متنوعة.",
     dependencies: ["CommandsAPI"],
     tags: ["Appearance", "Commands", "Shortcuts"],
     authors: [Devs.thororen],
@@ -72,11 +72,11 @@ export default definePlugin({
     commands: [
         {
             name: "refresh",
-            description: "Refreshes the specified applications commands locally",
+            description: "يحدّث أوامر التطبيقات المحددة محلياً",
             options: [
                 {
                     name: "user",
-                    description: "specific user to try and refresh",
+                    description: "مستخدم محدد لمحاولة تحديث أوامره",
                     type: ApplicationCommandOptionType.USER,
                 }
             ],

@@ -174,13 +174,13 @@ migratePluginSetting("FontLoader", "applyOnCodeBlocks", "applyOnClodeBlocks");
 const settings = definePluginSettings({
     selectedFont: {
         type: OptionType.STRING,
-        description: "Currently selected font",
+        description: "الخط المحدد حالياً",
         default: "",
         hidden: true
     },
     fontSearch: {
         type: OptionType.COMPONENT,
-        description: "Search and select Google Fonts",
+        description: "ابحث عن خط من Google Fonts واختره",
         component: () => (
             <GoogleFontSearch
                 onSelect={font => {
@@ -192,14 +192,14 @@ const settings = definePluginSettings({
     },
     applyOnCodeBlocks: {
         type: OptionType.BOOLEAN,
-        description: "Apply the font to code blocks",
+        description: "يطبق الخط المختار على كتل الكود أيضاً",
         default: false
     }
 });
 
 export default definePlugin({
     name: "FontLoader",
-    description: "Loads any font from Google Fonts",
+    description: "يحمّل أي خط من Google Fonts ويطبقه على واجهة Discord",
     tags: ["Appearance", "Customisation"],
     authors: [EquicordDevs.vmohammad],
     settings,

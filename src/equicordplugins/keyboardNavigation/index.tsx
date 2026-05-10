@@ -19,7 +19,7 @@ let isRecordingGlobal: boolean = false;
 
 export const settings = definePluginSettings({
     hotkey: {
-        description: "The hotkey to open the command palette.",
+        description: "اختصار لوحة المفاتيح لفتح لوحة الأوامر",
         type: OptionType.COMPONENT,
         default: ["Control", "Shift", "P"],
         component: () => {
@@ -78,7 +78,7 @@ export const settings = definePluginSettings({
         }
     },
     allowMouseControl: {
-        description: "Allow the mouse to control the command palette.",
+        description: "السماح للفأرة بالتحكم في لوحة الأوامر",
         type: OptionType.BOOLEAN,
         default: true
     }
@@ -86,7 +86,7 @@ export const settings = definePluginSettings({
 
 export default definePlugin({
     name: "KeyboardNavigation",
-    description: "Allows you to navigate the UI with a keyboard.",
+    description: "يتيح التنقل في واجهة Discord باستخدام لوحة المفاتيح",
     tags: ["Accessibility", "Shortcuts"],
     authors: [Devs.Ethan],
     settings,

@@ -22,7 +22,7 @@ import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "NeverPausePreviews",
-    description: "Prevents in-call/PiP previews (screenshare, streams, etc) from pausing even if the client loses focus",
+    description: "يمنع إيقاف معاينات المكالمات/PiP (مشاركة الشاشة، البث، إلخ) حتى عند فقدان التركيز",
     tags: ["Media"],
     authors: [EquicordDevs.vappstar],
     settingsAboutComponent: () => (

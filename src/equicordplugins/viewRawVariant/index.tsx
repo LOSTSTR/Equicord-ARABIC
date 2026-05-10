@@ -128,7 +128,7 @@ function makeContextCallback(
 
 export default definePlugin({
     name: "ViewRawVariant",
-    description: "Copy/View raw content of any message, channel, or guild, but show in the right click menu.",
+    description: "عرض أو نسخ المحتوى الخام لأي رسالة أو قناة أو سيرفر من قائمة النقر الأيمن",
     tags: ["Appearance", "Customisation", "Chat", "Organisation", "Servers"],
     authors: [Devs.KingFish, Devs.Ven, Devs.rad, Devs.ImLvna, Devs.Kyuuhachi],
     contextMenus: {

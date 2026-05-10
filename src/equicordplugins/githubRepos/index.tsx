@@ -25,19 +25,19 @@ export const cl = classNameFactory("vc-github-repos-");
 export const settings = definePluginSettings({
     showStars: {
         type: OptionType.BOOLEAN,
-        description: "Show repository stars",
+        description: "يعرض عدد نجوم المستودع",
         default: true
     },
     showLanguage: {
         type: OptionType.BOOLEAN,
-        description: "Show repository language",
+        description: "يعرض لغة برمجة المستودع",
         default: true
     },
 });
 
 export default definePlugin({
     name: "GitHubRepos",
-    description: "Displays a user's public GitHub repositories in their profile",
+    description: "يعرض مستودعات GitHub العامة للمستخدم في ملفه الشخصي",
     dependencies: ["ProfileCollectionsAPI"],
     tags: ["Appearance"],
     authors: [EquicordDevs.talhakf, EquicordDevs.Panniku, EquicordDevs.benjii],

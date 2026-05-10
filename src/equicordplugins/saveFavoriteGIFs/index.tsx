@@ -102,7 +102,7 @@ async function saveWorkingGifs() {
 
 const settings = definePluginSettings({
     showToolboxButton: {
-        description: "Show 'Save Favorite GIFs' button in Equicord Toolbox (Requires Reload)",
+        description: "يعرض زر 'حفظ GIF المفضلة' في صندوق أدوات Equicord (يتطلب إعادة تحميل)",
         type: OptionType.BOOLEAN,
         default: true,
         restartNeeded: true,
@@ -114,7 +114,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "SaveFavoriteGIFs",
-    description: "Export favorited GIF urls",
+    description: "يصدّر روابط GIF المفضلة لديك",
     dependencies: ["CommandsAPI"],
     tags: ["Emotes", "Utility"],
     authors: [Devs.thororen],
@@ -122,13 +122,13 @@ export default definePlugin({
     commands: [
         {
             name: "savegifs",
-            description: "Save all favorite GIF urls to a text file",
+            description: "يحفظ جميع روابط GIF المفضلة في ملف نصي",
             inputType: ApplicationCommandInputType.BUILT_IN,
             execute: saveAllGifs
         },
         {
             name: "saveworkinggifs",
-            description: "Test all favorite GIFs and only save the ones that are still working",
+            description: "يختبر جميع GIF المفضلة ويحفظ فقط العاملة منها",
             inputType: ApplicationCommandInputType.BUILT_IN,
             execute: saveWorkingGifs
         }

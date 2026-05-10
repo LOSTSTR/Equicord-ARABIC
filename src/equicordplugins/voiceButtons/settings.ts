@@ -11,44 +11,44 @@ export const settings = definePluginSettings({
     showChatButton: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Whether you want to display the chat button",
+        description: "عرض زر الدردشة في لوحة الصوت",
         restartNeeded: true,
     },
     showMuteButton: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Whether you want to display the mute button",
+        description: "عرض زر الكتم في لوحة الصوت",
         restartNeeded: true,
     },
     showDeafenButton: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Whether you want to display the deafen button",
+        description: "عرض زر التصميم في لوحة الصوت",
         restartNeeded: true,
     },
     muteSoundboard: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Toggles their soundboard upon clicking deafen button.",
+        description: "كتم السبورد عند الضغط على زر التصميم",
     },
     disableVideo: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Toggles their video upon clicking deafen button.",
+        description: "إيقاف الكاميرا عند الضغط على زر التصميم",
     },
     useServer: {
         type: OptionType.BOOLEAN,
-        description: "Use server mute/deafen instead of local when you have permission.",
+        description: "استخدام كتم/تصميم السيرفر عند توفر الصلاحية بدلاً من الكتم المحلي",
         default: false,
     },
     serverSelf: {
         type: OptionType.BOOLEAN,
-        description: "Deafen / Mute yourself on the server when using mute/deafen.",
+        description: "تصميم/كتم نفسك على السيرفر عند استخدام أزرار الكتم/التصميم",
         default: false,
     },
     showButtonsSelf: {
         type: OptionType.SELECT,
-        description: "Whether you want to display buttons for your own user. Same functionality as other button(s) except it'll open DMs panel and mute/deafen for yourself upon clicking button(s).",
+        description: "عرض الأزرار لمستخدمك الخاص، مع نفس الوظيفة لكن تفتح الرسائل الخاصة وتكتم/تصمّ نفسك",
         restartNeeded: true,
         options: [
             { label: "Display", value: "display", default: true },
@@ -58,7 +58,7 @@ export const settings = definePluginSettings({
     },
     whichNameToShow: {
         type: OptionType.SELECT,
-        description: "Choose whether to show nickname or username in tooltip.",
+        description: "اختيار عرض اللقب أو اسم المستخدم في التلميح",
         options: [
             { label: "Both", value: "both", default: true },
             { label: "Global Name", value: "global" },
@@ -67,7 +67,7 @@ export const settings = definePluginSettings({
     },
     buttonPosition: {
         type: OptionType.SELECT,
-        description: "Choose where to place voice buttons in the voice user row.",
+        description: "اختيار موضع أزرار الصوت في صف المستخدم",
         options: [
             { label: "Left", value: "left", default: true },
             { label: "Right", value: "right" },

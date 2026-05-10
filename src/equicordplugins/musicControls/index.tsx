@@ -31,7 +31,7 @@ import { TidalPlayer } from "./tidal/TidalPlayer";
 
 export default definePlugin({
     name: "MusicControls",
-    description: "Music Controls and Lyrics for multiple services ",
+    description: "أدوات التحكم بالموسيقى وكلمات الأغاني لخدمات متعددة",
     authors: [Devs.Ven, Devs.afn, Devs.KraXen72, Devs.Av32000, Devs.nin0dev, Devs.thororen, EquicordDevs.vmohammad, Devs.Joona],
     settings,
     tags: ["Media", "Activity"],

@@ -141,7 +141,7 @@ function ChatBadges({ author }: { author: User; }) {
 export default definePlugin({
     name: "ShowBadgesInChat",
     authors: [Devs.Inbestigator, EquicordDevs.KrystalSkull],
-    description: "Shows the message author's badges beside their name in chat.",
+    description: "يعرض شارات المستخدم بجانب اسمه في الشات.",
     dependencies: ["MessageDecorationsAPI"],
     tags: ["Appearance", "Chat"],
     settings,

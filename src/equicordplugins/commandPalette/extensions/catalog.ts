@@ -48,7 +48,7 @@ export const EXTENSIONS_CATALOG: ExtensionDefinition[] = [
     {
         id: SILENT_TYPING_EXTENSION_ID,
         label: "SilentTyping",
-        description: "Control the SilentTyping plugin from the command palette.",
+        description: "التحكم في إضافة SilentTyping من لوحة الأوامر.",
         detailCategoryId: SILENT_TYPING_EXTENSION_DETAIL_CATEGORY_ID,
         commandId: "extension-silent-typing-toggle",
         commandLabel: "Toggle SilentTyping",
@@ -60,7 +60,7 @@ export const EXTENSIONS_CATALOG: ExtensionDefinition[] = [
     {
         id: RANDOM_VOICE_EXTENSION_ID,
         label: "RandomVoice",
-        description: "Control the RandomVoice plugin from the command palette.",
+        description: "التحكم في إضافة RandomVoice من لوحة الأوامر.",
         detailCategoryId: RANDOM_VOICE_EXTENSION_DETAIL_CATEGORY_ID,
         commandId: "extension-random-voice-join",
         commandLabel: "Join Random Voice",
@@ -72,7 +72,7 @@ export const EXTENSIONS_CATALOG: ExtensionDefinition[] = [
     {
         id: SILENT_MESSAGE_TOGGLE_EXTENSION_ID,
         label: "SilentMessageToggle",
-        description: "Control SilentMessageToggle from the command palette.",
+        description: "التحكم في SilentMessageToggle من لوحة الأوامر.",
         detailCategoryId: SILENT_MESSAGE_TOGGLE_EXTENSION_DETAIL_CATEGORY_ID,
         commandId: "extension-silent-message-toggle-plugin",
         commandLabel: "Toggle SilentMessageToggle",
@@ -84,7 +84,7 @@ export const EXTENSIONS_CATALOG: ExtensionDefinition[] = [
     {
         id: SCHEDULED_MESSAGES_EXTENSION_ID,
         label: "ScheduledMessages",
-        description: "Control ScheduledMessages from the command palette.",
+        description: "التحكم في ScheduledMessages من لوحة الأوامر.",
         detailCategoryId: SCHEDULED_MESSAGES_EXTENSION_DETAIL_CATEGORY_ID,
         commandId: "extension-scheduled-messages-open",
         commandLabel: "Open Scheduled Messages",
@@ -96,7 +96,7 @@ export const EXTENSIONS_CATALOG: ExtensionDefinition[] = [
     {
         id: THEME_LIBRARY_EXTENSION_ID,
         label: "ThemeLibrary",
-        description: "Control ThemeLibrary from the command palette.",
+        description: "التحكم في ThemeLibrary من لوحة الأوامر.",
         detailCategoryId: THEME_LIBRARY_EXTENSION_DETAIL_CATEGORY_ID,
         commandId: "extension-theme-library-open",
         commandLabel: "Open Theme Library",

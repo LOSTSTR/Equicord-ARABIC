@@ -36,7 +36,7 @@ const userContextPatch: NavContextMenuPatchCallback = (children, { user }) => {
 
 export default definePlugin({
     name: "CancelFriendRequest",
-    description: "Adds a way to cancel outgoing friend requests from profiles.",
+    description: "يضيف طريقة لإلغاء طلبات الصداقة الصادرة من الملفات الشخصية.",
     authors: [EquicordDevs.omaw],
 
     contextMenus: {

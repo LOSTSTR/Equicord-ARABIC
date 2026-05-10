@@ -13,7 +13,7 @@ const settings = definePluginSettings(
     {
         blockedWords: {
             type: OptionType.STRING,
-            description: "Strings not to capitilise (seperate with a comma)",
+            description: "كلمات لا تُكبَّر (افصل بينها بفاصلة)",
             default: "http, https, ok"
         }
     }
@@ -36,7 +36,7 @@ const presendObject: MessageSendListener = (_, msg) => {
 
 export default definePlugin({
     name: "WriteUpperCase",
-    description: "Changes the first Letter of each Sentence in Message Inputs to Uppercase",
+    description: "يحوّل الحرف الأول من كل جملة في مربع الرسائل إلى حرف كبير تلقائياً",
     tags: ["Appearance", "Customisation", "Chat"],
     authors: [Devs.Samwich, EquicordDevs.KrystalSkull],
     settings,

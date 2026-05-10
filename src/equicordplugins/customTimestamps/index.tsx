@@ -74,7 +74,7 @@ const TimeRow = (props: TimeRowProps) => {
 const settings = definePluginSettings({
     formats: {
         type: OptionType.COMPONENT,
-        description: "Customize the timestamp formats",
+        description: "تخصيص تنسيقات التوقيت",
         component: componentProps => {
             const [settingsState, setSettingsState] = useState(useSettings().plugins?.CustomTimestamps?.formats ?? {});
 
@@ -124,7 +124,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "CustomTimestamps",
-    description: "Custom timestamps on messages and tooltips",
+    description: "يخصص تنسيق التوقيت على الرسائل والتلميحات",
     tags: ["Appearance", "Customisation"],
     authors: [Devs.Rini, EquicordDevs.nvhhr, EquicordDevs.Suffocate, Devs.Obsidian],
     settings,

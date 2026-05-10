@@ -14,7 +14,7 @@ const { iconForeground } = findCssClassesLazy("iconForeground", "accountPopoutBu
 
 export default definePlugin({
     name: "UserAreaAPI",
-    description: "API to add buttons to the user area panel.",
+    description: "واجهة برمجية لإضافة أزرار إلى لوحة منطقة المستخدم.",
     authors: [Devs.prism],
 
     patches: [

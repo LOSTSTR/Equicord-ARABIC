@@ -25,7 +25,10 @@ import { Readable } from "stream";
 import { finished } from "stream/promises";
 import { fileURLToPath } from "url";
 
-const BASE_URL = "https://github.com/Equicord/Equilotl/releases/latest/download/";
+// Equicord-ARABIC: download the dev-install CLI from our own fork's releases.
+// Falls back to the upstream Equilotl release if no asset is found on our repo.
+const BASE_URL = "https://github.com/LOSTSTR/Equicord-ARABIC/releases/latest/download/";
+const FALLBACK_URL = "https://github.com/Equicord/Equilotl/releases/latest/download/";
 const INSTALLER_PATH_DARWIN = "Equilotl.app/Contents/MacOS/Equilotl";
 const INSTALLER_APP_DARWIN = "Equilotl.app";
 
@@ -71,12 +74,23 @@ async function ensureBinary() {
         ? readFileSync(ETAG_FILE, "utf-8")
         : null;
 
-    const res = await fetch(BASE_URL + filename, {
+    // Try our fork's releases first, then fall back to upstream Equilotl
+    let res = await fetch(BASE_URL + filename, {
         headers: {
-            "User-Agent": "Equicord (https://github.com/Equicord/Equicord)",
+            "User-Agent": "Equicord-ARABIC (https://github.com/LOSTSTR/Equicord-ARABIC)",
             "If-None-Match": etag
         }
     });
+
+    if (!res.ok && res.status === 404) {
+        console.log(`Asset not yet on fork releases (${res.status}), falling back to upstream Equilotl...`);
+        res = await fetch(FALLBACK_URL + filename, {
+            headers: {
+                "User-Agent": "Equicord-ARABIC (https://github.com/LOSTSTR/Equicord-ARABIC)",
+                "If-None-Match": etag
+            }
+        });
+    }
 
     if (res.status === 304) {
         console.log("Up to date, not redownloading!");

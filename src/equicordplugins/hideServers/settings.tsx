@@ -15,7 +15,7 @@ import { HiddenServersStore } from "./HiddenServersStore";
 export default definePluginSettings({
     showIndicator: {
         type: OptionType.BOOLEAN,
-        description: "Show menu to unhide servers at the bottom of the list",
+        description: "يعرض قائمة لإظهار السيرفرات المخفية في أسفل القائمة",
         default: true,
         onChange: val => {
             if (val) {
@@ -27,7 +27,7 @@ export default definePluginSettings({
     },
     guildsList: {
         type: OptionType.COMPONENT,
-        description: "Remove hidden servers",
+        description: "إزالة السيرفرات المخفية",
         component: () => {
             const detail = useStateFromStores([HiddenServersStore], () => HiddenServersStore.hiddenGuildsDetail());
             return <HiddenServersMenu guilds={detail} />;
@@ -35,7 +35,7 @@ export default definePluginSettings({
     },
     resetHidden: {
         type: OptionType.COMPONENT,
-        description: "Remove all hidden guilds from the list",
+        description: "إزالة جميع السيرفرات المخفية من القائمة",
         component: () => (
             <div>
                 <Button

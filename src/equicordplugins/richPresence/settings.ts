@@ -15,7 +15,7 @@ export function setOnServiceChange(fn: (() => void) | null) { onServiceChange = 
 
 export const settings = definePluginSettings({
     enabled: {
-        description: "Enable rich presence services.",
+        description: "تفعيل خدمات Rich Presence.",
         type: OptionType.BOOLEAN,
         default: true,
         restartNeeded: false,
@@ -23,48 +23,48 @@ export const settings = definePluginSettings({
     },
     serviceSettings: {
         type: OptionType.COMPONENT,
-        description: "Service configuration.",
+        description: "إعدادات الخدمات.",
         component: SettingsPanel,
     },
 
     // Per-service enable toggles
     abs_enabled: {
-        description: "Enable AudioBookShelf presence.",
+        description: "تفعيل حضور AudioBookShelf.",
         type: OptionType.BOOLEAN,
         default: false,
         hidden: true,
         onChange: () => onServiceChange?.(),
     },
     tosu_enabled: {
-        description: "Enable osu! (tosu) presence.",
+        description: "تفعيل حضور osu! (tosu).",
         type: OptionType.BOOLEAN,
         default: false,
         hidden: true,
         onChange: () => onServiceChange?.(),
     },
     sfm_enabled: {
-        description: "Enable stats.fm presence.",
+        description: "تفعيل حضور stats.fm.",
         type: OptionType.BOOLEAN,
         default: false,
         hidden: true,
         onChange: () => onServiceChange?.(),
     },
     jf_enabled: {
-        description: "Enable Jellyfin presence.",
+        description: "تفعيل حضور Jellyfin.",
         type: OptionType.BOOLEAN,
         default: false,
         hidden: true,
         onChange: () => onServiceChange?.(),
     },
     lb_enabled: {
-        description: "Enable ListenBrainz presence.",
+        description: "تفعيل حضور ListenBrainz.",
         type: OptionType.BOOLEAN,
         default: false,
         hidden: true,
         onChange: () => onServiceChange?.(),
     },
     gr_enabled: {
-        description: "Enable Gensokyo Radio presence.",
+        description: "تفعيل حضور Gensokyo Radio.",
         type: OptionType.BOOLEAN,
         default: false,
         hidden: true,
@@ -73,19 +73,19 @@ export const settings = definePluginSettings({
 
     // AudioBookShelf
     abs_serverUrl: {
-        description: "AudioBookShelf server URL.",
+        description: "رابط خادم AudioBookShelf.",
         type: OptionType.STRING,
         default: "",
         hidden: true,
     },
     abs_username: {
-        description: "AudioBookShelf username.",
+        description: "اسم مستخدم AudioBookShelf.",
         type: OptionType.STRING,
         default: "",
         hidden: true,
     },
     abs_password: {
-        description: "AudioBookShelf password.",
+        description: "كلمة مرور AudioBookShelf.",
         type: OptionType.STRING,
         default: "",
         hidden: true,
@@ -93,43 +93,43 @@ export const settings = definePluginSettings({
 
     // stats.fm
     sfm_username: {
-        description: "Stats.fm username.",
+        description: "اسم مستخدم Stats.fm.",
         type: OptionType.STRING,
         default: "",
         hidden: true,
     },
     sfm_shareUsername: {
-        description: "Show link to stats.fm profile.",
+        description: "عرض رابط ملف stats.fm.",
         type: OptionType.BOOLEAN,
         default: false,
         hidden: true,
     },
     sfm_shareSong: {
-        description: "Show link to song on stats.fm.",
+        description: "عرض رابط الأغنية على stats.fm.",
         type: OptionType.BOOLEAN,
         default: true,
         hidden: true,
     },
     sfm_hideWithSpotify: {
-        description: "Hide stats.fm presence if Spotify is running.",
+        description: "إخفاء حضور stats.fm إذا كان Spotify يعمل.",
         type: OptionType.BOOLEAN,
         default: false,
         hidden: true,
     },
     sfm_hideWithExternalRPC: {
-        description: "Hide stats.fm presence if an external RPC is running.",
+        description: "إخفاء حضور stats.fm إذا كان RPC خارجي يعمل.",
         type: OptionType.BOOLEAN,
         default: false,
         hidden: true,
     },
     sfm_statusName: {
-        description: "Custom status text.",
+        description: "نص الحالة المخصص.",
         type: OptionType.STRING,
         default: "Stats.fm",
         hidden: true,
     },
     sfm_nameFormat: {
-        description: "Name format.",
+        description: "صيغة الاسم.",
         type: OptionType.SELECT,
         options: [
             { label: "Use custom status name", value: NameFormat.StatusName, default: true },
@@ -142,13 +142,13 @@ export const settings = definePluginSettings({
         hidden: true,
     },
     sfm_useListeningStatus: {
-        description: "Show listening status.",
+        description: "عرض حالة الاستماع.",
         type: OptionType.BOOLEAN,
         default: true,
         hidden: true,
     },
     sfm_missingArt: {
-        description: "Fallback when art is missing.",
+        description: "صورة بديلة عند غياب الغلاف.",
         type: OptionType.SELECT,
         options: [
             { label: "Use large Stats.fm logo", value: "StatsFmLogo", default: true },
@@ -157,13 +157,13 @@ export const settings = definePluginSettings({
         hidden: true,
     },
     sfm_showLogo: {
-        description: "Show Stats.fm logo next to album art.",
+        description: "عرض شعار Stats.fm بجوار غلاف الألبوم.",
         type: OptionType.BOOLEAN,
         default: true,
         hidden: true,
     },
     sfm_alwaysHideArt: {
-        description: "Disable downloading album art.",
+        description: "تعطيل تحميل غلاف الألبوم.",
         type: OptionType.BOOLEAN,
         default: false,
         hidden: true,
@@ -171,25 +171,25 @@ export const settings = definePluginSettings({
 
     // Jellyfin
     jf_serverUrl: {
-        description: "Jellyfin server URL.",
+        description: "رابط خادم Jellyfin.",
         type: OptionType.STRING,
         default: "",
         hidden: true,
     },
     jf_apiKey: {
-        description: "Jellyfin API key.",
+        description: "مفتاح API لـ Jellyfin.",
         type: OptionType.STRING,
         default: "",
         hidden: true,
     },
     jf_userId: {
-        description: "Jellyfin user ID.",
+        description: "معرّف مستخدم Jellyfin.",
         type: OptionType.STRING,
         default: "",
         hidden: true,
     },
     jf_nameDisplay: {
-        description: "Name display format.",
+        description: "صيغة عرض الاسم.",
         type: OptionType.SELECT,
         options: [
             { label: "Series/Movie Name", value: "default", default: true },
@@ -199,13 +199,13 @@ export const settings = definePluginSettings({
         hidden: true,
     },
     jf_customName: {
-        description: "Custom name template.",
+        description: "قالب الاسم المخصص.",
         type: OptionType.STRING,
         default: "",
         hidden: true,
     },
     jf_coverType: {
-        description: "Cover type for TV shows.",
+        description: "نوع الغلاف للمسلسلات التلفزيونية.",
         type: OptionType.SELECT,
         options: [
             { label: "Series Cover", value: "series", default: true },
@@ -214,7 +214,7 @@ export const settings = definePluginSettings({
         hidden: true,
     },
     jf_episodeFormat: {
-        description: "Episode number format.",
+        description: "صيغة رقم الحلقة.",
         type: OptionType.SELECT,
         options: [
             { label: "S01E01", value: "long", default: true },
@@ -224,13 +224,13 @@ export const settings = definePluginSettings({
         hidden: true,
     },
     jf_showEpisodeName: {
-        description: "Show episode name after season/episode info.",
+        description: "عرض اسم الحلقة بعد معلومات الموسم/الحلقة.",
         type: OptionType.BOOLEAN,
         default: false,
         hidden: true,
     },
     jf_overrideType: {
-        description: "Override rich presence type.",
+        description: "تجاوز نوع الحضور الغني.",
         type: OptionType.SELECT,
         options: [
             { label: "Off", value: "off", default: true },
@@ -242,13 +242,13 @@ export const settings = definePluginSettings({
         hidden: true,
     },
     jf_showPausedState: {
-        description: "Show presence when media is paused.",
+        description: "عرض الحضور عند إيقاف الوسائط مؤقتاً.",
         type: OptionType.BOOLEAN,
         default: true,
         hidden: true,
     },
     jf_privacyMode: {
-        description: "Hide media details.",
+        description: "إخفاء تفاصيل الوسائط.",
         type: OptionType.BOOLEAN,
         default: false,
         hidden: true,
@@ -256,55 +256,55 @@ export const settings = definePluginSettings({
 
     // ListenBrainz
     lb_username: {
-        description: "ListenBrainz username.",
+        description: "اسم مستخدم ListenBrainz.",
         type: OptionType.STRING,
         default: "",
         hidden: true,
     },
     lb_mbContact: {
-        description: "MusicBrainz contact for user agent.",
+        description: "جهة اتصال MusicBrainz لوكيل المستخدم.",
         type: OptionType.STRING,
         default: "",
         hidden: true,
     },
     lb_shareUsername: {
-        description: "Show link to ListenBrainz profile.",
+        description: "عرض رابط ملف ListenBrainz.",
         type: OptionType.BOOLEAN,
         default: false,
         hidden: true,
     },
     lb_shareSong: {
-        description: "Show link to song on ListenBrainz.",
+        description: "عرض رابط الأغنية على ListenBrainz.",
         type: OptionType.BOOLEAN,
         default: true,
         hidden: true,
     },
     lb_hideWithSpotify: {
-        description: "Hide presence if Spotify is running.",
+        description: "إخفاء الحضور إذا كان Spotify يعمل.",
         type: OptionType.BOOLEAN,
         default: true,
         hidden: true,
     },
     lb_hideWithActivity: {
-        description: "Hide presence if any other presence exists.",
+        description: "إخفاء الحضور إذا كان أي حضور آخر موجوداً.",
         type: OptionType.BOOLEAN,
         default: false,
         hidden: true,
     },
     lb_useTimeBar: {
-        description: "Use track duration to display a time bar.",
+        description: "استخدام مدة المقطع لعرض شريط الوقت.",
         type: OptionType.BOOLEAN,
         default: true,
         hidden: true,
     },
     lb_statusName: {
-        description: "Custom status text.",
+        description: "نص الحالة المخصص.",
         type: OptionType.STRING,
         default: "some music",
         hidden: true,
     },
     lb_nameFormat: {
-        description: "Name format.",
+        description: "صيغة الاسم.",
         type: OptionType.SELECT,
         options: [
             { label: "Use custom status name", value: NameFormat.StatusName, default: true },
@@ -317,13 +317,13 @@ export const settings = definePluginSettings({
         hidden: true,
     },
     lb_useListeningStatus: {
-        description: "Show listening status.",
+        description: "عرض حالة الاستماع.",
         type: OptionType.BOOLEAN,
         default: true,
         hidden: true,
     },
     lb_missingArt: {
-        description: "Fallback when art is missing.",
+        description: "صورة بديلة عند غياب الغلاف.",
         type: OptionType.SELECT,
         options: [
             { label: "Use large ListenBrainz logo", value: "listenbrainzLogo", default: true },
@@ -332,7 +332,7 @@ export const settings = definePluginSettings({
         hidden: true,
     },
     lb_useLogo: {
-        description: "Show ListenBrainz logo on album art.",
+        description: "عرض شعار ListenBrainz على غلاف الألبوم.",
         type: OptionType.BOOLEAN,
         default: true,
         hidden: true,
@@ -340,7 +340,7 @@ export const settings = definePluginSettings({
 
     // Gensokyo Radio
     gr_refreshInterval: {
-        description: "Refresh interval in seconds.",
+        description: "فترة التحديث بالثواني.",
         type: OptionType.SLIDER,
         markers: [1, 2, 2.5, 3, 5, 10, 15],
         default: 15,

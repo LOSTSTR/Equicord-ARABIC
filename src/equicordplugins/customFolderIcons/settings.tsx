@@ -17,12 +17,12 @@ export const settings = definePluginSettings({
     solidIcon: {
         type: OptionType.BOOLEAN,
         default: false,
-        description: "Use a solid background on the background of the image"
+        description: "استخدام خلفية صلبة خلف الصورة"
     },
     folderIcons: {
         type: OptionType.COMPONENT,
         hidden: true,
-        description: "folder icon settings",
+        description: "إعدادات أيقونة المجلد",
         component: () => <></>
     }
 });

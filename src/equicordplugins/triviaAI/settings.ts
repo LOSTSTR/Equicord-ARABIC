@@ -10,7 +10,7 @@ import { OptionType } from "@utils/types";
 export const settings = definePluginSettings({
     apiKey: {
         type: OptionType.STRING,
-        description: "API Key.",
+        description: "مفتاح API.",
         default: "",
         placeholder: "Enter API Key here for your AI endpoint.",
         componentProps: {
@@ -19,46 +19,46 @@ export const settings = definePluginSettings({
     },
     model: {
         type: OptionType.STRING,
-        description: "AI Model to use.",
+        description: "نموذج الذكاء الاصطناعي المستخدم.",
         default: "google/gemini-3-flash-preview",
         placeholder: "e.g. google/gemini-3-flash-preview, inception/mercury, openai/gpt-5.2-chat, etc."
     },
     systemPrompt: {
         type: OptionType.STRING,
-        description: "System Prompt for the AI. Placeholders: {current_user}, {current_time}",
+        description: "الموجّه النظامي للذكاء الاصطناعي. العناصر النائبة: {current_user}, {current_time}",
         default: "You are a helpful assistant who answers questions for the user in a concise and short way while using the least amount of words and punctuation.\nCurrent user: {current_user}\nCurrent time: {current_time}",
         placeholder: "Enter system prompt.",
         multiline: true
     },
     maxTokens: {
         type: OptionType.NUMBER,
-        description: "Maximum number of tokens in the response.",
+        description: "الحد الأقصى لعدد التوكنات في الرد.",
         default: 500
     },
     endpoint: {
         type: OptionType.STRING,
-        description: "OpenAI Compatible AI Endpoint.",
+        description: "نقطة نهاية AI متوافقة مع OpenAI.",
         default: "https://openrouter.ai/api/v1/chat/completions",
         placeholder: "Enter your OpenAI compatible AI endpoint here."
     },
     context: {
         type: OptionType.NUMBER,
-        description: "Number of previous messages to include as context.",
+        description: "عدد الرسائل السابقة لتضمينها كسياق.",
         default: 0
     },
     passMessageAuthorName: {
         type: OptionType.BOOLEAN,
-        description: "Prepend the author's name to the message content when passing it to the AI. This can help the AI distinguish between different users in a conversation.",
+        description: "يُضيف اسم المرسل قبل محتوى الرسالة عند تمريرها للذكاء الاصطناعي. يساعد ذلك في التمييز بين المستخدمين.",
         default: true
     },
     treatSelfAsAssistant: {
         type: OptionType.BOOLEAN,
-        description: "When enabled, your own messages will be treated as assistant messages in the context. This causes some models to start generating fanfic.",
+        description: "عند التفعيل، تُعامَل رسائلك الخاصة كرسائل مساعد في السياق. قد يؤدي ذلك لبعض النماذج إلى توليد نصوص غريبة.",
         default: false
     },
     mode: {
         type: OptionType.SELECT,
-        description: "How should answers be handled?",
+        description: "كيف يجب معالجة الإجابات؟",
         options: [
             { label: "Auto Reply", value: "autoreply" },
             { label: "Replace Chatbar Text", value: "chatbar", default: true },
@@ -67,7 +67,7 @@ export const settings = definePluginSettings({
     },
     supportImages: {
         type: OptionType.BOOLEAN,
-        description: "Pass images to the AI for context (if any). This is not supported by all models.",
+        description: "يمرر الصور للذكاء الاصطناعي كسياق (إن وجدت). لا تدعم ذلك جميع النماذج.",
         default: true
     }
 });

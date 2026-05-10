@@ -49,23 +49,23 @@ function showIcon() {
 // TY ToggleVideoBind
 const settings = definePluginSettings({
     keyBind: {
-        description: "The key to toggle trash when pressed.",
+        description: "المفتاح لتبديل ظهور أيقونة الحذف عند الضغط عليه.",
         type: OptionType.STRING,
         default: "KeyZ",
         isValid: (value: string) => validKeycodes.includes(value),
     },
     reqCtrl: {
-        description: "Require control to be held.",
+        description: "يتطلب الضغط المستمر على مفتاح Ctrl.",
         type: OptionType.BOOLEAN,
         default: true,
     },
     reqShift: {
-        description: "Require shift to be held.",
+        description: "يتطلب الضغط المستمر على مفتاح Shift.",
         type: OptionType.BOOLEAN,
         default: true,
     },
     reqAlt: {
-        description: "Require alt to be held.",
+        description: "يتطلب الضغط المستمر على مفتاح Alt.",
         type: OptionType.BOOLEAN,
         default: false,
     },
@@ -73,7 +73,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "FastDeleteChannels",
-    description: "Adds a trash icon to delete channels",
+    description: "يضيف أيقونة سلة المهملات لحذف القنوات بسرعة",
     tags: ["Servers", "Utility"],
     authors: [Devs.thororen],
     settings,

@@ -13,25 +13,25 @@ import { MessageStore, UserStore } from "@webpack/common";
 export const settings = definePluginSettings({
     alwaysPingOnReply: {
         type: OptionType.BOOLEAN,
-        description: "Always get pinged when someone replies to your messages",
+        description: "يُنبّهك دائماً عند ردّ أحدهم على رسائلك",
         default: false,
     },
     replyPingWhitelist: {
         type: OptionType.STRING,
-        description: "Comma-separated list of User IDs to always receive reply pings from",
+        description: "قائمة معرفات المستخدمين (مفصولة بفواصل) الذين تريد استقبال ping ردودهم دائماً",
         default: "",
         disabled: () => settings.store.alwaysPingOnReply,
     },
     replyPingBlacklist: {
         type: OptionType.STRING,
-        description: "Comma-separated list of User IDs to never receive reply pings from",
+        description: "قائمة معرفات المستخدمين (مفصولة بفواصل) الذين لا تريد استقبال ping ردودهم أبداً",
         default: "",
     }
 });
 
 export default definePlugin({
     name: "ReplyPingControl",
-    description: "Control whether to always or never get pinged on message replies, with whitelist and blacklist features",
+    description: "يتحكم في الـ ping عند الرد على الرسائل مع دعم القوائم البيضاء والسوداء",
     tags: ["Chat", "Notifications"],
     authors: [Devs.ant0n, EquicordDevs.MrDiamond, EquicordDevs.keircn],
     settings,

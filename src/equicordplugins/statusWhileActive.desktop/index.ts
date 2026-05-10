@@ -18,7 +18,7 @@ const StatusSettings = getUserSettingLazy<string>("status", "status")!;
 const settings = definePluginSettings({
     statusToSet: {
         type: OptionType.SELECT,
-        description: "Status to set while in a voice channel.",
+        description: "الحالة التي تُعيّن عند الانضمام إلى قناة صوتية.",
         options: [
             {
                 label: "Online",
@@ -55,7 +55,7 @@ function setStatus(preq, status) {
 
 export default definePlugin({
     name: "StatusWhileActive",
-    description: "Automatically updates your online status when in a voice channel.",
+    description: "يحدّث حالتك تلقائياً عند الانضمام إلى قناة صوتية.",
     tags: ["Activity", "Customisation", "Voice"],
     authors: [EquicordDevs.smuki],
     settings,

@@ -14,7 +14,7 @@ import { clearZipPreviewCache, getAttachmentFileName, isZipFile, ZipPreviewAttac
 
 export default definePlugin({
     name: "ZipPreview",
-    description: "Previews ZIP contents inside file attachments.",
+    description: "يعرض محتويات ملفات ZIP مباشرةً داخل مرفقات الرسائل",
     tags: ["Chat", "Utility"],
     authors: [EquicordDevs.justjxke],
     managedStyle,

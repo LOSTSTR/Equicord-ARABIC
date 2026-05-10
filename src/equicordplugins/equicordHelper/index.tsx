@@ -70,66 +70,66 @@ const listener = async (channelId, msg) => {
 const settings = definePluginSettings({
     noMirroredCamera: {
         type: OptionType.BOOLEAN,
-        description: "Prevents the camera from being mirrored on your screen",
+        description: "يمنع عكس صورة الكاميرا على شاشتك",
         restartNeeded: true,
         default: false,
     },
     removeActivitySection: {
         type: OptionType.BOOLEAN,
-        description: "Removes the activity section above member list",
+        description: "إزالة قسم النشاط الظاهر فوق قائمة الأعضاء",
         restartNeeded: true,
         default: false,
     },
     showYourOwnActivityButtons: {
         type: OptionType.BOOLEAN,
-        description: "Discord hides your own activity buttons for some reason",
+        description: "يُظهر أزرار نشاطك الخاصة التي يخفيها Discord بلا سبب",
         restartNeeded: true,
         default: false,
     },
     refreshSlashCommands: {
         type: OptionType.BOOLEAN,
-        description: "Refreshes Slash Commands to show newly added commands without restarting your client.",
+        description: "يحدّث الأوامر الشرطية لإظهار الأوامر الجديدة دون إعادة تشغيل البرنامج.",
         default: false,
     },
     forceRoleIcon: {
         type: OptionType.BOOLEAN,
-        description: "Forces role icons to display next to messages in compact mode",
+        description: "إجبار ظهور أيقونات الرتب بجانب الرسائل في الوضع المضغوط",
         restartNeeded: true,
         default: false
     },
     accountStandingButton: {
         type: OptionType.BOOLEAN,
-        description: "Show an account standing button in the header bar",
+        description: "عرض زر حالة الحساب في شريط الرأس",
         restartNeeded: true,
         default: false,
     },
     restoreFileDownloadButton: {
         type: OptionType.BOOLEAN,
-        description: "Adds back the Download button at the top right corner of files",
+        description: "يعيد زر التنزيل إلى الزاوية العلوية اليمنى للملفات",
         restartNeeded: true,
         default: false
     },
     noBulletPoints: {
         type: OptionType.BOOLEAN,
-        description: "Stops you from typing markdown bullet points (stinky)",
+        description: "يمنع كتابة نقاط القوائم النصية بصيغة Markdown",
         restartNeeded: true,
         default: false
     },
     noModalAnimation: {
         type: OptionType.BOOLEAN,
-        description: "Remove the 300ms long animation when opening or closing modals",
+        description: "إزالة حركة الـ 300ms عند فتح النوافذ المنبثقة أو إغلاقها",
         restartNeeded: true,
         default: false
     },
     disableAdoptTagPrompt: {
         type: OptionType.BOOLEAN,
-        description: "Disable the prompt to adopt tags",
+        description: "تعطيل النافذة المنبثقة لاعتماد العلامات",
         restartNeeded: true,
         default: false,
     },
     jsonGateway: {
         type: OptionType.BOOLEAN,
-        description: "Forces JSON on gateway reconnect",
+        description: "إجبار استخدام JSON عند إعادة الاتصال بالبوابة",
         restartNeeded: true,
         default: false,
     }
@@ -137,7 +137,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "EquicordHelper",
-    description: "Used to provide support, fix discord caused crashes, and other misc features.",
+    description: "يوفر الدعم ويصلح أعطال Discord المختلفة ويضيف ميزات متنوعة.",
     tags: ["Appearance", "Commands", "Utility"],
     dependencies: ["CommandsAPI", "HeaderBarAPI", "MessageAccessoriesAPI"],
     authors: [
@@ -361,7 +361,7 @@ export default definePlugin({
     commands: [
         {
             name: "refresh-commands",
-            description: "Refresh Slash Commands",
+            description: "تحديث أوامر الشرطة المائلة",
             inputType: ApplicationCommandInputType.BUILT_IN,
             predicate: () => settings.store.refreshSlashCommands,
             execute: async (opts, ctx) => {

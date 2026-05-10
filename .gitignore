@@ -39,7 +39,7 @@ lerna-debug.log*
 *.tsbuildinfo
 
 .modules/
-src/userplugins
+# src/userplugins is included intentionally for Equicord-ARABIC
 
 ExtensionCache/
 /settings

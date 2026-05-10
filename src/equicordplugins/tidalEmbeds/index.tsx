@@ -9,7 +9,7 @@ import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "TidalEmbeds",
-    description: "Embeds TIDAL songs to make them playable in Discord.",
+    description: "يدمج أغاني TIDAL لتشغيلها مباشرة داخل Discord.",
     tags: ["Appearance", "Chat", "Media"],
     authors: [EquicordDevs.vmohammad],
     dependencies: ["MessageUpdaterAPI", "MessageAccessoriesAPI"],

@@ -74,7 +74,7 @@ function SpotifyActivityToggleButton({ iconForeground, hideTooltips, nameplate }
 const settings = definePluginSettings({
     location: {
         type: OptionType.SELECT,
-        description: "Where to show the Spotify toggle button.",
+        description: "مكان عرض زر تبديل Spotify.",
         options: [
             { label: "Next to Mute/Deafen", value: "PANEL", default: true },
             { label: "Equicord Toolbox", value: "TOOLBOX" }
@@ -87,7 +87,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "SpotifyActivityToggle",
-    description: "Adds a toggle button for Spotify activity visibility.",
+    description: "يضيف زر تبديل لإظهار أو إخفاء نشاط Spotify.",
     dependencies: ["UserAreaAPI"],
     tags: ["Activity", "Utility"],
     authors: [Devs.thororen],

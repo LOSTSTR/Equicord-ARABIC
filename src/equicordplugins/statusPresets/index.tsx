@@ -114,7 +114,7 @@ const StatusSubMenuComponent = () => {
 const settings = definePluginSettings({
     StatusPresets: {
         type: OptionType.COMPONENT,
-        description: "Status Presets",
+        description: "الإعدادات المسبقة للحالة",
         component: () => <></>,
         default: {}
     }
@@ -122,7 +122,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "StatusPresets",
-    description: "Allows you to remember your statuses and set them later",
+    description: "يتيح حفظ حالاتك وتطبيقها لاحقاً بسهولة",
     tags: ["Activity", "Utility"],
     authors: [EquicordDevs.iamme],
     settings,

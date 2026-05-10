@@ -9,7 +9,7 @@ import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "BypassPinPrompt",
-    description: "Bypass the pin prompt when using the pin functions",
+    description: "يتجاوز تأكيد التثبيت وفك التثبيت عند استخدام وظائف التثبيت",
     tags: ["Shortcuts"],
     authors: [Devs.thororen],
     patches: [

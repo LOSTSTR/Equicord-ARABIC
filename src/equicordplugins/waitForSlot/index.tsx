@@ -21,12 +21,12 @@ const NOTIFICATION_AUDIO_URL = "https://raw.githubusercontent.com/Equicord/Equib
 const settings = definePluginSettings({
     autoJoin: {
         type: OptionType.BOOLEAN,
-        description: "Join the channel immediately instead of showing a notice.",
+        description: "الانضمام للقناة فوراً عند توفر مقعد بدلاً من عرض إشعار",
         default: false,
     },
     notificationSound: {
         type: OptionType.BOOLEAN,
-        description: "Play a sound when a slot becomes available.",
+        description: "تشغيل صوت عند توفر مقعد في القناة الصوتية",
         default: true,
     },
 });
@@ -63,7 +63,7 @@ function promptVoiceChannel(channel: Channel | null | undefined): boolean {
 
 export default definePlugin({
     name: "WaitForSlot",
-    description: "Automatically join a full voice channel when a slot opens.",
+    description: "ينضم تلقائياً لقناة صوتية ممتلئة حين يتوفر مقعد",
     tags: ["Servers", "Utility", "Voice"],
     authors: [EquicordDevs.omaw, Devs.prism],
     settings,

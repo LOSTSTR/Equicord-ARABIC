@@ -13,7 +13,7 @@ import { UserStore } from "@webpack/common";
 const settings = definePluginSettings({
     platform: {
         type: OptionType.SELECT,
-        description: "What platform to show up as on",
+        description: "المنصة التي ستظهر عليها",
         restartNeeded: true,
         options: [
             {
@@ -51,7 +51,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "PlatformSpoofer",
-    description: "Spoof what platform or device you're on",
+    description: "يُزيّف المنصة أو الجهاز الذي تستخدمه",
     tags: ["Utility"],
     authors: [EquicordDevs.Drag, EquicordDevs.neoarz],
     settingsAboutComponent: () => (

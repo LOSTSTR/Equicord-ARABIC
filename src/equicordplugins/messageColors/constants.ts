@@ -22,7 +22,7 @@ export const enum BlockDisplayType {
 export const settings = definePluginSettings({
     renderType: {
         type: OptionType.SELECT,
-        description: "How to render colors",
+        description: "طريقة عرض الألوان",
         options: [
             {
                 label: "Text color",
@@ -41,7 +41,7 @@ export const settings = definePluginSettings({
     },
     enableShortHexCodes: {
         type: OptionType.BOOLEAN,
-        description: "Enable 3 char hex-code like #39f",
+        description: "تفعيل رموز hex المختصرة من 3 أحرف مثل #39f",
         default: true,
         // Regex are created on the start, so without restart nothing would change
         restartNeeded: true
@@ -49,7 +49,7 @@ export const settings = definePluginSettings({
     blockView: {
         type: OptionType.SELECT,
         disabled: () => settings.store.renderType !== RenderType.BLOCK,
-        description: "Where to display colored block",
+        description: "مكان عرض المربع الملوّن",
         options: [
             {
                 label: "Right side",

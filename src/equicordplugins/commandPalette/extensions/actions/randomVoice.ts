@@ -187,7 +187,7 @@ export function createRandomVoiceExtensionCommand(extensionKeybinds: Map<string,
     return {
         id: "extension-random-voice-join",
         label: "Join Random Voice",
-        description: "Joins a random voice channel using RandomVoice filters.",
+        description: "ينضم إلى قناة صوتية عشوائية باستخدام فلاتر RandomVoice.",
         keywords: ["randomvoice", "random voice", "join", "voice", "channel", "plugin", "extension", "auto navigate", "settings"],
         categoryId: DEFAULT_CATEGORY_ID,
         tags: [TAG_PLUGINS, TAG_UTILITY],

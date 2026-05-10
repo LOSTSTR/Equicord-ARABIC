@@ -99,7 +99,7 @@ const settings = definePluginSettings({
     savedPasswords: {
         type: OptionType.STRING,
         default: "password, Password",
-        description: "Saved Passwords (Seperated with a , )"
+        description: "كلمات المرور المحفوظة (مفصولة بفاصلة)"
     }
 });
 
@@ -148,7 +148,7 @@ export async function buildEmbed(message: any, revealed: string): Promise<void> 
 
 export default definePlugin({
     name: "InvisibleChat",
-    description: "Encrypt your Messages in a non-suspicious way!",
+    description: "يشفّر رسائلك بطريقة غير مثيرة للشبهات!",
     tags: ["Chat"],
     authors: [Devs.SammCheese],
     dependencies: ["MessageUpdaterAPI", "ChatInputButtonAPI", "MessagePopoverAPI"],

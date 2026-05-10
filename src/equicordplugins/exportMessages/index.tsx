@@ -22,12 +22,12 @@ import { ContactsList } from "./types";
 const settings = definePluginSettings({
     openFileAfterExport: {
         type: OptionType.BOOLEAN,
-        description: "Open the exported file in the default file handler after export",
+        description: "فتح الملف المُصدَّر بالتطبيق الافتراضي بعد التصدير",
         default: true
     },
     exportContacts: {
         type: OptionType.BOOLEAN,
-        description: "Export a list of friends to your clipboard. Adds a new button to the menu bar for the friends tab.",
+        description: "تصدير قائمة الأصدقاء إلى الحافظة، ويضيف زراً جديداً في شريط القائمة لتبويب الأصدقاء.",
         default: false
     }
 });
@@ -128,7 +128,7 @@ function getUsernames(contacts: ContactsList[], type: number): string[] {
 
 export default definePlugin({
     name: "ExportMessages",
-    description: "Allows you to export any message to a file",
+    description: "يتيح تصدير أي رسالة إلى ملف",
     tags: ["Chat", "Utility"],
     authors: [EquicordDevs.veygax, EquicordDevs.dat_insanity],
     settings,

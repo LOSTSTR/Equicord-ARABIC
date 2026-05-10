@@ -18,7 +18,7 @@ const extraFramerates = [45, 90, 120, 144, 165, 240];
 const settings = definePluginSettings({
     richPresenceTagging: {
         type: OptionType.SELECT,
-        description: "When should clips be tagged with the current Rich Presence?",
+        description: "متى يتم تمييز المقاطع بـ Rich Presence الحالي؟",
         options: [
             { label: "Always", value: "always" },
             { label: "Only when beginning or end of activity name matches", value: "whenMatched", default: true },
@@ -27,31 +27,31 @@ const settings = definePluginSettings({
     },
     enableScreenshotKeybind: {
         type: OptionType.BOOLEAN,
-        description: "Enable the screenshot keybind feature",
+        description: "تفعيل اختصار لقطة الشاشة",
         default: true,
         restartNeeded: true
     },
     enableVoiceOnlyClips: {
         type: OptionType.BOOLEAN,
-        description: "Enable voice-only clips (audio without video)",
+        description: "تفعيل تسجيل مقاطع صوتية فقط دون فيديو",
         default: true,
         restartNeeded: true
     },
     enableSpeakingIndicators: {
         type: OptionType.BOOLEAN,
-        description: "Enable speaking indicators",
+        description: "تفعيل مؤشرات الكلام",
         default: true,
         restartNeeded: true
     },
     enableAdvancedSignals: {
         type: OptionType.BOOLEAN,
-        description: "Enable advanced clip signals (auto-clip triggers)",
+        description: "تفعيل إشارات المقاطع المتقدمة (التسجيل التلقائي)",
         default: true,
         restartNeeded: true
     },
     ignorePlatformRestriction: {
         type: OptionType.BOOLEAN,
-        description: "Allow Platform Restricted Clipping (may cause save errors)",
+        description: "السماح بالتسجيل على المنصات المقيّدة (قد يسبب أخطاء حفظ)",
         default: true,
         restartNeeded: true
     },
@@ -77,7 +77,7 @@ const settings = definePluginSettings({
 migratePluginSettings("ClipsEnhancements", "TimelessClips");
 export default definePlugin({
     name: "ClipsEnhancements",
-    description: "Add more Clip FPS and duration options, custom clip length, RPC tagging and more",
+    description: "يضيف خيارات FPS ومدة تسجيل إضافية للمقاطع، مع دعم ترميز RPC والمزيد",
     tags: ["Activity", "Media", "Utility"],
     authors: [Devs.niko, Devs.Joona, EquicordDevs.keircn],
     settings,

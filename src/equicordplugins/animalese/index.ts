@@ -12,35 +12,35 @@ import { SelectedChannelStore, UserStore } from "@webpack/common";
 const settings = definePluginSettings({
     volume: {
         type: OptionType.SLIDER,
-        description: "Volume of the animalese sound",
+        description: "مستوى صوت الـ Animalese",
         default: 0.5,
         markers: [0, 0.1, 0.25, 0.5, 0.6, 0.75, 1],
     },
     speed: {
         type: OptionType.SLIDER,
-        description: "Speed of the animalese sound",
+        description: "سرعة الـ Animalese",
         default: 1,
         markers: [0.5, 0.75, 1, 1.25, 1.5],
     },
     pitch: {
         type: OptionType.SLIDER,
-        description: "Pitch multiplier",
+        description: "مضاعف طبقة الصوت",
         default: 1,
         markers: [0.75, 0.8, 0.85, 1, 1.15, 1.25, 1.35, 1.5],
     },
     messageLengthLimit: {
         type: OptionType.NUMBER,
-        description: "Maximum length of message to process",
+        description: "الحد الأقصى لطول الرسالة المعالَجة",
         default: 50,
     },
     processOwnMessages: {
         type: OptionType.BOOLEAN,
-        description: "Enable to yap your own messages too",
+        description: "تفعيل الصوت لرسائلك أنت أيضاً",
         default: true,
     },
     soundQuality: {
         type: OptionType.SELECT,
-        description: "Quality of sound to use",
+        description: "جودة الصوت المستخدم",
         options: [
             {
                 label: "High",
@@ -192,7 +192,7 @@ async function playSound(buffer: AudioBuffer, volume: number) {
 
 export default definePlugin({
     name: "Animalese",
-    description: "Plays animal crossing animalese for every message sent (they yap a lot)",
+    description: "يشغّل صوت Animalese من Animal Crossing عند كل رسالة تُرسَل",
     tags: ["Customisation", "Fun"],
     authors: [EquicordDevs.ryanamay, EquicordDevs.Mocha],
     settings,

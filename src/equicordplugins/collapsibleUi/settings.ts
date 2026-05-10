@@ -62,49 +62,49 @@ export const toolbarPanelOrder = ["guildBar", "channelList", "membersList", "cha
 export const settings = definePluginSettings({
     collapsedSize: {
         type: OptionType.SLIDER,
-        description: "Collapsed hover area size in pixels.",
+        description: "حجم منطقة التحريك عند الطي بالبكسل.",
         default: 12,
         markers: collapsedSizeMarkers,
     },
     transitionMs: {
         type: OptionType.SLIDER,
-        description: "Panel transition speed in milliseconds.",
+        description: "سرعة انتقال اللوحات بالميلي ثانية.",
         default: 160,
         markers: transitionMarkers,
     },
     guildBarCollapsed: {
         type: OptionType.BOOLEAN,
-        description: "Persist the guild bar as collapsed.",
+        description: "الإبقاء على شريط السيرفرات مطوياً.",
         default: false,
     },
     channelListCollapsed: {
         type: OptionType.BOOLEAN,
-        description: "Persist the channel list as collapsed.",
+        description: "الإبقاء على قائمة القنوات مطوية.",
         default: false,
     },
     membersListCollapsed: {
         type: OptionType.BOOLEAN,
-        description: "Persist the members list as collapsed.",
+        description: "الإبقاء على قائمة الأعضاء مطوية.",
         default: false,
     },
     chatButtonsCollapsed: {
         type: OptionType.BOOLEAN,
-        description: "Persist the message button row as collapsed.",
+        description: "الإبقاء على صف أزرار الرسائل مطوياً.",
         default: false,
     },
     titleBarCollapsed: {
         type: OptionType.BOOLEAN,
-        description: "Persist the title bar as collapsed.",
+        description: "الإبقاء على شريط العنوان مطوياً.",
         default: false,
     },
     headerBarCollapsed: {
         type: OptionType.BOOLEAN,
-        description: "Persist the header bar as collapsed.",
+        description: "الإبقاء على شريط الرأس مطوياً.",
         default: false,
     },
     userAreaCollapsed: {
         type: OptionType.BOOLEAN,
-        description: "Persist the user area as collapsed.",
+        description: "الإبقاء على منطقة المستخدم مطوية.",
         default: false,
     },
 });

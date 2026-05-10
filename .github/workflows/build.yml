@@ -72,6 +72,14 @@ jobs:
               run: |
                   gh release upload latest --clobber dist/release/*
 
+            # ── Equicord-ARABIC: trigger installer build after ASAR release ──
+            - name: Trigger installer build workflow
+              if: ${{ vars.ACT == 'false' }}
+              run: |
+                  gh workflow run build-installer.yml --ref main
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
             - name: Upload Plugin JSONs to Equibored repo
               if: github.repository == 'Equicord/Equicord' && vars.ACT == 'false'
               run: |

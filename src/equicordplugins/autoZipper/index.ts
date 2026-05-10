@@ -16,7 +16,7 @@ const logger = new Logger("AutoZipper");
 const settings = definePluginSettings({
     extensions: {
         type: OptionType.STRING,
-        description: "Comma-separated list of file extensions to auto-zip (e.g., .psd,.blend,.exe,.dmg)",
+        description: "قائمة امتدادات الملفات للضغط التلقائي مفصولة بفواصل (مثل: .psd,.blend,.exe,.dmg)",
         default: ".psd,.blend,.exe,.dmg,.app,.apk,.iso",
         onChange: () => {
             extensionsToZip.clear();
@@ -208,7 +208,7 @@ function handlePaste(event: ClipboardEvent) {
 
 export default definePlugin({
     name: "AutoZipper",
-    description: "Automatically zips specified file types and folders before uploading to Discord",
+    description: "يضغط تلقائياً أنواع الملفات والمجلدات المحددة قبل رفعها إلى Discord",
     tags: ["Chat", "Organisation"],
     authors: [EquicordDevs.SSnowly],
     settings,

@@ -24,7 +24,7 @@ let intervalId: any;
 migratePluginSetting("GlobalBadges", "showRaincord", "showRa1ncord");
 export default definePlugin({
     name: "GlobalBadges",
-    description: "Adds global badges from other client mods",
+    description: "يضيف شارات عالمية من موديفيكيشنز Discord الأخرى",
     tags: ["Appearance"],
     authors: [Devs.HypedDomi, EquicordDevs.Wolfie, Devs.thororen],
     settings,

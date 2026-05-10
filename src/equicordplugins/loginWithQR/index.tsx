@@ -21,7 +21,7 @@ import openQrModal from "./ui/modals/QrModal";
 const settings = definePluginSettings({
     scanQr: {
         type: OptionType.COMPONENT,
-        description: "Scan a QR code",
+        description: "مسح رمز QR",
         component() {
             if (!plugins.LoginWithQR.started)
                 return (
@@ -41,7 +41,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "LoginWithQR",
-    description: "Allows you to login to another device by scanning a login QR code, just like on mobile!",
+    description: "يتيح تسجيل الدخول على جهاز آخر عبر مسح رمز QR، تماماً كما في تطبيق الجوال!",
     tags: ["Utility"],
     authors: [EquicordDevs.nexpid],
 

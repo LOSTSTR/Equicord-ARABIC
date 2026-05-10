@@ -119,7 +119,7 @@ export async function exportLogs() {
             const handle = await showSaveFilePicker({
                 suggestedName: filename,
                 types: [{
-                    description: "JSON File",
+                    description: "ملف JSON",
                     accept: { "application/json": [".json"] },
                 }],
             });

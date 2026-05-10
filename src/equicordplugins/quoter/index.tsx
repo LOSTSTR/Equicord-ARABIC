@@ -21,7 +21,7 @@ import { createQuoteImage, ensureFontLoaded, generateFileNamePreview, getFileExt
 const settings = definePluginSettings({
     quoteFont: {
         type: OptionType.SELECT,
-        description: "Font for quote text (author/username always use M PLUS Rounded 1c)",
+        description: "خط نص الاقتباس (المؤلف/الاسم يستخدم دائماً M PLUS Rounded 1c)",
         options: [
             { label: "M PLUS Rounded 1c", value: QuoteFont.MPlusRounded, default: true },
             { label: "Open Sans", value: QuoteFont.OpenSans },
@@ -32,24 +32,24 @@ const settings = definePluginSettings({
     },
     watermark: {
         type: OptionType.STRING,
-        description: "Custom watermark text (max 32 characters)",
+        description: "نص العلامة المائية المخصص (بحد أقصى 32 حرف)",
         default: "Made with Equicord"
     },
     grayscale: {
         type: OptionType.BOOLEAN,
-        description: "Enable grayscale by default",
+        description: "تفعيل وضع التدرج الرمادي افتراضياً",
         default: true,
         hidden: true
     },
     showWatermark: {
         type: OptionType.BOOLEAN,
-        description: "Show watermark by default",
+        description: "عرض العلامة المائية افتراضياً",
         default: false,
         hidden: true
     },
     saveAsGif: {
         type: OptionType.BOOLEAN,
-        description: "Save as GIF by default",
+        description: "الحفظ بصيغة GIF افتراضياً",
         default: false,
         hidden: true
     }
@@ -57,7 +57,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "Quoter",
-    description: "Adds the ability to create an inspirational quote image from a message.",
+    description: "يضيف إمكانية إنشاء صورة اقتباس ملهِم من رسالة.",
     tags: ["Chat"],
     authors: [Devs.Samwich, Devs.thororen, EquicordDevs.neoarz, Devs.prism],
     settings,

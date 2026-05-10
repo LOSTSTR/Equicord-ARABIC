@@ -21,40 +21,40 @@ const presendObject: MessageSendListener = (channelId, msg) => {
 const settings = definePluginSettings({
     quickDisable: {
         type: OptionType.BOOLEAN,
-        description: "Quick disable. Turns off message modifying without requiring a client reload.",
+        description: "تعطيل سريع. يوقف تعديل الرسائل دون الحاجة لإعادة تشغيل العميل.",
         default: false,
     },
 
     blockedWords: {
         type: OptionType.STRING,
-        description: "Words that will not be capitalized (comma separated).",
+        description: "كلمات لن يُطبَّق عليها التكبير (مفصولة بفواصل).",
         default: "",
     },
     // fixApostrophes is the only one that defaults to enabled because in the version before this one,
     //   the other features did not exist / had a bug making them not work.
     fixApostrophes: {
         type: OptionType.BOOLEAN,
-        description: "Ensure contractions contain apostrophes.",
+        description: "يضمن احتواء الاختصارات على علامات الاستفهام.",
         default: true,
     },
     expandContractions: {
         type: OptionType.BOOLEAN,
-        description: "Expand contractions.",
+        description: "يوسّع الاختصارات إلى كلمات كاملة.",
         default: false,
     },
     fixCapitalization: {
         type: OptionType.BOOLEAN,
-        description: "Capitalize sentences.",
+        description: "يُكبّر أول حرف في الجمل.",
         default: false,
     },
     fixPunctuation: {
         type: OptionType.BOOLEAN,
-        description: "Punctate sentences.",
+        description: "يضيف علامات ترقيم للجمل.",
         default: false,
     },
     fixPunctuationFrequency: {
         type: OptionType.SLIDER,
-        description: "Percent period frequency (this majorly annoys some people).",
+        description: "نسبة تكرار النقاط (قد يزعج هذا بعض الأشخاص).",
         markers: makeRange(0, 100, 10),
         stickToMarkers: false,
         default: 100,
@@ -63,7 +63,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "PolishWording",
-    description: "Tweaks your messages to make them look nicer and have better grammar. See settings",
+    description: "يُحسّن رسائلك لتبدو أجمل وبقواعد لغوية أفضل. راجع الإعدادات",
     dependencies: ["MessageEventsAPI"],
     tags: ["Chat"],
     authors: [Devs.Samwich, EquicordDevs.WKoA],

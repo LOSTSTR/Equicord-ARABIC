@@ -84,7 +84,7 @@ const ContextMenuPatch: NavContextMenuPatchCallback = (children, { channel }: { 
 const settings = definePluginSettings({
     permanentlyIgnoredUsers: {
         type: OptionType.STRING,
-        description: "User IDs (comma + space) who should be permanetly ignored",
+        description: "معرّفات المستخدمين (مفصولة بفاصلة ومسافة) الذين سيتم تجاهلهم دائماً",
         restartNeeded: true,
         default: "",
     },
@@ -92,7 +92,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "IgnoreCalls",
-    description: "Allows you to ignore calls from specific users or dm groups.",
+    description: "يتيح تجاهل المكالمات الواردة من مستخدمين محددين أو مجموعات الرسائل المباشرة",
     tags: ["Voice"],
     authors: [EquicordDevs.TheArmagan, Devs.thororen],
     settings,

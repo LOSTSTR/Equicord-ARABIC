@@ -143,7 +143,7 @@ const settings = definePluginSettings({
     },
     onClick: {
         type: OptionType.BOOLEAN,
-        description: "Only show trigger content on click instead of hover",
+        description: "إظهار المحتوى المطموس عند النقر بدلاً من التمرير",
         default: false,
     }
 });
@@ -151,7 +151,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "ContentWarning",
     authors: [EquicordDevs.camila314],
-    description: "Allows you to specify certain trigger words that will be blurred by default. Hovering/Clicking on the blurred content will reveal it.",
+    description: "يتيح تحديد كلمات تشغيل تُطمس تلقائياً، ويكشفها عند التمرير أو النقر عليها.",
     tags: ["Appearance", "Utility"],
     settings,
     patches: [

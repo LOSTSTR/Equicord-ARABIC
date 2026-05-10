@@ -135,7 +135,7 @@ function createExtensionDetailCommands(deps: ExtensionsProviderDeps): CommandEnt
             commands.push({
                 id: `extension-detail-${extension.id}-source`,
                 label: "View Source Code",
-                description: "Open extension source code.",
+                description: "فتح الكود المصدري للإضافة.",
                 keywords: ["source", "code", "github", "extension"],
                 categoryId: extension.detailCategoryId,
                 hiddenInSearch: true,

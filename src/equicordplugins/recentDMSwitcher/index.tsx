@@ -27,7 +27,7 @@ const cl = classNameFactory("vc-rdms-");
 const settings = definePluginSettings({
     visualStyle: {
         type: OptionType.SELECT,
-        description: "Visual indicator style while cycling",
+        description: "نمط المؤشر البصري أثناء التنقل",
         options: [
             { label: "Overlay (Alt+Tab style)", value: "overlay", default: true },
             { label: "Toast (status message)", value: "toast" },
@@ -36,7 +36,7 @@ const settings = definePluginSettings({
     },
     overlayMode: {
         type: OptionType.SELECT,
-        description: "Overlay content",
+        description: "محتوى الشريط العلوي",
         options: [
             { label: "Row of recent", value: "row", default: true },
             { label: "Current only", value: "current" }
@@ -44,31 +44,31 @@ const settings = definePluginSettings({
     },
     amountOfUsers: {
         type: OptionType.SLIDER,
-        description: "Number of users to show in overlay",
+        description: "عدد المستخدمين المعروضين في الشريط العلوي",
         markers: makeRange(10, 50, 10),
         stickToMarkers: true,
         default: 20,
     },
     overlayRowLength: {
         type: OptionType.SLIDER,
-        description: "Number of recent DMs to show in row",
+        description: "عدد الرسائل المباشرة الأخيرة المعروضة في الصف",
         markers: [3, 4, 5, 6, 7],
         default: 5
     },
     overlayShowAvatars: {
         type: OptionType.BOOLEAN,
-        description: "Show avatars in overlay",
+        description: "إظهار الصور الرمزية في الشريط العلوي",
         default: true
     },
     toastDurationMs: {
         type: OptionType.SLIDER,
-        description: "Toast hide delay (ms)",
+        description: "مدة إخفاء الإشعار (ms)",
         markers: [300, 500, 600, 800, 1000, 1500, 2000],
         default: 600
     },
     clearRdms: {
         type: OptionType.COMPONENT,
-        description: "Testing utility: Clear RDMS list",
+        description: "أداة اختبار: مسح قائمة RDMS",
         component: () => (
             <Button
                 color={Button.Colors.RED}
@@ -331,7 +331,7 @@ function showCycleToast() {
 
 export default definePlugin({
     name: "RecentDMSwitcher",
-    description: "Ctrl+Tab between most recently used DMs (Ctrl+Shift+Tab reverse)",
+    description: "التنقل بـ Ctrl+Tab بين آخر الرسائل المباشرة المستخدمة (Ctrl+Shift+Tab للعكس)",
     tags: ["Chat", "Utility"],
     authors: [EquicordDevs.mmeta],
     settings,

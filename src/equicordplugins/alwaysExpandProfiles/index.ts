@@ -9,7 +9,7 @@ import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "AlwaysExpandProfiles",
-    description: "Always expands profile popouts to the full modal",
+    description: "يفتح ملفات المستخدمين بشكل موسّع دائماً في النافذة الكاملة",
     tags: ["Appearance", "Utility"],
     authors: [Devs.thororen],
     patches: [

@@ -18,28 +18,28 @@ const settings = definePluginSettings(
     {
         name: {
             type: OptionType.STRING,
-            description: "The signature that will be added to the end of your messages",
+            description: "التوقيع الذي سيُضاف في نهاية رسائلك",
             default: "a chronic discord user"
         },
         textHeader: {
-            description: "What header to preface text with",
+            description: "الرمز الذي يُسبق التوقيع",
             type: OptionType.STRING,
             default: ">",
         },
         showIcon: {
             type: OptionType.BOOLEAN,
             default: true,
-            description: "Show an icon for toggling the plugin in the chat bar",
+            description: "يعرض أيقونة لتفعيل/تعطيل الإضافة في شريط الشات",
             restartNeeded: true,
         },
         contextMenu: {
             type: OptionType.BOOLEAN,
-            description: "Add option to toggle the functionality in the chat input context menu",
+            description: "يضيف خياراً لتبديل التوقيع في القائمة السياقية لمربع الشات",
             default: true
         },
         isEnabled: {
             type: OptionType.BOOLEAN,
-            description: "Toggle functionality",
+            description: "تفعيل/تعطيل الميزة",
             default: true,
         },
     });
@@ -99,7 +99,7 @@ const ChatBarContextCheckbox: NavContextMenuPatchCallback = children => {
 
 export default definePlugin({
     name: "Signature",
-    description: "Automated fingerprint/end text",
+    description: "يضيف توقيعاً تلقائياً في نهاية رسائلك",
     dependencies: ["CommandsAPI", "ChatInputButtonAPI", "MessagePopoverAPI"],
     tags: ["Appearance", "Chat"],
     authors: [Devs.Ven, Devs.Rini, Devs.ImBanana, EquicordDevs.KrystalSkull],
@@ -131,12 +131,12 @@ export default definePlugin({
     commands: [
         {
             name: "signature",
-            description: "Toggle your signature",
+            description: "يبدّل تفعيل/تعطيل توقيعك",
             inputType: ApplicationCommandInputType.BUILT_IN,
             options: [
                 {
                     name: "value",
-                    description: "Toggle your signature (default is toggle)",
+                    description: "يبدّل توقيعك (الافتراضي هو التبديل)",
                     required: false,
                     type: ApplicationCommandOptionType.BOOLEAN,
                 },

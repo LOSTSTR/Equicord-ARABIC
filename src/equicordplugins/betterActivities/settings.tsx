@@ -11,32 +11,32 @@ import { React } from "@webpack/common";
 export const settings = definePluginSettings({
     memberList: {
         type: OptionType.BOOLEAN,
-        description: "Show activity icons in the member list",
+        description: "عرض أيقونات النشاط في قائمة الأعضاء",
         default: true,
         restartNeeded: true,
     },
     iconSize: {
         type: OptionType.SLIDER,
-        description: "Size of the activity icons",
+        description: "حجم أيقونات النشاط",
         markers: [10, 15, 20],
         default: 15,
         stickToMarkers: false,
     },
     specialFirst: {
         type: OptionType.BOOLEAN,
-        description: "Show special activities first (Currently Spotify and Twitch)",
+        description: "عرض الأنشطة المميزة أولاً (حالياً Spotify وTwitch)",
         default: true,
         restartNeeded: false,
     },
     renderGifs: {
         type: OptionType.BOOLEAN,
-        description: "Allow rendering GIFs",
+        description: "السماح بعرض صور GIF المتحركة",
         default: true,
         restartNeeded: false,
     },
     removeGameActivityStatus: {
         type: OptionType.BOOLEAN,
-        description: "Remove game activity icon and status",
+        description: "إزالة أيقونة نشاط الألعاب وحالتها",
         default: false,
         restartNeeded: true,
     },
@@ -55,18 +55,18 @@ export const settings = definePluginSettings({
     },
     userPopout: {
         type: OptionType.BOOLEAN,
-        description: "Show all activities in the profile popout/sidebar",
+        description: "عرض جميع الأنشطة في نافذة الملف الشخصي أو الشريط الجانبي",
         default: true,
         restartNeeded: true,
     },
     hideTooltip: {
         type: OptionType.BOOLEAN,
-        description: "Hides activities in various places",
+        description: "إخفاء الأنشطة في مواضع متعددة",
         default: true,
     },
     allActivitiesStyle: {
         type: OptionType.SELECT,
-        description: "Style for showing all activities",
+        description: "طريقة عرض جميع الأنشطة",
         options: [
             {
                 default: true,

@@ -159,13 +159,13 @@ const VoiceChannelContext: NavContextMenuPatchCallback = (children, { channel }:
 const settings = definePluginSettings({
     waitAfter: {
         type: OptionType.SLIDER,
-        description: "Amount of API actions to perform before waiting (to avoid rate limits)",
+        description: "عدد إجراءات API قبل الانتظار (لتجنب تجاوز حد الطلبات)",
         default: 5,
         markers: makeRange(1, 20),
     },
     waitSeconds: {
         type: OptionType.SLIDER,
-        description: "Time to wait between each action (in seconds)",
+        description: "وقت الانتظار بين كل إجراء (بالثواني)",
         default: 2,
         markers: makeRange(1, 10, .5),
     }
@@ -173,7 +173,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "VoiceChatUtilities",
-    description: "This plugin allows you to perform multiple actions on an entire channel (move, mute, disconnect, etc.) (originally by dutake)",
+    description: "يتيح تنفيذ إجراءات جماعية على قناة صوتية كاملة (نقل، كتم، قطع الاتصال وغيرها)",
     tags: ["Chat", "Servers", "Voice"],
     authors: [Devs.D3SOX, EquicordDevs.nickwoah],
 

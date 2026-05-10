@@ -38,14 +38,14 @@ const messageCtxPatch: NavContextMenuPatchCallback = (children, { message }: { m
 const settings = definePluginSettings({
     hidePopoverButton: {
         type: OptionType.BOOLEAN,
-        description: "Hide the hide button in the message popover.",
+        description: "يخفي زر الإخفاء من قائمة خيارات الرسالة.",
         default: false
     }
 });
 
 export default definePlugin({
     name: "HideMessages",
-    description: "A plugin to temporarily hide messages until you restart.",
+    description: "يخفي الرسائل مؤقتاً حتى تعيد تشغيل Discord",
     dependencies: ["MessagePopoverAPI"],
     tags: ["Chat", "Utility"],
     authors: [EquicordDevs.yash],

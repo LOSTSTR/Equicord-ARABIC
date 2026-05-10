@@ -114,7 +114,7 @@ const MicLoopbackUserAreaButton: UserAreaButtonFactory = props => <MicLoopbackBu
 
 export default definePlugin({
     name: "MicLoopbackTester",
-    description: "Adds mic loopback test icon to the user panel",
+    description: "يضيف أيقونة اختبار صدى الميكروفون إلى لوحة المستخدم",
     tags: ["Utility", "Voice"],
     authors: [EquicordDevs.benjii],
     dependencies: ["UserSettingsAPI", "UserAreaAPI"],

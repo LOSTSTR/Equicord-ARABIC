@@ -9,7 +9,7 @@ import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "HeaderBarAPI",
-    description: "API to add buttons to the header bar and channel toolbar.",
+    description: "واجهة برمجية لإضافة أزرار إلى شريط الرأس وشريط أدوات القناة.",
     authors: [Devs.prism],
 
     patches: [

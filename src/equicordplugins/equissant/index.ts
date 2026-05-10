@@ -25,14 +25,14 @@ function play() {
 const settings = definePluginSettings({
     amount: {
         type: OptionType.NUMBER,
-        description: "amount of clicks to trigger crossant",
+        description: "عدد النقرات اللازمة لتشغيل الصوت",
         default: 10,
     }
 });
 
 export default definePlugin({
     name: "Equissant",
-    description: "Crossant every specified amount of clicks :trolley:",
+    description: "يُشغّل صوت الكرواسون عند الوصول لعدد نقرات محدد",
     tags: ["Fun"],
     authors: [EquicordDevs.SomeAspy, Devs.thororen],
     dependencies: ["AudioPlayerAPI"],

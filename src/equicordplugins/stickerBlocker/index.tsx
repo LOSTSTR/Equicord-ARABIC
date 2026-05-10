@@ -21,25 +21,25 @@ const MessageContentClasses = findCssClassesLazy("messageContent", "messageConte
 const settings = definePluginSettings({
     showGif: {
         type: OptionType.BOOLEAN,
-        description: "Whether to show a snazzy cat gif",
+        description: "يعرض صورة GIF قطة ظريفة",
         default: true,
         restartNeeded: true
     },
     showMessage: {
         type: OptionType.BOOLEAN,
-        description: "Whether to show a message detailing which id was blocked",
+        description: "يعرض رسالة تبيّن معرّف الستيكر المحجوب",
         default: false,
         restartNeeded: true
     },
     showButton: {
         type: OptionType.BOOLEAN,
-        description: "Whether to show a button to unblock the gif",
+        description: "يعرض زراً لإلغاء حجب الستيكر",
         default: true,
         restartNeeded: true
     },
     blockedStickers: {
         type: OptionType.STRING,
-        description: "The list of blocked sticker IDs (don't edit unless you know what you're doing)",
+        description: "قائمة معرّفات الستيكرات المحجوبة (لا تعدّلها إلا إذا كنت تعرف ما تفعله)",
         default: ""
     }
 });
@@ -129,7 +129,7 @@ function isStickerBlocked(name) {
 
 export default definePlugin({
     name: "StickerBlocker",
-    description: "Allows you to block stickers from being displayed.",
+    description: "يتيح حجب ستيكرات محددة من الظهور.",
     tags: ["Chat", "Emotes", "Utility"],
     authors: [Devs.Samwich],
     patches: [

@@ -12,7 +12,7 @@ import { ChannelStore, GuildMemberStore, SelectedChannelStore, SelectedGuildStor
 export default definePlugin({
     name: "AtSomeone",
     authors: [Devs.Joona],
-    description: "Mention someone randomly",
+    description: "يذكر شخصاً عشوائياً في القناة",
     tags: ["Chat", "Fun"],
     patches: [
         {

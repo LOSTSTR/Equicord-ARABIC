@@ -35,7 +35,7 @@ const ONE_HOUR_MS = 60 * 60 * 1000;
 const settings = definePluginSettings({
     hideMuted: {
         type: OptionType.BOOLEAN,
-        description: "Hide message previews and timestamps for muted DMs and group chats.",
+        description: "إخفاء معاينات الرسائل والتواريخ للمحادثات والمجموعات المكتومة",
         default: false
     }
 });
@@ -239,7 +239,7 @@ function shouldShowActivity(lastMessage: Message | undefined, hasActivity: boole
 
 export default definePlugin({
     name: "MessagePeek",
-    description: "Shows the last message preview and timestamp in the Direct Messages list.",
+    description: "يعرض معاينة آخر رسالة وتوقيتها في قائمة الرسائل المباشرة",
     dependencies: ["MemberListDecoratorsAPI"],
     tags: ["Appearance", "Chat"],
     authors: [Devs.prism, EquicordDevs.justjxke],

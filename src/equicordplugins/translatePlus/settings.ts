@@ -10,25 +10,25 @@ import { OptionType } from "@utils/types";
 export const settings = definePluginSettings({
     target: {
         type: OptionType.STRING,
-        description: "Target language",
+        description: "اللغة المستهدفة",
         default: "en",
         restartNeeded: true
     },
     toki: {
         type: OptionType.BOOLEAN,
-        description: "Enable Toki Pona",
+        description: "تفعيل Toki Pona",
         default: true,
         restartNeeded: true
     },
     sitelen: {
         type: OptionType.BOOLEAN,
-        description: "Enable Sitelen Pona",
+        description: "تفعيل Sitelen Pona",
         default: true,
         restartNeeded: true
     },
     shavian: {
         type: OptionType.BOOLEAN,
-        description: "Enable Shavian",
+        description: "تفعيل Shavian",
         default: true,
         restartNeeded: true
     }

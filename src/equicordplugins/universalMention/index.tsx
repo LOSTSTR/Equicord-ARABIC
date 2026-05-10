@@ -14,13 +14,13 @@ import { ChannelStore, UserStore } from "@webpack/common";
 const settings = definePluginSettings({
     globalMention: {
         type: OptionType.BOOLEAN,
-        description: "Mention users from any server, not just the current one",
+        description: "منشن المستخدمين من أي سيرفر وليس السيرفر الحالي فقط",
         default: false,
         restartNeeded: true
     },
     onlyDMUsers: {
         type: OptionType.BOOLEAN,
-        description: "Only show users you've had DMs with",
+        description: "عرض المستخدمين الذين تحدثت معهم في الرسائل الخاصة فقط",
         default: false,
         restartNeeded: true
     }
@@ -38,7 +38,7 @@ function getCachedUsers(): User[] {
 export default definePlugin({
     name: "UniversalMention",
     authors: [EquicordDevs.justjxke],
-    description: "Mention any user, regardless of channel access.",
+    description: "يتيح منشن أي مستخدم بغض النظر عن وصوله للقناة",
     tags: ["Chat", "Servers", "Utility"],
     settings,
     settingsAboutComponent: () => (

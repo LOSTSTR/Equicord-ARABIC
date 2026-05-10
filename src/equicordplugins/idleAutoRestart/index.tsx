@@ -16,12 +16,12 @@ let intervalId: ReturnType<typeof setInterval> | null = null;
 
 const settings = definePluginSettings({
     isEnabled: {
-        description: "Enable automatic restart after idle",
+        description: "تفعيل إعادة التشغيل التلقائية عند الخمول",
         type: OptionType.BOOLEAN,
         default: true,
     },
     idleMinutes: {
-        description: "Minutes of inactivity before restarting (when not in VC)",
+        description: "دقائق الخمول قبل إعادة التشغيل (عند عدم التواجد في قناة صوتية)",
         type: OptionType.SLIDER,
         markers: [5, 10, 15, 30, 60, 120],
         default: 30,
@@ -35,7 +35,7 @@ function onActivity() {
 
 export default definePlugin({
     name: "IdleAutoRestart",
-    description: "Automatically restarts the client after being idle for a configurable amount of time, but avoids restarting while you are in VC.",
+    description: "يعيد تشغيل التطبيق تلقائياً بعد فترة خمول قابلة للضبط، مع تجنب ذلك أثناء تواجدك في قناة صوتية",
     tags: ["Utility"],
     authors: [EquicordDevs.SteelTech],
     settings,

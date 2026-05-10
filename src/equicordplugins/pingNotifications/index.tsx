@@ -25,27 +25,27 @@ const settings = definePluginSettings({
     friends: {
         type: OptionType.BOOLEAN,
         default: false,
-        description: "Notify when friends send messages in servers"
+        description: "يُنبّهك عندما يرسل أصدقاؤك رسائل في السيرفرات"
     },
     mentions: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Notify when someone @mentions you directly"
+        description: "يُنبّهك عندما يذكرك أحدهم بـ @"
     },
     dms: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Notify for direct messages (DMs)"
+        description: "يُنبّهك عند وصول رسائل مباشرة (DMs)"
     },
     showInActive: {
         type: OptionType.BOOLEAN,
         default: false,
-        description: "Show notifications even for currently active channel"
+        description: "يعرض الإشعارات حتى للقناة النشطة حالياً"
     },
     ignoreMuted: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Skip notifications from muted servers, channels, or users"
+        description: "يتجاهل الإشعارات من السيرفرات والقنوات والمستخدمين المكتومين"
     }
 });
 
@@ -91,7 +91,7 @@ function isUserBlocked(userId) {
 
 export default definePlugin({
     name: "PingNotifications",
-    description: "Customizable notifications with improved mention formatting",
+    description: "إشعارات مخصصة مع تنسيق محسّن للإشارات",
     tags: ["Chat", "Friends", "Notifications", "Servers"],
     authors: [EquicordDevs.smuki],
     settings,

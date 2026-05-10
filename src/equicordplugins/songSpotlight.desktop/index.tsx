@@ -19,7 +19,7 @@ import WidgetSongs from "./ui/songs/WidgetSongs";
 
 export default definePlugin({
     name: "SongSpotlight",
-    description: "Show off songs on your profile",
+    description: "يعرض الأغاني التي تستمع إليها على ملفك الشخصي",
     dependencies: ["ProfileCollectionsAPI"],
     tags: ["Appearance", "Media"],
     authors: [EquicordDevs.nexpid],

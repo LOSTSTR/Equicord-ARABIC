@@ -299,17 +299,17 @@ function DoubleCheckmarkIcon(props: IconProps) {
 const settings = definePluginSettings({
     ignoreBots: {
         type: OptionType.BOOLEAN,
-        description: "Ignore messages from bots",
+        description: "تجاهل رسائل البوتات",
         default: true
     },
     amountToKeep: {
         type: OptionType.NUMBER,
-        description: "Amount of messages to keep in the log",
+        description: "عدد الرسائل المحفوظة في السجل",
         default: 50
     },
     keywords: {
         type: OptionType.COMPONENT,
-        description: "Manage keywords",
+        description: "إدارة الكلمات المفتاحية",
         component: () => <KeywordEntries />
     }
 });
@@ -317,7 +317,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "KeywordNotify",
     authors: [EquicordDevs.camila314, EquicordDevs.x3rt],
-    description: "Sends a notification if a given message matches certain keywords or regexes",
+    description: "يُرسل إشعاراً إذا تطابقت رسالة ما مع كلمات مفتاحية أو تعابير نمطية محددة",
     tags: ["Chat", "Notifications"],
     settings,
     patches: [

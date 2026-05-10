@@ -145,7 +145,7 @@ const WrappedClickableRole = ErrorBoundary.wrap(ClickableRole, { noop: true });
 
 export default definePlugin({
     name: "ClickableRoles",
-    description: "Click on roles in user profiles and the member list to see which members have them.",
+    description: "يتيح النقر على الرتب في الملفات الشخصية وقائمة الأعضاء لعرض من يحملها.",
     tags: ["Appearance", "Roles"],
     authors: [Devs.prism],
 

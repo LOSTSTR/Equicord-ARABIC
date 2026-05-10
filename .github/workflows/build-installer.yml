@@ -1,0 +1,134 @@
+name: Build Installer EXE
+
+on:
+    push:
+        branches: [main]
+        paths:
+            - "installer/**"
+            - ".github/workflows/build-installer.yml"
+    release:
+        types: [created]
+    workflow_dispatch:
+
+permissions:
+    contents: write
+
+jobs:
+    build-installer:
+        name: Build EquicordArabicSetup.exe
+        runs-on: windows-latest
+
+        steps:
+            # ── Checkout ─────────────────────────────────────────────────────
+            - name: Checkout repository
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+
+            # ── Inject version from package.json ────────────────────────────
+            - name: Read version
+              id: version
+              shell: bash
+              run: |
+                  VER=$(jq -r .version < package.json)
+                  echo "version=$VER" >> "$GITHUB_OUTPUT"
+                  echo "tag=v$VER"    >> "$GITHUB_OUTPUT"
+
+            # ── Update version in setup.iss ──────────────────────────────────
+            - name: Patch version in setup.iss
+              shell: pwsh
+              run: |
+                  $v = "${{ steps.version.outputs.version }}"
+                  (Get-Content installer\setup.iss) `
+                    -replace '#define AppVersion\s+"[^"]*"', "#define AppVersion `"$v`"" |
+                  Set-Content installer\setup.iss
+
+            # ── Build icon from logo.png ─────────────────────────────────────
+            - name: Convert logo to ICO
+              shell: pwsh
+              run: |
+                  pip install Pillow --quiet
+                  if (Test-Path "installer\logo.png") {
+                      python installer\make_icon.py logo.png
+                  } else {
+                      Write-Warning "logo.png not found — skipping icon conversion; using placeholder"
+                      # Create 1x1 placeholder so Inno Setup doesn't fail
+                      Add-Type -AssemblyName System.Drawing
+                      $bmp = New-Object System.Drawing.Bitmap(256, 256)
+                      $g   = [System.Drawing.Graphics]::FromImage($bmp)
+                      $g.Clear([System.Drawing.Color]::FromArgb(15,15,15))
+                      $g.DrawString("EA", (New-Object System.Drawing.Font("Arial",80,
+                          [System.Drawing.FontStyle]::Bold)),
+                          (New-Object System.Drawing.SolidBrush(
+                              [System.Drawing.Color]::FromArgb(212,175,55))),
+                          20, 80)
+                      $g.Dispose()
+                      $icon = [System.Drawing.Icon]::FromHandle($bmp.GetHicon())
+                      $fs   = [System.IO.File]::Create("installer\icon.ico")
+                      $icon.Save($fs)
+                      $fs.Close()
+                      $bmp.Dispose()
+                  }
+
+            # ── Inno Setup 6 ─────────────────────────────────────────────────
+            - name: Install Inno Setup 6
+              shell: pwsh
+              run: |
+                  $url = "https://jrsoftware.org/download.php/is.exe"
+                  $out = "$env:TEMP\innosetup.exe"
+                  Invoke-WebRequest $url -OutFile $out -UseBasicParsing
+                  Start-Process $out -ArgumentList "/VERYSILENT /SUPPRESSMSGBOXES /NORESTART" -Wait
+                  echo "C:\Program Files (x86)\Inno Setup 6" | `
+                    Out-File -Append -Encoding utf8 $env:GITHUB_PATH
+
+            # ── Compile setup EXE ────────────────────────────────────────────
+            - name: Compile installer
+              shell: cmd
+              run: |
+                  mkdir dist\Installer 2>nul
+                  "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" installer\setup.iss
+
+            # ── Rename output ────────────────────────────────────────────────
+            - name: Rename artifact
+              shell: pwsh
+              run: |
+                  $v   = "${{ steps.version.outputs.version }}"
+                  $src = "dist\Installer\EquicordArabicSetup.exe"
+                  $dst = "dist\Installer\EquicordArabicSetup-v$v.exe"
+                  Move-Item $src $dst
+                  echo "artifact=$dst" >> $env:GITHUB_OUTPUT
+              id: rename
+
+            # ── Upload artifact to workflow run ───────────────────────────────
+            - name: Upload artifact
+              uses: actions/upload-artifact@v4
+              with:
+                  name: EquicordArabicSetup-v${{ steps.version.outputs.version }}
+                  path: dist/Installer/EquicordArabicSetup-*.exe
+                  retention-days: 30
+
+            # ── Attach to GitHub Release (if triggered by release event) ─────
+            - name: Upload to GitHub Release
+              if: github.event_name == 'release'
+              uses: softprops/action-gh-release@v2
+              with:
+                  files: dist/Installer/EquicordArabicSetup-*.exe
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+            # ── Also update the latest release (push to main) ─────────────────
+            - name: Upload to latest release (main push)
+              if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+              shell: bash
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: |
+                  VERSION="${{ steps.version.outputs.version }}"
+                  FILE="dist/Installer/EquicordArabicSetup-v${VERSION}.exe"
+                  # Upload to the latest existing release if present
+                  RELEASE_ID=$(gh release view latest --json id -q .id 2>/dev/null || echo "")
+                  if [ -n "$RELEASE_ID" ]; then
+                    gh release upload latest "$FILE" --clobber
+                  else
+                    echo "No 'latest' release found — skipping upload."
+                  fi

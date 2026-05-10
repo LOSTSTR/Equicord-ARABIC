@@ -14,24 +14,24 @@ let blockedKeywords: Array<RegExp>;
 const settings = definePluginSettings({
     blockedWords: {
         type: OptionType.STRING,
-        description: "Comma-seperated list of words to block",
+        description: "قائمة الكلمات المحجوبة مفصولة بفواصل",
         default: "",
         restartNeeded: true
     },
     useRegex: {
         type: OptionType.BOOLEAN,
-        description: "Use each value as a regular expression when checking message content (advanced)",
+        description: "استخدام كل قيمة كتعبير نمطي عند فحص محتوى الرسائل (متقدم)",
         default: false,
         restartNeeded: true
     },
     caseSensitive: {
         type: OptionType.BOOLEAN,
-        description: "Whether to use a case sensitive search or not",
+        description: "تفعيل التمييز بين الأحرف الكبيرة والصغيرة في البحث",
         default: false,
         restartNeeded: true
     },
     ignoreBlockedMessages: {
-        description: "Completely ignores (recent) new messages bar",
+        description: "تجاهل شريط الرسائل الجديدة الأخيرة كلياً",
         type: OptionType.BOOLEAN,
         default: true,
         restartNeeded: true,
@@ -69,7 +69,7 @@ export function containsBlockedKeywords(message: Message) {
 
 export default definePlugin({
     name: "BlockKeywords",
-    description: "Blocks messages containing specific user-defined keywords, as if the user sending them was blocked.",
+    description: "يحجب الرسائل التي تحتوي كلمات مفتاحية محددة من قِبل المستخدم، كأن مُرسِلها محظور.",
     tags: ["Appearance", "Customisation", "Privacy"],
     authors: [EquicordDevs.catcraft],
     patches: [

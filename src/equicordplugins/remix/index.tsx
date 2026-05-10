@@ -70,7 +70,7 @@ export function sendRemix(blob: Blob) {
 
 export default definePlugin({
     name: "RemixRevived",
-    description: "Revives Remix and breings it to Desktop",
+    description: "يُعيد ميزة Remix ويجلبها لنسخة سطح المكتب",
     tags: ["Customisation", "Fun"],
     authors: [EquicordDevs.MrDiamond, EquicordDevs.meowabyte],
     contextMenus: {

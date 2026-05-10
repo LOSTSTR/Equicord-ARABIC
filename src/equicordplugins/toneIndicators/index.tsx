@@ -16,12 +16,12 @@ import ToneIndicator from "./ToneIndicator";
 const settings = definePluginSettings({
     prefix: {
         type: OptionType.STRING,
-        description: "Prefix character(s) for tone indicators.",
+        description: "الحرف/الأحرف البادئة لمؤشرات النبرة.",
         default: "/",
     },
     customIndicators: {
         type: OptionType.STRING,
-        description: "Custom tone indicators (format: jk=Joking; srs=Serious)",
+        description: "مؤشرات نبرة مخصصة (الصيغة: jk=مازح; srs=جاد)",
         default: "",
     },
 });
@@ -162,7 +162,7 @@ function patchChildrenTree(children: any): any {
 
 export default definePlugin({
     name: "ToneIndicators",
-    description: "Show tooltips for tone indicators like /srs, /gen, etc. in sent messages.",
+    description: "يعرض تلميحات لمؤشرات النبرة مثل /srs و/gen في الرسائل المرسلة.",
     tags: ["Chat", "Utility"],
     authors: [EquicordDevs.justjxke],
     settings,

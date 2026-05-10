@@ -105,7 +105,7 @@ function assignSounds(volume: number, pack: "operagx" | "osu") {
 
 const settings = definePluginSettings({
     volume: {
-        description: "Volume of the keyboard sounds.",
+        description: "مستوى صوت أصوات لوحة المفاتيح",
         type: OptionType.SLIDER,
         markers: [0, 25, 50, 75, 100],
         stickToMarkers: false,
@@ -113,7 +113,7 @@ const settings = definePluginSettings({
         onChange: value => { assignSounds(value, settings.store.soundPack); }
     },
     soundPack: {
-        description: "Sound pack to use.",
+        description: "حزمة الأصوات المستخدمة",
         type: OptionType.SELECT,
         options: [
             { label: "OperaGX", value: "operagx" as "operagx", default: true },
@@ -125,7 +125,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "KeyboardSounds",
-    description: "Adds OperaGX or osu! sound effects when typing on your keyboard.",
+    description: "يضيف مؤثرات صوتية من OperaGX أو osu! عند الكتابة على لوحة المفاتيح",
     tags: ["Fun"],
     authors: [Devs.HypedDomi, EquicordDevs.Etorix],
     dependencies: ["AudioPlayerAPI"],

@@ -13,12 +13,12 @@ import Settings from "./ui/settings";
 export default definePluginSettings({
     collapseSongList: {
         type: OptionType.BOOLEAN,
-        description: "Collapses the song list on user profiles to a button which opens a separate menu",
+        description: "يطوي قائمة الأغاني في ملفات المستخدمين إلى زر يفتح قائمة منفصلة",
         default: false,
     },
     profileSongsLimit: {
         type: OptionType.SLIDER,
-        description: "How many songs are shown when initially clicking on a user",
+        description: "عدد الأغاني المعروضة عند فتح ملف مستخدم لأول مرة",
         default: apiConstants.songLimit,
         markers: makeRange(1, 3),
     },

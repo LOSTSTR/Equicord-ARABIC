@@ -32,55 +32,55 @@ interface StreamQualityOpts {
 const settings = definePluginSettings({
     unlockQualityOptions: {
         type: OptionType.BOOLEAN,
-        description: "Unlock stream quality options regardless of Nitro status",
+        description: "فتح خيارات جودة البث بصرف النظر عن حالة النيترو",
         default: true,
         restartNeeded: true,
     },
     removeResolutionCap: {
         type: OptionType.BOOLEAN,
-        description: "Allow resolutions above 720p at 60fps",
+        description: "السماح بدقة أعلى من 720p عند 60 إطار/ثانية",
         default: true,
         restartNeeded: true,
     },
     forceEncoderSettings: {
         type: OptionType.BOOLEAN,
-        description: "Force encoder to use configured resolution/fps",
+        description: "إجبار المشفّر على استخدام الدقة ومعدل الإطارات المحدّدَين",
         default: true,
         restartNeeded: true,
     },
     preventDownscale: {
         type: OptionType.BOOLEAN,
-        description: "Prevent Discord from downscaling stream resolution",
+        description: "منع Discord من تقليل دقة البث",
         default: true,
         restartNeeded: true,
     },
     keyframeInterval: {
         type: OptionType.NUMBER,
-        description: "Keyframe interval in ms (0 = encoder default, 5000 = every 5s)",
+        description: "الفاصل الزمني بين الإطارات الرئيسية بالمللي ثانية (0 = الافتراضي، 5000 = كل 5 ثوانٍ)",
         default: 5000,
         restartNeeded: true,
     },
     minBitrate: {
         type: OptionType.NUMBER,
-        description: "Minimum encoder bitrate in kbps",
+        description: "الحد الأدنى لمعدل بت المشفّر بـ kbps",
         default: 500,
         restartNeeded: true,
     },
     raiseBitrateCaps: {
         type: OptionType.BOOLEAN,
-        description: "Raise default desktop bitrate caps (600kbps target → 10Mbps, 3.5Mbps max → 40Mbps)",
+        description: "رفع حدود معدل البت الافتراضية (الهدف 600kbps → 10Mbps، الحد 3.5Mbps → 40Mbps)",
         default: true,
         restartNeeded: true,
     },
     preventFramerateReduction: {
         type: OptionType.BOOLEAN,
-        description: "Prevent Discord from reducing stream framerate when not speaking",
+        description: "منع Discord من تقليل معدل إطارات البث عند التوقف عن الكلام",
         default: true,
         restartNeeded: true,
     },
     bitsPerPixelPct: {
         type: OptionType.NUMBER,
-        description: "Bits per pixel percentage for target bitrate (8 = 0.08 bpp, 12 = 0.12bpp)",
+        description: "نسبة البت لكل بكسل لمعدل البت المستهدف (8 = 0.08 bpp، 12 = 0.12 bpp)",
         default: 8,
         restartNeeded: false,
     },
@@ -88,7 +88,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "EquibopStreamFixes",
-    description: "Tries to fix stream quality on Equibop by patching Discord's encoder and quality restrictions.",
+    description: "يحاول إصلاح جودة البث على Equibop بتعديل مقيّدات المشفّر وجودة الصورة.",
     tags: ["Voice"],
     authors: [EquicordDevs.creations],
     settings,

@@ -12,7 +12,7 @@ import { FluxDispatcher } from "@webpack/common";
 const settings = definePluginSettings({
     mutedUserIds: {
         type: OptionType.STRING,
-        description: "Comma-separated Discord user IDs to silence pings and server badges.",
+        description: "معرّفات مستخدمي Discord مفصولة بفواصل لكتم إشعاراتهم وشاراتهم.",
         default: "",
         restartNeeded: false,
     },
@@ -55,7 +55,7 @@ function interceptor(event: any) {
 
 export default definePlugin({
     name: "SilenceUsers",
-    description: "Silences @mention pings and server badge counts from specific users. Regular messages and DMs are untouched.",
+    description: "يكتم إشعارات @mention وعدادات شارات السيرفر من مستخدمين محددين. الرسائل العادية والخاصة لا تتأثر.",
     authors: [EquicordDevs.dka],
     settings,
     start() {

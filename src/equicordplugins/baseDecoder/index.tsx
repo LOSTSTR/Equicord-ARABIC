@@ -95,7 +95,7 @@ function openDecodedBase64Modal(decodedContent) {
 
 const settings = definePluginSettings({
     clickMethod: {
-        description: "Change the button to decode base64 content of any message.",
+        description: "تغيير زر فك تشفير محتوى Base64 في أي رسالة.",
         type: OptionType.SELECT,
         options: [
             { label: "Left Click to decode the base64 content.", value: "Left", default: true },
@@ -106,7 +106,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "DecodeBase64",
-    description: "Decode base64 content of any message and copy the decoded content.",
+    description: "يفك تشفير محتوى Base64 في أي رسالة ونسخ النص المفكوك.",
     dependencies: ["MessagePopoverAPI"],
     tags: ["Appearance", "Customisation", "Chat"],
     authors: [EquicordDevs.ThePirateStoner],

@@ -164,7 +164,7 @@ function TagConfigurationComponent() {
 const settings = definePluginSettings({
     tagConfiguration: {
         type: OptionType.COMPONENT,
-        description: "The tag configuration component",
+        description: "مكوّن إعداد الوسوم",
         component: () => {
             return (
                 <TagConfigurationComponent />
@@ -208,7 +208,7 @@ const userPatch: NavContextMenuPatchCallback = (children, { user }) => {
 
 export default definePlugin({
     name: "FriendTags",
-    description: "Allows you to filter by custom tags in the quick switcher by starting a search with &",
+    description: "يتيح تصفية نتائج المبدّل السريع بوسوم مخصصة عبر البحث بـ &",
     tags: ["Shortcuts"],
     authors: [Devs.Samwich],
     settings,

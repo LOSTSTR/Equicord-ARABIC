@@ -30,7 +30,7 @@ import { conversions, ConverterAccessory, ConvertIcon } from "./ConverterAccesso
 export const settings = definePluginSettings({
     myUnits: {
         type: OptionType.SELECT,
-        description: "the units you use and want things converted to. defaults to imperial",
+        description: "الوحدات التي تستخدمها وتريد التحويل إليها. الافتراضي: النظام الإمبراطوري",
         options: [
             {
                 default: true,
@@ -47,7 +47,7 @@ export const settings = definePluginSettings({
 
 export default definePlugin({
     name: "UnitConverter",
-    description: "Converts metric units to Imperal units and vice versa",
+    description: "يحول الوحدات المترية إلى الإمبراطورية والعكس داخل الرسائل",
     dependencies: ["MessagePopoverAPI"],
     tags: ["Utility"],
     authors: [Devs.sadan],

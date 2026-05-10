@@ -41,43 +41,43 @@ const ranks: rankInfo[] =
     [
         {
             title: "Sprout",
-            description: "Your friendship is just starting",
+            description: "صداقتكما في بدايتها",
             requirement: 0,
             iconSrc: "https://equicord.org/assets/plugins/friendshipRanks/sprout.png"
         },
         {
             title: "Blooming",
-            description: "Your friendship is getting there! (1 Month)",
+            description: "صداقتكما تزداد متانةً! (شهر واحد)",
             requirement: 30,
             iconSrc: "https://equicord.org/assets/plugins/friendshipRanks/blooming.png"
         },
         {
             title: "Burning",
-            description: "Your friendship has reached terminal velocity (3 Months)",
+            description: "صداقتكما بلغت أوجها! (3 أشهر)",
             requirement: 90,
             iconSrc: "https://equicord.org/assets/plugins/friendshipRanks/burning.png"
         },
         {
             title: "Fighter",
-            description: "Your friendship is strong (6 Months)",
+            description: "صداقتكما قوية (6 أشهر)",
             requirement: 182.5,
             iconSrc: "https://equicord.org/assets/plugins/friendshipRanks/fighter.png"
         },
         {
             title: "Star",
-            description: "Your friendship has been going on for a WHILE (1 Year)",
+            description: "صداقتكما مستمرة منذ زمن طويل! (سنة كاملة)",
             requirement: 365,
             iconSrc: "https://equicord.org/assets/plugins/friendshipRanks/star.png"
         },
         {
             title: "Royal",
-            description: "Your friendship has gone through thick and thin- a whole 2 years!",
+            description: "صداقتكما اجتازت الصعاب معاً - سنتان كاملتان!",
             requirement: 730,
             iconSrc: "https://equicord.org/assets/plugins/friendshipRanks/royal.png"
         },
         {
             title: "Besties",
-            description: "How do you even manage this??? (5 Years)",
+            description: "كيف تمكّنتما من هذا؟! (5 سنوات)",
             requirement: 1826.25,
             iconSrc: "https://equicord.org/assets/plugins/friendshipRanks/besties.png"
         }
@@ -141,7 +141,7 @@ function getBadgesToApply() {
 
 export default definePlugin({
     name: "FriendshipRanks",
-    description: "Adds badges showcasing how long you have been friends with a user for",
+    description: "يضيف شارات تُظهر مدة صداقتك مع كل مستخدم",
     tags: ["Friends"],
     authors: [Devs.Samwich],
     start() {

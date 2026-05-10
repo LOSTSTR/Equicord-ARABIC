@@ -34,12 +34,12 @@ const settings = definePluginSettings({
     onlyWhenInVoice: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Only follow the user when you are in a voice channel"
+        description: "يتابع المستخدم فقط عندما تكون في قناة صوتية"
     },
     leaveWhenUserLeaves: {
         type: OptionType.BOOLEAN,
         default: false,
-        description: "Leave the voice channel when the user leaves. (That can cause you to sometimes enter infinite leave/join loop)"
+        description: "يغادر القناة الصوتية عند مغادرة المستخدم. (قد يسبب أحياناً حلقة لا نهائية من المغادرة والانضمام)"
     }
 });
 
@@ -73,7 +73,7 @@ const UserContextMenuPatch: NavContextMenuPatchCallback = (children, { channel, 
 
 export default definePlugin({
     name: "FollowVoiceUser",
-    description: "Follow a friend in voice chat.",
+    description: "يتابع صديقاً إلى القنوات الصوتية تلقائياً.",
     tags: ["Voice"],
     authors: [EquicordDevs.TheArmagan],
     settings,

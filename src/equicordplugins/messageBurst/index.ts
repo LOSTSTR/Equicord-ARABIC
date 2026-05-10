@@ -48,24 +48,24 @@ function shouldEdit(channel: Channel, message: Message, timePeriod: number, shou
 const settings = definePluginSettings({
     timePeriod: {
         type: OptionType.NUMBER,
-        description: "The duration of bursts (in seconds).",
+        description: "مدة الدمج (بالثواني)",
         default: 3
     },
     shouldMergeWithAttachment: {
         type: OptionType.BOOLEAN,
-        description: "Should the message be merged if the last message has an attachment?",
+        description: "هل يتم الدمج إذا كانت الرسالة الأخيرة تحتوي على مرفق؟",
         default: false
     },
     useSpace: {
         type: OptionType.BOOLEAN,
-        description: "Whether to add a space between messages when merging instead of new lines.",
+        description: "إضافة مسافة بين الرسائل عند الدمج بدلاً من سطر جديد",
         default: false
     }
 });
 
 export default definePlugin({
     name: "MessageBurst",
-    description: "Merges messages sent within a time period with your previous sent message if no one else sends a message before you.",
+    description: "يدمج الرسائل المرسلة خلال فترة زمنية مع رسالتك السابقة إذا لم يرسل أحد قبلك",
     dependencies: ["MessagePopoverAPI"],
     tags: ["Chat"],
     authors: [EquicordDevs.port22exposed],

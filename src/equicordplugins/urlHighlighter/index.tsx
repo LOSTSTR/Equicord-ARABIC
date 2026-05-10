@@ -85,18 +85,18 @@ const PatternsComponent = ErrorBoundary.wrap(() => {
 const settings = definePluginSettings({
     patterns: {
         type: OptionType.COMPONENT,
-        description: "URL patterns to highlight using glob patterns.",
+        description: "أنماط URL لتمييزها باستخدام نمط glob",
         default: [] as PatternEntry[],
         component: PatternsComponent
     },
     boldUrls: {
         type: OptionType.BOOLEAN,
-        description: "Make highlighted URLs bold.",
+        description: "جعل الروابط المميزة بخط عريض",
         default: false
     },
     highlightEmbeds: {
         type: OptionType.BOOLEAN,
-        description: "Also highlight URLs in embed content.",
+        description: "تمييز الروابط أيضاً داخل محتوى الـ embed",
         default: false
     }
 });
@@ -120,7 +120,7 @@ function getMatchingPattern(url: string): PatternEntry | null {
 
 export default definePlugin({
     name: "UrlHighlighter",
-    description: "Highlights URLs in messages that match your patterns.",
+    description: "يميّز الروابط في الرسائل التي تطابق الأنماط المحددة",
     tags: ["Appearance", "Customisation"],
     authors: [Devs.prism],
     settings,

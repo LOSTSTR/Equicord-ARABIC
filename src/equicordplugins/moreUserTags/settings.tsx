@@ -95,28 +95,28 @@ function SettingsComponent() {
 
 export const settings = definePluginSettings({
     dontShowForBots: {
-        description: "Don't show extra tags for bots (excluding webhooks)",
+        description: "عدم إظهار شارات إضافية للبوتات (باستثناء الـ webhooks)",
         type: OptionType.BOOLEAN,
         default: false
     },
     dontShowBotTag: {
-        description: "Only show extra tags for bots / Hide [APP] text",
+        description: "إظهار شارات إضافية للبوتات فقط / إخفاء نص [APP]",
         type: OptionType.BOOLEAN,
         default: false,
         restartNeeded: true
     },
     showWebhookTagFully: {
-        description: "Show Webhook tag in followed channels like announcements",
+        description: "إظهار شارة Webhook في القنوات المتابعة مثل قنوات الإعلانات",
         type: OptionType.BOOLEAN,
         default: false
     },
     tagSettings: {
         type: OptionType.COMPONENT,
         component: SettingsComponent,
-        description: "fill me"
+        description: "إعدادات الوسوم"
     },
     noAppsAllowed: {
-        description: "Replaces app for bot",
+        description: "يستبدل كلمة app بـ bot",
         type: OptionType.BOOLEAN,
         default: false,
         restartNeeded: true

@@ -61,30 +61,30 @@ export const settings = definePluginSettings({
     saveMessages: {
         default: true,
         type: OptionType.BOOLEAN,
-        description: "Whether to save the deleted and edited messages.",
+        description: "حفظ الرسائل المحذوفة والمعدّلة",
     },
 
     saveImages: {
         type: OptionType.BOOLEAN,
-        description: "Save deleted attachments.",
+        description: "حفظ المرفقات المحذوفة",
         default: false
     },
 
     sortNewest: {
         default: true,
         type: OptionType.BOOLEAN,
-        description: "Sort logs by newest.",
+        description: "ترتيب السجلات من الأحدث إلى الأقدم",
     },
 
     cacheMessagesFromServers: {
         default: false,
         type: OptionType.BOOLEAN,
-        description: "Usually message logger only logs from whitelisted ids and dms, enabling this would mean it would log messages from all servers as well. Note that this may cause the cache to exceed its limit, resulting in some messages being missed. If you are in a lot of servers, this may significantly increase the chances of messages being logged, which can result in a large message record and the inclusion of irrelevant messages.",
+        description: "عادةً يسجّل المكوّن الرسائل من المعرّفات المدرجة في القائمة البيضاء والرسائل المباشرة فقط، وتفعيل هذا سيجعله يسجّل من جميع السيرفرات. قد يتسبب ذلك في تجاوز حد الذاكرة المؤقتة مما يؤدي لفقدان بعض الرسائل.",
     },
 
     ignoreBots: {
         type: OptionType.BOOLEAN,
-        description: "Whether to ignore messages by bots",
+        description: "تجاهل رسائل البوتات",
         default: false,
         onChange() {
             // we will be handling the ignoreBots now (enabled or not) so the original messageLogger shouldnt
@@ -94,13 +94,13 @@ export const settings = definePluginSettings({
 
     ignoreWebhooks: {
         type: OptionType.BOOLEAN,
-        description: "Whether to ignore messages by webhooks",
+        description: "تجاهل رسائل الـ webhooks",
         default: false,
     },
 
     ignoreSelf: {
         type: OptionType.BOOLEAN,
-        description: "Whether to ignore messages by yourself",
+        description: "تجاهل رسائلك الخاصة",
         default: false,
         onChange() {
             Settings.plugins.MessageLogger.ignoreSelf = false;
@@ -110,86 +110,86 @@ export const settings = definePluginSettings({
     ignoreMutedGuilds: {
         default: false,
         type: OptionType.BOOLEAN,
-        description: "Messages in muted guilds will not be logged. Whitelisted users/channels in muted guilds will still be logged."
+        description: "لن يتم تسجيل الرسائل في السيرفرات المكتومة. المستخدمون/القنوات المُدرجون في القائمة البيضاء سيتم تسجيلهم على أي حال."
     },
 
     ignoreMutedCategories: {
         default: false,
         type: OptionType.BOOLEAN,
-        description: "Messages in channels belonging to muted categories will not be logged. Whitelisted users/channels in muted guilds will still be logged."
+        description: "لن يتم تسجيل الرسائل في القنوات التابعة للفئات المكتومة. المستخدمون/القنوات المُدرجون في القائمة البيضاء سيتم تسجيلهم على أي حال."
     },
 
     ignoreMutedChannels: {
         default: false,
         type: OptionType.BOOLEAN,
-        description: "Messages in muted channels will not be logged. Whitelisted users/channels in muted guilds will still be logged."
+        description: "لن يتم تسجيل الرسائل في القنوات المكتومة. المستخدمون/القنوات المُدرجون في القائمة البيضاء سيتم تسجيلهم على أي حال."
     },
 
     alwaysLogDirectMessages: {
         default: true,
         type: OptionType.BOOLEAN,
-        description: "Always log DMs",
+        description: "تسجيل الرسائل المباشرة دائماً",
     },
 
     alwaysLogCurrentChannel: {
         default: true,
         type: OptionType.BOOLEAN,
-        description: "Always log current selected channel. Blacklisted channels/users will still be ignored.",
+        description: "تسجيل القناة المحددة حالياً دائماً. القنوات/المستخدمون في القائمة السوداء سيتم تجاهلهم على أي حال.",
     },
 
     permanentlyRemoveLogByDefault: {
         default: false,
         type: OptionType.BOOLEAN,
-        description: "Vencord's base MessageLogger remove log button wiil delete logs permanently",
+        description: "زر حذف السجل في MessageLogger الأساسي سيحذف السجلات بشكل دائم",
     },
 
     hideMessageFromMessageLoggers: {
         default: false,
         type: OptionType.BOOLEAN,
-        description: "When enabled, a context menu button will be added to messages to allow you to delete messages without them being logged by other loggers. Might not be safe, use at your own risk."
+        description: "عند التفعيل، يضاف زر في قائمة السياق يسمح بحذف رسائل دون تسجيلها من قِبل مسجّلات أخرى. استخدم على مسؤوليتك الخاصة."
     },
 
     ShowLogsButton: {
         default: true,
         type: OptionType.BOOLEAN,
-        description: "Toggle to whenever show the toolbox or not",
+        description: "إظهار أو إخفاء زر لوحة السجلات",
         restartNeeded: true,
     },
 
     ShowWhereMessageIsFrom: {
         default: false,
         type: OptionType.BOOLEAN,
-        description: "Show message channel/author name and server name",
+        description: "إظهار اسم القناة/المؤلف واسم السيرفر",
     },
 
     messagesToDisplayAtOnceInLogs: {
         default: 100,
         type: OptionType.NUMBER,
-        description: "Number of messages to display at once in logs & number of messages to load when loading more messages in logs.",
+        description: "عدد الرسائل المعروضة دفعةً واحدة في السجلات وعدد الرسائل المحمّلة عند تحميل المزيد",
     },
 
     hideMessageFromMessageLoggersDeletedMessage: {
         default: "redacted eh",
         type: OptionType.STRING,
-        description: "The message content to replace the message with when using the hide message from message loggers feature.",
+        description: "نص الرسالة الذي يحل محل المحتوى الأصلي عند استخدام ميزة إخفاء الرسالة من المسجّلات",
     },
 
     messageLimit: {
         default: 200,
         type: OptionType.NUMBER,
-        description: "Maximum number of messages to save. Older messages are deleted when the limit is reached. 0 means there is no limit"
+        description: "الحد الأقصى لعدد الرسائل المحفوظة. يتم حذف الأقدم عند بلوغ الحد. 0 يعني لا حد"
     },
 
     attachmentSizeLimitInMegabytes: {
         default: 12,
         type: OptionType.NUMBER,
-        description: "Maximum size of an attachment in megabytes to save. Attachments larger than this size will not be saved."
+        description: "الحد الأقصى لحجم المرفق بالميغابايت. المرفقات الأكبر من هذا الحجم لن تُحفظ.",
     },
 
     attachmentFileExtensions: {
         default: "png,jpg,jpeg,gif,webp,mp4,webm,mp3,ogg,wav",
         type: OptionType.STRING,
-        description: "Comma separated list of file extensions to save. Attachments with file extensions not in this list will not be saved. Leave empty to save all attachments.",
+        description: "قائمة امتدادات الملفات للحفظ مفصولة بفاصلة. المرفقات بامتدادات غير موجودة في القائمة لن تُحفظ. اتركها فارغة لحفظ جميع المرفقات.",
         onChange: (value: string) => {
             if (!value) return;
             const exts = value.split(",").map(ext => ext.trim().toLowerCase());
@@ -207,67 +207,67 @@ export const settings = definePluginSettings({
     cacheLimit: {
         default: 1000,
         type: OptionType.NUMBER,
-        description: "Maximum number of messages to store in the cache. Older messages are deleted when the limit is reached. This helps reduce memory usage and improve performance. 0 means there is no limit",
+        description: "الحد الأقصى لعدد الرسائل في الذاكرة المؤقتة. يتم حذف الأقدم عند بلوغ الحد. يساعد في تقليل استهلاك الذاكرة. 0 يعني لا حد",
     },
 
     timeBasedCleanupMinutes: {
         default: 0,
         type: OptionType.NUMBER,
-        description: "Automatically remove messages from servers that are older than this many minutes. Set to 0 to disable time-based cleanup.",
+        description: "إزالة تلقائية للرسائل من السيرفرات الأقدم من هذا العدد من الدقائق. اضبط 0 لتعطيل التنظيف بالوقت.",
     },
 
     preserveCurrentChannel: {
         default: true,
         type: OptionType.BOOLEAN,
-        description: "When enabled, messages in your currently selected channel are not affected by time-based cleanup.",
+        description: "عند التفعيل، لن تتأثر رسائل القناة المحددة حالياً بالتنظيف الزمني التلقائي",
     },
 
     whitelistedIds: {
         default: "",
         type: OptionType.STRING,
-        description: "Whitelisted server, channel, or user IDs."
+        description: "معرّفات السيرفرات والقنوات والمستخدمين في القائمة البيضاء"
     },
 
     blacklistedIds: {
         default: "",
         type: OptionType.STRING,
-        description: "Blacklisted server, channel, or user IDs."
+        description: "معرّفات السيرفرات والقنوات والمستخدمين في القائمة السوداء"
     },
 
     imageCacheDir: {
         type: OptionType.COMPONENT,
-        description: "Select saved images directory",
+        description: "اختر مجلد حفظ الصور",
         component: ErrorBoundary.wrap(ImageCacheDir) as any
     },
 
     logsDir: {
         type: OptionType.COMPONENT,
-        description: "Select logs directory",
+        description: "اختر مجلد السجلات",
         component: ErrorBoundary.wrap(LogsDir) as any
     },
 
     importLogs: {
         type: OptionType.COMPONENT,
-        description: "Import Logs From File",
+        description: "استيراد السجلات من ملف",
         component: ImportLogsButton
     },
 
     exportLogs: {
         type: OptionType.COMPONENT,
-        description: "Export Logs From IndexedDB",
+        description: "تصدير السجلات من IndexedDB",
         component: ExportLogsButton
     },
 
     clearLogsOnRestart: {
         type: OptionType.BOOLEAN,
-        description: "Clear logs when Discord restarts.",
+        description: "مسح السجلات عند إعادة تشغيل Discord",
         default: false,
         restartNeeded: true,
     },
 
     openLogs: {
         type: OptionType.COMPONENT,
-        description: "Open Logs",
+        description: "فتح السجلات",
         component: () =>
             <Button onClick={() => openLogModal()}>
                 Open Logs
@@ -275,7 +275,7 @@ export const settings = definePluginSettings({
     },
     openImageCacheFolder: {
         type: OptionType.COMPONENT,
-        description: "Opens the image cache directory",
+        description: "فتح مجلد ذاكرة الصور المؤقتة",
         component: () =>
             <Button
                 disabled={
@@ -291,7 +291,7 @@ export const settings = definePluginSettings({
 
     clearLogs: {
         type: OptionType.COMPONENT,
-        description: "Clear Logs",
+        description: "مسح السجلات",
         component: () =>
             <Button
                 variant="dangerPrimary"

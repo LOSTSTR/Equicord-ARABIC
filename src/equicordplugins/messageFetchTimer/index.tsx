@@ -26,17 +26,17 @@ const channelTimings: Map<string, { time: number; timestamp: Date; }> = new Map(
 const settings = definePluginSettings({
     showIcon: {
         type: OptionType.BOOLEAN,
-        description: "Show fetch time icon in message bar",
+        description: "إظهار أيقونة وقت التحميل في شريط الرسائل",
         default: true,
     },
     showMs: {
         type: OptionType.BOOLEAN,
-        description: "Show milliseconds in timing",
+        description: "إظهار الوقت بالميلي ثانية",
         default: true,
     },
     iconColor: {
         type: OptionType.STRING,
-        description: "Icon color (CSS color value)",
+        description: "لون الأيقونة (قيمة CSS للون)",
         default: "#00d166",
     }
 });
@@ -146,7 +146,7 @@ function handleMessageLoad(data: any) {
 
 export default definePlugin({
     name: "MessageFetchTimer",
-    description: "Shows how long it took to fetch messages for the current channel",
+    description: "يعرض المدة التي استغرقها تحميل الرسائل في القناة الحالية",
     dependencies: ["ChatInputButtonAPI"],
     tags: ["Chat", "Utility"],
     authors: [EquicordDevs.GroupXyz],

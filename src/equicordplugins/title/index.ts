@@ -16,7 +16,7 @@ export const settings = definePluginSettings({
     title: {
         type: OptionType.STRING,
         default: "Equicord",
-        description: "Window title prefix",
+        description: "بادئة عنوان النافذة",
         onChange: setTitle,
     },
 });
@@ -28,7 +28,7 @@ function setTitle(v: string) {
 
 export default definePlugin({
     name: "Title",
-    description: "Replaces the window title prefix",
+    description: "يستبدل بادئة عنوان النافذة",
     tags: ["Customisation"],
     authors: [Devs.Kyuuhachi],
     settings,

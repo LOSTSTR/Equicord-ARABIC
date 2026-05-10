@@ -9,7 +9,7 @@ import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "ProfileSectionsAPI",
-    description: "API to add sections near the 'Member Since' area of user profile panels.",
+    description: "واجهة برمجية لإضافة أقسام بالقرب من منطقة 'عضو منذ' في لوحات ملف المستخدم.",
     authors: [Devs.thororen],
     patches: [
         // DM User Sidebar

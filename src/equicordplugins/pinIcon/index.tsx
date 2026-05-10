@@ -24,7 +24,7 @@ import { findComponentByCodeLazy } from "@webpack";
 const PinIcon = findComponentByCodeLazy("1-.06-.63L6.16");
 export default definePlugin({
     name: "PinIcon",
-    description: "Adds a pin icon to pinned messages",
+    description: "يضيف أيقونة دبوس على الرسائل المثبّتة",
     tags: ["Appearance", "Chat"],
     authors: [EquicordDevs.iamme],
     patches: [

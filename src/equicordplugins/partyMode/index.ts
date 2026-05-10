@@ -29,7 +29,7 @@ const enum Intensity {
 
 const settings = definePluginSettings({
     superIntensePartyMode: {
-        description: "Party intensity",
+        description: "مستوى الحفلة",
         type: OptionType.SELECT,
         options: [
             { label: "Normal", value: Intensity.Normal, default: true },
@@ -43,7 +43,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "PartyMode",
-    description: "Allows you to use party mode cause the party never ends ✨",
+    description: "يتيح لك تفعيل وضع الحفلة لأن الحفلة لا تنتهي أبداً ✨",
     tags: ["Fun"],
     authors: [Devs.UwUDev],
     reporterTestable: ReporterTestable.None,

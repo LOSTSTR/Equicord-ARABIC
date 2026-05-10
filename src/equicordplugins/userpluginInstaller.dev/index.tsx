@@ -29,16 +29,16 @@ const AppsIcon = findComponentByCodeLazy("2.95H20a2 2 0");
 export const settings = definePluginSettings({
     allowlistedChannels: {
         type: OptionType.STRING,
-        description: "Comma separated list of channels where the Install Plugin button should be displayed. It is always displayed in the Vencord Userplugin channels"
+        description: "قائمة معرّفات القنوات مفصولة بفواصل لعرض زر تثبيت الإضافة فيها"
     },
     notifyIfUpdate: {
         type: OptionType.BOOLEAN,
-        description: "Show a Vencord notification if UserPlugins need to be updated",
+        description: "عرض إشعار إذا كانت الإضافات المستخدمة تحتاج إلى تحديث",
         default: true
     },
     neverNotifyForPlugins: {
         type: OptionType.STRING,
-        description: "Never show update notifications for these plugins (you can still update them from the UserPlugins tab)",
+        description: "لا تعرض إشعارات التحديث لهذه الإضافات (يمكنك تحديثها من تبويب الإضافات)",
         default: ""
     },
     setGitPath: {
@@ -53,7 +53,7 @@ export const settings = definePluginSettings({
 
 export default definePlugin({
     name: "UserpluginInstaller",
-    description: "Install userplugins with a simple button click",
+    description: "تثبيت إضافات المستخدمين بنقرة زر واحدة",
     settingsAboutComponent: () => (
         <Notice.Warning>
             Equicord does not moderate userplugins and takes no responsibility for anything that may result from installing them.

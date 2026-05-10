@@ -16,12 +16,12 @@ let hidechatbuttonsopen: boolean | undefined;
 const settings = definePluginSettings({
     color: {
         type: OptionType.BOOLEAN,
-        description: "Color it red on open", // something extra
+        description: "يلوّن الزر باللون الأحمر عند فتح القائمة", // something extra
         default: false,
     },
     open: {
         type: OptionType.BOOLEAN,
-        description: "opened by default",
+        description: "يكون مفتوحاً بشكل افتراضي",
         default: false,
         onChange: (store: { open: boolean; }) => {
             hidechatbuttonsopen = store.open;
@@ -82,7 +82,7 @@ migratePluginSetting("HideChatButtons", "open", "Open");
 migratePluginSetting("HideChatButtons", "color", "Color");
 export default definePlugin({
     name: "HideChatButtons",
-    description: "Able to hide the chat buttons",
+    description: "يتيح إخفاء أزرار شريط الدردشة",
     tags: ["Chat", "Utility"],
     authors: [EquicordDevs.iamme],
     dependencies: ["ChatInputButtonAPI"],

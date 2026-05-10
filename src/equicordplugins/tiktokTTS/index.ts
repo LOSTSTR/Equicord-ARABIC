@@ -22,7 +22,7 @@ const encoder = new TextEncoder();
 const settings = definePluginSettings({
     volume: {
         type: OptionType.SLIDER,
-        description: "Playback volume",
+        description: "مستوى صوت التشغيل",
         default: 50,
         markers: [0, 25, 50, 75, 100],
         stickToMarkers: false,
@@ -210,7 +210,7 @@ async function processQueue() {
 
 export default definePlugin({
     name: "TiktokTTS",
-    description: "Adds a context menu option to read out chat messages with the good ol' Tiktok TTS voice :sob:",
+    description: "يضيف خياراً في القائمة السياقية لقراءة رسائل الشات بصوت TTS المشهور من TikTok.",
     tags: ["Accessibility", "Chat", "Voice"],
     authors: [EquicordDevs.VillainsRule, EquicordDevs.examplegit],
     dependencies: ["AudioPlayerAPI"],

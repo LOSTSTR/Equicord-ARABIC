@@ -15,7 +15,7 @@ import ExampleWiggle from "./ui/components/ExampleWiggle";
 const settings = definePluginSettings({
     intensity: {
         type: OptionType.SLIDER,
-        description: "Animation intensity in px",
+        description: "شدة الحركة بالبكسل",
         markers: makeRange(1, 10, 1),
         default: 4,
         stickToMarkers: true,
@@ -111,7 +111,7 @@ const updateStyles = () => {
 
 export default definePlugin({
     name: "WigglyText",
-    description: "Adds a new markdown formatting that makes text wiggly.",
+    description: "يضيف صيغة markdown جديدة تجعل النص يتحرك بشكل متموّج",
     tags: ["Appearance", "Customisation", "Fun"],
     authors: [EquicordDevs.nexpid],
     settings,

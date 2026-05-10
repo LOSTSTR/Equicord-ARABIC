@@ -87,19 +87,19 @@ export function getCustomColorString(id: string | undefined, withHash?: boolean)
 const settings = definePluginSettings({
     dmList: {
         type: OptionType.BOOLEAN,
-        description: "Users with custom colors defined will have their name in the dm list colored",
+        description: "تلوين اسم المستخدمين ذوي الألوان المخصصة في قائمة الرسائل المباشرة",
         default: true,
     },
     colorInServers: {
         type: OptionType.BOOLEAN,
-        description: "If name colors should be changed within servers",
+        description: "تطبيق ألوان الأسماء داخل السيرفرات أيضاً",
         default: true,
     }
 });
 
 export default definePlugin({
     name: "CustomUserColors",
-    description: "Lets you add a custom color to any user, anywhere! Highly recommend to use with typingTweaks and roleColorEverywhere",
+    description: "يتيح إضافة لون مخصص لأي مستخدم في أي مكان. يُنصح باستخدامه مع typingTweaks و roleColorEverywhere.",
     tags: ["Appearance", "Customisation", "Chat"],
     authors: [EquicordDevs.mochienya],
     contextMenus: {

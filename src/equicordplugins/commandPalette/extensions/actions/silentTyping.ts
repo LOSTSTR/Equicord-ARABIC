@@ -123,7 +123,7 @@ export function createSilentTypingExtensionCommand(extensionKeybinds: Map<string
     return {
         id: "extension-silent-typing-toggle",
         label: "Toggle SilentTyping",
-        description: "Toggles SilentTyping for the current channel.",
+        description: "تفعيل/تعطيل SilentTyping للقناة الحالية.",
         keywords: ["silenttyping", "silent typing", "typing", "plugin", "extension", "toggle", "channel", "global", "settings"],
         categoryId: DEFAULT_CATEGORY_ID,
         tags: [TAG_PLUGINS, TAG_UTILITY],

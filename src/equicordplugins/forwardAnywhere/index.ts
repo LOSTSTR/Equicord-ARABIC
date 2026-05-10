@@ -13,7 +13,7 @@ import { Channel, Message } from "@vencord/discord-types";
 // Taken From Signature :)
 const settings = definePluginSettings({
     forwardPreface: {
-        description: "What should forwarded from be prefaced with",
+        description: "البادئة التي تسبق نص 'محوّل من'",
         type: OptionType.SELECT,
         options: [
             { label: ">", value: ">", default: true },
@@ -24,7 +24,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "ForwardAnywhere",
-    description: "If a forward fails send it as a normal message also allows nsfw forwards",
+    description: "يرسل الرسائل المحوّلة كرسائل عادية عند الفشل، ويدعم تحويل المحتوى الحساس",
     tags: ["Chat", "Utility"],
     authors: [Devs.thororen],
     settings,

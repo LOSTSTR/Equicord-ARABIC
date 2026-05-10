@@ -13,7 +13,7 @@ import style from "./style.css?managed";
 
 export default definePlugin({
     name: "FullVCPFP",
-    description: "Makes avatars take up the entire vc tile",
+    description: "يجعل الصورة الشخصية تملأ بلاطة المستخدم كاملةً في القناة الصوتية",
     tags: ["Appearance", "Voice"],
     authors: [EquicordDevs.mochienya],
     patches: [

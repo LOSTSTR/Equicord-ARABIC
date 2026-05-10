@@ -24,63 +24,63 @@ export const SortingOptions = {
 
 export const settings = definePluginSettings({
     itemPrefix: {
-        description: "The prefix for gif items.",
+        description: "البادئة لعناصر GIF.",
         type: OptionType.STRING,
         default: "gc-item:",
         restartNeeded: true,
     },
     collectionPrefix: {
-        description: "The prefix for collections.",
+        description: "البادئة للمجموعات.",
         type: OptionType.STRING,
         default: "gc:",
         restartNeeded: true,
     },
     onlyShowCollections: {
-        description: "Only show collections in the GIF picker.",
+        description: "يعرض المجموعات فقط في منتقي GIF.",
         type: OptionType.BOOLEAN,
         default: false,
         restartNeeded: true,
     },
     stopWarnings: {
-        description: "Skip deletion confirmation dialogs.",
+        description: "يتخطى نوافذ تأكيد الحذف.",
         type: OptionType.BOOLEAN,
         default: false,
     },
     showCopyImageLink: {
-        description: "Show copy image link option in context menus.",
+        description: "يعرض خيار نسخ رابط الصورة في قوائم السياق.",
         type: OptionType.BOOLEAN,
         default: false,
     },
     preventDuplicates: {
-        description: "Prevent adding the same GIF to a collection multiple times.",
+        description: "يمنع إضافة نفس صورة GIF إلى مجموعة أكثر من مرة.",
         type: OptionType.BOOLEAN,
         default: false,
     },
     defaultEmptyCollectionImage: {
-        description: "The image shown when a collection has no images.",
+        description: "الصورة التي تظهر عندما تكون المجموعة فارغة.",
         type: OptionType.STRING,
         default: "https://c.tenor.com/YEG33HsLEaIAAAAC/parksandrec-oops.gif",
     },
     collectionsSortType: {
-        description: "The type of sorting for collections.",
+        description: "نوع الترتيب للمجموعات.",
         type: OptionType.NUMBER,
         default: SortingOptions.NAME,
         hidden: true,
     },
     collectionsSortOrder: {
-        description: "The order of sorting for collections.",
+        description: "اتجاه الترتيب للمجموعات.",
         type: OptionType.STRING,
         default: "asc",
         hidden: true,
     },
     collectionsSort: {
         type: OptionType.COMPONENT,
-        description: "Decide how to sort collections.",
+        description: "حدد طريقة ترتيب المجموعات.",
         component: SortSettingsComponent,
     },
     importGifs: {
         type: OptionType.COMPONENT,
-        description: "Import collections.",
+        description: "استيراد المجموعات.",
         component: () =>
             <Button onClick={async () =>
                 (await getCollections()).length ? Alerts.show({
@@ -96,7 +96,7 @@ export const settings = definePluginSettings({
     },
     exportGifs: {
         type: OptionType.COMPONENT,
-        description: "Export collections.",
+        description: "تصدير المجموعات.",
         component: () =>
             <Button onClick={downloadCollections}>
                 Export Collections
@@ -104,7 +104,7 @@ export const settings = definePluginSettings({
     },
     resetCollections: {
         type: OptionType.COMPONENT,
-        description: "Reset collections.",
+        description: "إعادة تعيين المجموعات.",
         component: () =>
             <Button onClick={() =>
                 Alerts.show({

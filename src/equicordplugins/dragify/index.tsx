@@ -88,7 +88,7 @@ function inspectDragTarget(event: DragEvent, runtime: Pick<DragifyRuntime, "getD
 const settings = definePluginSettings({
     userOutput: {
         type: OptionType.SELECT,
-        description: "User drop output.",
+        description: "ناتج إفلات المستخدم.",
         options: [
             { label: "Mention user", value: "mention", default: true },
             { label: "User ID", value: "id" },
@@ -96,7 +96,7 @@ const settings = definePluginSettings({
     },
     channelOutput: {
         type: OptionType.SELECT,
-        description: "Channel drop output.",
+        description: "ناتج إفلات القناة.",
         options: [
             { label: "#channel mention", value: "mention", default: true },
             { label: "Channel link", value: "link" },
@@ -104,7 +104,7 @@ const settings = definePluginSettings({
     },
     inviteExpireAfter: {
         type: OptionType.SELECT,
-        description: "Invite expiration.",
+        description: "مدة انتهاء صلاحية الدعوة.",
         options: [
             { label: "30 minutes", value: 1800 },
             { label: "1 hour", value: 3600 },
@@ -117,7 +117,7 @@ const settings = definePluginSettings({
     },
     inviteMaxUses: {
         type: OptionType.SELECT,
-        description: "Invite max uses.",
+        description: "الحد الأقصى لاستخدامات الدعوة.",
         options: [
             { label: "No limit", value: 0, default: true },
             { label: "1 use", value: 1 },
@@ -131,24 +131,24 @@ const settings = definePluginSettings({
     inviteTemporaryMembership: {
         type: OptionType.BOOLEAN,
         default: false,
-        description: "Grant temporary membership.",
+        description: "منح عضوية مؤقتة.",
     },
     reuseExistingInvites: {
         type: OptionType.BOOLEAN,
         default: false,
-        description: "Reuse existing invite instead of creating a new one.",
+        description: "إعادة استخدام دعوة موجودة بدلاً من إنشاء واحدة جديدة.",
     },
     allowChatBodyDrop: {
         type: OptionType.BOOLEAN,
         default: false,
         restartNeeded: true,
-        description: "Allow dropping into the main chat body to insert text.",
+        description: "السماح بإفلات العناصر في منطقة الدردشة الرئيسية لإدراج نص.",
     },
 });
 
 export default definePlugin({
     name: "Dragify",
-    description: "Drop users, channels, or servers into chat to insert mentions or invites.",
+    description: "يتيح سحب المستخدمين والقنوات والسيرفرات إلى الدردشة لإدراج إشارات أو دعوات.",
     tags: ["Chat", "Servers", "Utility", "Voice"],
     authors: [EquicordDevs.justjxke],
     settings,
