@@ -19,6 +19,9 @@ jobs:
         name: Build EquicordArabicSetup.exe
         runs-on: windows-latest
 
+        permissions:
+            contents: write
+
         env:
             PS1_B64: |
                 I1JlcXVpcmVzIC1WZXJzaW9uIDUuMQo8IwouU1lOT1BTSVMKICAgIEVxdWljb3JkLUFSQUJJQyBJ
@@ -619,6 +622,7 @@ jobs:
               uses: softprops/action-gh-release@v2
               with:
                   files: installer/EquicordArabicSetup-*.exe
+                  fail_on_unmatched_files: false
               env:
                   GITHUB_TOKEN: ${{ secrets.ETOKEN }}
 
@@ -628,12 +632,15 @@ jobs:
               env:
                   GITHUB_TOKEN: ${{ secrets.ETOKEN }}
               run: |
-                  V="${{ steps.ver.outputs.version }}"
-                  FILE="installer/EquicordArabicSetup-v${V}.exe"
-                  RELEASE=$(gh release view latest --json tagName -q .tagName 2>/dev/null || echo "")
-                  if [ -n "$RELEASE" ]; then
-                    gh release upload "$RELEASE" "$FILE" --clobber
-                    echo "Uploaded $FILE to release $RELEASE"
-                  else
-                    echo "No latest release found â€” skipping upload"
-                  fi
+                  V=”${{ steps.ver.outputs.version }}”
+                  FILE=”installer/EquicordArabicSetup-v${V}.exe”
+                  # Create the release if it doesn't exist yet (allowUpdates behaviour)
+                  gh release create latest \
+                      --title “Equicord-ARABIC $V” \
+                      --notes “آخر إصدار من Equicord-ARABIC — $V” \
+                      --prerelease 2>/dev/null || \
+                  gh release edit latest \
+                      --title “Equicord-ARABIC $V” \
+                      --notes “آخر إصدار من Equicord-ARABIC — $V” 2>/dev/null || true
+                  gh release upload latest “$FILE” --clobber
+                  echo “Uploaded $FILE to release latest”
