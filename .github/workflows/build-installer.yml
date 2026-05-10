@@ -621,7 +621,7 @@ jobs:
               if: github.event_name == 'release'
               uses: softprops/action-gh-release@v2
               with:
-                  tag_name: latest
+                  tag_name: v1.0.0-stable
                   files: installer/EquicordArabicSetup-*.exe
                   fail_on_unmatched_files: false
                   prerelease: false
@@ -629,7 +629,7 @@ jobs:
               env:
                   GITHUB_TOKEN: ${{ secrets.ETOKEN }}
 
-            - name: Upload to latest release
+            - name: Upload to v1.0.0-stable release
               if: github.event_name == 'push' || github.event_name == 'workflow_call'
               shell: bash
               env:
@@ -637,16 +637,16 @@ jobs:
               run: |
                   V=”${{ steps.ver.outputs.version }}”
                   FILE=”installer/EquicordArabicSetup-v${V}.exe”
-                  gh release create latest \
-                      --tag-name latest \
+                  gh release create v1.0.0-stable \
+                      --tag-name v1.0.0-stable \
                       --title “Equicord-ARABIC $V” \
                       --notes “Official Arabic Release” \
                       --prerelease=false \
                       --draft=false 2>/dev/null || \
-                  gh release edit latest \
+                  gh release edit v1.0.0-stable \
                       --title “Equicord-ARABIC $V” \
                       --notes “Official Arabic Release” \
                       --prerelease=false \
                       --draft=false 2>/dev/null || true
-                  gh release upload latest “$FILE” --clobber
-                  echo “Uploaded $FILE to release latest”
+                  gh release upload v1.0.0-stable “$FILE” --clobber
+                  echo “Uploaded $FILE to release v1.0.0-stable”
