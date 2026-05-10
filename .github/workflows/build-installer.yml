@@ -643,7 +643,6 @@ jobs:
                   else
                     echo "Creating release v1.0.0-stable"
                     gh release create v1.0.0-stable \
-                        --tag-name v1.0.0-stable \
                         --target main \
                         --title "Equicord-ARABIC $V" \
                         --notes "Official Arabic Release"
