@@ -637,17 +637,16 @@ jobs:
               run: |
                   V="${{ steps.ver.outputs.version }}"
                   FILE="installer/EquicordArabicSetup-v${V}.exe"
-                  gh release create v1.0.0-stable \
-                      --tag-name v1.0.0-stable \
-                      --target main \
-                      --title "Equicord-ARABIC $V" \
-                      --notes "Official Arabic Release" \
-                      --prerelease=false \
-                      --draft=false 2>/dev/null || \
-                  gh release edit v1.0.0-stable \
-                      --title "Equicord-ARABIC $V" \
-                      --notes "Official Arabic Release" \
-                      --prerelease=false \
-                      --draft=false
+                  if gh release view v1.0.0-stable >/dev/null 2>&1; then
+                    echo "Release v1.0.0-stable exists — updating title"
+                    gh release edit v1.0.0-stable --title "Equicord-ARABIC $V"
+                  else
+                    echo "Creating release v1.0.0-stable"
+                    gh release create v1.0.0-stable \
+                        --tag-name v1.0.0-stable \
+                        --target main \
+                        --title "Equicord-ARABIC $V" \
+                        --notes "Official Arabic Release"
+                  fi
                   gh release upload v1.0.0-stable "$FILE" --clobber
                   echo "Uploaded $FILE to release v1.0.0-stable"
