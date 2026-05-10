@@ -62,35 +62,16 @@ jobs:
 
                   git push origin "$BRANCH"
 
+                  BODY="Automated sync from Equicord/Equicord upstream. Review changes before merging."
                   gh pr create \
-                      --title "🔄 Sync upstream Equicord — $(date +%Y-%m-%d)" \
-                      --body "$(cat <<'EOF'
-## مزامنة تلقائية من Equicord/Equicord
-
-هذا PR يجلب آخر التحديثات من المستودع الأصلي [Equicord/Equicord](https://github.com/Equicord/Equicord).
-
-**ما الذي تغيّر؟**
-راجع الفروقات أدناه للاطلاع على الإضافات والإصلاحات الجديدة من upstream.
-
-**ما الذي تم الحفاظ عليه تلقائياً؟**
-- `src/userplugins/` — إضافاتنا المخصصة
-- `installer/` — ملفات المثبت
-- `.github/workflows/` — سير عمل CI/CD الخاصة بنا
-- الترجمات العربية في حال وجد تعارض
-
-**الخطوات التالية:**
-1. راجع الفروقات للتأكد من عدم طغيان upstream على الترجمات العربية
-2. إذا كانت هناك ملفات مترجمة تأثرت، راجعها يدوياً
-3. ادمج هذا PR بعد المراجعة
-
-EOF
-)" \
+                      --title "Sync upstream Equicord $(date +%Y-%m-%d)" \
+                      --body "$BODY" \
                       --head "$BRANCH" \
                       --base main \
                       --label "upstream-sync" 2>/dev/null || \
                   gh pr create \
-                      --title "🔄 Sync upstream Equicord — $(date +%Y-%m-%d)" \
-                      --body "Automated sync from Equicord/Equicord. Review changes before merging." \
+                      --title "Sync upstream Equicord $(date +%Y-%m-%d)" \
+                      --body "$BODY" \
                       --head "$BRANCH" \
                       --base main
               env:

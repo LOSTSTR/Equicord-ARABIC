@@ -598,7 +598,7 @@ jobs:
                       -OutputFile  $out `
                       -IconFile    "installer\icon.ico" `
                       -Title       "Equicord-ARABIC Installer" `
-                      -Description "Ù…ÙØ«Ø¨ÙÙ‘Øª Equicord-ARABIC â€” LOSTSTR/Equicord-ARABIC" `
+                      -Description "Equicord-ARABIC Installer by LOSTSTR" `
                       -Company     "LOSTSTR" `
                       -Product     "Equicord-ARABIC" `
                       -Version     $ver4 `
