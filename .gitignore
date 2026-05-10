@@ -1,5 +1,8 @@
 dist
 node_modules
+.claude
+installer/*.exe
+installer/*.ico
 .VSCodeCounter
 .vars
 .secrets

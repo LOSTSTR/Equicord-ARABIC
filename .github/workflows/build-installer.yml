@@ -14,121 +14,165 @@ permissions:
     contents: write
 
 jobs:
-    build-installer:
+    build:
         name: Build EquicordArabicSetup.exe
         runs-on: windows-latest
 
         steps:
-            # ── Checkout ─────────────────────────────────────────────────────
-            - name: Checkout repository
-              uses: actions/checkout@v4
+            - uses: actions/checkout@v4
               with:
                   fetch-depth: 0
 
-            # ── Inject version from package.json ────────────────────────────
+            # ── قراءة الإصدار ─────────────────────────────────────────────
             - name: Read version
-              id: version
+              id: ver
               shell: bash
               run: |
-                  VER=$(jq -r .version < package.json)
-                  echo "version=$VER" >> "$GITHUB_OUTPUT"
-                  echo "tag=v$VER"    >> "$GITHUB_OUTPUT"
+                  V=$(jq -r .version < package.json)
+                  echo "version=$V" >> "$GITHUB_OUTPUT"
 
-            # ── Update version in setup.iss ──────────────────────────────────
-            - name: Patch version in setup.iss
+            # ── تحويل الشعار إلى ICO ──────────────────────────────────────
+            - name: Generate icon.ico
               shell: pwsh
               run: |
-                  $v = "${{ steps.version.outputs.version }}"
-                  (Get-Content installer\setup.iss) `
-                    -replace '#define AppVersion\s+"[^"]*"', "#define AppVersion `"$v`"" |
-                  Set-Content installer\setup.iss
+                  Add-Type -AssemblyName System.Drawing
 
-            # ── Build icon from logo.png ─────────────────────────────────────
-            - name: Convert logo to ICO
-              shell: pwsh
-              run: |
-                  pip install Pillow --quiet
-                  if (Test-Path "installer\logo.png") {
-                      python installer\make_icon.py logo.png
+                  $logoPath = "installer\logo.png"
+                  $icoPath  = "installer\icon.ico"
+                  $sizes    = @(256, 128, 64, 48, 32, 16)
+
+                  if (Test-Path $logoPath) {
+                      $src  = [System.Drawing.Image]::FromFile((Resolve-Path $logoPath))
+                      $side = [Math]::Min($src.Width, $src.Height)
+                      $crop = New-Object System.Drawing.Rectangle(
+                          ($src.Width - $side)/2, ($src.Height - $side)/2, $side, $side)
+                      $base = New-Object System.Drawing.Bitmap($side, $side,
+                          [System.Drawing.Imaging.PixelFormat]::Format32bppArgb)
+                      $g = [System.Drawing.Graphics]::FromImage($base)
+                      $g.DrawImage($src, [System.Drawing.Rectangle]::new(0,0,$side,$side),
+                          $crop, [System.Drawing.GraphicsUnit]::Pixel)
+                      $g.Dispose(); $src.Dispose()
                   } else {
-                      Write-Warning "logo.png not found — skipping icon conversion; using placeholder"
-                      # Create 1x1 placeholder so Inno Setup doesn't fail
-                      Add-Type -AssemblyName System.Drawing
-                      $bmp = New-Object System.Drawing.Bitmap(256, 256)
-                      $g   = [System.Drawing.Graphics]::FromImage($bmp)
+                      Write-Host "logo.png not found — generating gold EA placeholder"
+                      $base = New-Object System.Drawing.Bitmap(256, 256,
+                          [System.Drawing.Imaging.PixelFormat]::Format32bppArgb)
+                      $g = [System.Drawing.Graphics]::FromImage($base)
+                      $g.SmoothingMode = [System.Drawing.Drawing2D.SmoothingMode]::AntiAlias
                       $g.Clear([System.Drawing.Color]::FromArgb(15,15,15))
-                      $g.DrawString("EA", (New-Object System.Drawing.Font("Arial",80,
-                          [System.Drawing.FontStyle]::Bold)),
-                          (New-Object System.Drawing.SolidBrush(
-                              [System.Drawing.Color]::FromArgb(212,175,55))),
-                          20, 80)
-                      $g.Dispose()
-                      $icon = [System.Drawing.Icon]::FromHandle($bmp.GetHicon())
-                      $fs   = [System.IO.File]::Create("installer\icon.ico")
-                      $icon.Save($fs)
-                      $fs.Close()
-                      $bmp.Dispose()
+                      $pen = New-Object System.Drawing.Pen(
+                          [System.Drawing.Color]::FromArgb(212,175,55), 10)
+                      $g.DrawEllipse($pen, 12, 12, 232, 232); $pen.Dispose()
+                      $font  = New-Object System.Drawing.Font("Segoe UI", 90,
+                          [System.Drawing.FontStyle]::Bold)
+                      $brush = New-Object System.Drawing.SolidBrush(
+                          [System.Drawing.Color]::FromArgb(212,175,55))
+                      $fmt = New-Object System.Drawing.StringFormat
+                      $fmt.Alignment     = [System.Drawing.StringAlignment]::Center
+                      $fmt.LineAlignment = [System.Drawing.StringAlignment]::Center
+                      $g.DrawString("EA", $font, $brush,
+                          (New-Object System.Drawing.RectangleF(0,0,256,256)), $fmt)
+                      $font.Dispose(); $brush.Dispose(); $g.Dispose()
                   }
 
-            # ── Inno Setup 6 ─────────────────────────────────────────────────
-            - name: Install Inno Setup 6
+                  # بناء ICO متعدد الأحجام
+                  $stream = New-Object System.IO.MemoryStream
+                  $writer = New-Object System.IO.BinaryWriter($stream)
+                  $writer.Write([uint16]0); $writer.Write([uint16]1)
+                  $writer.Write([uint16]$sizes.Length)
+                  $dirStart = $stream.Position
+                  $stream.Seek($dirStart + 16*$sizes.Length,
+                      [System.IO.SeekOrigin]::Begin) | Out-Null
+                  $offsets=@(); $lengths=@()
+                  foreach ($sz in $sizes) {
+                      $bmp = New-Object System.Drawing.Bitmap($sz,$sz,
+                          [System.Drawing.Imaging.PixelFormat]::Format32bppArgb)
+                      $gr  = [System.Drawing.Graphics]::FromImage($bmp)
+                      $gr.InterpolationMode =
+                          [System.Drawing.Drawing2D.InterpolationMode]::HighQualityBicubic
+                      $gr.DrawImage($base,0,0,$sz,$sz); $gr.Dispose()
+                      $pms = New-Object System.IO.MemoryStream
+                      $bmp.Save($pms,[System.Drawing.Imaging.ImageFormat]::Png); $bmp.Dispose()
+                      $bytes=$pms.ToArray(); $pms.Dispose()
+                      $offsets+=[int]$stream.Position; $lengths+=$bytes.Length
+                      $writer.Write($bytes)
+                  }
+                  $stream.Seek($dirStart,[System.IO.SeekOrigin]::Begin)|Out-Null
+                  for ($i=0;$i -lt $sizes.Length;$i++) {
+                      $sz=$sizes[$i]
+                      $writer.Write([byte]$(if($sz-ge 256){0}else{$sz}))
+                      $writer.Write([byte]$(if($sz-ge 256){0}else{$sz}))
+                      $writer.Write([byte]0); $writer.Write([byte]0)
+                      $writer.Write([uint16]1); $writer.Write([uint16]32)
+                      $writer.Write([uint32]$lengths[$i])
+                      $writer.Write([uint32]$offsets[$i])
+                  }
+                  $writer.Flush()
+                  [System.IO.File]::WriteAllBytes($icoPath,$stream.ToArray())
+                  $stream.Dispose(); $base.Dispose()
+                  Write-Host "icon.ico created: $((Get-Item $icoPath).Length/1KB) KB"
+
+            # ── تثبيت ps2exe لتحويل PS1 إلى EXE ─────────────────────────
+            - name: Install ps2exe
               shell: pwsh
               run: |
-                  $url = "https://jrsoftware.org/download.php/is.exe"
-                  $out = "$env:TEMP\innosetup.exe"
-                  Invoke-WebRequest $url -OutFile $out -UseBasicParsing
-                  Start-Process $out -ArgumentList "/VERYSILENT /SUPPRESSMSGBOXES /NORESTART" -Wait
-                  echo "C:\Program Files (x86)\Inno Setup 6" | `
-                    Out-File -Append -Encoding utf8 $env:GITHUB_PATH
+                  Set-PSRepository PSGallery -InstallationPolicy Trusted
+                  Install-Module ps2exe -Force -Scope CurrentUser -AllowClobber
 
-            # ── Compile setup EXE ────────────────────────────────────────────
-            - name: Compile installer
-              shell: cmd
-              run: |
-                  mkdir dist\Installer 2>nul
-                  "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" installer\setup.iss
-
-            # ── Rename output ────────────────────────────────────────────────
-            - name: Rename artifact
+            # ── تجميع EXE ─────────────────────────────────────────────────
+            - name: Compile EXE
               shell: pwsh
               run: |
-                  $v   = "${{ steps.version.outputs.version }}"
-                  $src = "dist\Installer\EquicordArabicSetup.exe"
-                  $dst = "dist\Installer\EquicordArabicSetup-v$v.exe"
-                  Move-Item $src $dst
-                  echo "artifact=$dst" >> $env:GITHUB_OUTPUT
-              id: rename
+                  $v   = "${{ steps.ver.outputs.version }}"
+                  $out = "installer\EquicordArabicSetup-v$v.exe"
 
-            # ── Upload artifact to workflow run ───────────────────────────────
+                  Invoke-ps2exe `
+                      -InputFile  "installer\EquicordArabic-Installer.ps1" `
+                      -OutputFile $out `
+                      -IconFile   "installer\icon.ico" `
+                      -Title      "Equicord-ARABIC Installer" `
+                      -Description "مُثبِّت Equicord-ARABIC — LOSTSTR/Equicord-ARABIC" `
+                      -Company    "LOSTSTR" `
+                      -Product    "Equicord-ARABIC" `
+                      -Version    "$v.0" `
+                      -Copyright  "Copyright (c) 2026 LOSTSTR" `
+                      -NoConsole  `
+                      -RequireAdmin
+
+                  $size = [math]::Round((Get-Item $out).Length/1MB,1)
+                  Write-Host "EXE built: $out  ($size MB)"
+                  echo "exe_path=$out" >> $env:GITHUB_OUTPUT
+              id: compile
+
+            # ── رفع artifact ──────────────────────────────────────────────
             - name: Upload artifact
               uses: actions/upload-artifact@v4
               with:
-                  name: EquicordArabicSetup-v${{ steps.version.outputs.version }}
-                  path: dist/Installer/EquicordArabicSetup-*.exe
-                  retention-days: 30
+                  name: EquicordArabicSetup-v${{ steps.ver.outputs.version }}
+                  path: installer/EquicordArabicSetup-*.exe
+                  retention-days: 60
 
-            # ── Attach to GitHub Release (if triggered by release event) ─────
-            - name: Upload to GitHub Release
+            # ── إرفاق بالإصدار إذا كان الحدث release ─────────────────────
+            - name: Attach to GitHub Release
               if: github.event_name == 'release'
               uses: softprops/action-gh-release@v2
               with:
-                  files: dist/Installer/EquicordArabicSetup-*.exe
+                  files: installer/EquicordArabicSetup-*.exe
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-            # ── Also update the latest release (push to main) ─────────────────
-            - name: Upload to latest release (main push)
-              if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+            # ── رفع إلى latest release عند push لـ main ──────────────────
+            - name: Upload to latest release
+              if: github.event_name == 'push'
               shell: bash
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               run: |
-                  VERSION="${{ steps.version.outputs.version }}"
-                  FILE="dist/Installer/EquicordArabicSetup-v${VERSION}.exe"
-                  # Upload to the latest existing release if present
-                  RELEASE_ID=$(gh release view latest --json id -q .id 2>/dev/null || echo "")
-                  if [ -n "$RELEASE_ID" ]; then
-                    gh release upload latest "$FILE" --clobber
+                  V="${{ steps.ver.outputs.version }}"
+                  FILE="installer/EquicordArabicSetup-v${V}.exe"
+                  RELEASE=$(gh release view latest --json tagName -q .tagName 2>/dev/null || echo "")
+                  if [ -n "$RELEASE" ]; then
+                    gh release upload "$RELEASE" "$FILE" --clobber
+                    echo "Uploaded $FILE to release $RELEASE"
                   else
-                    echo "No 'latest' release found — skipping upload."
+                    echo "No release found — skipping upload"
                   fi
