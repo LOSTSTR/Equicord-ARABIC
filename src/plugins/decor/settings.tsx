@@ -47,7 +47,7 @@ export const settings = definePluginSettings({
     },
     agreedToGuidelines: {
         type: OptionType.BOOLEAN,
-        description: "موافقة على الإرشادات",
+        description: "Agreed to guidelines",
         hidden: true,
         default: false
     }

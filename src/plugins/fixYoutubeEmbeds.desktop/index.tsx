@@ -26,7 +26,7 @@ migratePluginSettings("FixYoutubeEmbeds", "YoutubeDescription");
 
 export default definePlugin({
     name: "FixYoutubeEmbeds",
-    description: "يتخطى حجب مقاطع YouTube من العرض في Discord (كالمحتوى المحجوب بحقوق النشر)",
+    description: "Bypasses youtube videos being blocked from display on Discord (for example by UMG)",
     tags: ["Media", "Utility"],
     authors: [Devs.coolelectronics, Devs.arHSM],
     settings,

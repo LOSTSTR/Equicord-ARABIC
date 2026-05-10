@@ -140,12 +140,12 @@ export const settings = definePluginSettings({
         default: {}
     },
     noPomeloNames: {
-        description: "استخدام أسماء العرض بدلاً من أسماء المستخدمين في الرسائل الخاصة",
+        description: "Use display names instead of usernames for DM's",
         type: OptionType.BOOLEAN,
         default: false
     },
     showStatusIndicators: {
-        description: "عرض مؤشرات الحالة في الرسائل الخاصة",
+        description: "Show status indicators for DM's",
         type: OptionType.BOOLEAN,
         default: true
     },
@@ -155,69 +155,69 @@ export const settings = definePluginSettings({
         default: true
     },
     bookmarkNotificationDot: {
-        description: "عرض نقطة الإشعار للإشارات المرجعية",
+        description: "Show notification dot for bookmarks",
         type: OptionType.BOOLEAN,
         default: true
     },
     persistUnreadCountFallback: {
-        description: "الاحتفاظ بشارات الرسائل غير المقروءة عبر إعادة التحميل للتبويبات والإشارات المرجعية",
+        description: "Persist unread badge fallbacks across reloads for tabs and bookmarks",
         type: OptionType.BOOLEAN,
         default: true,
         restartNeeded: false
     },
     widerTabsAndBookmarks: {
-        description: "توسيع عرض التبويبات والإشارات المرجعية للشاشات الكبيرة",
+        description: "Extend the length of tabs and bookmarks for larger monitors",
         type: OptionType.BOOLEAN,
         default: false,
         restartNeeded: false
     },
     tabWidthScale: {
         type: OptionType.NUMBER,
-        description: "مقياس عرض التبويب (بالنسبة المئوية) - قابل للتعديل بسحب حواف التبويب",
+        description: "Tab width scale (percentage) - adjustable by dragging tab edges",
         default: 100,
         hidden: true,
         restartNeeded: false
     },
     tabHeightScale: {
         type: OptionType.NUMBER,
-        description: "مقياس ارتفاع التبويب (بالنسبة المئوية).",
+        description: "Tab height scale (percentage).",
         default: 100,
         restartNeeded: false
     },
     renderAllTabs: {
         type: OptionType.BOOLEAN,
-        description: "الاحتفاظ بجميع التبويبات في الذاكرة للتبديل الأسرع (يحفظ موضع التمرير والحالة)",
+        description: "Keep all tabs cached in memory for faster switching (caches scroll position and state)",
         default: false,
         restartNeeded: false
     },
     switchToExistingTab: {
         type: OptionType.BOOLEAN,
-        description: "التبديل إلى التبويب إذا كان موجوداً للقناة التي تتصفحها",
+        description: "Switch to tab if it already exists for the channel you're navigating to",
         default: false,
         restartNeeded: false
     },
     createNewTabIfNotExists: {
         type: OptionType.BOOLEAN,
-        description: "إنشاء تبويب جديد إذا لم يكن موجوداً للقناة التي تتصفحها",
+        description: "Create a new tab if one doesn't exist for the channel you're navigating to",
         default: false,
         restartNeeded: false
     },
     enableRapidNavigation: {
         type: OptionType.BOOLEAN,
-        description: "تفعيل التنقل السريع - التنقل السريع بين القنوات سيستبدل التبويب الحالي بدلاً من إنشاء تبويبات جديدة",
+        description: "Enable rapid navigation behavior - quickly navigating between channels will replace the current tab instead of creating new ones",
         default: false,
         restartNeeded: false
     },
     rapidNavigationThreshold: {
         type: OptionType.SLIDER,
-        description: "النافذة الزمنية (بالثواني) للتنقل السريع. خلال هذه المدة تستبدل القنوات الجديدة التبويب الحالي بدلاً من إنشاء جديدة.",
+        description: "Time window (in seconds) for rapid navigation. Within this time, new channels replace the current tab instead of creating new ones.",
         markers: [1, 2, 3, 5, 10, 20, 30, 40, 50, 60],
         default: 3,
         stickToMarkers: false,
     },
     tabBarPosition: {
         type: OptionType.SELECT,
-        description: "مكان عرض شريط التبويبات.",
+        description: "Where to show the tab bar.",
         options: [
             { label: "Top", value: "top", default: true },
             { label: "Bottom", value: "bottom" }
@@ -226,32 +226,32 @@ export const settings = definePluginSettings({
     },
     enableNumberKeySwitching: {
         type: OptionType.BOOLEAN,
-        description: "تفعيل مفاتيح الأرقام (1-9) للتبديل بين التبويبات",
+        description: "Enable number keys (1-9) to switch tabs",
         default: true,
         restartNeeded: false
     },
     numberKeySwitchCount: {
         type: OptionType.SLIDER,
-        description: "عدد التبويبات القابلة للوصول عبر مفاتيح الأرقام (1-9)",
+        description: "Number of tabs accessible via number keys (1-9)",
         markers: makeRange(1, 9, 1),
         default: 3,
         stickToMarkers: true,
     },
     enableCloseTabShortcut: {
         type: OptionType.BOOLEAN,
-        description: "تفعيل اختصار لوحة المفاتيح لإغلاق التبويب",
+        description: "Enable close tab keyboard shortcut",
         default: true,
         restartNeeded: false
     },
     enableNewTabShortcut: {
         type: OptionType.BOOLEAN,
-        description: "تفعيل اختصار لوحة المفاتيح لفتح تبويب جديد",
+        description: "Enable new tab keyboard shortcut",
         default: true,
         restartNeeded: false
     },
     enableTabCycleShortcut: {
         type: OptionType.BOOLEAN,
-        description: "تفعيل اختصار لوحة المفاتيح للتنقل الدوري بين التبويبات",
+        description: "Enable tab cycling keyboard shortcut",
         default: true,
         restartNeeded: false
     },
@@ -262,37 +262,37 @@ export const settings = definePluginSettings({
     // me when storage yes for keybinds
     closeTabKeybind: {
         type: OptionType.STRING,
-        description: "اختصار لوحة المفاتيح لإغلاق التبويب الحالي",
+        description: "Keyboard shortcut to close the current tab",
         default: "CTRL+W",
         hidden: true
     },
     newTabKeybind: {
         type: OptionType.STRING,
-        description: "اختصار لوحة المفاتيح لفتح تبويب جديد",
+        description: "Keyboard shortcut to open a new tab",
         default: "CTRL+T",
         hidden: true
     },
     cycleTabForwardKeybind: {
         type: OptionType.STRING,
-        description: "اختصار لوحة المفاتيح للانتقال إلى التبويب التالي",
+        description: "Keyboard shortcut to cycle to the next tab",
         default: "CTRL+TAB",
         hidden: true
     },
     cycleTabBackwardKeybind: {
         type: OptionType.STRING,
-        description: "اختصار لوحة المفاتيح للانتقال إلى التبويب السابق",
+        description: "Keyboard shortcut to cycle to the previous tab",
         default: "CTRL+SHIFT+TAB",
         hidden: true
     },
     showTabNumbers: {
         type: OptionType.BOOLEAN,
-        description: "عرض شارات الأرقام على التبويبات للإشارة إلى اختصارات لوحة المفاتيح",
+        description: "Show numbered badges on tabs to indicate keyboard shortcuts",
         default: false,
         restartNeeded: false
     },
     tabNumberPosition: {
         type: OptionType.SELECT,
-        description: "مكان عرض الشارة المرقمة على التبويبات",
+        description: "Where to display the numbered badge on tabs",
         options: [
             { label: "Left side (before icon)", value: "left", default: true },
             { label: "Right side (after content)", value: "right" }
@@ -306,145 +306,145 @@ export const settings = definePluginSettings({
     // me when storage yes
     animationHover: {
         type: OptionType.BOOLEAN,
-        description: "تفعيل تأثيرات الرفع والتكبير عند التحريك",
+        description: "Enable hover lift and scale effects",
         default: true,
         hidden: true
     },
     animationSelection: {
         type: OptionType.BOOLEAN,
-        description: "تفعيل تأثيرات اختيار التبويب (توهج الحدود، الرفع)",
+        description: "Enable selection animations (border glow, lift)",
         default: true,
         hidden: true
     },
     animationDragDrop: {
         type: OptionType.BOOLEAN,
-        description: "تفعيل تأثيرات السحب والإسقاط",
+        description: "Enable drag and drop ghost effects",
         default: true,
         hidden: true
     },
     animationEnterExit: {
         type: OptionType.BOOLEAN,
-        description: "تفعيل تأثيرات الانزلاق عند فتح/إغلاق التبويبات",
+        description: "Enable tab creation/closing slide animations",
         default: true,
         hidden: true
     },
     animationIconPop: {
         type: OptionType.BOOLEAN,
-        description: "تفعيل تأثير تكبير الأيقونة عند الاختيار",
+        description: "Enable icon scale-up animation on selection",
         default: true,
         hidden: true
     },
     animationCloseRotation: {
         type: OptionType.BOOLEAN,
-        description: "تفعيل تأثير الدوران لأزرار الإغلاق",
+        description: "Enable rotation animation for close buttons",
         default: true,
         hidden: true
     },
     animationPlusPulse: {
         type: OptionType.BOOLEAN,
-        description: "تفعيل تأثير النبض لزر الإضافة",
+        description: "Enable pulse animation for plus button",
         default: true,
         hidden: true
     },
     animationMentionGlow: {
         type: OptionType.BOOLEAN,
-        description: "تفعيل توهج أحمر نابض عند الإشارة",
+        description: "Enable pulsing red glow for mentions",
         default: true,
         hidden: true
     },
     animationCompactExpand: {
         type: OptionType.BOOLEAN,
-        description: "تفعيل التوسع السلس للتبويبات المدمجة",
+        description: "Enable smooth expansion for compact tabs",
         default: true,
         hidden: true
     },
     animationSelectedBorder: {
         type: OptionType.BOOLEAN,
-        description: "تفعيل تنسيق الحدود والتوهج للتبويبات المحددة",
+        description: "Enable border and glow styling for selected tabs",
         default: true,
         hidden: true
     },
     animationSelectedBackground: {
         type: OptionType.BOOLEAN,
-        description: "تفعيل تغيير لون الخلفية للتبويبات المحددة",
+        description: "Enable background color change for selected tabs",
         default: true,
         hidden: true
     },
     animationTabShadows: {
         type: OptionType.BOOLEAN,
-        description: "تفعيل تأثيرات الظل على التبويبات",
+        description: "Enable shadow effects on tabs",
         default: true,
         hidden: true
     },
     animationTabPositioning: {
         type: OptionType.BOOLEAN,
-        description: "تفعيل الانتقالات السلسة عند تحريك التبويبات",
+        description: "Enable smooth transitions when tabs move positions",
         default: true,
         hidden: true
     },
     animationResizeHandle: {
         type: OptionType.BOOLEAN,
-        description: "تفعيل تأثير التلاشي لمقبض تغيير الحجم",
+        description: "Enable fade animation for resize handle",
         default: true,
         hidden: true
     },
     animationQuestsActive: {
         type: OptionType.BOOLEAN,
-        description: "تفعيل تأثيرات التدرج على تبويب المهام عند تشغيل المهام",
+        description: "Enable gradient animations on Quests tab when quests are actively running",
         default: true,
         hidden: true
     },
     compactAutoExpandSelected: {
         type: OptionType.BOOLEAN,
-        description: "توسيع التبويبات المدمجة تلقائياً عند تحديدها لعرض اسم القناة كاملاً",
+        description: "Automatically expand compact tabs when selected to show the full channel name",
         default: true,
         restartNeeded: false
     },
     compactAutoExpandOnHover: {
         type: OptionType.BOOLEAN,
-        description: "توسيع التبويبات المدمجة تلقائياً عند التحريك عليها لعرض اسم القناة كاملاً",
+        description: "Automatically expand compact tabs on hover to show the full channel name",
         default: true,
         restartNeeded: false
     },
     openInNewTabAutoSwitch: {
         type: OptionType.BOOLEAN,
-        description: "التبديل تلقائياً إلى التبويبات الجديدة المفتوحة من قائمة 'فتح في تبويب جديد'",
+        description: "Automatically switch to new tabs opened from 'Open in New Tab' context menu",
         default: true,
         restartNeeded: false
     },
     bookmarksIndependentFromTabs: {
         type: OptionType.BOOLEAN,
-        description: "تتنقل الإشارات المرجعية بشكل مستقل دون التأثير على شريط التبويبات النشط",
+        description: "Bookmarks navigate independently without affecting the active tabs bar",
         default: true,
         restartNeeded: false
     },
     showResizeHandle: {
         type: OptionType.BOOLEAN,
-        description: "عرض مقبض تغيير الحجم عند التحريك على التبويبات لضبط عرضها",
+        description: "Show resize handle when hovering over tabs to adjust tab width",
         default: true,
         restartNeeded: false
     },
     openNewTabsInCompactMode: {
         type: OptionType.BOOLEAN,
-        description: "فتح جميع التبويبات الجديدة في الوضع المدمج افتراضياً",
+        description: "Open all newly created tabs in compact mode by default",
         default: false,
         restartNeeded: false
     },
     newTabButtonBehavior: {
         type: OptionType.BOOLEAN,
-        description: "يتبع زر التبويب الجديد (+) التبويبات بدلاً من البقاء ثابتاً على اليمين",
+        description: "New tab (+) button follows tabs instead of staying pinned to the right",
         default: true,
         restartNeeded: false
     },
     oneTabPerServer: {
         type: OptionType.BOOLEAN,
-        description: "تقييد تبويب واحد لكل سيرفر، بحيث يستخدم فتح قناة جديدة في نفس السيرفر التبويب الموجود.",
+        description: "Limit to one tab per server, so opening a new channel in that server will use the existing tab.",
         default: false,
         restartNeeded: false
     },
     maxOpenTabs: {
         type: OptionType.SLIDER,
-        description: "الحد الأقصى لعدد التبويبات المفتوحة (0 = بلا حد)",
+        description: "Maximum number of open tabs (0 = unlimited)",
         markers: makeRange(0, 20, 1),
         default: 0,
         stickToMarkers: true,

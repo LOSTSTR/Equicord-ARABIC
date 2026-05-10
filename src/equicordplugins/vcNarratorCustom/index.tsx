@@ -574,70 +574,71 @@ const settings = definePluginSettings({
     },
     volume: {
         type: OptionType.SLIDER,
-        description: "مستوى صوت المُعلّق",
+        description: "Narrator Volume",
         default: 1,
         markers: [0, 0.25, 0.5, 0.75, 1],
         stickToMarkers: false,
     },
     rate: {
         type: OptionType.SLIDER,
-        description: "سرعة المُعلّق",
+        description: "Narrator Speed",
         default: 1,
         markers: [0.1, 0.5, 1, 2, 5, 10],
         stickToMarkers: false,
     },
     sayOwnName: {
-        description: "نطق اسمك الخاص",
+        description: "Say own name",
         type: OptionType.BOOLEAN,
         default: false,
     },
     ignoreSelf: {
-        description: "تجاهل نفسك في جميع الأحداث",
+        description: "Ignore yourself for all events.",
         type: OptionType.BOOLEAN,
         default: false,
     },
     latinOnly: {
-        description: "حذف الأحرف غير اللاتينية من الأسماء قبل نطقها",
+        description:
+            "Strip non latin characters from names before saying them",
         type: OptionType.BOOLEAN,
         default: false,
     },
     joinMessage: {
         type: OptionType.STRING,
-        description: "متغيرات: {{USER}}, {{DISPLAY_NAME}}, {{NICKNAME}}, {{CHANNEL}}",
+        description: "Placeholders: {{USER}}, {{DISPLAY_NAME}}, {{NICKNAME}}, {{CHANNEL}}",
         default: "{{DISPLAY_NAME}} joined",
     },
     leaveMessage: {
         type: OptionType.STRING,
-        description: "رسالة المغادرة",
+        description: "Leave Message",
         default: "{{DISPLAY_NAME}} left",
     },
     moveMessage: {
         type: OptionType.STRING,
-        description: "رسالة الانتقال",
+        description: "Move Message",
         default: "{{DISPLAY_NAME}} moved to {{CHANNEL}}",
     },
     announceOthersMute: {
-        description: "الإعلان عند كتم/إلغاء كتم المستخدمين الآخرين في قناتك الصوتية",
+        description: "Announce when other users mute/unmute in your current VC",
         type: OptionType.BOOLEAN,
         default: false,
     },
     announceOthersDeafen: {
-        description: "الإعلان عند تصميم/إلغاء تصميم المستخدمين الآخرين في قناتك الصوتية",
+        description: "Announce when other users deafen/undeafen in your current VC",
         type: OptionType.BOOLEAN,
         default: false,
     },
     announceOthersStream: {
-        description: "الإعلان عند بدء/إيقاف بث المستخدمين الآخرين في قناتك الصوتية",
+        description: "Announce when other users start/stop streaming in your current VC",
         type: OptionType.BOOLEAN,
         default: false,
     },
     announceSelfStream: {
-        description: "الإعلان عند بدء/إيقاف بثك الخاص",
+        description: "Announce when you start/stop streaming",
         type: OptionType.BOOLEAN,
         default: false,
     },
     stateChangeCooldownMs: {
-        description: "فترة تهدئة الإعلانات عند تغيير الحالة (ملي ثانية)",
+        description: "State-change announce cooldown (ms)",
         type: OptionType.SLIDER,
         default: 1500,
         markers: [0, 250, 500, 1000, 1500, 2500, 5000, 10000],
@@ -645,12 +646,12 @@ const settings = definePluginSettings({
     },
     userVoiceMap: {
         type: OptionType.STRING,
-        description: "تخصيص الصوت لكل مستخدم (صيغة: userId:voiceId). انقر بزر الفأرة الأيمن لضبطه",
+        description: "Per-user voice overrides (format: userId:voiceId,userId2:voiceId2). Right-click users to set.",
         default: "",
     },
     stateChangeFilterMode: {
         type: OptionType.SELECT,
-        description: "تصفية المستخدمين الذين يُطلقون إعلانات تغيير الحالة",
+        description: "Filter which users trigger state-change announcements",
         options: [
             { label: "Off", value: "off" },
             { label: "Whitelist (only announce listed users)", value: "whitelist" },
@@ -660,17 +661,17 @@ const settings = definePluginSettings({
     },
     stateChangeFilterList: {
         type: OptionType.STRING,
-        description: "معرّفات المستخدمين مفصولة بفواصل للقائمة البيضاء/السوداء. انقر بزر الأيمن للإضافة/الحذف",
+        description: "Comma-separated user IDs for whitelist/blacklist. Right-click users to add/remove.",
         default: "",
     },
     ignoredUsers: {
         type: OptionType.STRING,
-        description: "معرّفات المستخدمين لتجاهلهم تماماً (بدون إعلانات). انقر بزر الأيمن للإضافة/الحذف",
+        description: "Comma-separated user IDs to completely ignore (no join/leave/move/state announcements). Right-click users to add/remove.",
         default: "",
     },
     joinLeaveTimeout: {
         type: OptionType.SLIDER,
-        description: "فترة تهدئة لإعلانات الدخول/الخروج/الانتقال لكل مستخدم (ثانية). يمنع تكرار الإعلانات",
+        description: "Per-user cooldown for join/leave/move announcements (seconds). Prevents spam from rapid rejoiners.",
         default: 0,
         markers: [0, 5, 10, 15, 30, 60],
         stickToMarkers: false,
@@ -893,7 +894,7 @@ const UserContextMenuPatch: NavContextMenuPatchCallback = (children, { user }: U
 
 export default definePlugin({
     name: "VcNarratorCustom",
-    description: "مُعلّق صوتي يُعلن دخول/خروج/انتقال المستخدمين في القنوات الصوتية باستخدام TikTok TTS",
+    description: "Announces when users join, leave, or move voice channels via narrator using TikTok TTS. Revamped and back from the dead.",
     tags: ["Accessibility", "Voice"],
     authors: [Devs.Ven, Devs.Nyako, EquicordDevs.Loukios, EquicordDevs.examplegit],
     settings,

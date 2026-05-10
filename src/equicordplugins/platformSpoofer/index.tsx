@@ -51,7 +51,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "PlatformSpoofer",
-    description: "يُزيّف المنصة أو الجهاز الذي تستخدمه",
+    description: "Spoof what platform or device you're on",
     tags: ["Utility"],
     authors: [EquicordDevs.Drag, EquicordDevs.neoarz],
     settingsAboutComponent: () => (
@@ -75,12 +75,18 @@ export default definePlugin({
             ]
         },
         {
-            find: ".ORBS,label:",
-            replacement: {
-                match: /\{enabled:(\i).{0,25}"collectibles_shop_header_bar"\}\)/,
-                replace: "$1=true"
-            }
-        }
+            find: '"2025-01-virtual-currency-rollout"',
+            replacement: [
+                {
+                    match: /(?<=\}\),)(\i)/,
+                    replace: "$1=e=>({enabled:true}),_equicord_$1"
+                },
+                {
+                    match: /(?<=\.getConfig\(\i\)\.enabled\},)(\i)/,
+                    replace: "$1=e=>({enabled:true}),_equicord_$1"
+                }
+            ]
+        },
     ],
     getPlatform(bypass, userId?: any) {
         const platform = settings.store.platform ?? "desktop";

@@ -44,7 +44,7 @@ const settings = definePluginSettings({
         ]
     },
     voiceBackground: {
-        description: "استخدام بانرات USRBG كخلفيات في الدردشة الصوتية",
+        description: "Use USRBG banners as voice chat backgrounds",
         type: OptionType.BOOLEAN,
         default: true,
         restartNeeded: true
@@ -53,7 +53,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "USRBG",
-    description: "يعرض بانرات المستخدمين من USRBG، ما يتيح للجميع الحصول على بانر بدون نيترو",
+    description: "Displays user banners from USRBG, allowing anyone to get a banner without Nitro",
     tags: ["Appearance", "Customisation"],
     authors: [Devs.AutumnVN, Devs.katlyn, Devs.pylix, Devs.TheKodeToad],
     settings,

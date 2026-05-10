@@ -106,7 +106,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "DecodeBase64",
-    description: "يفك تشفير محتوى Base64 في أي رسالة ونسخ النص المفكوك.",
+    description: "Decode base64 content of any message and copy the decoded content.",
     dependencies: ["MessagePopoverAPI"],
     tags: ["Appearance", "Customisation", "Chat"],
     authors: [EquicordDevs.ThePirateStoner],

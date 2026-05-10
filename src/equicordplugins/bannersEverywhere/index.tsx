@@ -33,7 +33,7 @@ const settings = definePluginSettings({
         default: false
     },
     preferNameplate: {
-        description: "تفضيل لوحة الاسم على البانر",
+        description: "prefer nameplate over banner",
         type: OptionType.BOOLEAN,
         default: false
     },
@@ -43,7 +43,7 @@ const DATASTORE_KEY = "bannersEverywhere";
 
 export default definePlugin({
     name: "BannersEverywhere",
-    description: "يعرض البانرات في قائمة الأعضاء",
+    description: "Displays banners in the member list ",
     tags: ["Appearance", "Customisation"],
     authors: [Devs.ImLvna, Devs.AutumnVN],
     settings,

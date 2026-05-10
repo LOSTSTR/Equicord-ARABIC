@@ -140,22 +140,22 @@ const settings = definePluginSettings({
     },
     includeMutedChannels: {
         type: OptionType.BOOLEAN,
-        description: "عرض مؤشر الكتابة للقنوات المكتومة.",
+        description: "Whether to show the typing indicator for muted channels.",
         default: false
     },
     includeIgnoredUsers: {
         type: OptionType.BOOLEAN,
-        description: "عرض مؤشر الكتابة للمستخدمين المتجاهَلين.",
+        description: "Whether to show the typing indicator for ignored users.",
         default: false
     },
     includeBlockedUsers: {
         type: OptionType.BOOLEAN,
-        description: "عرض مؤشر الكتابة للمستخدمين المحظورين.",
+        description: "Whether to show the typing indicator for blocked users.",
         default: false
     },
     indicatorMode: {
         type: OptionType.SELECT,
-        description: "كيف يُعرض المؤشر؟",
+        description: "How should the indicator be displayed?",
         options: [
             { label: "Avatars and animated dots", value: IndicatorMode.Dots | IndicatorMode.Avatars, default: true },
             { label: "Animated dots", value: IndicatorMode.Dots },
@@ -166,7 +166,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "TypingIndicator",
-    description: "يضيف مؤشراً عند كتابة شخص ما في قناة.",
+    description: "Adds an indicator if someone is typing on a channel.",
     tags: ["Notifications", "Appearance", "Servers"],
     authors: [Devs.Nuckyz, Devs.fawn, Devs.Sqaaakoi],
     isModified: true,

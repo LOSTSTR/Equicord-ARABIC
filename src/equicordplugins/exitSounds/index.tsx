@@ -79,7 +79,7 @@ const settings = definePluginSettings({
     },
     soundId: {
         type: OptionType.COMPONENT,
-        description: "أدخل معرّف الصوت الذي تريد تشغيله.",
+        description: "Enter the ID of the sound you want to play.",
         component: SoundIdInput
     }
 });
@@ -103,7 +103,7 @@ let original: typeof ChannelActions.selectVoiceChannel;
 
 export default definePlugin({
     name: "ExitSounds",
-    description: "يُشغّل أصوات السبورة الصوتية عند مغادرة القناة الصوتية.",
+    description: "Play soundboard sounds when you disconnect from voice.",
     tags: ["Fun", "Voice"],
     authors: [Devs.prism],
     dependencies: ["AudioPlayerAPI"],

@@ -47,37 +47,37 @@ const ranks: rankInfo[] =
         },
         {
             title: "Blooming",
-            description: "صداقتكما تزداد متانةً! (شهر واحد)",
+            description: "Your friendship is getting there! (1 Month)",
             requirement: 30,
             iconSrc: "https://equicord.org/assets/plugins/friendshipRanks/blooming.png"
         },
         {
             title: "Burning",
-            description: "صداقتكما بلغت أوجها! (3 أشهر)",
+            description: "Your friendship has reached terminal velocity (3 Months)",
             requirement: 90,
             iconSrc: "https://equicord.org/assets/plugins/friendshipRanks/burning.png"
         },
         {
             title: "Fighter",
-            description: "صداقتكما قوية (6 أشهر)",
+            description: "Your friendship is strong (6 Months)",
             requirement: 182.5,
             iconSrc: "https://equicord.org/assets/plugins/friendshipRanks/fighter.png"
         },
         {
             title: "Star",
-            description: "صداقتكما مستمرة منذ زمن طويل! (سنة كاملة)",
+            description: "Your friendship has been going on for a WHILE (1 Year)",
             requirement: 365,
             iconSrc: "https://equicord.org/assets/plugins/friendshipRanks/star.png"
         },
         {
             title: "Royal",
-            description: "صداقتكما اجتازت الصعاب معاً - سنتان كاملتان!",
+            description: "Your friendship has gone through thick and thin- a whole 2 years!",
             requirement: 730,
             iconSrc: "https://equicord.org/assets/plugins/friendshipRanks/royal.png"
         },
         {
             title: "Besties",
-            description: "كيف تمكّنتما من هذا؟! (5 سنوات)",
+            description: "How do you even manage this??? (5 Years)",
             requirement: 1826.25,
             iconSrc: "https://equicord.org/assets/plugins/friendshipRanks/besties.png"
         }
@@ -141,7 +141,7 @@ function getBadgesToApply() {
 
 export default definePlugin({
     name: "FriendshipRanks",
-    description: "يضيف شارات تُظهر مدة صداقتك مع كل مستخدم",
+    description: "Adds badges showcasing how long you have been friends with a user for",
     tags: ["Friends"],
     authors: [Devs.Samwich],
     start() {

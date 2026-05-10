@@ -21,7 +21,7 @@ const settings = definePluginSettings({
     },
     open: {
         type: OptionType.BOOLEAN,
-        description: "يكون مفتوحاً بشكل افتراضي",
+        description: "opened by default",
         default: false,
         onChange: (store: { open: boolean; }) => {
             hidechatbuttonsopen = store.open;
@@ -82,14 +82,17 @@ migratePluginSetting("HideChatButtons", "open", "Open");
 migratePluginSetting("HideChatButtons", "color", "Color");
 export default definePlugin({
     name: "HideChatButtons",
-    description: "يتيح إخفاء أزرار شريط الدردشة",
+    description: "Able to hide the chat buttons",
     tags: ["Chat", "Utility"],
     authors: [EquicordDevs.iamme],
     dependencies: ["ChatInputButtonAPI"],
     settings: settings,
     startAt: StartAt.Init,
-    chatBarButtonWrapper: (buttons: ReactNode) => {
-        return <ButtonsInnerComponent buttons={buttons} />;
+    chatBarButtonWrapper: {
+        wrapper: (buttons: ReactNode) => {
+            return <ButtonsInnerComponent buttons={buttons} />;
+        },
+        priority: 0,
     },
     start() {
         hidechatbuttonsopen = settings.store.open;

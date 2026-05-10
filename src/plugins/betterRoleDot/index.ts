@@ -30,7 +30,7 @@ const settings = definePluginSettings({
     },
     copyRoleColorInProfilePopout: {
         type: OptionType.BOOLEAN,
-        description: "النقر على نقطة الرتبة في الملف الشخصي لنسخ لون الرتبة",
+        description: "Allow click on role dot in profile popout to copy role color",
         restartNeeded: true,
         default: false
     }
@@ -39,7 +39,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "BetterRoleDot",
     authors: [Devs.Ven, Devs.AutumnVN],
-    description: "نسخ لون الرتبة بالنقر على نقطة الرتبة، مع إمكانية عرضها مع الأسماء الملونة معاً",
+    description: "Copy role colour on RoleDot (accessibility setting) click. Also allows using both RoleDot and coloured names simultaneously",
     tags: ["Roles", "Appearance"],
     settings,
 

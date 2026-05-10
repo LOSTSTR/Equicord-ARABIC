@@ -26,7 +26,7 @@ const settings = definePluginSettings({
     isEnabled: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "تفعيل أو تعطيل Ingtoninator"
+        description: "Enable or disable the Ingtoninator"
     }
 });
 
@@ -145,7 +145,7 @@ function disabledIcon() {
 
 export default definePlugin({
     name: "Ingtoninator",
-    description: "يضيف لاحقة 'ington' لكلمة عشوائية في رسالتك",
+    description: "Suffixes 'ington' to a random word in your message",
     dependencies: ["ChatInputButtonAPI"],
     tags: ["Fun"],
     authors: [EquicordDevs.zyqunix, EquicordDevs.BioTomateDE],

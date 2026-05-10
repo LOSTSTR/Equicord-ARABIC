@@ -35,7 +35,7 @@ const settings = definePluginSettings(
 
 export default definePlugin({
     name: "ImplicitRelationships",
-    description: "يعرض علاقاتك الضمنية في تبويب الأصدقاء",
+    description: "Shows your implicit relationships in the Friends tab.",
     tags: ["Friends", "Servers"],
     authors: [Devs.Dolfies],
     settings,

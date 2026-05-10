@@ -76,7 +76,7 @@ function VencordPopoutButton() {
 migratePluginSettings("EquicordToolbox", "VencordToolbox");
 export default definePlugin({
     name: "EquicordToolbox",
-    description: "يضيف زراً بجانب البريد الوارد في رأس القناة يحتوي على اختصارات Equicord السريعة",
+    description: "Adds a button next to the inbox button in the channel header that houses Equicord quick actions",
     tags: ["Voice", "Accessibility"],
     authors: [Devs.Ven, Devs.AutumnVN],
     dependencies: ["HeaderBarAPI"],

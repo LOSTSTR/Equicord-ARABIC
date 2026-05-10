@@ -15,37 +15,37 @@ const settings = definePluginSettings({
     },
     logSoundboard: {
         type: OptionType.BOOLEAN,
-        description: "تسجيل عند تشغيل المستخدمين أصوات السبورد",
+        description: "Log when users play soundboard sounds.",
         default: true
     },
     logMuteDeafen: {
         type: OptionType.BOOLEAN,
-        description: "تسجيل عند كتم/تصميم المستخدمين على مستوى السيرفر",
+        description: "Log when users are server muted or deafened.",
         default: true
     },
     logVideo: {
         type: OptionType.BOOLEAN,
-        description: "تسجيل عند تشغيل/إيقاف المستخدمين لكاميراتهم",
+        description: "Log when users turn their camera on or off.",
         default: true
     },
     logStream: {
         type: OptionType.BOOLEAN,
-        description: "تسجيل عند بدء/إيقاف مشاركة الشاشة",
+        description: "Log when users start or stop screensharing.",
         default: true
     },
     logActivity: {
         type: OptionType.BOOLEAN,
-        description: "تسجيل عند بدء المستخدمين للأنشطة المدمجة",
+        description: "Log when users start embedded activities.",
         default: true
     },
     ignoreBlockedUsers: {
         type: OptionType.BOOLEAN,
-        description: "عدم تسجيل نشاط المستخدمين المحجوبين",
+        description: "Do not log blocked users.",
         default: false
     },
     soundboardFileType: {
         type: OptionType.SELECT,
-        description: "صيغة الملف عند تحميل أصوات السبورد",
+        description: "File format for downloading soundboard sounds.",
         options: [
             { label: ".ogg", value: ".ogg", default: true },
             { label: ".mp3", value: ".mp3" },
@@ -54,7 +54,7 @@ const settings = definePluginSettings({
     },
     soundboardVolume: {
         type: OptionType.SLIDER,
-        description: "مستوى صوت المعاينة لأصوات السبورد (0 للتعطيل)",
+        description: "Preview volume for soundboard sounds (0 to disable).",
         default: 0.5,
         markers: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
     },

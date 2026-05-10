@@ -24,7 +24,7 @@ const settings = definePluginSettings({
     },
     maxUses: {
         type: OptionType.SELECT,
-        description: "عدد مرات استخدام الدعوة",
+        description: "Invite Use Count",
         options: [
             { label: "Infinite", value: 0, default: true },
             { label: "1", value: 1 },
@@ -38,13 +38,13 @@ const settings = definePluginSettings({
     temporaryMembership: {
         type: OptionType.BOOLEAN,
         default: false,
-        description: "عضوية مؤقتة",
+        description: "Temporary Membership",
     },
 });
 
 export default definePlugin({
     name: "InviteDefaults",
-    description: "يتيح تعديل القيم الافتراضية عند إنشاء دعوات السيرفر",
+    description: "Allows you to edit the default values when creating server invites.",
     tags: ["Servers"],
     authors: [EquicordDevs.VillainsRule],
     settings,

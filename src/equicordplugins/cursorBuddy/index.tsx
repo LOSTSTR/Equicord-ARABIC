@@ -97,14 +97,14 @@ const settings = definePluginSettings({
         onChange: load,
     },
     speed: {
-        description: "سرعة الشخصية",
+        description: "Speed of your buddy",
         type: OptionType.NUMBER,
         default: 10,
         isValid: (value: number) => value >= 0 || "Speed must be bigger than 0",
         onChange: load,
     },
     fps: {
-        description: "معدل إطارات الشخصية",
+        description: "Framerate of your buddy",
         type: OptionType.NUMBER,
         default: 24,
         isValid: (value: number) => value > 0 || "Framerate must be bigger than 0",
@@ -125,14 +125,14 @@ const settings = definePluginSettings({
         component: OnekoColorSettings,
     },
     furColor: {
-        description: "لون فراء Oneko بصيغة HEX",
+        description: "Fur hex color for Oneko",
         type: OptionType.STRING,
         default: "#FFFFFF",
         onChange: load,
         hidden: true,
     },
     outlineColor: {
-        description: "لون محيط Oneko بصيغة HEX",
+        description: "Outline hex color for Oneko",
         type: OptionType.STRING,
         default: "#000000",
         onChange: load,
@@ -149,26 +149,26 @@ const settings = definePluginSettings({
         ),
     },
     size: {
-        description: "حجم الحصان",
+        description: "Size of the fatass horse",
         type: OptionType.NUMBER,
         default: 120,
         isValid: (value: number) => value > 0 || "Size must be bigger than 0",
         onChange: load
     },
     fade: {
-        description: "جعل الحصان يتلاشى عند اقتراب المؤشر منه",
+        description: "If the horse should fade when the cursor is near",
         type: OptionType.BOOLEAN,
         default: true,
         onChange: load
     },
     freeroam: {
-        description: "السماح للحصان بالتجوال بحرية عند الخمول",
+        description: "If the horse should roam freely when idle",
         type: OptionType.BOOLEAN,
         default: true,
         onChange: load
     },
     shake: {
-        description: "جعل النافذة تهتز عند مشي الحصان",
+        description: "If the horse should shake the window when it's walking",
         type: OptionType.BOOLEAN,
         default: false,
         onChange: load,
@@ -234,7 +234,7 @@ function load() {
 migratePluginSettings("CursorBuddy", "Oneko", "oneko");
 export default definePlugin({
     name: "CursorBuddy",
-    description: "يضيف شخصية متحركة تتبع مؤشر الفأرة.",
+    description: "Adds a sprite that follows your cursor.",
     tags: ["Appearance", "Customisation", "Fun"],
     authors: [Devs.Ven, Devs.adryd, EquicordDevs.nexpid, EquicordDevs.ZcraftElite],
     searchTerms: ["Oneko", "FatassHorse", "Pet"],

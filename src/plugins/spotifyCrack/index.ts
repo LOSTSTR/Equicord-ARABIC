@@ -28,7 +28,7 @@ const settings = definePluginSettings({
         restartNeeded: true
     },
     keepSpotifyActivityOnIdle: {
-        description: "استمر في عرض نشاط Spotify حتى عند الخمول",
+        description: "Keep Spotify activity playing when idling",
         type: OptionType.BOOLEAN,
         default: false,
         restartNeeded: true
@@ -37,7 +37,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "SpotifyCrack",
-    description: "استمع معاً مجاناً، بلا إيقاف تلقائي في الصوت، ويبقي النشاط شغّالاً عند الخمول",
+    description: "Free listen along, no auto-pausing in voice chat, and allows activity to continue playing when idling",
     tags: ["Media", "Utility", "Activity"],
     authors: [Devs.Cyn, Devs.Nuckyz],
     settings,

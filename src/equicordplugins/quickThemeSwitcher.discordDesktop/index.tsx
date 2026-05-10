@@ -66,13 +66,13 @@ const settings = definePluginSettings({
     },
     includeOnline: {
         type: OptionType.BOOLEAN,
-        description: "تضمين الثيمات الإنترنتية",
+        description: "Include online themes",
         default: true,
         onChange: refreshThemeList,
     },
     sortOrder: {
         type: OptionType.SELECT,
-        description: "طريقة الترتيب",
+        description: "Sort method",
         options: [
             { label: "A-Z", value: "alphabetical", default: true },
             { label: "Z-A", value: "reverse" },
@@ -82,12 +82,12 @@ const settings = definePluginSettings({
     },
     autoRefresh: {
         type: OptionType.BOOLEAN,
-        description: "تحديث قائمة الثيمات تلقائياً عند اكتشاف تغييرات",
+        description: "Auto-refresh theme list when changes are detected",
         default: true,
     },
     showNotifications: {
         type: OptionType.BOOLEAN,
-        description: "عرض إشعارات عند إضافة أو إزالة الثيمات",
+        description: "Show notifications when themes are added/removed",
         default: true,
     },
 });
@@ -243,7 +243,7 @@ const handleThemeNamesChange = () => settings.store.autoRefresh && debouncedRefr
 
 export default definePlugin({
     name: "QuickThemeSwitcher",
-    description: "يتيح التبديل السريع بين الثيمات باستخدام اختصارات لوحة المفاتيح.",
+    description: "Quickly switch between themes using keyboard shortcuts.",
     tags: ["Appearance", "Utility"],
     authors: [Devs.prism],
     settings,

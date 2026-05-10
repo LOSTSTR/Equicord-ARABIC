@@ -343,29 +343,29 @@ const settings = definePluginSettings({
     },
     serverEmojis: {
         type: OptionType.BOOLEAN,
-        description: "إخفاء إيموجي السيرفر المخصصة من الإكمال التلقائي إلا ما أُضيف للقائمة البيضاء",
+        description: "Hide custom server emojis from the autocomplete unless whitelisted.",
         default: true
     },
     disableToasts: {
         type: OptionType.BOOLEAN,
-        description: "عدم عرض إشعارات عند إضافة أو حذف الإيموجي",
+        description: "Don't show toasts when adding or removing emojis.",
         default: false
     },
     whiteListedEmojis: {
         type: OptionType.COMPONENT,
-        description: "الإيموجي في القائمة البيضاء",
+        description: "Whitelisted Emojis",
         component: WhiteListedEmojisComponent
     },
     exportEmojis: {
         type: OptionType.COMPONENT,
-        description: "تصدير الإيموجي",
+        description: "Export Emojis",
         component: () => (
             <Button onClick={exportEmojis}>Export Emojis</Button>
         )
     },
     importEmojis: {
         type: OptionType.COMPONENT,
-        description: "استيراد الإيموجي",
+        description: "Import Emojis",
         component: () => (
             <Button onClick={() =>
                 Alerts.show({
@@ -382,7 +382,7 @@ const settings = definePluginSettings({
     },
     resetEmojis: {
         type: OptionType.COMPONENT,
-        description: "إعادة تعيين قائمة الإيموجي",
+        description: "Reset Emojis",
         component: () => (
             <Button onClick={() =>
                 Alerts.show({
@@ -401,7 +401,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "WhitelistedEmojis",
-    description: "يتيح إخفاء جميع الإيموجي في الإكمال التلقائي باستثناء القائمة البيضاء المحددة",
+    description: "Adds the ability to disable all message emojis except for a whitelisted set.",
     tags: ["Chat", "Emotes"],
     authors: [EquicordDevs.creations],
     patches: [

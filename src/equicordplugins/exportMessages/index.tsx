@@ -27,7 +27,7 @@ const settings = definePluginSettings({
     },
     exportContacts: {
         type: OptionType.BOOLEAN,
-        description: "تصدير قائمة الأصدقاء إلى الحافظة، ويضيف زراً جديداً في شريط القائمة لتبويب الأصدقاء.",
+        description: "Export a list of friends to your clipboard. Adds a new button to the menu bar for the friends tab.",
         default: false
     }
 });
@@ -128,7 +128,7 @@ function getUsernames(contacts: ContactsList[], type: number): string[] {
 
 export default definePlugin({
     name: "ExportMessages",
-    description: "يتيح تصدير أي رسالة إلى ملف",
+    description: "Allows you to export any message to a file",
     tags: ["Chat", "Utility"],
     authors: [EquicordDevs.veygax, EquicordDevs.dat_insanity],
     settings,

@@ -29,13 +29,13 @@ const settings = definePluginSettings({
     },
     isKeybindEnabled: {
         type: OptionType.BOOLEAN,
-        description: "تفعيل/تعطيل اختصار لوحة المفاتيح العام (Ctrl + `)",
+        description: "Enable/disable the global keybind (Ctrl + `)",
         default: true,
         restartNeeded: true,
     },
     messageAlignment: {
         type: OptionType.SELECT,
-        description: "محاذاة الرسائل في الشريط العلوي",
+        description: "Alignment of messages in the overlay",
         options: [
             { label: "Top left", value: "topleft", default: true },
             { label: "Top right", value: "topright" },
@@ -47,7 +47,7 @@ const settings = definePluginSettings({
     },
     userAlignment: {
         type: OptionType.SELECT,
-        description: "محاذاة المستخدمين في الشريط العلوي",
+        description: "Alignment of users in the overlay",
         options: [
             { label: "Top left", value: "topleft", default: true },
             { label: "Top right", value: "topright" },
@@ -59,13 +59,13 @@ const settings = definePluginSettings({
     },
     voiceSemitransparent: {
         type: OptionType.BOOLEAN,
-        description: "جعل أعضاء القناة الصوتية شبه شفافين",
+        description: "Make voice channel members transparent",
         default: true,
         restartNeeded: true
     },
     messagesSemitransparent: {
         type: OptionType.BOOLEAN,
-        description: "جعل إشعارات الرسائل شبه شفافة",
+        description: "Make message notifications transparent",
         default: false,
         restartNeeded: true
     },
@@ -313,7 +313,7 @@ const createWebsocket = () => {
 
 export default definePlugin({
     name: "OrbolayBridge",
-    description: "إضافة جسر لربط Orbolay بـ Discord",
+    description: "Bridge plugin to connect Orbolay to Discord",
     tags: ["Utility", "Voice"],
     authors: [EquicordDevs.SpikeHD],
     settings,

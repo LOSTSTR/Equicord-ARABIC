@@ -61,7 +61,7 @@ const settings = definePluginSettings({
     },
     imgSize: {
         type: OptionType.SELECT,
-        description: "حجم الصورة المستخدم",
+        description: "The image size to use",
         options: ["128", "256", "512", "1024", "2048", "4096"].map(n => ({ label: n, value: n, default: n === "1024" }))
     }
 });
@@ -178,7 +178,7 @@ const GroupDMContext: NavContextMenuPatchCallback = (children, { channel }: Grou
 export default definePlugin({
     name: "ViewIcons",
     authors: [Devs.Ven, Devs.TheKodeToad, Devs.Nuckyz, Devs.nyx],
-    description: "يجعل الصور الرمزية والبانرات في ملفات المستخدمين قابلة للنقر، ويضيف خيارات عرض الأيقونة/البانر في قائمة السياق للمستخدم والسيرفر والمجموعة.",
+    description: "Makes avatars and banners in user profiles clickable, adds View Icon/Banner entries in the user, server and group channel context menu.",
     tags: ["Media", "Servers", "Appearance"],
     searchTerms: ["ImageUtilities"],
     dependencies: ["DynamicImageModalAPI"],

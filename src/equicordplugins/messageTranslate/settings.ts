@@ -15,42 +15,42 @@ export const settings = definePluginSettings({
     },
     confidenceRequirement: {
         type: OptionType.NUMBER,
-        description: "الحد الأدنى للثقة (من 0 إلى 1) المطلوب لعرض الترجمة",
+        description: "Minimum confidence (0 to 1) required to show a translation.",
         default: 0.8,
     },
     autoTranslate: {
         type: OptionType.BOOLEAN,
-        description: "ترجمة الرسائل تلقائياً عند ظهورها",
+        description: "Automatically translate messages as they appear.",
         default: true,
     },
     skipOwnMessages: {
         type: OptionType.BOOLEAN,
-        description: "عدم ترجمة رسائلك الخاصة",
+        description: "Do not translate your own messages.",
         default: true,
     },
     skipBotMessages: {
         type: OptionType.BOOLEAN,
-        description: "عدم ترجمة رسائل البوتات",
+        description: "Do not translate bot messages.",
         default: false,
     },
     ignoredGuilds: {
         type: OptionType.STRING,
-        description: "قائمة معرّفات السيرفرات مفصولة بفاصلة لتجاهل الترجمة فيها",
+        description: "Comma-separated list of server IDs to not translate in.",
         default: "",
     },
     ignoredChannels: {
         type: OptionType.STRING,
-        description: "قائمة معرّفات القنوات مفصولة بفاصلة لتجاهل الترجمة فيها",
+        description: "Comma-separated list of channel IDs to not translate in.",
         default: "",
     },
     ignoredUsers: {
         type: OptionType.STRING,
-        description: "قائمة معرّفات المستخدمين مفصولة بفاصلة لتجاهل ترجمة رسائلهم",
+        description: "Comma-separated list of user IDs to not translate.",
         default: "",
     },
     showIndicator: {
         type: OptionType.BOOLEAN,
-        description: "إضافة مؤشر صغير (مترجم) للرسائل المترجمة",
+        description: "Append a small (translated) indicator to translated messages.",
         default: true,
     },
 });

@@ -96,7 +96,7 @@ const settings = definePluginSettings({
     },
     channelOutput: {
         type: OptionType.SELECT,
-        description: "ناتج إفلات القناة.",
+        description: "Channel drop output.",
         options: [
             { label: "#channel mention", value: "mention", default: true },
             { label: "Channel link", value: "link" },
@@ -104,7 +104,7 @@ const settings = definePluginSettings({
     },
     inviteExpireAfter: {
         type: OptionType.SELECT,
-        description: "مدة انتهاء صلاحية الدعوة.",
+        description: "Invite expiration.",
         options: [
             { label: "30 minutes", value: 1800 },
             { label: "1 hour", value: 3600 },
@@ -117,7 +117,7 @@ const settings = definePluginSettings({
     },
     inviteMaxUses: {
         type: OptionType.SELECT,
-        description: "الحد الأقصى لاستخدامات الدعوة.",
+        description: "Invite max uses.",
         options: [
             { label: "No limit", value: 0, default: true },
             { label: "1 use", value: 1 },
@@ -131,24 +131,24 @@ const settings = definePluginSettings({
     inviteTemporaryMembership: {
         type: OptionType.BOOLEAN,
         default: false,
-        description: "منح عضوية مؤقتة.",
+        description: "Grant temporary membership.",
     },
     reuseExistingInvites: {
         type: OptionType.BOOLEAN,
         default: false,
-        description: "إعادة استخدام دعوة موجودة بدلاً من إنشاء واحدة جديدة.",
+        description: "Reuse existing invite instead of creating a new one.",
     },
     allowChatBodyDrop: {
         type: OptionType.BOOLEAN,
         default: false,
         restartNeeded: true,
-        description: "السماح بإفلات العناصر في منطقة الدردشة الرئيسية لإدراج نص.",
+        description: "Allow dropping into the main chat body to insert text.",
     },
 });
 
 export default definePlugin({
     name: "Dragify",
-    description: "يتيح سحب المستخدمين والقنوات والسيرفرات إلى الدردشة لإدراج إشارات أو دعوات.",
+    description: "Drop users, channels, or servers into chat to insert mentions or invites.",
     tags: ["Chat", "Servers", "Utility", "Voice"],
     authors: [EquicordDevs.justjxke],
     settings,

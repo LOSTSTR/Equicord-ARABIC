@@ -101,13 +101,13 @@ const settings = definePluginSettings({
     },
     isTextInputDefault: {
         type: OptionType.BOOLEAN,
-        description: 'عرض حقل نص بدلاً من قائمة الاختيار افتراضياً. (يعادل النقر على خيار "أخرى")'
+        description: 'Shows a text input instead of a select menu by default. (Equivalent to clicking the "Other" option)'
     }
 });
 
 export default definePlugin({
     name: "BetterBanReasons",
-    description: "إنشاء أسباب مخصصة لاستخدامها في نافذة الحظر، و/أو عرض حقل نص افتراضياً بدلاً من الخيارات.",
+    description: "Create custom reasons to use in the Discord ban modal, and/or show a text input by default instead of the options.",
     tags: ["Appearance", "Customisation"],
     authors: [Devs.Inbestigator, EquicordDevs.yonn2222],
 

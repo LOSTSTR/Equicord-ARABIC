@@ -114,7 +114,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "SaveFavoriteGIFs",
-    description: "يصدّر روابط GIF المفضلة لديك",
+    description: "Export favorited GIF urls",
     dependencies: ["CommandsAPI"],
     tags: ["Emotes", "Utility"],
     authors: [Devs.thororen],
@@ -122,13 +122,13 @@ export default definePlugin({
     commands: [
         {
             name: "savegifs",
-            description: "يحفظ جميع روابط GIF المفضلة في ملف نصي",
+            description: "Save all favorite GIF urls to a text file",
             inputType: ApplicationCommandInputType.BUILT_IN,
             execute: saveAllGifs
         },
         {
             name: "saveworkinggifs",
-            description: "يختبر جميع GIF المفضلة ويحفظ فقط العاملة منها",
+            description: "Test all favorite GIFs and only save the ones that are still working",
             inputType: ApplicationCommandInputType.BUILT_IN,
             execute: saveWorkingGifs
         }

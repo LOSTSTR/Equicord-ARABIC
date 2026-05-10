@@ -127,7 +127,7 @@ const settings = definePluginSettings({
         ]
     },
     messageContextMenu: {
-        description: "عرض في قائمة سياق الرسالة",
+        description: "Show in message context menu",
         type: OptionType.BOOLEAN,
         default: false
     }
@@ -179,7 +179,7 @@ const devContextCallback: NavContextMenuPatchCallback = (children, { id }: { id:
 
 export default definePlugin({
     name: "ViewRaw",
-    description: "نسخ وعرض المحتوى/البيانات الخام لأي رسالة أو قناة أو سيرفر",
+    description: "Copy and view the raw content/data of any message, channel or guild",
     dependencies: ["MessagePopoverAPI"],
     tags: ["Chat", "Developers"],
     authors: [Devs.KingFish, Devs.Ven, Devs.rad, Devs.ImLvna],

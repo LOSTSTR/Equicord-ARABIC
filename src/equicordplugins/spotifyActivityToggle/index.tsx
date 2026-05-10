@@ -87,7 +87,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "SpotifyActivityToggle",
-    description: "يضيف زر تبديل لإظهار أو إخفاء نشاط Spotify.",
+    description: "Adds a toggle button for Spotify activity visibility.",
     dependencies: ["UserAreaAPI"],
     tags: ["Activity", "Utility"],
     authors: [Devs.thororen],

@@ -42,7 +42,7 @@ const settings = definePluginSettings({
     },
     autoDisable: {
         type: OptionType.BOOLEAN,
-        description: "يُعطّل تبديل الرسائل الصامتة تلقائياً بعد إرسال رسالة واحدة",
+        description: "Automatically disable the silent message toggle again after sending one",
         default: true
     }
 });
@@ -109,7 +109,7 @@ const SilentMessageToggle: ChatBarButtonFactory = ({ isMainChat }) => {
 export default definePlugin({
     name: "SilentMessageToggle",
     authors: [Devs.Nuckyz, Devs.CatNoir, EquicordDevs.Z1xus],
-    description: "يضيف زراً في شريط المحادثة لتبديل إرسال رسائل صامتة.",
+    description: "Adds a button to the chat bar to toggle sending a silent message.",
     dependencies: ["ChatInputButtonAPI"],
     tags: ["Chat", "Utility"],
     settings,

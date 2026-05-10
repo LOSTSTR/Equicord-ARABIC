@@ -21,7 +21,7 @@ const settings = definePluginSettings({
     },
     blurAllChannels: {
         type: OptionType.BOOLEAN,
-        description: "تعتيم المرفقات في جميع القنوات (وليس فقط قنوات المحتوى الحساس)",
+        description: "Blur attachments in all channels (not just NSFW)",
         default: false
     },
 });
@@ -42,7 +42,7 @@ function setCss() {
 
 export default definePlugin({
     name: "BlurNSFW",
-    description: "يعتم المرفقات في قنوات المحتوى الحساس حتى يمرر عليها الماوس",
+    description: "Blur attachments in NSFW channels until hovered",
     tags: ["Privacy", "Appearance"],
     authors: [Devs.Ven],
     isModified: true,

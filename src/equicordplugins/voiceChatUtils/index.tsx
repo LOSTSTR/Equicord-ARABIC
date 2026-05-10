@@ -165,7 +165,7 @@ const settings = definePluginSettings({
     },
     waitSeconds: {
         type: OptionType.SLIDER,
-        description: "وقت الانتظار بين كل إجراء (بالثواني)",
+        description: "Time to wait between each action (in seconds)",
         default: 2,
         markers: makeRange(1, 10, .5),
     }
@@ -173,7 +173,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "VoiceChatUtilities",
-    description: "يتيح تنفيذ إجراءات جماعية على قناة صوتية كاملة (نقل، كتم، قطع الاتصال وغيرها)",
+    description: "This plugin allows you to perform multiple actions on an entire channel (move, mute, disconnect, etc.) (originally by dutake)",
     tags: ["Chat", "Servers", "Voice"],
     authors: [Devs.D3SOX, EquicordDevs.nickwoah],
 

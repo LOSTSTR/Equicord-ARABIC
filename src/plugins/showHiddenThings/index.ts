@@ -30,9 +30,9 @@ const opt = (description: string) => ({
 } satisfies PluginSettingDef);
 
 const settings = definePluginSettings({
-    showTimeouts: opt("اعرض أيقونات حظر التكلم للأعضاء في المحادثة."),
-    showInvitesPaused: opt("اعرض تلميح إيقاف الدعوات في قائمة السيرفرات."),
-    showModView: opt("اعرض خيار عرض بيانات المشرف في قائمة السياق لجميع السيرفرات.")
+    showTimeouts: opt("Show member timeout icons in chat."),
+    showInvitesPaused: opt("Show the invites paused tooltip in the server list."),
+    showModView: opt("Show the member mod view context menu item in all servers.")
 });
 
 export default definePlugin({

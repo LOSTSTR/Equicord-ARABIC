@@ -32,13 +32,13 @@ const settings = definePluginSettings({
     },
     hideMessageRequestsCount: {
         type: OptionType.BOOLEAN,
-        description: "إخفاء عداد طلبات الرسائل",
+        description: "Hide message requests count",
         default: true,
         restartNeeded: true
     },
     hidePremiumOffersCount: {
         type: OptionType.BOOLEAN,
-        description: "إخفاء عداد عروض نيترو",
+        description: "Hide nitro offers count",
         default: true,
         restartNeeded: true
     }
@@ -46,7 +46,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "NoPendingCount",
-    description: "يزيل عداد الإشعارات لطلبات الصداقة والرسائل وعروض نيترو.",
+    description: "Removes the ping count of incoming friend requests, message requests, and nitro offers.",
     tags: ["Notifications", "Appearance"],
     authors: [Devs.amia],
 

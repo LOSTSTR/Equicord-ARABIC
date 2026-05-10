@@ -150,7 +150,7 @@ const settings = definePluginSettings({
         restartNeeded: true
     },
     replaceElements: {
-        description: "اختر العناصر التي سيتم استبدالها في المقطع المضمّن",
+        description: "Choose which elements of the embed will be replaced",
         type: OptionType.SELECT,
         restartNeeded: true,
         options: [
@@ -160,7 +160,7 @@ const settings = definePluginSettings({
         ],
     },
     dearrowByDefault: {
-        description: "يطبّق Dearrow على مقاطع YouTube تلقائيًا",
+        description: "Dearrow videos automatically",
         type: OptionType.BOOLEAN,
         default: true,
         restartNeeded: false
@@ -169,7 +169,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "Dearrow",
-    description: "يجعل عناوين وصور مقاطع YouTube المضمّنة أقل إثارة، مدعومة بـ Dearrow",
+    description: "Makes YouTube embed titles and thumbnails less sensationalist, powered by Dearrow",
     tags: ["Media", "Utility"],
     authors: [Devs.Ven],
     settings,

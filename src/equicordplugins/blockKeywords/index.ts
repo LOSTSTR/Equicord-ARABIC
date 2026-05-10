@@ -20,18 +20,18 @@ const settings = definePluginSettings({
     },
     useRegex: {
         type: OptionType.BOOLEAN,
-        description: "استخدام كل قيمة كتعبير نمطي عند فحص محتوى الرسائل (متقدم)",
+        description: "Use each value as a regular expression when checking message content (advanced)",
         default: false,
         restartNeeded: true
     },
     caseSensitive: {
         type: OptionType.BOOLEAN,
-        description: "تفعيل التمييز بين الأحرف الكبيرة والصغيرة في البحث",
+        description: "Whether to use a case sensitive search or not",
         default: false,
         restartNeeded: true
     },
     ignoreBlockedMessages: {
-        description: "تجاهل شريط الرسائل الجديدة الأخيرة كلياً",
+        description: "Completely ignores (recent) new messages bar",
         type: OptionType.BOOLEAN,
         default: true,
         restartNeeded: true,
@@ -69,7 +69,7 @@ export function containsBlockedKeywords(message: Message) {
 
 export default definePlugin({
     name: "BlockKeywords",
-    description: "يحجب الرسائل التي تحتوي كلمات مفتاحية محددة من قِبل المستخدم، كأن مُرسِلها محظور.",
+    description: "Blocks messages containing specific user-defined keywords, as if the user sending them was blocked.",
     tags: ["Appearance", "Customisation", "Privacy"],
     authors: [EquicordDevs.catcraft],
     patches: [

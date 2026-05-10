@@ -12,6 +12,7 @@ export default definePlugin({
     description: "واجهة برمجية لإضافة مجموعات إلى لوحة ملف المستخدم كمجموعة الألعاب في Discord.",
     authors: [Devs.thororen],
     patches: [
+        // message and member list popouts
         {
             find: "#{intl::USER_PROFILE_FRIEND_REQUEST_TOAST}",
             replacement: {
@@ -19,6 +20,7 @@ export default definePlugin({
                 replace: "$&Vencord.Api.ProfileCollections.renderProfileCollections(arguments[0]),",
             }
         },
+        // user panel popout
         {
             find: '"UserProfileAccountPopout"',
             replacement: {
@@ -26,6 +28,7 @@ export default definePlugin({
                 replace: "$&Vencord.Api.ProfileCollections.renderProfileCollections(arguments[0]),",
             },
         },
+        // dm sidebar
         {
             find: ".SIDEBAR,disableToolbar:",
             replacement: {

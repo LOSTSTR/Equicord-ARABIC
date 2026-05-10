@@ -103,69 +103,69 @@ const settings = definePluginSettings({
     },
     preferUDP: {
         type: OptionType.BOOLEAN,
-        description: "فعّل إذا كنت تستخدم إصداراً قديماً من XSOverlay غير قادر على الاتصال عبر websockets. يُتجاهل هذا الإعداد على الويب.",
+        description: "Enable if you use an older build of XSOverlay unable to connect through websockets. This setting is ignored on web.",
         default: false,
         disabled: () => IS_WEB
     },
     botNotifications: {
         type: OptionType.BOOLEAN,
-        description: "السماح بإشعارات البوتات",
+        description: "Allow bot notifications",
         default: false
     },
     serverNotifications: {
         type: OptionType.BOOLEAN,
-        description: "السماح بإشعارات السيرفر",
+        description: "Allow server notifications",
         default: true
     },
     dmNotifications: {
         type: OptionType.BOOLEAN,
-        description: "السماح بإشعارات الرسائل المباشرة",
+        description: "Allow Direct Message notifications",
         default: true
     },
     groupDmNotifications: {
         type: OptionType.BOOLEAN,
-        description: "السماح بإشعارات الرسائل الجماعية",
+        description: "Allow Group DM notifications",
         default: true
     },
     callNotifications: {
         type: OptionType.BOOLEAN,
-        description: "السماح بإشعارات المكالمات",
+        description: "Allow call notifications",
         default: true
     },
     pingColor: {
         type: OptionType.STRING,
-        description: "لون الإشارة للمستخدم",
+        description: "User mention color",
         default: "#7289da"
     },
     channelPingColor: {
         type: OptionType.STRING,
-        description: "لون الإشارة للقناة",
+        description: "Channel mention color",
         default: "#8a2be2"
     },
     soundPath: {
         type: OptionType.STRING,
-        description: "صوت الإشعار (default/warning/error)",
+        description: "Notification sound (default/warning/error)",
         default: "default"
     },
     timeout: {
         type: OptionType.NUMBER,
-        description: "مدة الإشعار (ثانية)",
+        description: "Notification duration (secs)",
         default: 3,
     },
     lengthBasedTimeout: {
         type: OptionType.BOOLEAN,
-        description: "تمديد مدة الإشعار بحسب طول الرسالة",
+        description: "Extend duration with message length",
         default: true
     },
     opacity: {
         type: OptionType.SLIDER,
-        description: "شفافية الإشعار",
+        description: "Notif opacity",
         default: 1,
         markers: makeRange(0, 1, 0.1)
     },
     volume: {
         type: OptionType.SLIDER,
-        description: "الصوت",
+        description: "Volume",
         default: 0.2,
         markers: makeRange(0, 1, 0.1)
     },
@@ -187,7 +187,7 @@ const Native = VencordNative.pluginHelpers.XSOverlay as PluginNative<typeof impo
 
 export default definePlugin({
     name: "XSOverlay",
-    description: "يُعيد توجيه إشعارات Discord إلى XSOverlay لعرضها بسهولة في VR",
+    description: "Forwards discord notifications to XSOverlay, for easy viewing in VR",
     tags: ["Notifications"],
     authors: [Devs.Nyako],
     searchTerms: ["vr", "notify"],

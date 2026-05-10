@@ -20,7 +20,7 @@ const settings = definePluginSettings({
         restartNeeded: true // Because of the setInterval patch
     },
     remainInIdle: {
-        description: "عند العودة إلى Discord، يبقى وضع الخمول حتى تؤكد رغبتك في الظهور متصلًا",
+        description: "When you come back to Discord, remain idle until you confirm you want to go online",
         type: OptionType.BOOLEAN,
         default: true
     }
@@ -28,7 +28,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "CustomIdle",
-    description: "يتيح تحديد الوقت قبل أن يتحول Discord إلى وضع الخمول (أو تعطيله كليًا)",
+    description: "Allows you to set the time before Discord goes idle (or disable auto-idle)",
     tags: ["Activity", "Customisation"],
     authors: [Devs.newwares],
     settings,

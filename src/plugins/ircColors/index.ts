@@ -38,19 +38,19 @@ const settings = definePluginSettings({
         default: 70,
     },
     memberListColors: {
-        description: "استبدال ألوان الرتب في قائمة الأعضاء",
+        description: "Replace role colors in the member list",
         restartNeeded: true,
         type: OptionType.BOOLEAN,
         default: true
     },
     applyColorOnlyToUsersWithoutColor: {
-        description: "تطبيق الألوان فقط على المستخدمين الذين لا يملكون لوناً محدداً مسبقاً",
+        description: "Apply colors only to users who don't have a predefined color",
         restartNeeded: false,
         type: OptionType.BOOLEAN,
         default: false
     },
     applyColorOnlyInDms: {
-        description: "تطبيق الألوان في الرسائل المباشرة فقط، دون السيرفرات",
+        description: "Apply colors only in direct messages; do not apply colors in servers.",
         restartNeeded: false,
         type: OptionType.BOOLEAN,
         default: false
@@ -59,7 +59,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "IrcColors",
-    description: "يمنح كل مستخدم لوناً فريداً في الشات، على طريقة عملاء IRC",
+    description: "Makes username colors in chat unique, like in IRC clients",
     tags: ["Appearance", "Customisation"],
     authors: [Devs.Grzesiek11, Devs.jamesbt365],
     settings,

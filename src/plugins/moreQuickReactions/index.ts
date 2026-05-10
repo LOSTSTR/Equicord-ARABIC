@@ -17,32 +17,32 @@ const settings = definePluginSettings({
         default: 5
     },
     frequentEmojis: {
-        description: "استخدام الإيموجيات الأكثر استخداماً بدلاً من المفضلة",
+        description: "Use frequently used emojis instead of favourite emojis",
         type: OptionType.BOOLEAN,
         restartNeeded: true,
         default: true
     },
     rows: {
-        description: "عدد صفوف التفاعلات السريعة المعروضة",
+        description: "Rows of quick reactions to display",
         type: OptionType.SLIDER,
         default: 2,
         markers: makeRange(1, 16, 1),
         stickToMarkers: true
     },
     columns: {
-        description: "عدد أعمدة التفاعلات السريعة المعروضة",
+        description: "Columns of quick reactions to display",
         type: OptionType.SLIDER,
         default: 4,
         markers: makeRange(1, 12, 1),
         stickToMarkers: true
     },
     compactMode: {
-        description: "تصغير الأزرار إلى 75% مع تكبير الإيموجي الداخلي إلى 125%. يُنصح بـ 5 أعمدة على الأقل",
+        description: "Scales the buttons to 75% of their original scale, whilst increasing the inner emoji to 125% scale. Emojis will be 93.75% of the original size. Recommended to have a minimum of 5 columns",
         type: OptionType.BOOLEAN,
         default: false
     },
     scroll: {
-        description: "تفعيل التمرير في قائمة الإيموجيات",
+        description: "Enable scrolling the list of emojis",
         type: OptionType.BOOLEAN,
         default: true
     }
@@ -51,7 +51,7 @@ const settings = definePluginSettings({
 migratePluginSettings("MoreQuickReactions", "BetterQuickReact");
 export default definePlugin({
     name: "MoreQuickReactions",
-    description: "يُحسّن أزرار التفاعل السريع في قائمة سياق الرسائل",
+    description: "Improves the quick react buttons in the message context menu.",
     tags: ["Emotes", "Reactions", "Customisation", "Shortcuts"],
     authors: [Devs.Ven, Devs.Sqaaakoi, Devs.iamme],
     isModified: true,

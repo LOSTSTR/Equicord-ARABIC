@@ -24,7 +24,7 @@ let ERROR_CODES: Record<string, string> | undefined;
 
 export default definePlugin({
     name: "ReactErrorDecoder",
-    description: 'يستبدل "Minified React Error" بالخطأ الحقيقي المفصّل.',
+    description: 'Replaces "Minified React Error" with the actual error.',
     tags: ["Developers"],
     authors: [Devs.Cyn, Devs.maisymoe],
     patches: [

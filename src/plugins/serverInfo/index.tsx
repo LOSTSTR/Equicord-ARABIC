@@ -49,7 +49,7 @@ export const settings = definePluginSettings({
 
 export default definePlugin({
     name: "ServerInfo",
-    description: "يتيح عرض معلومات تفصيلية عن السيرفر",
+    description: "Allows you to view info about a server",
     tags: ["Servers", "Utility"],
     authors: [Devs.Ven, Devs.Nuckyz, EquicordDevs.Z1xus],
     dependencies: ["DynamicImageModalAPI"],

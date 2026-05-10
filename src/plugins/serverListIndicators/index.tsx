@@ -131,7 +131,7 @@ export const settings = definePluginSettings({
         restartNeeded: true // Restart needed just to force update
     },
     useCompact: {
-        description: "اعرض المؤشر بالنص فقط دون أيقونات",
+        description: "Makes the indicator appear with only text",
         type: OptionType.BOOLEAN,
         default: false,
         restartNeeded: true // Restart needed just to force update
@@ -140,7 +140,7 @@ export const settings = definePluginSettings({
 
 export default definePlugin({
     name: "ServerListIndicators",
-    description: "يضيف عداد الأصدقاء المتصلين أو عدد السيرفرات في قائمة السيرفرات",
+    description: "Add online friend count or server count in the server list",
     tags: ["Servers", "Appearance"],
     authors: [Devs.dzshn, EquicordDevs.Panniku],
     dependencies: ["ServerListAPI"],

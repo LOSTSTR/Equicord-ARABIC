@@ -51,7 +51,7 @@ const settings = definePluginSettings({
     },
     ignoreBlockedAndIgnored: {
         type: OptionType.BOOLEAN,
-        description: "تجاهل رسائل المستخدمين المحظورين عند التنقل",
+        description: "Ignore messages by blocked/ignored users when navigating",
         default: true
     }
 });
@@ -59,7 +59,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "QuickReply",
     authors: [Devs.fawn, Devs.Ven, Devs.pylix],
-    description: "ردّ على الرسائل (Ctrl+↑/↓) أو عدّلها (Ctrl+Shift+↑/↓) عبر اختصارات لوحة المفاتيح",
+    description: "Reply to (ctrl + up/down) and edit (ctrl + shift + up/down) messages via keybinds",
     tags: ["Chat", "Shortcuts"],
     settings,
 

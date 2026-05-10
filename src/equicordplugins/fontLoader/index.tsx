@@ -71,7 +71,7 @@ async function searchGoogleFonts(query: string) {
 }
 
 const preloadFont = (family: string) =>
-    loadFontStyle(createGoogleFontUrl(family, "&text=The quick brown fox jumps over the lazy dog"));
+    loadFontStyle(createGoogleFontUrl(family, ":wght@400;700"));
 
 let styleElement: HTMLStyleElement | null = null;
 
@@ -135,14 +135,13 @@ function GoogleFontSearch({ onSelect }: { onSelect: (font: GoogleFontMetadata) =
     return (
         <section>
             <HeadingSecondary>Search Google Fonts</HeadingSecondary>
-            <Paragraph>Click on any font to apply it.</Paragraph>
+            <Paragraph className={Margins.bottom8}>Click on any font to apply it.</Paragraph>
 
             <TextInput
                 value={query}
                 onChange={e => handleSearch(e)}
                 placeholder="Search fonts..."
                 disabled={loading}
-                className={Margins.bottom16}
             />
 
             {results.length > 0 && (
@@ -180,7 +179,7 @@ const settings = definePluginSettings({
     },
     fontSearch: {
         type: OptionType.COMPONENT,
-        description: "ابحث عن خط من Google Fonts واختره",
+        description: "Search and select Google Fonts",
         component: () => (
             <GoogleFontSearch
                 onSelect={font => {
@@ -192,14 +191,14 @@ const settings = definePluginSettings({
     },
     applyOnCodeBlocks: {
         type: OptionType.BOOLEAN,
-        description: "يطبق الخط المختار على كتل الكود أيضاً",
+        description: "Apply the font to code blocks",
         default: false
     }
 });
 
 export default definePlugin({
     name: "FontLoader",
-    description: "يحمّل أي خط من Google Fonts ويطبقه على واجهة Discord",
+    description: "Loads any font from Google Fonts",
     tags: ["Appearance", "Customisation"],
     authors: [EquicordDevs.vmohammad],
     settings,

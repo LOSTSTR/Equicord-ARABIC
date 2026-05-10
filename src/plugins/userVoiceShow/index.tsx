@@ -33,13 +33,13 @@ const settings = definePluginSettings({
     },
     showInMemberList: {
         type: OptionType.BOOLEAN,
-        description: "عرض مؤشر القناة الصوتية للمستخدم في قائمة الأعضاء والرسائل المباشرة",
+        description: "Show a user's Voice Channel indicator in the member and DMs list",
         default: true,
         restartNeeded: true
     },
     showInMessages: {
         type: OptionType.BOOLEAN,
-        description: "عرض مؤشر القناة الصوتية للمستخدم في الرسائل",
+        description: "Show a user's Voice Channel indicator in messages",
         default: true,
         restartNeeded: true
     }
@@ -47,7 +47,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "UserVoiceShow",
-    description: "يعرض مؤشراً عند وجود مستخدم في قناة صوتية",
+    description: "Shows an indicator when a user is in a Voice Channel",
     tags: ["Voice", "Appearance", "Friends"],
     dependencies: ["MemberListDecoratorsAPI", "MessageDecorationsAPI", "NicknameIconsAPI"],
     authors: [Devs.Nuckyz, Devs.LordElias, EquicordDevs.omaw],

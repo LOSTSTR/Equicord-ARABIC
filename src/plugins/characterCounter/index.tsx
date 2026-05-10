@@ -35,7 +35,7 @@ function getCounterColor(percentage: number) {
 
 export default definePlugin({
     name: "CharacterCounter",
-    description: "يضيف عداد أحرف إلى حقل الكتابة",
+    description: "Adds a character counter to the chat input",
     authors: [Devs.thororen, EquicordDevs.creations],
     tags: ["Utility"],
     settings,

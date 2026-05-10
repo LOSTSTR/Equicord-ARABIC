@@ -44,13 +44,13 @@ export const settings = definePluginSettings({
     },
     memberList: {
         type: OptionType.BOOLEAN,
-        description: "عرض عدد الأعضاء في قائمة الأعضاء",
+        description: "Show member count in the member list",
         default: true,
         restartNeeded: true
     },
     voiceActivity: {
         type: OptionType.BOOLEAN,
-        description: "عرض نشاط الصوت مع عدد الأعضاء في القائمة",
+        description: "Show voice activity with member count in the member list",
         default: true
     }
 });
@@ -61,7 +61,7 @@ export const cl = classNameFactory("vc-membercount-");
 
 export default definePlugin({
     name: "MemberCount",
-    description: "يعرض عدد الأعضاء المتصلين والإجمالي ومستخدمي قنوات الصوت في السيرفر — ضمن القائمة والتلميح",
+    description: "Shows the number of online members, total members, and users in voice channels on the server — in the member list and tooltip.",
     tags: ["Servers", "Utility"],
     authors: [Devs.Ven, Devs.Commandtechno, Devs.Apexo],
     settings,

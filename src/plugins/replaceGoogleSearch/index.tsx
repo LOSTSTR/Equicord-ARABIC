@@ -36,12 +36,12 @@ const settings = definePluginSettings({
         placeholder: "Google"
     },
     customEngineURL: {
-        description: "رابط محرك البحث الخاص بك",
+        description: "The URL of your Engine",
         type: OptionType.STRING,
         placeholder: "https://google.com/search?q="
     },
     replacementEngine: {
-        description: "استبدل بمحرك بحث محدد بدلاً من إضافة قائمة",
+        description: "Replace with a specific search engine instead of adding a menu",
         type: OptionType.SELECT,
         options: [
             { label: "Off", value: ReplacementEngineValue.OFF, default: true },
@@ -130,7 +130,7 @@ const messageContextMenuPatch: NavContextMenuPatchCallback = (children, _props) 
 migratePluginSettings("ReplaceGoogleSearch", "Search");
 export default definePlugin({
     name: "ReplaceGoogleSearch",
-    description: "يستبدل بحث Google بمحركات بحث أخرى",
+    description: "Replaces the Google search with different Engine(s)",
     tags: ["Utility", "Customisation"],
     authors: [Devs.Moxxie, Devs.Ethan],
 

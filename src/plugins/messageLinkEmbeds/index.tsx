@@ -79,7 +79,7 @@ const settings = definePluginSettings({
         type: OptionType.BOOLEAN
     },
     automodEmbeds: {
-        description: "استخدام Automod Embeds بدلاً من Rich Embeds (أصغر حجماً لكن أقل معلومات)",
+        description: "Use automod embeds instead of rich embeds (smaller but less info)",
         type: OptionType.SELECT,
         options: [
             {
@@ -98,7 +98,7 @@ const settings = definePluginSettings({
         ]
     },
     listMode: {
-        description: "استخدام قائمة المعرّفات كقائمة سوداء أو بيضاء",
+        description: "Whether to use ID list as blacklist or whitelist",
         type: OptionType.SELECT,
         options: [
             {
@@ -113,7 +113,7 @@ const settings = definePluginSettings({
         ]
     },
     idList: {
-        description: "معرّفات السيرفر/القناة/المستخدم للقائمة السوداء أو البيضاء (مفصولة بفاصلة)",
+        description: "Guild/channel/user IDs to blacklist or whitelist (separate with comma)",
         type: OptionType.STRING,
         default: "",
         multiline: true,
@@ -363,7 +363,7 @@ function AutomodEmbedAccessory(props: MessageEmbedProps): JSX.Element | null {
 
 export default definePlugin({
     name: "MessageLinkEmbeds",
-    description: "يضيف معاينة للرسائل التي تحتوي على رابط لرسالة أخرى",
+    description: "Adds a preview to messages that link another message",
     tags: ["Chat", "Appearance"],
     authors: [Devs.TheSun, Devs.Ven, Devs.RyanCaoDev],
     dependencies: ["MessageAccessoriesAPI", "MessageUpdaterAPI", "UserSettingsAPI"],

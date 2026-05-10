@@ -89,7 +89,7 @@ export function registerTagCommand(tag: Tag) {
 migratePluginSettings("CustomCommands", "MessageTags");
 export default definePlugin({
     name: "CustomCommands",
-    description: "يتيح إنشاء أوامر slash مخصصة وعلامات (tags) خاصة بك",
+    description: "Allows you to create custom slash commands / tags",
     dependencies: ["CommandsAPI"],
     searchTerms: ["MessageTags"],
     authors: [Devs.Ven, Devs.Luna,],
@@ -106,28 +106,28 @@ export default definePlugin({
     commands: [
         {
             name: "tags",
-            description: "إدارة جميع الأوامر المخصصة",
+            description: "Manage all custom commands",
             inputType: ApplicationCommandInputType.BUILT_IN,
             options: [
                 {
                     name: "create",
-                    description: "إنشاء علامة (tag) جديدة",
+                    description: "Create a new tag",
                     type: ApplicationCommandOptionType.SUB_COMMAND,
                 },
                 {
                     name: "list",
-                    description: "عرض جميع علاماتك (tags)",
+                    description: "List all your tags",
                     type: ApplicationCommandOptionType.SUB_COMMAND,
                     options: []
                 },
                 {
                     name: "delete",
-                    description: "حذف علامة (tag) باسمها",
+                    description: "Remove a tag by name",
                     type: ApplicationCommandOptionType.SUB_COMMAND,
                     options: [
                         {
                             name: "tag-name",
-                            description: "اسم العلامة (tag)",
+                            description: "The name of the tag",
                             type: ApplicationCommandOptionType.STRING,
                             required: true
                         }

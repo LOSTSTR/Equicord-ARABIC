@@ -41,25 +41,25 @@ const settings = definePluginSettings({
     file: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "إزالة نافذة 'تحميل قد يكون خطراً' عند فتح الملفات",
+        description: "Remove the 'Potentially Dangerous Download' popup when opening links",
         restartNeeded: true
     },
     noDeleteSafety: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "إزالة متطلب كتابة اسم السيرفر عند حذفه",
+        description: "Removes the enter server name requirement when deleting a server",
         restartNeeded: true
     },
     confirmModal: {
         type: OptionType.BOOLEAN,
-        description: "هل تريد عرض نافذة تأكيد الحذف؟",
+        description: "Should a \"are you sure you want to delete\" modal be shown?",
         default: true
     },
 });
 
 export default definePlugin({
     name: "AlwaysTrust",
-    description: "يزيل النوافذ المزعجة للنطاقات غير الموثوقة والملفات المشبوهة",
+    description: "Removes the annoying untrusted domain and suspicious file popup",
     tags: ["Utility"],
     authors: [Devs.zt, Devs.Trwy],
     isModified: true,

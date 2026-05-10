@@ -22,24 +22,24 @@ const settings = definePluginSettings(
             default: "a chronic discord user"
         },
         textHeader: {
-            description: "الرمز الذي يُسبق التوقيع",
+            description: "What header to preface text with",
             type: OptionType.STRING,
             default: ">",
         },
         showIcon: {
             type: OptionType.BOOLEAN,
             default: true,
-            description: "يعرض أيقونة لتفعيل/تعطيل الإضافة في شريط الشات",
+            description: "Show an icon for toggling the plugin in the chat bar",
             restartNeeded: true,
         },
         contextMenu: {
             type: OptionType.BOOLEAN,
-            description: "يضيف خياراً لتبديل التوقيع في القائمة السياقية لمربع الشات",
+            description: "Add option to toggle the functionality in the chat input context menu",
             default: true
         },
         isEnabled: {
             type: OptionType.BOOLEAN,
-            description: "تفعيل/تعطيل الميزة",
+            description: "Toggle functionality",
             default: true,
         },
     });
@@ -99,7 +99,7 @@ const ChatBarContextCheckbox: NavContextMenuPatchCallback = children => {
 
 export default definePlugin({
     name: "Signature",
-    description: "يضيف توقيعاً تلقائياً في نهاية رسائلك",
+    description: "Automated fingerprint/end text",
     dependencies: ["CommandsAPI", "ChatInputButtonAPI", "MessagePopoverAPI"],
     tags: ["Appearance", "Chat"],
     authors: [Devs.Ven, Devs.Rini, Devs.ImBanana, EquicordDevs.KrystalSkull],
@@ -131,12 +131,12 @@ export default definePlugin({
     commands: [
         {
             name: "signature",
-            description: "يبدّل تفعيل/تعطيل توقيعك",
+            description: "Toggle your signature",
             inputType: ApplicationCommandInputType.BUILT_IN,
             options: [
                 {
                     name: "value",
-                    description: "يبدّل توقيعك (الافتراضي هو التبديل)",
+                    description: "Toggle your signature (default is toggle)",
                     required: false,
                     type: ApplicationCommandOptionType.BOOLEAN,
                 },

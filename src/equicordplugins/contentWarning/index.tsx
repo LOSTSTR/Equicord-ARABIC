@@ -151,7 +151,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "ContentWarning",
     authors: [EquicordDevs.camila314],
-    description: "يتيح تحديد كلمات تشغيل تُطمس تلقائياً، ويكشفها عند التمرير أو النقر عليها.",
+    description: "Allows you to specify certain trigger words that will be blurred by default. Hovering/Clicking on the blurred content will reveal it.",
     tags: ["Appearance", "Utility"],
     settings,
     patches: [

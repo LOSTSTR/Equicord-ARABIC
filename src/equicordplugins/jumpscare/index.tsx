@@ -23,12 +23,12 @@ const settings = definePluginSettings({
     },
     audioSource: {
         type: OptionType.STRING,
-        description: "رابط صوت المفاجأة المرعبة",
+        description: "Sets the audio url of the jumpscare",
         default: "https://github.com/Equicord/Equibored/raw/main/sounds/jumpscare/trollolol.mp3?raw=true"
     },
     chance: {
         type: OptionType.NUMBER,
-        description: "احتمالية حدوث المفاجأة (1 من X مثلاً: 100 = 1/100 أي 1%، 50 = 1/50 أي 2%)",
+        description: "The chance of a jumpscare happening (1 in X so: 100 = 1/100 or 1%, 50 = 1/50 or 2%, etc.)",
         default: 1000
     }
 });
@@ -47,7 +47,7 @@ function getJumpscareRoot(): Root {
 
 export default definePlugin({
     name: "Jumpscare",
-    description: "يضيف احتمالية قابلة للضبط لإخافتك عند فتح أي قناة. مستوحى من Geometry Dash Mega Hack",
+    description: "Adds a configurable chance of jumpscaring you whenever you open a channel. Inspired by Geometry Dash Mega Hack",
     tags: ["Fun"],
     authors: [Devs.surgedevs],
     dependencies: ["AudioPlayerAPI"],

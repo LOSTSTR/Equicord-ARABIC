@@ -23,13 +23,13 @@ const settings = definePluginSettings({
             { label: "Recently Active", value: 0, default: true },
             { label: "Date Posted", value: 1 }
         ],
-        description: "ترتيب الفرز الافتراضي"
+        description: "Which sort order to use as default"
     }
 });
 
 export default definePlugin({
     name: "OverrideForumDefaults",
-    description: "يتيح تخصيص تخطيط المنتدى وترتيب الفرز الافتراضي مع إمكانية التغيير لكل قناة",
+    description: "Allows you to override default forum layout/sort order. you can still change it on a per-channel basis",
     tags: ["Servers", "Organisation", "Customisation"],
     authors: [Devs.Inbestigator],
     patches: [

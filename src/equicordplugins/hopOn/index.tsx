@@ -25,13 +25,13 @@ const settings = definePluginSettings({
     },
     url: {
         type: OptionType.STRING,
-        description: "الرابط الذي يُفتح عند التطابق",
+        description: "URL to open",
         default: "com.epicgames.launcher://apps/fn%3A4fe75bbc5a674f4f9b356b5c90567da5%3AFortnite?action=launch&silent=true"
     }
 });
 export default definePlugin({
     name: "HopOn",
-    description: "يفتح رابطاً قابلاً للتخصيص عند تطابق رسالة مع نمط regex محدد في القناة الحالية.",
+    description: "Hop on! Opens a configurable URL when a message matches a custom regex in the current channel.",
     tags: ["Fun"],
     authors: [Devs.ImLvna],
     settings,

@@ -16,13 +16,13 @@ export const settings = definePluginSettings({
         default: false
     },
     uwuEveryMessage: {
-        description: "تحويل كل رسائلك إلى أسلوب uwu",
+        description: "Make every single message uwuified",
         type: OptionType.BOOLEAN,
         default: false,
         restartNeeded: false
     },
     uwuEverything: {
-        description: "يحوّل *كل* النصوص إلى أسلوب uwu - فكرة سيئة جداً",
+        description: "Makes *all* text uwuified - really bad idea",
         type: OptionType.BOOLEAN,
         default: false,
         restartNeeded: true

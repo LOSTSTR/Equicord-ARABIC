@@ -21,7 +21,7 @@ const settings = definePluginSettings({
 // The entire code of this plugin can be found in ipcPlugins
 export default definePlugin({
     name: "FixSpotifyEmbeds",
-    description: "يصلح ارتفاع صوت مشغلات Spotify بشكل مفرط مع إمكانية ضبط مستوى الصوت",
+    description: "Fixes spotify embeds being incredibly loud by letting you customise the volume",
     authors: [Devs.Ven],
     tags: ["Media", "Customisation"],
     settings,

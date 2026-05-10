@@ -68,43 +68,43 @@ export const settings = definePluginSettings({
     },
     transitionMs: {
         type: OptionType.SLIDER,
-        description: "سرعة انتقال اللوحات بالميلي ثانية.",
+        description: "Panel transition speed in milliseconds.",
         default: 160,
         markers: transitionMarkers,
     },
     guildBarCollapsed: {
         type: OptionType.BOOLEAN,
-        description: "الإبقاء على شريط السيرفرات مطوياً.",
+        description: "Persist the guild bar as collapsed.",
         default: false,
     },
     channelListCollapsed: {
         type: OptionType.BOOLEAN,
-        description: "الإبقاء على قائمة القنوات مطوية.",
+        description: "Persist the channel list as collapsed.",
         default: false,
     },
     membersListCollapsed: {
         type: OptionType.BOOLEAN,
-        description: "الإبقاء على قائمة الأعضاء مطوية.",
+        description: "Persist the members list as collapsed.",
         default: false,
     },
     chatButtonsCollapsed: {
         type: OptionType.BOOLEAN,
-        description: "الإبقاء على صف أزرار الرسائل مطوياً.",
+        description: "Persist the message button row as collapsed.",
         default: false,
     },
     titleBarCollapsed: {
         type: OptionType.BOOLEAN,
-        description: "الإبقاء على شريط العنوان مطوياً.",
+        description: "Persist the title bar as collapsed.",
         default: false,
     },
     headerBarCollapsed: {
         type: OptionType.BOOLEAN,
-        description: "الإبقاء على شريط الرأس مطوياً.",
+        description: "Persist the header bar as collapsed.",
         default: false,
     },
     userAreaCollapsed: {
         type: OptionType.BOOLEAN,
-        description: "الإبقاء على منطقة المستخدم مطوية.",
+        description: "Persist the user area as collapsed.",
         default: false,
     },
 });

@@ -26,7 +26,7 @@ const settings = definePluginSettings({
     },
     notificationSound: {
         type: OptionType.BOOLEAN,
-        description: "تشغيل صوت عند توفر مقعد في القناة الصوتية",
+        description: "Play a sound when a slot becomes available.",
         default: true,
     },
 });
@@ -63,7 +63,7 @@ function promptVoiceChannel(channel: Channel | null | undefined): boolean {
 
 export default definePlugin({
     name: "WaitForSlot",
-    description: "ينضم تلقائياً لقناة صوتية ممتلئة حين يتوفر مقعد",
+    description: "Automatically join a full voice channel when a slot opens.",
     tags: ["Servers", "Utility", "Voice"],
     authors: [EquicordDevs.omaw, Devs.prism],
     settings,

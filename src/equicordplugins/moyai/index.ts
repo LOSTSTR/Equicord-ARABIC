@@ -63,7 +63,7 @@ const settings = definePluginSettings({
         stickToMarkers: false
     },
     quality: {
-        description: "جودة صوت 🗿🗿🗿",
+        description: "Quality of the 🗿🗿🗿",
         type: OptionType.SELECT,
         options: [
             { label: "Normal", value: "Normal", default: true },
@@ -71,17 +71,17 @@ const settings = definePluginSettings({
         ],
     },
     triggerWhenUnfocused: {
-        description: "تشغيل 🗿 حتى عندما تكون النافذة غير محددة",
+        description: "Trigger the 🗿 even when the window is unfocused",
         type: OptionType.BOOLEAN,
         default: true
     },
     ignoreBots: {
-        description: "تجاهل البوتات",
+        description: "Ignore bots",
         type: OptionType.BOOLEAN,
         default: true
     },
     ignoreBlocked: {
-        description: "تجاهل المستخدمين المحظورين",
+        description: "Ignore blocked users",
         type: OptionType.BOOLEAN,
         default: true
     }
@@ -90,7 +90,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "Moyai",
     authors: [Devs.Megu, Devs.Nuckyz],
-    description: "يشغّل مؤثر صوتي 🗿 عند إرسال أو التفاعل بإيموجي moyai أو استخدامه كمؤثر صوتي في قناتك الحالية",
+    description: "Plays a 🗿 sound effect whenever a moyai emoji is sent, reacted, or used as a voice effect in your current channel.",
     tags: ["Fun"],
     settings,
 

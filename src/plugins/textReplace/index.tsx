@@ -86,7 +86,7 @@ const settings = definePluginSettings({
     regexRules: {
         type: OptionType.CUSTOM,
         default: makeEmptyRuleArray(),
-        description: "قواعد استبدال النص باستخدام التعبيرات النمطية."
+        description: "Rules for replacing text using regular expressions."
     }
 });
 
@@ -303,7 +303,7 @@ const TEXT_REPLACE_RULES_EXEMPT_CHANNEL_IDS = [
 
 export default definePlugin({
     name: "TextReplace",
-    description: "استبدال النص في رسائلك. يمكنك إيجاد قواعد جاهزة في قناة #textreplace-rules في سيرفر Vencord",
+    description: "Replace text in your messages. You can find pre-made rules in the #textreplace-rules channel in Vencord's Server",
     dependencies: ["MessagePopoverAPI"],
     tags: ["Chat", "Customisation", "Utility"],
     authors: [Devs.AutumnVN, Devs.TheKodeToad, EquicordDevs.Etorix],

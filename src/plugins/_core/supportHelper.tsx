@@ -145,7 +145,7 @@ async function generateDebugInfoMessage() {
 
     const info = {
         Equicord:
-            `v${VERSION} • [${gitHashShort}](<https://github.com/LOSTSTR/Equicord-ARABIC/commit/${gitHash}>)` +
+            `v${VERSION} • [${gitHashShort}](<https://github.com/Equicord/Equicord/commit/${gitHash}>)` +
             `${IS_EQUIBOP ? "" : SettingsPlugin.getVersionInfo()} - ${Intl.DateTimeFormat("en-US", { dateStyle: "medium" }).format(BUILD_TIMESTAMP)}`,
         Client: `${RELEASE_CHANNEL} ~ ${clientString}`,
         Platform: platformDisplay
@@ -386,8 +386,8 @@ export default definePlugin({
                         <Paragraph>You are using a custom build of Equicord, which we do not provide support for!</Paragraph>
 
                         <Paragraph className={Margins.top8}>
-                            We only provide support for <Link href="https://github.com/LOSTSTR/Equicord-ARABIC">Equicord-ARABIC official builds</Link>.
-                            Either <Link href="https://github.com/LOSTSTR/Equicord-ARABIC/releases">switch to Equicord-ARABIC</Link> or figure your issue out yourself.
+                            We only provide support for <Link href="https://github.com/Equicord/Equicord">official builds</Link>.
+                            Either <Link href="https://github.com/Equicord/Equilotl">switch to an official build</Link> or figure your issue out yourself.
                         </Paragraph>
 
                         <BaseText size="md" weight="bold" className={Margins.top8}>You will be banned from receiving support if you ignore this rule.</BaseText>

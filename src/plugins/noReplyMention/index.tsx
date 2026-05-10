@@ -32,13 +32,13 @@ const settings = definePluginSettings({
     },
     roleList: {
         description:
-            "قائمة معرّفات الرتب المسموح بمنشنها أو المستثناة (مفصولة بفواصل أو مسافات)",
+            "List of role ids to allow or exempt pings for (separated by commas or spaces)",
         type: OptionType.STRING,
         default: "1234567890123445,1234567890123445",
         multiline: true
     },
     shouldPingListed: {
-        description: "السلوك",
+        description: "Behaviour",
         type: OptionType.SELECT,
         options: [
             {
@@ -53,7 +53,7 @@ const settings = definePluginSettings({
         ],
     },
     inverseShiftReply: {
-        description: "عكس سلوك Shift عند الرد (فعّله لجعل Shift+رد يذكر المستخدم)",
+        description: "Invert Discord's shift replying behaviour (enable to make shift reply mention user)",
         type: OptionType.BOOLEAN,
         default: false,
     }
@@ -61,7 +61,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "NoReplyMention",
-    description: "يعطّل منشن الرد افتراضياً",
+    description: "Disables reply pings by default",
     tags: ["Chat", "Notifications"],
     authors: [Devs.DustyAngel47, Devs.rae, Devs.pylix, Devs.outfoxxed],
     settings,

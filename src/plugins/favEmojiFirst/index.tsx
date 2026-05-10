@@ -116,7 +116,7 @@ const settings = definePluginSettings({
     },
     clearAll: {
         type: OptionType.COMPONENT,
-        description: "حذف جميع الاختصارات.",
+        description: "Delete all aliases.",
         component: ClearAllAliasesSetting
     }
 });
@@ -1102,7 +1102,7 @@ export default definePlugin({
     name: "FavoriteEmojiFirst",
     authors: [Devs.Aria, Devs.Ven, EquicordDevs.justjxke],
     tags: ["Emotes", "Customisation"],
-    description: "يُقدّم إيموجياتك المفضلة في الإكمال التلقائي ويدعم اختصارات الإيموجي.",
+    description: "Puts your favorite emoji first in the emoji autocomplete and also has emoji alias.",
     dependencies: ["MessagePopoverAPI"],
     settings,
     contextMenus: {

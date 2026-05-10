@@ -40,7 +40,7 @@ const settings = definePluginSettings({
         default: true
     },
     preferNitro: {
-        description: "الصورة المستخدمة عند توفر كل من صورة نيترو المتحركة وصورة UserPFP",
+        description: "Which avatar to use if both default animated (Nitro) pfp and UserPFP avatars are present",
         type: OptionType.SELECT,
         options: [
             { label: "UserPFP", value: false },
@@ -48,7 +48,7 @@ const settings = definePluginSettings({
         ],
     },
     databaseSource: {
-        description: "رابط تحميل قاعدة بيانات الصور",
+        description: "URL to load database from",
         type: OptionType.STRING,
         default: "https://userpfp.github.io/UserPFP/source/data.json",
         hidden: !IS_DEV,
@@ -64,7 +64,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "UserPFP",
-    description: "يتيح استخدام صورة ملف شخصي متحركة بدون نيترو",
+    description: "Allows you to use an animated avatar without Nitro",
     tags: ["Appearance", "Customisation", "Servers"],
     authors: [EquicordDevs.nexpid, Devs.thororen, EquicordDevs.soapphia, EquicordDevs.sketchmyname],
     settings,

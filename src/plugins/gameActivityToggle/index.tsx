@@ -35,7 +35,7 @@ const settings = definePluginSettings({
     },
     location: {
         type: OptionType.SELECT,
-        description: "مكان ظهور زر تفعيل/إيقاف نشاط الألعاب",
+        description: "Where to show the game activity toggle button",
         options: [
             { label: "Next to Mute/Deafen", value: "PANEL", default: true },
             { label: "Equicord Toolbox", value: "TOOLBOX" }
@@ -97,7 +97,7 @@ function GameActivityToggleButton({ iconForeground, hideTooltips, nameplate }: U
 
 export default definePlugin({
     name: "GameActivityToggle",
-    description: "يضيف زراً بجانب الميكروفون لتشغيل/إيقاف ظهور نشاط الألعاب.",
+    description: "Adds a button next to the mic and deafen button to toggle game activity.",
     tags: ["Activity", "Shortcuts"],
     authors: [Devs.Nuckyz, Devs.RuukuLada],
     dependencies: ["UserSettingsAPI", "UserAreaAPI"],

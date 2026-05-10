@@ -59,7 +59,7 @@ export const settings = definePluginSettings({
         restartNeeded: true
     },
     showMode: {
-        description: "الوضع المستخدم لعرض القنوات المخفية.",
+        description: "The mode used to display hidden channels.",
         type: OptionType.SELECT,
         options: [
             { label: "Lock Icon replacing channel icon", value: ShowMode.LockIcon, default: true },
@@ -69,7 +69,7 @@ export const settings = definePluginSettings({
         restartNeeded: true
     },
     defaultAllowedUsersAndRolesDropdownState: {
-        description: "هل يُفتح بشكل افتراضي قائمة المستخدمين والرتب المسموح لهم في القنوات المخفية",
+        description: "Whether the allowed users and roles dropdown on hidden channels should be open by default",
         type: OptionType.BOOLEAN,
         default: true
     }
@@ -81,7 +81,7 @@ function isUncategorized(objChannel: { channel: Channel; comparator: number; }) 
 
 export default definePlugin({
     name: "ShowHiddenChannels",
-    description: "يعرض القنوات التي لا تملك صلاحية مشاهدتها.",
+    description: "Show channels that you do not have access to view.",
     tags: ["Servers", "Utility"],
     authors: [Devs.BigDuck, Devs.AverageReactEnjoyer, Devs.D3SOX, Devs.Ven, Devs.Nuckyz, Devs.Nickyux, Devs.dzshn, EquicordDevs.Oggetto],
     isModified: true,

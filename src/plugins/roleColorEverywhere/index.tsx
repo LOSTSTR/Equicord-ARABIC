@@ -37,36 +37,36 @@ const settings = definePluginSettings({
     memberList: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "اعرض ألوان الرتب في عناوين قائمة الأعضاء",
+        description: "Show role colors in member list role headers",
         restartNeeded: true
     },
     voiceUsers: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "اعرض ألوان الرتب في قائمة مستخدمي الصوت",
+        description: "Show role colors in the voice chat user list",
         restartNeeded: true
     },
     reactorsList: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "اعرض ألوان الرتب في قائمة المتفاعلين",
+        description: "Show role colors in the reactors list",
         restartNeeded: true
     },
     pollResults: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "اعرض ألوان الرتب في نتائج التصويت",
+        description: "Show role colors in the poll results",
         restartNeeded: true
     },
     colorChatMessages: {
         type: OptionType.BOOLEAN,
         default: false,
-        description: "لوّن رسائل المحادثة بناءً على لون رتبة المرسل",
+        description: "Color chat messages based on the author's role color",
         restartNeeded: true,
     },
     messageSaturation: {
         type: OptionType.SLIDER,
-        description: "شدة تلوين الرسائل.",
+        description: "Intensity of message coloring.",
         markers: makeRange(0, 100, 10),
         default: 30
     }
@@ -75,7 +75,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "RoleColorEverywhere",
     authors: [Devs.KingFish, Devs.lewisakura, Devs.AutumnVN, Devs.Kyuuhachi, Devs.jamesbt365],
-    description: "يعرض لون الرتبة الأعلى في كل مكان ممكن",
+    description: "Adds the top role color anywhere possible",
     tags: ["Roles", "Appearance"],
     settings,
 

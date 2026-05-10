@@ -27,34 +27,34 @@ const settings = definePluginSettings({
 
     blockedWords: {
         type: OptionType.STRING,
-        description: "كلمات لن يُطبَّق عليها التكبير (مفصولة بفواصل).",
+        description: "Words that will not be capitalized (comma separated).",
         default: "",
     },
     // fixApostrophes is the only one that defaults to enabled because in the version before this one,
     //   the other features did not exist / had a bug making them not work.
     fixApostrophes: {
         type: OptionType.BOOLEAN,
-        description: "يضمن احتواء الاختصارات على علامات الاستفهام.",
+        description: "Ensure contractions contain apostrophes.",
         default: true,
     },
     expandContractions: {
         type: OptionType.BOOLEAN,
-        description: "يوسّع الاختصارات إلى كلمات كاملة.",
+        description: "Expand contractions.",
         default: false,
     },
     fixCapitalization: {
         type: OptionType.BOOLEAN,
-        description: "يُكبّر أول حرف في الجمل.",
+        description: "Capitalize sentences.",
         default: false,
     },
     fixPunctuation: {
         type: OptionType.BOOLEAN,
-        description: "يضيف علامات ترقيم للجمل.",
+        description: "Punctate sentences.",
         default: false,
     },
     fixPunctuationFrequency: {
         type: OptionType.SLIDER,
-        description: "نسبة تكرار النقاط (قد يزعج هذا بعض الأشخاص).",
+        description: "Percent period frequency (this majorly annoys some people).",
         markers: makeRange(0, 100, 10),
         stickToMarkers: false,
         default: 100,
@@ -63,7 +63,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "PolishWording",
-    description: "يُحسّن رسائلك لتبدو أجمل وبقواعد لغوية أفضل. راجع الإعدادات",
+    description: "Tweaks your messages to make them look nicer and have better grammar. See settings",
     dependencies: ["MessageEventsAPI"],
     tags: ["Chat"],
     authors: [Devs.Samwich, EquicordDevs.WKoA],

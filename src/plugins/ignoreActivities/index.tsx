@@ -177,31 +177,31 @@ const settings = definePluginSettings({
     },
     ignorePlaying: {
         type: OptionType.BOOLEAN,
-        description: "تجاهل جميع نشاطات اللعب (عادةً ألعاب وRPC)",
+        description: "Ignore all playing activities (These are usually game and RPC activities)",
         default: false,
         onChange: recalculateActivities
     },
     ignoreStreaming: {
         type: OptionType.BOOLEAN,
-        description: "تجاهل جميع نشاطات البث",
+        description: "Ignore all streaming activities",
         default: false,
         onChange: recalculateActivities
     },
     ignoreListening: {
         type: OptionType.BOOLEAN,
-        description: "تجاهل جميع نشاطات الاستماع (كـ Spotify عادةً)",
+        description: "Ignore all listening activities (These are usually spotify activities)",
         default: false,
         onChange: recalculateActivities
     },
     ignoreWatching: {
         type: OptionType.BOOLEAN,
-        description: "تجاهل جميع نشاطات المشاهدة",
+        description: "Ignore all watching activities",
         default: false,
         onChange: recalculateActivities
     },
     ignoreCompeting: {
         type: OptionType.BOOLEAN,
-        description: "تجاهل جميع نشاطات التنافس (عادةً نشاطات ألعاب خاصة)",
+        description: "Ignore all competing activities (These are normally special game activities)",
         default: false,
         onChange: recalculateActivities
     },
@@ -232,7 +232,7 @@ function isActivityTypeIgnored(type: number, id?: string) {
 export default definePlugin({
     name: "IgnoreActivities",
     authors: [Devs.Nuckyz, Devs.Kylie],
-    description: "يمنع ظهور نشاطات محددة في حالتك فقط. يمكن ضبط الاستثناءات من تبويبات الألعاب والنشاطات أو عبر الإعدادات العامة",
+    description: "Ignore activities from showing up on your status ONLY. You can configure which ones are specifically ignored from the Registered Games and Activities tabs, or use the general settings below",
     tags: ["Activity", "Privacy", "Customisation"],
     dependencies: ["UserSettingsAPI"],
 

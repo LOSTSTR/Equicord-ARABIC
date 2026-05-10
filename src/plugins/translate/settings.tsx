@@ -31,25 +31,25 @@ export const settings = definePluginSettings({
     },
     receivedOutput: {
         type: OptionType.STRING,
-        description: "اللغة التي تُترجم إليها الرسائل الواردة",
+        description: "Language incoming messages are translated to",
         default: "en",
         hidden: true
     },
     sentInput: {
         type: OptionType.STRING,
-        description: "اللغة التي تُترجم منها رسائلك",
+        description: "Language your messages are translated from",
         default: "auto",
         hidden: true
     },
     sentOutput: {
         type: OptionType.STRING,
-        description: "اللغة التي تُترجم إليها رسائلك",
+        description: "Language your messages are translated to",
         default: "en",
         hidden: true
     },
     service: {
         type: OptionType.SELECT,
-        description: IS_WEB ? "مزود الترجمة (غير متاح على الويب)" : "مزود الترجمة",
+        description: IS_WEB ? "Translation provider (not available on web)" : "Translation provider",
         hidden: IS_WEB,
         options: [
             { label: "Google Translate", value: "google", default: true },
@@ -61,22 +61,22 @@ export const settings = definePluginSettings({
     },
     deeplApiKey: {
         type: OptionType.STRING,
-        description: "مفتاح DeepL API الخاص بك (من deepl.com/your-account)",
+        description: "Your DeepL API key (from deepl.com/your-account)",
         default: ""
     },
     kagiSession: {
         type: OptionType.STRING,
-        description: "رمز جلسة Kagi الخاص بك (من kagi.com/settings?p=user_details)",
+        description: "Your Kagi session token (from kagi.com/settings?p=user_details)",
         default: ""
     },
     autoTranslate: {
         type: OptionType.BOOLEAN,
-        description: "ترجمة رسائلك تلقائياً قبل الإرسال. يمكنك أيضاً Shift+نقر أو النقر بزر الأيمن على زر الترجمة لتبديل هذا",
+        description: "Automatically translate your messages before sending. You can also Shift+click or right-click the translate button to toggle this",
         default: false
     },
     showAutoTranslateTooltip: {
         type: OptionType.BOOLEAN,
-        description: "عرض تلميح على زر شريط الدردشة عند الترجمة التلقائية للرسائل",
+        description: "Show a tooltip on the chat bar button when a message is auto-translated",
         default: true
     },
     manageTranslateSettings: {

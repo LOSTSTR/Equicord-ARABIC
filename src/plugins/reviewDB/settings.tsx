@@ -41,17 +41,17 @@ export const settings = definePluginSettings({
     },
     showWarning: {
         type: OptionType.BOOLEAN,
-        description: "اعرض تحذيراً بالاحترام في أعلى قائمة التقييمات",
+        description: "Display warning to be respectful at the top of the reviews list",
         default: true,
     },
     hideTimestamps: {
         type: OptionType.BOOLEAN,
-        description: "أخفِ التواريخ من التقييمات",
+        description: "Hide timestamps on reviews",
         default: false,
     },
     hideBlockedUsers: {
         type: OptionType.BOOLEAN,
-        description: "أخفِ تقييمات المستخدمين المحظورين",
+        description: "Hide reviews from blocked users",
         default: true,
     },
     buttons: {

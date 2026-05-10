@@ -26,14 +26,14 @@ const settings = definePluginSettings({
     },
     rejoinTimeout: {
         type: OptionType.SLIDER,
-        description: "لا تحاول إعادة الانضمام بعد انقضاء هذه المدة منذ الانقطاع (بالثواني)",
+        description: "Don't attempt to rejoin after this many seconds have passed since disconnecting.",
         markers: makeRange(5, 120, 5),
         default: 30,
         stickToMarkers: true,
     },
     preventReconnectIfCallEnded: {
         type: OptionType.SELECT,
-        description: "عدم إعادة الاتصال إذا انتهت المكالمة أو كانت القناة فارغة أو محذوفة",
+        description: "Do not reconnect if the call has ended or the voice channel is empty or does not exist.",
         options: [
             { label: "None", value: "none", default: false },
             { label: "DMs only", value: "dms", default: false },
@@ -43,14 +43,14 @@ const settings = definePluginSettings({
     },
     applyOnlyToDms: {
         type: OptionType.BOOLEAN,
-        description: "تطبيق الإعادة التلقائية على الرسائل الخاصة فقط",
+        description: "Only apply to DMs.",
         default: false,
     }
 });
 
 export default definePlugin({
     name: "VoiceRejoin",
-    description: "يعيد الانضمام تلقائياً لمكالمات السيرفر أو الرسائل الخاصة عند إعادة تشغيل Discord",
+    description: "Rejoins DM/Server call automatically when restarting Discord.",
     tags: ["Servers", "Utility", "Voice"],
     authors: [EquicordDevs.omaw, EquicordDevs.keircn],
     settings,

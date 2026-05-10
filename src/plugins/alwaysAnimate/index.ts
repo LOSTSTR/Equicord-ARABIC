@@ -28,29 +28,29 @@ const settings = definePluginSettings({
     },
     statusEmojis: {
         type: OptionType.BOOLEAN,
-        description: "تشغيل إيموجي الحالة دائماً",
+        description: "Always animate status emojis",
         default: true,
     },
     serverBanners: {
         type: OptionType.BOOLEAN,
-        description: "تشغيل بانرات السيرفرات دائماً",
+        description: "Always animate server banners",
         default: true,
     },
     nameplates: {
         type: OptionType.BOOLEAN,
-        description: "تشغيل بطاقات الأسماء دائماً",
+        description: "Always animate nameplates",
         default: true,
     },
     roleGradients: {
         type: OptionType.BOOLEAN,
-        description: "تشغيل تدرجات ألوان الرتب دائماً",
+        description: "Always animate role gradients",
         default: true,
     }
 });
 
 export default definePlugin({
     name: "AlwaysAnimate",
-    description: "يحرّك كل ما يمكن تحريكه في Discord",
+    description: "Animates anything that can be animated",
     tags: ["Appearance", "Fun"],
     authors: [Devs.FieryFlames],
     settings,

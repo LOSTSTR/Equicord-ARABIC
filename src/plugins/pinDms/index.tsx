@@ -48,12 +48,12 @@ export const settings = definePluginSettings({
     },
     canCollapseDmSection: {
         type: OptionType.BOOLEAN,
-        description: "السماح بطي قسم المحادثات غير المصنّفة",
+        description: "Allow uncategorised DMs section to be collapsable",
         default: false
     },
     dmSectionCollapsed: {
         type: OptionType.BOOLEAN,
-        description: "طي قسم المحادثات الخاصة",
+        description: "Collapse DM section",
         default: false,
         hidden: true
     },
@@ -66,7 +66,7 @@ export const settings = definePluginSettings({
 
 export default definePlugin({
     name: "PinDMs",
-    description: "تثبيت المحادثات الخاصة في أعلى القائمة. انقر بزر الفأرة الأيمن على أي محادثة لتثبيتها أو إعادة ترتيبها",
+    description: "Allows you to pin private channels to the top of your DM list. To pin/unpin or re-order pins, right click DMs",
     tags: ["Friends", "Organisation"],
     authors: [Devs.Ven, Devs.Aria],
     settings,

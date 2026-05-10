@@ -92,14 +92,14 @@ const settings = definePluginSettings({
     },
     colorInServers: {
         type: OptionType.BOOLEAN,
-        description: "تطبيق ألوان الأسماء داخل السيرفرات أيضاً",
+        description: "If name colors should be changed within servers",
         default: true,
     }
 });
 
 export default definePlugin({
     name: "CustomUserColors",
-    description: "يتيح إضافة لون مخصص لأي مستخدم في أي مكان. يُنصح باستخدامه مع typingTweaks و roleColorEverywhere.",
+    description: "Lets you add a custom color to any user, anywhere! Highly recommend to use with typingTweaks and roleColorEverywhere",
     tags: ["Appearance", "Customisation", "Chat"],
     authors: [EquicordDevs.mochienya],
     contextMenus: {

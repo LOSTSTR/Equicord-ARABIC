@@ -27,19 +27,19 @@ const settings = definePluginSettings({
     },
     showMessage: {
         type: OptionType.BOOLEAN,
-        description: "يعرض رسالة تبيّن معرّف الستيكر المحجوب",
+        description: "Whether to show a message detailing which id was blocked",
         default: false,
         restartNeeded: true
     },
     showButton: {
         type: OptionType.BOOLEAN,
-        description: "يعرض زراً لإلغاء حجب الستيكر",
+        description: "Whether to show a button to unblock the gif",
         default: true,
         restartNeeded: true
     },
     blockedStickers: {
         type: OptionType.STRING,
-        description: "قائمة معرّفات الستيكرات المحجوبة (لا تعدّلها إلا إذا كنت تعرف ما تفعله)",
+        description: "The list of blocked sticker IDs (don't edit unless you know what you're doing)",
         default: ""
     }
 });
@@ -129,7 +129,7 @@ function isStickerBlocked(name) {
 
 export default definePlugin({
     name: "StickerBlocker",
-    description: "يتيح حجب ستيكرات محددة من الظهور.",
+    description: "Allows you to block stickers from being displayed.",
     tags: ["Chat", "Emotes", "Utility"],
     authors: [Devs.Samwich],
     patches: [

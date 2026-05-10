@@ -59,7 +59,7 @@ const Spotify = findByPropsLazy("getPlayerState");
 function makeCommand(name: string, formatUrl: (track: Track) => string): Command {
     return {
         name,
-        description: `شارك ${name} الحالي على Spotify في المحادثة`,
+        description: `Share your current Spotify ${name} in chat`,
         inputType: ApplicationCommandInputType.BUILT_IN,
         options: [OptionalMessageOption],
         execute(options, { channel }) {

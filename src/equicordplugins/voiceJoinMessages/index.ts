@@ -22,37 +22,37 @@ const settings = definePluginSettings({
     },
     friendDirectMessagesShowMembers: {
         type: OptionType.BOOLEAN,
-        description: "عرض قائمة الأعضاء الآخرين في القناة الصوتية عند استقبال إشعار انضمام صديقك",
+        description: "Show a list of other members in the voice channel when recieving a DM notification of your friend joining a voice channel",
         default: true
     },
     friendDirectMessagesShowMemberCount: {
         type: OptionType.BOOLEAN,
-        description: "عرض عدد الأعضاء الآخرين في القناة الصوتية عند استقبال إشعار الانضمام",
+        description: "Show the count of other members in the voice channel when recieving a DM notification of your friend joining a voice channel",
         default: false
     },
     friendDirectMessagesSelf: {
         type: OptionType.BOOLEAN,
-        description: "استقبال الإشعارات حتى لو كنت في نفس القناة الصوتية مع الصديق",
+        description: "Recieve notifications in your friends' DMs even if you are in the same voice channel as them",
         default: false
     },
     friendDirectMessagesSilent: {
         type: OptionType.BOOLEAN,
-        description: "جعل رسائل الانضمام في الرسائل الخاصة صامتة",
+        description: "Join messages in your friends DMs will be silent",
         default: false
     },
     allowedFriends: {
         type: OptionType.STRING,
-        description: "معرّفات الأصدقاء المسموح بتلقي رسائل انضمامهم (مفصولة بفواصل أو مسافات)",
+        description: "Comma or space separated list of friends' user IDs you want to recieve join messages from",
         default: ""
     },
     ignoredFriends: {
         type: OptionType.STRING,
-        description: "معرّفات الأصدقاء المستثنين من رسائل الانضمام (مفصولة بفواصل أو مسافات)",
+        description: "Comma or space separated list of friends' user IDs you do NOT want to recieve join messages from",
         default: ""
     },
     ignoreBlockedUsers: {
         type: OptionType.BOOLEAN,
-        description: "عدم إرسال رسائل عن دخول/خروج/انتقال المستخدمين المحجوبين",
+        description: "Do not send messages about blocked users joining/leaving/moving voice channels",
         default: true
     },
 });
@@ -110,7 +110,7 @@ let clientOldChannelId: string | undefined;
 
 export default definePlugin({
     name: "VoiceJoinMessages",
-    description: "يستقبل رسائل مؤقتة من جانب العميل عند انضمام أصدقائك للقنوات الصوتية",
+    description: "Recieve client-side ephemeral messages when your friends join voice channels",
     tags: ["Servers", "Utility", "Voice"],
     authors: [Devs.Sqaaakoi, Devs.thororen],
     settings,

@@ -22,7 +22,7 @@ export const settings = definePluginSettings({
     folderIcons: {
         type: OptionType.COMPONENT,
         hidden: true,
-        description: "إعدادات أيقونة المجلد",
+        description: "folder icon settings",
         component: () => <></>
     }
 });

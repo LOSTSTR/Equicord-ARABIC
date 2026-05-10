@@ -30,14 +30,14 @@ export const settings = definePluginSettings({
     },
     showLanguage: {
         type: OptionType.BOOLEAN,
-        description: "يعرض لغة برمجة المستودع",
+        description: "Show repository language",
         default: true
     },
 });
 
 export default definePlugin({
     name: "GitHubRepos",
-    description: "يعرض مستودعات GitHub العامة للمستخدم في ملفه الشخصي",
+    description: "Displays a user's public GitHub repositories in their profile",
     dependencies: ["ProfileCollectionsAPI"],
     tags: ["Appearance"],
     authors: [EquicordDevs.talhakf, EquicordDevs.Panniku, EquicordDevs.benjii],
@@ -64,13 +64,16 @@ export default definePlugin({
     shouldShowGitHub(userId: string) {
         return UserProfileStore.getUserProfile(userId)?.connectedAccounts?.some((c: any) => c.type === "github") ?? false;
     },
-    renderProfileCollection: (props: { user: User; displayProfile?: any; }) => {
-        return (
-            <ProfilePopoutComponent
-                {...props}
-                id={props.user.id}
-            />
-        );
+    renderProfileCollection: {
+        render: (props: { user: User; displayProfile?: any; }) => {
+            return (
+                <ProfilePopoutComponent
+                    {...props}
+                    id={props.user.id}
+                />
+            );
+        },
+        priority: 0,
     },
     renderProfileRepositoriesTab: ErrorBoundary.wrap((props: { user: User; displayProfile?: any; }) => {
         return (

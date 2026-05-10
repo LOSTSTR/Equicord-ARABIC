@@ -55,7 +55,7 @@ migratePluginSettings("SortFriends", "SortFriendRequests");
 export default definePlugin({
     name: "SortFriends",
     authors: [Devs.Megu, EquicordDevs.CallMeGii],
-    description: "يرتّب طلبات الصداقة حسب تاريخ الاستلام",
+    description: "Sorts friend requests by date of receipt",
     tags: ["Friends", "Organisation"],
     isModified: true,
     settings,

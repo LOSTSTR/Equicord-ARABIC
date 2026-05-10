@@ -32,23 +32,23 @@ const settings = definePluginSettings({
         default: true
     },
     enablePluginPresetQuotes: {
-        description: "تفعيل الاقتباسات المضمّنة في هذه الإضافة",
+        description: "Enable the quotes preset by this plugin",
         type: OptionType.BOOLEAN,
         default: true
     },
     enableDiscordPresetQuotes: {
-        description: "تفعيل اقتباسات Discord الافتراضية (بما فيها اقتباسات الفعاليات)",
+        description: "Enable Discord's preset quotes (including event quotes, during events)",
         type: OptionType.BOOLEAN,
         default: false
     },
     additionalQuotes: {
-        description: "اقتباسات مخصصة إضافية قد تظهر، مفصولة بالفاصل المحدد أدناه",
+        description: "Additional custom quotes to possibly appear, separated by the below delimiter",
         type: OptionType.STRING,
         default: "",
         multiline: true
     },
     additionalQuotesDelimiter: {
-        description: "الفاصل المستخدم بين الاقتباسات الإضافية",
+        description: "Delimiter for additional quotes",
         type: OptionType.STRING,
         default: "|",
     },
@@ -56,7 +56,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "LoadingQuotes",
-    description: "يستبدل اقتباسات شاشة التحميل في Discord",
+    description: "Replace Discords loading quotes",
     tags: ["Appearance", "Fun", "Customisation"],
     authors: [Devs.Ven, Devs.KraXen72, Devs.UlyssesZhan],
 

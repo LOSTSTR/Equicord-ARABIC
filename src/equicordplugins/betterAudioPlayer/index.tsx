@@ -244,28 +244,28 @@ const settings = definePluginSettings({
     },
     spectrograph: {
         type: OptionType.BOOLEAN,
-        description: "تفعيل عارض الطيف الصوتي.",
+        description: "Enable spectrograph visualizer.",
         default: true,
     },
     oscilloscopeSolidColor: {
         type: OptionType.BOOLEAN,
-        description: "استخدام لون ثابت للأوسيلوسكوب.",
+        description: "Use a solid color for the oscilloscope.",
         default: false,
     },
     oscilloscopeColor: {
         type: OptionType.STRING,
-        description: "لون الأوسيلوسكوب (R, G, B أو #hex).",
+        description: "Color for the oscilloscope (R, G, B or #hex).",
         default: "255, 255, 255",
         onChange: value => validateColor(value, "oscilloscopeColor", "255, 255, 255"),
     },
     spectrographSolidColor: {
         type: OptionType.BOOLEAN,
-        description: "استخدام لون ثابت لعارض الطيف.",
+        description: "Use a solid color for the spectrograph.",
         default: false,
     },
     spectrographColor: {
         type: OptionType.STRING,
-        description: "لون عارض الطيف (R, G, B أو #hex).",
+        description: "Color for the spectrograph (R, G, B or #hex).",
         default: "33, 150, 243",
         onChange: value => validateColor(value, "spectrographColor", "33, 150, 243"),
     },
@@ -273,7 +273,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "BetterAudioPlayer",
-    description: "يضيف عارض طيف صوتي وأوسيلوسكوب إلى مشغّل المرفقات الصوتية.",
+    description: "Adds a spectrograph and oscilloscope visualizer to audio attachment players.",
     tags: ["Appearance", "Media", "Voice"],
     authors: [EquicordDevs.creations],
     settings,

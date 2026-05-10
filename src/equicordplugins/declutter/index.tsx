@@ -49,25 +49,25 @@ export const settings = definePluginSettings({
     },
     removeNameplate: {
         type: OptionType.BOOLEAN,
-        description: "إزالة لوحات الأسماء.",
+        description: "Remove nameplates.",
         default: true,
         restartNeeded: true,
     },
     removeProfileEffect: {
         type: OptionType.BOOLEAN,
-        description: "إزالة تأثيرات الحركة في الملف الشخصي عند فتحه.",
+        description: "Remove profile animation effects on open.",
         default: true,
         restartNeeded: true,
     },
     removeClanTag: {
         type: OptionType.BOOLEAN,
-        description: "إزالة علامات العشيرة.",
+        description: "Remove clan tags.",
         default: true,
         restartNeeded: true,
     },
     alwaysShowUsername: {
         type: OptionType.BOOLEAN,
-        description: "عرض اسم المستخدم دائماً بدلاً من الحالة.",
+        description: "Always show username instead of status.",
         default: true,
         restartNeeded: true
     },
@@ -85,13 +85,13 @@ export const settings = definePluginSettings({
     },
     removeShopAboveDM: {
         type: OptionType.BOOLEAN,
-        description: "إزالة المتاجر الظاهرة فوق قائمة الرسائل المباشرة.",
+        description: "Remove shops above DMs list.",
         default: false,
         restartNeeded: true,
     },
     removeQuestsAboveDM: {
         type: OptionType.BOOLEAN,
-        description: "إزالة المهام الظاهرة فوق قائمة الرسائل المباشرة.",
+        description: "Remove quests above DMs list.",
         default: false,
         restartNeeded: true,
     },
@@ -101,37 +101,37 @@ export const settings = definePluginSettings({
     },
     removeServerBoostInfo: {
         type: OptionType.BOOLEAN,
-        description: "إزالة معلومات بوست السيرفر الظاهرة فوق قائمة القنوات.",
+        description: "Remove server boost info above channel list.",
         default: true,
         restartNeeded: true,
     },
     removeBillingSettings: {
         type: OptionType.BOOLEAN,
-        description: "إزالة إعدادات الفواتير.",
+        description: "Remove billing settings.",
         default: true,
         restartNeeded: true,
     },
     removeGiftButton: {
         type: OptionType.BOOLEAN,
-        description: "إزالة زر الهدايا.",
+        description: "Remove gift button.",
         default: true,
         restartNeeded: true,
     },
     removeUnavailableEmojiPicker: {
         type: OptionType.BOOLEAN,
-        description: "إزالة الفئات غير المتاحة من منتقي الإيموجي.",
+        description: "Remove unavailable categories from the emoji picker.",
         default: true,
         restartNeeded: true,
     },
     removeAudioMenus: {
         type: OptionType.BOOLEAN,
-        description: "إزالة القوائم المجاورة لأزرار الكتم وإلغاء الصوت.",
+        description: "Remove menus next to mute and deafen buttons.",
         default: true,
         restartNeeded: true
     },
     removeButtonTooltips: {
         type: OptionType.BOOLEAN,
-        description: "إزالة تلميحات الأزرار.",
+        description: "Remove button tooltips.",
         default: false,
         restartNeeded: true
     },
@@ -150,7 +150,7 @@ function SectionSeparator(title: string) {
 
 export default definePlugin({
     name: "Declutter",
-    description: "يُنظّف واجهة Discord بإزالة العناصر غير الضرورية كمؤثرات الملف الشخصي وتبويبات المتجر والبوستات.",
+    description: "Cleans up Discord by removing non-essential UI elements like profile effects, shop tabs, boosts, and more.",
     tags: ["Appearance", "Customisation"],
     authors: [EquicordDevs.Leon135, Devs.prism, Devs.Kyuuhachi],
     start() {
@@ -173,6 +173,15 @@ export default definePlugin({
             replacement: {
                 match: /(?<=\{avatarDecoration:.{0,40}?)(void 0!==\i\?\i:)\i(?=\)?,canAnimate:)/,
                 replace: "$1null"
+            },
+            predicate: () => settings.store.removeAvatarDecoration && !isPluginEnabled(decor.name),
+        },
+        {
+            // Avatar decoration on dms list
+            find: "showCommunicationDisabledStyles",
+            replacement: {
+                match: /null==\i\|\|\i\?null:\(0,\i\.jsxs?\)\("img",\{className:\i\.\i,src:\i,alt:" ","aria-hidden":!0\}\)/,
+                replace: "null"
             },
             predicate: () => settings.store.removeAvatarDecoration && !isPluginEnabled(decor.name),
         },

@@ -25,32 +25,32 @@ export const tags = [
     }, {
         name: "OWNER",
         displayName: "Owner",
-        description: "يمتلك السيرفر",
+        description: "Owns the server",
         condition: (_, user, channel) => GuildStore.getGuild(channel?.guild_id)?.ownerId === user.id
     }, {
         name: "ADMINISTRATOR",
         displayName: "Admin",
-        description: "يمتلك صلاحية المدير",
+        description: "Has the administrator permission",
         permissions: ["ADMINISTRATOR"]
     }, {
         name: "MODERATOR_STAFF",
         displayName: "Staff",
-        description: "يمكنه إدارة السيرفر أو القنوات أو الأدوار",
+        description: "Can manage the server, channels or roles",
         permissions: ["MANAGE_GUILD", "MANAGE_CHANNELS", "MANAGE_ROLES"]
     }, {
         name: "MODERATOR",
         displayName: "Mod",
-        description: "يمكنه إدارة الرسائل أو طرد/حظر الأعضاء",
+        description: "Can manage messages or kick/ban people",
         permissions: ["MANAGE_MESSAGES", "KICK_MEMBERS", "BAN_MEMBERS"]
     }, {
         name: "VOICE_MODERATOR",
         displayName: "VC Mod",
-        description: "يمكنه إدارة القنوات الصوتية",
+        description: "Can manage voice chats",
         permissions: ["MOVE_MEMBERS", "MUTE_MEMBERS", "DEAFEN_MEMBERS"]
     }, {
         name: "CHAT_MODERATOR",
         displayName: "Chat Mod",
-        description: "يمكنه إيقاف الأعضاء مؤقتاً",
+        description: "Can timeout people",
         permissions: ["MODERATE_MEMBERS"]
     }
 ] as const satisfies ITag[];

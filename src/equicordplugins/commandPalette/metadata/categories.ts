@@ -132,12 +132,12 @@ export const BUILT_IN_CATEGORIES: CommandCategory[] = [
     {
         id: "plugins",
         label: "Plugins",
-        description: "إدارة إضافات Equicord وVencord"
+        description: "Manage Equicord and Vencord plugins"
     },
     {
         id: CONTEXT_PROVIDER_ID,
         label: "Current Context",
-        description: "إجراءات للقناة والسيرفر المحددَين"
+        description: "Actions for the selected channel and guild"
     },
     {
         id: "plugins-enable",
@@ -157,52 +157,52 @@ export const BUILT_IN_CATEGORIES: CommandCategory[] = [
     {
         id: "updates",
         label: "Updates",
-        description: "ابقَ على اطلاع بتحديثات Equicord"
+        description: "Stay up to date with Equicord"
     },
     {
         id: "discord-settings",
         label: "Discord Settings",
-        description: "الانتقال السريع إلى صفحات إعدادات Discord"
+        description: "Jump to Discord configuration pages"
     },
     {
         id: CUSTOM_COMMANDS_CATEGORY_ID,
         label: "Custom Commands",
-        description: "أوامر مخصصة يحددها المستخدم في لوحة الأوامر"
+        description: "User-defined command palette entries"
     },
     {
         id: SESSION_TOOLS_CATEGORY_ID,
         label: "Session Tools",
-        description: "أدوات لإدارة جلسة Discord الخاصة بك"
+        description: "Utilities for managing your Discord session"
     },
     {
         id: GUILD_CATEGORY_ID,
         label: "Guilds",
-        description: "انتقل بسرعة إلى سيرفراتك"
+        description: "Quickly navigate to your guilds"
     },
     {
         id: FRIENDS_CATEGORY_ID,
         label: "Friends",
-        description: "أرسل رسائل مباشرة لأصدقائك بسرعة"
+        description: "Quickly DM your friends"
     },
     {
         id: PINNED_CATEGORY_ID,
         label: "Pinned Commands",
-        description: "الأوامر التي ثبّتها للوصول السريع"
+        description: "Commands you pinned for quick access"
     },
     {
         id: MENTIONS_CATEGORY_ID,
         label: "Mentions",
-        description: "إشاراتك الأخيرة وعناصر البريد الوارد"
+        description: "Your recent mentions and inbox items"
     },
     {
         id: RECENTS_CATEGORY_ID,
         label: "Recent Commands",
-        description: "الأوامر المنفَّذة مؤخراً"
+        description: "Recently executed commands"
     },
     {
         id: EXTENSIONS_ROOT_CATEGORY_ID,
         label: "Extensions",
-        description: "تثبيت حزم أوامر الإضافات."
+        description: "Install extension command packs."
     },
     {
         id: EXTENSIONS_CATALOG_CATEGORY_ID,

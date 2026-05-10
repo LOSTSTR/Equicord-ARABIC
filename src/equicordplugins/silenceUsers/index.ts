@@ -55,7 +55,7 @@ function interceptor(event: any) {
 
 export default definePlugin({
     name: "SilenceUsers",
-    description: "يكتم إشعارات @mention وعدادات شارات السيرفر من مستخدمين محددين. الرسائل العادية والخاصة لا تتأثر.",
+    description: "Silences @mention pings and server badge counts from specific users. Regular messages and DMs are untouched.",
     authors: [EquicordDevs.dka],
     settings,
     start() {

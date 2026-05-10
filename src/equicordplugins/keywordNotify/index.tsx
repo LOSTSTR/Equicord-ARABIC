@@ -304,12 +304,12 @@ const settings = definePluginSettings({
     },
     amountToKeep: {
         type: OptionType.NUMBER,
-        description: "عدد الرسائل المحفوظة في السجل",
+        description: "Amount of messages to keep in the log",
         default: 50
     },
     keywords: {
         type: OptionType.COMPONENT,
-        description: "إدارة الكلمات المفتاحية",
+        description: "Manage keywords",
         component: () => <KeywordEntries />
     }
 });
@@ -317,7 +317,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "KeywordNotify",
     authors: [EquicordDevs.camila314, EquicordDevs.x3rt],
-    description: "يُرسل إشعاراً إذا تطابقت رسالة ما مع كلمات مفتاحية أو تعابير نمطية محددة",
+    description: "Sends a notification if a given message matches certain keywords or regexes",
     tags: ["Chat", "Notifications"],
     settings,
     patches: [

@@ -100,42 +100,42 @@ const settings = definePluginSettings({
         component: KeybindRecorder
     },
     showClasses: {
-        description: "عرض أسماء كلاسات CSS للعنصر في التلميح",
+        description: "Display the element's CSS class names in the tooltip",
         type: OptionType.BOOLEAN,
         default: false
     },
     showId: {
-        description: "عرض معرّف ID للعنصر في التلميح",
+        description: "Display the element's ID attribute in the tooltip",
         type: OptionType.BOOLEAN,
         default: false
     },
     showFont: {
-        description: "عرض نوع الخط وحجمه المحسوب",
+        description: "Display the computed font family and font size",
         type: OptionType.BOOLEAN,
         default: false
     },
     showPadding: {
-        description: "عرض قيم الحشو للعنصر",
+        description: "Display the element's padding values",
         type: OptionType.BOOLEAN,
         default: false
     },
     showMargin: {
-        description: "عرض قيم الهامش للعنصر",
+        description: "Display the element's margin values",
         type: OptionType.BOOLEAN,
         default: false
     },
     showBorderRadius: {
-        description: "عرض قيم تقريب الحواف للعنصر",
+        description: "Display the element's border-radius values",
         type: OptionType.BOOLEAN,
         default: false
     },
     showPosition: {
-        description: "عرض نوع موضع CSS وقيمة z-index للعنصر",
+        description: "Display the element's CSS position type and z-index",
         type: OptionType.BOOLEAN,
         default: false
     },
     showDisplay: {
-        description: "عرض نوع عرض العنصر مع خصائص flex أو grid",
+        description: "Display the element's display type along with flex or grid properties",
         type: OptionType.BOOLEAN,
         default: false
     }
@@ -217,33 +217,28 @@ function formatBoxValue(value: string): string | null {
     return value;
 }
 
-/** Escape user-controlled DOM values before injecting into innerHTML. */
-function esc(s: string): string {
-    return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-}
-
 function buildTooltipContent(el: Element, computed: CSSStyleDeclaration, rect: DOMRect): string {
-    const tag = el.tagName.toLowerCase(); // tagName is browser-controlled, always safe
+    const tag = el.tagName.toLowerCase();
     const colorVar = getColorVar(el) ?? computed.color;
     const hex = rgbToHex(computed.color);
 
     let html = `<span class="${cl("tag")}">&lt;${tag}&gt;</span> `;
     html += `<span class="${cl("size")}">${Math.round(rect.width)}x${Math.round(rect.height)}</span>`;
-    html += `<div class="${cl("color")}"><span class="${cl("swatch")}" style="--c:${computed.color}"></span>${esc(colorVar)}</div>`;
-    html += `<div class="${cl("hex")}">${esc(hex)}</div>`;
+    html += `<div class="${cl("color")}"><span class="${cl("swatch")}" style="--c:${computed.color}"></span>${colorVar}</div>`;
+    html += `<div class="${cl("hex")}">${hex}</div>`;
 
     const { store } = settings;
 
     if (store.showId) {
         const { id } = el;
-        if (id) html += `<div class="${cl("info")}"><span class="${cl("label")}">id:</span> #${esc(id)}</div>`;
+        if (id) html += `<div class="${cl("info")}"><span class="${cl("label")}">id:</span> #${id}</div>`;
     }
 
     if (store.showClasses) {
         const classes = el.className;
         if (classes && typeof classes === "string") {
             const truncated = classes.length > 60 ? classes.slice(0, 60) + "…" : classes;
-            html += `<div class="${cl("info")}"><span class="${cl("label")}">class:</span> ${esc(truncated)}</div>`;
+            html += `<div class="${cl("info")}"><span class="${cl("label")}">class:</span> ${truncated}</div>`;
         }
     }
 
@@ -453,7 +448,7 @@ function onToggle(e: KeyboardEvent) {
 
 export default definePlugin({
     name: "ElementHighlighter",
-    description: "يتيح تمييز عناصر الواجهة وفحصها بسهولة.",
+    description: "Highlight and inspect elements easily.",
     tags: ["Developers"],
     authors: [Devs.prism],
     settings,

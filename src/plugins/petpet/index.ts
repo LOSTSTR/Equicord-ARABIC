@@ -117,36 +117,36 @@ export default definePlugin({
         {
             inputType: ApplicationCommandInputType.BUILT_IN,
             name: "petpet",
-            description: "إنشاء صورة GIF petpet. يمكنك تحديد خيار صورة واحد فقط",
+            description: "Create a petpet gif. You can only specify one of the image options",
             options: [
                 {
                     name: "delay",
-                    description: "التأخير بين كل إطار بالمللي ثانية. يُقرّب إلى أقرب 10ms. الافتراضي هو الحد الأدنى 20.",
+                    description: "The delay between each frame in ms. Rounded to nearest 10ms. Defaults to the minimum value of 20.",
                     type: ApplicationCommandOptionType.INTEGER
                 },
                 {
                     name: "resolution",
-                    description: "دقة الصورة. الافتراضي 120. إذا أدخلت رقماً كبيراً وتجمّد Discord فأنت المسؤول.",
+                    description: "Resolution for the gif. Defaults to 120. If you enter an insane number and it freezes Discord that's your fault.",
                     type: ApplicationCommandOptionType.INTEGER
                 },
                 {
                     name: "image",
-                    description: "الصورة المرفقة المراد استخدامها",
+                    description: "Image attachment to use",
                     type: ApplicationCommandOptionType.ATTACHMENT
                 },
                 {
                     name: "url",
-                    description: "رابط URL لجلب الصورة منه",
+                    description: "URL to fetch image from",
                     type: ApplicationCommandOptionType.STRING
                 },
                 {
                     name: "user",
-                    description: "المستخدم الذي سيُستخدم أفاتاره كصورة",
+                    description: "User whose avatar to use as image",
                     type: ApplicationCommandOptionType.USER
                 },
                 {
                     name: "no-server-pfp",
-                    description: "استخدام الأفاتار العادي بدلاً من أفاتار السيرفر عند اختيار 'user'",
+                    description: "Use the normal avatar instead of the server specific one when using the 'user' option",
                     type: ApplicationCommandOptionType.BOOLEAN
                 }
             ],

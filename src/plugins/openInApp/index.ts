@@ -42,29 +42,29 @@ const UrlReplacementRules: Record<string, URLReplacementRule> = {
     steam: {
         match: /^https:\/\/(steamcommunity\.com|(?:help|store)\.steampowered\.com)\/.+$/,
         replace: match => `steam://openurl/${match}`,
-        description: "فتح روابط Steam في تطبيق Steam",
+        description: "Open Steam links in the Steam app",
         shortlinkMatch: /^https:\/\/s.team\/.+$/,
         accountViewReplace: userId => `steam://openurl/https://steamcommunity.com/profiles/${userId}`,
     },
     epic: {
         match: /^https:\/\/store\.epicgames\.com\/(.+)$/,
         replace: (_, id) => `com.epicgames.launcher://store/${id}`,
-        description: "فتح روابط Epic Games في تطبيق Epic Games Launcher",
+        description: "Open Epic Games links in the Epic Games Launcher",
     },
     tidal: {
         match: /^https:\/\/(?:listen\.)?tidal\.com\/(?:browse\/)?(track|album|artist|playlist|user|video|mix)\/([a-f0-9-]+).*/,
         replace: (_, type, id) => `tidal://${type}/${id}`,
-        description: "فتح روابط Tidal في تطبيق Tidal",
+        description: "Open Tidal links in the Tidal app",
     },
     itunes: {
         match: /^https:\/\/(?:geo\.)?music\.apple\.com\/([a-z]{2}\/)?(album|artist|playlist|song|curator)\/([^/?#]+)\/?([^/?#]+)?(?:\?.*)?(?:#.*)?$/,
         replace: (_, lang, type, name, id) => id ? `itunes://music.apple.com/us/${type}/${name}/${id}` : `itunes://music.apple.com/us/${type}/${name}`,
-        description: "فتح روابط Apple Music في تطبيق iTunes"
+        description: "Open Apple Music links in the iTunes app"
     },
     vrcx: {
         match: /^https:\/\/vrchat.com\/home\/(user|avatar|world|group)\/(.+)$/,
         replace: (_, type, id) => `vrcx://${type}/${id}`,
-        description: "فتح روابط VRChat في تطبيق VRCX"
+        description: "Open VRChat links in the VRCX app"
     }
 };
 
@@ -83,7 +83,7 @@ const Native = VencordNative.pluginHelpers.OpenInApp as PluginNative<typeof impo
 
 export default definePlugin({
     name: "OpenInApp",
-    description: "يفتح الروابط في تطبيقاتها الأصلية بدلاً من المتصفح",
+    description: "Open links in their respective apps instead of your browser",
     tags: ["Utility"],
     authors: [Devs.Ven, Devs.surgedevs],
     settings: pluginSettings,

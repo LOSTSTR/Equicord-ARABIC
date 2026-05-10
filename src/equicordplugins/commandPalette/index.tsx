@@ -123,12 +123,12 @@ export const settings = definePluginSettings({
         component: CommandPaletteSettingsPanel
     },
     compactStartEnabled: {
-        description: "فتح لوحة الأوامر في الوضع المضغوط أولاً.",
+        description: "Open the palette in compact mode first.",
         type: OptionType.BOOLEAN,
         default: true
     },
     closeAfterExecute: {
-        description: "إغلاق لوحة الأوامر بعد تنفيذ الأمر.",
+        description: "Close palette after executing a command.",
         type: OptionType.BOOLEAN,
         default: true
     }
@@ -200,7 +200,7 @@ function hotkeyUsesModifiers() {
 
 export default definePlugin({
     name: "CommandPalette",
-    description: "يتيح تنفيذ الأوامر بسرعة عبر لوحة أوامر قابلة للبحث",
+    description: "Quickly run actions through a searchable command palette",
     tags: ["Appearance", "Customisation", "Commands", "Shortcuts"],
     authors: [EquicordDevs.justjxke],
     dependencies: ["ChatInputButtonAPI"],
@@ -229,5 +229,8 @@ export default definePlugin({
         });
     },
 
-    chatBarButtonWrapper: wrapChatBarChildren,
+    chatBarButtonWrapper: {
+        wrapper: wrapChatBarChildren,
+        priority: 0,
+    },
 });

@@ -36,7 +36,7 @@ const presendObject: MessageSendListener = (_, msg) => {
 
 export default definePlugin({
     name: "WriteUpperCase",
-    description: "يحوّل الحرف الأول من كل جملة في مربع الرسائل إلى حرف كبير تلقائياً",
+    description: "Changes the first Letter of each Sentence in Message Inputs to Uppercase",
     tags: ["Appearance", "Customisation", "Chat"],
     authors: [Devs.Samwich, EquicordDevs.KrystalSkull],
     settings,

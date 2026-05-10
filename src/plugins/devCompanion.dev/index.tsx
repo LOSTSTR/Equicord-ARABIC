@@ -34,12 +34,12 @@ export const settings = definePluginSettings({
         default: true
     },
     usePatchedModule: {
-        description: "عند طلبات الاستخراج، الردّ بالوحدة المعدّلة الحالية (إن وُجدت) بدلًا من الأصلية.",
+        description: "On extract requests, reply with the current patched module (if it is patched) instead of the original.",
         default: true,
         type: OptionType.BOOLEAN,
     },
     reloadAfterToggle: {
-        description: "إعادة التحميل عند استقبال أمر تعطيل/تفعيل إضافة.",
+        description: "Reload after a disable/enable plugin command is recived.",
         default: true,
         type: OptionType.BOOLEAN
     }
@@ -47,7 +47,7 @@ export const settings = definePluginSettings({
 
 export default definePlugin({
     name: "DevCompanion",
-    description: "إضافة Dev Companion. أبلغ عن أي خلل أو سلوك غريب لـ sadan عبر ping أو رسالة مباشرة، شكرًا!",
+    description: "Dev Companion Plugin. Please report anything not working or being weird (most likely its a bug) to sadan, either ping or dm, thanks!",
     tags: ["Developers", "Utility"],
     authors: [Devs.Ven, Devs.sadan],
     reporterTestable: ReporterTestable.None,

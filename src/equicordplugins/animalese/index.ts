@@ -18,29 +18,29 @@ const settings = definePluginSettings({
     },
     speed: {
         type: OptionType.SLIDER,
-        description: "سرعة الـ Animalese",
+        description: "Speed of the animalese sound",
         default: 1,
         markers: [0.5, 0.75, 1, 1.25, 1.5],
     },
     pitch: {
         type: OptionType.SLIDER,
-        description: "مضاعف طبقة الصوت",
+        description: "Pitch multiplier",
         default: 1,
         markers: [0.75, 0.8, 0.85, 1, 1.15, 1.25, 1.35, 1.5],
     },
     messageLengthLimit: {
         type: OptionType.NUMBER,
-        description: "الحد الأقصى لطول الرسالة المعالَجة",
+        description: "Maximum length of message to process",
         default: 50,
     },
     processOwnMessages: {
         type: OptionType.BOOLEAN,
-        description: "تفعيل الصوت لرسائلك أنت أيضاً",
+        description: "Enable to yap your own messages too",
         default: true,
     },
     soundQuality: {
         type: OptionType.SELECT,
-        description: "جودة الصوت المستخدم",
+        description: "Quality of sound to use",
         options: [
             {
                 label: "High",
@@ -192,7 +192,7 @@ async function playSound(buffer: AudioBuffer, volume: number) {
 
 export default definePlugin({
     name: "Animalese",
-    description: "يشغّل صوت Animalese من Animal Crossing عند كل رسالة تُرسَل",
+    description: "Plays animal crossing animalese for every message sent (they yap a lot)",
     tags: ["Customisation", "Fun"],
     authors: [EquicordDevs.ryanamay, EquicordDevs.Mocha],
     settings,

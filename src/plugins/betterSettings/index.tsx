@@ -28,13 +28,13 @@ const settings = definePluginSettings({
         restartNeeded: true
     },
     organizeMenu: {
-        description: "ترتيب قائمة ترس الإعدادات في تصنيفات منظمة",
+        description: "Organizes the settings cog context menu into categories",
         type: OptionType.BOOLEAN,
         default: true,
         restartNeeded: true
     },
     eagerLoad: {
-        description: "إزالة تأخير التحميل عند فتح القائمة للمرة الأولى",
+        description: "Removes the loading delay when opening the menu for the first time",
         type: OptionType.BOOLEAN,
         default: true,
         restartNeeded: true
@@ -76,7 +76,7 @@ function Layer({ mode, baseLayer = false, ...props }: LayerProps) {
 
 export default definePlugin({
     name: "BetterSettings",
-    description: "يحسّن تجربة فتح قائمة الإعدادات",
+    description: "Enhances your settings-menu-opening experience",
     authors: [Devs.Kyuuhachi],
     tags: ["Appearance", "Customisation", "Organisation"],
     settings,

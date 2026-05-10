@@ -33,14 +33,14 @@ const settings = definePluginSettings(
         },
         RPCTitle: {
             type: OptionType.STRING,
-            description: "عنوان RPC",
+            description: "The title for the rpc",
             default: "RPCStats",
             restartNeeded: false,
             onChange: () => { updateData(); }
         },
         statDisplay: {
             type: OptionType.SELECT,
-            description: "ماذا يعرض RPC؟ (يمكنك سطراً واحداً فقط)",
+            description: "What should the rpc display? (you can only have one line i'm pretty sure)",
             options: [
                 { value: StatsDisplay.messagesSentToday, label: "The amount of messages sent today", default: true },
                 { value: StatsDisplay.messagesSentAllTime, label: "The amount of messages sent all time" },
@@ -51,28 +51,28 @@ const settings = definePluginSettings(
         },
         lastFMApiKey: {
             type: OptionType.STRING,
-            description: "مفتاح API الخاص بـ last.fm",
+            description: "Your last.fm API key",
             default: "",
             restartNeeded: false,
             onChange: () => { updateData(); }
         },
         lastFMUsername: {
             type: OptionType.STRING,
-            description: "اسم المستخدم في last.fm",
+            description: "Your last.fm username",
             default: "",
             restartNeeded: false,
             onChange: () => { updateData(); }
         },
         albumCoverImage: {
             type: OptionType.BOOLEAN,
-            description: "هل تريد استخدام صورة غلاف الألبوم كصورة RPC؟ (عند اختيار عرض last.fm)",
+            description: "Should the album cover image be used as the rpc image? (if you have the last fm display chosen)",
             default: true,
             restartNeeded: false,
             onChange: () => { updateData(); }
         },
         lastFMStatFormat: {
             type: OptionType.STRING,
-            description: "كيف تريد تنسيق إحصائية last.fm؟ $album يُستبدل باسم الألبوم و$artist باسم الفنان",
+            description: "How should the last fm stat be formatted? $album is replaced with the album name, and $artist is replaced with the artist name",
             default: "Top album this week: \"$album - $artist\"",
             restartNeeded: false,
             onChange: () => { updateData(); }
@@ -171,7 +171,7 @@ async function updateData() {
 
 export default definePlugin({
     name: "RPCStats",
-    description: "يعرض إحصائيات نشاطك كـ RPC",
+    description: "Displays stats about your activity as an rpc",
     tags: ["Utility"],
     authors: [Devs.Samwich],
     async start() {

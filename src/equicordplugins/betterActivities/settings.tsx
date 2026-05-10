@@ -17,26 +17,26 @@ export const settings = definePluginSettings({
     },
     iconSize: {
         type: OptionType.SLIDER,
-        description: "حجم أيقونات النشاط",
+        description: "Size of the activity icons",
         markers: [10, 15, 20],
         default: 15,
         stickToMarkers: false,
     },
     specialFirst: {
         type: OptionType.BOOLEAN,
-        description: "عرض الأنشطة المميزة أولاً (حالياً Spotify وTwitch)",
+        description: "Show special activities first (Currently Spotify and Twitch)",
         default: true,
         restartNeeded: false,
     },
     renderGifs: {
         type: OptionType.BOOLEAN,
-        description: "السماح بعرض صور GIF المتحركة",
+        description: "Allow rendering GIFs",
         default: true,
         restartNeeded: false,
     },
     removeGameActivityStatus: {
         type: OptionType.BOOLEAN,
-        description: "إزالة أيقونة نشاط الألعاب وحالتها",
+        description: "Remove game activity icon and status",
         default: false,
         restartNeeded: true,
     },
@@ -55,18 +55,18 @@ export const settings = definePluginSettings({
     },
     userPopout: {
         type: OptionType.BOOLEAN,
-        description: "عرض جميع الأنشطة في نافذة الملف الشخصي أو الشريط الجانبي",
+        description: "Show all activities in the profile popout/sidebar",
         default: true,
         restartNeeded: true,
     },
     hideTooltip: {
         type: OptionType.BOOLEAN,
-        description: "إخفاء الأنشطة في مواضع متعددة",
+        description: "Hides activities in various places",
         default: true,
     },
     allActivitiesStyle: {
         type: OptionType.SELECT,
-        description: "طريقة عرض جميع الأنشطة",
+        description: "Style for showing all activities",
         options: [
             {
                 default: true,

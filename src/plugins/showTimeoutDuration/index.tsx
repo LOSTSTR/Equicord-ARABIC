@@ -67,7 +67,7 @@ function renderTimeout(message: Message, inline: boolean) {
 
 export default definePlugin({
     name: "ShowTimeoutDuration",
-    description: "يعرض المدة المتبقية لحظر تكلم المستخدم، في تلميح أيقونة الحظر أو بجانبها",
+    description: "Shows how much longer a user's timeout will last, either in the timeout icon tooltip or next to it",
     tags: ["Servers", "Utility"],
     authors: [Devs.Ven, Devs.Sqaaakoi],
 

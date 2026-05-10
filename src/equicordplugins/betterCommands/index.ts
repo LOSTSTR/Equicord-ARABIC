@@ -17,7 +17,7 @@ const settings = definePluginSettings({
         default: true,
     },
     allowNewlinesInCommands: {
-        description: "السماح بالأسطر الجديدة في مدخلات الأوامر (CTRL + Shift + Enter)",
+        description: "Allow newlines in command inputs (CTRL + Shift + Enter)",
         type: OptionType.BOOLEAN,
         default: true,
     }
@@ -32,7 +32,7 @@ function fetchIndex(target: object) {
 
 export default definePlugin({
     name: "BetterCommands",
-    description: "يحسّن نظام الأوامر بتحسينات متنوعة.",
+    description: "Enhances the command system with miscellaneous improvements.",
     dependencies: ["CommandsAPI"],
     tags: ["Appearance", "Commands", "Shortcuts"],
     authors: [Devs.thororen],
@@ -72,11 +72,11 @@ export default definePlugin({
     commands: [
         {
             name: "refresh",
-            description: "يحدّث أوامر التطبيقات المحددة محلياً",
+            description: "Refreshes the specified applications commands locally",
             options: [
                 {
                     name: "user",
-                    description: "مستخدم محدد لمحاولة تحديث أوامره",
+                    description: "specific user to try and refresh",
                     type: ApplicationCommandOptionType.USER,
                 }
             ],

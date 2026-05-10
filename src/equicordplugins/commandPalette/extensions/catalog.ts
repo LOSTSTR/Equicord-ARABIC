@@ -60,7 +60,7 @@ export const EXTENSIONS_CATALOG: ExtensionDefinition[] = [
     {
         id: RANDOM_VOICE_EXTENSION_ID,
         label: "RandomVoice",
-        description: "التحكم في إضافة RandomVoice من لوحة الأوامر.",
+        description: "Control the RandomVoice plugin from the command palette.",
         detailCategoryId: RANDOM_VOICE_EXTENSION_DETAIL_CATEGORY_ID,
         commandId: "extension-random-voice-join",
         commandLabel: "Join Random Voice",
@@ -72,7 +72,7 @@ export const EXTENSIONS_CATALOG: ExtensionDefinition[] = [
     {
         id: SILENT_MESSAGE_TOGGLE_EXTENSION_ID,
         label: "SilentMessageToggle",
-        description: "التحكم في SilentMessageToggle من لوحة الأوامر.",
+        description: "Control SilentMessageToggle from the command palette.",
         detailCategoryId: SILENT_MESSAGE_TOGGLE_EXTENSION_DETAIL_CATEGORY_ID,
         commandId: "extension-silent-message-toggle-plugin",
         commandLabel: "Toggle SilentMessageToggle",
@@ -84,7 +84,7 @@ export const EXTENSIONS_CATALOG: ExtensionDefinition[] = [
     {
         id: SCHEDULED_MESSAGES_EXTENSION_ID,
         label: "ScheduledMessages",
-        description: "التحكم في ScheduledMessages من لوحة الأوامر.",
+        description: "Control ScheduledMessages from the command palette.",
         detailCategoryId: SCHEDULED_MESSAGES_EXTENSION_DETAIL_CATEGORY_ID,
         commandId: "extension-scheduled-messages-open",
         commandLabel: "Open Scheduled Messages",
@@ -96,7 +96,7 @@ export const EXTENSIONS_CATALOG: ExtensionDefinition[] = [
     {
         id: THEME_LIBRARY_EXTENSION_ID,
         label: "ThemeLibrary",
-        description: "التحكم في ThemeLibrary من لوحة الأوامر.",
+        description: "Control ThemeLibrary from the command palette.",
         detailCategoryId: THEME_LIBRARY_EXTENSION_DETAIL_CATEGORY_ID,
         commandId: "extension-theme-library-open",
         commandLabel: "Open Theme Library",
@@ -109,7 +109,7 @@ export const EXTENSIONS_CATALOG: ExtensionDefinition[] = [
 
 export const extensionDefinitionsById = new Map(EXTENSIONS_CATALOG.map(extension => [extension.id, extension]));
 
-export const EQUICORD_REPOSITORY_BLOB_BASE_URL = "https://github.com/LOSTSTR/Equicord-ARABIC/blob/main";
+export const EQUICORD_REPOSITORY_BLOB_BASE_URL = "https://github.com/Equicord/Equicord/blob/main";
 
 export function normalizeRepositoryPath(path: string): string {
     return path.trim().replace(/^\/+/, "");

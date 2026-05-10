@@ -78,7 +78,7 @@ export const settings = definePluginSettings({
         }
     },
     allowMouseControl: {
-        description: "السماح للفأرة بالتحكم في لوحة الأوامر",
+        description: "Allow the mouse to control the command palette.",
         type: OptionType.BOOLEAN,
         default: true
     }
@@ -86,7 +86,7 @@ export const settings = definePluginSettings({
 
 export default definePlugin({
     name: "KeyboardNavigation",
-    description: "يتيح التنقل في واجهة Discord باستخدام لوحة المفاتيح",
+    description: "Allows you to navigate the UI with a keyboard.",
     tags: ["Accessibility", "Shortcuts"],
     authors: [Devs.Ethan],
     settings,

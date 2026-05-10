@@ -41,7 +41,7 @@ export const settings = definePluginSettings({
     },
     enableShortHexCodes: {
         type: OptionType.BOOLEAN,
-        description: "تفعيل رموز hex المختصرة من 3 أحرف مثل #39f",
+        description: "Enable 3 char hex-code like #39f",
         default: true,
         // Regex are created on the start, so without restart nothing would change
         restartNeeded: true
@@ -49,7 +49,7 @@ export const settings = definePluginSettings({
     blockView: {
         type: OptionType.SELECT,
         disabled: () => settings.store.renderType !== RenderType.BLOCK,
-        description: "مكان عرض المربع الملوّن",
+        description: "Where to display colored block",
         options: [
             {
                 label: "Right side",

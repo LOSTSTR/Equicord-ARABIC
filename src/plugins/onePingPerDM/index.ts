@@ -23,23 +23,23 @@ const settings = definePluginSettings({
     },
     allowMentions: {
         type: OptionType.BOOLEAN,
-        description: "تشغيل صوت الإشعار عند @mentions",
+        description: "Receive audio pings for @mentions",
         default: false,
     },
     allowEveryone: {
         type: OptionType.BOOLEAN,
-        description: "تشغيل صوت الإشعار عند @everyone و @here في المجموعات",
+        description: "Receive audio pings for @everyone and @here in group DMs",
         default: false,
     },
     ignoreUsers: {
         type: OptionType.STRING,
-        description: "معرّفات المستخدمين (مفصولة بفاصلة ومسافة) الذين لن يُطبّق عليهم التحديد أبداً",
+        description: "User IDs (comma + space) whose pings should NEVER be throttled",
         restartNeeded: true,
         default: ""
     },
     alwaysPlaySound: {
         type: OptionType.BOOLEAN,
-        description: "تشغيل صوت إشعار الرسالة حتى عند تعطيله",
+        description: "Play the message notification sound even when its disabled",
         restartNeeded: true,
         default: false
     }
@@ -47,7 +47,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "OnePingPerDM",
-    description: "عند إرسال رسائل متعددة في المحادثة الخاصة، لن تسمع إلا صوت إشعار واحد. اقرأ الرسائل لإعادة الضبط",
+    description: "If unread messages are sent by a user in DMs multiple times, you'll only receive one audio ping. Read the messages to reset the limit",
     tags: ["Notifications", "Customisation"],
     authors: [Devs.ProffDea],
     isModified: true,

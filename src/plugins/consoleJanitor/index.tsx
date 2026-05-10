@@ -58,7 +58,7 @@ function AllowLevelSetting({ settingKey }: AllowLevelSettingProps) {
 
 const AllowLevelSettings = ErrorBoundary.wrap(() => {
     return (
-        <SettingsSection name="Filter List" description="السماح دائمًا بمسجّلات من هذه الأنواع">
+        <SettingsSection name="Filter List" description="Always allow loggers of these types">
             <div style={{ display: "flex", flexDirection: "row" }}>
                 {Object.keys(settings.store.allowLevel).map(key => (
                     <AllowLevelSetting key={key} settingKey={key as keyof AllowLevels} />
@@ -77,13 +77,13 @@ const settings = definePluginSettings({
     },
     disableSpotifyLogger: {
         type: OptionType.BOOLEAN,
-        description: "يعطّل مسجّل Spotify الذي يُسرّب معلومات الحساب ورمز الدخول",
+        description: "Disable the Spotify logger, which leaks account information and access token",
         default: true,
         restartNeeded: true
     },
     whitelistedLoggers: {
         type: OptionType.STRING,
-        description: "قائمة مسجّلات مسموح بها مفصولة بفاصلة منقوطة (;) حتى لو كان الباقي مخفيًا",
+        description: "Semicolon (;) separated list of loggers to allow even if others are hidden",
         default: "GatewaySocket; Routing/Utils",
         multiline: true,
         onChange(newVal: string) {
@@ -107,7 +107,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "ConsoleJanitor",
-    description: "يعطّل رسائل وأخطاء الـ console المزعجة",
+    description: "Disables annoying console messages/errors",
     authors: [Devs.Nuckyz, Devs.sadan],
     tags: ["Developers", "Console", "Utility"],
     settings,

@@ -100,24 +100,24 @@ const settings = definePluginSettings({
 
     },
     boopVolume: {
-        description: "مستوى صوت صوت النقرة",
+        description: "Volume of the boop sound",
         type: OptionType.SLIDER,
         default: 0.2,
         markers: [0, 0.25, 0.5, 0.75, 1],
         stickToMarkers: false,
     },
     tooltipText: {
-        description: "النص الذي يظهر عند تمرير الماوس فوق الزر",
+        description: "The text shown when hovering over the button",
         type: OptionType.STRING,
         default: "the soggy",
     },
     imageLink: {
-        description: "رابط الصورة (الزر والنافذة)",
+        description: "URL for the image (button and modal)",
         type: OptionType.STRING,
         default: "https://equicord.org/assets/plugins/soggy/cat.png",
     },
     songLink: {
-        description: "رابط الأغنية للتشغيل",
+        description: "URL for the song to play",
         type: OptionType.STRING,
         default: "https://github.com/Equicord/Equibored/raw/main/sounds/soggy/song.mp3?raw=true",
         onChange(newValue) {
@@ -125,7 +125,7 @@ const settings = definePluginSettings({
         },
     },
     boopLink: {
-        description: "رابط صوت النقرة",
+        description: "URL for the boop sound",
         type: OptionType.STRING,
         default: "https://github.com/Equicord/Equibored/raw/main/sounds/soggy/honk.wav?raw=true",
         onChange(newValue) {
@@ -136,7 +136,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "Soggy",
-    description: "يضيف زر Soggy إلى شريط الأدوات",
+    description: "Adds a soggy button to the toolbox",
     tags: ["Fun"],
     authors: [EquicordDevs.sliwka],
     settings,

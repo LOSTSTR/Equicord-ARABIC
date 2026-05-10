@@ -62,7 +62,7 @@ export function createScheduledMessagesExtensionCommands(): CommandEntry[] {
         createCommandPageCommand({
             id: "extension-scheduled-messages-create",
             label: "Create Scheduled Message",
-            description: "إنشاء رسالة مجدولة من حقول منفصلة.",
+            description: "Create a scheduled message from separate fields.",
             keywords: ["create", "scheduled", "message", "channel", "time", "plugin", "extension"],
             categoryId: DEFAULT_CATEGORY_ID,
             tags: [TAG_PLUGINS, TAG_UTILITY],
@@ -71,7 +71,7 @@ export function createScheduledMessagesExtensionCommands(): CommandEntry[] {
         {
             id: "extension-scheduled-messages-quick-schedule-query",
             label: "Quick Schedule",
-            description: "جدولة رسالة من نص طبيعي.",
+            description: "Schedule a message from natural language input.",
             keywords: ["schedule", "message", "quick", "delay", "time", "channel", "plugin", "extension"],
             categoryId: DEFAULT_CATEGORY_ID,
             tags: [TAG_PLUGINS, TAG_UTILITY],
@@ -83,7 +83,7 @@ export function createScheduledMessagesExtensionCommands(): CommandEntry[] {
         {
             id: "extension-scheduled-messages-reschedule-query",
             label: "Reschedule Message",
-            description: "إعادة جدولة رسالة موجودة في قائمة الانتظار.",
+            description: "Reschedule an existing queued message.",
             keywords: ["reschedule", "scheduled", "message", "queue", "time", "plugin", "extension"],
             categoryId: DEFAULT_CATEGORY_ID,
             tags: [TAG_PLUGINS, TAG_UTILITY],
@@ -95,7 +95,7 @@ export function createScheduledMessagesExtensionCommands(): CommandEntry[] {
         {
             id: "extension-scheduled-messages-send-now-query",
             label: "Send Scheduled Message Now",
-            description: "إرسال رسالة مجدولة في قائمة الانتظار فوراً.",
+            description: "Send a queued scheduled message immediately.",
             keywords: ["send", "now", "scheduled", "message", "queue", "plugin", "extension"],
             categoryId: DEFAULT_CATEGORY_ID,
             tags: [TAG_PLUGINS, TAG_UTILITY],
@@ -107,7 +107,7 @@ export function createScheduledMessagesExtensionCommands(): CommandEntry[] {
         {
             id: "extension-scheduled-messages-cancel-query",
             label: "Cancel Scheduled Message",
-            description: "إلغاء رسالة مجدولة في قائمة الانتظار.",
+            description: "Cancel a queued scheduled message.",
             keywords: ["cancel", "delete", "remove", "scheduled", "message", "queue", "plugin", "extension"],
             categoryId: DEFAULT_CATEGORY_ID,
             tags: [TAG_PLUGINS, TAG_UTILITY],

@@ -57,7 +57,7 @@ const settings = definePluginSettings({
         ],
     },
     statusDisplayType: {
-        description: "عرض اسم الأغنية أو الفنان في قائمة الأعضاء",
+        description: "Show the track / artist name in the member list",
         type: OptionType.SELECT,
         options: [
             {
@@ -77,39 +77,39 @@ const settings = definePluginSettings({
     },
     refreshInterval: {
         type: OptionType.SLIDER,
-        description: "الفترة الزمنية بين تحديثات النشاط (بالثواني)",
+        description: "The interval between activity refreshes (seconds)",
         markers: [1, 2, 2.5, 3, 5, 10, 15],
         default: 5,
         restartNeeded: true,
     },
     enableTimestamps: {
         type: OptionType.BOOLEAN,
-        description: "تفعيل عرض الطوابع الزمنية",
+        description: "Whether or not to enable timestamps",
         default: true,
     },
     enableButtons: {
         type: OptionType.BOOLEAN,
-        description: "تفعيل عرض الأزرار في النشاط",
+        description: "Whether or not to enable buttons",
         default: true,
     },
     nameString: {
         type: OptionType.STRING,
-        description: "صيغة اسم النشاط",
+        description: "Activity name format string",
         default: "Apple Music"
     },
     detailsString: {
         type: OptionType.STRING,
-        description: "صيغة تفاصيل النشاط",
+        description: "Activity details format string",
         default: "{name}"
     },
     stateString: {
         type: OptionType.STRING,
-        description: "صيغة حالة النشاط",
+        description: "Activity state format string",
         default: "{artist} · {album}"
     },
     largeImageType: {
         type: OptionType.SELECT,
-        description: "نوع الصورة الكبيرة في أصول النشاط",
+        description: "Activity assets large image type",
         options: [
             { label: "Album artwork", value: AssetImageType.Album, default: true },
             { label: "Artist artwork", value: AssetImageType.Artist },
@@ -118,12 +118,12 @@ const settings = definePluginSettings({
     },
     largeTextString: {
         type: OptionType.STRING,
-        description: "صيغة النص الكبير في أصول النشاط",
+        description: "Activity assets large text format string",
         default: "{album}"
     },
     smallImageType: {
         type: OptionType.SELECT,
-        description: "نوع الصورة الصغيرة في أصول النشاط",
+        description: "Activity assets small image type",
         options: [
             { label: "Album artwork", value: AssetImageType.Album },
             { label: "Artist artwork", value: AssetImageType.Artist, default: true },
@@ -132,7 +132,7 @@ const settings = definePluginSettings({
     },
     smallTextString: {
         type: OptionType.STRING,
-        description: "صيغة النص الصغير في أصول النشاط",
+        description: "Activity assets small text format string",
         default: "{artist}"
     },
 });
@@ -156,7 +156,7 @@ function getImageAsset(type: AssetImageType, data: TrackData) {
 
 export default definePlugin({
     name: "AppleMusicRichPresence",
-    description: "اعرض موسيقاك من Apple Music كحالة نشاط على Discord",
+    description: "Discord rich presence for your Apple Music!",
     tags: ["Activity", "Media"],
     authors: [Devs.RyanCaoDev],
     hidden: !IS_MAC,

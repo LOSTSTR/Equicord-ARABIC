@@ -51,48 +51,48 @@ export const settings = definePluginSettings({
 
     "24h Time": {
         type: OptionType.BOOLEAN,
-        description: "يعرض الوقت بتنسيق 24 ساعة",
+        description: "Show time in 24h format",
         default: false
     },
 
     showTimezoneInfo: {
         type: OptionType.BOOLEAN,
-        description: "يعرض معلومات المنطقة الزمنية بجانب الوقت",
+        description: "Show timezone info next to time",
         default: true
     },
 
     showMessageHeaderTime: {
         type: OptionType.BOOLEAN,
-        description: "يعرض الوقت في رؤوس الرسائل",
+        description: "Show time in message headers",
         default: true
     },
 
     showProfileTime: {
         type: OptionType.BOOLEAN,
-        description: "يعرض الوقت في الملفات الشخصية",
+        description: "Show time in profiles",
         default: true
     },
 
     useDatabase: {
         type: OptionType.BOOLEAN,
-        description: "يفعّل قاعدة البيانات للحصول على مناطق زمنية المستخدمين",
+        description: "Enable database for getting user timezones",
         default: true
     },
 
     preferDatabaseOverLocal: {
         type: OptionType.BOOLEAN,
-        description: "يفضّل قاعدة البيانات على التخزين المحلي للمناطق الزمنية",
+        description: "Prefer database over local storage for timezones",
         default: true
     },
 
     databaseUrl: {
         type: OptionType.STRING,
-        description: "رابط قاعدة البيانات لحفظ المناطق الزمنية",
+        description: "Database URL for timezone storage",
         default: "https://timezone.creations.works"
     },
 
     setDatabaseTimezone: {
-        description: "يضبط منطقتك الزمنية في قاعدة البيانات",
+        description: "Set your timezone on the database",
         type: OptionType.COMPONENT,
         component: () => (
             <Button onClick={() => {
@@ -104,7 +104,7 @@ export const settings = definePluginSettings({
     },
 
     resetDatabaseTimezone: {
-        description: "يعيد تعيين منطقتك الزمنية في قاعدة البيانات",
+        description: "Reset your timezone on the database",
         type: OptionType.COMPONENT,
         component: () => (
             <Button
@@ -126,7 +126,7 @@ export const settings = definePluginSettings({
 
     askedTimezone: {
         type: OptionType.BOOLEAN,
-        description: "ما إذا كان المستخدم قد طُلب منه ضبط منطقته الزمنية",
+        description: "Whether the user has been asked to set their timezone",
         hidden: true,
         default: false
     }
@@ -256,7 +256,7 @@ const userContextMenuPatch: NavContextMenuPatchCallback = (children, { user }: {
 export default definePlugin({
     name: "Timezones",
     authors: [Devs.Aria, EquicordDevs.creations],
-    description: "يعرض التوقيت المحلي للمستخدمين في ملفاتهم الشخصية ورؤوس الرسائل",
+    description: "Shows the local time of users in profiles and message headers",
     tags: ["Appearance", "Chat", "Utility"],
     contextMenus: {
         "user-context": userContextMenuPatch

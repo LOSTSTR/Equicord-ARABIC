@@ -198,7 +198,7 @@ export function buildExtraRoleContextMenuItems(role: Role, guild: Guild, popoutR
 
 export default definePlugin({
     name: "BetterRoleContext",
-    description: "يضيف خيارات نسخ لون الرتبة وتعديلها وعرض أيقونتها عند النقر بزر الفأرة الأيمن في الملف الشخصي",
+    description: "Adds options to copy role color / edit role / view role icon when right clicking roles in the user profile",
     tags: ["Roles", "Appearance"],
     authors: [Devs.Ven, Devs.goodbee],
     dependencies: ["UserSettingsAPI"],

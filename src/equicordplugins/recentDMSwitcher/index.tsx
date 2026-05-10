@@ -36,7 +36,7 @@ const settings = definePluginSettings({
     },
     overlayMode: {
         type: OptionType.SELECT,
-        description: "محتوى الشريط العلوي",
+        description: "Overlay content",
         options: [
             { label: "Row of recent", value: "row", default: true },
             { label: "Current only", value: "current" }
@@ -44,31 +44,31 @@ const settings = definePluginSettings({
     },
     amountOfUsers: {
         type: OptionType.SLIDER,
-        description: "عدد المستخدمين المعروضين في الشريط العلوي",
+        description: "Number of users to show in overlay",
         markers: makeRange(10, 50, 10),
         stickToMarkers: true,
         default: 20,
     },
     overlayRowLength: {
         type: OptionType.SLIDER,
-        description: "عدد الرسائل المباشرة الأخيرة المعروضة في الصف",
+        description: "Number of recent DMs to show in row",
         markers: [3, 4, 5, 6, 7],
         default: 5
     },
     overlayShowAvatars: {
         type: OptionType.BOOLEAN,
-        description: "إظهار الصور الرمزية في الشريط العلوي",
+        description: "Show avatars in overlay",
         default: true
     },
     toastDurationMs: {
         type: OptionType.SLIDER,
-        description: "مدة إخفاء الإشعار (ms)",
+        description: "Toast hide delay (ms)",
         markers: [300, 500, 600, 800, 1000, 1500, 2000],
         default: 600
     },
     clearRdms: {
         type: OptionType.COMPONENT,
-        description: "أداة اختبار: مسح قائمة RDMS",
+        description: "Testing utility: Clear RDMS list",
         component: () => (
             <Button
                 color={Button.Colors.RED}
@@ -331,7 +331,7 @@ function showCycleToast() {
 
 export default definePlugin({
     name: "RecentDMSwitcher",
-    description: "التنقل بـ Ctrl+Tab بين آخر الرسائل المباشرة المستخدمة (Ctrl+Shift+Tab للعكس)",
+    description: "Ctrl+Tab between most recently used DMs (Ctrl+Shift+Tab reverse)",
     tags: ["Chat", "Utility"],
     authors: [EquicordDevs.mmeta],
     settings,

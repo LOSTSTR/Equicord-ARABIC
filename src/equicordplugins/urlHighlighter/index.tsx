@@ -91,12 +91,12 @@ const settings = definePluginSettings({
     },
     boldUrls: {
         type: OptionType.BOOLEAN,
-        description: "جعل الروابط المميزة بخط عريض",
+        description: "Make highlighted URLs bold.",
         default: false
     },
     highlightEmbeds: {
         type: OptionType.BOOLEAN,
-        description: "تمييز الروابط أيضاً داخل محتوى الـ embed",
+        description: "Also highlight URLs in embed content.",
         default: false
     }
 });
@@ -120,7 +120,7 @@ function getMatchingPattern(url: string): PatternEntry | null {
 
 export default definePlugin({
     name: "UrlHighlighter",
-    description: "يميّز الروابط في الرسائل التي تطابق الأنماط المحددة",
+    description: "Highlights URLs in messages that match your patterns.",
     tags: ["Appearance", "Customisation"],
     authors: [Devs.prism],
     settings,

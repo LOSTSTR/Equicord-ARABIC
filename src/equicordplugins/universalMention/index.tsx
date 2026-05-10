@@ -20,7 +20,7 @@ const settings = definePluginSettings({
     },
     onlyDMUsers: {
         type: OptionType.BOOLEAN,
-        description: "عرض المستخدمين الذين تحدثت معهم في الرسائل الخاصة فقط",
+        description: "Only show users you've had DMs with",
         default: false,
         restartNeeded: true
     }
@@ -38,7 +38,7 @@ function getCachedUsers(): User[] {
 export default definePlugin({
     name: "UniversalMention",
     authors: [EquicordDevs.justjxke],
-    description: "يتيح منشن أي مستخدم بغض النظر عن وصوله للقناة",
+    description: "Mention any user, regardless of channel access.",
     tags: ["Chat", "Servers", "Utility"],
     settings,
     settingsAboutComponent: () => (

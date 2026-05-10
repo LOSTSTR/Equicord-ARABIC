@@ -28,17 +28,17 @@ const settings = definePluginSettings({
         isValid: (value: string) => validKeycodes.includes(value),
     },
     reqCtrl: {
-        description: "يتطلب الضغط على مفتاح Ctrl.",
+        description: "Require control to be held.",
         type: OptionType.BOOLEAN,
         default: true,
     },
     reqShift: {
-        description: "يتطلب الضغط على مفتاح Shift.",
+        description: "Require shift to be held.",
         type: OptionType.BOOLEAN,
         default: true,
     },
     reqAlt: {
-        description: "يتطلب الضغط على مفتاح Alt.",
+        description: "Require alt to be held.",
         type: OptionType.BOOLEAN,
         default: false,
     },
@@ -58,7 +58,7 @@ function handleKeydown({ code, ctrlKey, shiftKey, altKey }: KeyboardEvent) {
 
 export default definePlugin({
     name: "ToggleVideoBind",
-    description: "يضيف اختصاراً قابلاً للتخصيص لتشغيل/إيقاف الكاميرا.",
+    description: "Adds a customizable bind to toggle webcam.",
     tags: ["Utility", "Voice"],
     authors: [EquicordDevs.mochienya],
     settings,

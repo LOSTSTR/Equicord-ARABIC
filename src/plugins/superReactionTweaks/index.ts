@@ -17,12 +17,12 @@ export const settings = definePluginSettings({
     },
     unlimitedSuperReactionPlaying: {
         type: OptionType.BOOLEAN,
-        description: "إزالة الحد من التفاعلات الفائقة المشغّلة في آنٍ واحد",
+        description: "Remove the limit on Super Reactions playing at once",
         default: false,
     },
 
     superReactionPlayingLimit: {
-        description: "الحد الأقصى للتفاعلات الفائقة في آنٍ واحد. 0 لتعطيل تشغيلها",
+        description: "Max Super Reactions to play at once. 0 to disable playing Super Reactions",
         type: OptionType.SLIDER,
         default: 20,
         markers: [0, 5, 10, 20, 40, 60, 80, 100],
@@ -36,7 +36,7 @@ export const settings = definePluginSettings({
 
 export default definePlugin({
     name: "SuperReactionTweaks",
-    description: "تخصيص حد التفاعلات الفائقة المشغّلة في آنٍ واحد، والتفاعل الفائق افتراضياً",
+    description: "Customize the limit of Super Reactions playing at once, and super react by default",
     tags: ["Reactions", "Emotes"],
     authors: [Devs.FieryFlames, Devs.ant0n],
     patches: [

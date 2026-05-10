@@ -49,7 +49,7 @@ export default definePlugin({
     description: "يتيح تصفح القنوات الأكثر زيارة في تبويبات كالمتصفح",
     tags: ["Appearance", "Customisation", "Organisation", "Servers"],
     authors: [Devs.TheSun, Devs.TheKodeToad, EquicordDevs.keifufu, Devs.Nickyux, EquicordDevs.DiabeloDEV, EquicordDevs.justjxke, EquicordDevs.keircn],
-    dependencies: ["ContextMenuAPI"],
+    dependencies: ["ContextMenuAPI", "ConcatenatedModules"],
     contextMenus: {
         "channel-mention-context": contextMenuPatch,
         "channel-context": contextMenuPatch,

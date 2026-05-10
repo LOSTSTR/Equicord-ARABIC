@@ -39,7 +39,7 @@ const settings = definePluginSettings({
     },
     excludeInvisible: {
         type: OptionType.BOOLEAN,
-        description: "منع تغيير الحالة تلقائياً عند ضبطها على غير مرئي",
+        description: "Prevent automatic status changes while your status is set to invisible",
         default: false
     },
 });
@@ -47,7 +47,7 @@ const settings = definePluginSettings({
 migratePluginSettings("AutoDNDWhilePlaying", "StatusWhilePlaying");
 export default definePlugin({
     name: "AutoDNDWhilePlaying",
-    description: "يحدّث حالتك تلقائياً (متصل، خامل، لا تزعج) عند تشغيل الألعاب",
+    description: "Automatically updates your online status (online, idle, dnd) when launching games",
     tags: ["Activity", "Utility"],
     authors: [Devs.thororen],
     isModified: true,

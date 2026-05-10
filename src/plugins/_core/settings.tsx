@@ -110,14 +110,14 @@ const settings = definePluginSettings({
     },
     includeVencordInfoWhenCopying: {
         type: OptionType.BOOLEAN,
-        description: "نسخ معلومات Vencord (Vencord، Electron، Chromium) عند النقر على معلومات الإصدار في أسفل يسار صفحة الإعدادات",
+        description: "Also copy Vencord info (Vencord, Electron, Chromium) when clicking the version info in the bottom left area of the Settings page",
         default: true
     }
 });
 
 export default definePlugin({
     name: "Settings",
-    description: "يضيف واجهة الإعدادات ومعلومات التشخيص",
+    description: "Adds Settings UI and debug info",
     authors: [Devs.Ven, Devs.Megu],
     required: true,
 

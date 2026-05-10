@@ -19,7 +19,6 @@
 import { fetchBuffer, fetchJson } from "@main/utils/http";
 import { IpcEvents } from "@shared/IpcEvents";
 import { VENCORD_USER_AGENT } from "@shared/vencordUserAgent";
-import { createHash } from "crypto";
 import { ipcMain } from "electron";
 import { writeFileSync } from "original-fs";
 
@@ -29,13 +28,7 @@ import gitRemote from "~git-remote";
 import { ASAR_FILE, serializeErrors } from "./common";
 
 const API_BASE = `https://api.github.com/repos/${gitRemote}`;
-
-interface PendingUpdateInfo {
-    url: string;
-    expectedSha256: string | null;
-}
-
-let PendingUpdate: PendingUpdateInfo | null = null;
+let PendingUpdate: string | null = null;
 
 async function githubGet<T = any>(endpoint: string) {
     return fetchJson<T>(API_BASE + endpoint, {
@@ -68,52 +61,20 @@ async function fetchUpdates() {
     if (hash === gitHash)
         return false;
 
-    const asset = data.assets.find((a: any) => a.name === ASAR_FILE);
-    if (!asset) return false;
+    const asset = data.assets.find(a => a.name === ASAR_FILE);
+    PendingUpdate = asset.browser_download_url;
 
-    // Look for a companion SHA-256 checksum asset (e.g. desktop.asar.sha256)
-    const checksumAsset = data.assets.find((a: any) => a.name === ASAR_FILE + ".sha256");
-    let expectedSha256: string | null = null;
-    if (checksumAsset) {
-        try {
-            const text = await fetchJson<string>(checksumAsset.browser_download_url, {
-                headers: { "User-Agent": VENCORD_USER_AGENT }
-            });
-            // File may contain "hash  filename" or just "hash"
-            expectedSha256 = (typeof text === "string" ? text : JSON.stringify(text))
-                .split(/\s+/)[0].toLowerCase();
-        } catch {
-            // Checksum unavailable — continue without verification (log warning)
-            console.warn("[Updater] Could not download checksum file — update will proceed unverified");
-        }
-    }
-
-    PendingUpdate = { url: asset.browser_download_url, expectedSha256 };
     return true;
 }
 
 async function applyUpdates() {
     if (!PendingUpdate) return true;
 
-    const data = await fetchBuffer(PendingUpdate.url);
-
-    // Verify SHA-256 checksum when available
-    if (PendingUpdate.expectedSha256) {
-        const actualSha256 = createHash("sha256").update(data).digest("hex");
-        if (actualSha256 !== PendingUpdate.expectedSha256) {
-            const expectedSha = PendingUpdate.expectedSha256;
-            PendingUpdate = null;
-            throw new Error(
-                `Update integrity check failed!\n` +
-                `Expected: ${expectedSha}\n` +
-                `Actual:   ${actualSha256}\n` +
-                `The downloaded file may be corrupted or tampered with.`
-            );
-        }
-    }
-
+    const data = await fetchBuffer(PendingUpdate);
     writeFileSync(__dirname, data, { flush: true });
+
     PendingUpdate = null;
+
     return true;
 }
 

@@ -76,60 +76,60 @@ const settings = definePluginSettings({
     },
     removeActivitySection: {
         type: OptionType.BOOLEAN,
-        description: "إزالة قسم النشاط الظاهر فوق قائمة الأعضاء",
+        description: "Removes the activity section above member list",
         restartNeeded: true,
         default: false,
     },
     showYourOwnActivityButtons: {
         type: OptionType.BOOLEAN,
-        description: "يُظهر أزرار نشاطك الخاصة التي يخفيها Discord بلا سبب",
+        description: "Discord hides your own activity buttons for some reason",
         restartNeeded: true,
         default: false,
     },
     refreshSlashCommands: {
         type: OptionType.BOOLEAN,
-        description: "يحدّث الأوامر الشرطية لإظهار الأوامر الجديدة دون إعادة تشغيل البرنامج.",
+        description: "Refreshes Slash Commands to show newly added commands without restarting your client.",
         default: false,
     },
     forceRoleIcon: {
         type: OptionType.BOOLEAN,
-        description: "إجبار ظهور أيقونات الرتب بجانب الرسائل في الوضع المضغوط",
+        description: "Forces role icons to display next to messages in compact mode",
         restartNeeded: true,
         default: false
     },
     accountStandingButton: {
         type: OptionType.BOOLEAN,
-        description: "عرض زر حالة الحساب في شريط الرأس",
+        description: "Show an account standing button in the header bar",
         restartNeeded: true,
         default: false,
     },
     restoreFileDownloadButton: {
         type: OptionType.BOOLEAN,
-        description: "يعيد زر التنزيل إلى الزاوية العلوية اليمنى للملفات",
+        description: "Adds back the Download button at the top right corner of files",
         restartNeeded: true,
         default: false
     },
     noBulletPoints: {
         type: OptionType.BOOLEAN,
-        description: "يمنع كتابة نقاط القوائم النصية بصيغة Markdown",
+        description: "Stops you from typing markdown bullet points (stinky)",
         restartNeeded: true,
         default: false
     },
     noModalAnimation: {
         type: OptionType.BOOLEAN,
-        description: "إزالة حركة الـ 300ms عند فتح النوافذ المنبثقة أو إغلاقها",
+        description: "Remove the 300ms long animation when opening or closing modals",
         restartNeeded: true,
         default: false
     },
     disableAdoptTagPrompt: {
         type: OptionType.BOOLEAN,
-        description: "تعطيل النافذة المنبثقة لاعتماد العلامات",
+        description: "Disable the prompt to adopt tags",
         restartNeeded: true,
         default: false,
     },
     jsonGateway: {
         type: OptionType.BOOLEAN,
-        description: "إجبار استخدام JSON عند إعادة الاتصال بالبوابة",
+        description: "Forces JSON on gateway reconnect",
         restartNeeded: true,
         default: false,
     }
@@ -137,7 +137,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "EquicordHelper",
-    description: "يوفر الدعم ويصلح أعطال Discord المختلفة ويضيف ميزات متنوعة.",
+    description: "Used to provide support, fix discord caused crashes, and other misc features.",
     tags: ["Appearance", "Commands", "Utility"],
     dependencies: ["CommandsAPI", "HeaderBarAPI", "MessageAccessoriesAPI"],
     authors: [
@@ -361,7 +361,7 @@ export default definePlugin({
     commands: [
         {
             name: "refresh-commands",
-            description: "تحديث أوامر الشرطة المائلة",
+            description: "Refresh Slash Commands",
             inputType: ApplicationCommandInputType.BUILT_IN,
             predicate: () => settings.store.refreshSlashCommands,
             execute: async (opts, ctx) => {

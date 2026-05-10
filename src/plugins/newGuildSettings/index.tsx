@@ -46,7 +46,7 @@ const settings = definePluginSettings({
         default: true
     },
     messages: {
-        description: "إعدادات إشعارات السيرفر",
+        description: "Server Notification Settings",
         type: OptionType.SELECT,
         options: [
             { label: "All messages", value: 0 },
@@ -56,37 +56,37 @@ const settings = definePluginSettings({
         ],
     },
     everyone: {
-        description: "إيقاف تنبيهات @everyone و @here",
+        description: "Suppress @everyone and @here",
         type: OptionType.BOOLEAN,
         default: true
     },
     role: {
-        description: "إيقاف جميع منشنات الرتب",
+        description: "Suppress All Role @mentions",
         type: OptionType.BOOLEAN,
         default: true
     },
     highlights: {
-        description: "إيقاف الهايلايتس تلقائياً",
+        description: "Suppress Highlights automatically",
         type: OptionType.BOOLEAN,
         default: true
     },
     events: {
-        description: "كتم الأحداث الجديدة تلقائياً",
+        description: "Mute New Events automatically",
         type: OptionType.BOOLEAN,
         default: true
     },
     showAllChannels: {
-        description: "إظهار جميع القنوات تلقائياً",
+        description: "Show all channels automatically",
         type: OptionType.BOOLEAN,
         default: true
     },
     mobilePush: {
-        description: "كتم إشعارات الجوال تلقائياً",
+        description: "Mute Mobile Push Notifications automatically",
         type: OptionType.BOOLEAN,
         default: true
     },
     voiceChannels: {
-        description: "إخفاء الأسماء في قنوات الصوت تلقائياً",
+        description: "Hide names in Voice channels automatically",
         type: OptionType.BOOLEAN,
         default: false
     }
@@ -150,7 +150,7 @@ function applyDefaultSettings(guildId: string | null) {
 
 export default definePlugin({
     name: "NewGuildSettings",
-    description: "يكتم السيرفرات الجديدة تلقائياً ويعدّل إعدادات متنوعة عند الانضمام",
+    description: "Automatically mute new servers and change various other settings upon joining",
     tags: ["Servers", "Customisation"],
     searchTerms: ["MuteNewGuild", "mute", "server"],
     authors: [Devs.Glitch, Devs.Nuckyz, Devs.carince, Devs.Mopi, Devs.GabiRP],

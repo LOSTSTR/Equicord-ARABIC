@@ -39,19 +39,19 @@ export const timeFormats: Record<string, TimeFormat> = {
     },
     compactFormat: {
         name: "Compact mode",
-        description: "صيغة الوقت في الوضع المدمج وعند التحريك على الرسائل",
+        description: "Time format on compact mode and hovering messages",
         default: "LT",
         offset: 0,
     },
     tooltipFormat: {
         name: "Tooltip",
-        description: "صيغة الوقت للتلميحات",
+        description: "Time format to use on tooltips",
         default: "LLLL • [relative]",
         offset: 0,
     },
     ariaLabelFormat: {
         name: "Aria label",
-        description: "صيغة الوقت للتسميات الوصفية",
+        description: "Time format to use on aria labels",
         default: "[calendar]",
         offset: 0,
     },

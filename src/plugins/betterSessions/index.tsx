@@ -45,7 +45,7 @@ const settings = definePluginSettings({
         restartNeeded: true
     },
     checkInterval: {
-        description: "معدل التحقق من الجلسات الجديدة في الخلفية (إن فُعّل)، بالدقائق",
+        description: "How often to check for new sessions in the background (if enabled), in minutes",
         type: OptionType.NUMBER,
         default: 20,
         restartNeeded: true
@@ -54,7 +54,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "BetterSessions",
-    description: "يحسّن قائمة الجلسات (الأجهزة)، ويتيح عرض التوقيت الدقيق وتسمية الجلسات وتلقي إشعارات بالجلسات الجديدة",
+    description: "Enhances the sessions (devices) menu. Allows you to view exact timestamps, give each session a custom name, and receive notifications about new sessions.",
     authors: [Devs.amia],
     tags: ["Notifications", "Customisation", "Utility"],
     settings: settings,

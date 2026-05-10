@@ -267,14 +267,14 @@ export const settings = definePluginSettings({
     },
     echoCancellation: {
         type: OptionType.BOOLEAN,
-        description: "إلغاء الصدى",
+        description: "Echo Cancellation",
         default: true,
     },
 });
 
 export default definePlugin({
     name: "VoiceMessages",
-    description: "يتيح إرسال رسائل صوتية كما في الموبايل. انقر بزر الماوس الأيمن على زر الرفع واختر إرسال رسالة صوتية",
+    description: "Allows you to send voice messages like on mobile. To do so, right click the upload button and click Send Voice Message",
     tags: ["Voice"],
     authors: [Devs.Ven, Devs.Vap, Devs.Nickyux],
     settings,

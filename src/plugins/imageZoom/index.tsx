@@ -39,31 +39,31 @@ export const settings = definePluginSettings({
 
     invertScroll: {
         type: OptionType.BOOLEAN,
-        description: "عكس اتجاه التمرير",
+        description: "Invert scroll",
         default: true,
     },
 
     nearestNeighbour: {
         type: OptionType.BOOLEAN,
-        description: "استخدام خوارزمية أقرب جار عند تكبير الصور",
+        description: "Use Nearest Neighbour Interpolation when scaling images",
         default: false,
     },
 
     square: {
         type: OptionType.BOOLEAN,
-        description: "جعل العدسة مربعة الشكل",
+        description: "Make the lens square",
         default: false,
     },
 
     zoom: {
-        description: "مستوى تكبير العدسة",
+        description: "Zoom of the lens",
         type: OptionType.SLIDER,
         markers: [1, 5, 10, 20, 30, 40, 50],
         default: 2,
         stickToMarkers: false,
     },
     size: {
-        description: "نصف القطر / حجم العدسة",
+        description: "Radius / Size of the lens",
         type: OptionType.SLIDER,
         markers: [50, 100, 250, 500, 750, 1000],
         default: 100,
@@ -71,7 +71,7 @@ export const settings = definePluginSettings({
     },
 
     zoomSpeed: {
-        description: "سرعة تغيير التكبير وحجم العدسة",
+        description: "How fast the zoom / lens size changes",
         type: OptionType.SLIDER,
         markers: [0.1, 0.5, 1, 2, 3, 4, 5],
         default: 0.5,
@@ -154,7 +154,7 @@ const imageContextMenuPatch: NavContextMenuPatchCallback = (children, props) => 
 
 export default definePlugin({
     name: "ImageZoom",
-    description: "يتيح تكبير الصور والـ GIF. استخدم عجلة الماوس للتكبير وShift + العجلة لتغيير حجم العدسة",
+    description: "Lets you zoom in to images and gifs. Use scroll wheel to zoom in and shift + scroll wheel to increase lens radius / size",
     tags: ["Media", "Utility"],
     authors: [Devs.Aria],
     searchTerms: ["ImageUtilities"],

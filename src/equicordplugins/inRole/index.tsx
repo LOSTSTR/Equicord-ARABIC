@@ -56,12 +56,12 @@ export default definePlugin({
     commands: [
         {
             name: "inrole",
-            description: "اعرف من يملك هذه الرتبة",
+            description: "Know who is in a role",
             inputType: ApplicationCommandInputType.BUILT_IN,
             options: [
                 {
                     name: "role",
-                    description: "الرتبة",
+                    description: "The role",
                     type: ApplicationCommandOptionType.ROLE,
                     required: true
                 },

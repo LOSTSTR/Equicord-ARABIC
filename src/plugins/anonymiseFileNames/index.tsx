@@ -44,12 +44,12 @@ const settings = definePluginSettings({
         default: true,
     },
     spoilerMessages: {
-        description: "إضافة بادئة سبويلر للملفات",
+        description: "Spoiler messages",
         type: OptionType.BOOLEAN,
         default: false,
     },
     method: {
-        description: "طريقة إخفاء الهوية",
+        description: "Anonymising method",
         type: OptionType.SELECT,
         options: [
             { label: "Random Characters", value: Methods.Random, default: true },
@@ -58,12 +58,12 @@ const settings = definePluginSettings({
         ],
     },
     randomisedLength: {
-        description: "طول الأحرف العشوائية",
+        description: "Random characters length",
         type: OptionType.NUMBER,
         default: 7
     },
     consistent: {
-        description: "اسم الملف الثابت",
+        description: "Consistent filename",
         type: OptionType.STRING,
         default: "image"
     },
@@ -79,7 +79,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "AnonymiseFileNames",
     authors: [Devs.fawn],
-    description: "يخفي هوية أسماء الملفات المرفوعة",
+    description: "Anonymise uploaded file names",
     dependencies: ["CommandsAPI"],
     tags: ["Privacy", "Utility"],
     isModified: true,

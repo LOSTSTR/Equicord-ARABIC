@@ -41,7 +41,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "LoginWithQR",
-    description: "يتيح تسجيل الدخول على جهاز آخر عبر مسح رمز QR، تماماً كما في تطبيق الجوال!",
+    description: "Allows you to login to another device by scanning a login QR code, just like on mobile!",
     tags: ["Utility"],
     authors: [EquicordDevs.nexpid],
 

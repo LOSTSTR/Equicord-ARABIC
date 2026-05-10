@@ -34,44 +34,44 @@ export const settings = definePluginSettings({
     },
     allCallTimers: {
         type: OptionType.BOOLEAN,
-        description: "يضيف مؤقت مكالمة لجميع المستخدمين في القناة الصوتية بالسيرفر",
+        description: "Add call timer to all users in a server voice channel",
         restartNeeded: true,
         default: false
     },
     showWithoutHover: {
         type: OptionType.BOOLEAN,
-        description: "يعرض المؤقت دائمًا دون الحاجة للمرور بالماوس عليه",
+        description: "Always show the timer without needing to hover",
         restartNeeded: true,
         default: false
     },
     showRoleColor: {
         type: OptionType.BOOLEAN,
-        description: "يعرض لون رتبة المستخدم (إذا كانت الإضافة المخصصة مفعّلة)",
+        description: "Show the user's role color (if this plugin in enabled)",
         restartNeeded: false,
         default: false
     },
     trackSelf: {
         type: OptionType.BOOLEAN,
-        description: "تتبع وقت انضمامك الخاص أيضًا",
+        description: "Also track yourself",
         restartNeeded: false,
         default: false
     },
     showSeconds: {
         type: OptionType.BOOLEAN,
-        description: "يعرض الثواني في المؤقت",
+        description: "Show seconds in the timer",
         restartNeeded: false,
         default: false
     },
     watchLargeGuilds: {
         type: OptionType.BOOLEAN,
-        description: "تتبع المستخدمين في السيرفرات الكبيرة. قد يسبب بطءًا إذا كنت في سيرفرات كبيرة كثيرة. تم الاختبار حتى 2000 مستخدم صوتي نشط دون مشاكل.",
+        description: "Track users in large guilds. This may cause lag if you're in a lot of large guilds with active voice users. Tested with up to 2000 active voice users with no issues.",
         restartNeeded: true,
         default: false
     }
 });
 
 // Save the join time of all users in a Map
-type userJoinData = { channelId: string, time: number; guildId: string; };
+type userJoinData = { channelId: string, time: number; guildId: string | null; };
 const userJoinTimes = new Map<string, userJoinData>();
 
 /**
@@ -84,7 +84,7 @@ const userJoinTimes = new Map<string, userJoinData>();
  * unique identifier of the guild (server) to which the user belongs. It is used to associate the
  * user's join time with a specific guild within the application or platform.
  */
-function addUserJoinTime(userId: string, channelId: string, guildId: string) {
+function addUserJoinTime(userId: string, channelId: string, guildId: string | null) {
     // create a random number
     userJoinTimes.set(userId, { channelId, time: Date.now(), guildId });
 }
@@ -108,7 +108,7 @@ let runOneTime = true;
 
 export default definePlugin({
     name: "CallTimer",
-    description: "يضيف مؤقتات مكالمة لجميع المستخدمين في القنوات الصوتية وفي شريط حالة الاتصال.",
+    description: "Add call timers for all users in voice channels and in the connection status.",
     tags: ["Voice", "Utility"],
     authors: [Devs.Ven, EquicordDevs.MaxHerbold, Devs.D3SOX],
     managedStyle: alignedChatInputFix,
@@ -152,11 +152,6 @@ export default definePlugin({
                 const { userId, channelId, guildId } = state;
                 const isMe = userId === myId;
 
-                if (!guildId) {
-                    // guildId is never undefined here
-                    continue;
-                }
-
                 // check if the state does not actually has a `oldChannelId` property
                 if (!("oldChannelId" in state) && !runOneTime && !settings.store.watchLargeGuilds) {
                     // batch update triggered. This is ignored because it
@@ -173,7 +168,7 @@ export default definePlugin({
                 if (channelId !== oldChannelId) {
                     if (channelId) {
                         // move or join
-                        addUserJoinTime(userId, channelId, guildId);
+                        addUserJoinTime(userId, channelId, guildId ?? null);
                     } else if (oldChannelId) {
                         // leave
                         removeUserJoinTime(userId);

@@ -44,54 +44,54 @@ export const settings = definePluginSettings({
     },
     rate: {
         type: OptionType.SLIDER,
-        description: "سرعة الراوي",
+        description: "Narrator Speed",
         default: 1,
         markers: [0.1, 0.5, 1, 2, 5, 10],
         stickToMarkers: false
     },
     sayOwnName: {
-        description: "قول اسمك الخاص",
+        description: "Say own name",
         type: OptionType.BOOLEAN,
         default: false
     },
     latinOnly: {
-        description: "إزالة الأحرف غير اللاتينية من الأسماء قبل نطقها",
+        description: "Strip non latin characters from names before saying them",
         type: OptionType.BOOLEAN,
         default: false
     },
     joinMessage: {
         type: OptionType.STRING,
-        description: "رسالة الانضمام",
+        description: "Join Message",
         default: "{{USER}} joined"
     },
     leaveMessage: {
         type: OptionType.STRING,
-        description: "رسالة المغادرة",
+        description: "Leave Message",
         default: "{{USER}} left"
     },
     moveMessage: {
         type: OptionType.STRING,
-        description: "رسالة التنقل",
+        description: "Move Message",
         default: "{{USER}} moved to {{CHANNEL}}"
     },
     muteMessage: {
         type: OptionType.STRING,
-        description: "رسالة الكتم (للنفس فقط حالياً)",
+        description: "Mute Message (only self for now)",
         default: "{{USER}} muted"
     },
     unmuteMessage: {
         type: OptionType.STRING,
-        description: "رسالة إلغاء الكتم (للنفس فقط حالياً)",
+        description: "Unmute Message (only self for now)",
         default: "{{USER}} unmuted"
     },
     deafenMessage: {
         type: OptionType.STRING,
-        description: "رسالة الصمم (للنفس فقط حالياً)",
+        description: "Deafen Message (only self for now)",
         default: "{{USER}} deafened"
     },
     undeafenMessage: {
         type: OptionType.STRING,
-        description: "رسالة إلغاء الصمم (للنفس فقط حالياً)",
+        description: "Undeafen Message (only self for now)",
         default: "{{USER}} undeafened"
     }
 });

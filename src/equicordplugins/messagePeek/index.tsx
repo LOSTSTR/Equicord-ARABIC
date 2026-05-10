@@ -239,7 +239,7 @@ function shouldShowActivity(lastMessage: Message | undefined, hasActivity: boole
 
 export default definePlugin({
     name: "MessagePeek",
-    description: "يعرض معاينة آخر رسالة وتوقيتها في قائمة الرسائل المباشرة",
+    description: "Shows the last message preview and timestamp in the Direct Messages list.",
     dependencies: ["MemberListDecoratorsAPI"],
     tags: ["Appearance", "Chat"],
     authors: [Devs.prism, EquicordDevs.justjxke],

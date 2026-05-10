@@ -18,73 +18,73 @@ const settings = definePluginSettings({
     },
     EquicordDonorPosition: {
         type: OptionType.NUMBER,
-        description: "موضع شارات Equicord Donor.",
+        description: "The position of the Equicord Donor badges.",
         hidden: true,
         default: 0
     },
     showEquicordContributor: {
         type: OptionType.BOOLEAN,
-        description: "تفعيل عرض شارات Equicord Contributor في الشات.",
+        description: "Enable to show Equicord Contributor badges in chat.",
         hidden: true,
         default: true
     },
     EquicordContributorPosition: {
         type: OptionType.NUMBER,
-        description: "موضع شارة Equicord Contributor.",
+        description: "The position of the Equicord Contributor badge.",
         hidden: true,
         default: 1
     },
     showVencordDonor: {
         type: OptionType.BOOLEAN,
-        description: "تفعيل عرض شارات Vencord Donor في الشات.",
+        description: "Enable to show Vencord donor badges in chat.",
         hidden: true,
         default: true
     },
     VencordDonorPosition: {
         type: OptionType.NUMBER,
-        description: "موضع شارات Vencord Donor.",
+        description: "The position of the Vencord Donor badges.",
         hidden: true,
         default: 4
     },
     showVencordContributor: {
         type: OptionType.BOOLEAN,
-        description: "تفعيل عرض شارات Vencord Contributor في الشات.",
+        description: "Enable to show Vencord contributor badges in chat.",
         hidden: true,
         default: true
     },
     VencordContributorPosition: {
         type: OptionType.NUMBER,
-        description: "موضع شارة Vencord Contributor.",
+        description: "The position of the Vencord Contributor badge.",
         hidden: true,
         default: 5
     },
     showDiscordProfile: {
         type: OptionType.BOOLEAN,
-        description: "تفعيل عرض شارات الملف الشخصي لـ Discord في الشات.",
+        description: "Enable to show Discord profile badges in chat.",
         hidden: true,
         default: true
     },
     DiscordProfilePosition: {
         type: OptionType.NUMBER,
-        description: "موضع شارات الملف الشخصي لـ Discord.",
+        description: "The position of the Discord profile badges.",
         hidden: true,
         default: 6
     },
     showDiscordNitro: {
         type: OptionType.BOOLEAN,
-        description: "تفعيل عرض شارات Discord Nitro في الشات.",
+        description: "Enable to show Discord Nitro badges in chat.",
         hidden: true,
         default: true
     },
     DiscordNitroPosition: {
         type: OptionType.NUMBER,
-        description: "موضع شارة Discord Nitro.",
+        description: "The position of the Discord Nitro badge.",
         hidden: true,
         default: 7
     },
     badgeSettings: {
         type: OptionType.COMPONENT,
-        description: "ضبط ترتيب الشارات وإظهارها",
+        description: "Setup badge layout and visibility",
         component: () => <BadgeSettings />
     }
 });

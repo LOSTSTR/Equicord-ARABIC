@@ -334,61 +334,61 @@ export const settings = definePluginSettings({
     },
     logDeletes: {
         type: OptionType.BOOLEAN,
-        description: "تسجيل الرسائل المحذوفة",
+        description: "Whether to log deleted messages",
         default: true,
     },
     collapseDeleted: {
         type: OptionType.BOOLEAN,
-        description: "طي الرسائل المحذوفة كما تُطوى رسائل المحجوبين",
+        description: "Whether to collapse deleted messages, similar to blocked messages",
         default: false,
         restartNeeded: true,
     },
     logEdits: {
         type: OptionType.BOOLEAN,
-        description: "تسجيل الرسائل المعدَّلة",
+        description: "Whether to log edited messages",
         default: true,
     },
     inlineEdits: {
         type: OptionType.BOOLEAN,
-        description: "عرض سجل التعديلات ضمن محتوى الرسالة",
+        description: "Whether to display edit history as part of message content",
         default: true,
     },
     ignoreBots: {
         type: OptionType.BOOLEAN,
-        description: "تجاهل رسائل البوتات",
+        description: "Whether to ignore messages by bots",
         default: false,
     },
     ignoreSelf: {
         type: OptionType.BOOLEAN,
-        description: "تجاهل رسائلك الخاصة",
+        description: "Whether to ignore messages by yourself",
         default: false,
     },
     ignoreSelfEdits: {
         type: OptionType.BOOLEAN,
-        description: "تجاهل تعديلاتك الخاصة على الرسائل",
+        description: "Whether to ignore edits by yourself",
         default: false,
     },
     ignoreUsers: {
         type: OptionType.STRING,
-        description: "قائمة معرّفات المستخدمين للتجاهل، مفصولة بفاصلة",
+        description: "Comma-separated list of user IDs to ignore",
         default: "",
         multiline: true,
     },
     ignoreChannels: {
         type: OptionType.STRING,
-        description: "قائمة معرّفات القنوات للتجاهل، مفصولة بفاصلة",
+        description: "Comma-separated list of channel IDs to ignore",
         default: "",
         multiline: true,
     },
     ignoreGuilds: {
         type: OptionType.STRING,
-        description: "قائمة معرّفات السيرفرات للتجاهل، مفصولة بفاصلة",
+        description: "Comma-separated list of guild IDs to ignore",
         default: "",
         multiline: true,
     },
     showEditDiffs: {
         type: OptionType.BOOLEAN,
-        description: "عرض الفروقات البصرية بين نسخ الرسالة المعدَّلة",
+        description: "Show visual differences between edited message versions",
         default: false,
         onChange: value => {
             if (!value && settings.store.separatedDiffs) {
@@ -398,7 +398,7 @@ export const settings = definePluginSettings({
     },
     separatedDiffs: {
         type: OptionType.BOOLEAN,
-        description: "فصل الإضافات والحذوفات في الفروقات لسهولة القراءة",
+        description: "Separate addition and removals in diffs for a more readable differential",
         default: false,
     },
 }, {
@@ -416,7 +416,7 @@ export const settings = definePluginSettings({
 
 export default definePlugin({
     name: "MessageLogger",
-    description: "يحتفظ مؤقتاً بسجل الرسائل المحذوفة والمعدَّلة",
+    description: "Temporarily logs deleted and edited messages.",
     tags: ["Chat", "Utility"],
     authors: [Devs.rushii, Devs.Ven, Devs.AutumnVN, Devs.Nickyux, Devs.Kyuuhachi, EquicordDevs.justjxke],
     dependencies: ["MessageUpdaterAPI"],
