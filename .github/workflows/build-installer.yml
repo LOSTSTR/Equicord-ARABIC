@@ -521,7 +521,7 @@ jobs:
                           $crop, [System.Drawing.GraphicsUnit]::Pixel)
                       $g.Dispose(); $src.Dispose()
                   } else {
-                      Write-Host "logo.png not found â€” generating EA placeholder"
+                      Write-Host "logo.png not found - generating EA placeholder"
                       $base = New-Object System.Drawing.Bitmap(256, 256,
                           [System.Drawing.Imaging.PixelFormat]::Format32bppArgb)
                       $g = [System.Drawing.Graphics]::FromImage($base)
@@ -590,7 +590,7 @@ jobs:
               run: |
                   $v    = "${{ steps.ver.outputs.version }}"
                   $out  = "installer\EquicordArabicSetup-v$v.exe"
-                  # ps2exe requires n.n.n.n â€” pad to 4 parts if package.json has fewer
+                  # ps2exe requires n.n.n.n - pad to 4 parts if package.json has fewer
                   $ver4 = if (($v -split '\.').Count -lt 4) { "$v.0" } else { $v }
 
                   Invoke-ps2exe `
@@ -635,18 +635,18 @@ jobs:
               env:
                   GITHUB_TOKEN: ${{ secrets.ETOKEN }}
               run: |
-                  V=”${{ steps.ver.outputs.version }}”
-                  FILE=”installer/EquicordArabicSetup-v${V}.exe”
+                  V="${{ steps.ver.outputs.version }}"
+                  FILE="installer/EquicordArabicSetup-v${V}.exe"
                   gh release create v1.0.0-stable \
                       --tag-name v1.0.0-stable \
-                      --title “Equicord-ARABIC $V” \
-                      --notes “Official Arabic Release” \
+                      --title "Equicord-ARABIC $V" \
+                      --notes "Official Arabic Release" \
                       --prerelease=false \
                       --draft=false 2>/dev/null || \
                   gh release edit v1.0.0-stable \
-                      --title “Equicord-ARABIC $V” \
-                      --notes “Official Arabic Release” \
+                      --title "Equicord-ARABIC $V" \
+                      --notes "Official Arabic Release" \
                       --prerelease=false \
                       --draft=false 2>/dev/null || true
-                  gh release upload v1.0.0-stable “$FILE” --clobber
-                  echo “Uploaded $FILE to release v1.0.0-stable”
+                  gh release upload v1.0.0-stable "$FILE" --clobber
+                  echo "Uploaded $FILE to release v1.0.0-stable"
