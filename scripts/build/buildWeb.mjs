@@ -19,10 +19,13 @@
 
 // @ts-check
 
-import { readFileSync } from "fs";
+import { readFileSync, statSync } from "fs";
 import { appendFile, mkdir, readdir, readFile, rm, writeFile } from "fs/promises";
 import path, { join } from "path";
-import Zip from "zip-local";
+import { createRequire } from "module";
+
+const require = createRequire(import.meta.url);
+const JSZip = require("jszip");
 
 import { BUILD_TIMESTAMP, commonOpts, globPlugins, IS_DEV, IS_REPORTER, IS_COMPANION_TEST, VERSION, commonRendererPlugins, buildOrWatchAll, stringifyValues, IS_ANTI_CRASH_TEST } from "./common.mjs";
 
@@ -197,14 +200,25 @@ if (!process.argv.includes("--skip-extension")) {
         buildExtension("firefox-unpacked", ["background.js", "content.js", "manifestv2.json", "icon.png"]),
     ]);
 
-    Zip.zip("dist/browser/chromium-unpacked", (_err, zip) => {
-        zip.compress().save("dist/extension-chrome.zip");
-        console.info("Packed Chromium Extension written to dist/extension-chrome.zip");
-    });
-    Zip.zip("dist/browser/firefox-unpacked", (_err, zip) => {
-        zip.compress().save("dist/extension-firefox.zip");
-        console.info("Packed Firefox Extension written to dist/extension-firefox.zip");
-    });
+    const createExtensionZip = async (srcDir, destFile, label) => {
+        const zip = new JSZip();
+        const addDir = async (dir, prefix) => {
+            for (const entry of await readdir(dir)) {
+                const full = join(dir, entry);
+                const name = prefix ? `${prefix}/${entry}` : entry;
+                if (statSync(full).isDirectory()) await addDir(full, name);
+                else zip.file(name, readFileSync(full));
+            }
+        };
+        await addDir(srcDir, "");
+        const buf = await zip.generateAsync({ type: "nodebuffer", compression: "DEFLATE" });
+        await writeFile(destFile, buf);
+        console.info(`Packed ${label} written to ${destFile}`);
+    };
+    await Promise.all([
+        createExtensionZip("dist/browser/chromium-unpacked", "dist/extension-chrome.zip", "Chromium Extension"),
+        createExtensionZip("dist/browser/firefox-unpacked", "dist/extension-firefox.zip", "Firefox Extension"),
+    ]);
 } else {
     await appendCssRuntime;
 }

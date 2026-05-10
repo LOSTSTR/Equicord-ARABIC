@@ -101,10 +101,11 @@ async function applyUpdates() {
     if (PendingUpdate.expectedSha256) {
         const actualSha256 = createHash("sha256").update(data).digest("hex");
         if (actualSha256 !== PendingUpdate.expectedSha256) {
+            const expectedSha = PendingUpdate.expectedSha256;
             PendingUpdate = null;
             throw new Error(
                 `Update integrity check failed!\n` +
-                `Expected: ${PendingUpdate?.expectedSha256}\n` +
+                `Expected: ${expectedSha}\n` +
                 `Actual:   ${actualSha256}\n` +
                 `The downloaded file may be corrupted or tampered with.`
             );
