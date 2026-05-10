@@ -1,14 +1,16 @@
 name: Build Installer EXE
 
+# يعمل عند: push لـ main، إنشاء release، أو استدعاء يدوي/من workflow آخر
 on:
     push:
         branches: [main]
         paths:
-            - "installer/**"
+            - "installer/installer.template.ps1"
             - ".github/workflows/build-installer.yml"
     release:
         types: [created]
     workflow_dispatch:
+    workflow_call:
 
 permissions:
     contents: write
@@ -23,7 +25,7 @@ jobs:
               with:
                   fetch-depth: 0
 
-            # ── قراءة الإصدار ─────────────────────────────────────────────
+            # ── قراءة الإصدار من package.json ───────────────────────────
             - name: Read version
               id: ver
               shell: bash
@@ -31,7 +33,26 @@ jobs:
                   V=$(jq -r .version < package.json)
                   echo "version=$V" >> "$GITHUB_OUTPUT"
 
-            # ── تحويل الشعار إلى ICO ──────────────────────────────────────
+            # ── توليد installer PS1 من القالب ───────────────────────────
+            # installer/installer.template.ps1 هو الملف المُتتبَّع في git.
+            # installer/EquicordArabic-Installer.ps1 يُولَّد هنا وهو في .gitignore.
+            # كل شبكة في الـ PS1 تمر عبر GitHub API الرسمي فقط وتُنفَّذ عند
+            # ضغط المستخدم على زر — لا تحميل صامت.
+            - name: Generate installer PS1 from template
+              shell: pwsh
+              run: |
+                  $v        = "${{ steps.ver.outputs.version }}"
+                  $template = Get-Content "installer\installer.template.ps1" -Raw -Encoding UTF8
+                  $ps1      = $template -replace '\{\{INSTALLER_VERSION\}\}', $v
+                  [System.IO.File]::WriteAllText(
+                      "${{ github.workspace }}\installer\EquicordArabic-Installer.ps1",
+                      $ps1,
+                      [System.Text.Encoding]::UTF8
+                  )
+                  $lines = ($ps1 -split "`n").Count
+                  Write-Host "Generated installer PS1 for v$v ($lines lines)"
+
+            # ── توليد الأيقونة ICO متعدد الأحجام ─────────────────────────
             - name: Generate icon.ico
               shell: pwsh
               run: |
@@ -53,7 +74,7 @@ jobs:
                           $crop, [System.Drawing.GraphicsUnit]::Pixel)
                       $g.Dispose(); $src.Dispose()
                   } else {
-                      Write-Host "logo.png not found — generating gold EA placeholder"
+                      Write-Host "logo.png not found — generating EA placeholder"
                       $base = New-Object System.Drawing.Bitmap(256, 256,
                           [System.Drawing.Imaging.PixelFormat]::Format32bppArgb)
                       $g = [System.Drawing.Graphics]::FromImage($base)
@@ -74,7 +95,6 @@ jobs:
                       $font.Dispose(); $brush.Dispose(); $g.Dispose()
                   }
 
-                  # بناء ICO متعدد الأحجام
                   $stream = New-Object System.IO.MemoryStream
                   $writer = New-Object System.IO.BinaryWriter($stream)
                   $writer.Write([uint16]0); $writer.Write([uint16]1)
@@ -109,41 +129,41 @@ jobs:
                   $writer.Flush()
                   [System.IO.File]::WriteAllBytes($icoPath,$stream.ToArray())
                   $stream.Dispose(); $base.Dispose()
-                  Write-Host "icon.ico created: $((Get-Item $icoPath).Length/1KB) KB"
+                  Write-Host "icon.ico: $([math]::Round((Get-Item $icoPath).Length/1KB,1)) KB"
 
-            # ── تثبيت ps2exe لتحويل PS1 إلى EXE ─────────────────────────
+            # ── تثبيت ps2exe ──────────────────────────────────────────────
             - name: Install ps2exe
               shell: pwsh
               run: |
                   Set-PSRepository PSGallery -InstallationPolicy Trusted
                   Install-Module ps2exe -Force -Scope CurrentUser -AllowClobber
 
-            # ── تجميع EXE ─────────────────────────────────────────────────
+            # ── تجميع EXE مع بيانات التوقيع الكاملة ─────────────────────
             - name: Compile EXE
+              id: compile
               shell: pwsh
               run: |
                   $v   = "${{ steps.ver.outputs.version }}"
                   $out = "installer\EquicordArabicSetup-v$v.exe"
 
                   Invoke-ps2exe `
-                      -InputFile  "installer\EquicordArabic-Installer.ps1" `
-                      -OutputFile $out `
-                      -IconFile   "installer\icon.ico" `
-                      -Title      "Equicord-ARABIC Installer" `
+                      -InputFile   "installer\EquicordArabic-Installer.ps1" `
+                      -OutputFile  $out `
+                      -IconFile    "installer\icon.ico" `
+                      -Title       "Equicord-ARABIC Installer" `
                       -Description "مُثبِّت Equicord-ARABIC — LOSTSTR/Equicord-ARABIC" `
-                      -Company    "LOSTSTR" `
-                      -Product    "Equicord-ARABIC" `
-                      -Version    "$v.0" `
-                      -Copyright  "Copyright (c) 2026 LOSTSTR" `
-                      -NoConsole  `
+                      -Company     "LOSTSTR" `
+                      -Product     "Equicord-ARABIC" `
+                      -Version     "$v.0" `
+                      -Copyright   "Copyright (c) 2026 LOSTSTR" `
+                      -NoConsole   `
                       -RequireAdmin
 
                   $size = [math]::Round((Get-Item $out).Length/1MB,1)
                   Write-Host "EXE built: $out  ($size MB)"
                   echo "exe_path=$out" >> $env:GITHUB_OUTPUT
-              id: compile
 
-            # ── رفع artifact ──────────────────────────────────────────────
+            # ── رفع كـ artifact ───────────────────────────────────────────
             - name: Upload artifact
               uses: actions/upload-artifact@v4
               with:
@@ -151,7 +171,7 @@ jobs:
                   path: installer/EquicordArabicSetup-*.exe
                   retention-days: 60
 
-            # ── إرفاق بالإصدار إذا كان الحدث release ─────────────────────
+            # ── إرفاق بإصدار GitHub عند release ──────────────────────────
             - name: Attach to GitHub Release
               if: github.event_name == 'release'
               uses: softprops/action-gh-release@v2
@@ -160,9 +180,9 @@ jobs:
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-            # ── رفع إلى latest release عند push لـ main ──────────────────
+            # ── رفع إلى latest release عند push أو workflow_call ──────────
             - name: Upload to latest release
-              if: github.event_name == 'push'
+              if: github.event_name == 'push' || github.event_name == 'workflow_call'
               shell: bash
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -174,5 +194,5 @@ jobs:
                     gh release upload "$RELEASE" "$FILE" --clobber
                     echo "Uploaded $FILE to release $RELEASE"
                   else
-                    echo "No release found — skipping upload"
+                    echo "No latest release found — skipping upload"
                   fi

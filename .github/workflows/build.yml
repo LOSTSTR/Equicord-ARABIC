@@ -70,6 +70,17 @@ jobs:
             - name: Upload Equicord Stable
               if: ${{ vars.ACT == 'false' }}
               run: |
+                  HASH=$(git rev-parse --short HEAD)
+                  # Create the `latest` release if it doesn't exist, then update its title
+                  # to include the current commit hash. The HTTP updater reads the hash from
+                  # the release name to decide whether a new update is available.
+                  gh release create latest \
+                      --title "Equicord-ARABIC $HASH" \
+                      --notes "آخر إصدار من Equicord-ARABIC — $HASH" \
+                      --prerelease 2>/dev/null || \
+                  gh release edit latest \
+                      --title "Equicord-ARABIC $HASH" \
+                      --notes "آخر إصدار من Equicord-ARABIC — $HASH"
                   gh release upload latest --clobber dist/release/*
 
             # ── Equicord-ARABIC: trigger installer build after ASAR release ──

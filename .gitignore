@@ -3,6 +3,8 @@ node_modules
 .claude
 installer/*.exe
 installer/*.ico
+# الملف المُولَّد تلقائياً من القالب أثناء البناء — لا يُتتبَّع
+installer/EquicordArabic-Installer.ps1
 .VSCodeCounter
 .vars
 .secrets

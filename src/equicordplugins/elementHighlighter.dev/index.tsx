@@ -217,28 +217,33 @@ function formatBoxValue(value: string): string | null {
     return value;
 }
 
+/** Escape user-controlled DOM values before injecting into innerHTML. */
+function esc(s: string): string {
+    return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+
 function buildTooltipContent(el: Element, computed: CSSStyleDeclaration, rect: DOMRect): string {
-    const tag = el.tagName.toLowerCase();
+    const tag = el.tagName.toLowerCase(); // tagName is browser-controlled, always safe
     const colorVar = getColorVar(el) ?? computed.color;
     const hex = rgbToHex(computed.color);
 
     let html = `<span class="${cl("tag")}">&lt;${tag}&gt;</span> `;
     html += `<span class="${cl("size")}">${Math.round(rect.width)}x${Math.round(rect.height)}</span>`;
-    html += `<div class="${cl("color")}"><span class="${cl("swatch")}" style="--c:${computed.color}"></span>${colorVar}</div>`;
-    html += `<div class="${cl("hex")}">${hex}</div>`;
+    html += `<div class="${cl("color")}"><span class="${cl("swatch")}" style="--c:${computed.color}"></span>${esc(colorVar)}</div>`;
+    html += `<div class="${cl("hex")}">${esc(hex)}</div>`;
 
     const { store } = settings;
 
     if (store.showId) {
         const { id } = el;
-        if (id) html += `<div class="${cl("info")}"><span class="${cl("label")}">id:</span> #${id}</div>`;
+        if (id) html += `<div class="${cl("info")}"><span class="${cl("label")}">id:</span> #${esc(id)}</div>`;
     }
 
     if (store.showClasses) {
         const classes = el.className;
         if (classes && typeof classes === "string") {
             const truncated = classes.length > 60 ? classes.slice(0, 60) + "…" : classes;
-            html += `<div class="${cl("info")}"><span class="${cl("label")}">class:</span> ${truncated}</div>`;
+            html += `<div class="${cl("info")}"><span class="${cl("label")}">class:</span> ${esc(truncated)}</div>`;
         }
     }
 

@@ -18,7 +18,7 @@ Add-Type -AssemblyName System.Drawing
 # ═══════════════════════════════════════════════════════════════════
 $REPO_OWNER   = "LOSTSTR"
 $REPO_NAME    = "Equicord-ARABIC"
-$INSTALLER_VER = "1.0.0"
+$INSTALLER_VER = "{{INSTALLER_VERSION}}"
 $ASAR_NAME    = "desktop.asar"
 $RELEASE_API  = "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/releases/latest"
 $USER_AGENT   = "EquicordArabic-Installer/$INSTALLER_VER (+https://github.com/$REPO_OWNER/$REPO_NAME)"

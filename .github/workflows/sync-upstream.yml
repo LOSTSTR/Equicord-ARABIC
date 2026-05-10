@@ -1,0 +1,101 @@
+name: Sync Upstream Equicord
+
+on:
+    schedule:
+        - cron: "0 4 * * *"   # يومياً الساعة 4:00 UTC
+    workflow_dispatch:
+
+permissions:
+    contents: write
+    pull-requests: write
+
+jobs:
+    sync:
+        name: Sync from Equicord/Equicord
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+                  token: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Add upstream remote
+              run: |
+                  git remote add upstream https://github.com/Equicord/Equicord.git || true
+                  git fetch upstream main
+
+            - name: Check for new upstream commits
+              id: check
+              run: |
+                  COUNT=$(git rev-list HEAD..upstream/main --count)
+                  echo "new_commits=$COUNT" >> "$GITHUB_OUTPUT"
+                  echo "Upstream has $COUNT new commits"
+
+            - name: Create sync branch and open PR
+              if: steps.check.outputs.new_commits != '0'
+              run: |
+                  BRANCH="sync/upstream-$(date +%Y%m%d-%H%M)"
+                  git checkout -b "$BRANCH"
+
+                  # دمج upstream مع الحفاظ على التغييرات الخاصة عند التعارض
+                  git merge upstream/main \
+                      --no-edit \
+                      --strategy-option=diff3 \
+                      -m "sync: merge upstream Equicord/Equicord $(date +%Y-%m-%d)" \
+                      || true
+
+                  # إذا كانت هناك تعارضات — اقبل نسختنا للملفات المترجمة وملفات الإضافات المخصصة
+                  CONFLICTS=$(git diff --name-only --diff-filter=U 2>/dev/null || true)
+                  if [ -n "$CONFLICTS" ]; then
+                      echo "Conflicts in: $CONFLICTS"
+                      git checkout --ours \
+                          src/userplugins/ \
+                          installer/ \
+                          .github/workflows/build-installer.yml \
+                          .github/workflows/sync-upstream.yml \
+                          README.md \
+                          2>/dev/null || true
+                      git add -A
+                      git commit -m "sync: resolve conflicts — keep our translations and custom plugins" || true
+                  fi
+
+                  git push origin "$BRANCH"
+
+                  gh pr create \
+                      --title "🔄 Sync upstream Equicord — $(date +%Y-%m-%d)" \
+                      --body "$(cat <<'EOF'
+## مزامنة تلقائية من Equicord/Equicord
+
+هذا PR يجلب آخر التحديثات من المستودع الأصلي [Equicord/Equicord](https://github.com/Equicord/Equicord).
+
+**ما الذي تغيّر؟**
+راجع الفروقات أدناه للاطلاع على الإضافات والإصلاحات الجديدة من upstream.
+
+**ما الذي تم الحفاظ عليه تلقائياً؟**
+- `src/userplugins/` — إضافاتنا المخصصة
+- `installer/` — ملفات المثبت
+- `.github/workflows/` — سير عمل CI/CD الخاصة بنا
+- الترجمات العربية في حال وجد تعارض
+
+**الخطوات التالية:**
+1. راجع الفروقات للتأكد من عدم طغيان upstream على الترجمات العربية
+2. إذا كانت هناك ملفات مترجمة تأثرت، راجعها يدوياً
+3. ادمج هذا PR بعد المراجعة
+
+EOF
+)" \
+                      --head "$BRANCH" \
+                      --base main \
+                      --label "upstream-sync" 2>/dev/null || \
+                  gh pr create \
+                      --title "🔄 Sync upstream Equicord — $(date +%Y-%m-%d)" \
+                      --body "Automated sync from Equicord/Equicord. Review changes before merging." \
+                      --head "$BRANCH" \
+                      --base main
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: No new commits
+              if: steps.check.outputs.new_commits == '0'
+              run: echo "Already up to date with upstream."
