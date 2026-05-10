@@ -13,7 +13,7 @@ import { EquicordDevs } from "@utils/constants";
 import { classNameFactory } from "@utils/css";
 import definePlugin from "@utils/types";
 import { Message } from "@vencord/discord-types";
-import { ChannelStore, moment, SelectedChannelStore, Tooltip, UserStore } from "@webpack/common";
+import { ChannelStore, moment, Tooltip, UserStore } from "@webpack/common";
 
 const cl = classNameFactory("vc-streaks-");
 const dataKey = "vc-streaks-data";
