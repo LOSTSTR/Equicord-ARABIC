@@ -8,8 +8,6 @@ env:
     FORCE_COLOR: true
     GITHUB_TOKEN: ${{ secrets.ETOKEN }}
     EQUICORD_REMOTE: LOSTSTR/Equicord-ARABIC
-    REPO: Equicord/Equibored
-    USERNAME: GitHub-Actions
 
 permissions:
     contents: write

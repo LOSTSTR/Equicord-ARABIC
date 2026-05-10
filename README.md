@@ -47,34 +47,13 @@
 
 ---
 
-## 📥 التثبيت / الإلغاء
+## 📥 التثبيت
 
 ### Windows
 
 | النوع | التحميل |
 |-------|---------|
 | GUI (واجهة رسومية) | [**تحميل Equicord-ARABIC.exe**](https://github.com/LOSTSTR/Equicord-ARABIC/releases/latest) |
-| CLI (سطر أوامر) | [**تحميل CLI**](https://github.com/LOSTSTR/Equicord-ARABIC/releases/latest) |
-
-### macOS
-
-| النوع | التحميل |
-|-------|---------|
-| X64 GUI | [**تحميل (Intel)**](https://github.com/LOSTSTR/Equicord-ARABIC/releases/latest) |
-| ARM64 GUI | [**تحميل (Apple Silicon)**](https://github.com/LOSTSTR/Equicord-ARABIC/releases/latest) |
-
-### Linux
-
-| النوع | التحميل |
-|-------|---------|
-| GUI | [**تحميل (X11)**](https://github.com/LOSTSTR/Equicord-ARABIC/releases/latest) |
-| CLI | [**تحميل (CLI)**](https://github.com/LOSTSTR/Equicord-ARABIC/releases/latest) |
-
-أو عبر سطر الأوامر:
-
-```shell
-sh -c "$(curl -sS https://raw.githubusercontent.com/LOSTSTR/Equicord-ARABIC/refs/heads/main/misc/install.sh)"
-```
 
 > تجد جميع الإصدارات في صفحة [**Releases**](https://github.com/LOSTSTR/Equicord-ARABIC/releases).
 
