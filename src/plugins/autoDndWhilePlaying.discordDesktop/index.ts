@@ -47,7 +47,7 @@ const settings = definePluginSettings({
 migratePluginSettings("AutoDNDWhilePlaying", "StatusWhilePlaying");
 export default definePlugin({
     name: "AutoDNDWhilePlaying",
-    description: "Automatically updates your online status (online, idle, dnd) when launching games",
+    description: "يضبط حالتك تلقائياً على لا تزعج أثناء تشغيل لعبة",
     tags: ["Activity", "Utility"],
     authors: [Devs.thororen],
     isModified: true,

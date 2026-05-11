@@ -108,7 +108,7 @@ let runOneTime = true;
 
 export default definePlugin({
     name: "CallTimer",
-    description: "Add call timers for all users in voice channels and in the connection status.",
+    description: "يُضيف مؤقتاً للمكالمات الصوتية",
     tags: ["Voice", "Utility"],
     authors: [Devs.Ven, EquicordDevs.MaxHerbold, Devs.D3SOX],
     managedStyle: alignedChatInputFix,

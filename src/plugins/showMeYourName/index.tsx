@@ -1076,7 +1076,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "ShowMeYourName",
-    description: "Display any permutation of custom nicknames, friend nicknames, server nicknames, display names, and usernames in chat.",
+    description: "يعرض اسم المستخدم الأصلي بجانب اللقب",
     authors: [EquicordDevs.Etorix, Devs.Rini, Devs.TheKodeToad, Devs.sadan, Devs.prism],
     tags: ["Appearance", "Customisation"],
     searchTerms: ["SMYN", "Nicknames", "Custom Nicknames"],

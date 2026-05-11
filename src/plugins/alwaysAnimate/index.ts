@@ -50,7 +50,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "AlwaysAnimate",
-    description: "Animates anything that can be animated",
+    description: "يحرّك الأفاتار والإيموجي المتحركة دائماً حتى لو لم تكن تستخدم Nitro",
     tags: ["Appearance", "Fun"],
     authors: [Devs.FieryFlames],
     settings,

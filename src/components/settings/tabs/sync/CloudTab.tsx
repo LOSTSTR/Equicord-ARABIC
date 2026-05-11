@@ -92,9 +92,9 @@ function CloudTab() {
 
     return (
         <SettingsTab>
-            <Heading className={Margins.top16}>Cloud Integration</Heading>
+            <Heading className={Margins.top16}>تكامل السحابة</Heading>
             <Paragraph className={Margins.bottom16}>
-                Equicord's cloud integration allows you to sync your settings across multiple devices and Discord installations. Your data is securely stored and can be easily restored at any time.
+                يتيح تكامل سحابة Equicord مزامنة إعداداتك عبر أجهزة متعددة
             </Paragraph>
 
             <Notice.Info className={Margins.bottom16}>
@@ -104,8 +104,8 @@ function CloudTab() {
             </Notice.Info>
 
             <FormSwitch
-                title="Enable Cloud Integration"
-                description="Connect to the cloud backend for settings synchronization. This will request authorization if you haven't set up cloud integration yet."
+                title="تفعيل تكامل السحابة"
+                description="الاتصال بالسحابة لمزامنة الإعدادات."
                 value={isAuthenticated}
                 onChange={v => {
                     if (v)
@@ -118,9 +118,9 @@ function CloudTab() {
 
             <Divider className={Margins.top20} />
 
-            <Heading className={Margins.top20}>Cloud Backend</Heading>
+            <Heading className={Margins.top20}>الخادم السحابي</Heading>
             <Paragraph className={Margins.bottom16}>
-                Choose which cloud backend to use for storing your settings. You can switch between Equicord's and Vencord's cloud services, or use a self-hosted instance.
+                اختر الخادم السحابي المراد استخدامه لحفظ إعداداتك.
             </Paragraph>
 
             <div className={Margins.bottom8}>

@@ -805,14 +805,14 @@ function ThemesTab() {
         <SettingsTab>
             <CspErrorCard />
 
-            <Heading className={Margins.top16}>Theme Management</Heading>
+            <Heading className={Margins.top16}>إدارة القوالب</Heading>
             <Paragraph className={Margins.bottom16}>
-                Customize Discord's appearance with themes. Add local .css files or load themes directly from URLs. Themes with a cog wheel icon have customizable settings you can modify.
+                خصّص مظهر ديسكورد باستخدام القوالب.
             </Paragraph>
 
-            <Heading>Quick Actions</Heading>
+            <Heading>إجراءات سريعة</Heading>
             <Paragraph className={Margins.bottom16}>
-                Shortcuts for managing your themes. Open your themes folder to add new themes, use QuickCSS for quick style tweaks, or reload themes after making changes.
+                اختصارات لإدارة قوالبك.
             </Paragraph>
 
             <QuickActionCard>
@@ -833,13 +833,13 @@ function ThemesTab() {
                     />
                 ) : (
                     <QuickAction
-                        text="Open Themes Folder"
+                        text="فتح مجلد القوالب"
                         action={() => VencordNative.themes.openFolder()}
                         Icon={FolderIcon}
                     />
                 )}
                 <QuickAction
-                    text="Load missing Themes"
+                    text="تحميل القوالب المفقودة"
                     action={refreshLocalThemes}
                     Icon={RestartIcon}
                 />
@@ -859,13 +859,13 @@ function ThemesTab() {
 
             <Divider className={Margins.top20} />
 
-            <Heading className={Margins.top20}>Online Themes</Heading>
+            <Heading className={Margins.top20}>قوالب إلكترونية</Heading>
             <Paragraph className={Margins.bottom16}>
-                Load themes directly from URLs instead of local files. Online themes auto-update when the source changes, so you always have the latest version without manual downloads.
+                تحميل القوالب مباشرة من روابط URL
             </Paragraph>
             <FormSwitch
-                title="Enable Online Themes"
-                description="Toggle online theme loading. When disabled, all online themes will be turned off and you won't be able to add new ones."
+                title="تفعيل القوالب الإلكترونية"
+                description="تبديل تحميل القوالب الإلكترونية."
                 value={settings.enableOnlineThemes ?? true}
                 onChange={value => {
                     settings.enableOnlineThemes = value;
@@ -876,7 +876,7 @@ function ThemesTab() {
             />
 
             <Notice.Info className={Margins.bottom16} style={{ width: "100%" }}>
-                Looking for themes? Check out <Link href="https://betterdiscord.app/themes">BetterDiscord Themes</Link> or search on <Link href="https://github.com/search?q=discord+theme">GitHub</Link>. When downloading from BetterDiscord, click "Download" and place the .theme.css file into your themes folder.
+                تبحث عن قوالب؟ تفقد <Link href="https://betterdiscord.app/themes">قوالب BetterDiscord</Link> أو ابحث على <Link href="https://github.com/search?q=discord+theme">GitHub</Link>.
             </Notice.Info>
 
             <div className={cl("link-row")}>

@@ -24,7 +24,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "ShowAllMessageButtons",
-    description: "Always show all message buttons no matter if you are holding the shift key or not.",
+    description: "يعرض جميع أزرار الرسالة دائماً بدون تحويم",
     tags: ["Chat", "Utility"],
     authors: [Devs.Nuckyz],
     settings,
