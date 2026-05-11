@@ -32,7 +32,7 @@ const createMessageRecord = findByCodeLazy(".createFromServer(", ".isBlockedForM
 
 export default definePlugin({
     name: "ValidReply",
-    description: 'Fixes "Message could not be loaded" upon hovering over the reply',
+    description: "يُصلح خطأ رسالة غير موجودة في الردود",
     tags: ["Chat", "Utility"],
     authors: [Devs.newwares],
     patches: [

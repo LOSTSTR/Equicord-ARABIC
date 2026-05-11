@@ -21,7 +21,7 @@ const settings = definePluginSettings({
 // The entire code of this plugin can be found in ipcPlugins
 export default definePlugin({
     name: "FixSpotifyEmbeds",
-    description: "Fixes spotify embeds being incredibly loud by letting you customise the volume",
+    description: "يُصلح مشكلة انتهاء جلسة Spotify في المضمّنات",
     authors: [Devs.Ven],
     tags: ["Media", "Customisation"],
     settings,

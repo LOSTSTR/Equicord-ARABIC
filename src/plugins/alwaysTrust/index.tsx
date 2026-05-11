@@ -59,7 +59,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "AlwaysTrust",
-    description: "Removes the annoying untrusted domain and suspicious file popup",
+    description: "يُزيل رسائل التحقق ونوافذ التحذير عند فتح روابط خارجية أو تحميل ملفات",
     tags: ["Utility"],
     authors: [Devs.zt, Devs.Trwy],
     isModified: true,

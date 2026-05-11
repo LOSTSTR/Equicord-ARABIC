@@ -1102,7 +1102,7 @@ export default definePlugin({
     name: "FavoriteEmojiFirst",
     authors: [Devs.Aria, Devs.Ven, EquicordDevs.justjxke],
     tags: ["Emotes", "Customisation"],
-    description: "Puts your favorite emoji first in the emoji autocomplete and also has emoji alias.",
+    description: "يُظهر إيموجيك المفضلة في مقدمة قائمة الإيموجي",
     dependencies: ["MessagePopoverAPI"],
     settings,
     contextMenus: {

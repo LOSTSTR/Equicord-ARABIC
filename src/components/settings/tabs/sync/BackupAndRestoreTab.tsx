@@ -29,28 +29,28 @@ import { Margins } from "@utils/margins";
 function BackupAndRestoreTab() {
     return (
         <SettingsTab>
-            <Heading className={Margins.top16}>Backup & Restore</Heading>
+            <Heading className={Margins.top16}>النسخ الاحتياطي والاستعادة</Heading>
             <Paragraph className={Margins.bottom20}>
-                Import and export your Equicord settings as a JSON file. This allows you to easily transfer your settings to another device, or recover them after reinstalling Equicord or Discord.
+                استيراد وتصدير إعدادات Equicord كملف JSON.
             </Paragraph>
 
             <Notice.Warning className={Margins.bottom20}>
-                Importing a settings file will overwrite your current settings. Make sure to export a backup first if you want to keep your current configuration.
+                استيراد ملف الإعدادات سيُستبدل إعداداتك الحالية. تأكد من تصدير نسخة احتياطية أولاً
             </Notice.Warning>
 
-            <Heading>What's included in a backup</Heading>
+            <Heading>ما يتضمنه النسخ الاحتياطي</Heading>
             <Paragraph className={Margins.bottom20}>
-                • Custom QuickCSS<br />
-                • Theme Links<br />
-                • Plugin Settings<br />
-                • DataStore Data
+                • CSS مخصص<br />
+                • روابط القوالب<br />
+                • إعدادات الإضافات<br />
+                • بيانات المخزن
             </Paragraph>
 
             <Divider className={Margins.bottom20} />
 
-            <Heading>Import Settings</Heading>
+            <Heading>استيراد الإعدادات</Heading>
             <Paragraph className={Margins.bottom16}>
-                Select a previously exported settings file to restore your configuration. This will replace all your current settings with the ones from the backup.
+                اختر ملف إعدادات مُصدَّر مسبقاً لاستعادة إعداداتك.
             </Paragraph>
 
             <Flex gap="8px" className={Margins.bottom20} style={{ flexWrap: "wrap" }}>
@@ -59,31 +59,31 @@ function BackupAndRestoreTab() {
                     size="small"
                     variant="secondary"
                 >
-                    Import All Settings
+                    استيراد كل الإعدادات
                 </Button>
                 <Button
                     onClick={() => uploadSettingsBackup("plugins")}
                     size="small"
                 >
-                    Import Plugins
+                    استيراد الإضافات
                 </Button>
                 <Button
                     onClick={() => uploadSettingsBackup("css")}
                     size="small"
                 >
-                    Import QuickCSS
+                    استيراد QuickCSS
                 </Button>
                 <Button
                     onClick={() => uploadSettingsBackup("datastore")}
                     size="small"
                 >
-                    Import DataStore
+                    استيراد المخزن
                 </Button>
             </Flex>
 
             <Divider className={Margins.bottom20} />
 
-            <Heading>Export Settings</Heading>
+            <Heading>تصدير الإعدادات</Heading>
             <Paragraph className={Margins.bottom16}>
                 Download your current settings as a backup file. You can export everything at once, or choose to export only specific parts of your configuration.
             </Paragraph>

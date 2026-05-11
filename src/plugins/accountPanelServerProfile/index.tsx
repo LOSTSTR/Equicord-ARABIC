@@ -69,7 +69,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "AccountPanelServerProfile",
-    description: "Right click your account panel in the bottom left to view your profile in the current server",
+    description: "يعرض ملف تعريف الخادم بدلاً من الملف الشخصي العام عند النقر على لوحة الحساب",
     tags: ["Appearance", "Servers"],
     authors: [Devs.Nuckyz, Devs.relitrix],
     settings,

@@ -160,7 +160,7 @@ function CompactConnectionComponent({ connection, theme }: { connection: Connect
 
 export default definePlugin({
     name: "ShowConnections",
-    description: "Show connected accounts in user popouts",
+    description: "يعرض الحسابات المرتبطة في الملف الشخصي الصغير",
     tags: ["Friends", "Appearance"],
     authors: [Devs.TheKodeToad],
     settings,

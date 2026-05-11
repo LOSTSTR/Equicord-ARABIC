@@ -101,7 +101,7 @@ export function Updatable(props: CommonProps) {
                         }
                     })}
                 >
-                    Check for Updates
+                    تحقق من التحديثات
                 </Button>
                 {isOutdated && (
                     <Button
@@ -148,7 +148,7 @@ export function Updatable(props: CommonProps) {
                 </>
             ) : (
                 <Paragraph>
-                    You're running the latest version of Equicord.
+                    أنت تستخدم أحدث إصدار من Equicord
                 </Paragraph>
             )}
         </>

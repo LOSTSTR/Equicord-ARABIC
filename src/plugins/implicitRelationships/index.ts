@@ -35,7 +35,7 @@ const settings = definePluginSettings(
 
 export default definePlugin({
     name: "ImplicitRelationships",
-    description: "Shows your implicit relationships in the Friends tab.",
+    description: "يُضيف قنوات DM غير الرسمية إلى قائمة الأصدقاء",
     tags: ["Friends", "Servers"],
     authors: [Devs.Dolfies],
     settings,

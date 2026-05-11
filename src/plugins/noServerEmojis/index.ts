@@ -25,7 +25,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "NoServerEmojis",
     authors: [Devs.UlyssesZhan],
-    description: "Do not show server emojis in the autocomplete menu.",
+    description: "يمنع ديسكورد من تحويل نص الإيموجي إلى صور الخادم",
     tags: ["Emotes", "Servers"],
     settings,
 

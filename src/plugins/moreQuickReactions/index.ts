@@ -51,7 +51,7 @@ const settings = definePluginSettings({
 migratePluginSettings("MoreQuickReactions", "BetterQuickReact");
 export default definePlugin({
     name: "MoreQuickReactions",
-    description: "Improves the quick react buttons in the message context menu.",
+    description: "يُضيف المزيد من ردود الفعل السريعة",
     tags: ["Emotes", "Reactions", "Customisation", "Shortcuts"],
     authors: [Devs.Ven, Devs.Sqaaakoi, Devs.iamme],
     isModified: true,

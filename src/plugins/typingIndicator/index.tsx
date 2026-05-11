@@ -166,7 +166,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "TypingIndicator",
-    description: "Adds an indicator if someone is typing on a channel.",
+    description: "يعرض من يكتب في القنوات الأخرى",
     tags: ["Notifications", "Appearance", "Servers"],
     authors: [Devs.Nuckyz, Devs.fawn, Devs.Sqaaakoi],
     isModified: true,

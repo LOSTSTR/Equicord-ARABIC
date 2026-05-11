@@ -56,7 +56,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "LoadingQuotes",
-    description: "Replace Discords loading quotes",
+    description: "يُغيّر اقتباسات شاشة التحميل",
     tags: ["Appearance", "Fun", "Customisation"],
     authors: [Devs.Ven, Devs.KraXen72, Devs.UlyssesZhan],
 

@@ -65,7 +65,7 @@ function createChannelSummaryFromServer(s: Summary, channelId: string): ChannelS
 
 export default definePlugin({
     name: "Summaries",
-    description: "Enables Discord's experimental Summaries feature on every server, displaying AI generated summaries of conversations",
+    description: "يُتيح مشاهدة ملخصات المحادثات الطويلة",
     tags: ["Chat", "Fun"],
     authors: [Devs.mantikafasi],
     settings,

@@ -69,13 +69,13 @@ function EquicordSettings() {
         = [
             {
                 key: "useQuickCss",
-                title: "Enable Custom CSS",
-                description: "Load custom CSS from the QuickCSS editor. This allows you to customize Discord's appearance with your own styles.",
+                title: "تفعيل CSS المخصص",
+                description: "تحميل CSS مخصص من محرر QuickCSS.",
             },
             !IS_WEB && {
                 key: "enableReactDevtools",
-                title: "Enable React Developer Tools",
-                description: "Enable the React Developer Tools extension for debugging Discord's React components. Useful for plugin development.",
+                title: "تفعيل أدوات مطوري React",
+                description: "تفعيل امتداد أدوات مطوري React لتصحيح مكونات React في ديسكورد.",
                 restartRequired: true,
             },
             (!IS_WEB && !IS_DISCORD_DESKTOP || !IS_WINDOWS) && {
@@ -93,8 +93,8 @@ function EquicordSettings() {
                 }
                 : {
                     key: "winNativeTitleBar",
-                    title: "Use Windows' native title bar instead of Discord's custom one",
-                    description: "Replace Discord's custom title bar with the standard Windows title bar. This may improve compatibility with some window management tools.",
+                    title: "استخدام شريط العنوان الأصلي لويندوز بدلاً من شريط ديسكورد المخصص",
+                    description: "استبدال شريط عنوان ديسكورد المخصص بشريط عنوان ويندوز القياسي.",
                     restartRequired: true,
                 }
             ),
@@ -216,18 +216,18 @@ function EquicordSettings() {
 
             <Divider className={Margins.top20} />
 
-            <Heading className={Margins.top20}>Client Settings</Heading>
+            <Heading className={Margins.top20}>إعدادات العميل</Heading>
             <Paragraph className={Margins.bottom16}>
-                Configure how Equicord behaves and integrates with Discord. These settings affect the Discord client's appearance and behavior.
+                اضبط كيفية عمل Equicord مع ديسكورد. تؤثر هذه الإعدادات على مظهر وسلوك تطبيق ديسكورد.
             </Paragraph>
             <Notice.Info className={Margins.bottom20} style={{ width: "100%" }}>
-                You can customize where this settings section appears in Discord's settings menu by configuring the{" "}
+                يمكنك تخصيص موضع قسم الإعدادات هذا في قائمة إعدادات ديسكورد عبر{" "}
                 <a
                     role="button"
                     onClick={() => openPluginModal(plugins.Settings)}
                     style={{ cursor: "pointer", color: "var(--text-link)" }}
                 >
-                    Settings Plugin
+                    إضافة الإعدادات
                 </a>.
             </Notice.Info>
 

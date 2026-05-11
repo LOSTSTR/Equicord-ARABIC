@@ -86,14 +86,14 @@ function Updater() {
     return (
         <SettingsTab>
             <EquibopSection />
-            <Heading className={Margins.top16}>Update Preferences</Heading>
+            <Heading className={Margins.top16}>تفضيلات التحديث</Heading>
             <Paragraph className={Margins.bottom20}>
-                Control how Equicord keeps itself up to date. You can choose to update automatically in the background or be notified when new updates are available.
+                تحكم في كيفية تحديث Equicord تلقائياً.
             </Paragraph>
 
             <FormSwitch
-                title="Automatically update"
-                description="When enabled, Equicord will automatically download and install updates in the background without asking for confirmation. You'll need to restart Discord to apply the changes."
+                title="تحديث تلقائي"
+                description="عند التفعيل، يقوم Equicord بتنزيل التحديثات وتثبيتها في الخلفية دون طلب تأكيد. ستحتاج إلى إعادة تشغيل ديسكورد لتطبيق التغييرات."
                 value={settings.autoUpdate}
                 onChange={(v: boolean) => settings.autoUpdate = v}
                 hideBorder
@@ -101,17 +101,17 @@ function Updater() {
             <FormSwitch
                 value={settings.autoUpdateNotification}
                 onChange={(v: boolean) => settings.autoUpdateNotification = v}
-                title="Get notified when an automatic update completes"
-                description="Receive a notification when Equicord finishes downloading an update in the background, so you know when to restart Discord."
+                title="إشعار عند اكتمال التحديث التلقائي"
+                description="تلقّ إشعاراً عندما ينتهي Equicord من تنزيل تحديث في الخلفية"
                 disabled={!settings.autoUpdate}
                 hideBorder
             />
 
             <Divider className={Margins.top20} />
 
-            <Heading className={Margins.top20}>Repository</Heading>
+            <Heading className={Margins.top20}>المستودع</Heading>
             <Paragraph className={Margins.bottom8}>
-                This is the GitHub repository where Equicord fetches updates from.
+                هذا هو مستودع GitHub الذي يسحب Equicord منه التحديثات.
             </Paragraph>
             <Paragraph color="text-subtle">
                 {repoPending
