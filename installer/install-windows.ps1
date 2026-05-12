@@ -29,7 +29,7 @@ $DataDir = if ($env:EQUICORD_USER_DATA_DIR) {
     $appData = if ($env:APPDATA) { $env:APPDATA } else { [System.Environment]::GetFolderPath("ApplicationData") }
     Join-Path $appData "Equicord-ARABIC"
 }
-$AsarTarget = Join-Path $DataDir $ASAR_NAME
+$AsarTarget = Join-Path $DataDir "equicord.asar"
 
 # ── واجهة الطرفية ──────────────────────────────────────────────────────
 function Write-Banner {
@@ -68,7 +68,7 @@ function Get-DiscordInstalls {
         $found.Add(@{
             Name      = $v.Name
             Resources = $res
-            Patched   = (Test-Path (Join-Path $res $ASAR_NAME))
+            Patched   = (Test-Path (Join-Path $res "_app.asar"))
         })
     }
     return $found
@@ -122,22 +122,41 @@ function Install-Equicord([System.Collections.Generic.List[hashtable]]$Installs)
     Write-Host "  🔧 وضع التثبيت / التحديث" -ForegroundColor Cyan
     Write-Host ""
 
-    $url    = Get-AsarDownloadUrl
+    $url     = Get-AsarDownloadUrl
     $tmpAsar = [System.IO.Path]::GetTempFileName() + ".asar"
 
     try {
         Write-Host "  ⬇  جارٍ التحميل..." -ForegroundColor Cyan
         Invoke-AsarDownload $url $tmpAsar
 
+        # حفظ نسخة في DataDir للمحدِّث التلقائي
         New-Item -ItemType Directory -Path $DataDir -Force | Out-Null
         Copy-Item $tmpAsar $AsarTarget -Force
         Write-Host "  ✔  تم الحفظ في: $AsarTarget" -ForegroundColor Green
         Write-Host ""
 
         foreach ($inst in $Installs) {
-            Write-Host "  ← حقن في: $($inst.Name)..." -ForegroundColor Cyan
-            Copy-Item $tmpAsar (Join-Path $inst.Resources $ASAR_NAME) -Force
-            Write-Host "  ✔  تم: $($inst.Name)" -ForegroundColor Green
+            $appAsar  = Join-Path $inst.Resources "app.asar"
+            $origAsar = Join-Path $inst.Resources "_app.asar"
+
+            Write-Host "  🔍 $($inst.Name): $($inst.Resources)" -ForegroundColor Cyan
+
+            # احتفظ بنسخة احتياطية من app.asar الأصلي إن لم تكن موجودة
+            if (-not (Test-Path $origAsar)) {
+                if (Test-Path $appAsar) {
+                    Write-Host "  ← نسخ احتياطي: app.asar → _app.asar" -ForegroundColor Yellow
+                    Copy-Item $appAsar $origAsar -Force
+                } else {
+                    Write-Host "  ✖  لم يُعثر على app.asar في: $($inst.Resources)" -ForegroundColor Red
+                    continue
+                }
+            } else {
+                Write-Host "  ℹ  _app.asar موجود — تحديث app.asar فقط" -ForegroundColor Yellow
+            }
+
+            # استبدال app.asar بـ Equicord
+            Copy-Item $tmpAsar $appAsar -Force
+            Write-Host "  ✔  تم الحقن في: $($inst.Name)" -ForegroundColor Green
         }
     } finally {
         if (Test-Path $tmpAsar) { Remove-Item $tmpAsar -EA SilentlyContinue }
@@ -157,12 +176,16 @@ function Uninstall-Equicord([System.Collections.Generic.List[hashtable]]$Install
     Write-Host ""
 
     foreach ($inst in $Installs) {
-        $f = Join-Path $inst.Resources $ASAR_NAME
-        if (Test-Path $f) {
-            Remove-Item $f -Force
-            Write-Host "  ✔  تمت الإزالة من: $($inst.Name)" -ForegroundColor Green
+        $appAsar  = Join-Path $inst.Resources "app.asar"
+        $origAsar = Join-Path $inst.Resources "_app.asar"
+
+        if (Test-Path $origAsar) {
+            Write-Host "  ← استعادة: _app.asar → app.asar ($($inst.Name))" -ForegroundColor Cyan
+            Copy-Item $origAsar $appAsar -Force
+            Remove-Item $origAsar -Force
+            Write-Host "  ✔  تمت الاستعادة في: $($inst.Name)" -ForegroundColor Green
         } else {
-            Write-Host "  ℹ  لا يوجد ملف في: $($inst.Name)" -ForegroundColor Yellow
+            Write-Host "  ℹ  لا يوجد _app.asar في: $($inst.Name) — ربما غير مثبَّت" -ForegroundColor Yellow
         }
     }
 

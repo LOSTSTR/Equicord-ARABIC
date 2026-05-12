@@ -16,14 +16,14 @@ Add-Type -AssemblyName System.Drawing
 # ═══════════════════════════════════════════════════════════════════
 #  إعدادات ثابتة
 # ═══════════════════════════════════════════════════════════════════
-$REPO_OWNER   = "LOSTSTR"
-$REPO_NAME    = "Equicord-ARABIC"
+$REPO_OWNER    = "LOSTSTR"
+$REPO_NAME     = "Equicord-ARABIC"
 $INSTALLER_VER = "{{INSTALLER_VERSION}}"
-$ASAR_NAME    = "desktop.asar"
-$RELEASE_API  = "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/releases/latest"
-$USER_AGENT   = "EquicordArabic-Installer/$INSTALLER_VER (+https://github.com/$REPO_OWNER/$REPO_NAME)"
+$ASAR_NAME     = "desktop.asar"   # اسم الأصل في الـ release
+$RELEASE_API   = "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/releases/latest"
+$USER_AGENT    = "EquicordArabic-Installer/$INSTALLER_VER (+https://github.com/$REPO_OWNER/$REPO_NAME)"
 
-# مسار بيانات Equicord (مثل Equilotl يستخدم EQUICORD_USER_DATA_DIR)
+# مسار بيانات Equicord (يدعم EQUICORD_USER_DATA_DIR)
 $DataDir = if ($env:EQUICORD_USER_DATA_DIR) {
     $env:EQUICORD_USER_DATA_DIR
 } else {
@@ -65,7 +65,8 @@ function Get-DiscordInstalls {
         if (-not $appDir) { continue }
         $res = Join-Path $appDir.FullName "resources"
         if (-not (Test-Path $res)) { continue }
-        $patched = Test-Path (Join-Path $res $ASAR_NAME)
+        # المثبَّت = يوجد _app.asar (نسخة احتياطية من Discord الأصلي)
+        $patched = Test-Path (Join-Path $res "_app.asar")
         $found.Add(@{
             Label     = "$($v.Name) — $base$(if ($patched) { ' [مُثبَّت]' })"
             Name      = $v.Name
@@ -87,11 +88,11 @@ function Get-LatestTag {
 }
 
 function Get-LocalVersion([string]$ResourcesPath) {
-    $p = Join-Path $ResourcesPath $ASAR_NAME
-    if (-not (Test-Path $p)) { return "لا يوجد" }
+    # التحقق من وجود نسخة احتياطية (_app.asar) كمؤشر على التثبيت
+    if (-not (Test-Path (Join-Path $ResourcesPath "_app.asar"))) { return "لا يوجد" }
+    # إعادة تاريخ آخر تحديث لـ app.asar الحالي (Equicord)
     try {
-        # Try reading version from package.json inside asar (basic check)
-        return (Get-Item $p).LastWriteTime.ToString("yyyy-MM-dd")
+        return (Get-Item (Join-Path $ResourcesPath "app.asar")).LastWriteTime.ToString("yyyy-MM-dd")
     } catch { return "مثبَّت" }
 }
 
@@ -146,25 +147,58 @@ function Install-Mod {
         param($p,$dl,$tot)
         $mn=[math]::Round($dl/1MB,1); $mt=[math]::Round($tot/1MB,1)
         & $Status "تحميل: $mn/$mt MB  ($p%)"
-        & $Progress ([int](10 + $p * 0.6))
+        & $Progress ([int](10 + $p * 0.55))
     }
 
-    & $Status "نسخ الملف إلى مجلد الموارد..."
-    & $Progress 75
-    Copy-Item $tmp (Join-Path $ResourcesPath $ASAR_NAME) -Force
+    $appAsar  = Join-Path $ResourcesPath "app.asar"
+    $origAsar = Join-Path $ResourcesPath "_app.asar"
+
+    & $Status "حفظ نسخة احتياطية من Discord الأصلي..."
+    & $Progress 70
+
+    # الخطوة 1: احتفظ بنسخة احتياطية من app.asar الأصلي إن لم تكن موجودة
+    if (-not (Test-Path $origAsar)) {
+        if (Test-Path $appAsar) {
+            Copy-Item $appAsar $origAsar -Force
+        } else {
+            Remove-Item $tmp -EA SilentlyContinue
+            throw "لم يُعثر على app.asar في مجلد موارد Discord"
+        }
+    }
+
+    & $Status "حقن Equicord-ARABIC في Discord..."
+    & $Progress 80
+
+    # الخطوة 2: استبدال app.asar بـ Equicord (desktop.asar)
+    Copy-Item $tmp $appAsar -Force
+
+    # الخطوة 3: حفظ نسخة في DataDir للمحدِّث التلقائي
     Copy-Item $tmp $AsarTarget -Force
     Remove-Item $tmp -EA SilentlyContinue
+
     & $Progress 100
     & $Status "✔ تم التثبيت — أعد تشغيل Discord لتفعيل Equicord-ARABIC"
 }
 
 function Uninstall-Mod {
     param([string]$ResourcesPath, [scriptblock]$Status, [scriptblock]$Progress)
-    & $Status "جارٍ الإزالة..."
-    & $Progress 50
-    $f = Join-Path $ResourcesPath $ASAR_NAME
-    if (Test-Path $f) { Remove-Item $f -Force }
-    if (Test-Path $AsarTarget) { Remove-Item $AsarTarget -Force }
+
+    $appAsar  = Join-Path $ResourcesPath "app.asar"
+    $origAsar = Join-Path $ResourcesPath "_app.asar"
+
+    & $Status "جارٍ استعادة Discord الأصلي..."
+    & $Progress 40
+
+    if (Test-Path $origAsar) {
+        Copy-Item $origAsar $appAsar -Force
+        Remove-Item $origAsar -Force
+        & $Status "✔ تمت استعادة app.asar الأصلي"
+    } else {
+        & $Status "⚠ لم يُعثر على _app.asar — ربما لم يُثبَّت Equicord في هذا المسار"
+    }
+
+    & $Progress 80
+    if (Test-Path $AsarTarget) { Remove-Item $AsarTarget -EA SilentlyContinue }
     & $Progress 100
     & $Status "✔ تمت الإزالة — أعد تشغيل Discord"
 }
@@ -385,10 +419,10 @@ function Show-Installer {
         return $b
     }
 
-    $btnInstall  = New-ActionBtn "تثبيت"              $BTN_INSTALL ($startX)
-    $btnRepair   = New-ActionBtn "إعادة التثبيت / الإصلاح" $BTN_REPAIR  ($startX + $btnW + $gap)
-    $btnRemove   = New-ActionBtn "إزالة التثبيت"      $BTN_REMOVE  ($startX + ($btnW+$gap)*2)
-    $btnOpenSar  = New-ActionBtn "تثبيت OpenAsar"     $BTN_OPENSAR ($startX + ($btnW+$gap)*3)
+    $btnInstall  = New-ActionBtn "تثبيت"                     $BTN_INSTALL ($startX)
+    $btnRepair   = New-ActionBtn "إعادة التثبيت / الإصلاح"  $BTN_REPAIR  ($startX + $btnW + $gap)
+    $btnRemove   = New-ActionBtn "إزالة التثبيت"             $BTN_REMOVE  ($startX + ($btnW+$gap)*2)
+    $btnOpenSar  = New-ActionBtn "تثبيت OpenAsar"            $BTN_OPENSAR ($startX + ($btnW+$gap)*3)
 
     # ═══ دوال مساعدة للواجهة ════════════════════════════════════════
     function Get-Target {
@@ -424,7 +458,7 @@ function Show-Installer {
         $form.UseWaitCursor = $On
     }
 
-    function Refresh-UI {
+    function Update-RadioLabels {
         $installs = @(Get-DiscordInstalls)
         $i = 0
         foreach ($rb in $radios) {
@@ -438,7 +472,6 @@ function Show-Installer {
 
     # تحديث حقول الإصدار فور تحميل الشكل
     $form.Add_Shown({
-        # إصدار محلي
         $sel = $null
         foreach ($rb in $radios) { if ($rb.Checked) { $sel = $rb.Tag; break } }
         if ($sel) {
@@ -447,7 +480,6 @@ function Show-Installer {
             $lblLocalVer.Text = "الإصدار المثبت محلياً: لا يوجد"
         }
 
-        # آخر إصدار (async — نضع قيمة أولية ثم نُحدِّثها)
         $lblLatestVer.Text = "آخر إصدار متاح: جارٍ الجلب..."
         [System.Windows.Forms.Application]::DoEvents()
 
@@ -464,7 +496,7 @@ function Show-Installer {
             Set-Status "جارٍ التثبيت..." $FG_WHITE
             Install-Mod $target { param($m) Set-Status $m $FG_WHITE } { param($p) Set-Progress $p }
             Set-Status "✔ تم التثبيت — أعد تشغيل Discord" ([System.Drawing.Color]::FromArgb(87,242,135))
-            Refresh-UI
+            Update-RadioLabels
         } catch {
             Set-Status "✖ خطأ: $_" ([System.Drawing.Color]::FromArgb(237,66,69))
             Set-Progress 0
@@ -479,7 +511,7 @@ function Show-Installer {
             Set-Status "جارٍ إعادة التثبيت..." $FG_WHITE
             Install-Mod $target { param($m) Set-Status $m $FG_WHITE } { param($p) Set-Progress $p }
             Set-Status "✔ تمت إعادة التثبيت — أعد تشغيل Discord" ([System.Drawing.Color]::FromArgb(87,242,135))
-            Refresh-UI
+            Update-RadioLabels
         } catch {
             Set-Status "✖ خطأ: $_" ([System.Drawing.Color]::FromArgb(237,66,69))
             Set-Progress 0
@@ -500,7 +532,7 @@ function Show-Installer {
             Set-Status "جارٍ الإزالة..." $FG_WHITE
             Uninstall-Mod $target { param($m) Set-Status $m $FG_WHITE } { param($p) Set-Progress $p }
             Set-Status "✔ تمت الإزالة — أعد تشغيل Discord" ([System.Drawing.Color]::FromArgb(87,242,135))
-            Refresh-UI
+            Update-RadioLabels
         } catch {
             Set-Status "✖ خطأ: $_" ([System.Drawing.Color]::FromArgb(237,66,69))
             Set-Progress 0
