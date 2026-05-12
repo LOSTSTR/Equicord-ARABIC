@@ -39,7 +39,7 @@ export default definePlugin({
         addSettingsPanelButton({
             name: PluginInfo.PLUGIN_NAME,
             icon: MicrophoneSettingsIcon,
-            tooltipText: "Microphone Settings",
+            tooltipText: "إعدادات الميكروفون",
             onClick: openMicrophoneSettingsModal
         });
         try {
@@ -62,6 +62,6 @@ export default definePlugin({
     },
 
     toolboxActions: {
-        "Open Microphone Settings": openMicrophoneSettingsModal
+        "فتح إعدادات الميكروفون": openMicrophoneSettingsModal
     },
 });

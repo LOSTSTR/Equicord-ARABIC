@@ -36,9 +36,10 @@ const FORK_EXCLUSIVE_PLUGINS = new Set([
 export function PluginCard({ plugin, disabled, onRestartNeeded, onMouseEnter, onMouseLeave, isNew }: PluginCardProps) {
     const settings = Settings.plugins[plugin.name];
     const pluginMeta = PluginMeta[plugin.name];
-    const isEquicordPlugin = pluginMeta.folderName.startsWith("src/equicordplugins/") ?? false;
-    const isVencordPlugin = pluginMeta.folderName.startsWith("src/plugins/") ?? false;
-    const isUserPlugin = pluginMeta?.userPlugin ?? false;
+    const folderName = pluginMeta?.folderName ?? "";
+    const isEquicordPlugin = folderName.startsWith("src/equicordplugins/");
+    const isVencordPlugin = folderName.startsWith("src/plugins/");
+    const isUserPlugin = folderName.startsWith("src/userplugins/");
     const isModifiedPlugin = plugin.isModified ?? false;
     const isForkExclusive = FORK_EXCLUSIVE_PLUGINS.has(plugin.name);
     const isForkBranded = isForkExclusive || isUserPlugin;
