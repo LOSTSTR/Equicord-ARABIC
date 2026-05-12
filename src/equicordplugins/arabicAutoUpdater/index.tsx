@@ -64,7 +64,7 @@ export default definePlugin({
     name: "ArabicAutoUpdater",
     description: "يتحقق تلقائياً من توفر تحديثات لـ Equicord-ARABIC ويُعلمك عند توفر إصدار جديد",
     authors: [Devs.thororen],
-    tags: ["Update", "Arabic"],
+    tags: ["Utility"],
 
     flux: {
         async CONNECTION_OPEN() {
