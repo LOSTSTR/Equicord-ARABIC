@@ -19,6 +19,39 @@
 
 ---
 
+<div align="center">
+
+<table>
+<tr>
+<td align="center" width="100%">
+
+<br>
+
+### ☕ هل أعجبك المشروع؟ ادعمني للاستمرار
+
+<br>
+
+**إذا أردتَ مني الاستمرار في التطوير وإضافة المزيد من الميزات،**
+**فلا تنسَ دعمي بأي مبلغ تراه مناسباً — حتى أصغر مساهمة تُحدث فرقاً كبيراً** 🙏
+
+<br>
+
+[![Ko-fi](https://img.shields.io/badge/☕%20ادعم%20عبر%20Ko--fi-FF5E5B?style=for-the-badge&logo=ko-fi&logoColor=white&labelColor=1a1a1a)](https://ko-fi.com/loststr)
+
+<br>
+
+> 💡 دعمكم هو الوقود الذي يُبقي هذا المشروع حياً ويدفعني نحو التحسين المستمر
+
+<br>
+
+</td>
+</tr>
+</table>
+
+</div>
+
+---
+
 ## 📖 عن المشروع
 
 **Equicord-ARABIC** هي النسخة العربية المطورة من [Equicord](https://github.com/Equicord/Equicord)، وهو بدوره مشتق من [Vencord](https://github.com/Vendicated/Vencord).
@@ -154,8 +187,15 @@ pnpm buildWeb
 
 ## ❤️ دعم المشروع
 
+<div align="center">
+
+[![Ko-fi](https://img.shields.io/badge/☕%20ادعم%20عبر%20Ko--fi-FF5E5B?style=for-the-badge&logo=ko-fi&logoColor=white&labelColor=1a1a1a)](https://ko-fi.com/loststr)
+
+</div>
+
 إذا أعجبك المشروع وأفادك، يمكنك دعمنا بـ:
 
+- ☕ **التبرع بأي مبلغ** عبر [Ko-fi](https://ko-fi.com/loststr) — يساعدني على الاستمرار في التطوير
 - ⭐ **Star** للمستودع على GitHub
 - 📢 مشاركة المشروع مع أصدقائك
 - 💬 الانضمام لسيرفر الديسكورد والمساهمة في التطوير: **[discord.gg/QamdqDNEDa](https://discord.gg/QamdqDNEDa)**
