@@ -589,7 +589,7 @@ jobs:
               shell: pwsh
               run: |
                   $v    = "${{ steps.ver.outputs.version }}"
-                  $out  = "installer\EquicordArabicSetup-v$v.exe"
+                  $out  = "installer\EquicordArabicSetup.exe"
                   # ps2exe requires n.n.n.n - pad to 4 parts if package.json has fewer
                   $ver4 = if (($v -split '\.').Count -lt 4) { "$v.0" } else { $v }
 
@@ -613,21 +613,9 @@ jobs:
             - name: Upload artifact
               uses: actions/upload-artifact@v4
               with:
-                  name: EquicordArabicSetup-v${{ steps.ver.outputs.version }}
-                  path: installer/EquicordArabicSetup-*.exe
+                  name: EquicordArabicSetup
+                  path: installer/EquicordArabicSetup.exe
                   retention-days: 60
-
-            - name: Attach to GitHub Release
-              if: github.event_name == 'release'
-              uses: softprops/action-gh-release@v2
-              with:
-                  tag_name: v1.0.0-stable
-                  files: installer/EquicordArabicSetup-*.exe
-                  fail_on_unmatched_files: false
-                  prerelease: false
-                  draft: false
-              env:
-                  GITHUB_TOKEN: ${{ secrets.ETOKEN }}
 
             - name: Upload to v1.0.0-stable release
               if: github.event_name == 'push' || github.event_name == 'workflow_call'
@@ -636,7 +624,6 @@ jobs:
                   GITHUB_TOKEN: ${{ secrets.ETOKEN }}
               run: |
                   V="${{ steps.ver.outputs.version }}"
-                  FILE="installer/EquicordArabicSetup-v${V}.exe"
                   if gh release view v1.0.0-stable >/dev/null 2>&1; then
                     echo "Release v1.0.0-stable exists — updating title"
                     gh release edit v1.0.0-stable --title "Equicord-ARABIC $V"
@@ -647,8 +634,5 @@ jobs:
                         --title "Equicord-ARABIC $V" \
                         --notes "Official Arabic Release"
                   fi
-                  gh release upload v1.0.0-stable "$FILE" --clobber
-                  # Also upload with stable (unversioned) filename so README direct-download links never 404
-                  cp "$FILE" installer/EquicordArabicSetup.exe
                   gh release upload v1.0.0-stable installer/EquicordArabicSetup.exe --clobber
-                  echo "Uploaded $FILE and EquicordArabicSetup.exe to release v1.0.0-stable"
+                  echo "Uploaded EquicordArabicSetup.exe to release v1.0.0-stable"
