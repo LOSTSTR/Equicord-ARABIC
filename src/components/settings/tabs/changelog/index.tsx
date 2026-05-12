@@ -111,9 +111,9 @@ function UpdateLogCard({
                         <span>
                             {isRepositoryFetch
                                 ? isUpToDate
-                                    ? `Repository check: ${log.fromHash.slice(0, 7)} (up to date)`
-                                    : `Repository check: ${log.fromHash.slice(0, 7)} → ${log.toHash.slice(0, 7)}`
-                                : `Update: ${log.fromHash.slice(0, 7)} → ${log.toHash.slice(0, 7)}`}
+                                    ? `فحص المستودع: ${log.fromHash.slice(0, 7)} (محدَّث)`
+                                    : `فحص المستودع: ${log.fromHash.slice(0, 7)} → ${log.toHash.slice(0, 7)}`
+                                : `تحديث: ${log.fromHash.slice(0, 7)} → ${log.toHash.slice(0, 7)}`}
                         </span>
                         <Button
                             size="min"
@@ -139,15 +139,15 @@ function UpdateLogCard({
                     <div className="vc-changelog-log-meta">
                         {formatTimestamp(log.timestamp)}
                         {log.commits.length > 0 &&
-                            ` • ${log.commits.length} commits available`}
-                        {log.commits.length === 0 && " • No new commits"}
+                            ` • ${log.commits.length} إيداعات متاحة`}
+                        {log.commits.length === 0 && " • لا إيداعات جديدة"}
                         {log.newPlugins.length > 0 &&
-                            ` • ${log.newPlugins.length} new plugins`}
+                            ` • ${log.newPlugins.length} إضافات جديدة`}
                         {log.updatedPlugins.length > 0 &&
-                            ` • ${log.updatedPlugins.length} updated plugins`}
+                            ` • ${log.updatedPlugins.length} إضافات محدَّثة`}
                         {log.newSettings &&
                             getNewSettingsSize(log.newSettings) > 0 &&
-                            ` • ${getNewSettingsEntries(log.newSettings).reduce((sum, [, arr]) => sum + arr.length, 0)} new settings`}
+                            ` • ${getNewSettingsEntries(log.newSettings).reduce((sum, [, arr]) => sum + arr.length, 0)} إعدادات جديدة`}
                     </div>
                 </div>
                 <div
@@ -171,7 +171,7 @@ function UpdateLogCard({
                     {log.updatedPlugins.length > 0 && (
                         <div className="vc-changelog-log-plugins">
                             <Heading className={Margins.bottom8}>
-                                Updated Plugins
+                                الإضافات المحدَّثة
                             </Heading>
                             <NewPluginsCompact
                                 newPlugins={log.updatedPlugins}
@@ -184,7 +184,7 @@ function UpdateLogCard({
                         getNewSettingsSize(log.newSettings) > 0 && (
                             <div className="vc-changelog-log-plugins">
                                 <Heading className={Margins.bottom8}>
-                                    New Settings
+                                    إعدادات جديدة
                                 </Heading>
                                 <div className="vc-changelog-new-plugins-list">
                                     {getNewSettingsEntries(log.newSettings).map(
@@ -255,7 +255,7 @@ function ChangelogContent() {
     React.useEffect(() => {
         if (repoErr) {
             UpdateLogger.error("Failed to retrieve repo", repoErr);
-            setError("Failed to retrieve repository information");
+            setError("فشل استرداد معلومات المستودع");
         }
     }, [repoErr]);
 
@@ -353,7 +353,7 @@ function ChangelogContent() {
                 if (!logged) {
                     setChangelog([]);
                     Toasts.show({
-                        message: "Already up to date with repository",
+                        message: "المستودع محدَّث بالفعل",
                         id: Toasts.genId(),
                         type: Toasts.Type.MESSAGE,
                         options: {
@@ -385,7 +385,7 @@ function ChangelogContent() {
                     setRecentlyChecked(true);
 
                     Toasts.show({
-                        message: `Found ${updates.value.length} commit${updates.value.length === 1 ? "" : "s"} from repository`,
+                        message: `تم جلب ${updates.value.length} ${updates.value.length === 1 ? "إيداع" : "إيداعات"} من المستودع`,
                         id: Toasts.genId(),
                         type: Toasts.Type.SUCCESS,
                         options: {
@@ -397,8 +397,8 @@ function ChangelogContent() {
                     setRecentlyChecked(true);
                     Toasts.show({
                         message: logged
-                            ? "Logged commits from your latest update"
-                            : "Repository is up to date with your local copy",
+                            ? "تم تسجيل إيداعات آخر تحديث"
+                            : "المستودع متزامن مع نسختك المحلية",
                         id: Toasts.genId(),
                         type: logged ? Toasts.Type.SUCCESS : Toasts.Type.MESSAGE,
                         options: {
@@ -418,12 +418,11 @@ function ChangelogContent() {
             UpdateLogger.error("Failed to fetch commits from repository", err);
             const errorMessage =
                 err?.message ||
-                "Failed to connect to repository. Check your internet connection.";
+                "فشل الاتصال بالمستودع. تحقق من اتصالك بالإنترنت.";
             setError(errorMessage);
 
-            // funny little error toast hopefully doesn't happen!
             Toasts.show({
-                message: "Could not fetch commits from repository",
+                message: "تعذَّر جلب الإيداعات من المستودع",
                 id: Toasts.genId(),
                 type: Toasts.Type.FAILURE,
                 options: {
@@ -477,9 +476,9 @@ function ChangelogContent() {
 
     return (
         <>
-            <Heading className={Margins.top16}>Fetch Changes</Heading>
+            <Heading className={Margins.top16}>جلب التغييرات</Heading>
             <Paragraph className={Margins.bottom16}>
-                Check the repository for new commits, plugin updates, and code changes. This will compare your current version with the latest available and show you what's new.
+                تحقق من المستودع بحثاً عن إيداعات جديدة وتحديثات الإضافات وتغييرات الكود. سيقارن هذا نسختك الحالية بأحدث إصدار متاح ويعرض لك المستجدات.
             </Paragraph>
 
             <div className="vc-changelog-controls">
@@ -490,10 +489,10 @@ function ChangelogContent() {
                     variant={recentlyChecked ? "positive" : "primary"}
                 >
                     {isLoading
-                        ? "Loading..."
+                        ? "جارٍ التحميل..."
                         : recentlyChecked
-                            ? "Repository Up to Date"
-                            : "Fetch from Repository"}
+                            ? "المستودع محدَّث"
+                            : "جلب من المستودع"}
                 </Button>
 
                 {changelogHistory.length > 0 && (
@@ -504,24 +503,24 @@ function ChangelogContent() {
                             onClick={() => setShowHistory(!showHistory)}
                             style={{ marginLeft: "8px" }}
                         >
-                            {showHistory ? "Hide Logs" : "Show Logs"}
+                            {showHistory ? "إخفاء السجلات" : "عرض السجلات"}
                         </Button>
                         <Button
                             size="small"
                             variant="dangerPrimary"
                             onClick={() => {
                                 Alerts.show({
-                                    title: "Clear All Logs",
-                                    body: "Are you sure you would like to clear all logs? This can't be undone.",
-                                    confirmText: "Clear All",
+                                    title: "مسح كل السجلات",
+                                    body: "هل أنت متأكد أنك تريد مسح كل السجلات؟ لا يمكن التراجع عن هذا الإجراء.",
+                                    confirmText: "مسح الكل",
                                     confirmColor: "danger",
-                                    cancelText: "Cancel",
+                                    cancelText: "إلغاء",
                                     onConfirm: async () => {
                                         await clearChangelogHistory();
                                         await loadChangelogHistory();
                                         setShowHistory(false);
                                         Toasts.show({
-                                            message: "All logs have been cleared",
+                                            message: "تم مسح كل السجلات",
                                             id: Toasts.genId(),
                                             type: Toasts.Type.SUCCESS,
                                             options: {
@@ -533,7 +532,7 @@ function ChangelogContent() {
                             }}
                             style={{ marginLeft: "8px" }}
                         >
-                            Clear All Logs
+                            مسح كل السجلات
                         </Button>
                     </>
                 )}
@@ -543,22 +542,22 @@ function ChangelogContent() {
                 <ErrorCard style={{ padding: "1em", marginTop: "1em" }}>
                     <Paragraph>{error}</Paragraph>
                     <Paragraph color="text-subtle" style={{ marginTop: "0.5em" }}>
-                        Make sure you have an internet connection and try again.
+                        تأكد من اتصالك بالإنترنت وحاول مجدداً.
                     </Paragraph>
                 </ErrorCard>
             )}
 
             <Divider className={Margins.top20} />
 
-            <Heading className={Margins.top20}>Repository</Heading>
+            <Heading className={Margins.top20}>المستودع</Heading>
             <Paragraph className={Margins.bottom8}>
-                This is the GitHub repository where Equicord fetches updates from.
+                مستودع GitHub الذي يجلب منه Equicord التحديثات.
             </Paragraph>
             <Paragraph color="text-subtle">
                 {repoPending ? (
                     repo
                 ) : repoErr ? (
-                    "Failed to retrieve - check console"
+                    "فشل الاسترداد — تحقق من وحدة التحكم"
                 ) : (
                     <Link href={repo}>
                         {repo.split("/").slice(-2).join("/")}
@@ -571,9 +570,9 @@ function ChangelogContent() {
                 <>
                     <Divider className={Margins.top20} />
 
-                    <Heading className={Margins.top20}>Recent Changes</Heading>
+                    <Heading className={Margins.top20}>التغييرات الأخيرة</Heading>
                     <Paragraph className={Margins.bottom16}>
-                        These are the new commits and plugin updates since your last version. You can see what features were added, bugs were fixed, and which plugins received updates.
+                        هذه هي الإيداعات الجديدة وتحديثات الإضافات منذ إصدارك السابق. يمكنك رؤية الميزات المضافة والأخطاء المُصلَحة والإضافات التي تلقت تحديثات.
                     </Paragraph>
 
                     {newPlugins.length > 0 && (
@@ -588,7 +587,7 @@ function ChangelogContent() {
                     {updatedPlugins.length > 0 && (
                         <div className={Margins.bottom16}>
                             <Heading className={Margins.bottom8}>
-                                Updated Plugins ({updatedPlugins.length})
+                                الإضافات المحدَّثة ({updatedPlugins.length})
                             </Heading>
                             <NewPluginsCompact newPlugins={updatedPlugins} />
                         </div>
@@ -597,7 +596,7 @@ function ChangelogContent() {
                     {changelog.length > 0 && (
                         <div>
                             <Heading className={Margins.bottom8}>
-                                Code Changes ({changelog.length} {changelog.length === 1 ? "commit" : "commits"})
+                                تغييرات الكود ({changelog.length} {changelog.length === 1 ? "إيداع" : "إيداعات"})
                             </Heading>
                             <div className="vc-changelog-commits-list">
                                 {changelog.map(entry => (
@@ -617,9 +616,9 @@ function ChangelogContent() {
             {!hasCurrentChanges && !isLoading && !error && (
                 <>
                     <Divider className={Margins.top20} />
-                    <Heading className={Margins.top20}>Recent Changes</Heading>
+                    <Heading className={Margins.top20}>التغييرات الأخيرة</Heading>
                     <Paragraph color="text-subtle">
-                        No commits available ahead of your current version. Click "Fetch from Repository" to check for new changes.
+                        لا توجد إيداعات متقدمة عن نسختك الحالية. اضغط على "جلب من المستودع" للتحقق من التغييرات الجديدة.
                     </Paragraph>
                 </>
             )}
@@ -629,10 +628,10 @@ function ChangelogContent() {
                     <Divider className={Margins.top20} />
 
                     <Heading className={Margins.top20}>
-                        Update Logs ({changelogHistory.length} {changelogHistory.length === 1 ? "log" : "logs"})
+                        سجلات التحديث ({changelogHistory.length} {changelogHistory.length === 1 ? "سجل" : "سجلات"})
                     </Heading>
                     <Paragraph className={Margins.bottom16}>
-                        A history of your previous update sessions with their commit history and plugin changes. Click on a log to expand it and see the details.
+                        سجل جلسات التحديث السابقة مع تاريخ الإيداعات وتغييرات الإضافات. اضغط على سجل لتوسيعه والاطلاع على التفاصيل.
                     </Paragraph>
 
                     <div className="vc-changelog-history-list">
@@ -646,11 +645,11 @@ function ChangelogContent() {
                                 onToggleExpand={() => toggleLogExpanded(log.id)}
                                 onClearLog={logId => {
                                     Alerts.show({
-                                        title: "Clear Log",
-                                        body: "Are you sure you would like to clear this log? This can't be undone.",
-                                        confirmText: "Clear Log",
+                                        title: "مسح السجل",
+                                        body: "هل أنت متأكد أنك تريد مسح هذا السجل؟ لا يمكن التراجع عن هذا الإجراء.",
+                                        confirmText: "مسح السجل",
                                         confirmColor: "danger",
-                                        cancelText: "Cancel",
+                                        cancelText: "إلغاء",
                                         onConfirm: async () => {
                                             await clearIndividualLog(logId);
                                             await loadChangelogHistory();
@@ -660,7 +659,7 @@ function ChangelogContent() {
                                                 ),
                                             );
                                             Toasts.show({
-                                                message: "Log has been cleared",
+                                                message: "تم مسح السجل",
                                                 id: Toasts.genId(),
                                                 type: Toasts.Type.SUCCESS,
                                                 options: {

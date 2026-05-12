@@ -85,7 +85,7 @@ function BackupAndRestoreTab() {
 
             <Heading>تصدير الإعدادات</Heading>
             <Paragraph className={Margins.bottom16}>
-                Download your current settings as a backup file. You can export everything at once, or choose to export only specific parts of your configuration.
+                نزّل إعداداتك الحالية كملف نسخ احتياطية. يمكنك تصدير كل شيء دفعةً واحدة، أو اختيار تصدير أجزاء معينة فقط من إعداداتك.
             </Paragraph>
 
             <Flex gap="8px" style={{ flexWrap: "wrap" }}>
@@ -94,25 +94,25 @@ function BackupAndRestoreTab() {
                     size="small"
                     variant="secondary"
                 >
-                    Export All Settings
+                    تصدير كل الإعدادات
                 </Button>
                 <Button
                     onClick={() => downloadSettingsBackup("plugins")}
                     size="small"
                 >
-                    Export Plugins
+                    تصدير الإضافات
                 </Button>
                 <Button
                     onClick={() => downloadSettingsBackup("css")}
                     size="small"
                 >
-                    Export QuickCSS
+                    تصدير QuickCSS
                 </Button>
                 <Button
                     onClick={() => downloadSettingsBackup("datastore")}
                     size="small"
                 >
-                    Export DataStore
+                    تصدير المخزن
                 </Button>
             </Flex>
         </SettingsTab>

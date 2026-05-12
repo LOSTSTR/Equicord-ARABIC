@@ -41,6 +41,7 @@ export function PluginCard({ plugin, disabled, onRestartNeeded, onMouseEnter, on
     const isUserPlugin = pluginMeta?.userPlugin ?? false;
     const isModifiedPlugin = plugin.isModified ?? false;
     const isForkExclusive = FORK_EXCLUSIVE_PLUGINS.has(plugin.name);
+    const isForkBranded = isForkExclusive || isUserPlugin;
 
     const isEnabled = () => isPluginEnabled(plugin.name);
 
@@ -102,7 +103,7 @@ export function PluginCard({ plugin, disabled, onRestartNeeded, onMouseEnter, on
             title: "Modified Vencord Plugin"
         },
         {
-            condition: isForkExclusive,
+            condition: isForkBranded,
             src: "https://raw.githubusercontent.com/LOSTSTR/Equicord-ARABIC/main/browser/icon.png",
             alt: "Equicord-ARABIC",
             title: "Equicord-ARABIC Exclusive"
@@ -118,12 +119,6 @@ export function PluginCard({ plugin, disabled, onRestartNeeded, onMouseEnter, on
             src: "https://equicord.org/assets/icons/vencord/icon-light.png",
             alt: "Vencord",
             title: "Vencord Plugin"
-        },
-        {
-            condition: isUserPlugin,
-            src: "https://raw.githubusercontent.com/LOSTSTR/Equicord-ARABIC/main/browser/icon.png",
-            alt: "Equicord-ARABIC",
-            title: "Equicord-ARABIC Exclusive"
         }
     ];
 
