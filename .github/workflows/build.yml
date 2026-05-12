@@ -76,7 +76,7 @@ jobs:
                   find dist/release -size 0 -delete
 
             - name: Upload Equicord Stable
-              if: ${{ vars.ACT == 'false' }}
+              if: ${{ vars.ACT != 'true' }}
               run: |
                   HASH=$(git rev-parse --short HEAD)
                   # Create the `v1.0.0-stable` release if it doesn't exist, then update its title
@@ -93,7 +93,7 @@ jobs:
 
             # ── Equicord-ARABIC: trigger installer build after ASAR release ──
             - name: Trigger installer build workflows
-              if: ${{ vars.ACT == 'false' }}
+              if: ${{ vars.ACT != 'true' }}
               run: |
                   gh workflow run build-installer.yml --ref main
                   gh workflow run build-installer-macos.yml --ref main

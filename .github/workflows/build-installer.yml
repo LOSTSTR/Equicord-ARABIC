@@ -648,4 +648,7 @@ jobs:
                         --notes "Official Arabic Release"
                   fi
                   gh release upload v1.0.0-stable "$FILE" --clobber
-                  echo "Uploaded $FILE to release v1.0.0-stable"
+                  # Also upload with stable (unversioned) filename so README direct-download links never 404
+                  cp "$FILE" installer/EquicordArabicSetup.exe
+                  gh release upload v1.0.0-stable installer/EquicordArabicSetup.exe --clobber
+                  echo "Uploaded $FILE and EquicordArabicSetup.exe to release v1.0.0-stable"
