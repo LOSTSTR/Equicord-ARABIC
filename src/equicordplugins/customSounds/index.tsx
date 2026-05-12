@@ -392,7 +392,7 @@ export function findOverride(id: string): SoundOverride | null {
 
 export default definePlugin({
     name: "CustomSounds",
-    description: "Customize Discord's sounds.",
+    description: "تخصيص أصوات ديسكورد",
     dependencies: ["AudioPlayerAPI"],
     tags: ["Customisation", "Notifications", "Voice"],
     authors: [Devs.ScattrdBlade, Devs.TheKodeToad],

@@ -38,7 +38,7 @@ const USERPLUGIN_CONTRIBUTOR_BADGE = "https://equicord.org/assets/icons/misc/use
 
 const ContributorBadge: ProfileBadge = {
     id: "vencord_contributor_badge",
-    description: "Vencord Contributor",
+    description: "مساهم Vencord",
     iconSrc: CONTRIBUTOR_BADGE,
     position: BadgePosition.START,
     shouldShow: ({ userId }) => shouldShowContributorBadge(userId),
@@ -47,7 +47,7 @@ const ContributorBadge: ProfileBadge = {
 
 const EquicordContributorBadge: ProfileBadge = {
     id: "equicord_contributor_badge",
-    description: "Equicord Contributor",
+    description: "مساهم Equicord",
     iconSrc: EQUICORD_CONTRIBUTOR_BADGE,
     position: BadgePosition.START,
     shouldShow: ({ userId }) => shouldShowEquicordContributorBadge(userId),
@@ -62,7 +62,7 @@ const EquicordContributorBadge: ProfileBadge = {
 
 const UserPluginContributorBadge: ProfileBadge = {
     id: "user_plugin_contributor_badge",
-    description: "User Plugin Contributor",
+    description: "مساهم إضافات المستخدم",
     iconSrc: USERPLUGIN_CONTRIBUTOR_BADGE,
     position: BadgePosition.START,
     shouldShow: ({ userId }) => {
@@ -129,7 +129,7 @@ export function BadgeContextMenu({ badge }: { badge: Omit<ProfileBadge, "id"> & 
 
 export default definePlugin({
     name: "BadgeAPI",
-    description: "API to add badges to users",
+    description: "واجهة برمجية لإضافة شارات للمستخدمين",
     authors: [Devs.Megu, Devs.Ven, Devs.TheSun],
     required: true,
     patches: [

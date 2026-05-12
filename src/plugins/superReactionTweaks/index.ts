@@ -17,12 +17,12 @@ export const settings = definePluginSettings({
     },
     unlimitedSuperReactionPlaying: {
         type: OptionType.BOOLEAN,
-        description: "Remove the limit on Super Reactions playing at once",
+        description: "إزالة الحد من تشغيل التفاعلات الفائقة في آنٍ واحد",
         default: false,
     },
 
     superReactionPlayingLimit: {
-        description: "Max Super Reactions to play at once. 0 to disable playing Super Reactions",
+        description: "الحد الأقصى للتفاعلات الفائقة المتزامنة. 0 لتعطيل التشغيل",
         type: OptionType.SLIDER,
         default: 20,
         markers: [0, 5, 10, 20, 40, 60, 80, 100],

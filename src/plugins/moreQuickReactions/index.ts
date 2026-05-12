@@ -17,32 +17,32 @@ const settings = definePluginSettings({
         default: 5
     },
     frequentEmojis: {
-        description: "Use frequently used emojis instead of favourite emojis",
+        description: "استخدام الإيموجي الأكثر استخداماً بدلاً من المفضلة",
         type: OptionType.BOOLEAN,
         restartNeeded: true,
         default: true
     },
     rows: {
-        description: "Rows of quick reactions to display",
+        description: "عدد صفوف التفاعلات السريعة للعرض",
         type: OptionType.SLIDER,
         default: 2,
         markers: makeRange(1, 16, 1),
         stickToMarkers: true
     },
     columns: {
-        description: "Columns of quick reactions to display",
+        description: "عدد أعمدة التفاعلات السريعة للعرض",
         type: OptionType.SLIDER,
         default: 4,
         markers: makeRange(1, 12, 1),
         stickToMarkers: true
     },
     compactMode: {
-        description: "Scales the buttons to 75% of their original scale, whilst increasing the inner emoji to 125% scale. Emojis will be 93.75% of the original size. Recommended to have a minimum of 5 columns",
+        description: "تصغير الأزرار إلى 75% من حجمها الأصلي مع تكبير الإيموجي الداخلي إلى 125%. ستكون الإيموجي 93.75% من حجمها الأصلي. يُنصح بوجود 5 أعمدة على الأقل",
         type: OptionType.BOOLEAN,
         default: false
     },
     scroll: {
-        description: "Enable scrolling the list of emojis",
+        description: "تفعيل التمرير في قائمة الإيموجي",
         type: OptionType.BOOLEAN,
         default: true
     }

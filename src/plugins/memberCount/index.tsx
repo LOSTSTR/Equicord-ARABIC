@@ -44,13 +44,13 @@ export const settings = definePluginSettings({
     },
     memberList: {
         type: OptionType.BOOLEAN,
-        description: "Show member count in the member list",
+        description: "إظهار عدد الأعضاء في قائمة الأعضاء",
         default: true,
         restartNeeded: true
     },
     voiceActivity: {
         type: OptionType.BOOLEAN,
-        description: "Show voice activity with member count in the member list",
+        description: "إظهار نشاط الصوت مع عدد الأعضاء في قائمة الأعضاء",
         default: true
     }
 });

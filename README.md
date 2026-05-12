@@ -49,13 +49,42 @@
 
 ## 📥 التثبيت
 
-### Windows
+### المنصات المدعومة
 
-| النوع | التحميل |
-|-------|---------|
-| GUI (واجهة رسومية) | [**تحميل Equicord-ARABIC.exe**](https://github.com/LOSTSTR/Equicord-ARABIC/releases/latest) |
+| المنصة | الطريقة | التحميل |
+|--------|---------|---------|
+| 🪟 **Windows** | واجهة رسومية (GUI) | [![Windows Setup](https://img.shields.io/badge/Windows-Setup.exe-0078D4?style=flat&logo=windows&logoColor=white)](https://github.com/LOSTSTR/Equicord-ARABIC/releases/latest/download/EquicordArabicSetup.exe) |
+| 🪟 **Windows** | سطر أوامر (PowerShell CLI) | [![Windows CLI](https://img.shields.io/badge/Windows-PowerShell-012456?style=flat&logo=powershell&logoColor=white)](https://github.com/LOSTSTR/Equicord-ARABIC/releases/latest/download/install-windows.ps1) |
+| 🍎 **macOS** | Apple Silicon & Intel | [![macOS Script](https://img.shields.io/badge/macOS-Shell_Script-000000?style=flat&logo=apple&logoColor=white)](https://github.com/LOSTSTR/Equicord-ARABIC/releases/latest/download/install-macos.sh) |
+| 🐧 **Linux** | سكريبت تلقائي (CLI) | [![Linux Script](https://img.shields.io/badge/Linux-Shell_Script-FCC624?style=flat&logo=linux&logoColor=black)](https://github.com/LOSTSTR/Equicord-ARABIC/releases/latest/download/install-linux.sh) |
 
 > تجد جميع الإصدارات في صفحة [**Releases**](https://github.com/LOSTSTR/Equicord-ARABIC/releases).
+
+---
+
+### 🪟 Windows — واجهة رسومية (GUI)
+
+حمّل **EquicordArabicSetup.exe** وشغّله — يكتشف Discord تلقائياً ويثبّت التعديل.
+
+### 🪟 Windows — سطر أوامر (PowerShell)
+
+```powershell
+irm https://github.com/LOSTSTR/Equicord-ARABIC/releases/latest/download/install-windows.ps1 | iex
+```
+
+### 🍎 macOS — Apple Silicon & Intel
+
+```bash
+curl -fsSL https://github.com/LOSTSTR/Equicord-ARABIC/releases/latest/download/install-macos.sh | bash
+```
+
+يكتشف السكريبت نوع المعالج (ARM64 / Intel) تلقائياً ويدعم جميع إصدارات Discord (Stable، PTB، Canary).
+
+### 🐧 Linux
+
+```bash
+curl -fsSL https://github.com/LOSTSTR/Equicord-ARABIC/releases/latest/download/install-linux.sh | bash
+```
 
 ---
 

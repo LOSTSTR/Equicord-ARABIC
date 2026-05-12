@@ -27,25 +27,25 @@ const settings = definePluginSettings({
     },
     extraSeconds: {
         type: OptionType.STRING,
-        description: "Extra seconds to add, separated by a comma (e.g. 5, 10, 30)",
+        description: "ثوانٍ إضافية للإضافة، مفصولة بفواصل (مثل: 5, 10, 30)",
         restartNeeded: true,
         default: "15, 30, 45"
     },
     extraMinutes: {
         type: OptionType.STRING,
-        description: "Extra minutes to add, separated by a comma (e.g. 5, 10, 30)",
+        description: "دقائق إضافية للإضافة، مفصولة بفواصل (مثل: 5, 10, 30)",
         restartNeeded: true,
         default: "5, 10, 30"
     },
     extraHours: {
         type: OptionType.STRING,
-        description: "Extra hours to add, separated by a comma (e.g. 2, 4, 6, 12)",
+        description: "ساعات إضافية للإضافة، مفصولة بفواصل (مثل: 2, 4, 6, 12)",
         restartNeeded: true,
         default: "2, 4, 6, 12"
     },
     extraDays: {
         type: OptionType.STRING,
-        description: "Extra days to add, separated by a comma (e.g. 1, 2)",
+        description: "أيام إضافية للإضافة، مفصولة بفواصل (مثل: 1, 2)",
         restartNeeded: true,
         default: "1, 2"
     },
@@ -53,7 +53,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "CustomStatusTimeouts",
-    description: "Adds configurable timeout presets to the status (presence) menu.",
+    description: "يضيف إعدادات مسبقة قابلة للتخصيص لمدة انتهاء الحالة في قائمة الحضور",
     tags: ["Activity", "Utility"],
     authors: [EquicordDevs.Kiri, EquicordDevs.thororen],
     settings,

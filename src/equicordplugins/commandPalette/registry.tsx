@@ -1909,7 +1909,7 @@ function registerPluginManagerCommands() {
     registerCommand({
         id: PLUGIN_MANAGER_ROOT_COMMAND_ID,
         label: "Plugins",
-        description: "Manage plugins by category.",
+        description: "إدارة الإضافات حسب الفئة.",
         keywords: ["plugins", "plugin manager", "enable", "disable", "settings"],
         categoryId: DEFAULT_CATEGORY_ID,
         tags: [TAG_PLUGINS, TAG_NAVIGATION],
@@ -1920,7 +1920,7 @@ function registerPluginManagerCommands() {
     registerCommand({
         id: PLUGIN_MANAGER_ENABLE_COMMAND_ID,
         label: "Enable",
-        description: "Enable plugins.",
+        description: "تفعيل الإضافات.",
         keywords: ["plugins", "enable"],
         categoryId: "plugins",
         tags: [TAG_PLUGINS, TAG_NAVIGATION],
@@ -1932,7 +1932,7 @@ function registerPluginManagerCommands() {
     registerCommand({
         id: PLUGIN_MANAGER_DISABLE_COMMAND_ID,
         label: "Disable",
-        description: "Disable plugins.",
+        description: "تعطيل الإضافات.",
         keywords: ["plugins", "disable"],
         categoryId: "plugins",
         tags: [TAG_PLUGINS, TAG_NAVIGATION],
@@ -1944,7 +1944,7 @@ function registerPluginManagerCommands() {
     registerCommand({
         id: PLUGIN_MANAGER_SETTINGS_COMMAND_ID,
         label: "Settings",
-        description: "Open plugin settings and actions.",
+        description: "فتح إعدادات الإضافة وإجراءاتها.",
         keywords: ["plugins", "settings", "actions"],
         categoryId: "plugins",
         tags: [TAG_PLUGINS, TAG_NAVIGATION],
@@ -2333,7 +2333,7 @@ function registerUpdateCommands() {
     registerCommand({
         id: "check-for-updates",
         label: "Check for Updates",
-        description: "Checks for Equicord updates",
+        description: "التحقق من تحديثات Equicord",
         keywords: ["updates", "check", "updater"],
         categoryId: "updates",
         tags: [TAG_DEVELOPER, TAG_UTILITY],
@@ -2355,7 +2355,7 @@ function registerUpdateCommands() {
     registerCommand({
         id: "open-changelog",
         label: "View Changelog",
-        description: "Opens the Equicord changelog",
+        description: "فتح سجل تغييرات Equicord",
         keywords: ["updates", "changelog"],
         categoryId: "updates",
         tags: [TAG_DEVELOPER, TAG_NAVIGATION],
@@ -2710,7 +2710,7 @@ function createContextualCommands(): CommandEntry[] {
             commands.push({
                 id: "context-guild-leave",
                 label: `Leave ${guildLabel}`,
-                description: "Leaves the current server.",
+                description: "مغادرة السيرفر الحالي.",
                 keywords: ["context", "guild", "server", "leave", "exit"],
                 categoryId: CONTEXT_PROVIDER_ID,
                 tags: [TAG_CONTEXT, TAG_UTILITY],
@@ -3062,7 +3062,7 @@ function registerSessionCommands() {
         {
             id: "session-dnd-timer",
             label: "Set DND Timer",
-            description: "Choose how long Do Not Disturb should stay active.",
+            description: "اختر المدة التي يبقى فيها وضع عدم الإزعاج نشطاً.",
             keywords: ["session", "status", "dnd", "timer", "duration", "focus", "busy", "cancel"],
             categoryId: SESSION_TOOLS_CATEGORY_ID,
             tags: [TAG_SESSION, TAG_UTILITY],
@@ -3165,7 +3165,7 @@ function registerCommandPaletteUtilities() {
     registerCommand({
         id: "command-palette-open-settings",
         label: "Open Command Palette Settings",
-        description: "Configure the Command Palette plugin",
+        description: "ضبط إعدادات إضافة لوحة الأوامر",
         keywords: ["command", "palette", "settings"],
         categoryId: "plugins-settings",
         hiddenInSearch: true,
@@ -3178,7 +3178,7 @@ function registerCommandPaletteUtilities() {
     registerCommand({
         id: "command-palette-open-home",
         label: "Go to Home",
-        description: "Opens your direct messages home.",
+        description: "فتح الصفحة الرئيسية للرسائل المباشرة.",
         keywords: ["home", "dm", "messages", "navigate"],
         categoryId: DEFAULT_CATEGORY_ID,
         tags: [TAG_NAVIGATION, TAG_CORE],
@@ -3188,7 +3188,7 @@ function registerCommandPaletteUtilities() {
     registerCommand({
         id: "command-palette-open-extensions",
         label: "Extensions",
-        description: "Browse installable command palette extensions.",
+        description: "تصفح امتدادات لوحة الأوامر القابلة للتثبيت.",
         keywords: ["extensions", "plugins", "catalog", "install", "uninstall"],
         categoryId: DEFAULT_CATEGORY_ID,
         tags: [TAG_PLUGINS, TAG_UTILITY],
@@ -3199,7 +3199,7 @@ function registerCommandPaletteUtilities() {
     registerCommand({
         id: "command-palette-open-dm-query",
         label: "Open DM",
-        description: "Type a username or display name to open a DM.",
+        description: "اكتب اسم مستخدم أو اسماً معروضاً لفتح رسالة مباشرة.",
         keywords: ["open", "dm", "direct message", "message user", "friend"],
         categoryId: DEFAULT_CATEGORY_ID,
         tags: [TAG_NAVIGATION, TAG_CORE],
@@ -3212,7 +3212,7 @@ function registerCommandPaletteUtilities() {
     registerCommand(createCommandPageCommand({
         id: "command-palette-send-dm",
         label: "Send DM",
-        description: "Send a direct message to a user from separate fields.",
+        description: "إرسال رسالة مباشرة إلى مستخدم من حقول منفصلة.",
         keywords: ["send", "dm", "direct message", "message", "friend", "recipient"],
         categoryId: DEFAULT_CATEGORY_ID,
         tags: [TAG_NAVIGATION, TAG_CORE],
@@ -3222,7 +3222,7 @@ function registerCommandPaletteUtilities() {
     registerCommand({
         id: "command-palette-navigate-to-query",
         label: "Navigate to",
-        description: "Type a server or channel to navigate.",
+        description: "اكتب اسم سيرفر أو قناة للتنقل إليها.",
         keywords: ["navigate", "go to", "jump", "server", "channel", "guild"],
         categoryId: DEFAULT_CATEGORY_ID,
         tags: [TAG_NAVIGATION, TAG_CORE],
@@ -3235,7 +3235,7 @@ function registerCommandPaletteUtilities() {
     registerCommand({
         id: "command-palette-toggle-plugin-query",
         label: "Toggle Plugin by Name",
-        description: "Type a plugin name to enable or disable it.",
+        description: "اكتب اسم إضافة لتفعيلها أو تعطيلها.",
         keywords: ["toggle", "plugin", "enable", "disable", "debug", "developer"],
         categoryId: DEFAULT_CATEGORY_ID,
         tags: [TAG_DEVELOPER, TAG_PLUGINS],
@@ -3248,7 +3248,7 @@ function registerCommandPaletteUtilities() {
     registerCommand({
         id: "command-palette-show-mentions",
         label: "Show Mentions",
-        description: "Browse your recent mentions.",
+        description: "تصفح إشاراتك الأخيرة.",
         keywords: ["mentions", "inbox", "unread", "pings"],
         categoryId: DEFAULT_CATEGORY_ID,
         tags: [TAG_NAVIGATION, TAG_CORE],
@@ -3259,7 +3259,7 @@ function registerCommandPaletteUtilities() {
     registerCommand({
         id: "command-palette-jump-mentions-inbox",
         label: "Jump to Mentions Inbox",
-        description: "Shows your mentions inbox.",
+        description: "إظهار صندوق الإشارات الخاص بك.",
         keywords: ["jump", "mentions", "inbox", "unread", "pings"],
         categoryId: DEFAULT_CATEGORY_ID,
         tags: [TAG_NAVIGATION, TAG_CORE],
@@ -3270,7 +3270,7 @@ function registerCommandPaletteUtilities() {
     registerCommand({
         id: "command-palette-open-last-dm",
         label: "Open Last DM",
-        description: "Opens your most recent DM thread.",
+        description: "فتح أحدث محادثة رسائل مباشرة لديك.",
         keywords: ["open", "last", "recent", "dm", "messages"],
         categoryId: DEFAULT_CATEGORY_ID,
         tags: [TAG_NAVIGATION, TAG_CORE],
@@ -3287,7 +3287,7 @@ function registerCommandPaletteUtilities() {
     registerCommand({
         id: "command-palette-copy-active-channel-id",
         label: "Copy Current Channel ID",
-        description: "Copies the active channel ID.",
+        description: "نسخ معرّف القناة النشطة.",
         keywords: ["copy", "channel", "id", "current"],
         categoryId: DEFAULT_CATEGORY_ID,
         tags: [TAG_UTILITY, TAG_CORE],
@@ -3304,7 +3304,7 @@ function registerCommandPaletteUtilities() {
     registerCommand({
         id: "command-palette-copy-active-channel-link",
         label: "Copy Current Channel Link",
-        description: "Copies a link to the active channel.",
+        description: "نسخ رابط القناة النشطة.",
         keywords: ["copy", "channel", "link", "current"],
         categoryId: DEFAULT_CATEGORY_ID,
         tags: [TAG_UTILITY, TAG_NAVIGATION],
@@ -3321,7 +3321,7 @@ function registerCommandPaletteUtilities() {
     registerCommand({
         id: "command-palette-copy-last-message-link",
         label: "Copy Last Message Link",
-        description: "Copies a link to the latest message in the current channel.",
+        description: "نسخ رابط آخر رسالة في القناة الحالية.",
         keywords: ["copy", "message", "link", "latest", "last", "current"],
         categoryId: DEFAULT_CATEGORY_ID,
         tags: [TAG_UTILITY, TAG_NAVIGATION],
@@ -3345,7 +3345,7 @@ function registerCommandPaletteUtilities() {
     registerCommand({
         id: "command-palette-open-active-channel-browser",
         label: "Open Current Channel in Browser",
-        description: "Opens the active channel link in your browser.",
+        description: "فتح رابط القناة النشطة في متصفحك.",
         keywords: ["open", "channel", "browser", "external", "current"],
         categoryId: DEFAULT_CATEGORY_ID,
         tags: [TAG_NAVIGATION, TAG_UTILITY],
@@ -3362,7 +3362,7 @@ function registerCommandPaletteUtilities() {
     registerCommand({
         id: "command-palette-copy-active-guild-id",
         label: "Copy Current Server ID",
-        description: "Copies the active server ID.",
+        description: "نسخ معرّف السيرفر النشط.",
         keywords: ["copy", "guild", "server", "id", "current"],
         categoryId: DEFAULT_CATEGORY_ID,
         tags: [TAG_UTILITY, TAG_CORE],
@@ -3379,7 +3379,7 @@ function registerCommandPaletteUtilities() {
     registerCommand({
         id: "command-palette-copy-my-user-id",
         label: "Copy My User ID",
-        description: "Copies your user ID.",
+        description: "نسخ معرّف مستخدمك.",
         keywords: ["copy", "user", "id", "me", "account"],
         categoryId: DEFAULT_CATEGORY_ID,
         tags: [TAG_UTILITY, TAG_CORE],
@@ -3396,7 +3396,7 @@ function registerCommandPaletteUtilities() {
     registerCommand({
         id: "command-palette-copy-debug-context",
         label: "Copy Debug Context",
-        description: "Copies current guild, channel, and user IDs.",
+        description: "نسخ معرّفات السيرفر والقناة والمستخدم الحالية.",
         keywords: ["copy", "debug", "context", "guild id", "channel id", "user id", "developer"],
         categoryId: DEFAULT_CATEGORY_ID,
         tags: [TAG_DEVELOPER, TAG_UTILITY],
@@ -3406,7 +3406,7 @@ function registerCommandPaletteUtilities() {
     registerCommand({
         id: "command-palette-open-devtools",
         label: "Open DevTools",
-        description: "Opens Discord DevTools on desktop.",
+        description: "فتح أدوات مطوري Discord على سطح المكتب.",
         keywords: ["devtools", "developer tools", "inspect", "debug", "console"],
         categoryId: DEFAULT_CATEGORY_ID,
         tags: [TAG_DEVELOPER, TAG_UTILITY],
@@ -3419,7 +3419,7 @@ function registerCommandPaletteUtilities() {
     registerCommand({
         id: "command-palette-show-pins",
         label: "Pinned Commands",
-        description: "Browse and run your pinned commands.",
+        description: "تصفح أوامرك المثبّتة وتشغيلها.",
         keywords: ["pinned", "pins", "favorites", "starred"],
         categoryId: DEFAULT_CATEGORY_ID,
         tags: [TAG_CORE, TAG_UTILITY],
@@ -3430,7 +3430,7 @@ function registerCommandPaletteUtilities() {
     registerCommand({
         id: "command-palette-show-recent",
         label: "Recent Commands",
-        description: "Browse and run your recently used commands.",
+        description: "تصفح أوامرك المستخدمة مؤخراً وتشغيلها.",
         keywords: ["recent", "history", "rerun", "pin"],
         categoryId: DEFAULT_CATEGORY_ID,
         tags: [TAG_CORE, TAG_UTILITY],
@@ -3618,7 +3618,7 @@ function registerPluginChangeCommands() {
     registerCommand({
         id: "reload-all-plugins",
         label: "Reload All Plugins",
-        description: "Attempts to hot reload every enabled plugin",
+        description: "يحاول إعادة تحميل كل الإضافات المفعّلة فوراً",
         keywords: ["plugin", "reload", "restart"],
         categoryId: "plugins-settings",
         hiddenInSearch: true,
@@ -3649,7 +3649,7 @@ function registerPluginChangeCommands() {
     registerCommand({
         id: "restart-equicord",
         label: "Restart Equicord",
-        description: "Reloads the Discord client window",
+        description: "إعادة تحميل نافذة عميل Discord",
         keywords: ["restart", "reload"],
         categoryId: "plugins-settings",
         hiddenInSearch: true,

@@ -78,7 +78,7 @@ export const settings = definePluginSettings({
         }
     },
     allowMouseControl: {
-        description: "Allow the mouse to control the command palette.",
+        description: "السماح بالتحكم في لوحة الأوامر بالماوس.",
         type: OptionType.BOOLEAN,
         default: true
     }
@@ -86,7 +86,7 @@ export const settings = definePluginSettings({
 
 export default definePlugin({
     name: "KeyboardNavigation",
-    description: "Allows you to navigate the UI with a keyboard.",
+    description: "يتيح لك التنقل في واجهة المستخدم باستخدام لوحة المفاتيح.",
     tags: ["Accessibility", "Shortcuts"],
     authors: [Devs.Ethan],
     settings,

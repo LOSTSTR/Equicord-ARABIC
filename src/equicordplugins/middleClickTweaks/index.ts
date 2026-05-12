@@ -61,7 +61,7 @@ const settings = definePluginSettings({
     },
     pasteScope: {
         type: OptionType.SELECT,
-        description: "Prevent middle click from pasting during these situations.",
+        description: "منع النقر الأوسط من اللصق في هذه الحالات.",
         options: [
             { label: "Always Prevent Middle Click Pasting", value: "always", default: true },
             { label: "Only Prevent When Text Area Not Focused", value: "focus" },
@@ -69,7 +69,7 @@ const settings = definePluginSettings({
     },
     pasteThreshold: {
         type: OptionType.NUMBER,
-        description: "Milliseconds until pasting is enabled again after a middle click.",
+        description: "الميلي ثانية حتى يُعاد تفعيل اللصق بعد النقر الأوسط.",
         default: 100,
         onChange(newValue) { if (newValue < 1) { settings.store.pasteThreshold = 1; } }
     }
@@ -97,7 +97,7 @@ migrate();
 
 export default definePlugin({
     name: "MiddleClickTweaks",
-    description: "Various middle click tweaks, such as with pasting and link opening.",
+    description: "تعديلات متنوعة للنقر الأوسط، كاللصق وفتح الروابط.",
     tags: ["Utility"],
     authors: [EquicordDevs.Etorix, EquicordDevs.korzi],
     settings,

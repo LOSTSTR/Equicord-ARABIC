@@ -33,13 +33,13 @@ const settings = definePluginSettings({
     },
     showInMemberList: {
         type: OptionType.BOOLEAN,
-        description: "Show a user's Voice Channel indicator in the member and DMs list",
+        description: "عرض مؤشر القناة الصوتية للمستخدم في قائمة الأعضاء والرسائل المباشرة",
         default: true,
         restartNeeded: true
     },
     showInMessages: {
         type: OptionType.BOOLEAN,
-        description: "Show a user's Voice Channel indicator in messages",
+        description: "عرض مؤشر القناة الصوتية للمستخدم في الرسائل",
         default: true,
         restartNeeded: true
     }

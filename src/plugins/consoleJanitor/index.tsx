@@ -77,13 +77,13 @@ const settings = definePluginSettings({
     },
     disableSpotifyLogger: {
         type: OptionType.BOOLEAN,
-        description: "Disable the Spotify logger, which leaks account information and access token",
+        description: "تعطيل مسجل Spotify الذي يُسرّب معلومات الحساب ورمز الوصول",
         default: true,
         restartNeeded: true
     },
     whitelistedLoggers: {
         type: OptionType.STRING,
-        description: "Semicolon (;) separated list of loggers to allow even if others are hidden",
+        description: "قائمة مسجلات مفصولة بفاصلة منقوطة (;) للسماح بها حتى لو كانت الأخرى مخفية",
         default: "GatewaySocket; Routing/Utils",
         multiline: true,
         onChange(newVal: string) {

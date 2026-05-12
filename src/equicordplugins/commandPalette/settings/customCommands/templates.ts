@@ -27,7 +27,7 @@ export const TEMPLATE_CONFIGS: TemplateConfig[] = [
     {
         id: "settings",
         label: "Open Settings Page",
-        description: "Jump directly to a Discord settings page.",
+        description: "الانتقال مباشرةً إلى صفحة إعدادات ديسكورد.",
         apply: command => ({
             ...command,
             action: { type: "settings", route: "My Account" }
@@ -36,7 +36,7 @@ export const TEMPLATE_CONFIGS: TemplateConfig[] = [
     {
         id: "url",
         label: "Quicklink",
-        description: "Open a link in Discord or externally.",
+        description: "فتح رابط في ديسكورد أو خارجياً.",
         apply: command => ({
             ...command,
             action: { type: "url", url: "https://", openExternal: true }
@@ -45,7 +45,7 @@ export const TEMPLATE_CONFIGS: TemplateConfig[] = [
     {
         id: "macro",
         label: "Sequence",
-        description: "Run multiple commands in order.",
+        description: "تشغيل أوامر متعددة بالترتيب.",
         apply: command => ({
             ...command,
             action: { type: "macro", steps: [] }

@@ -103,35 +103,35 @@ const settings = definePluginSettings({
     },
     channels: {
         type: OptionType.STRING,
-        description: "Channels to let bypass (notified when pinged in that channel)",
+        description: "القنوات المسموح لها بالتجاوز (تُشعَر عند الإشارة إليك في تلك القناة)",
         default: "",
         placeholder: "Separate with commas",
         onChange: value => settings.store.channels = processIds(value)
     },
     users: {
         type: OptionType.STRING,
-        description: "Users to let bypass (notified for all messages sent in DMs)",
+        description: "المستخدمون المسموح لهم بالتجاوز (تُشعَر بجميع رسائلهم المباشرة)",
         default: "",
         placeholder: "Separate with commas",
         onChange: value => settings.store.users = processIds(value)
     },
     allowOutsideOfDms: {
         type: OptionType.BOOLEAN,
-        description: "Allow selected users to bypass status outside of DMs too (acts like a channel/guild bypass, but it's for all messages sent by the selected users)"
+        description: "السماح للمستخدمين المختارين بالتجاوز خارج الرسائل المباشرة أيضاً (يعمل كتجاوز للقناة/السيرفر لجميع رسائل المستخدمين المختارين)"
     },
     notificationSound: {
         type: OptionType.BOOLEAN,
-        description: "Whether the notification sound should be played",
+        description: "ما إذا كان صوت الإشعار سيُشغَّل",
         default: true,
     },
     respectSilentPings: {
         type: OptionType.BOOLEAN,
-        description: "Respect silent pings (@silent / suppress notifications)",
+        description: "احترام الإشارات الصامتة (@silent / كتم الإشعارات)",
         default: true
     },
     statusToUse: {
         type: OptionType.SELECT,
-        description: "Status to use for whitelist",
+        description: "الحالة المستخدمة لتفعيل القائمة البيضاء",
         options: [
             {
                 label: "Online",
@@ -156,7 +156,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "BypassStatus",
-    description: "Still get notifications from specific sources when in do not disturb mode. Right-click on users/channels/guilds to set them to bypass do not disturb mode.",
+    description: "استمر في تلقي إشعارات من مصادر محددة حتى في وضع عدم الإزعاج. انقر بزر الماوس الأيمن على المستخدمين/القنوات/السيرفرات لإعدادها لتجاوز وضع عدم الإزعاج.",
     tags: ["Activity", "Customisation", "Notifications", "Servers"],
     authors: [Devs.Inbestigator],
     dependencies: ["AudioPlayerAPI"],

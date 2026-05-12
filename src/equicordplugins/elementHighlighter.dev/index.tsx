@@ -100,42 +100,42 @@ const settings = definePluginSettings({
         component: KeybindRecorder
     },
     showClasses: {
-        description: "Display the element's CSS class names in the tooltip",
+        description: "عرض أسماء فئات CSS للعنصر في التلميح",
         type: OptionType.BOOLEAN,
         default: false
     },
     showId: {
-        description: "Display the element's ID attribute in the tooltip",
+        description: "عرض خاصية ID للعنصر في التلميح",
         type: OptionType.BOOLEAN,
         default: false
     },
     showFont: {
-        description: "Display the computed font family and font size",
+        description: "عرض عائلة الخط وحجمه المحسوب",
         type: OptionType.BOOLEAN,
         default: false
     },
     showPadding: {
-        description: "Display the element's padding values",
+        description: "عرض قيم الحشو للعنصر",
         type: OptionType.BOOLEAN,
         default: false
     },
     showMargin: {
-        description: "Display the element's margin values",
+        description: "عرض قيم الهامش للعنصر",
         type: OptionType.BOOLEAN,
         default: false
     },
     showBorderRadius: {
-        description: "Display the element's border-radius values",
+        description: "عرض قيم نصف قطر حدود العنصر",
         type: OptionType.BOOLEAN,
         default: false
     },
     showPosition: {
-        description: "Display the element's CSS position type and z-index",
+        description: "عرض نوع موضع CSS ومؤشر Z للعنصر",
         type: OptionType.BOOLEAN,
         default: false
     },
     showDisplay: {
-        description: "Display the element's display type along with flex or grid properties",
+        description: "عرض نوع العرض مع خصائص flex أو grid للعنصر",
         type: OptionType.BOOLEAN,
         default: false
     }
@@ -448,7 +448,7 @@ function onToggle(e: KeyboardEvent) {
 
 export default definePlugin({
     name: "ElementHighlighter",
-    description: "Highlight and inspect elements easily.",
+    description: "تمييز عناصر الواجهة وفحصها بسهولة.",
     tags: ["Developers"],
     authors: [Devs.prism],
     settings,

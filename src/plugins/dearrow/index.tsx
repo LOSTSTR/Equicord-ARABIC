@@ -150,7 +150,7 @@ const settings = definePluginSettings({
         restartNeeded: true
     },
     replaceElements: {
-        description: "Choose which elements of the embed will be replaced",
+        description: "اختر العناصر التي سيتم استبدالها في التضمين",
         type: OptionType.SELECT,
         restartNeeded: true,
         options: [
@@ -160,7 +160,7 @@ const settings = definePluginSettings({
         ],
     },
     dearrowByDefault: {
-        description: "Dearrow videos automatically",
+        description: "تطبيق DeArrow على الفيديوهات تلقائياً",
         type: OptionType.BOOLEAN,
         default: true,
         restartNeeded: false

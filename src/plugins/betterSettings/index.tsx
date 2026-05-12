@@ -28,13 +28,13 @@ const settings = definePluginSettings({
         restartNeeded: true
     },
     organizeMenu: {
-        description: "Organizes the settings cog context menu into categories",
+        description: "تنظيم قائمة سياق أيقونة الإعدادات في فئات",
         type: OptionType.BOOLEAN,
         default: true,
         restartNeeded: true
     },
     eagerLoad: {
-        description: "Removes the loading delay when opening the menu for the first time",
+        description: "إزالة تأخير التحميل عند فتح القائمة لأول مرة",
         type: OptionType.BOOLEAN,
         default: true,
         restartNeeded: true

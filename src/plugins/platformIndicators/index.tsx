@@ -174,29 +174,29 @@ const settings = definePluginSettings({
     },
     profiles: {
         type: OptionType.BOOLEAN,
-        description: "Show indicators in user profiles",
+        description: "إظهار المؤشرات في ملفات المستخدمين الشخصية",
         default: true,
     },
     messages: {
         type: OptionType.BOOLEAN,
-        description: "Show indicators inside messages",
+        description: "إظهار المؤشرات داخل الرسائل",
         default: true,
     },
     colorMobileIndicator: {
         type: OptionType.BOOLEAN,
-        description: "Whether to make the mobile indicator match the color of the user status.",
+        description: "جعل مؤشر الجوال يطابق لون حالة المستخدم.",
         default: true,
         restartNeeded: true
     },
     showBots: {
         type: OptionType.BOOLEAN,
-        description: "Whether to show platform indicators on bots",
+        description: "إظهار مؤشرات المنصة على البوتات",
         default: false,
         restartNeeded: false
     },
     ConsoleIcon: {
         type: OptionType.SELECT,
-        description: "What console icon to use",
+        description: "أيقونة وحدة التحكم المستخدمة",
         restartNeeded: true,
         options: [
             {

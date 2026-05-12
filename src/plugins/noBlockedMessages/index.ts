@@ -55,32 +55,32 @@ const settings = definePluginSettings({
         restartNeeded: false
     },
     disableNotifications: {
-        description: "Hide new message notifications for blocked users. Always true if \"Default Hide Users\" is enabled below and the user triggering the notification is not exempted in \"Override Users\".",
+        description: "إخفاء إشعارات الرسائل الجديدة من المستخدمين المحجوبين. يكون دائماً مفعلاً إذا كان 'إخفاء المستخدمين افتراضياً' مفعلاً وكان المستخدم غير مستثنى في 'المستخدمون المستثنون'.",
         type: OptionType.BOOLEAN,
         default: false,
         restartNeeded: false
     },
     allowAutoModMessages: {
-        description: "Allow messages sent by AutoMod to bypass filtering.",
+        description: "السماح للرسائل المرسلة بواسطة AutoMod بتجاوز الفلتر.",
         type: OptionType.BOOLEAN,
         default: true,
         restartNeeded: false,
     },
     hideBlockedUserReplies: {
-        description: "Hide replies to blocked users.",
+        description: "إخفاء الردود على المستخدمين المحجوبين.",
         type: OptionType.BOOLEAN,
         default: false,
         restartNeeded: false,
     },
     defaultHideUsers: {
         type: OptionType.BOOLEAN,
-        description: "If enabled, messages from blocked users will be completely hidden and any messages from user IDs in the override list will be collapsed (default Discord behavior) instead. If disabled, messages from blocked users will be collapsed and any messages from user IDs in the override list will be completely hidden instead.",
+        description: "إذا كان مفعلاً، ستُخفى رسائل المستخدمين المحجوبين بالكامل وستُطوى رسائل معرّفات المستخدمين في قائمة الاستثناءات (السلوك الافتراضي لـ Discord). إذا كان معطلاً، ستُطوى رسائل المستخدمين المحجوبين وستُخفى رسائل معرّفات المستخدمين في القائمة بالكامل.",
         default: true,
         restartNeeded: false,
     },
     overrideUsers: {
         type: OptionType.STRING,
-        description: "Comma separated list of user IDs which will be hidden or collapsed instead of the default behavior selected above.",
+        description: "قائمة معرّفات المستخدمين المفصولة بفواصل التي ستُخفى أو تُطوى بدلاً من السلوك الافتراضي المحدد أعلاه.",
         restartNeeded: false,
         default: ""
     },

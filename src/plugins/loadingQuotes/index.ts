@@ -32,23 +32,23 @@ const settings = definePluginSettings({
         default: true
     },
     enablePluginPresetQuotes: {
-        description: "Enable the quotes preset by this plugin",
+        description: "تفعيل الاقتباسات المحددة مسبقاً بواسطة هذه الإضافة",
         type: OptionType.BOOLEAN,
         default: true
     },
     enableDiscordPresetQuotes: {
-        description: "Enable Discord's preset quotes (including event quotes, during events)",
+        description: "تفعيل اقتباسات Discord المحددة مسبقاً (بما في ذلك اقتباسات الفعاليات)",
         type: OptionType.BOOLEAN,
         default: false
     },
     additionalQuotes: {
-        description: "Additional custom quotes to possibly appear, separated by the below delimiter",
+        description: "اقتباسات مخصصة إضافية قد تظهر، مفصولة بالمحدد أدناه",
         type: OptionType.STRING,
         default: "",
         multiline: true
     },
     additionalQuotesDelimiter: {
-        description: "Delimiter for additional quotes",
+        description: "محدد الاقتباسات الإضافية",
         type: OptionType.STRING,
         default: "|",
     },

@@ -15,37 +15,37 @@ const settings = definePluginSettings({
     },
     logSoundboard: {
         type: OptionType.BOOLEAN,
-        description: "Log when users play soundboard sounds.",
+        description: "تسجيل عندما يشغّل المستخدمون أصوات لوحة الأصوات.",
         default: true
     },
     logMuteDeafen: {
         type: OptionType.BOOLEAN,
-        description: "Log when users are server muted or deafened.",
+        description: "تسجيل عندما يُكتَم المستخدمون أو يُخرَسون في السيرفر.",
         default: true
     },
     logVideo: {
         type: OptionType.BOOLEAN,
-        description: "Log when users turn their camera on or off.",
+        description: "تسجيل عندما يشغّل المستخدمون الكاميرا أو يطفئونها.",
         default: true
     },
     logStream: {
         type: OptionType.BOOLEAN,
-        description: "Log when users start or stop screensharing.",
+        description: "تسجيل عندما يبدأ المستخدمون مشاركة الشاشة أو يوقفونها.",
         default: true
     },
     logActivity: {
         type: OptionType.BOOLEAN,
-        description: "Log when users start embedded activities.",
+        description: "تسجيل عندما يبدأ المستخدمون الأنشطة المدمجة.",
         default: true
     },
     ignoreBlockedUsers: {
         type: OptionType.BOOLEAN,
-        description: "Do not log blocked users.",
+        description: "عدم تسجيل المستخدمين المحظورين.",
         default: false
     },
     soundboardFileType: {
         type: OptionType.SELECT,
-        description: "File format for downloading soundboard sounds.",
+        description: "تنسيق الملف لتنزيل أصوات لوحة الأصوات.",
         options: [
             { label: ".ogg", value: ".ogg", default: true },
             { label: ".mp3", value: ".mp3" },
@@ -54,7 +54,7 @@ const settings = definePluginSettings({
     },
     soundboardVolume: {
         type: OptionType.SLIDER,
-        description: "Preview volume for soundboard sounds (0 to disable).",
+        description: "مستوى صوت المعاينة لأصوات لوحة الأصوات (0 للتعطيل).",
         default: 0.5,
         markers: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
     },

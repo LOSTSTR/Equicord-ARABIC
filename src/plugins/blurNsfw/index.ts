@@ -21,7 +21,7 @@ const settings = definePluginSettings({
     },
     blurAllChannels: {
         type: OptionType.BOOLEAN,
-        description: "Blur attachments in all channels (not just NSFW)",
+        description: "تعتيم المرفقات في جميع القنوات (وليس القنوات الحساسة فقط)",
         default: false
     },
 });

@@ -42,7 +42,7 @@ const settings = definePluginSettings({
     },
     autoDisable: {
         type: OptionType.BOOLEAN,
-        description: "Automatically disable the silent message toggle again after sending one",
+        description: "تعطيل تبديل الرسائل الصامتة تلقائياً بعد إرسال رسالة صامتة",
         default: true
     }
 });

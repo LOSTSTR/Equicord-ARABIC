@@ -35,22 +35,22 @@ export default definePlugin({
     settings: definePluginSettings({
         latency: {
             type: OptionType.NUMBER,
-            description: "Threshold in seconds for latency indicator",
+            description: "الحد الأدنى بالثواني لإظهار مؤشر التأخير",
             default: 2
         },
         detectDiscordKotlin: {
             type: OptionType.BOOLEAN,
-            description: "Detect old Discord Android clients",
+            description: "الكشف عن عملاء Discord القديمة على أندرويد",
             default: true
         },
         showMillis: {
             type: OptionType.BOOLEAN,
-            description: "Show milliseconds",
+            description: "إظهار الميلي ثانية",
             default: false
         },
         ignoreSelf: {
             type: OptionType.BOOLEAN,
-            description: "Don't add indicator to your own messages",
+            description: "عدم إضافة المؤشر لرسائلك الخاصة",
             default: false
         }
     }),

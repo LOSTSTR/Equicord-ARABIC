@@ -32,7 +32,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "Equissant",
-    description: "Crossant every specified amount of clicks :trolley:",
+    description: "يُشغّل صوت الكرواسون عند كل عدد محدد من النقرات :trolley:",
     tags: ["Fun"],
     authors: [EquicordDevs.SomeAspy, Devs.thororen],
     dependencies: ["AudioPlayerAPI"],

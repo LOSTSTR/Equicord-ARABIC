@@ -140,22 +140,22 @@ const settings = definePluginSettings({
     },
     includeMutedChannels: {
         type: OptionType.BOOLEAN,
-        description: "Whether to show the typing indicator for muted channels.",
+        description: "ما إذا كان يجب عرض مؤشر الكتابة للقنوات المكتومة.",
         default: false
     },
     includeIgnoredUsers: {
         type: OptionType.BOOLEAN,
-        description: "Whether to show the typing indicator for ignored users.",
+        description: "ما إذا كان يجب عرض مؤشر الكتابة للمستخدمين المتجاهَلين.",
         default: false
     },
     includeBlockedUsers: {
         type: OptionType.BOOLEAN,
-        description: "Whether to show the typing indicator for blocked users.",
+        description: "ما إذا كان يجب عرض مؤشر الكتابة للمستخدمين المحجوبين.",
         default: false
     },
     indicatorMode: {
         type: OptionType.SELECT,
-        description: "How should the indicator be displayed?",
+        description: "كيف يجب عرض المؤشر؟",
         options: [
             { label: "Avatars and animated dots", value: IndicatorMode.Dots | IndicatorMode.Avatars, default: true },
             { label: "Animated dots", value: IndicatorMode.Dots },

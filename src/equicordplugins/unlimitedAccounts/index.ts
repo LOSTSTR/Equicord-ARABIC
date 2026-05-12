@@ -31,7 +31,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "UnlimitedAccounts",
-    description: "Increases the amount of accounts you can add.",
+    description: "يزيد الحد الأقصى لعدد الحسابات التي يمكنك إضافتها.",
     tags: ["Utility"],
     authors: [Devs.thororen],
     settings,

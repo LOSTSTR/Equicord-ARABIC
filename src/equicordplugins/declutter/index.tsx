@@ -49,25 +49,25 @@ export const settings = definePluginSettings({
     },
     removeNameplate: {
         type: OptionType.BOOLEAN,
-        description: "Remove nameplates.",
+        description: "إزالة لوحات الاسم.",
         default: true,
         restartNeeded: true,
     },
     removeProfileEffect: {
         type: OptionType.BOOLEAN,
-        description: "Remove profile animation effects on open.",
+        description: "إزالة تأثيرات الحركة من الملف الشخصي عند فتحه.",
         default: true,
         restartNeeded: true,
     },
     removeClanTag: {
         type: OptionType.BOOLEAN,
-        description: "Remove clan tags.",
+        description: "إزالة شارات الفصيلة.",
         default: true,
         restartNeeded: true,
     },
     alwaysShowUsername: {
         type: OptionType.BOOLEAN,
-        description: "Always show username instead of status.",
+        description: "عرض اسم المستخدم دائماً بدلاً من الحالة.",
         default: true,
         restartNeeded: true
     },
@@ -85,13 +85,13 @@ export const settings = definePluginSettings({
     },
     removeShopAboveDM: {
         type: OptionType.BOOLEAN,
-        description: "Remove shops above DMs list.",
+        description: "إزالة المتاجر فوق قائمة الرسائل المباشرة.",
         default: false,
         restartNeeded: true,
     },
     removeQuestsAboveDM: {
         type: OptionType.BOOLEAN,
-        description: "Remove quests above DMs list.",
+        description: "إزالة المهام فوق قائمة الرسائل المباشرة.",
         default: false,
         restartNeeded: true,
     },
@@ -101,37 +101,37 @@ export const settings = definePluginSettings({
     },
     removeServerBoostInfo: {
         type: OptionType.BOOLEAN,
-        description: "Remove server boost info above channel list.",
+        description: "إزالة معلومات دعم السيرفر فوق قائمة القنوات.",
         default: true,
         restartNeeded: true,
     },
     removeBillingSettings: {
         type: OptionType.BOOLEAN,
-        description: "Remove billing settings.",
+        description: "إزالة إعدادات الفواتير.",
         default: true,
         restartNeeded: true,
     },
     removeGiftButton: {
         type: OptionType.BOOLEAN,
-        description: "Remove gift button.",
+        description: "إزالة زر الهدية.",
         default: true,
         restartNeeded: true,
     },
     removeUnavailableEmojiPicker: {
         type: OptionType.BOOLEAN,
-        description: "Remove unavailable categories from the emoji picker.",
+        description: "إزالة الفئات غير المتاحة من منتقي الإيموجي.",
         default: true,
         restartNeeded: true,
     },
     removeAudioMenus: {
         type: OptionType.BOOLEAN,
-        description: "Remove menus next to mute and deafen buttons.",
+        description: "إزالة القوائم المجاورة لأزرار كتم الصوت وإلغاء تشغيل الصوت.",
         default: true,
         restartNeeded: true
     },
     removeButtonTooltips: {
         type: OptionType.BOOLEAN,
-        description: "Remove button tooltips.",
+        description: "إزالة تلميحات الأزرار.",
         default: false,
         restartNeeded: true
     },
@@ -150,7 +150,7 @@ function SectionSeparator(title: string) {
 
 export default definePlugin({
     name: "Declutter",
-    description: "Cleans up Discord by removing non-essential UI elements like profile effects, shop tabs, boosts, and more.",
+    description: "يُرتّب ديسكورد بإزالة عناصر واجهة المستخدم غير الأساسية كتأثيرات الملف الشخصي وتبويبات المتجر والدعم والمزيد.",
     tags: ["Appearance", "Customisation"],
     authors: [EquicordDevs.Leon135, Devs.prism, Devs.Kyuuhachi],
     start() {

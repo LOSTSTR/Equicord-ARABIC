@@ -28,7 +28,7 @@ const settings = definePluginSettings({
         restartNeeded: true
     },
     keepSpotifyActivityOnIdle: {
-        description: "Keep Spotify activity playing when idling",
+        description: "الإبقاء على نشاط Spotify أثناء التوقف",
         type: OptionType.BOOLEAN,
         default: false,
         restartNeeded: true

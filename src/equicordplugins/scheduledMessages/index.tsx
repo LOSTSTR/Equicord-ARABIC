@@ -39,7 +39,7 @@ export const settings = definePluginSettings({
     },
     checkIntervalSeconds: {
         type: OptionType.SLIDER,
-        description: "How often to check for messages to send (seconds).",
+        description: "مدة الفترة الزمنية للتحقق من الرسائل المراد إرسالها (بالثواني).",
         markers: [5, 10, 15, 30, 60],
         default: 10,
         stickToMarkers: true,
@@ -50,12 +50,12 @@ export const settings = definePluginSettings({
     },
     showNotifications: {
         type: OptionType.BOOLEAN,
-        description: "Show toast notifications when messages are sent.",
+        description: "إظهار إشعارات عند إرسال الرسائل.",
         default: true
     },
     showPhantomMessages: {
         type: OptionType.BOOLEAN,
-        description: "Show scheduled messages as phantom messages in chat.",
+        description: "إظهار الرسائل المجدولة كرسائل وهمية في الشات.",
         default: true
     }
 });
@@ -85,7 +85,7 @@ function handleReactionEvent(event: FluxReactionEvent): void {
 
 export default definePlugin({
     name: "ScheduledMessages",
-    description: "Schedule messages to be sent at a specific time or after a delay.",
+    description: "جدولة الرسائل لإرسالها في وقت محدد أو بعد تأخير معين.",
     tags: ["Chat", "Utility"],
     dependencies: ["ChatInputButtonAPI", "MessageAccessoriesAPI", "MessageEventsAPI"],
     authors: [EquicordDevs.mmeta, Devs.prism],

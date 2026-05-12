@@ -52,7 +52,7 @@ export const EXTENSIONS_CATALOG: ExtensionDefinition[] = [
         detailCategoryId: SILENT_TYPING_EXTENSION_DETAIL_CATEGORY_ID,
         commandId: "extension-silent-typing-toggle",
         commandLabel: "Toggle SilentTyping",
-        commandDescription: "Run the extension command from this detail page.",
+        commandDescription: "تشغيل أمر الإضافة من هذه الصفحة التفصيلية.",
         sourcePath: "src/plugins/silentTyping",
         tags: [TAG_PLUGINS, TAG_UTILITY],
         keywords: ["extension", "plugin", "silent", "typing", "toggle", "keyboard"]
@@ -60,11 +60,11 @@ export const EXTENSIONS_CATALOG: ExtensionDefinition[] = [
     {
         id: RANDOM_VOICE_EXTENSION_ID,
         label: "RandomVoice",
-        description: "Control the RandomVoice plugin from the command palette.",
+        description: "التحكم في إضافة RandomVoice من لوحة الأوامر.",
         detailCategoryId: RANDOM_VOICE_EXTENSION_DETAIL_CATEGORY_ID,
         commandId: "extension-random-voice-join",
         commandLabel: "Join Random Voice",
-        commandDescription: "Run the extension command from this detail page.",
+        commandDescription: "تشغيل أمر الإضافة من هذه الصفحة التفصيلية.",
         sourcePath: "src/equicordplugins/randomVoice",
         tags: [TAG_PLUGINS, TAG_UTILITY],
         keywords: ["extension", "plugin", "random", "voice", "join", "channel", "vc"]
@@ -72,11 +72,11 @@ export const EXTENSIONS_CATALOG: ExtensionDefinition[] = [
     {
         id: SILENT_MESSAGE_TOGGLE_EXTENSION_ID,
         label: "SilentMessageToggle",
-        description: "Control SilentMessageToggle from the command palette.",
+        description: "التحكم في إضافة SilentMessageToggle من لوحة الأوامر.",
         detailCategoryId: SILENT_MESSAGE_TOGGLE_EXTENSION_DETAIL_CATEGORY_ID,
         commandId: "extension-silent-message-toggle-plugin",
         commandLabel: "Toggle SilentMessageToggle",
-        commandDescription: "Toggle the SilentMessageToggle plugin.",
+        commandDescription: "تبديل حالة إضافة SilentMessageToggle.",
         sourcePath: "src/plugins/silentMessageToggle",
         tags: [TAG_PLUGINS, TAG_UTILITY],
         keywords: ["extension", "plugin", "silent", "message", "toggle", "auto disable"]
@@ -84,11 +84,11 @@ export const EXTENSIONS_CATALOG: ExtensionDefinition[] = [
     {
         id: SCHEDULED_MESSAGES_EXTENSION_ID,
         label: "ScheduledMessages",
-        description: "Control ScheduledMessages from the command palette.",
+        description: "التحكم في إضافة ScheduledMessages من لوحة الأوامر.",
         detailCategoryId: SCHEDULED_MESSAGES_EXTENSION_DETAIL_CATEGORY_ID,
         commandId: "extension-scheduled-messages-open",
         commandLabel: "Open Scheduled Messages",
-        commandDescription: "Open the ScheduledMessages modal.",
+        commandDescription: "فتح نافذة الرسائل المجدولة.",
         sourcePath: "src/equicordplugins/scheduledMessages",
         tags: [TAG_PLUGINS, TAG_UTILITY],
         keywords: ["extension", "plugin", "schedule", "message", "queue", "remind", "delay"]
@@ -96,11 +96,11 @@ export const EXTENSIONS_CATALOG: ExtensionDefinition[] = [
     {
         id: THEME_LIBRARY_EXTENSION_ID,
         label: "ThemeLibrary",
-        description: "Control ThemeLibrary from the command palette.",
+        description: "التحكم في إضافة ThemeLibrary من لوحة الأوامر.",
         detailCategoryId: THEME_LIBRARY_EXTENSION_DETAIL_CATEGORY_ID,
         commandId: "extension-theme-library-open",
         commandLabel: "Open Theme Library",
-        commandDescription: "Open the ThemeLibrary settings page.",
+        commandDescription: "فتح صفحة إعدادات مكتبة القوالب.",
         sourcePath: "src/equicordplugins/themeLibrary",
         tags: [TAG_PLUGINS, TAG_UTILITY],
         keywords: ["extension", "plugin", "theme", "library", "themes", "settings"]

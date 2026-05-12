@@ -26,14 +26,14 @@ export const settings = definePluginSettings({
     },
     packs: {
         type: OptionType.COMPONENT,
-        description: "Packs",
+        description: "حزم الملصقات",
         component: Packs
     }
 });
 
 export default definePlugin({
     name: "MoreStickers",
-    description: "Adds sticker packs from other social media platforms. (e.g. LINE)",
+    description: "يضيف حزم ملصقات من منصات التواصل الاجتماعي الأخرى. (مثل LINE)",
     tags: ["Chat", "Emotes", "Media"],
     authors: [EquicordDevs.Leko, Devs.Arjix],
     settings,

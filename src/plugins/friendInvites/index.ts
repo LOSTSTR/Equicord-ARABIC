@@ -32,7 +32,7 @@ export default definePlugin({
     commands: [
         {
             name: "create friend invite",
-            description: "Generates a friend invite link.",
+            description: "ينشئ رابط دعوة صداقة.",
             inputType: ApplicationCommandInputType.BUILT_IN,
 
             execute: async (args, ctx) => {
@@ -49,7 +49,7 @@ export default definePlugin({
         },
         {
             name: "view friend invites",
-            description: "View a list of all generated friend invites.",
+            description: "عرض قائمة بجميع دعوات الصداقة المنشأة.",
             inputType: ApplicationCommandInputType.BUILT_IN,
             execute: async (_, ctx) => {
                 const invites = await FriendInvites.getAllFriendInvites();
@@ -68,7 +68,7 @@ export default definePlugin({
         },
         {
             name: "revoke friend invites",
-            description: "Revokes all generated friend invites.",
+            description: "إلغاء جميع دعوات الصداقة المنشأة.",
             inputType: ApplicationCommandInputType.BUILT_IN,
             execute: async (_, ctx) => {
                 await FriendInvites.revokeFriendInvites();

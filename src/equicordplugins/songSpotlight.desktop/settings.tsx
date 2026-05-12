@@ -18,7 +18,7 @@ export default definePluginSettings({
     },
     profileSongsLimit: {
         type: OptionType.SLIDER,
-        description: "How many songs are shown when initially clicking on a user",
+        description: "عدد الأغاني التي تظهر عند النقر على ملف المستخدم أول مرة",
         default: apiConstants.songLimit,
         markers: makeRange(1, 3),
     },

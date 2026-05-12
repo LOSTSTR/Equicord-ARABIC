@@ -59,7 +59,7 @@ export const settings = definePluginSettings({
         restartNeeded: true
     },
     showMode: {
-        description: "The mode used to display hidden channels.",
+        description: "الوضع المستخدم لعرض القنوات المخفية.",
         type: OptionType.SELECT,
         options: [
             { label: "Lock Icon replacing channel icon", value: ShowMode.LockIcon, default: true },
@@ -69,7 +69,7 @@ export const settings = definePluginSettings({
         restartNeeded: true
     },
     defaultAllowedUsersAndRolesDropdownState: {
-        description: "Whether the allowed users and roles dropdown on hidden channels should be open by default",
+        description: "ما إذا كانت القائمة المنسدلة للمستخدمين والأدوار المسموح لهم في القنوات المخفية مفتوحة افتراضياً",
         type: OptionType.BOOLEAN,
         default: true
     }

@@ -49,7 +49,7 @@ const settings = definePluginSettings({
     },
     attemptToNavigateToHome: {
         type: OptionType.BOOLEAN,
-        description: "Whether to attempt to navigate to the home when preventing Discord crashes.",
+        description: "محاولة الانتقال إلى الصفحة الرئيسية عند منع أعطال Discord.",
         default: false
     }
 });

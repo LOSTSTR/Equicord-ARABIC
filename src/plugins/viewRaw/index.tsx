@@ -127,7 +127,7 @@ const settings = definePluginSettings({
         ]
     },
     messageContextMenu: {
-        description: "Show in message context menu",
+        description: "إظهار في قائمة سياق الرسالة",
         type: OptionType.BOOLEAN,
         default: false
     }

@@ -72,28 +72,28 @@ export const CATEGORY_WEIGHTS = new Map<string, number>([
 ]);
 
 export const CATEGORY_GROUP_LABELS = new Map<string | undefined, string>([
-    [DEFAULT_CATEGORY_ID, "Core Actions"],
-    [CONTEXT_PROVIDER_ID, "Core Actions"],
-    [SESSION_TOOLS_CATEGORY_ID, "Core Actions"],
-    ["discord-settings", "Discord Settings"],
-    ["updates", "Updates"],
-    [CUSTOM_COMMANDS_CATEGORY_ID, "Custom Commands"],
-    ["plugins", "Plugin Controls"],
-    ["plugins-enable", "Plugin Controls"],
-    ["plugins-disable", "Plugin Controls"],
-    ["plugins-settings", "Plugin Controls"],
-    [MENTIONS_CATEGORY_ID, "Mentions"],
-    [PINNED_CATEGORY_ID, "Core Actions"],
-    [RECENTS_CATEGORY_ID, "Core Actions"],
-    [EXTENSIONS_ROOT_CATEGORY_ID, "Extensions"],
-    [EXTENSIONS_CATALOG_CATEGORY_ID, "Extensions"],
-    [SILENT_TYPING_EXTENSION_DETAIL_CATEGORY_ID, "Extensions"],
-    [RANDOM_VOICE_EXTENSION_DETAIL_CATEGORY_ID, "Extensions"],
-    [HOLY_NOTES_EXTENSION_DETAIL_CATEGORY_ID, "Extensions"],
-    [SILENT_MESSAGE_TOGGLE_EXTENSION_DETAIL_CATEGORY_ID, "Extensions"],
-    [SCHEDULED_MESSAGES_EXTENSION_DETAIL_CATEGORY_ID, "Extensions"],
-    [GUILD_CATEGORY_ID, "Guilds"],
-    [FRIENDS_CATEGORY_ID, "Friends"]
+    [DEFAULT_CATEGORY_ID, "الإجراءات الأساسية"],
+    [CONTEXT_PROVIDER_ID, "الإجراءات الأساسية"],
+    [SESSION_TOOLS_CATEGORY_ID, "الإجراءات الأساسية"],
+    ["discord-settings", "إعدادات ديسكورد"],
+    ["updates", "التحديثات"],
+    [CUSTOM_COMMANDS_CATEGORY_ID, "الأوامر المخصصة"],
+    ["plugins", "التحكم في الإضافات"],
+    ["plugins-enable", "التحكم في الإضافات"],
+    ["plugins-disable", "التحكم في الإضافات"],
+    ["plugins-settings", "التحكم في الإضافات"],
+    [MENTIONS_CATEGORY_ID, "الإشارات"],
+    [PINNED_CATEGORY_ID, "الإجراءات الأساسية"],
+    [RECENTS_CATEGORY_ID, "الإجراءات الأساسية"],
+    [EXTENSIONS_ROOT_CATEGORY_ID, "الإضافات"],
+    [EXTENSIONS_CATALOG_CATEGORY_ID, "الإضافات"],
+    [SILENT_TYPING_EXTENSION_DETAIL_CATEGORY_ID, "الإضافات"],
+    [RANDOM_VOICE_EXTENSION_DETAIL_CATEGORY_ID, "الإضافات"],
+    [HOLY_NOTES_EXTENSION_DETAIL_CATEGORY_ID, "الإضافات"],
+    [SILENT_MESSAGE_TOGGLE_EXTENSION_DETAIL_CATEGORY_ID, "الإضافات"],
+    [SCHEDULED_MESSAGES_EXTENSION_DETAIL_CATEGORY_ID, "الإضافات"],
+    [GUILD_CATEGORY_ID, "السيرفرات"],
+    [FRIENDS_CATEGORY_ID, "الأصدقاء"]
 ]);
 
 export const DEFAULT_CATEGORY_WEIGHT = 50;
@@ -132,12 +132,12 @@ export const BUILT_IN_CATEGORIES: CommandCategory[] = [
     {
         id: "plugins",
         label: "Plugins",
-        description: "Manage Equicord and Vencord plugins"
+        description: "إدارة إضافات Equicord و Vencord"
     },
     {
         id: CONTEXT_PROVIDER_ID,
         label: "Current Context",
-        description: "Actions for the selected channel and guild"
+        description: "إجراءات للقناة والسيرفر المحددَين"
     },
     {
         id: "plugins-enable",
@@ -157,52 +157,52 @@ export const BUILT_IN_CATEGORIES: CommandCategory[] = [
     {
         id: "updates",
         label: "Updates",
-        description: "Stay up to date with Equicord"
+        description: "ابقَ محدّثاً مع Equicord"
     },
     {
         id: "discord-settings",
         label: "Discord Settings",
-        description: "Jump to Discord configuration pages"
+        description: "الانتقال إلى صفحات إعدادات ديسكورد"
     },
     {
         id: CUSTOM_COMMANDS_CATEGORY_ID,
         label: "Custom Commands",
-        description: "User-defined command palette entries"
+        description: "إدخالات لوحة الأوامر المعرّفة من المستخدم"
     },
     {
         id: SESSION_TOOLS_CATEGORY_ID,
         label: "Session Tools",
-        description: "Utilities for managing your Discord session"
+        description: "أدوات لإدارة جلسة ديسكورد"
     },
     {
         id: GUILD_CATEGORY_ID,
         label: "Guilds",
-        description: "Quickly navigate to your guilds"
+        description: "الانتقال السريع إلى سيرفراتك"
     },
     {
         id: FRIENDS_CATEGORY_ID,
         label: "Friends",
-        description: "Quickly DM your friends"
+        description: "إرسال رسائل مباشرة سريعة لأصدقائك"
     },
     {
         id: PINNED_CATEGORY_ID,
         label: "Pinned Commands",
-        description: "Commands you pinned for quick access"
+        description: "الأوامر التي ثبّتها للوصول السريع"
     },
     {
         id: MENTIONS_CATEGORY_ID,
         label: "Mentions",
-        description: "Your recent mentions and inbox items"
+        description: "الإشارات الأخيرة ورسائل البريد الوارد"
     },
     {
         id: RECENTS_CATEGORY_ID,
         label: "Recent Commands",
-        description: "Recently executed commands"
+        description: "الأوامر المنفّذة مؤخراً"
     },
     {
         id: EXTENSIONS_ROOT_CATEGORY_ID,
         label: "Extensions",
-        description: "Install extension command packs."
+        description: "تثبيت حزم أوامر الإضافات."
     },
     {
         id: EXTENSIONS_CATALOG_CATEGORY_ID,

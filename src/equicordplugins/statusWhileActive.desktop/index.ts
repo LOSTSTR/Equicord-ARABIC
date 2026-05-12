@@ -55,7 +55,7 @@ function setStatus(preq, status) {
 
 export default definePlugin({
     name: "StatusWhileActive",
-    description: "Automatically updates your online status when in a voice channel.",
+    description: "يحدّث حالتك الإلكترونية تلقائياً عند الانضمام لقناة صوتية.",
     tags: ["Activity", "Customisation", "Voice"],
     authors: [EquicordDevs.smuki],
     settings,

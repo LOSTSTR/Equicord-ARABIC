@@ -32,13 +32,13 @@ const settings = definePluginSettings({
     },
     roleList: {
         description:
-            "List of role ids to allow or exempt pings for (separated by commas or spaces)",
+            "قائمة معرّفات الرتب المسموح لها أو المستثناة من الإشارات (مفصولة بفواصل أو مسافات)",
         type: OptionType.STRING,
         default: "1234567890123445,1234567890123445",
         multiline: true
     },
     shouldPingListed: {
-        description: "Behaviour",
+        description: "السلوك",
         type: OptionType.SELECT,
         options: [
             {
@@ -53,7 +53,7 @@ const settings = definePluginSettings({
         ],
     },
     inverseShiftReply: {
-        description: "Invert Discord's shift replying behaviour (enable to make shift reply mention user)",
+        description: "عكس سلوك الرد مع Shift في Discord (فعّله لجعل الرد بـ Shift يُشير إلى المستخدم)",
         type: OptionType.BOOLEAN,
         default: false,
     }

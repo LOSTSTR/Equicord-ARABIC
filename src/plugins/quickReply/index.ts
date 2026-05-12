@@ -51,7 +51,7 @@ const settings = definePluginSettings({
     },
     ignoreBlockedAndIgnored: {
         type: OptionType.BOOLEAN,
-        description: "Ignore messages by blocked/ignored users when navigating",
+        description: "تجاهل رسائل المستخدمين المحجوبين/المتجاهلين عند التنقل",
         default: true
     }
 });

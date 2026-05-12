@@ -31,12 +31,12 @@ const settings = definePluginSettings({
     },
     showMs: {
         type: OptionType.BOOLEAN,
-        description: "Show milliseconds in timing",
+        description: "عرض الميلي ثانية في التوقيت",
         default: true,
     },
     iconColor: {
         type: OptionType.STRING,
-        description: "Icon color (CSS color value)",
+        description: "لون الأيقونة (قيمة CSS للون)",
         default: "#00d166",
     }
 });
@@ -146,7 +146,7 @@ function handleMessageLoad(data: any) {
 
 export default definePlugin({
     name: "MessageFetchTimer",
-    description: "Shows how long it took to fetch messages for the current channel",
+    description: "يُظهر المدة التي استغرقها تحميل الرسائل في القناة الحالية",
     dependencies: ["ChatInputButtonAPI"],
     tags: ["Chat", "Utility"],
     authors: [EquicordDevs.GroupXyz],

@@ -82,63 +82,63 @@ const settings = definePluginSettings({
         restartNeeded: true
     },
     emojiSize: {
-        description: "Size of the emojis when sending",
+        description: "حجم الإيموجي عند الإرسال",
         type: OptionType.SLIDER,
         default: 48,
         markers: [32, 48, 56, 64, 96, 128, 160, 256, 512]
     },
     transformEmojis: {
-        description: "Whether to transform fake emojis into real ones",
+        description: "تحويل الإيموجي الوهمية إلى حقيقية",
         type: OptionType.BOOLEAN,
         default: true,
         restartNeeded: true
     },
     enableStickerBypass: {
-        description: "Allows sending fake stickers (also bypasses missing permission to use stickers)",
+        description: "يتيح إرسال ملصقات وهمية (يتخطى أيضاً قيود الصلاحيات لاستخدام الملصقات)",
         type: OptionType.BOOLEAN,
         default: true,
         restartNeeded: true
     },
     stickerSize: {
-        description: "Size of the stickers when sending",
+        description: "حجم الملصقات عند الإرسال",
         type: OptionType.SLIDER,
         default: 160,
         markers: [32, 64, 128, 160, 256, 512]
     },
     transformStickers: {
-        description: "Whether to transform fake stickers into real ones",
+        description: "تحويل الملصقات الوهمية إلى حقيقية",
         type: OptionType.BOOLEAN,
         default: true,
         restartNeeded: true
     },
     transformCompoundSentence: {
-        description: "Whether to transform fake stickers and emojis in compound sentences (sentences with more content than just the fake emoji or sticker link)",
+        description: "تحويل الملصقات والإيموجي الوهمية في الجمل المركبة (الجمل التي تحتوي على محتوى أكثر من مجرد رابط الإيموجي أو الملصق الوهمي)",
         type: OptionType.BOOLEAN,
         default: false
     },
     enableStreamQualityBypass: {
-        description: "Allow streaming in nitro quality",
+        description: "السماح بالبث بجودة نيترو",
         type: OptionType.BOOLEAN,
         default: true,
         restartNeeded: true
     },
     useStickerHyperLinks: {
-        description: "Whether to use hyperlinks when sending fake stickers",
+        description: "استخدام روابط تشعبية عند إرسال الملصقات الوهمية",
         type: OptionType.BOOLEAN,
         default: true
     },
     useEmojiHyperLinks: {
-        description: "Whether to use hyperlinks when sending fake emojis",
+        description: "استخدام روابط تشعبية عند إرسال الإيموجي الوهمية",
         type: OptionType.BOOLEAN,
         default: true
     },
     hyperLinkText: {
-        description: "What text the hyperlink should use. {{NAME}} will be replaced with the emoji/sticker name.",
+        description: "النص الذي يجب أن يستخدمه الرابط التشعبي. سيتم استبدال {{NAME}} باسم الإيموجي/الملصق.",
         type: OptionType.STRING,
         default: "{{NAME}}"
     },
     disableEmbedPermissionCheck: {
-        description: "Whether to disable the embed permission check when sending fake emojis and stickers",
+        description: "تعطيل فحص صلاحية التضمين عند إرسال الإيموجي والملصقات الوهمية",
         type: OptionType.BOOLEAN,
         default: false
     },

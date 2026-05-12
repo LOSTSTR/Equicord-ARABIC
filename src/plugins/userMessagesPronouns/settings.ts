@@ -42,7 +42,7 @@ export const settings = definePluginSettings({
     },
     showSelf: {
         type: OptionType.BOOLEAN,
-        description: "Enable or disable showing pronouns for yourself",
+        description: "تفعيل أو تعطيل عرض الضمائر الخاصة بك",
         default: true
     }
 });

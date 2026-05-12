@@ -30,7 +30,7 @@ const settings = definePluginSettings({
     },
     copyRoleColorInProfilePopout: {
         type: OptionType.BOOLEAN,
-        description: "Allow click on role dot in profile popout to copy role color",
+        description: "السماح بالنقر على نقطة الرتبة في بطاقة الملف الشخصي لنسخ لون الرتبة",
         restartNeeded: true,
         default: false
     }

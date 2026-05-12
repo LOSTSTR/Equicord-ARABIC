@@ -21,7 +21,7 @@ const settings = definePluginSettings({
     },
     customIndicators: {
         type: OptionType.STRING,
-        description: "Custom tone indicators (format: jk=Joking; srs=Serious)",
+        description: "مؤشرات نبرة مخصصة (التنسيق: jk=Joking; srs=Serious)",
         default: "",
     },
 });
@@ -162,7 +162,7 @@ function patchChildrenTree(children: any): any {
 
 export default definePlugin({
     name: "ToneIndicators",
-    description: "Show tooltips for tone indicators like /srs, /gen, etc. in sent messages.",
+    description: "تعرض تلميحات لمؤشرات النبرة مثل /srs و/gen وغيرها في الرسائل المرسلة.",
     tags: ["Chat", "Utility"],
     authors: [EquicordDevs.justjxke],
     settings,

@@ -267,7 +267,7 @@ export const settings = definePluginSettings({
     },
     echoCancellation: {
         type: OptionType.BOOLEAN,
-        description: "Echo Cancellation",
+        description: "إلغاء الصدى",
         default: true,
     },
 });

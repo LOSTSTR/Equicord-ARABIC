@@ -23,7 +23,7 @@ const settings = definePluginSettings({
         default: false,
     },
     notificationCountLimit: {
-        description: "Show +99 instead of true amount",
+        description: "عرض +99 بدلاً من العدد الحقيقي",
         type: OptionType.BOOLEAN,
         default: false,
     },
@@ -32,7 +32,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "UnreadCountBadge",
     authors: [Devs.Joona],
-    description: "Shows unread message count badges on channels in the channel list",
+    description: "يعرض شارات عدد الرسائل غير المقروءة على القنوات في قائمة القنوات",
     tags: ["Appearance", "Customisation", "Servers"],
     settings,
 

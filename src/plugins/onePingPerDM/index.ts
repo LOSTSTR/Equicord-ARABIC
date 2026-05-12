@@ -23,23 +23,23 @@ const settings = definePluginSettings({
     },
     allowMentions: {
         type: OptionType.BOOLEAN,
-        description: "Receive audio pings for @mentions",
+        description: "تلقّي إشعارات صوتية عند @الإشارة",
         default: false,
     },
     allowEveryone: {
         type: OptionType.BOOLEAN,
-        description: "Receive audio pings for @everyone and @here in group DMs",
+        description: "تلقّي إشعارات صوتية عند @everyone و @here في المجموعات",
         default: false,
     },
     ignoreUsers: {
         type: OptionType.STRING,
-        description: "User IDs (comma + space) whose pings should NEVER be throttled",
+        description: "معرّفات المستخدمين (مفصولة بفاصلة ومسافة) الذين يجب ألا تُحدَّ إشعاراتهم أبداً",
         restartNeeded: true,
         default: ""
     },
     alwaysPlaySound: {
         type: OptionType.BOOLEAN,
-        description: "Play the message notification sound even when its disabled",
+        description: "تشغيل صوت إشعار الرسائل حتى عند تعطيله",
         restartNeeded: true,
         default: false
     }

@@ -52,7 +52,7 @@ const settings = definePluginSettings({
     },
     iconSpacing: {
         type: OptionType.SELECT,
-        description: "Icon margin",
+        description: "هامش الأيقونة",
         default: Spacing.COZY,
         options: [
             { label: "Compact", value: Spacing.COMPACT },

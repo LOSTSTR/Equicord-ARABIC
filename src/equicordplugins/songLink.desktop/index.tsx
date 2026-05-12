@@ -27,12 +27,12 @@ export const settings = definePluginSettings({
     },
     userCountry: {
         type: OptionType.STRING,
-        description: "Country used for lookup (Two letter country code)",
+        description: "الدولة المستخدمة للبحث (رمز دولة مؤلف من حرفين)",
         default: "US"
     },
     includeMetadata: {
         type: OptionType.BOOLEAN,
-        description: "Include the track title and artist name as a header.",
+        description: "تضمين عنوان المقطوعة واسم الفنان كعنوان رئيسي.",
         default: true,
     },
     servicesComponent: {
@@ -123,7 +123,7 @@ function SongLinkerList({ urls }: { urls: string[]; }) {
 
 export default definePlugin({
     name: "SongLink",
-    description: "Adds streaming service buttons below song links",
+    description: "يضيف أزرار خدمات البث أسفل روابط الأغاني",
     dependencies: ["MessageAccessoriesAPI"],
     tags: ["Media", "Utility"],
     authors: [Devs.nin0dev, EquicordDevs.NassCT],
@@ -155,12 +155,12 @@ export default definePlugin({
     commands: [
         {
             name: "musiclink",
-            description: "Convert a music link to other streaming platforms.",
+            description: "تحويل رابط موسيقى إلى منصات بث أخرى.",
             inputType: ApplicationCommandInputType.BUILT_IN,
             options: [
                 {
                     name: "url",
-                    description: "Music link (Spotify, Deezer, YouTube, Tidal, Apple Music, SoundCloud)",
+                    description: "رابط موسيقى (Spotify, Deezer, YouTube, Tidal, Apple Music, SoundCloud)",
                     type: ApplicationCommandOptionType.STRING,
                     required: true,
                 },

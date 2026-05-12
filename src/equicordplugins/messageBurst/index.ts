@@ -53,19 +53,19 @@ const settings = definePluginSettings({
     },
     shouldMergeWithAttachment: {
         type: OptionType.BOOLEAN,
-        description: "Should the message be merged if the last message has an attachment?",
+        description: "هل يجب دمج الرسالة إذا كانت الرسالة الأخيرة تحتوي على مرفق؟",
         default: false
     },
     useSpace: {
         type: OptionType.BOOLEAN,
-        description: "Whether to add a space between messages when merging instead of new lines.",
+        description: "إضافة مسافة بين الرسائل عند الدمج بدلاً من أسطر جديدة.",
         default: false
     }
 });
 
 export default definePlugin({
     name: "MessageBurst",
-    description: "Merges messages sent within a time period with your previous sent message if no one else sends a message before you.",
+    description: "يدمج الرسائل المرسلة خلال فترة زمنية مع رسالتك السابقة إذا لم يرسل أحد آخر رسالة قبلك.",
     dependencies: ["MessagePopoverAPI"],
     tags: ["Chat"],
     authors: [EquicordDevs.port22exposed],

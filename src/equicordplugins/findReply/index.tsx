@@ -74,13 +74,13 @@ const settings = definePluginSettings({
     },
     includeAuthor: {
         type: OptionType.BOOLEAN,
-        description: "Will also search for messages that reply to the author in general, not just that exact message",
+        description: "يبحث أيضاً في الرسائل التي ترد على الكاتب بشكل عام، لا على تلك الرسالة بالتحديد",
         default: false,
         restartNeeded: false
     },
     hideButtonIfNoReply: {
         type: OptionType.BOOLEAN,
-        description: "Hides the button if there are no replies to the message",
+        description: "إخفاء الزر إذا لم تكن هناك ردود على الرسالة",
         default: true,
         restartNeeded: true
     }
@@ -88,7 +88,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "FindReply",
-    description: "Jumps to the earliest reply to a message in a channel (lets you follow past conversations more easily).",
+    description: "ينتقل إلى أقدم رد على رسالة في قناة (يتيح لك متابعة المحادثات القديمة بسهولة).",
     dependencies: ["MessagePopoverAPI"],
     tags: ["Chat", "Shortcuts"],
     authors: [Devs.newwares],

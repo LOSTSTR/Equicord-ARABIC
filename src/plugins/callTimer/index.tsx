@@ -34,37 +34,37 @@ export const settings = definePluginSettings({
     },
     allCallTimers: {
         type: OptionType.BOOLEAN,
-        description: "Add call timer to all users in a server voice channel",
+        description: "إضافة مؤقت المكالمة لجميع المستخدمين في قناة صوت بالسيرفر",
         restartNeeded: true,
         default: false
     },
     showWithoutHover: {
         type: OptionType.BOOLEAN,
-        description: "Always show the timer without needing to hover",
+        description: "إظهار المؤقت دائماً دون الحاجة للمرور بالمؤشر فوقه",
         restartNeeded: true,
         default: false
     },
     showRoleColor: {
         type: OptionType.BOOLEAN,
-        description: "Show the user's role color (if this plugin in enabled)",
+        description: "إظهار لون رتبة المستخدم (إذا كانت هذه الإضافة مفعلة)",
         restartNeeded: false,
         default: false
     },
     trackSelf: {
         type: OptionType.BOOLEAN,
-        description: "Also track yourself",
+        description: "تتبع وقت انضمامك أنت أيضاً",
         restartNeeded: false,
         default: false
     },
     showSeconds: {
         type: OptionType.BOOLEAN,
-        description: "Show seconds in the timer",
+        description: "إظهار الثواني في المؤقت",
         restartNeeded: false,
         default: false
     },
     watchLargeGuilds: {
         type: OptionType.BOOLEAN,
-        description: "Track users in large guilds. This may cause lag if you're in a lot of large guilds with active voice users. Tested with up to 2000 active voice users with no issues.",
+        description: "تتبع المستخدمين في السيرفرات الكبيرة. قد يسبب بطئاً إذا كنت في سيرفرات كبيرة كثيرة بمستخدمي صوت نشطين. تم اختباره مع ما يصل إلى 2000 مستخدم صوت نشط دون مشاكل.",
         restartNeeded: true,
         default: false
     }
