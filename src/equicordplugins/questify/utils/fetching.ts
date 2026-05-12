@@ -103,18 +103,18 @@ function getQuestNotificationText(quests: Quest[], excluded: boolean): { title: 
 
     if (quests.length === 1) {
         return {
-            title: excluded ? "New Excluded Quest Detected!" : "New Quest Detected!",
+            title: excluded ? "تم اكتشاف مهمة مستبعدة جديدة!" : "تم اكتشاف مهمة جديدة!",
             body: excluded
-                ? `The excluded ${firstQuestName} Quest was detected. ID: ${firstQuest.id}`
-                : `The ${firstQuestName} Quest is now available.`
+                ? `تم اكتشاف المهمة المستبعدة ${firstQuestName}. المعرّف: ${firstQuest.id}`
+                : `مهمة ${firstQuestName} متاحة الآن.`
         };
     }
 
     return {
-        title: excluded ? "New Excluded Quests Detected!" : "New Quests Detected!",
+        title: excluded ? "تم اكتشاف مهام مستبعدة جديدة!" : "تم اكتشاف مهام جديدة!",
         body: excluded
-            ? `${quests.length} new excluded Quests were detected. Check the console for their Quest IDs.`
-            : `${quests.length} new Quests are now available.`
+            ? `تم اكتشاف ${quests.length} مهمة مستبعدة جديدة. راجع وحدة التحكم لمعرفة معرّفاتها.`
+            : `${quests.length} مهمة جديدة متاحة الآن.`
     };
 }
 

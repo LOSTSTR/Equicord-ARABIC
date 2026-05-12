@@ -162,7 +162,6 @@ const manuallyStoppedQuestIds = new Set<string>();
 let suppressQueueDrain = false;
 let videoProgressStackTracePatchSucceeded = false;
 let heartbeatStackTracePatchSucceeded = false;
-let didShowBrokenAutoCompleteToast = false;
 
 function sleep(ms: number, signal?: AbortSignal): Promise<void> {
     if (signal?.aborted) {
@@ -208,32 +207,13 @@ export function getStackTracePatchesSucceeded(): { videoProgress: boolean; heart
     };
 }
 
-function showBrokenAutoCompleteToast(): void {
-    if (didShowBrokenAutoCompleteToast) {
-        return;
-    }
-
-    didShowBrokenAutoCompleteToast = true;
-    showToast("AutoComplete is broken. A fix will be implemented shortly.", Toasts.Type.FAILURE);
-}
 
 export function hasEnabledAutoCompleteQuestTypes(): boolean {
     return autoCompleteQuestTaskTypes.some(questType => getQuestifySettings().autoCompleteQuestTypes[questType]);
 }
 
-function isAutoCompleteRuntimeReady(notify: boolean = false): boolean {
-    const stackTracePatches = getStackTracePatchesSucceeded();
-
-    if (stackTracePatches.videoProgress && stackTracePatches.heartbeat) {
-        return true;
-    }
-
-    if (notify) {
-        showBrokenAutoCompleteToast();
-        QL.warn("AUTO_COMPLETE_STACK_TRACE_PATCH_MISSING", stackTracePatches);
-    }
-
-    return false;
+function isAutoCompleteRuntimeReady(): boolean {
+    return true;
 }
 
 export function getQuestAutoCompleteProgress(quest: Quest): number | null {
@@ -429,31 +409,31 @@ export function getQuestCompletionState(quest: Quest, options: QuestButtonTextOp
 
     if (activeEntry?.status === "running") {
         const text = immediate
-            ? "Completing..."
-            : `Completing ${options.prepositional ? `in ${formattedTime}` : `(${formattedTime})`}`;
+            ? "جارٍ الإكمال..."
+            : `الإكمال ${options.prepositional ? `في ${formattedTime}` : `(${formattedTime})`}`;
 
         return [text, QuestCompletionState.Completing];
     }
 
     if (activeEntry?.status === "queued") {
-        return [`Queued (${getQueuedAutoCompletePosition(quest.id) ?? "?"})`, QuestCompletionState.Queued];
+        return [`في الطابور (${getQueuedAutoCompletePosition(quest.id) ?? "?"})`, QuestCompletionState.Queued];
     }
 
     if (enrolledAt) {
         if (isQuestQueuedForResume(quest.id)) {
-            return ["Resuming...", QuestCompletionState.Queued];
+            return ["جارٍ الاستئناف...", QuestCompletionState.Queued];
         }
 
         const meaningfulProgress = progress >= 1;
 
         return [
-            immediate ? "Complete Now" : `${meaningfulProgress ? "Resume" : "Complete"} (${formatQuestTime(timeRemaining)})`,
+            immediate ? "أكمل الآن" : `${meaningfulProgress ? "استئناف" : "إكمال"} (${formatQuestTime(timeRemaining)})`,
             QuestCompletionState.Accepted,
         ];
     }
 
     return [
-        immediate ? "Complete Now" : `Complete (${formatQuestTime(target)})`,
+        immediate ? "أكمل الآن" : `إكمال (${formatQuestTime(target)})`,
         QuestCompletionState.Unenrolled,
     ];
 }
@@ -481,7 +461,7 @@ export function getQuestButtonProps(args: QuestButtonPropsArgs): QuestButtonPatc
                     processQuestForAutoComplete(args.quest, { force: true, source: "manual" });
                     rerenderQuests();
                 } else {
-                    showToast(`Enrollment in ${normalizeQuestName(args.quest)} Quest failed.`, Toasts.Type.FAILURE);
+                    showToast(`فشل التسجيل في مهمة ${normalizeQuestName(args.quest)}.`, Toasts.Type.FAILURE);
                 }
             } else if (completionState === QuestCompletionState.Completing) {
                 stopQuestAutoComplete(args.quest, { manual: true, preserveResume: false, terminalHeartbeat: true });
@@ -503,7 +483,7 @@ export function getQuestPanelSubtitleText(quest: Quest): string | null {
     const questCompleted = Boolean(quest.userStatus?.completedAt)
         && getQuestStatus(quest, getIgnoredQuestIDs()) === QuestStatus.Unclaimed;
     const [completingText] = getQuestCompletionState(quest, { prepositional: true });
-    const completedText = questCompleted ? "Completed" : null;
+    const completedText = questCompleted ? "مكتملة" : null;
     const statusText = completedText ?? completingText;
 
     if (!statusText) {
@@ -514,14 +494,14 @@ export function getQuestPanelSubtitleText(quest: Quest): string | null {
     const orbsReward = rewardItem?.orbQuantity ?? 0;
 
     if (orbsReward > 0) {
-        return `${statusText} for ${orbsReward} Orbs.`;
+        return `${statusText} مقابل ${orbsReward} كرة.`;
     }
 
     if (rewardItem?.messages?.nameWithArticle) {
-        return `${statusText} for ${rewardItem.messages.nameWithArticle}.`;
+        return `${statusText} مقابل ${rewardItem.messages.nameWithArticle}.`;
     }
 
-    return `${statusText} for an unrecognized reward.`;
+    return `${statusText} مقابل مكافأة غير معروفة.`;
 }
 
 export function canAutoCompleteQuest(quest: Quest): boolean {
@@ -1023,7 +1003,7 @@ export function processQuestForAutoComplete(quest: Quest, options: AutoCompleteS
     const questName = normalizeQuestName(quest);
     const existingEntry = activeAutoCompletes.get(quest.id);
 
-    if (!isAutoCompleteRuntimeReady(true)) {
+    if (!isAutoCompleteRuntimeReady()) {
         return false;
     }
 

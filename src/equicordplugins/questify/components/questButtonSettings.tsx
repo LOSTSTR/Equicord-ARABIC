@@ -22,44 +22,44 @@ interface QuestButtonIncludedTypeOption {
 }
 
 const questButtonDisplayOptions = [
-    { label: "Always", value: "always" },
-    { label: "Unclaimed", value: "unclaimed" },
-    { label: "Never", value: "never" },
+    { label: "دائماً", value: "always" },
+    { label: "غير مطالَب", value: "unclaimed" },
+    { label: "أبداً", value: "never" },
 ] as const satisfies readonly { label: string; value: QuestButtonDisplayMode; }[];
 
 const questButtonIndicatorOptions = [
-    { label: "Pill", value: "pill" },
-    { label: "Badge", value: "badge" },
-    { label: "Both", value: "both" },
-    { label: "None", value: "none" },
+    { label: "شريط", value: "pill" },
+    { label: "شارة", value: "badge" },
+    { label: "كلاهما", value: "both" },
+    { label: "لا شيء", value: "none" },
 ] as const satisfies readonly { label: string; value: QuestButtonIndicatorMode; }[];
 
 const questButtonClickOptions = [
-    { label: "Open Quests", value: "open-quests" },
-    { label: "Context Menu", value: "context-menu" },
-    { label: "Plugin Settings", value: "plugin-settings" },
-    { label: "Nothing", value: "nothing" },
+    { label: "فتح المهام", value: "open-quests" },
+    { label: "قائمة السياق", value: "context-menu" },
+    { label: "إعدادات الإضافة", value: "plugin-settings" },
+    { label: "لا شيء", value: "nothing" },
 ] as const satisfies readonly { label: string; value: QuestButtonAction; }[];
 
 const questButtonRewardTypeOptions = [
-    { label: "Orbs", value: QuestRewardType.VIRTUAL_CURRENCY },
-    { label: "Nitro Codes", value: QuestRewardType.FRACTIONAL_PREMIUM },
-    { label: "Reward Codes", value: QuestRewardType.REWARD_CODE },
-    { label: "In Game Items", value: QuestRewardType.IN_GAME },
-    { label: "Profile Collectibles", value: QuestRewardType.COLLECTIBLE },
+    { label: "كرات", value: QuestRewardType.VIRTUAL_CURRENCY },
+    { label: "أكواد Nitro", value: QuestRewardType.FRACTIONAL_PREMIUM },
+    { label: "أكواد المكافآت", value: QuestRewardType.REWARD_CODE },
+    { label: "عناصر داخل اللعبة", value: QuestRewardType.IN_GAME },
+    { label: "مقتنيات الملف الشخصي", value: QuestRewardType.COLLECTIBLE },
 ] as const satisfies readonly QuestButtonIncludedTypeOption[];
 
 const questButtonQuestTypeOptions = [
-    { label: "Watch Video", value: QuestTaskType.WATCH_VIDEO },
-    { label: "Watch Video on Mobile", value: QuestTaskType.WATCH_VIDEO_ON_MOBILE },
-    { label: "Achievement in Activity", value: QuestTaskType.ACHIEVEMENT_IN_ACTIVITY },
-    { label: "Achievement in Game", value: QuestTaskType.ACHIEVEMENT_IN_GAME },
-    { label: "Play Activity", value: QuestTaskType.PLAY_ACTIVITY },
-    { label: "Play on Desktop", value: QuestTaskType.PLAY_ON_DESKTOP },
-    { label: "Play on Desktop V2", value: QuestTaskType.PLAY_ON_DESKTOP_V2 },
-    { label: "Stream on Desktop", value: QuestTaskType.STREAM_ON_DESKTOP },
-    { label: "Play on PlayStation", value: QuestTaskType.PLAY_ON_PLAYSTATION },
-    { label: "Play on Xbox", value: QuestTaskType.PLAY_ON_XBOX },
+    { label: "مشاهدة فيديو", value: QuestTaskType.WATCH_VIDEO },
+    { label: "مشاهدة فيديو على الجوال", value: QuestTaskType.WATCH_VIDEO_ON_MOBILE },
+    { label: "إنجاز في نشاط", value: QuestTaskType.ACHIEVEMENT_IN_ACTIVITY },
+    { label: "إنجاز في لعبة", value: QuestTaskType.ACHIEVEMENT_IN_GAME },
+    { label: "تشغيل نشاط", value: QuestTaskType.PLAY_ACTIVITY },
+    { label: "اللعب على سطح المكتب", value: QuestTaskType.PLAY_ON_DESKTOP },
+    { label: "اللعب على سطح المكتب V2", value: QuestTaskType.PLAY_ON_DESKTOP_V2 },
+    { label: "البث على سطح المكتب", value: QuestTaskType.STREAM_ON_DESKTOP },
+    { label: "اللعب على PlayStation", value: QuestTaskType.PLAY_ON_PLAYSTATION },
+    { label: "اللعب على Xbox", value: QuestTaskType.PLAY_ON_XBOX },
 ] as const satisfies readonly QuestButtonIncludedTypeOption[];
 
 function toManaOptions<T extends string | number>(options: readonly { label: string; value: T; }[]): ManaSelectOption[] {
@@ -140,8 +140,8 @@ export function QuestButtonSetting(): JSX.Element {
         <SettingsCard>
             <SettingsRow>
                 <SettingsRowItem>
-                    <SettingsHeader> Quest Button </SettingsHeader>
-                    <SettingsDescription> Show a Quest Button in the server list with an optional indicator for unclaimed and unignored Quests. </SettingsDescription>
+                    <SettingsHeader> زر المهام </SettingsHeader>
+                    <SettingsDescription> إظهار زر المهام في قائمة الخوادم مع مؤشر اختياري للمهام غير المطالَب بها. </SettingsDescription>
                 </SettingsRowItem>
                 {enabledOnStartup && <SettingsRowItem width="content">
                     <DummyQuestButton
@@ -155,11 +155,11 @@ export function QuestButtonSetting(): JSX.Element {
                     />
                 </SettingsRowItem>}
             </SettingsRow>
-            <SettingsSubheader className="no-top-margin"> Button Behavior </SettingsSubheader>
+            <SettingsSubheader className="no-top-margin"> سلوك الزر </SettingsSubheader>
             <SettingsRow>
                 <SettingsRowItem>
                     <SettingsSelect
-                        label="Left Click Action:"
+                        label="إجراء النقر الأيسر:"
                         options={questButtonClickManaOptions}
                         value={questButton.questButtonLeftClickAction}
                         selectionMode="single"
@@ -170,7 +170,7 @@ export function QuestButtonSetting(): JSX.Element {
                 </SettingsRowItem>
                 <SettingsRowItem>
                     <SettingsSelect
-                        label="Middle Click Action:"
+                        label="إجراء النقر الأوسط:"
                         options={questButtonClickManaOptions}
                         value={questButton.questButtonMiddleClickAction}
                         selectionMode="single"
@@ -181,7 +181,7 @@ export function QuestButtonSetting(): JSX.Element {
                 </SettingsRowItem>
                 <SettingsRowItem>
                     <SettingsSelect
-                        label="Right Click Action:"
+                        label="إجراء النقر الأيمن:"
                         options={questButtonClickManaOptions}
                         value={questButton.questButtonRightClickAction}
                         selectionMode="single"
@@ -194,7 +194,7 @@ export function QuestButtonSetting(): JSX.Element {
             <SettingsRow>
                 <SettingsRowItem>
                     <SettingsSelect
-                        label="Button Visibility:"
+                        label="ظهور الزر:"
                         options={questButtonDisplayManaOptions}
                         value={questButton.questButtonDisplay}
                         selectionMode="single"
@@ -203,15 +203,15 @@ export function QuestButtonSetting(): JSX.Element {
                         onSelectionChange={updateQuestButtonDisplay}
                         tooltip={{
                             position: "top",
-                            text: "Always shows the Quest Button whenever this feature is enabled."
-                                + "\n\nUnclaimed only shows it while you have relevant unclaimed Quest rewards."
-                                + "\n\nNever hides the Quest Button."
+                            text: "دائماً يُظهر زر المهام متى كانت هذه الميزة مُفعَّلة."
+                                + "\n\nغير مطالَب يُظهره فقط عند وجود مكافآت مهام غير مطالَب بها."
+                                + "\n\nأبداً يُخفي زر المهام."
                         }}
                     />
                 </SettingsRowItem>
                 <SettingsRowItem>
                     <SettingsSelect
-                        label="Unclaimed Indicator:"
+                        label="مؤشر غير المطالَب:"
                         options={questButtonIndicatorManaOptions}
                         value={questButton.questButtonIndicator}
                         selectionMode="single"
@@ -220,16 +220,16 @@ export function QuestButtonSetting(): JSX.Element {
                         onSelectionChange={updateQuestButtonIndicator}
                         tooltip={{
                             position: "top",
-                            text: "Pill shows Discord's unread-style marker beside the Quest Button."
-                                + "\n\nBadge shows the number of relevant unclaimed Quest rewards."
-                                + "\n\nBoth shows the pill and badge together."
-                                + "\n\nNone hides unclaimed indicators."
+                            text: "الشريط يُظهر علامة Discord لغير المقروء بجانب زر المهام."
+                                + "\n\nالشارة تُظهر عدد مكافآت المهام غير المطالَب بها."
+                                + "\n\nكلاهما يُظهر الشريط والشارة معاً."
+                                + "\n\nلا شيء يُخفي المؤشرات."
                         }}
                     />
                 </SettingsRowItem>
                 <SettingsRowItem>
                     <SettingsColorPicker
-                        label="Badge Color:"
+                        label="لون الشارة:"
                         className="quest-button-color-picker"
                         color={questButton.questButtonBadgeColor}
                         disabled={disabled}
@@ -238,9 +238,9 @@ export function QuestButtonSetting(): JSX.Element {
                     />
                 </SettingsRowItem>
             </SettingsRow>
-            <SettingsSubheader> Quest Relevancy </SettingsSubheader>
+            <SettingsSubheader> صلة المهام </SettingsSubheader>
             <SettingsSelect
-                label="Included Reward Types:"
+                label="أنواع المكافآت المُضمَّنة:"
                 wrapTags={true}
                 options={questButtonRewardTypeManaOptions}
                 value={selectedRewardTypes}
@@ -252,11 +252,11 @@ export function QuestButtonSetting(): JSX.Element {
                 onSelectionChange={value => updateIncludedTypes(questButtonRewardTypeOptions, value)}
                 tooltip={{
                     position: "top",
-                    text: "Only count Quests with these reward types as unclaimed when determining button visibility, badge count, and alert behavior."
+                    text: "احسب فقط المهام ذات هذه الأنواع من المكافآت كغير مطالَب بها عند تحديد ظهور الزر وعدد الشارة وسلوك التنبيه."
                 }}
             />
             <SettingsSelect
-                label="Included Quest Types:"
+                label="أنواع المهام المُضمَّنة:"
                 labelClassName="margin-top-9"
                 wrapTags={true}
                 options={questButtonQuestTypeManaOptions}
@@ -269,7 +269,7 @@ export function QuestButtonSetting(): JSX.Element {
                 onSelectionChange={value => updateIncludedTypes(questButtonQuestTypeOptions, value)}
                 tooltip={{
                     position: "top",
-                    text: "Only count Quests with these task types as unclaimed when determining button visibility, badge count, and alert behavior."
+                    text: "احسب فقط المهام ذات هذه الأنواع كغير مطالَب بها عند تحديد ظهور الزر وعدد الشارة وسلوك التنبيه."
                 }}
             />
         </SettingsCard>
