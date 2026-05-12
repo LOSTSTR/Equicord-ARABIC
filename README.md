@@ -13,6 +13,7 @@
 [![Tests](https://github.com/LOSTSTR/Equicord-ARABIC/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/LOSTSTR/Equicord-ARABIC/actions/workflows/test.yml)
 [![Discord](https://img.shields.io/badge/Discord-5865F2?style=flat&logo=discord&logoColor=white)](https://discord.gg/QamdqDNEDa)
 [![License](https://img.shields.io/github/license/LOSTSTR/Equicord-ARABIC?color=green&label=رخصة)](LICENSE)
+[![Security Verified](https://img.shields.io/badge/security-verified-brightgreen?style=flat&logo=shield&logoColor=white)](https://github.com/LOSTSTR/Equicord-ARABIC)
 
 </div>
 
