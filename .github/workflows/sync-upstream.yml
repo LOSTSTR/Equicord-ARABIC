@@ -18,22 +18,29 @@ jobs:
             - uses: actions/checkout@v4
               with:
                   fetch-depth: 0
-                  token: ${{ secrets.GITHUB_TOKEN }}
+                  token: ${{ secrets.ETOKEN }}
+
+            - name: Configure git identity
+              run: |
+                  git config user.name "github-actions[bot]"
+                  git config user.email "github-actions[bot]@users.noreply.github.com"
 
             - name: Add upstream remote
               run: |
                   git remote add upstream https://github.com/Equicord/Equicord.git || true
-                  git fetch upstream main
+                  git fetch upstream main --no-tags
 
             - name: Check for new upstream commits
               id: check
               run: |
                   COUNT=$(git rev-list HEAD..upstream/main --count)
                   echo "new_commits=$COUNT" >> "$GITHUB_OUTPUT"
-                  echo "Upstream has $COUNT new commits"
+                  echo "Upstream has $COUNT new commits ahead of main"
 
             - name: Create sync branch and open PR
               if: steps.check.outputs.new_commits != '0'
+              env:
+                  GITHUB_TOKEN: ${{ secrets.ETOKEN }}
               run: |
                   BRANCH="sync/upstream-$(date +%Y%m%d-%H%M)"
                   git checkout -b "$BRANCH"
@@ -41,42 +48,61 @@ jobs:
                   # دمج upstream مع الحفاظ على التغييرات الخاصة عند التعارض
                   git merge upstream/main \
                       --no-edit \
+                      --no-tags \
                       --strategy-option=diff3 \
                       -m "sync: merge upstream Equicord/Equicord $(date +%Y-%m-%d)" \
                       || true
 
-                  # إذا كانت هناك تعارضات — اقبل نسختنا للملفات المترجمة وملفات الإضافات المخصصة
+                  # عند التعارض — اقبل نسختنا للملفات المترجمة والمخصصة
                   CONFLICTS=$(git diff --name-only --diff-filter=U 2>/dev/null || true)
                   if [ -n "$CONFLICTS" ]; then
-                      echo "Conflicts in: $CONFLICTS"
-                      git checkout --ours \
-                          src/userplugins/ \
-                          installer/ \
-                          .github/workflows/build-installer.yml \
-                          .github/workflows/sync-upstream.yml \
-                          README.md \
-                          2>/dev/null || true
+                      echo "Conflicts detected in:"
+                      echo "$CONFLICTS"
+                      # الملفات التي نحتفظ دائماً بنسختنا منها
+                      for f in \
+                          "src/userplugins" \
+                          "installer" \
+                          ".github/workflows/build-installer.yml" \
+                          ".github/workflows/build-installer-macos.yml" \
+                          ".github/workflows/build-installer-windows-cli.yml" \
+                          ".github/workflows/build.yml" \
+                          ".github/workflows/sync-upstream.yml" \
+                          "README.md" \
+                          "package.json"; do
+                          git checkout --ours -- "$f" 2>/dev/null || true
+                      done
                       git add -A
-                      git commit -m "sync: resolve conflicts — keep our translations and custom plugins" || true
+                      git commit -m "sync: resolve merge conflicts — preserve Arabic localization and custom infrastructure"
                   fi
 
                   git push origin "$BRANCH"
 
-                  BODY="Automated sync from Equicord/Equicord upstream. Review changes before merging."
+                  CHANGED=$(git diff --name-only main.."$BRANCH" | wc -l | tr -d ' ')
+                  NEW_PLUGINS=$(git diff --name-only main.."$BRANCH" \
+                      | grep -E "src/(plugins|equicordplugins)/" | grep "index\." | wc -l | tr -d ' ')
+
+                  # Write body to file — avoids YAML/markdown conflicts in run: blocks
+                  BODY_FILE=$(mktemp --suffix=.md)
+                  printf 'Upstream Sync: %s\n\nCommits merged: %s\nFiles changed: %s\nNew or updated plugins: %s\n\nReview checklist:\n  New plugins require Arabic description translations\n  Verify no breaking changes to custom workflows\n  Confirm translation coverage remains at 100%%\n\nAutomated sync from Equicord/Equicord upstream.\n' \
+                      "$(date +%Y-%m-%d)" \
+                      "${{ steps.check.outputs.new_commits }}" \
+                      "$CHANGED" \
+                      "$NEW_PLUGINS" > "$BODY_FILE"
+
+                  TITLE="sync: upstream Equicord $(date +%Y-%m-%d) (+${{ steps.check.outputs.new_commits }} commits)"
                   gh pr create \
-                      --title "Sync upstream Equicord $(date +%Y-%m-%d)" \
-                      --body "$BODY" \
+                      --title "$TITLE" \
+                      --body-file "$BODY_FILE" \
                       --head "$BRANCH" \
                       --base main \
                       --label "upstream-sync" 2>/dev/null || \
                   gh pr create \
-                      --title "Sync upstream Equicord $(date +%Y-%m-%d)" \
-                      --body "$BODY" \
+                      --title "$TITLE" \
+                      --body-file "$BODY_FILE" \
                       --head "$BRANCH" \
                       --base main
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  rm -f "$BODY_FILE"
 
-            - name: No new commits
+            - name: Already up to date
               if: steps.check.outputs.new_commits == '0'
-              run: echo "Already up to date with upstream."
+              run: echo "✅ Equicord-ARABIC is already aligned with upstream."
