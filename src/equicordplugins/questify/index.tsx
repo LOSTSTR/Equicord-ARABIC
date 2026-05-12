@@ -534,6 +534,14 @@ export default definePlugin({
             QL.log("QUESTS_FETCH_CURRENT_QUESTS_SUCCESS", data);
             validateIgnoredQuests(data.quests);
             resumeAutoCompletesIfReady();
+
+            if (!getQuestifySettings().disableQuestsEverything && hasEnabledAutoCompleteQuestTypes()) {
+                for (const quest of data.quests) {
+                    if (quest.userStatus?.enrolledAt && !quest.userStatus?.completedAt) {
+                        processQuestForAutoComplete(quest, { force: false, source: "auto" });
+                    }
+                }
+            }
         },
 
         QUESTS_ENROLL_SUCCESS(data: any): void {

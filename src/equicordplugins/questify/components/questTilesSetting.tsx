@@ -22,10 +22,10 @@ const QuestTile = findComponentByCodeLazy(".rowIndex,trackGuildAndChannelMetadat
 }>;
 
 const gradientOptions = [
-    { label: "Intense Restyle Gradient", value: "intense" },
-    { label: "Default Restyle Gradient", value: "default" },
-    { label: "Subtle Black Gradient", value: "black" },
-    { label: "No Gradient", value: "hide" },
+    { label: "تدرج مكثف", value: "intense" },
+    { label: "تدرج افتراضي", value: "default" },
+    { label: "تدرج أسود خفيف", value: "black" },
+    { label: "بدون تدرج", value: "hide" },
 ] as const satisfies readonly { label: string, value: QuestTileGradient; }[];
 
 const gradientManaOptions: ManaSelectOption[] = gradientOptions.map(({ label, value }) => ({
@@ -35,8 +35,8 @@ const gradientManaOptions: ManaSelectOption[] = gradientOptions.map(({ label, va
 }));
 
 const preloadManaOptions: ManaSelectOption[] = [
-    { id: "true", label: "Load All Quest Assets On Page Load", value: "true" },
-    { id: "false", label: "Load Quest Assets During Page Scroll", value: "false" },
+    { id: "true", label: "تحميل جميع الأصول عند فتح الصفحة", value: "true" },
+    { id: "false", label: "تحميل الأصول أثناء التمرير", value: "false" },
 ];
 
 type QuestTileColorKey =
@@ -54,22 +54,22 @@ interface QuestTileColorOption {
 const colorOptions = [
     {
         key: "questTileUnclaimedColor",
-        label: "Unclaimed",
+        label: "غير مطالَب",
         defaultValue: defaultQuestTileUnclaimedColorSetting,
     },
     {
         key: "questTileClaimedColor",
-        label: "Claimed",
+        label: "مطالَب",
         defaultValue: defaultQuestTileClaimedColorSetting,
     },
     {
         key: "questTileIgnoredColor",
-        label: "Ignored",
+        label: "مُتجاهَل",
         defaultValue: defaultQuestTileIgnoredColorSetting,
     },
     {
         key: "questTileExpiredColor",
-        label: "Expired",
+        label: "منتهي",
         defaultValue: defaultQuestTileExpiredColorSetting,
     },
 ] as const satisfies readonly QuestTileColorOption[];
@@ -246,13 +246,13 @@ export function QuestTilesSetting(): JSX.Element {
 
     return (
         <SettingsCard>
-            <SettingsHeader> Quest Tiles </SettingsHeader>
-            <SettingsDescription> Highlight Quests with optional theme colors for visibility. </SettingsDescription>
-            <SettingsSubheader> Tile Behavior </SettingsSubheader>
+            <SettingsHeader> بلاطات المهام </SettingsHeader>
+            <SettingsDescription> إبراز المهام بألوان اختيارية لتمييزها بصرياً. </SettingsDescription>
+            <SettingsSubheader> سلوك البلاطة </SettingsSubheader>
             <SettingsRow className="quest-tile-behavior-row">
                 <SettingsRowItem className="quest-tile-gradient-row-item">
                     <SettingsSelect
-                        label="Gradient Style:"
+                        label="نمط التدرج:"
                         options={gradientManaOptions}
                         value={questTiles.questTileGradient}
                         selectionMode="single"
@@ -262,15 +262,15 @@ export function QuestTilesSetting(): JSX.Element {
                         onSelectionChange={updateGradient}
                         tooltip={{
                             position: "top",
-                            text: "Intense and Default use the selected tile color in the asset gradient."
-                                + "\n\nSubtle Black keeps a darker neutral gradient for contrast."
-                                + "\n\nNo Gradient removes the asset gradient, which can make some Quest artwork harder to read."
+                            text: "المكثف والافتراضي يستخدمان لون البلاطة المختار في تدرج الصورة."
+                                + "\n\nالأسود الخفيف يحافظ على تدرج محايد أغمق للتباين."
+                                + "\n\nبدون تدرج يزيل التدرج، مما قد يجعل بعض صور المهام أصعب قراءةً."
                         }}
                     />
                 </SettingsRowItem>
                 <SettingsRowItem className="quest-tile-preload-row-item">
                     <SettingsSelect
-                        label="Asset Preload:"
+                        label="التحميل المسبق للأصول:"
                         options={preloadManaOptions}
                         value={String(questTiles.questTilePreload)}
                         selectionMode="single"
@@ -280,13 +280,13 @@ export function QuestTilesSetting(): JSX.Element {
                         onSelectionChange={updatePreload}
                         tooltip={{
                             position: "top",
-                            text: "Loading all assets when the Quests page opens reduces layout shifting while scrolling."
-                                + "\n\nLoading during page scroll is closer to Discord's default behavior and may use less work up front."
+                            text: "تحميل جميع الأصول عند فتح الصفحة يقلل من الاهتزاز أثناء التمرير."
+                                + "\n\nالتحميل أثناء التمرير أقرب لسلوك Discord الافتراضي وقد يستهلك موارد أقل."
                         }}
                     />
                 </SettingsRowItem>
             </SettingsRow>
-            <SettingsSubheader> Tile Colors </SettingsSubheader>
+            <SettingsSubheader> ألوان البلاطة </SettingsSubheader>
             <SettingsRow className="quest-tile-color-row">
                 {colorOptions.map(({ key, label }) => {
                     const setting = questTiles[key] as QuestTileColorSetting;
@@ -308,7 +308,7 @@ export function QuestTilesSetting(): JSX.Element {
                             </div>
                             <div className={q("settings-button", "quest-tile-color-button")}>
                                 <ManaButton
-                                    text={setting.enabled ? "Disable" : "Enable"}
+                                    text={setting.enabled ? "تعطيل" : "تمكين"}
                                     variant={setting.enabled ? "critical-secondary" : "primary"}
                                     disabled={disabled}
                                     fullWidth={true}
