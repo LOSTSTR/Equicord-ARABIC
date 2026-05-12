@@ -97,7 +97,6 @@ jobs:
               run: |
                   gh workflow run build-installer.yml --ref main
                   gh workflow run build-installer-macos.yml --ref main
-                  gh workflow run build-installer-windows-cli.yml --ref main
                   gh workflow run build-installer-linux.yml --ref main
               env:
                   GITHUB_TOKEN: ${{ secrets.ETOKEN }}

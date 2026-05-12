@@ -55,7 +55,6 @@
 | المنصة | الطريقة | التحميل |
 |--------|---------|---------|
 | 🪟 **Windows** | واجهة رسومية (GUI) | [![Windows Setup](https://img.shields.io/badge/Windows-Setup.exe-0078D4?style=flat&logo=windows&logoColor=white)](https://github.com/LOSTSTR/Equicord-ARABIC/releases/latest/download/EquicordArabicSetup.exe) |
-| 🪟 **Windows** | سطر أوامر (PowerShell CLI) | [![Windows CLI](https://img.shields.io/badge/Windows-PowerShell-012456?style=flat&logo=powershell&logoColor=white)](https://github.com/LOSTSTR/Equicord-ARABIC/releases/latest/download/install-windows.ps1) |
 | 🍎 **macOS** | Apple Silicon & Intel | [![macOS Script](https://img.shields.io/badge/macOS-Shell_Script-000000?style=flat&logo=apple&logoColor=white)](https://github.com/LOSTSTR/Equicord-ARABIC/releases/latest/download/install-macos.sh) |
 | 🐧 **Linux** | سكريبت تلقائي (CLI) | [![Linux Script](https://img.shields.io/badge/Linux-Shell_Script-FCC624?style=flat&logo=linux&logoColor=black)](https://github.com/LOSTSTR/Equicord-ARABIC/releases/latest/download/install-linux.sh) |
 
@@ -63,15 +62,9 @@
 
 ---
 
-### 🪟 Windows — واجهة رسومية (GUI)
+### 🪟 Windows
 
 حمّل **EquicordArabicSetup.exe** وشغّله — يكتشف Discord تلقائياً ويثبّت التعديل.
-
-### 🪟 Windows — سطر أوامر (PowerShell)
-
-```powershell
-irm https://github.com/LOSTSTR/Equicord-ARABIC/releases/latest/download/install-windows.ps1 | iex
-```
 
 ### 🍎 macOS — Apple Silicon & Intel
 
