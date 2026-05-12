@@ -39,43 +39,43 @@ export const timeFormats: Record<string, TimeFormat> = {
     },
     compactFormat: {
         name: "Compact mode",
-        description: "Time format on compact mode and hovering messages",
+        description: "تنسيق الوقت في الوضع المضغوط وعند التمرير فوق الرسائل",
         default: "LT",
         offset: 0,
     },
     tooltipFormat: {
         name: "Tooltip",
-        description: "Time format to use on tooltips",
+        description: "تنسيق الوقت المستخدم في تلميحات الأدوات",
         default: "LLLL • [relative]",
         offset: 0,
     },
     ariaLabelFormat: {
         name: "Aria label",
-        description: "Time format to use on aria labels",
+        description: "تنسيق الوقت المستخدم في تسميات aria",
         default: "[calendar]",
         offset: 0,
     },
     sameDayFormat: {
         name: "Same day",
-        description: "[calendar] format for today",
+        description: "تنسيق [calendar] لليوم الحالي",
         default: "[Today at] HH:mm:ss",
         offset: 0,
     },
     lastDayFormat: {
         name: "Last day",
-        description: "[calendar] format for yesterday",
+        description: "تنسيق [calendar] لأمس",
         default: "[Yesterday at] HH:mm:ss",
         offset: -1000 * 60 * 60 * 24,
     },
     lastWeekFormat: {
         name: "Last week",
-        description: "[calendar] format for within the last week",
+        description: "تنسيق [calendar] للأسبوع الماضي",
         default: "ddd DD.MM.YYYY HH:mm:ss",
         offset: -1000 * 60 * 60 * 24 * 6, // setting an offset of a week exactly pushes it into "older date" territory as soon as a second passes
     },
     sameElseFormat: {
         name: "Older date",
-        description: "[calendar] format for older dates",
+        description: "تنسيق [calendar] للتواريخ القديمة",
         default: "ddd DD.MM.YYYY HH:mm:ss",
         offset: -1000 * 60 * 60 * 24 * 31,
     }

@@ -39,18 +39,18 @@ const settings = definePluginSettings({
     showRoleColors: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Show role colors in the typing indicator"
+        description: "عرض ألوان الأدوار في مؤشر الكتابة"
     },
     alternativeFormatting: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Show a more useful message when several users are typing"
+        description: "عرض رسالة أكثر فائدة عندما يكتب عدة مستخدمين"
     },
     amITyping: {
         type: OptionType.BOOLEAN,
         default: false,
         restartNeeded: true,
-        description: "Shows you if other people can see you typing"
+        description: "يُظهر لك ما إذا كان الآخرون يرون أنك تكتب"
     }
 });
 

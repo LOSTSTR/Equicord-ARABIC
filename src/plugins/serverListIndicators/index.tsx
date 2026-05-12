@@ -131,7 +131,7 @@ export const settings = definePluginSettings({
         restartNeeded: true // Restart needed just to force update
     },
     useCompact: {
-        description: "Makes the indicator appear with only text",
+        description: "جعل المؤشر يظهر بالنص فقط",
         type: OptionType.BOOLEAN,
         default: false,
         restartNeeded: true // Restart needed just to force update

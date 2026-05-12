@@ -17,38 +17,38 @@ export const settings = definePluginSettings({
     showMuteButton: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Whether you want to display the mute button",
+        description: "هل تريد إظهار زر كتم الصوت",
         restartNeeded: true,
     },
     showDeafenButton: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Whether you want to display the deafen button",
+        description: "هل تريد إظهار زر إخراس الصوت",
         restartNeeded: true,
     },
     muteSoundboard: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Toggles their soundboard upon clicking deafen button.",
+        description: "تبديل لوحة الأصوات عند النقر على زر الإخراس.",
     },
     disableVideo: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Toggles their video upon clicking deafen button.",
+        description: "تعطيل الفيديو عند النقر على زر الإخراس.",
     },
     useServer: {
         type: OptionType.BOOLEAN,
-        description: "Use server mute/deafen instead of local when you have permission.",
+        description: "استخدام كتم/إخراس السيرفر بدلاً من المحلي عند توفر الصلاحية.",
         default: false,
     },
     serverSelf: {
         type: OptionType.BOOLEAN,
-        description: "Deafen / Mute yourself on the server when using mute/deafen.",
+        description: "إخراس/كتم نفسك في السيرفر عند استخدام أزرار الكتم/الإخراس.",
         default: false,
     },
     showButtonsSelf: {
         type: OptionType.SELECT,
-        description: "Whether you want to display buttons for your own user. Same functionality as other button(s) except it'll open DMs panel and mute/deafen for yourself upon clicking button(s).",
+        description: "هل تريد إظهار الأزرار لمستخدمك الخاص. نفس وظيفة الأزرار الأخرى لكنها ستفتح لوحة الرسائل المباشرة وتكتم/تخرس نفسك.",
         restartNeeded: true,
         options: [
             { label: "Display", value: "display", default: true },
@@ -58,7 +58,7 @@ export const settings = definePluginSettings({
     },
     whichNameToShow: {
         type: OptionType.SELECT,
-        description: "Choose whether to show nickname or username in tooltip.",
+        description: "اختر إظهار الاسم المستعار أو اسم المستخدم في التلميح.",
         options: [
             { label: "Both", value: "both", default: true },
             { label: "Global Name", value: "global" },
@@ -67,7 +67,7 @@ export const settings = definePluginSettings({
     },
     buttonPosition: {
         type: OptionType.SELECT,
-        description: "Choose where to place voice buttons in the voice user row.",
+        description: "اختر مكان وضع أزرار الصوت في صف مستخدم الصوت.",
         options: [
             { label: "Left", value: "left", default: true },
             { label: "Right", value: "right" },

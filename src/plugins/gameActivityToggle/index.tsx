@@ -35,7 +35,7 @@ const settings = definePluginSettings({
     },
     location: {
         type: OptionType.SELECT,
-        description: "Where to show the game activity toggle button",
+        description: "مكان عرض زر تبديل نشاط اللعبة",
         options: [
             { label: "Next to Mute/Deafen", value: "PANEL", default: true },
             { label: "Equicord Toolbox", value: "TOOLBOX" }

@@ -21,7 +21,7 @@ const settings = definePluginSettings({
         default: true,
     },
     idleMinutes: {
-        description: "Minutes of inactivity before restarting (when not in VC)",
+        description: "دقائق الخمول قبل إعادة التشغيل (عند عدم التواجد في قناة صوتية)",
         type: OptionType.SLIDER,
         markers: [5, 10, 15, 30, 60, 120],
         default: 30,
@@ -35,7 +35,7 @@ function onActivity() {
 
 export default definePlugin({
     name: "IdleAutoRestart",
-    description: "Automatically restarts the client after being idle for a configurable amount of time, but avoids restarting while you are in VC.",
+    description: "يُعيد تشغيل العميل تلقائياً بعد فترة خمول قابلة للإعداد، مع تجنب إعادة التشغيل أثناء وجودك في قناة صوتية.",
     tags: ["Utility"],
     authors: [EquicordDevs.SteelTech],
     settings,

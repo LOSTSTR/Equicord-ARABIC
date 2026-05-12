@@ -45,7 +45,7 @@ export const settings = definePluginSettings({
     },
     idleStatus: {
         type: OptionType.SELECT,
-        description: "Steam status when on Idle",
+        description: "حالة Steam عند الخمول",
         options: [
             { label: "Online", value: SteamStatus.Online },
             { label: "Away", value: SteamStatus.Away, default: true },
@@ -56,7 +56,7 @@ export const settings = definePluginSettings({
     },
     dndStatus: {
         type: OptionType.SELECT,
-        description: "Steam status when on Do Not Disturb",
+        description: "حالة Steam عند 'عدم الإزعاج'",
         options: [
             { label: "Online", value: SteamStatus.Online },
             { label: "Away", value: SteamStatus.Away },
@@ -67,7 +67,7 @@ export const settings = definePluginSettings({
     },
     invisibleStatus: {
         type: OptionType.SELECT,
-        description: "Steam status when on Invisible",
+        description: "حالة Steam عند الإخفاء",
         options: [
             { label: "Online", value: SteamStatus.Online },
             { label: "Away", value: SteamStatus.Away },
@@ -78,13 +78,13 @@ export const settings = definePluginSettings({
     },
     goInvisibleIfActivityIsHidden: {
         type: OptionType.BOOLEAN,
-        description: "Always go invisible if hiding game activity on Discord"
+        description: "اذهب دائماً إلى وضع الإخفاء عند إخفاء نشاط اللعبة على Discord"
     }
 });
 
 export default definePlugin({
     name: "SteamStatusSync",
-    description: "Sync your status to Steam! (Online, Away, Invisible, or Offline.)",
+    description: "زامن حالتك مع Steam! (متصل، بعيد، مخفي، أو غير متصل.)",
     tags: ["Activity", "Appearance", "Customisation"],
     authors: [EquicordDevs.niko],
 

@@ -57,7 +57,7 @@ const settings = definePluginSettings({
         ],
     },
     statusDisplayType: {
-        description: "Show the track / artist name in the member list",
+        description: "إظهار اسم المقطع/الفنان في قائمة الأعضاء",
         type: OptionType.SELECT,
         options: [
             {
@@ -77,39 +77,39 @@ const settings = definePluginSettings({
     },
     refreshInterval: {
         type: OptionType.SLIDER,
-        description: "The interval between activity refreshes (seconds)",
+        description: "الفاصل الزمني بين تحديثات النشاط (بالثواني)",
         markers: [1, 2, 2.5, 3, 5, 10, 15],
         default: 5,
         restartNeeded: true,
     },
     enableTimestamps: {
         type: OptionType.BOOLEAN,
-        description: "Whether or not to enable timestamps",
+        description: "تفعيل أو تعطيل الطوابع الزمنية",
         default: true,
     },
     enableButtons: {
         type: OptionType.BOOLEAN,
-        description: "Whether or not to enable buttons",
+        description: "تفعيل أو تعطيل الأزرار",
         default: true,
     },
     nameString: {
         type: OptionType.STRING,
-        description: "Activity name format string",
+        description: "نص تنسيق اسم النشاط",
         default: "Apple Music"
     },
     detailsString: {
         type: OptionType.STRING,
-        description: "Activity details format string",
+        description: "نص تنسيق تفاصيل النشاط",
         default: "{name}"
     },
     stateString: {
         type: OptionType.STRING,
-        description: "Activity state format string",
+        description: "نص تنسيق حالة النشاط",
         default: "{artist} · {album}"
     },
     largeImageType: {
         type: OptionType.SELECT,
-        description: "Activity assets large image type",
+        description: "نوع الصورة الكبيرة في أصول النشاط",
         options: [
             { label: "Album artwork", value: AssetImageType.Album, default: true },
             { label: "Artist artwork", value: AssetImageType.Artist },
@@ -118,12 +118,12 @@ const settings = definePluginSettings({
     },
     largeTextString: {
         type: OptionType.STRING,
-        description: "Activity assets large text format string",
+        description: "نص تنسيق النص الكبير في أصول النشاط",
         default: "{album}"
     },
     smallImageType: {
         type: OptionType.SELECT,
-        description: "Activity assets small image type",
+        description: "نوع الصورة الصغيرة في أصول النشاط",
         options: [
             { label: "Album artwork", value: AssetImageType.Album },
             { label: "Artist artwork", value: AssetImageType.Artist, default: true },
@@ -132,7 +132,7 @@ const settings = definePluginSettings({
     },
     smallTextString: {
         type: OptionType.STRING,
-        description: "Activity assets small text format string",
+        description: "نص تنسيق النص الصغير في أصول النشاط",
         default: "{artist}"
     },
 });

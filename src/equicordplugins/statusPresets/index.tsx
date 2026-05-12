@@ -122,7 +122,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "StatusPresets",
-    description: "Allows you to remember your statuses and set them later",
+    description: "يتيح لك حفظ حالاتك وتطبيقها لاحقاً",
     tags: ["Activity", "Utility"],
     authors: [EquicordDevs.iamme],
     settings,

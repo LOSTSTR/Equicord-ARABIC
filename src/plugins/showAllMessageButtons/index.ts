@@ -17,7 +17,7 @@ const settings = definePluginSettings({
     },
     noShiftPin: {
         type: OptionType.BOOLEAN,
-        description: "Remove requirement to hold shift for pinning a message.",
+        description: "إزالة اشتراط الضغط على Shift لتثبيت رسالة.",
         default: true,
     },
 });

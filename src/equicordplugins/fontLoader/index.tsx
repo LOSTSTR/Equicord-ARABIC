@@ -179,7 +179,7 @@ const settings = definePluginSettings({
     },
     fontSearch: {
         type: OptionType.COMPONENT,
-        description: "Search and select Google Fonts",
+        description: "بحث واختيار خطوط Google Fonts",
         component: () => (
             <GoogleFontSearch
                 onSelect={font => {
@@ -191,14 +191,14 @@ const settings = definePluginSettings({
     },
     applyOnCodeBlocks: {
         type: OptionType.BOOLEAN,
-        description: "Apply the font to code blocks",
+        description: "تطبيق الخط على كتل الكود",
         default: false
     }
 });
 
 export default definePlugin({
     name: "FontLoader",
-    description: "Loads any font from Google Fonts",
+    description: "يحمّل أي خط من Google Fonts",
     tags: ["Appearance", "Customisation"],
     authors: [EquicordDevs.vmohammad],
     settings,

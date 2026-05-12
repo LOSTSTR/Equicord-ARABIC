@@ -28,22 +28,22 @@ const settings = definePluginSettings({
     },
     statusEmojis: {
         type: OptionType.BOOLEAN,
-        description: "Always animate status emojis",
+        description: "تشغيل إيموجي الحالة المتحركة دائماً",
         default: true,
     },
     serverBanners: {
         type: OptionType.BOOLEAN,
-        description: "Always animate server banners",
+        description: "تشغيل بانرات السيرفر المتحركة دائماً",
         default: true,
     },
     nameplates: {
         type: OptionType.BOOLEAN,
-        description: "Always animate nameplates",
+        description: "تشغيل لوحات الأسماء المتحركة دائماً",
         default: true,
     },
     roleGradients: {
         type: OptionType.BOOLEAN,
-        description: "Always animate role gradients",
+        description: "تشغيل تدرجات الرتب المتحركة دائماً",
         default: true,
     }
 });

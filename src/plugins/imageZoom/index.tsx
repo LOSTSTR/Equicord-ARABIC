@@ -39,31 +39,31 @@ export const settings = definePluginSettings({
 
     invertScroll: {
         type: OptionType.BOOLEAN,
-        description: "Invert scroll",
+        description: "عكس اتجاه التمرير",
         default: true,
     },
 
     nearestNeighbour: {
         type: OptionType.BOOLEAN,
-        description: "Use Nearest Neighbour Interpolation when scaling images",
+        description: "استخدام تقنية الاستيفاء بأقرب جار عند تحجيم الصور",
         default: false,
     },
 
     square: {
         type: OptionType.BOOLEAN,
-        description: "Make the lens square",
+        description: "جعل العدسة مربعة الشكل",
         default: false,
     },
 
     zoom: {
-        description: "Zoom of the lens",
+        description: "مستوى تكبير العدسة",
         type: OptionType.SLIDER,
         markers: [1, 5, 10, 20, 30, 40, 50],
         default: 2,
         stickToMarkers: false,
     },
     size: {
-        description: "Radius / Size of the lens",
+        description: "نصف القطر / حجم العدسة",
         type: OptionType.SLIDER,
         markers: [50, 100, 250, 500, 750, 1000],
         default: 100,
@@ -71,7 +71,7 @@ export const settings = definePluginSettings({
     },
 
     zoomSpeed: {
-        description: "How fast the zoom / lens size changes",
+        description: "سرعة تغيير مستوى التكبير / حجم العدسة",
         type: OptionType.SLIDER,
         markers: [0.1, 0.5, 1, 2, 3, 4, 5],
         default: 0.5,

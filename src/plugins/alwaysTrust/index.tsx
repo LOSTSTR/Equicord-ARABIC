@@ -41,18 +41,18 @@ const settings = definePluginSettings({
     file: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Remove the 'Potentially Dangerous Download' popup when opening links",
+        description: "إزالة نافذة 'التحميل الخطير المحتمل' عند فتح الروابط",
         restartNeeded: true
     },
     noDeleteSafety: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Removes the enter server name requirement when deleting a server",
+        description: "إزالة شرط إدخال اسم السيرفر عند حذفه",
         restartNeeded: true
     },
     confirmModal: {
         type: OptionType.BOOLEAN,
-        description: "Should a \"are you sure you want to delete\" modal be shown?",
+        description: "هل يجب إظهار نافذة تأكيد 'هل أنت متأكد من الحذف'؟",
         default: true
     },
 });

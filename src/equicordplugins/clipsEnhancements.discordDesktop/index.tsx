@@ -27,31 +27,31 @@ const settings = definePluginSettings({
     },
     enableScreenshotKeybind: {
         type: OptionType.BOOLEAN,
-        description: "Enable the screenshot keybind feature",
+        description: "تفعيل اختصار لوحة المفاتيح لأخذ لقطات الشاشة",
         default: true,
         restartNeeded: true
     },
     enableVoiceOnlyClips: {
         type: OptionType.BOOLEAN,
-        description: "Enable voice-only clips (audio without video)",
+        description: "تفعيل مقاطع الصوت فقط (بدون فيديو)",
         default: true,
         restartNeeded: true
     },
     enableSpeakingIndicators: {
         type: OptionType.BOOLEAN,
-        description: "Enable speaking indicators",
+        description: "تفعيل مؤشرات الكلام",
         default: true,
         restartNeeded: true
     },
     enableAdvancedSignals: {
         type: OptionType.BOOLEAN,
-        description: "Enable advanced clip signals (auto-clip triggers)",
+        description: "تفعيل إشارات المقاطع المتقدمة (مشغّلات التسجيل التلقائي)",
         default: true,
         restartNeeded: true
     },
     ignorePlatformRestriction: {
         type: OptionType.BOOLEAN,
-        description: "Allow Platform Restricted Clipping (may cause save errors)",
+        description: "السماح بالتسجيل على المنصات المقيدة (قد يسبب أخطاء في الحفظ)",
         default: true,
         restartNeeded: true
     },
@@ -77,7 +77,7 @@ const settings = definePluginSettings({
 migratePluginSettings("ClipsEnhancements", "TimelessClips");
 export default definePlugin({
     name: "ClipsEnhancements",
-    description: "Add more Clip FPS and duration options, custom clip length, RPC tagging and more",
+    description: "يضيف خيارات إضافية لمعدل الإطارات ومدة المقاطع، وطول مخصص، وتمييز RPC والمزيد",
     tags: ["Activity", "Media", "Utility"],
     authors: [Devs.niko, Devs.Joona, EquicordDevs.keircn],
     settings,

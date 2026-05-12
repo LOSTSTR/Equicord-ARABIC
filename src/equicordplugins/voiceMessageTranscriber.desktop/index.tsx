@@ -54,7 +54,7 @@ const settings = definePluginSettings({
     },
     quantized: {
         type: OptionType.BOOLEAN,
-        description: "Use quantized model (smaller size, slightly lower accuracy)",
+        description: "استخدام النموذج المضغوط (حجم أصغر، دقة أقل قليلاً)",
         default: true,
         restartNeeded: false
     },
@@ -312,7 +312,7 @@ function TranscriptionModal(props: { modalProps: ModalProps, src: string, option
 export default definePlugin({
     name: "VoiceMessageTranscriber",
     authors: [Devs.TheSun],
-    description: "On-device transcriptions for voice messages powered by Whisper v3",
+    description: "نسخ الرسائل الصوتية على الجهاز مباشرةً بواسطة Whisper v3",
     tags: ["Chat", "Media", "Utility", "Voice"],
     patches: [
         {

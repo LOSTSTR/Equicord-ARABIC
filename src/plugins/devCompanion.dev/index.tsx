@@ -34,12 +34,12 @@ export const settings = definePluginSettings({
         default: true
     },
     usePatchedModule: {
-        description: "On extract requests, reply with the current patched module (if it is patched) instead of the original.",
+        description: "عند طلبات الاستخراج، الرد بالوحدة المُرقّعة الحالية (إن كانت مُرقّعة) بدلاً من الأصلية.",
         default: true,
         type: OptionType.BOOLEAN,
     },
     reloadAfterToggle: {
-        description: "Reload after a disable/enable plugin command is recived.",
+        description: "إعادة التحميل عند استلام أمر تعطيل/تفعيل الإضافة.",
         default: true,
         type: OptionType.BOOLEAN
     }

@@ -177,31 +177,31 @@ const settings = definePluginSettings({
     },
     ignorePlaying: {
         type: OptionType.BOOLEAN,
-        description: "Ignore all playing activities (These are usually game and RPC activities)",
+        description: "تجاهل جميع أنشطة اللعب (وهي عادةً أنشطة الألعاب وRPC)",
         default: false,
         onChange: recalculateActivities
     },
     ignoreStreaming: {
         type: OptionType.BOOLEAN,
-        description: "Ignore all streaming activities",
+        description: "تجاهل جميع أنشطة البث",
         default: false,
         onChange: recalculateActivities
     },
     ignoreListening: {
         type: OptionType.BOOLEAN,
-        description: "Ignore all listening activities (These are usually spotify activities)",
+        description: "تجاهل جميع أنشطة الاستماع (وهي عادةً أنشطة Spotify)",
         default: false,
         onChange: recalculateActivities
     },
     ignoreWatching: {
         type: OptionType.BOOLEAN,
-        description: "Ignore all watching activities",
+        description: "تجاهل جميع أنشطة المشاهدة",
         default: false,
         onChange: recalculateActivities
     },
     ignoreCompeting: {
         type: OptionType.BOOLEAN,
-        description: "Ignore all competing activities (These are normally special game activities)",
+        description: "تجاهل جميع أنشطة التنافس (وهي عادةً أنشطة ألعاب خاصة)",
         default: false,
         onChange: recalculateActivities
     },

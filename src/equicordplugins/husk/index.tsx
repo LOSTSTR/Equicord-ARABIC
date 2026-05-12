@@ -74,12 +74,12 @@ const settings = definePluginSettings({
         default: true
     },
     emojiName: {
-        description: "Emoji name (default (from Vencord Server): husk)",
+        description: "اسم الإيموجي (الافتراضي من سيرفر Vencord: husk)",
         type: OptionType.STRING,
         default: "husk"
     },
     emojiID: {
-        description: "Emoji ID (default (from Vencord Server): 1026532993923293184)",
+        description: "معرّف الإيموجي (الافتراضي من سيرفر Vencord: 1026532993923293184)",
         type: OptionType.BIGINT,
         default: 1026532993923293184n
     }
@@ -98,7 +98,7 @@ function getEmojiIdThatShouldBeUsed(guildId: string) {
 
 export default definePlugin({
     name: "Husk",
-    description: "Adds Husk button (check settings to change used emoji)",
+    description: "يضيف زر Husk (راجع الإعدادات لتغيير الإيموجي المستخدم)",
     dependencies: ["MessagePopoverAPI"],
     tags: ["Emotes", "Fun"],
     authors: [Devs.nin0dev],

@@ -45,7 +45,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "HideMessages",
-    description: "A plugin to temporarily hide messages until you restart.",
+    description: "إضافة لإخفاء الرسائل مؤقتاً حتى تُعيد التشغيل.",
     dependencies: ["MessagePopoverAPI"],
     tags: ["Chat", "Utility"],
     authors: [EquicordDevs.yash],

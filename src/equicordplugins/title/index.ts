@@ -28,7 +28,7 @@ function setTitle(v: string) {
 
 export default definePlugin({
     name: "Title",
-    description: "Replaces the window title prefix",
+    description: "يستبدل بادئة عنوان النافذة",
     tags: ["Customisation"],
     authors: [Devs.Kyuuhachi],
     settings,

@@ -33,12 +33,12 @@ export const settings = definePluginSettings({
     },
     notifyIfUpdate: {
         type: OptionType.BOOLEAN,
-        description: "Show a Vencord notification if UserPlugins need to be updated",
+        description: "إظهار إشعار Vencord إذا احتاجت الإضافات المستخدم إلى تحديث",
         default: true
     },
     neverNotifyForPlugins: {
         type: OptionType.STRING,
-        description: "Never show update notifications for these plugins (you can still update them from the UserPlugins tab)",
+        description: "لا تعرض إشعارات التحديث لهذه الإضافات (لا يزال بإمكانك تحديثها من تبويب UserPlugins)",
         default: ""
     },
     setGitPath: {
@@ -53,7 +53,7 @@ export const settings = definePluginSettings({
 
 export default definePlugin({
     name: "UserpluginInstaller",
-    description: "Install userplugins with a simple button click",
+    description: "تثبيت الإضافات المستخدم بنقرة زر بسيطة",
     settingsAboutComponent: () => (
         <Notice.Warning>
             Equicord does not moderate userplugins and takes no responsibility for anything that may result from installing them.

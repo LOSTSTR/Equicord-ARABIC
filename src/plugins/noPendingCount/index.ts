@@ -32,13 +32,13 @@ const settings = definePluginSettings({
     },
     hideMessageRequestsCount: {
         type: OptionType.BOOLEAN,
-        description: "Hide message requests count",
+        description: "إخفاء عداد طلبات الرسائل",
         default: true,
         restartNeeded: true
     },
     hidePremiumOffersCount: {
         type: OptionType.BOOLEAN,
-        description: "Hide nitro offers count",
+        description: "إخفاء عداد عروض Nitro",
         default: true,
         restartNeeded: true
     }

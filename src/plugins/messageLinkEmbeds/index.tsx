@@ -79,7 +79,7 @@ const settings = definePluginSettings({
         type: OptionType.BOOLEAN
     },
     automodEmbeds: {
-        description: "Use automod embeds instead of rich embeds (smaller but less info)",
+        description: "استخدام تضمينات الـ automod بدلاً من التضمينات الغنية (أصغر حجماً لكن بمعلومات أقل)",
         type: OptionType.SELECT,
         options: [
             {
@@ -98,7 +98,7 @@ const settings = definePluginSettings({
         ]
     },
     listMode: {
-        description: "Whether to use ID list as blacklist or whitelist",
+        description: "استخدام قائمة المعرّفات كقائمة سوداء أو بيضاء",
         type: OptionType.SELECT,
         options: [
             {
@@ -113,7 +113,7 @@ const settings = definePluginSettings({
         ]
     },
     idList: {
-        description: "Guild/channel/user IDs to blacklist or whitelist (separate with comma)",
+        description: "معرّفات السيرفر/القناة/المستخدم لإدراجها في القائمة السوداء أو البيضاء (مفصولة بفواصل)",
         type: OptionType.STRING,
         default: "",
         multiline: true,

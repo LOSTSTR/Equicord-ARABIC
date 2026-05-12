@@ -304,14 +304,14 @@ export default definePlugin({
     commands: [
         {
             name: "equicord-debug",
-            description: "Send Equicord debug info",
+            description: "إرسال معلومات تشخيص Equicord",
             // @ts-ignore
             predicate: ctx => isAnyPluginDev(UserStore.getCurrentUser()?.id) || isEquicordGuild(ctx?.guild?.id, true),
             execute: async () => ({ content: await generateDebugInfoMessage() })
         },
         {
             name: "equicord-plugins",
-            description: "Send Equicord plugin list",
+            description: "إرسال قائمة إضافات Equicord",
             // @ts-ignore
             predicate: ctx => isAnyPluginDev(UserStore.getCurrentUser()?.id) || isEquicordGuild(ctx?.guild?.id, true),
             execute: async () => {

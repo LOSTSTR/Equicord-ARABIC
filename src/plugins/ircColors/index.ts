@@ -38,19 +38,19 @@ const settings = definePluginSettings({
         default: 70,
     },
     memberListColors: {
-        description: "Replace role colors in the member list",
+        description: "استبدال ألوان الرتب في قائمة الأعضاء",
         restartNeeded: true,
         type: OptionType.BOOLEAN,
         default: true
     },
     applyColorOnlyToUsersWithoutColor: {
-        description: "Apply colors only to users who don't have a predefined color",
+        description: "تطبيق الألوان فقط على المستخدمين الذين ليس لديهم لون محدد مسبقاً",
         restartNeeded: false,
         type: OptionType.BOOLEAN,
         default: false
     },
     applyColorOnlyInDms: {
-        description: "Apply colors only in direct messages; do not apply colors in servers.",
+        description: "تطبيق الألوان في الرسائل المباشرة فقط؛ عدم تطبيقها في السيرفرات.",
         restartNeeded: false,
         type: OptionType.BOOLEAN,
         default: false

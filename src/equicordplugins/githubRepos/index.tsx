@@ -30,14 +30,14 @@ export const settings = definePluginSettings({
     },
     showLanguage: {
         type: OptionType.BOOLEAN,
-        description: "Show repository language",
+        description: "إظهار لغة المستودع",
         default: true
     },
 });
 
 export default definePlugin({
     name: "GitHubRepos",
-    description: "Displays a user's public GitHub repositories in their profile",
+    description: "يعرض مستودعات GitHub العامة للمستخدم في ملفه الشخصي",
     dependencies: ["ProfileCollectionsAPI"],
     tags: ["Appearance"],
     authors: [EquicordDevs.talhakf, EquicordDevs.Panniku, EquicordDevs.benjii],

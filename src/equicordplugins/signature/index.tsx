@@ -22,24 +22,24 @@ const settings = definePluginSettings(
             default: "a chronic discord user"
         },
         textHeader: {
-            description: "What header to preface text with",
+            description: "العنوان الذي يُضاف قبل النص",
             type: OptionType.STRING,
             default: ">",
         },
         showIcon: {
             type: OptionType.BOOLEAN,
             default: true,
-            description: "Show an icon for toggling the plugin in the chat bar",
+            description: "عرض أيقونة لتبديل تفعيل الإضافة في شريط الدردشة",
             restartNeeded: true,
         },
         contextMenu: {
             type: OptionType.BOOLEAN,
-            description: "Add option to toggle the functionality in the chat input context menu",
+            description: "إضافة خيار لتبديل الوظيفة في قائمة السياق لمدخل الدردشة",
             default: true
         },
         isEnabled: {
             type: OptionType.BOOLEAN,
-            description: "Toggle functionality",
+            description: "تبديل تفعيل الوظيفة",
             default: true,
         },
     });
@@ -99,7 +99,7 @@ const ChatBarContextCheckbox: NavContextMenuPatchCallback = children => {
 
 export default definePlugin({
     name: "Signature",
-    description: "Automated fingerprint/end text",
+    description: "نص توقيع/ختام تلقائي",
     dependencies: ["CommandsAPI", "ChatInputButtonAPI", "MessagePopoverAPI"],
     tags: ["Appearance", "Chat"],
     authors: [Devs.Ven, Devs.Rini, Devs.ImBanana, EquicordDevs.KrystalSkull],
@@ -131,12 +131,12 @@ export default definePlugin({
     commands: [
         {
             name: "signature",
-            description: "Toggle your signature",
+            description: "تبديل توقيعك",
             inputType: ApplicationCommandInputType.BUILT_IN,
             options: [
                 {
                     name: "value",
-                    description: "Toggle your signature (default is toggle)",
+                    description: "تبديل توقيعك (الافتراضي هو التبديل)",
                     required: false,
                     type: ApplicationCommandOptionType.BOOLEAN,
                 },

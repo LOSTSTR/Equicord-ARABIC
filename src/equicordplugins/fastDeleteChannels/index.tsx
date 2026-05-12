@@ -55,17 +55,17 @@ const settings = definePluginSettings({
         isValid: (value: string) => validKeycodes.includes(value),
     },
     reqCtrl: {
-        description: "Require control to be held.",
+        description: "يتطلب الضغط على مفتاح Control.",
         type: OptionType.BOOLEAN,
         default: true,
     },
     reqShift: {
-        description: "Require shift to be held.",
+        description: "يتطلب الضغط على مفتاح Shift.",
         type: OptionType.BOOLEAN,
         default: true,
     },
     reqAlt: {
-        description: "Require alt to be held.",
+        description: "يتطلب الضغط على مفتاح Alt.",
         type: OptionType.BOOLEAN,
         default: false,
     },
@@ -73,7 +73,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "FastDeleteChannels",
-    description: "Adds a trash icon to delete channels",
+    description: "يضيف أيقونة سلة المهملات لحذف القنوات",
     tags: ["Servers", "Utility"],
     authors: [Devs.thororen],
     settings,

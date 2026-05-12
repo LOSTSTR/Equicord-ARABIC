@@ -32,24 +32,24 @@ const settings = definePluginSettings({
     },
     watermark: {
         type: OptionType.STRING,
-        description: "Custom watermark text (max 32 characters)",
+        description: "نص العلامة المائية المخصصة (32 حرفاً كحد أقصى)",
         default: "Made with Equicord"
     },
     grayscale: {
         type: OptionType.BOOLEAN,
-        description: "Enable grayscale by default",
+        description: "تفعيل التدرج الرمادي افتراضياً",
         default: true,
         hidden: true
     },
     showWatermark: {
         type: OptionType.BOOLEAN,
-        description: "Show watermark by default",
+        description: "إظهار العلامة المائية افتراضياً",
         default: false,
         hidden: true
     },
     saveAsGif: {
         type: OptionType.BOOLEAN,
-        description: "Save as GIF by default",
+        description: "الحفظ كـ GIF افتراضياً",
         default: false,
         hidden: true
     }
@@ -57,7 +57,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "Quoter",
-    description: "Adds the ability to create an inspirational quote image from a message.",
+    description: "يضيف إمكانية إنشاء صورة اقتباس ملهم من رسالة.",
     tags: ["Chat"],
     authors: [Devs.Samwich, Devs.thororen, EquicordDevs.neoarz, Devs.prism],
     settings,

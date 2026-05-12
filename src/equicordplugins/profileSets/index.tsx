@@ -28,7 +28,7 @@ export const settings = definePluginSettings({
 
 export default definePlugin({
     name: "ProfileSets",
-    description: "Allows you to save and load different profile presets, via the Profile Section in Settings.",
+    description: "يتيح لك حفظ وتحميل إعدادات الملف الشخصي المختلفة، عبر قسم الملف الشخصي في الإعدادات.",
     tags: ["Appearance", "Customisation", "Utility"],
     authors: [EquicordDevs.omaw, EquicordDevs.justjxke],
     settings,

@@ -44,12 +44,12 @@ const settings = definePluginSettings({
         default: true,
     },
     spoilerMessages: {
-        description: "Spoiler messages",
+        description: "إضافة بادئة السبويلر للرسائل",
         type: OptionType.BOOLEAN,
         default: false,
     },
     method: {
-        description: "Anonymising method",
+        description: "طريقة إخفاء الهوية",
         type: OptionType.SELECT,
         options: [
             { label: "Random Characters", value: Methods.Random, default: true },
@@ -58,12 +58,12 @@ const settings = definePluginSettings({
         ],
     },
     randomisedLength: {
-        description: "Random characters length",
+        description: "طول الأحرف العشوائية",
         type: OptionType.NUMBER,
         default: 7
     },
     consistent: {
-        description: "Consistent filename",
+        description: "اسم الملف الثابت",
         type: OptionType.STRING,
         default: "image"
     },
@@ -160,12 +160,12 @@ export default definePlugin({
     commands: [
         {
             name: "Spoiler",
-            description: "Toggle your spoiler",
+            description: "تبديل الحذف التشويقي",
             inputType: ApplicationCommandInputType.BUILT_IN,
             options: [
                 {
                     name: "value",
-                    description: "Toggle your Spoiler (default is toggle)",
+                    description: "تبديل الحذف التشويقي (الافتراضي هو التبديل)",
                     required: false,
                     type: ApplicationCommandOptionType.BOOLEAN,
                 },

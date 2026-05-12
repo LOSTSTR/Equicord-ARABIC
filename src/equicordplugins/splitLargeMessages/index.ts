@@ -86,27 +86,27 @@ const settings = definePluginSettings({
     },
     disableFileConversion: {
         type: OptionType.BOOLEAN,
-        description: "If true, disables file conversion for large messages.",
+        description: "عند التفعيل، يعطّل تحويل الملفات للرسائل الطويلة.",
         default: true,
     },
     sendDelay: {
         type: OptionType.SLIDER,
-        description: "Delay between each chunk in seconds.",
+        description: "التأخير بين كل جزء بالثواني.",
         default: 1,
         markers: [1, 2, 3, 5, 10],
     },
     hardSplit: {
         type: OptionType.BOOLEAN,
-        description: "If true, splits on the last character instead of the last space/newline.",
+        description: "عند التفعيل، يقسم عند آخر حرف بدلاً من آخر مسافة/سطر جديد.",
         default: false,
     },
     splitInSlowmode: {
         type: OptionType.BOOLEAN,
-        description: "Should messages be split if the channel has slowmode enabled?",
+        description: "هل يجب تقسيم الرسائل إذا كان الوضع البطيء مفعّلاً في القناة؟",
     },
     slowmodeMax: {
         type: OptionType.NUMBER,
-        description: "Maximum slowmode time if splitting in slowmode.",
+        description: "الحد الأقصى لوقت الوضع البطيء عند التقسيم فيه.",
         default: 5,
         min: 1,
         max: 30,
@@ -115,7 +115,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "SplitLargeMessages",
-    description: "Splits large messages into multiple to fit Discord's message limit.",
+    description: "يقسّم الرسائل الطويلة لأجزاء متعددة لتناسب حد رسائل ديسكورد.",
     dependencies: ["MessageEventsAPI"],
     tags: ["Appearance", "Customisation", "Chat"],
     authors: [EquicordDevs.Reycko],

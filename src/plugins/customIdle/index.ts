@@ -20,7 +20,7 @@ const settings = definePluginSettings({
         restartNeeded: true // Because of the setInterval patch
     },
     remainInIdle: {
-        description: "When you come back to Discord, remain idle until you confirm you want to go online",
+        description: "عند العودة إلى Discord، ابقَ في وضع الخمول حتى تؤكد رغبتك في الظهور متصلاً",
         type: OptionType.BOOLEAN,
         default: true
     }

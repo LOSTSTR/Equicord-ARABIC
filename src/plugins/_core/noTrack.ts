@@ -33,7 +33,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "NoTrack",
-    description: "Disable Discord's tracking (analytics/'science'), metrics and Sentry crash reporting",
+    description: "تعطيل تتبع Discord (التحليلات/الإحصاءات) ومقاييس الأداء وتقارير أعطال Sentry",
     authors: [Devs.Cyn, Devs.Ven, Devs.Nuckyz, Devs.Arrow],
     required: true,
 

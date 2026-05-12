@@ -1,0 +1,23 @@
+name: Release macOS Installer
+
+on:
+    workflow_dispatch:
+    workflow_call:
+
+env:
+    GITHUB_TOKEN: ${{ secrets.ETOKEN }}
+
+permissions:
+    contents: write
+
+jobs:
+    Upload:
+        name: Upload macOS Installer Script
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v6
+
+            - name: Upload install-macos.sh to release
+              run: |
+                  gh release upload v1.0.0-stable --clobber installer/install-macos.sh

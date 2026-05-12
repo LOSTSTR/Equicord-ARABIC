@@ -24,7 +24,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "ForwardAnywhere",
-    description: "If a forward fails send it as a normal message also allows nsfw forwards",
+    description: "إذا فشل التوجيه، يُرسله كرسالة عادية، ويسمح أيضاً بتوجيه المحتوى الصريح (NSFW)",
     tags: ["Chat", "Utility"],
     authors: [Devs.thororen],
     settings,

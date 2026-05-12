@@ -21,7 +21,7 @@ export const settings = definePluginSettings({
     },
     showSuffix: {
         type: OptionType.BOOLEAN,
-        description: "Shows the Mod as Suffix",
+        description: "يعرض اسم الموديفيكيشن كلاحقة للشارة",
         default: false,
         restartNeeded: false,
         onChange: (e => {
@@ -32,61 +32,61 @@ export const settings = definePluginSettings({
     },
     showCustom: {
         type: OptionType.BOOLEAN,
-        description: "Show Custom Badges",
+        description: "إظهار الشارات المخصصة",
         default: true,
         restartNeeded: false
     },
     showNekocord: {
         type: OptionType.BOOLEAN,
-        description: "Show Nekocord Badges",
+        description: "إظهار شارات Nekocord",
         default: true,
         restartNeeded: false
     },
     showReviewDB: {
         type: OptionType.BOOLEAN,
-        description: "Show ReviewDB Badges",
+        description: "إظهار شارات ReviewDB",
         default: true,
         restartNeeded: false
     },
     showAero: {
         type: OptionType.BOOLEAN,
-        description: "Show Aero Badges",
+        description: "إظهار شارات Aero",
         default: true,
         restartNeeded: false
     },
     showAliucord: {
         type: OptionType.BOOLEAN,
-        description: "Show Aliucord Badges",
+        description: "إظهار شارات Aliucord",
         default: true,
         restartNeeded: false
     },
     showRaincord: {
         type: OptionType.BOOLEAN,
-        description: "Show Raincord Badges",
+        description: "إظهار شارات Raincord",
         default: true,
         restartNeeded: false
     },
     showVelocity: {
         type: OptionType.BOOLEAN,
-        description: "Show Velocity Badges",
+        description: "إظهار شارات Velocity",
         default: true,
         restartNeeded: false
     },
     showEnmity: {
         type: OptionType.BOOLEAN,
-        description: "Show Enmity Badges",
+        description: "إظهار شارات Enmity",
         default: true,
         restartNeeded: false
     },
     showPaicord: {
         type: OptionType.BOOLEAN,
-        description: "Show Paicord Badges",
+        description: "إظهار شارات Paicord",
         default: true,
         restartNeeded: false
     },
     apiUrl: {
         type: OptionType.STRING,
-        description: "API to use",
+        description: "واجهة برمجة التطبيقات المستخدمة",
         default: "https://badges.equicord.org/",
         restartNeeded: false,
         isValid: (value => {

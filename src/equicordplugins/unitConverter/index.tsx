@@ -47,7 +47,7 @@ export const settings = definePluginSettings({
 
 export default definePlugin({
     name: "UnitConverter",
-    description: "Converts metric units to Imperal units and vice versa",
+    description: "يحوّل الوحدات المترية إلى الوحدات الإمبراطورية والعكس",
     dependencies: ["MessagePopoverAPI"],
     tags: ["Utility"],
     authors: [Devs.sadan],

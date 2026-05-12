@@ -18,20 +18,20 @@ export const settings = definePluginSettings({
     },
     replyPingWhitelist: {
         type: OptionType.STRING,
-        description: "Comma-separated list of User IDs to always receive reply pings from",
+        description: "قائمة معرّفات المستخدمين مفصولة بفاصلة لاستقبال إشعارات الردود منهم دائماً",
         default: "",
         disabled: () => settings.store.alwaysPingOnReply,
     },
     replyPingBlacklist: {
         type: OptionType.STRING,
-        description: "Comma-separated list of User IDs to never receive reply pings from",
+        description: "قائمة معرّفات المستخدمين مفصولة بفاصلة لعدم استقبال إشعارات الردود منهم أبداً",
         default: "",
     }
 });
 
 export default definePlugin({
     name: "ReplyPingControl",
-    description: "Control whether to always or never get pinged on message replies, with whitelist and blacklist features",
+    description: "التحكم في استقبال إشعارات ردود الرسائل دائماً أو أبداً، مع ميزات القائمة البيضاء والسوداء",
     tags: ["Chat", "Notifications"],
     authors: [Devs.ant0n, EquicordDevs.MrDiamond, EquicordDevs.keircn],
     settings,

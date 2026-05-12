@@ -16,19 +16,19 @@ export const settings = definePluginSettings({
     },
     toki: {
         type: OptionType.BOOLEAN,
-        description: "Enable Toki Pona",
+        description: "تفعيل لغة Toki Pona",
         default: true,
         restartNeeded: true
     },
     sitelen: {
         type: OptionType.BOOLEAN,
-        description: "Enable Sitelen Pona",
+        description: "تفعيل كتابة Sitelen Pona",
         default: true,
         restartNeeded: true
     },
     shavian: {
         type: OptionType.BOOLEAN,
-        description: "Enable Shavian",
+        description: "تفعيل الحروف الشيفية",
         default: true,
         restartNeeded: true
     }

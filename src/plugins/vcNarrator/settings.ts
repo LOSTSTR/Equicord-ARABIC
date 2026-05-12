@@ -44,54 +44,54 @@ export const settings = definePluginSettings({
     },
     rate: {
         type: OptionType.SLIDER,
-        description: "Narrator Speed",
+        description: "سرعة الراوي",
         default: 1,
         markers: [0.1, 0.5, 1, 2, 5, 10],
         stickToMarkers: false
     },
     sayOwnName: {
-        description: "Say own name",
+        description: "نطق اسمك الخاص",
         type: OptionType.BOOLEAN,
         default: false
     },
     latinOnly: {
-        description: "Strip non latin characters from names before saying them",
+        description: "إزالة الأحرف غير اللاتينية من الأسماء قبل نطقها",
         type: OptionType.BOOLEAN,
         default: false
     },
     joinMessage: {
         type: OptionType.STRING,
-        description: "Join Message",
+        description: "رسالة الانضمام",
         default: "{{USER}} joined"
     },
     leaveMessage: {
         type: OptionType.STRING,
-        description: "Leave Message",
+        description: "رسالة المغادرة",
         default: "{{USER}} left"
     },
     moveMessage: {
         type: OptionType.STRING,
-        description: "Move Message",
+        description: "رسالة الانتقال",
         default: "{{USER}} moved to {{CHANNEL}}"
     },
     muteMessage: {
         type: OptionType.STRING,
-        description: "Mute Message (only self for now)",
+        description: "رسالة الكتم (للنفس فقط حالياً)",
         default: "{{USER}} muted"
     },
     unmuteMessage: {
         type: OptionType.STRING,
-        description: "Unmute Message (only self for now)",
+        description: "رسالة إلغاء الكتم (للنفس فقط حالياً)",
         default: "{{USER}} unmuted"
     },
     deafenMessage: {
         type: OptionType.STRING,
-        description: "Deafen Message (only self for now)",
+        description: "رسالة الصمم (للنفس فقط حالياً)",
         default: "{{USER}} deafened"
     },
     undeafenMessage: {
         type: OptionType.STRING,
-        description: "Undeafen Message (only self for now)",
+        description: "رسالة إلغاء الصمم (للنفس فقط حالياً)",
         default: "{{USER}} undeafened"
     }
 });

@@ -254,49 +254,49 @@ export const settings = definePluginSettings({
     },
     sidebarAnim: {
         type: OptionType.BOOLEAN,
-        description: "Animate opening the folder sidebar",
+        description: "تحريك فتح الشريط الجانبي للمجلد",
         default: true
     },
     closeAllFolders: {
         type: OptionType.BOOLEAN,
-        description: "Close all folders when selecting a server not in a folder",
+        description: "إغلاق جميع المجلدات عند اختيار سيرفر لا ينتمي إلى أي مجلد",
         default: false
     },
     closeAllHomeButton: {
         type: OptionType.BOOLEAN,
-        description: "Close all folders when clicking on the home button",
+        description: "إغلاق جميع المجلدات عند الضغط على زر الرئيسية",
         restartNeeded: true,
         default: false
     },
     closeOthers: {
         type: OptionType.BOOLEAN,
-        description: "Close other folders when opening a folder",
+        description: "إغلاق المجلدات الأخرى عند فتح مجلد",
         default: false
     },
     closeServerFolder: {
         type: OptionType.BOOLEAN,
-        description: "Close folder when selecting a server in that folder",
+        description: "إغلاق المجلد عند اختيار سيرفر داخله",
         default: false,
     },
     forceOpen: {
         type: OptionType.BOOLEAN,
-        description: "Force a folder to open when switching to a server of that folder",
+        description: "إجبار المجلد على الفتح عند الانتقال إلى سيرفر داخله",
         default: false
     },
     enableNestedFolders: {
         type: OptionType.BOOLEAN,
-        description: "Allow nesting folders inside other folders by dragging.",
+        description: "السماح بتداخل المجلدات داخل بعضها عبر السحب والإفلات.",
         default: true
     },
     keepIcons: {
         type: OptionType.BOOLEAN,
-        description: "Keep showing guild icons in the primary guild bar folder when it's open in the BetterFolders sidebar",
+        description: "الاستمرار في عرض أيقونات السيرفرات في شريط السيرفرات الرئيسي عند فتح الشريط الجانبي لـ BetterFolders",
         restartNeeded: true,
         default: false
     },
     showFolderIcon: {
         type: OptionType.SELECT,
-        description: "Show the folder icon above the folder guilds in the BetterFolders sidebar",
+        description: "إظهار أيقونة المجلد فوق سيرفرات المجلد في الشريط الجانبي لـ BetterFolders",
         options: [
             { label: "Never", value: FolderIconDisplay.Never },
             { label: "Always", value: FolderIconDisplay.Always, default: true },

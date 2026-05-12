@@ -106,28 +106,28 @@ export default definePlugin({
     commands: [
         {
             name: "tags",
-            description: "Manage all custom commands",
+            description: "إدارة جميع الأوامر المخصصة",
             inputType: ApplicationCommandInputType.BUILT_IN,
             options: [
                 {
                     name: "create",
-                    description: "Create a new tag",
+                    description: "إنشاء وسم جديد",
                     type: ApplicationCommandOptionType.SUB_COMMAND,
                 },
                 {
                     name: "list",
-                    description: "List all your tags",
+                    description: "عرض جميع وسوماتك",
                     type: ApplicationCommandOptionType.SUB_COMMAND,
                     options: []
                 },
                 {
                     name: "delete",
-                    description: "Remove a tag by name",
+                    description: "حذف وسم بالاسم",
                     type: ApplicationCommandOptionType.SUB_COMMAND,
                     options: [
                         {
                             name: "tag-name",
-                            description: "The name of the tag",
+                            description: "اسم الوسم",
                             type: ApplicationCommandOptionType.STRING,
                             required: true
                         }

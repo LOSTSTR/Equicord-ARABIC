@@ -32,13 +32,13 @@ const settings = definePluginSettings({
     defaultVideoSpeed: {
         type: OptionType.SLIDER,
         default: 1,
-        description: "Videos",
+        description: "مقاطع الفيديو",
         markers: speeds,
     },
     defaultAudioSpeed: {
         type: OptionType.SLIDER,
         default: 1,
-        description: "Audios",
+        description: "الملفات الصوتية",
         markers: speeds,
     },
 });
@@ -47,7 +47,7 @@ type MediaRef = RefObject<HTMLMediaElement> | undefined;
 
 export default definePlugin({
     name: "MediaPlaybackSpeed",
-    description: "Allows changing the (default) playback speed of media embeds",
+    description: "يتيح تغيير سرعة تشغيل مقاطع الوسائط (الافتراضية)",
     tags: ["Chat", "Media"],
     authors: [Devs.D3SOX],
     settings,

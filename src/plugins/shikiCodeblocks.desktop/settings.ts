@@ -43,7 +43,7 @@ export const settings = definePluginSettings({
     },
     customTheme: {
         type: OptionType.STRING,
-        description: "A link to a custom vscode theme",
+        description: "رابط لثيم vscode مخصص",
         placeholder: themes.MaterialCandy,
         onChange: value => {
             shiki.setTheme(value || settings.store.theme);
@@ -51,7 +51,7 @@ export const settings = definePluginSettings({
     },
     tryHljs: {
         type: OptionType.SELECT,
-        description: "Use the more lightweight default Discord highlighter and theme.",
+        description: "استخدام مُمَيِّز Discord الافتراضي الأخف وزناً والثيم المرافق له.",
         options: [
             {
                 label: "Never",
@@ -74,7 +74,7 @@ export const settings = definePluginSettings({
     },
     useDevIcon: {
         type: OptionType.SELECT,
-        description: "How to show language icons on codeblocks",
+        description: "كيفية عرض أيقونات اللغة على كتل الكود",
         options: [
             {
                 label: "Disabled",
@@ -97,7 +97,7 @@ export const settings = definePluginSettings({
     },
     bgOpacity: {
         type: OptionType.SLIDER,
-        description: "Background opacity",
+        description: "شفافية الخلفية",
         markers: [0, 20, 40, 60, 80, 100],
         default: 100,
         stickToMarkers: false,

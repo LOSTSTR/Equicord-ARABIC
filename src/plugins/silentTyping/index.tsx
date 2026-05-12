@@ -35,22 +35,22 @@ const settings = definePluginSettings({
     },
     hideChatBoxTypingIndicators: {
         type: OptionType.BOOLEAN,
-        description: "Hide other users' typing indicators from above the chat bar.",
+        description: "إخفاء مؤشرات كتابة المستخدمين الآخرين من أعلى شريط الدردشة.",
         default: false,
     },
     hideMembersListTypingIndicators: {
         type: OptionType.BOOLEAN,
-        description: "Hide other users' typing indicators from the members list.",
+        description: "إخفاء مؤشرات كتابة المستخدمين الآخرين من قائمة الأعضاء.",
         default: false,
     },
     chatIcon: {
         type: OptionType.BOOLEAN,
-        description: "Show an icon in the chat bar for modifying the plugin on the go.",
+        description: "إظهار أيقونة في شريط الدردشة لتعديل الإضافة أثناء الاستخدام.",
         default: true,
     },
     chatIconLeftClickAction: {
         type: OptionType.SELECT,
-        description: "What to do when left clicking the chat icon.",
+        description: "ما يحدث عند النقر بالزر الأيسر على أيقونة الدردشة.",
         options: [
             { label: "Toggle Typing Globally", value: "global" },
             { label: "Toggle Typing in Channel", value: "channel", default: true },
@@ -60,7 +60,7 @@ const settings = definePluginSettings({
     },
     chatIconMiddleClickAction: {
         type: OptionType.SELECT,
-        description: "What to do when middle clicking the chat icon.",
+        description: "ما يحدث عند النقر بزر الفأرة الأوسط على أيقونة الدردشة.",
         options: [
             { label: "Toggle Typing Globally", value: "global" },
             { label: "Toggle Typing in Channel", value: "channel" },
@@ -70,7 +70,7 @@ const settings = definePluginSettings({
     },
     chatIconRightClickAction: {
         type: OptionType.SELECT,
-        description: "What to do when right clicking the chat icon.",
+        description: "ما يحدث عند النقر بالزر الأيمن على أيقونة الدردشة.",
         options: [
             { label: "Toggle Typing Globally", value: "global", default: true },
             { label: "Toggle Typing in Channel", value: "channel" },
@@ -80,22 +80,22 @@ const settings = definePluginSettings({
     },
     chatContextMenu: {
         type: OptionType.BOOLEAN,
-        description: "Show a dropdown in the chat context menu to modify plugin settings on the go.",
+        description: "إظهار قائمة منسدلة في قائمة سياق الدردشة لتعديل إعدادات الإضافة أثناء الاستخدام.",
         default: true
     },
     defaultHidden: {
         type: OptionType.BOOLEAN,
-        description: "If enabled, the plugin will hide your typing from others in any DMs/channels/guilds not listed in \"Disabled Locations\" below. If disabled, the plugin will show your typing to others for any DMs/channels/guilds not listed in \"Enabled Locations\" below.",
+        description: "إذا كان مفعّلاً، ستخفي الإضافة مؤشر كتابتك عن الآخرين في أي رسائل مباشرة/قنوات/خوادم غير مدرجة في \"المواقع المعطّلة\" أدناه. وإذا كان معطّلاً، ستُظهر الإضافة مؤشر كتابتك للآخرين في أي رسائل مباشرة/قنوات/خوادم غير مدرجة في \"المواقع المفعّلة\" أدناه.",
         default: true,
     },
     enabledLocations: {
         type: OptionType.STRING,
-        description: "Enable functionality for these IDs. Accepts a comma separated list of DM IDs, channel IDs, and guild IDs. Only used if \"Default Hidden\" is disabled.",
+        description: "تفعيل الوظيفة لهذه المعرّفات. يقبل قائمة مفصولة بفواصل من معرّفات الرسائل المباشرة والقنوات والخوادم. يُستخدم فقط إذا كان \"مخفي افتراضياً\" معطّلاً.",
         default: "",
     },
     disabledLocations: {
         type: OptionType.STRING,
-        description: "Disable functionality for these IDs. Accepts a comma separated list of DM IDs, channel IDs, and guild IDs. Only used if \"Default Hidden\" is enabled.",
+        description: "تعطيل الوظيفة لهذه المعرّفات. يقبل قائمة مفصولة بفواصل من معرّفات الرسائل المباشرة والقنوات والخوادم. يُستخدم فقط إذا كان \"مخفي افتراضياً\" مفعّلاً.",
         default: "",
     },
 });
@@ -347,13 +347,13 @@ export default definePlugin({
     commands: [
         {
             name: "silent-typing",
-            description: "Hide your typing indicator from chat.",
+            description: "إخفاء مؤشر الكتابة عن الدردشة.",
             inputType: ApplicationCommandInputType.BUILT_IN,
 
             options: [
                 {
                     name: "toggle",
-                    description: "Toggle functionality globally, for the channel, or for the guild.",
+                    description: "تبديل الوظيفة عالمياً أو للقناة أو للسيرفر.",
                     required: false,
                     type: ApplicationCommandOptionType.STRING,
                     choices: [
@@ -364,31 +364,31 @@ export default definePlugin({
                 },
                 {
                     name: "chat-bar-indicators",
-                    description: "Hide other users' typing indicators from above the chat bar.",
+                    description: "إخفاء مؤشرات الكتابة للمستخدمين الآخرين من فوق شريط الدردشة.",
                     required: false,
                     type: ApplicationCommandOptionType.BOOLEAN,
                 },
                 {
                     name: "members-list-indicators",
-                    description: "Hide other users' typing indicators from the members list.",
+                    description: "إخفاء مؤشرات الكتابة للمستخدمين الآخرين من قائمة الأعضاء.",
                     required: false,
                     type: ApplicationCommandOptionType.BOOLEAN,
                 },
                 {
                     name: "chat-icon",
-                    description: "Show an icon in the chat bar for toggling the plugin on the go.",
+                    description: "إظهار أيقونة في شريط الدردشة لتبديل الإضافة أثناء الاستخدام.",
                     required: false,
                     type: ApplicationCommandOptionType.BOOLEAN,
                 },
                 {
                     name: "chat-context-menu",
-                    description: "Show a dropdown in the chat context menu to toggle plugin settings on the go.",
+                    description: "إظهار قائمة منسدلة في قائمة سياق الدردشة لتبديل إعدادات الإضافة.",
                     required: false,
                     type: ApplicationCommandOptionType.BOOLEAN,
                 },
                 {
                     name: "default-hidden",
-                    description: "Whether to hide typing in DMs/channels/guilds by default or not.",
+                    description: "تحديد ما إذا كان سيتم إخفاء الكتابة في الرسائل المباشرة/القنوات/السيرفرات افتراضياً.",
                     required: false,
                     type: ApplicationCommandOptionType.BOOLEAN,
                 }

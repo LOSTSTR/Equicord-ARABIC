@@ -36,12 +36,12 @@ const settings = definePluginSettings({
         placeholder: "Google"
     },
     customEngineURL: {
-        description: "The URL of your Engine",
+        description: "رابط محرك البحث الخاص بك",
         type: OptionType.STRING,
         placeholder: "https://google.com/search?q="
     },
     replacementEngine: {
-        description: "Replace with a specific search engine instead of adding a menu",
+        description: "الاستبدال بمحرك بحث محدد بدلاً من إضافة قائمة",
         type: OptionType.SELECT,
         options: [
             { label: "Off", value: ReplacementEngineValue.OFF, default: true },

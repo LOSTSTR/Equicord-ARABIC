@@ -59,218 +59,218 @@ export const settings = definePluginSettings({
     },
     serviceUrl: {
         type: OptionType.STRING,
-        description: "Zipline service URL",
+        description: "رابط خدمة Zipline",
         default: "",
         hidden: true
     },
     ziplineToken: {
         type: OptionType.STRING,
-        description: "Zipline auth token",
+        description: "رمز مصادقة Zipline",
         default: "",
         hidden: true
     },
     folderId: {
         type: OptionType.STRING,
-        description: "Optional Zipline folder ID",
+        description: "معرّف مجلد Zipline الاختياري",
         default: "",
         hidden: true
     },
     ezHostKey: {
         type: OptionType.STRING,
-        description: "E-Z Host API key",
+        description: "مفتاح API لـ E-Z Host",
         default: "",
         hidden: true
     },
     nestToken: {
         type: OptionType.STRING,
-        description: "Nest API token",
+        description: "رمز API لـ Nest",
         default: "",
         hidden: true
     },
     s3Endpoint: {
         type: OptionType.STRING,
-        description: "S3-compatible endpoint URL",
+        description: "رابط نقطة النهاية المتوافقة مع S3",
         default: "",
         hidden: true
     },
     s3Bucket: {
         type: OptionType.STRING,
-        description: "S3 bucket name",
+        description: "اسم حاوية S3",
         default: "",
         hidden: true
     },
     s3Region: {
         type: OptionType.STRING,
-        description: "S3 region (use auto for R2)",
+        description: "منطقة S3 (استخدم auto لـ R2)",
         default: "auto",
         hidden: true
     },
     s3AccessKeyId: {
         type: OptionType.STRING,
-        description: "S3 access key ID",
+        description: "معرّف مفتاح الوصول لـ S3",
         default: "",
         hidden: true
     },
     s3SecretAccessKey: {
         type: OptionType.STRING,
-        description: "S3 secret access key",
+        description: "مفتاح الوصول السري لـ S3",
         default: "",
         hidden: true
     },
     s3SessionToken: {
         type: OptionType.STRING,
-        description: "Optional S3 session token",
+        description: "رمز جلسة S3 الاختياري",
         default: "",
         hidden: true
     },
     s3PublicUrl: {
         type: OptionType.STRING,
-        description: "Optional public base URL",
+        description: "رابط القاعدة العامة الاختياري",
         default: "",
         hidden: true
     },
     s3Prefix: {
         type: OptionType.STRING,
-        description: "Optional S3 object key prefix",
+        description: "بادئة مفتاح كائن S3 الاختيارية",
         default: "",
         hidden: true
     },
     s3ForcePathStyle: {
         type: OptionType.BOOLEAN,
-        description: "Use path-style S3 URLs",
+        description: "استخدام روابط S3 بأسلوب المسار",
         default: true,
         hidden: true
     },
     litterboxExpiry: {
         type: OptionType.SELECT,
-        description: "Litterbox retention window",
+        description: "مدة الاحتفاظ في Litterbox",
         options: litterboxOptions,
         default: "24h",
         hidden: true
     },
     catboxUserhash: {
         type: OptionType.STRING,
-        description: "Catbox userhash for account binding",
+        description: "رمز مستخدم Catbox لربط الحساب",
         default: "",
         hidden: true
     },
     sharexConfig: {
         type: OptionType.STRING,
-        description: "ShareX custom uploader JSON",
+        description: "ملف JSON لرافع ShareX المخصص",
         default: "",
         hidden: true
     },
     disableFallbacks: {
         type: OptionType.BOOLEAN,
-        description: "Disable fallback upload services",
+        description: "تعطيل خدمات الرفع الاحتياطية",
         default: false,
         hidden: true
     },
     autoSend: {
         type: OptionType.BOOLEAN,
-        description: "Insert uploaded URL in chat input",
+        description: "إدراج رابط الملف المرفوع في مربع الدردشة",
         default: false,
         hidden: true
     },
     autoFormat: {
         type: OptionType.BOOLEAN,
-        description: "Wrap inserted URL in angle brackets",
+        description: "تغليف الرابط المدرج بأقواس زاوية",
         default: false,
         hidden: true
     },
     bypassDiscordUpload: {
         type: OptionType.BOOLEAN,
-        description: "Bypass Discord uploads and use FileUpload instead.",
+        description: "تجاوز رفع Discord واستخدام FileUpload عوضاً عنه.",
         default: true,
         hidden: true
     },
     bypassDiscordUploadOnlyOverLimit: {
         type: OptionType.BOOLEAN,
-        description: "Only use FileUpload if the file(s) exceed the file size limit.",
+        description: "استخدام FileUpload فقط إذا تجاوزت الملفات حد الحجم المسموح.",
         default: true,
         hidden: true
     },
     gofileToken: {
         type: OptionType.STRING,
-        description: "Optional GoFile API token",
+        description: "رمز API لـ GoFile الاختياري",
         default: "",
         hidden: true
     },
     fallbackOrder: {
         type: OptionType.STRING,
-        description: "Fallback uploader order",
+        description: "ترتيب الرافعين الاحتياطيين",
         default: defaultFallbackOrder,
         hidden: true
     },
     pixelVaultKey: {
         type: OptionType.STRING,
-        description: "PixelVault upload key",
+        description: "مفتاح رفع PixelVault",
         default: "",
         hidden: true
     },
     pixelDrainKey: {
         type: OptionType.STRING,
-        description: "Optional PixelDrain API key",
+        description: "مفتاح API لـ PixelDrain الاختياري",
         default: "",
         hidden: true
     },
     uploadTimeoutMs: {
         type: OptionType.NUMBER,
-        description: "Upload timeout in milliseconds",
+        description: "مهلة الرفع بالمللي ثانية",
         default: 300000,
         hidden: true
     },
     stripQueryParams: {
         type: OptionType.BOOLEAN,
-        description: "Strip query params from uploaded URLs",
+        description: "إزالة معاملات الاستعلام من روابط الملفات المرفوعة",
         default: false,
         hidden: true
     },
     embedProxyEnabled: {
         type: OptionType.BOOLEAN,
-        description: "Proxy uploaded video links through an embed helper service.",
+        description: "توجيه روابط الفيديو المرفوعة عبر خدمة مساعدة للتضمين.",
         default: false,
         hidden: true
     },
     embedProxyService: {
         type: OptionType.SELECT,
-        description: "Embed helper service to wrap uploaded video links.",
+        description: "خدمة مساعدة التضمين لتغليف روابط الفيديو المرفوعة.",
         options: embedProxyOptions,
         default: "cors",
         hidden: true
     },
     corsProxyUrl: {
         type: OptionType.STRING,
-        description: "CORS proxy URL used for browser uploads",
+        description: "رابط وكيل CORS المستخدم لرفع المتصفح",
         default: CORS_PROXY,
         hidden: true
     },
     apngToGif: {
         type: OptionType.BOOLEAN,
-        description: "Convert APNG uploads to GIF",
+        description: "تحويل ملفات APNG المرفوعة إلى GIF",
         default: false,
         hidden: true
     },
     preserveOriginalFilename: {
         type: OptionType.BOOLEAN,
-        description: "Preserve the original filename when uploading.",
+        description: "الحفاظ على اسم الملف الأصلي عند الرفع.",
         default: true,
         hidden: true
     },
     autoCopy: {
         type: OptionType.BOOLEAN,
-        description: "Auto copy upload URL",
+        description: "نسخ رابط الرفع تلقائياً",
         default: true,
         hidden: true
     },
     autoUploadPastedFiles: {
         type: OptionType.BOOLEAN,
-        description: "Automatically upload files from clipboard to image host when pasting in chat input.",
+        description: "رفع الملفات تلقائياً من الحافظة إلى خدمة الصور عند اللصق في مربع الدردشة.",
         default: false
     },
     settingsComponent: {
         type: OptionType.COMPONENT,
-        description: "Settings",
+        description: "الإعدادات",
         component: SettingsComponent
     }
 });

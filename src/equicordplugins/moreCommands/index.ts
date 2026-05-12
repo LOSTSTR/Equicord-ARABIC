@@ -73,7 +73,7 @@ export default definePlugin({
     commands: [
         {
             name: "systeminfo",
-            description: "Shows system information",
+            description: "يعرض معلومات النظام",
             options: [],
             execute: async (opts, ctx) => {
                 try {
@@ -105,7 +105,7 @@ export default definePlugin({
         },
         {
             name: "getuptime",
-            description: "Returns the system uptime",
+            description: "يعيد وقت تشغيل النظام",
             execute: async () => {
                 const uptime = performance.now() / 1000;
                 const uptimeInfo = `> **System Uptime**: ${Math.floor(uptime / 60)} minutes`;
@@ -114,7 +114,7 @@ export default definePlugin({
         },
         {
             name: "gettime",
-            description: "Returns the current server time",
+            description: "يعيد الوقت الحالي للسيرفر",
             execute: async () => {
                 const currentTime = new Date().toLocaleString();
                 return { content: `> **Current Time**: ${currentTime}` };
@@ -122,11 +122,11 @@ export default definePlugin({
         },
         {
             name: "choose",
-            description: "Randomly chooses from provided options",
+            description: "يختار عشوائياً من الخيارات المقدمة",
             options: [
                 {
                     name: "choices",
-                    description: "Comma-separated list of choices",
+                    description: "قائمة الخيارات مفصولة بفاصلة",
                     type: ApplicationCommandOptionType.STRING,
                     required: true
                 }
@@ -141,7 +141,7 @@ export default definePlugin({
         },
         {
             name: "rolldice",
-            description: "Roll a die with the specified number of sides",
+            description: "يرمي نرداً بالعدد المحدد من الأوجه",
             options: [RequiredMessageOption],
             execute: opts => {
                 const sides = parseInt(findOption(opts, "message", "6"));
@@ -153,7 +153,7 @@ export default definePlugin({
         },
         {
             name: "flipcoin",
-            description: "Flips a coin and returns heads or tails",
+            description: "يقلب عملة معدنية ويعيد نتيجة الوجه",
             options: [],
             execute: (opts, ctx) => {
                 const flip = Math.random() < 0.5 ? "Heads" : "Tails";
@@ -164,7 +164,7 @@ export default definePlugin({
         },
         {
             name: "ask",
-            description: "Ask a yes/no question and get an answer",
+            description: "اطرح سؤالاً بنعم/لا واحصل على إجابة",
             options: [RequiredMessageOption],
             execute: opts => {
                 const question = findOption(opts, "message", "");
@@ -177,11 +177,11 @@ export default definePlugin({
         },
         {
             name: "randomanimal",
-            description: "Get a random cat picture",
+            description: "احصل على صورة حيوان عشوائية",
             options: [
                 {
                     name: "animal",
-                    description: "pick your animal",
+                    description: "اختر حيوانك",
                     type: ApplicationCommandOptionType.STRING,
                     required: true,
                     choices: [
@@ -216,17 +216,17 @@ export default definePlugin({
         },
         {
             name: "randomnumber",
-            description: "Generates a random number between two values",
+            description: "يولّد رقماً عشوائياً بين قيمتين",
             options: [
                 {
                     name: "min",
-                    description: "Minimum value",
+                    description: "القيمة الدنيا",
                     type: ApplicationCommandOptionType.INTEGER,
                     required: true
                 },
                 {
                     name: "max",
-                    description: "Maximum value",
+                    description: "القيمة القصوى",
                     type: ApplicationCommandOptionType.INTEGER,
                     required: true
                 }
@@ -242,17 +242,17 @@ export default definePlugin({
         },
         {
             name: "transform",
-            description: "Transform your text with the specified option",
+            description: "حوّل نصك بالخيار المحدد",
             options: [
                 {
                     name: "text",
-                    description: "TEXT TO UPPERCASE",
+                    description: "النص للتحويل",
                     type: ApplicationCommandOptionType.STRING,
                     required: true
                 },
                 {
                     name: "transformation",
-                    description: "transformation to apply to your text",
+                    description: "التحويل المراد تطبيقه على نصك",
                     type: ApplicationCommandOptionType.STRING,
                     required: true,
                     choices: [
@@ -265,19 +265,19 @@ export default definePlugin({
                 },
                 {
                     name: "repeat",
-                    description: "how many times to repeat",
+                    description: "عدد مرات التكرار",
                     type: ApplicationCommandOptionType.INTEGER,
                     required: false
                 },
                 {
                     name: "reverse",
-                    description: "reverse your text",
+                    description: "عكس نصك",
                     type: ApplicationCommandOptionType.BOOLEAN,
                     required: false
                 },
                 {
                     name: "normalize",
-                    description: "which normailze option to use",
+                    description: "خيار التطبيع المراد استخدامه",
                     type: ApplicationCommandOptionType.STRING,
                     required: false,
                     choices: [
@@ -307,7 +307,7 @@ export default definePlugin({
         },
         {
             name: "wordcount",
-            description: "Counts the number of words in a message",
+            description: "يحسب عدد الكلمات في رسالة",
             options: [RequiredMessageOption],
             inputType: ApplicationCommandInputType.BOT,
             execute: (opts, ctx) => {
@@ -320,11 +320,11 @@ export default definePlugin({
         },
         {
             name: "countdown",
-            description: "Starts a countdown from a specified number",
+            description: "يبدأ عدّاً تنازلياً من رقم محدد",
             options: [
                 {
                     name: "number",
-                    description: "Number to countdown from (max 10)",
+                    description: "الرقم للعد التنازلي منه (الحد الأقصى 10)",
                     type: ApplicationCommandOptionType.INTEGER,
                     required: true
                 }
@@ -351,25 +351,25 @@ export default definePlugin({
         },
         {
             name: "pat",
-            description: "Sends a headpat gif",
+            description: "يرسل صورة GIF للتربيت على الرأس",
             execute: async () => ({
                 content: await getCutePats()
             })
         },
         {
             name: "nekos",
-            description: "Send Neko",
+            description: "إرسال Neko",
             execute: async () => ({
                 content: await getCuteNeko()
             })
         },
         {
             name: "anime-boys",
-            description: "Send cute anime boys",
+            description: "إرسال صبيان أنيمي لطيفين",
             options: [
                 {
                     name: "cat",
-                    description: "If set, this will send exclusively cute anime cat boys",
+                    description: "إذا تم الضبط، سيرسل صبيان قطة أنيمي لطيفين فقط",
                     type: ApplicationCommandOptionType.BOOLEAN,
                     required: false,
                 },
@@ -383,7 +383,7 @@ export default definePlugin({
         },
         {
             name: "ping",
-            description: "Pings the bot to check if it's responding",
+            description: "يختبر استجابة البوت",
             options: [],
             inputType: ApplicationCommandInputType.BOT,
             execute: (opts, ctx) => {
@@ -394,7 +394,7 @@ export default definePlugin({
         },
         {
             name: "echo",
-            description: "Sends a message as Clyde (locally)",
+            description: "يرسل رسالة بوصفها Clyde (محلياً)",
             options: [OptionalMessageOption],
             inputType: ApplicationCommandInputType.BOT,
             execute: (opts, ctx) => {
@@ -404,7 +404,7 @@ export default definePlugin({
         },
         {
             name: "lenny",
-            description: "Sends a lenny face",
+            description: "يرسل وجه lenny",
             options: [OptionalMessageOption],
             execute: opts => ({
                 content: findOption(opts, "message", "") + " ( ͡° ͜ʖ ͡°)"
@@ -412,7 +412,7 @@ export default definePlugin({
         },
         {
             name: "mock",
-            description: "mOcK PeOpLe",
+            description: "مزاح مع الناس",
             options: [RequiredMessageOption],
             execute: opts => ({
                 content: mock(findOption(opts, "message", ""))
@@ -421,10 +421,10 @@ export default definePlugin({
         {
             inputType: ApplicationCommandInputType.BUILT_IN_TEXT,
             name: "slap",
-            description: "Slap someone/something.",
+            description: "يصفع شخصاً أو شيئاً.",
             options: [{
                 name: "victim",
-                description: "Thing to slap",
+                description: "الشيء المراد صفعه",
                 required: true,
                 type: ApplicationCommandOptionType.STRING,
             }],
@@ -435,11 +435,11 @@ export default definePlugin({
         },
         {
             name: "freaky",
-            description: "it's freaky.",
+            description: "تحويل النص إلى خط خيالي.",
             inputType: ApplicationCommandInputType.BUILT_IN,
             options: [{
                 name: "message",
-                description: "yoooo freaky",
+                description: "النص المراد تحويله",
                 type: ApplicationCommandOptionType.STRING,
                 required: true
             }],
@@ -450,11 +450,11 @@ export default definePlugin({
         {
             inputType: ApplicationCommandInputType.BUILT_IN_TEXT,
             name: "morse",
-            description: "Translate to or from Morse code",
+            description: "الترجمة إلى أو من شفرة مورس",
             options: [
                 {
                     name: "text",
-                    description: "Text to convert",
+                    description: "النص للتحويل",
                     type: ApplicationCommandOptionType.STRING,
                     required: true
                 }
@@ -469,7 +469,7 @@ export default definePlugin({
         },
         {
             name: "uwuify",
-            description: "uwuifies your messages",
+            description: "يحوّل رسائلك إلى أسلوب uwu",
             options: [RequiredMessageOption],
             execute: opts => ({
                 content: uwuify(findOption(opts, "message", "")),
@@ -477,7 +477,7 @@ export default definePlugin({
         },
         {
             name: "gifroulette",
-            description: "Tempt fate and send a gif",
+            description: "جرب حظك وأرسل GIF",
             execute: (opts, other) => ({
                 content: getMessage(opts, other)
             }),
@@ -485,11 +485,11 @@ export default definePlugin({
         {
             inputType: ApplicationCommandInputType.BUILT_IN,
             name: "friendcloud",
-            description: "Display user you most interact with in a cloud",
+            description: "يعرض المستخدمين الذين تتفاعل معهم أكثر في سحابة",
             options: [
                 {
                     name: "count",
-                    description: "Number of users to display",
+                    description: "عدد المستخدمين للعرض",
                     type: ApplicationCommandOptionType.NUMBER,
                     required: false
                 }
@@ -600,21 +600,21 @@ export default definePlugin({
         {
             inputType: ApplicationCommandInputType.BUILT_IN,
             name: "imgtogif",
-            description: "Allows you to turn an image to a gif",
+            description: "يتيح لك تحويل صورة إلى GIF",
             options: [
                 {
                     name: "image",
-                    description: "Image attachment to use",
+                    description: "مرفق الصورة للاستخدام",
                     type: ApplicationCommandOptionType.ATTACHMENT
                 },
                 {
                     name: "width",
-                    description: "Width of the gif",
+                    description: "عرض الـ GIF",
                     type: ApplicationCommandOptionType.INTEGER
                 },
                 {
                     name: "height",
-                    description: "Height of the gif",
+                    description: "ارتفاع الـ GIF",
                     type: ApplicationCommandOptionType.INTEGER
                 }
             ],

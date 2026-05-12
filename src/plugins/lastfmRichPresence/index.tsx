@@ -73,36 +73,36 @@ const settings = definePluginSettings({
         type: OptionType.STRING,
     },
     username: {
-        description: "Last.fm username",
+        description: "اسم مستخدم Last.fm",
         type: OptionType.STRING,
     },
     shareUsername: {
-        description: "Show link to Last.fm profile",
+        description: "إظهار رابط ملف Last.fm الشخصي",
         type: OptionType.BOOLEAN,
         default: false,
     },
     clickableLinks: {
-        description: "Make track, artist and album names clickable links",
+        description: "جعل أسماء المقطع والفنان والألبوم روابط قابلة للنقر",
         type: OptionType.BOOLEAN,
         default: true,
     },
     hideWithSpotify: {
-        description: "Hide Last.fm presence if spotify is running",
+        description: "إخفاء حضور Last.fm إذا كان Spotify يعمل",
         type: OptionType.BOOLEAN,
         default: true,
     },
     hideWithActivity: {
-        description: "Hide Last.fm presence if you have any other presence",
+        description: "إخفاء حضور Last.fm إذا كان لديك أي حضور آخر",
         type: OptionType.BOOLEAN,
         default: false,
     },
     statusName: {
-        description: "Custom status text. You can use the following variables: {artist} | {album} | {title}",
+        description: "نص الحالة المخصص. يمكنك استخدام المتغيرات: {artist} | {album} | {title}",
         type: OptionType.STRING,
         default: "some music",
     },
     statusDisplayType: {
-        description: "Show the track / artist name in the member list",
+        description: "إظهار اسم المقطع / الفنان في قائمة الأعضاء",
         type: OptionType.SELECT,
         options: [
             {
@@ -121,7 +121,7 @@ const settings = definePluginSettings({
         ]
     },
     nameFormat: {
-        description: "Show name of song and artist in status name",
+        description: "إظهار اسم الأغنية والفنان في اسم الحالة",
         type: OptionType.SELECT,
         options: [
             {
@@ -152,12 +152,12 @@ const settings = definePluginSettings({
         ],
     },
     useListeningStatus: {
-        description: 'Show "Listening to" status instead of "Playing"',
+        description: 'إظهار حالة "يستمع إلى" بدلاً من "يلعب"',
         type: OptionType.BOOLEAN,
         default: false,
     },
     missingArt: {
-        description: "When album or album art is missing",
+        description: "عند غياب الألبوم أو صورة الألبوم",
         type: OptionType.SELECT,
         options: [
             {
@@ -172,12 +172,12 @@ const settings = definePluginSettings({
         ],
     },
     showLastFmLogo: {
-        description: "Show the Last.fm logo by the album cover",
+        description: "إظهار شعار Last.fm بجانب غلاف الألبوم",
         type: OptionType.BOOLEAN,
         default: true,
     },
     showAlbumCover: {
-        description: "Show album cover. Disabling this will display a placeholder. Useful if your Music has inappropriate art",
+        description: "إظهار غلاف الألبوم. تعطيله سيعرض صورة بديلة. مفيد إذا كانت موسيقاك تحتوي على فن غير لائق",
         type: OptionType.BOOLEAN,
         default: true,
     }

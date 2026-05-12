@@ -44,7 +44,7 @@ const settings = definePluginSettings({
         ]
     },
     voiceBackground: {
-        description: "Use USRBG banners as voice chat backgrounds",
+        description: "استخدام بانرات USRBG كخلفيات للدردشة الصوتية",
         type: OptionType.BOOLEAN,
         default: true,
         restartNeeded: true

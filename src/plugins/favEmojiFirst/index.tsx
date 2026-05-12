@@ -116,7 +116,7 @@ const settings = definePluginSettings({
     },
     clearAll: {
         type: OptionType.COMPONENT,
-        description: "Delete all aliases.",
+        description: "حذف جميع الاختصارات.",
         component: ClearAllAliasesSetting
     }
 });

@@ -45,7 +45,7 @@ const settings = definePluginSettings({
         restartNeeded: true
     },
     checkInterval: {
-        description: "How often to check for new sessions in the background (if enabled), in minutes",
+        description: "عدد الدقائق بين كل فحص للجلسات الجديدة في الخلفية (إذا كان مفعلاً)",
         type: OptionType.NUMBER,
         default: 20,
         restartNeeded: true

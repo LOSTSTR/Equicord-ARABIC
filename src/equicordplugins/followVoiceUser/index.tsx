@@ -39,7 +39,7 @@ const settings = definePluginSettings({
     leaveWhenUserLeaves: {
         type: OptionType.BOOLEAN,
         default: false,
-        description: "Leave the voice channel when the user leaves. (That can cause you to sometimes enter infinite leave/join loop)"
+        description: "مغادرة القناة الصوتية عند مغادرة المستخدم. (قد يتسبب ذلك أحياناً في حلقة لا نهائية من المغادرة/الانضمام)"
     }
 });
 
@@ -73,7 +73,7 @@ const UserContextMenuPatch: NavContextMenuPatchCallback = (children, { channel, 
 
 export default definePlugin({
     name: "FollowVoiceUser",
-    description: "Follow a friend in voice chat.",
+    description: "تابع صديقاً في الدردشة الصوتية.",
     tags: ["Voice"],
     authors: [EquicordDevs.TheArmagan],
     settings,

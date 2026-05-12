@@ -27,19 +27,19 @@ const settings = definePluginSettings({
         restartNeeded: true,
     },
     onReply: {
-        description: "Show tooltip when hovering over message replies",
+        description: "إظهار تلميح عند المرور على ردود الرسائل",
         type: OptionType.BOOLEAN,
         default: true,
         restartNeeded: true,
     },
     onForward: {
-        description: "Show tooltip when hovering over forwarded messages",
+        description: "إظهار تلميح عند المرور على الرسائل المُعادة توجيهها",
         type: OptionType.BOOLEAN,
         default: true,
         restartNeeded: true,
     },
     display: {
-        description: "Display style",
+        description: "نمط العرض",
         type: OptionType.SELECT,
         options: [
             {
@@ -61,7 +61,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "MessageLinkTooltip",
-    description: "Adds a tooltip with a message preview when hovering over message links, replies, and forwarded messages.",
+    description: "يضيف تلميحاً بمعاينة الرسالة عند المرور على روابط الرسائل والردود والرسائل المُعادة توجيهها.",
     tags: ["Appearance", "Chat"],
     authors: [Devs.Kyuuhachi],
 

@@ -27,27 +27,27 @@ export default definePluginSettings({
     },
     offlineRemovals: {
         type: OptionType.BOOLEAN,
-        description: "Notify you when starting discord if you were removed while offline.",
+        description: "إشعارك عند بدء Discord إذا تمت إزالتك أثناء عدم الاتصال.",
         default: true
     },
     friends: {
         type: OptionType.BOOLEAN,
-        description: "Notify when a friend removes you",
+        description: "إشعارك عند إزالتك من قائمة أصدقاء شخص ما",
         default: true
     },
     friendRequestCancels: {
         type: OptionType.BOOLEAN,
-        description: "Notify when a friend request is cancelled",
+        description: "إشعارك عند إلغاء طلب صداقة",
         default: true
     },
     servers: {
         type: OptionType.BOOLEAN,
-        description: "Notify when removed from a server",
+        description: "إشعارك عند إزالتك من سيرفر",
         default: true
     },
     groups: {
         type: OptionType.BOOLEAN,
-        description: "Notify when removed from a group chat",
+        description: "إشعارك عند إزالتك من مجموعة محادثة",
         default: true
     }
 });

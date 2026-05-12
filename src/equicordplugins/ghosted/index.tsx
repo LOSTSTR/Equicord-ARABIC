@@ -32,30 +32,30 @@ export const settings = definePluginSettings({
     },
     showDmIcons: {
         type: OptionType.BOOLEAN,
-        description: "Show ghost icons next to individual DMs",
+        description: "إظهار أيقونات الشبح بجانب الرسائل المباشرة الفردية",
         default: true,
         restartNeeded: false
     },
     ignoreGroupDms: {
         type: OptionType.BOOLEAN,
-        description: "Exclude all group dms from ghosting",
+        description: "استبعاد جميع رسائل المجموعات من التشبيح",
         default: false
     },
     exemptedChannels: {
         type: OptionType.STRING,
-        description: "Comma-separated list of channel IDs to exempt from ghosting (right-click a DM channel to copy its ID)",
+        description: "قائمة معرّفات القنوات المعفاة من التشبيح مفصولة بفواصل (انقر بزر الماوس الأيمن على قناة رسائل مباشرة لنسخ معرّفها)",
         default: "",
         restartNeeded: false
     },
     ignoreBots: {
         type: OptionType.BOOLEAN,
-        description: "Ignore DMs from bots",
+        description: "تجاهل الرسائل المباشرة من البوتات",
         default: true,
         restartNeeded: false
     },
     maxInactiveTimeMs: {
         type: OptionType.SELECT,
-        description: "Only ghost DMs active within this timeframe",
+        description: "تشبيح الرسائل المباشرة النشطة فقط خلال هذا الإطار الزمني",
         options: [
             { label: "No limit", value: 0, default: true },
             { label: "1 hour", value: 60 * 60 * 1000 },
@@ -146,7 +146,7 @@ function makeContextItem(props) {
 
 export default definePlugin({
     name: "Ghosted",
-    description: "A cute ghost will appear if you don't answer their DMs",
+    description: "يظهر شبح لطيف إذا لم تردّ على رسائلهم المباشرة",
     tags: ["Chat", "Utility"],
     authors: [EquicordDevs.vei, Devs.sadan, EquicordDevs.justjxke, EquicordDevs.iamme],
     settings,

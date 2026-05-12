@@ -86,7 +86,7 @@ const settings = definePluginSettings({
     regexRules: {
         type: OptionType.CUSTOM,
         default: makeEmptyRuleArray(),
-        description: "Rules for replacing text using regular expressions."
+        description: "قواعد استبدال النص باستخدام التعبيرات النمطية."
     }
 });
 

@@ -107,19 +107,19 @@ const settings = definePluginSettings({
         ],
     },
     maxSize: {
-        description: "Maximum snowflake size",
+        description: "الحد الأقصى لحجم رقاقة الثلج",
         type: OptionType.SLIDER,
         default: 30,
         markers: [10, 20, 30, 40, 50]
     },
     speed: {
-        description: "Snowfall speed (higher = faster fall)",
+        description: "السرعة للثلج المتساقط (أعلى = سقوط أسرع)",
         type: OptionType.SLIDER,
         default: 50,
         markers: [50, 100, 200, 300, 400, 500]
     },
     flakesPerSecond: {
-        description: "Snowflakes per second (higher = denser snowfall)",
+        description: "رقاقات الثلج في الثانية (أعلى = تساقط أكثف)",
         type: OptionType.SLIDER,
         default: 5,
         markers: [1, 5, 10, 20, 40, 60],
@@ -450,7 +450,7 @@ let container: HTMLDivElement | null = null;
 
 export default definePlugin({
     name: "Snowfall",
-    description: "Let it snow on Discord",
+    description: "تتساقط الثلوج على Discord",
     tags: ["Appearance"],
     authors: [EquicordDevs.ZcraftElite, EquicordDevs.square],
 

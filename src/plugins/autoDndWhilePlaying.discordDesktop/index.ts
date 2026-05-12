@@ -39,7 +39,7 @@ const settings = definePluginSettings({
     },
     excludeInvisible: {
         type: OptionType.BOOLEAN,
-        description: "Prevent automatic status changes while your status is set to invisible",
+        description: "منع تغييرات الحالة التلقائية عندما تكون حالتك مضبوطة على غير مرئي",
         default: false
     },
 });

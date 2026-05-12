@@ -37,36 +37,36 @@ const settings = definePluginSettings({
     memberList: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Show role colors in member list role headers",
+        description: "عرض ألوان الأدوار في رؤوس أقسام الأدوار في قائمة الأعضاء",
         restartNeeded: true
     },
     voiceUsers: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Show role colors in the voice chat user list",
+        description: "عرض ألوان الأدوار في قائمة مستخدمي الدردشة الصوتية",
         restartNeeded: true
     },
     reactorsList: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Show role colors in the reactors list",
+        description: "عرض ألوان الأدوار في قائمة المتفاعلين",
         restartNeeded: true
     },
     pollResults: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Show role colors in the poll results",
+        description: "عرض ألوان الأدوار في نتائج الاستطلاعات",
         restartNeeded: true
     },
     colorChatMessages: {
         type: OptionType.BOOLEAN,
         default: false,
-        description: "Color chat messages based on the author's role color",
+        description: "تلوين رسائل الدردشة بناءً على لون دور المؤلف",
         restartNeeded: true,
     },
     messageSaturation: {
         type: OptionType.SLIDER,
-        description: "Intensity of message coloring.",
+        description: "شدة تلوين الرسائل.",
         markers: makeRange(0, 100, 10),
         default: 30
     }

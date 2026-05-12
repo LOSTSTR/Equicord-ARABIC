@@ -27,7 +27,7 @@ export const settings = definePluginSettings({
     },
     buttons: {
         type: OptionType.COMPONENT,
-        description: "ThemeLibrary Buttons",
+        description: "أزرار مكتبة الثيمات",
         component: () => {
             const handleClick = async () => {
                 const token = await DataStore.get("ThemeLibrary_uniqueToken");
