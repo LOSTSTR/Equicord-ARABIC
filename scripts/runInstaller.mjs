@@ -83,7 +83,6 @@ async function ensureBinary() {
     });
 
     if (!res.ok && res.status === 404) {
-        console.log(`Asset not yet on fork releases (${res.status}), falling back to upstream Equilotl...`);
         res = await fetch(FALLBACK_URL + filename, {
             headers: {
                 "User-Agent": "Equicord-ARABIC (https://github.com/LOSTSTR/Equicord-ARABIC)",

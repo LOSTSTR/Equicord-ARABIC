@@ -29,6 +29,10 @@ interface PluginCardProps extends React.HTMLProps<HTMLDivElement> {
     onMouseLeave?: React.MouseEventHandler<HTMLDivElement>;
 }
 
+const FORK_EXCLUSIVE_PLUGINS = new Set([
+    "ArabicAutoUpdater",
+]);
+
 export function PluginCard({ plugin, disabled, onRestartNeeded, onMouseEnter, onMouseLeave, isNew }: PluginCardProps) {
     const settings = Settings.plugins[plugin.name];
     const pluginMeta = PluginMeta[plugin.name];
@@ -36,6 +40,7 @@ export function PluginCard({ plugin, disabled, onRestartNeeded, onMouseEnter, on
     const isVencordPlugin = pluginMeta.folderName.startsWith("src/plugins/") ?? false;
     const isUserPlugin = pluginMeta?.userPlugin ?? false;
     const isModifiedPlugin = plugin.isModified ?? false;
+    const isForkExclusive = FORK_EXCLUSIVE_PLUGINS.has(plugin.name);
 
     const isEnabled = () => isPluginEnabled(plugin.name);
 
@@ -95,6 +100,12 @@ export function PluginCard({ plugin, disabled, onRestartNeeded, onMouseEnter, on
             src: "https://equicord.org/assets/icons/equicord/modified.png",
             alt: "Modified",
             title: "Modified Vencord Plugin"
+        },
+        {
+            condition: isForkExclusive,
+            src: "https://raw.githubusercontent.com/LOSTSTR/Equicord-ARABIC/main/browser/icon.png",
+            alt: "Equicord-ARABIC",
+            title: "Equicord-ARABIC Exclusive"
         },
         {
             condition: isEquicordPlugin,

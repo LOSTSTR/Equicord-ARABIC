@@ -80,15 +80,15 @@ function EquicordSettings() {
             },
             (!IS_WEB && !IS_DISCORD_DESKTOP || !IS_WINDOWS) && {
                 key: "mainWindowFrameless",
-                title: "Disable the Main Window Frame",
-                description: "Remove the native window frame for a cleaner look. You can still move the window by dragging the title bar area.",
+                title: "تعطيل إطار النافذة الرئيسية",
+                description: "إزالة إطار النافذة الأصلي للحصول على مظهر أنظف. يمكنك تحريك النافذة بسحب منطقة شريط العنوان.",
                 restartRequired: true,
             },
             !IS_WEB && (!IS_DISCORD_DESKTOP || !IS_WINDOWS
                 ? {
                     key: "frameless",
-                    title: "Disable All Window Frames",
-                    description: "Remove the native window frame for a cleaner look. You can still move the window by dragging the title bar area.",
+                    title: "تعطيل جميع إطارات النوافذ",
+                    description: "إزالة إطار النافذة الأصلي للحصول على مظهر أنظف. يمكنك تحريك النافذة بسحب منطقة شريط العنوان.",
                     restartRequired: true,
                 }
                 : {
@@ -100,23 +100,23 @@ function EquicordSettings() {
             ),
             !IS_WEB && {
                 key: "transparent",
-                title: "Enable Window Transparency",
-                description: "Make the Discord window transparent. A theme that supports transparency is required or this will do nothing.",
+                title: "تفعيل شفافية النافذة",
+                description: "جعل نافذة ديسكورد شفافة. يتطلب قالباً يدعم الشفافية وإلا لن يكون له أي أثر.",
                 restartRequired: true,
                 warning: IS_WINDOWS
-                    ? "This will stop the window from being resizable and prevents you from snapping the window to screen edges."
-                    : "This will stop the window from being resizable.",
+                    ? "سيوقف هذا إمكانية تغيير حجم النافذة ويمنعك من تثبيتها على حواف الشاشة."
+                    : "سيوقف هذا إمكانية تغيير حجم النافذة.",
             },
             IS_DISCORD_DESKTOP && {
                 key: "disableMinSize",
-                title: "Disable Minimum Window Size",
-                description: "Allow the Discord window to be resized smaller than its default minimum size. Useful for tiling window managers or small screens.",
+                title: "تعطيل الحجم الأدنى للنافذة",
+                description: "السماح بتصغير نافذة ديسكورد إلى أقل من حجمها الافتراضي الأدنى. مفيد لمديري النوافذ المبلطة والشاشات الصغيرة.",
                 restartRequired: true,
             },
             !IS_WEB && IS_WINDOWS && {
                 key: "winCtrlQ",
-                title: "Register Ctrl+Q as shortcut to close Discord",
-                description: "Add Ctrl+Q as a keyboard shortcut to close Discord. This provides an alternative to Alt+F4 for quickly closing the application.",
+                title: "تسجيل Ctrl+Q كاختصار لإغلاق ديسكورد",
+                description: "إضافة Ctrl+Q كاختصار لوحة مفاتيح لإغلاق ديسكورد. يوفر بديلاً لـ Alt+F4 لإغلاق التطبيق بسرعة.",
                 restartRequired: true,
             },
         ];
@@ -125,14 +125,14 @@ function EquicordSettings() {
         <SettingsTab>
             {(isEquicordDonor(user?.id) || isVencordDonor(user?.id)) ? (
                 <SpecialCard
-                    title="Donations"
-                    subtitle="Thank you for donating!"
+                    title="التبرعات"
+                    subtitle="شكراً لتبرعك!"
                     description={
                         isEquicordDonor(user?.id) && isVencordDonor(user?.id)
-                            ? "All Vencord users can see your Vencord donor badge, and Equicord users can see your Equicord donor badge. To change your Vencord donor badge, contact @vending.machine. For your Equicord donor badge, make a ticket in Equicord's server."
+                            ? "يرى جميع مستخدمي Vencord شارة متبرع Vencord، ويرى مستخدمو Equicord شارة متبرع Equicord. لتغيير شارتك في Vencord تواصل مع @vending.machine، ولشارة Equicord افتح تذكرة في سيرفر Equicord."
                             : isVencordDonor(user?.id)
-                                ? "All Vencord users can see your badge! You can manage your perks by messaging @vending.machine."
-                                : "All Equicord users can see your badge! You can manage your perks by making a ticket in Equicord's server."
+                                ? "يرى جميع مستخدمي Vencord شارتك! يمكنك إدارة مزاياك عبر مراسلة @vending.machine."
+                                : "يرى جميع مستخدمي Equicord شارتك! يمكنك إدارة مزاياك عبر فتح تذكرة في سيرفر Equicord."
                     }
                     cardImage={VENNIE_DONATOR_IMAGE}
                     backgroundImage={DONOR_BACKGROUND_IMAGE}
@@ -142,8 +142,8 @@ function EquicordSettings() {
                 </SpecialCard>
             ) : (
                 <SpecialCard
-                    title="Support the Project"
-                    description="Please consider supporting the development of Equicord by donating!"
+                    title="ادعم المشروع"
+                    description="يسعدنا دعمك لتطوير Equicord من خلال التبرع!"
                     cardImage={donateImage}
                     backgroundImage={DONOR_BACKGROUND_IMAGE}
                     backgroundColor="#c3a3ce"
@@ -153,9 +153,9 @@ function EquicordSettings() {
             )}
             {isAnyPluginDev(user?.id) && (
                 <SpecialCard
-                    title="Contributions"
-                    subtitle="Thank you for contributing!"
-                    description="Since you've contributed to Equicord you now have a cool new badge!"
+                    title="المساهمات"
+                    subtitle="شكراً لمساهمتك!"
+                    description="بفضل مساهمتك في Equicord، حصلت على شارة مميزة!"
                     cardImage={COZY_CONTRIB_IMAGE}
                     backgroundImage={CONTRIB_BACKGROUND_IMAGE}
                     backgroundColor="#EDCC87"
@@ -168,44 +168,44 @@ function EquicordSettings() {
                         className="vc-contrib-button"
                     >
                         <GithubIcon aria-hidden fill={"#000000"} className={"vc-contrib-github"} />
-                        See what you've contributed to
+                        عرض مساهماتك
                     </Button>
                 </SpecialCard>
             )}
 
-            <Heading className={Margins.top16}>Quick Actions</Heading>
+            <Heading className={Margins.top16}>إجراءات سريعة</Heading>
             <Paragraph className={Margins.bottom16}>
-                Common actions you might want to perform. These shortcuts give you quick access to frequently used features without navigating through menus.
+                إجراءات شائعة الاستخدام. توفر هذه الاختصارات وصولاً سريعاً للميزات الأكثر استخداماً دون التنقل عبر القوائم.
             </Paragraph>
 
             <QuickActionCard>
                 <QuickAction
                     Icon={LogIcon}
-                    text="Notification Log"
+                    text="سجل الإشعارات"
                     action={openNotificationLogModal}
                 />
                 <QuickAction
                     Icon={PaintbrushIcon}
-                    text="Edit QuickCSS"
+                    text="تعديل QuickCSS"
                     action={() => VencordNative.quickCss.openEditor()}
                 />
                 {!IS_WEB && (
                     <QuickAction
                         Icon={RestartIcon}
-                        text="Relaunch Discord"
+                        text="إعادة تشغيل ديسكورد"
                         action={relaunch}
                     />
                 )}
                 {!IS_WEB && (
                     <QuickAction
                         Icon={FolderIcon}
-                        text="Open Settings Folder"
+                        text="فتح مجلد الإعدادات"
                         action={() => VencordNative.settings.openFolder()}
                     />
                 )}
                 <QuickAction
                     Icon={GithubIcon}
-                    text="View Source Code"
+                    text="عرض الكود المصدري"
                     action={() =>
                         VencordNative.native.openExternal(
                             "https://github.com/" + gitRemote,
@@ -241,10 +241,10 @@ function EquicordSettings() {
 
                             if (s.restartRequired) {
                                 Alerts.show({
-                                    title: "Restart Required",
-                                    body: "A restart is required to apply this change",
-                                    confirmText: "Restart now",
-                                    cancelText: "Later!",
+                                    title: "إعادة تشغيل مطلوبة",
+                                    body: "يلزم إعادة تشغيل ديسكورد لتطبيق هذا التغيير",
+                                    confirmText: "إعادة التشغيل الآن",
+                                    cancelText: "لاحقاً",
                                     onConfirm: relaunch
                                 });
                             }
@@ -271,65 +271,65 @@ function EquicordSettings() {
                 <>
                     <Divider className={Margins.top20} />
 
-                    <Heading className={Margins.top20}>Window Vibrancy</Heading>
+                    <Heading className={Margins.top20}>شفافية النافذة</Heading>
                     <Paragraph className={Margins.bottom16}>
-                        Customize the macOS window vibrancy effect. This controls the blur and transparency style of the Discord window. Changes require a restart to take effect.
+                        خصّص تأثير شفافية نافذة macOS. يتحكم هذا الإعداد في نمط الضبابية والشفافية لنافذة ديسكورد. تستلزم التغييرات إعادة تشغيل لتصبح سارية.
                     </Paragraph>
                     <Select
                         className={Margins.bottom20}
-                        placeholder="Window vibrancy style"
+                        placeholder="نمط شفافية النافذة"
                         options={[
-                            // Sorted from most opaque to most transparent
+                            // مرتبة من الأكثر تعتيماً إلى الأكثر شفافية
                             {
-                                label: "No vibrancy",
+                                label: "بلا شفافية",
                                 value: undefined,
                             },
                             {
-                                label: "Under Page (window tinting)",
+                                label: "تحت الصفحة (تلوين النافذة)",
                                 value: "under-page",
                             },
                             {
-                                label: "Content",
+                                label: "المحتوى",
                                 value: "content",
                             },
                             {
-                                label: "Window",
+                                label: "النافذة",
                                 value: "window",
                             },
                             {
-                                label: "Selection",
+                                label: "التحديد",
                                 value: "selection",
                             },
                             {
-                                label: "Titlebar",
+                                label: "شريط العنوان",
                                 value: "titlebar",
                             },
                             {
-                                label: "Header",
+                                label: "الرأس",
                                 value: "header",
                             },
                             {
-                                label: "Sidebar",
+                                label: "الشريط الجانبي",
                                 value: "sidebar",
                             },
                             {
-                                label: "Tooltip",
+                                label: "التلميح",
                                 value: "tooltip",
                             },
                             {
-                                label: "Menu",
+                                label: "القائمة",
                                 value: "menu",
                             },
                             {
-                                label: "Popover",
+                                label: "النافذة المنبثقة",
                                 value: "popover",
                             },
                             {
-                                label: "Fullscreen UI (transparent but slightly muted)",
+                                label: "واجهة ملء الشاشة (شفافة مع تعتيم طفيف)",
                                 value: "fullscreen-ui",
                             },
                             {
-                                label: "HUD (Most transparent)",
+                                label: "HUD (الأكثر شفافية)",
                                 value: "hud",
                             },
                         ]}
@@ -342,17 +342,17 @@ function EquicordSettings() {
 
             <Divider className={Margins.top20} />
 
-            <Heading className={Margins.top20}>Notifications</Heading>
+            <Heading className={Margins.top20}>الإشعارات</Heading>
             <Paragraph className={Margins.bottom16}>
-                Configure how Equicord handles notifications. You can customize when and how you receive alerts, or view a history of past notifications.
+                اضبط كيفية تعامل Equicord مع الإشعارات. يمكنك تخصيص متى وكيف تتلقى التنبيهات، أو الاطلاع على سجل الإشعارات السابقة.
             </Paragraph>
 
             <Flex gap="16px">
                 <Button onClick={openNotificationSettingsModal}>
-                    Notification Settings
+                    إعدادات الإشعارات
                 </Button>
                 <Button variant="secondary" onClick={openNotificationLogModal}>
-                    View Notification Log
+                    عرض سجل الإشعارات
                 </Button>
             </Flex>
         </SettingsTab>

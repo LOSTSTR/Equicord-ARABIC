@@ -65,10 +65,10 @@ const cloudBackendOptions = [
 ];
 
 const syncDirectionOptions = [
-    { label: "Two-way sync (changes go both directions)", value: "both" },
-    { label: "This device is the source (upload only)", value: "push" },
-    { label: "The cloud is the source (download only)", value: "pull" },
-    { label: "Do not sync automatically (manual sync via buttons below only)", value: "manual" }
+    { label: "مزامنة ثنائية الاتجاه (التغييرات تسير في كلا الاتجاهين)", value: "both" },
+    { label: "هذا الجهاز هو المصدر (رفع فقط)", value: "push" },
+    { label: "السحابة هي المصدر (تنزيل فقط)", value: "pull" },
+    { label: "بلا مزامنة تلقائية (مزامنة يدوية عبر الأزرار أدناه فقط)", value: "manual" }
 ];
 
 function CloudTab() {
@@ -98,9 +98,9 @@ function CloudTab() {
             </Paragraph>
 
             <Notice.Info className={Margins.bottom16}>
-                We use our own <Link href="https://github.com/Equicord/Equicloud">Equicloud backend</Link> with enhanced features.
-                View our <Link href="https://equicord.org/cloud/policy">privacy policy</Link> to see what we store and how we use your data.
-                Equicloud is BSD 3.0 licensed, so you can self-host if preferred.
+                نستخدم خادمنا الخاص <Link href="https://github.com/Equicord/Equicloud">Equicloud</Link> بمزايا محسّنة.
+                اطلع على <Link href="https://equicord.org/cloud/policy">سياسة الخصوصية</Link> لمعرفة ما نخزّنه وكيف نستخدم بياناتك.
+                Equicloud مرخص بترخيص BSD 3.0، يمكنك استضافته بنفسك إن أردت.
             </Notice.Info>
 
             <FormSwitch
@@ -156,21 +156,21 @@ function CloudTab() {
                 >
                     <Flex gap="8px" alignItems="center">
                         <RefreshIcon color="currentColor" />
-                        Reauthorize
+                        إعادة التفويض
                     </Flex>
                 </Button>
             </Flex>
 
             <Divider className={Margins.top20} />
 
-            <Heading className={Margins.top20}>Settings Sync</Heading>
+            <Heading className={Margins.top20}>مزامنة الإعدادات</Heading>
             <Paragraph className={Margins.bottom16}>
-                Synchronize your Equicord settings to the cloud. This makes it easy to keep your configuration consistent across multiple devices without manual import/export.
+                زامن إعدادات Equicord مع السحابة. يتيح ذلك الحفاظ على اتساق إعداداتك عبر أجهزة متعددة دون الحاجة إلى تصدير واستيراد يدوي.
             </Paragraph>
 
             <FormSwitch
-                title="Enable Settings Sync"
-                description="When enabled, your settings can be synced to and from the cloud. Use the actions below to manually sync."
+                title="تفعيل مزامنة الإعدادات"
+                description="عند التفعيل، يمكن مزامنة إعداداتك مع السحابة وإليها. استخدم الأزرار أدناه للمزامنة اليدوية."
                 value={cloud.settingsSync}
                 onChange={v => { cloud.settingsSync = v; }}
                 disabled={!isAuthenticated}
@@ -179,9 +179,9 @@ function CloudTab() {
 
             <Divider className={Margins.top20} />
 
-            <Heading className={Margins.top20}>Sync Rules for This Device</Heading>
+            <Heading className={Margins.top20}>قواعد المزامنة لهذا الجهاز</Heading>
             <Paragraph className={Margins.bottom16}>
-                This setting controls how settings move between <strong>this device</strong> and the cloud. You can let changes flow both ways, or choose one place to be the main source of truth.
+                يتحكم هذا الإعداد في كيفية انتقال الإعدادات بين <strong>هذا الجهاز</strong> والسحابة. يمكنك السماح بتدفق التغييرات في كلا الاتجاهين، أو اختيار مصدر رئيسي واحد.
             </Paragraph>
 
             <Select
@@ -203,7 +203,7 @@ function CloudTab() {
                 >
                     <Flex gap="8px" alignItems="center">
                         <CloudUploadIcon />
-                        Sync to Cloud
+                        رفع إلى السحابة
                     </Flex>
                 </Button>
                 <Button
@@ -213,22 +213,22 @@ function CloudTab() {
                 >
                     <Flex gap="8px" alignItems="center">
                         <CloudDownloadIcon />
-                        Sync from Cloud
+                        تنزيل من السحابة
                     </Flex>
                 </Button>
             </Flex>
 
             {!isAuthenticated && (
                 <Notice.Warning className={Margins.top8}>
-                    Enable cloud integration above to use settings sync features.
+                    فعّل تكامل السحابة أعلاه لاستخدام ميزات مزامنة الإعدادات.
                 </Notice.Warning>
             )}
 
             <Divider className={Margins.top20} />
 
-            <Heading className={Margins.top20}>Danger Zone</Heading>
+            <Heading className={Margins.top20}>منطقة الخطر</Heading>
             <Paragraph className={Margins.bottom16}>
-                Permanently delete all your data from the cloud. This action cannot be undone and will remove all synced settings and any other data stored on the cloud backend.
+                احذف جميع بياناتك من السحابة نهائياً. لا يمكن التراجع عن هذا الإجراء وسيُزيل جميع الإعدادات المزامَنة وأي بيانات أخرى مخزّنة على الخادم السحابي.
             </Paragraph>
 
             <Flex gap="8px">
@@ -240,7 +240,7 @@ function CloudTab() {
                 >
                     <Flex gap="8px" alignItems="center">
                         <TrashIcon color="currentColor" />
-                        Delete Cloud Settings
+                        حذف إعدادات السحابة
                     </Flex>
                 </Button>
                 <Button
@@ -248,17 +248,17 @@ function CloudTab() {
                     size="medium"
                     disabled={!isAuthenticated}
                     onClick={() => Alerts.show({
-                        title: "Delete Cloud Account",
-                        body: "Are you sure you want to permanently delete your cloud account and all associated data? This action cannot be undone.",
+                        title: "حذف حساب السحابة",
+                        body: "هل أنت متأكد أنك تريد حذف حسابك السحابي وجميع البيانات المرتبطة به نهائياً؟ لا يمكن التراجع عن هذا الإجراء.",
                         onConfirm: eraseAllCloudData,
-                        confirmText: "Delete Account",
+                        confirmText: "حذف الحساب",
                         confirmColor: "vc-cloud-erase-data-danger-btn",
-                        cancelText: "Cancel"
+                        cancelText: "إلغاء"
                     })}
                 >
                     <Flex gap="8px" alignItems="center">
                         <SkullIcon color="currentColor" />
-                        Delete Cloud Account
+                        حذف حساب السحابة
                     </Flex>
                 </Button>
             </Flex>
