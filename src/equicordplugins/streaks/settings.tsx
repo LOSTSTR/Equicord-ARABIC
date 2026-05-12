@@ -16,7 +16,7 @@ import { useStreaksStore } from "./stores/StreaksStore";
 export const settings = definePluginSettings({
     account: {
         type: OptionType.COMPONENT,
-        description: "تسجيل الدخول أو الخروج من واجهة برمجة تطبيقات Streaks",
+        description: "Log in or out of the Streaks API.",
         component() {
             const { isAuthorized, authorize, remove } = useAuthorizationStore();
 
@@ -48,37 +48,37 @@ export const settings = definePluginSettings({
     },
     eliteColor: {
         type: OptionType.STRING,
-        description: "لون سلسلة النخبة (100+ يوم)",
+        description: "Elite Streak Color (100+ days)",
         default: "#9b39fe"
     },
     diamondColor: {
         type: OptionType.STRING,
-        description: "لون سلسلة الماس (60+ يوم)",
+        description: "Diamond Streak Color (60+ days)",
         default: "#f7409c"
     },
     platinumColor: {
         type: OptionType.STRING,
-        description: "لون سلسلة البلاتين (45+ يوم)",
+        description: "Platinum Streak Color (45+ days)",
         default: "#856bfe"
     },
     goldColor: {
         type: OptionType.STRING,
-        description: "لون سلسلة الذهب (30+ يوم)",
+        description: "Gold Streak Color (30+ days)",
         default: "#f75340"
     },
     silverColor: {
         type: OptionType.STRING,
-        description: "لون سلسلة الفضة (14+ يوم)",
+        description: "Silver Streak Color (14+ days)",
         default: "#f57b0b"
     },
     bronzeColor: {
         type: OptionType.STRING,
-        description: "لون سلسلة البرونز (7+ يوم)",
+        description: "Bronze Streak Color (7+ days)",
         default: "#b08d57"
     },
     defaultColor: {
         type: OptionType.STRING,
-        description: "لون سلسلة افتراضي (1+ يوم)",
+        description: "Default Streak Color (1+ days)",
         default: "#f59e0b"
     }
 });

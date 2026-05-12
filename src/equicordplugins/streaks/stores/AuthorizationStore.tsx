@@ -51,13 +51,13 @@ export const useAuthorizationStore = proxyLazy(() => zustandCreate(
                 const newTokens = { ...tokens };
                 delete newTokens[id];
                 set({ tokens: newTokens });
+
                 init();
-                useStreaksStore.getState().clear();
             },
-            authorize: async () => {
-                const { setToken } = get();
-                return new Promise<void>((resolve, reject) => {
-                    openModal((props: any) => (
+            async authorize() {
+                return new Promise((resolve, reject) => {
+                    let hasCallbackStarted = false;
+                    openModal(props =>
                         <OAuth2AuthorizeModal
                             {...props}
                             scopes={["identify"]}
@@ -66,29 +66,54 @@ export const useAuthorizationStore = proxyLazy(() => zustandCreate(
                             permissions={0n}
                             clientId={CLIENT_ID}
                             cancelCompletesFlow={false}
-                            callback={async ({ location }: { location: string; }) => {
+                            callback={async (response: any) => {
+                                hasCallbackStarted = true;
                                 try {
-                                    const url = new URL(location);
-                                    const res = await fetch(url, { headers: { Accept: "application/json" } });
-                                    const { token } = await res.json();
-                                    setToken(token);
-                                    showToast("Logged in to Streaks API!", Toasts.Type.SUCCESS);
-                                    resolve();
+                                    const url = new URL(response.location);
+                                    const code = url.searchParams.get("code");
+                                    if (!code) throw new Error("No code in redirect");
+
+                                    const req = await fetch(`${AUTHORIZE_URL}?code=${code}`);
+
+                                    if (req?.ok) {
+                                        const token = await req.text();
+                                        get().setToken(token);
+                                    } else {
+                                        throw new Error("Request not OK");
+                                    }
+                                    resolve(void 0);
                                 } catch (e) {
-                                    new Logger("Streaks").error(e);
-                                    showToast("Failed to log in to Streaks API!", Toasts.Type.FAILURE);
-                                    reject(e);
+                                    if (e instanceof Error) {
+                                        showToast(`Failed to authorize: ${e.message}`, Toasts.Type.FAILURE);
+                                        new Logger("Streaks").error("Failed to authorize", e);
+                                        reject(e);
+                                    }
                                 }
                             }}
-                        />
-                    ));
+                        />, {
+                        onCloseCallback() {
+                            if (!hasCallbackStarted) {
+                                reject(new Error("Authorization cancelled"));
+                            }
+                        },
+                    });
                 });
             },
-            isAuthorized: () => get().token !== null,
-        }) as AuthorizationState,
+            isAuthorized: () => !!get().token,
+        } as AuthorizationState),
         {
-            name: "equicord-streaks-auth",
+            name: "vc-streaks-auth",
             storage: indexedDBStorage,
+            partialize: state => ({ tokens: state.tokens }),
+            onRehydrateStorage: () => async state => {
+                if (!state) return;
+                state.init();
+                if (state.isAuthorized()) {
+                    useStreaksStore.getState().clear();
+                    await useStreaksStore.getState().migrate();
+                    await useStreaksStore.getState().fetch();
+                }
+            }
         }
     )
 ));
