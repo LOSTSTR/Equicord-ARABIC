@@ -309,7 +309,7 @@ const messageContextMenuPatch: NavContextMenuPatchCallback = (children, props) =
 export default definePlugin({
     name: "MessageBookmarks",
     description: "احفظ رسائلك المفضلة وانتقل إليها بنقرة واحدة.",
-    authors: [{ name: "LOSTSTR", id: 681465758127226900n }],
+    authors: [{ name: "LOSTSTR", id: 1072961475125182564n }],
     dependencies: ["HeaderBarAPI"],
 
     contextMenus: {
