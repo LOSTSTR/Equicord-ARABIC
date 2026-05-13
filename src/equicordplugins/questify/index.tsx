@@ -547,6 +547,17 @@ export default definePlugin({
         QUESTS_ENROLL_SUCCESS(data: any): void {
             QL.log("QUESTS_ENROLL_SUCCESS", data);
             validateIgnoredQuests();
+
+            if (!getQuestifySettings().disableQuestsEverything && hasEnabledAutoCompleteQuestTypes()) {
+                const questId = data?.questId ?? data?.quest_id;
+                if (questId) {
+                    const quest = QuestStore.getQuest(questId);
+                    if (quest) {
+                        processQuestForAutoComplete(quest, { force: false, source: "auto" });
+                        rerenderQuests();
+                    }
+                }
+            }
         },
 
         QUESTS_CLAIM_REWARD_SUCCESS(data: any): void {
@@ -577,6 +588,17 @@ export default definePlugin({
                         getQuestifySettings().questCompletedAlertSound,
                         { volume: Math.max(0, Math.min(100, getQuestifySettings().questCompletedAlertVolume)) }
                     );
+                }
+            }
+
+            if (!getQuestifySettings().disableQuestsEverything && hasEnabledAutoCompleteQuestTypes()) {
+                const isNewEnrollment = userStatus?.enrolledAt && !userStatus?.completedAt && !claimedAt;
+                if (isNewEnrollment && userStatus?.questId) {
+                    const quest = QuestStore.getQuest(userStatus.questId);
+                    if (quest) {
+                        processQuestForAutoComplete(quest, { force: false, source: "auto" });
+                        rerenderQuests();
+                    }
                 }
             }
         },
