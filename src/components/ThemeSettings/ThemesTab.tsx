@@ -166,11 +166,11 @@ enum ThemeFilter {
 }
 
 const filterOptions = [
-    { label: "Show All", value: ThemeFilter.All },
-    { label: "Online Themes", value: ThemeFilter.Online },
-    { label: "Local Themes", value: ThemeFilter.Local },
-    { label: "Enabled", value: ThemeFilter.Enabled },
-    { label: "Disabled", value: ThemeFilter.Disabled }
+    { label: "عرض الكل", value: ThemeFilter.All },
+    { label: "قوالب إلكترونية", value: ThemeFilter.Online },
+    { label: "قوالب محلية", value: ThemeFilter.Local },
+    { label: "مفعّل", value: ThemeFilter.Enabled },
+    { label: "معطّل", value: ThemeFilter.Disabled }
 ];
 
 function Validator({ link, onValidate }: { link: string; onValidate: (valid: boolean) => void; }) {
@@ -898,9 +898,9 @@ function ThemesTab() {
 
             <Divider className={Margins.top20} />
 
-            <Heading className={Margins.top20}>Installed Themes</Heading>
+            <Heading className={Margins.top20}>القوالب المثبتة</Heading>
             <Paragraph className={Margins.bottom8}>
-                Manage your themes here. Local themes load from your themes folder, online themes from URLs. Themes with a cog wheel icon have customizable settings.
+                أدِر قوالبك من هنا. تُحمَّل القوالب المحلية من مجلد القوالب، والقوالب الإلكترونية من روابط URL. القوالب التي تحتوي على أيقونة الترس لها إعدادات قابلة للتخصيص.
             </Paragraph>
             <Paragraph color="text-subtle" className={Margins.bottom16}>
                 {allThemes.length} theme{allThemes.length !== 1 ? "s" : ""} installed ({localCount} local, {onlineCount} online) · {enabledCount} enabled
@@ -908,7 +908,7 @@ function ThemesTab() {
 
             <div className={cl("filter-row")}>
                 <TextInput
-                    placeholder="Search for a theme..."
+                    placeholder="البحث عن قالب..."
                     value={searchQuery}
                     onChange={setSearchQuery}
                 />
@@ -923,12 +923,12 @@ function ThemesTab() {
             </div>
 
             {userThemes === null ? (
-                <Paragraph color="text-muted" className={Margins.top16}>Loading themes...</Paragraph>
+                <Paragraph color="text-muted" className={Margins.top16}>جار تحميل القوالب...</Paragraph>
             ) : filteredThemes.length === 0 ? (
                 <Paragraph color="text-muted" className={Margins.top16}>
                     {allThemes.length === 0
-                        ? "No themes installed yet. Add theme files to your themes folder or add an online theme above to get started."
-                        : "No themes match your search or filter criteria."
+                        ? "لا توجد قوالب مثبتة بعد. أضف ملفات القوالب إلى مجلد القوالب أو أضف قالباً إلكترونياً أعلاه للبدء."
+                        : "لا توجد قوالب تطابق معايير البحث أو التصفية."
                     }
                 </Paragraph>
             ) : (

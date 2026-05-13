@@ -135,7 +135,7 @@ export function NotificationLog({ log, pending }: { log: PersistentNotificationD
             <div className={cl("container")}>
                 <div className={cl("empty")} />
                 <Paragraph style={{ textAlign: "center" }}>
-                    No notifications yet
+                    لا توجد إشعارات بعد
                 </Paragraph>
             </div>
         );
@@ -158,7 +158,7 @@ function LogModal({ modalProps, close }: { modalProps: ModalProps; close(): void
     return (
         <ModalRoot {...modalProps} size={ModalSize.LARGE} className={cl("modal")}>
             <ModalHeader>
-                <BaseText size="lg" weight="semibold" style={{ flexGrow: 1 }}>Notification Log</BaseText>
+                <BaseText size="lg" weight="semibold" style={{ flexGrow: 1 }}>سجل الإشعارات</BaseText>
                 <ModalCloseButton onClick={close} />
             </ModalHeader>
 
@@ -169,7 +169,7 @@ function LogModal({ modalProps, close }: { modalProps: ModalProps; close(): void
             <ModalFooter>
                 <Flex>
                     <Button onClick={openNotificationSettingsModal}>
-                        Notification Settings
+                        إعدادات الإشعارات
                     </Button>
 
                     <Button
@@ -177,19 +177,19 @@ function LogModal({ modalProps, close }: { modalProps: ModalProps; close(): void
                         color={Button.Colors.RED}
                         onClick={() => {
                             Alerts.show({
-                                title: "Are you sure?",
-                                body: `This will permanently remove ${log.length} notification${log.length === 1 ? "" : "s"}. This action cannot be undone.`,
+                                title: "هل أنت متأكد؟",
+                                body: `سيتم حذف ${log.length} إشعار${log.length === 1 ? "" : ""} نهائياً. لا يمكن التراجع عن هذا الإجراء.`,
                                 async onConfirm() {
                                     await DataStore.set(KEY, []);
                                     signals.forEach(x => x());
                                 },
-                                confirmText: "Do it!",
+                                confirmText: "نعم، احذف",
                                 confirmColor: "vc-notification-log-danger-btn",
-                                cancelText: "Nevermind"
+                                cancelText: "إلغاء"
                             });
                         }}
                     >
-                        Clear Notification Log
+                        مسح سجل الإشعارات
                     </Button>
                 </Flex>
             </ModalFooter>

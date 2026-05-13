@@ -21,17 +21,17 @@ import { Select, Slider } from "@webpack/common";
 export function NotificationSection() {
     return (
         <section className={Margins.top16}>
-            <Heading>Notifications</Heading>
+            <Heading>الإشعارات</Heading>
             <Paragraph className={Margins.bottom8}>
-                Settings for Notifications sent by Vencord.
-                This does NOT include Discord notifications (messages, etc)
+                إعدادات الإشعارات الصادرة من Equicord.
+                لا تشمل إشعارات Discord العادية (الرسائل وغيرها)
             </Paragraph>
             <Flex>
                 <Button onClick={openNotificationSettingsModal}>
-                    Notification Settings
+                    إعدادات الإشعارات
                 </Button>
                 <Button onClick={openNotificationLogModal}>
-                    View Notification Log
+                    عرض سجل الإشعارات
                 </Button>
             </Flex>
         </section>
@@ -42,7 +42,7 @@ export function openNotificationSettingsModal() {
     openModal(props => (
         <ModalRoot {...props} size={ModalSize.MEDIUM}>
             <ModalHeader>
-                <BaseText size="lg" weight="semibold" style={{ flexGrow: 1 }}>Notification Settings</BaseText>
+                <BaseText size="lg" weight="semibold" style={{ flexGrow: 1 }}>إعدادات الإشعارات</BaseText>
                 <ModalCloseButton onClick={props.onClose} />
             </ModalHeader>
 
@@ -58,26 +58,26 @@ function NotificationSettings() {
 
     return (
         <div style={{ padding: "1em 0" }}>
-            <Heading>Notification Style</Heading>
+            <Heading>أسلوب الإشعارات</Heading>
             {settings.useNative !== "never" && Notification?.permission === "denied" && (
                 <ErrorCard style={{ padding: "1em" }} className={Margins.bottom8}>
-                    <Heading>Desktop Notification Permission denied</Heading>
-                    <Paragraph>You have denied Notification Permissions. Thus, Desktop notifications will not work!</Paragraph>
+                    <Heading>تم رفض إذن إشعارات سطح المكتب</Heading>
+                    <Paragraph>لقد رفضت إذن الإشعارات، لذا لن تعمل إشعارات سطح المكتب!</Paragraph>
                 </ErrorCard>
             )}
             <Paragraph className={Margins.bottom8}>
-                Some plugins may show you notifications. These come in two styles:
+                قد تعرض بعض الإضافات إشعارات. تأتي هذه الإشعارات بنوعين:
                 <ul>
-                    <li><strong>Equicord Notifications</strong>: These are in-app notifications</li>
-                    <li><strong>Desktop Notifications</strong>: Native Desktop notifications (like when you get a ping)</li>
+                    <li><strong>إشعارات Equicord</strong>: إشعارات داخل التطبيق</li>
+                    <li><strong>إشعارات سطح المكتب</strong>: إشعارات سطح المكتب الأصلية (مثل إشعارات الإشارات)</li>
                 </ul>
             </Paragraph>
             <Select
-                placeholder="Notification Style"
+                placeholder="أسلوب الإشعارات"
                 options={[
-                    { label: "Only use Desktop notifications when Discord is not focused", value: "not-focused", default: true },
-                    { label: "Always use Desktop notifications", value: "always" },
-                    { label: "Always use Equicord notifications", value: "never" },
+                    { label: "استخدام إشعارات سطح المكتب فقط عند عدم التركيز على Discord", value: "not-focused", default: true },
+                    { label: "استخدام إشعارات سطح المكتب دائماً", value: "always" },
+                    { label: "استخدام إشعارات Equicord دائماً", value: "never" },
                 ] satisfies Array<{ value: typeof settings["useNative"]; } & Record<string, any>>}
                 closeOnSelect={true}
                 select={v => settings.useNative = v}
@@ -85,28 +85,28 @@ function NotificationSettings() {
                 serialize={identity}
             />
 
-            <Heading className={Margins.top16 + " " + Margins.bottom8}>Notification Position</Heading>
+            <Heading className={Margins.top16 + " " + Margins.bottom8}>موضع الإشعارات</Heading>
             <Select
                 isDisabled={settings.useNative === "always"}
-                placeholder="Notification Position"
+                placeholder="موضع الإشعارات"
                 options={[
-                    { label: "Bottom Right", value: "bottom-right", default: true },
-                    { label: "Top Right", value: "top-right" },
+                    { label: "أسفل اليمين", value: "bottom-right", default: true },
+                    { label: "أعلى اليمين", value: "top-right" },
                 ] satisfies Array<{ value: typeof settings["position"]; } & Record<string, any>>}
                 select={v => settings.position = v}
                 isSelected={v => v === settings.position}
                 serialize={identity}
             />
 
-            <Heading className={Margins.top16 + " " + Margins.bottom8}>Missed Notification Count</Heading>
+            <Heading className={Margins.top16 + " " + Margins.bottom8}>عدد الإشعارات الفائتة</Heading>
             <FormSwitch
-                title="When refocusing discord a notification will popup with how you missed"
+                title="عند العودة إلى Discord، ستظهر إشعار بعدد الإشعارات التي فاتتك"
                 value={settings.missed}
                 onChange={(v: boolean) => settings.missed = v}
             />
 
-            <Heading className={Margins.top16 + " " + Margins.bottom8}>Notification Timeout</Heading>
-            <Paragraph className={Margins.bottom16}>Set to 0s to never automatically time out</Paragraph>
+            <Heading className={Margins.top16 + " " + Margins.bottom8}>مهلة الإشعار</Heading>
+            <Paragraph className={Margins.bottom16}>اضبط على 0 ثانية لعدم الإغلاق التلقائي أبداً</Paragraph>
             <Slider
                 disabled={settings.useNative === "always"}
                 markers={[0, 1000, 2500, 5000, 10_000, 20_000]}
@@ -119,10 +119,10 @@ function NotificationSettings() {
                 stickToMarkers={false}
             />
 
-            <Heading className={Margins.top16 + " " + Margins.bottom8}>Notification Log Limit</Heading>
+            <Heading className={Margins.top16 + " " + Margins.bottom8}>حد سجل الإشعارات</Heading>
             <Paragraph className={Margins.bottom16}>
-                The amount of notifications to save in the log until old ones are removed.
-                Set to <code>0</code> to disable Notification log and <code>∞</code> to never automatically remove old Notifications
+                عدد الإشعارات التي يتم حفظها في السجل قبل حذف القديمة.
+                اضبط على <code>0</code> لتعطيل السجل و<code>∞</code> لعدم الحذف التلقائي أبداً
             </Paragraph>
             <Slider
                 markers={[0, 25, 50, 75, 100, 200]}
