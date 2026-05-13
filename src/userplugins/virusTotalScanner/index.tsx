@@ -262,11 +262,15 @@ function ScanButton({ attachmentProps }: { attachmentProps: AttachmentProps; }):
 
             let fileData: ArrayBuffer;
             try {
-                const fileRes = await fetch(url, { cache: "no-store" });
-                if (!fileRes.ok) throw new Error(`HTTP ${fileRes.status}`);
+                const fileRes = await fetch(url, { cache: "no-store", credentials: "include" });
+                if (!fileRes.ok) throw new Error(`الملف غير متاح (${fileRes.status})`);
                 fileData = await fileRes.arrayBuffer();
             } catch (fetchErr: any) {
-                throw new Error(`تعذّر تنزيل الملف — ${fetchErr?.message ?? "خطأ في الشبكة"}`);
+                const msg: string = fetchErr?.message ?? "";
+                if (!msg || /failed to fetch|networkerror|network request failed/i.test(msg)) {
+                    throw new Error("الملف غير متاح — قد يكون الرابط منتهي الصلاحية أو المرفق محذوف");
+                }
+                throw new Error(`تعذّر تنزيل الملف — ${msg}`);
             }
 
             const hash = await computeSha256(fileData);
@@ -308,11 +312,15 @@ function ScanButton({ attachmentProps }: { attachmentProps: AttachmentProps; }):
 
             let fileData: ArrayBuffer;
             try {
-                const fileRes = await fetch(url, { cache: "no-store" });
-                if (!fileRes.ok) throw new Error(`HTTP ${fileRes.status}`);
+                const fileRes = await fetch(url, { cache: "no-store", credentials: "include" });
+                if (!fileRes.ok) throw new Error(`الملف غير متاح (${fileRes.status})`);
                 fileData = await fileRes.arrayBuffer();
             } catch (fetchErr: any) {
-                throw new Error(`تعذّر تنزيل الملف — ${fetchErr?.message ?? "خطأ في الشبكة"}`);
+                const msg: string = fetchErr?.message ?? "";
+                if (!msg || /failed to fetch|networkerror|network request failed/i.test(msg)) {
+                    throw new Error("الملف غير متاح — قد يكون الرابط منتهي الصلاحية أو المرفق محذوف");
+                }
+                throw new Error(`تعذّر تنزيل الملف — ${msg}`);
             }
 
             const uploadEndpoint = fileData.byteLength > 32 * 1024 * 1024
