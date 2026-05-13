@@ -1,0 +1,41 @@
+name: Discord Notifications
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - "**.md"
+      - "badges/**"
+      - ".github/ISSUE_TEMPLATE/**"
+      - ".github/PULL_REQUEST_TEMPLATE/**"
+
+jobs:
+  notify:
+    name: Send Discord notification
+    runs-on: ubuntu-latest
+    # Never block CI — this job is informational only
+    continue-on-error: true
+
+    steps:
+      - name: Checkout (with parent commit for diff)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Send Discord notifications
+        # Secrets injected here — values are NEVER printed in logs by GitHub
+        # If secrets are not configured yet the script exits 0 (graceful skip)
+        env:
+          WEBHOOK_PLUGINS: ${{ secrets.WEBHOOK_PLUGINS }}
+          WEBHOOK_UPDATES: ${{ secrets.WEBHOOK_UPDATES }}
+        run: |
+          if [ -z "$WEBHOOK_PLUGINS" ] || [ -z "$WEBHOOK_UPDATES" ]; then
+            echo "⚠ Webhook secrets not configured — skipping Discord notification"
+            exit 0
+          fi
+          node .github/scripts/discord-notify.mjs
