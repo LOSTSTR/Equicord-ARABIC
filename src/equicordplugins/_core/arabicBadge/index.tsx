@@ -10,9 +10,9 @@ import { addProfileBadge, BadgePosition, BadgeUserArgs, ProfileBadge, removeProf
 import { addMessageDecoration, removeMessageDecoration } from "@api/MessageDecorations";
 import ErrorBoundary from "@components/ErrorBoundary";
 import definePlugin from "@utils/types";
-import { Tooltip } from "@webpack/common";
+import { Tooltip, useRef } from "@webpack/common";
 
-import { useRef, type JSX } from "react";
+import type { JSX } from "react";
 
 const BADGE_ID = "eq-arabic-brand";
 
