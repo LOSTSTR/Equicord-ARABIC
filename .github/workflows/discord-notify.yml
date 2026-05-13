@@ -5,37 +5,41 @@ on:
     branches: [main]
     paths-ignore:
       - "**.md"
-      - "badges/**"
       - ".github/ISSUE_TEMPLATE/**"
       - ".github/PULL_REQUEST_TEMPLATE/**"
+
+# Least-privilege token — this job only reads repo contents.
+# No write access, no package access, no secret access beyond explicit env vars.
+permissions:
+  contents: read
 
 jobs:
   notify:
     name: Send Discord notification
     runs-on: ubuntu-latest
-    # Never block CI — this job is informational only
     continue-on-error: true
+    # Extra guard: only run on the real main branch, never on forks or PRs
+    if: github.repository == 'LOSTSTR/Equicord-ARABIC' && github.ref == 'refs/heads/main'
 
     steps:
       - name: Checkout (with parent commit for diff)
-        uses: actions/checkout@v4
+        # Pinned to SHA — prevents tag-hijack supply-chain attacks
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           fetch-depth: 2
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
         with:
           node-version: "20"
 
       - name: Send Discord notifications
-        # Secrets injected here — values are NEVER printed in logs by GitHub
-        # If secrets are not configured yet the script exits 0 (graceful skip)
         env:
           WEBHOOK_PLUGINS: ${{ secrets.WEBHOOK_PLUGINS }}
           WEBHOOK_UPDATES: ${{ secrets.WEBHOOK_UPDATES }}
         run: |
           if [ -z "$WEBHOOK_PLUGINS" ] || [ -z "$WEBHOOK_UPDATES" ]; then
-            echo "⚠ Webhook secrets not configured — skipping Discord notification"
+            echo "Webhook secrets not configured — skipping"
             exit 0
           fi
           node .github/scripts/discord-notify.mjs
