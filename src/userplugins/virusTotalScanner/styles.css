@@ -1,0 +1,228 @@
+/* VirusTotal Scanner — RTL Arabic, Discord dark theme */
+
+/* ─── Scan Button ─────────────────────────────────────────────────────────── */
+
+.vts-scan-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 6px;
+    padding: 3px 10px;
+    background: none;
+    border: 1px solid var(--interactive-muted, #4f545c);
+    border-radius: 4px;
+    color: var(--interactive-normal, #b9bbbe);
+    font-size: 12px;
+    cursor: pointer;
+    direction: rtl;
+    transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+
+.vts-scan-btn:hover {
+    border-color: var(--brand-500, #5865f2);
+    color: var(--interactive-hover, #dcddde);
+    background: var(--background-modifier-hover, rgba(79, 84, 92, 0.16));
+}
+
+.vts-scan-btn:active {
+    background: var(--background-modifier-active, rgba(79, 84, 92, 0.32));
+}
+
+/* ─── Status Bar (loading states) ────────────────────────────────────────── */
+
+.vts-status-bar {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 6px;
+    padding: 3px 10px;
+    color: var(--text-muted, #a3a6aa);
+    font-size: 12px;
+    direction: rtl;
+}
+
+/* ─── Spinner ─────────────────────────────────────────────────────────────── */
+
+.vts-spinner {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border: 2px solid var(--interactive-muted, #4f545c);
+    border-top-color: var(--brand-500, #5865f2);
+    border-radius: 50%;
+    animation: vts-spin 0.7s linear infinite;
+    flex-shrink: 0;
+}
+
+@keyframes vts-spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ─── Result Card ─────────────────────────────────────────────────────────── */
+
+.vts-result-card {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 6px;
+    padding: 5px 10px;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    font-size: 12px;
+    direction: rtl;
+    max-width: 100%;
+    flex-wrap: wrap;
+}
+
+/* Clean */
+.vts-result-card-clean {
+    background: rgba(59, 165, 92, 0.12);
+    border-color: rgba(59, 165, 92, 0.3);
+    color: #3ba55c;
+}
+
+/* Malicious */
+.vts-result-card-malicious {
+    background: rgba(237, 66, 69, 0.12);
+    border-color: rgba(237, 66, 69, 0.3);
+    color: #ed4245;
+}
+
+/* Not found */
+.vts-result-card-not-found {
+    background: var(--background-secondary, #2f3136);
+    border-color: var(--interactive-muted, #4f545c);
+    color: var(--text-muted, #a3a6aa);
+}
+
+/* Error */
+.vts-result-card-error {
+    background: rgba(250, 166, 26, 0.12);
+    border-color: rgba(250, 166, 26, 0.3);
+    color: #faa61a;
+}
+
+.vts-result-icon {
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.vts-result-label {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* ─── VT Report Link ──────────────────────────────────────────────────────── */
+
+.vts-vt-link {
+    color: var(--brand-500, #5865f2);
+    text-decoration: none;
+    font-size: 12px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.vts-vt-link:hover {
+    text-decoration: underline;
+}
+
+/* ─── Dismiss / Upload Buttons ────────────────────────────────────────────── */
+
+.vts-dismiss-btn {
+    background: none;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    font-size: 11px;
+    padding: 0 4px;
+    opacity: 0.7;
+    flex-shrink: 0;
+    border-radius: 3px;
+}
+
+.vts-dismiss-btn:hover {
+    opacity: 1;
+    background: var(--background-modifier-hover, rgba(79, 84, 92, 0.16));
+}
+
+.vts-upload-btn {
+    background: var(--brand-500, #5865f2);
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 11px;
+    padding: 2px 8px;
+    flex-shrink: 0;
+    transition: background 0.15s;
+}
+
+.vts-upload-btn:hover {
+    background: var(--brand-560, #4752c4);
+}
+
+/* ─── Upload Progress Bar ─────────────────────────────────────────────────── */
+
+.vts-upload-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 6px;
+    direction: rtl;
+    font-size: 12px;
+    color: var(--text-muted, #a3a6aa);
+}
+
+.vts-upload-track {
+    flex: 1;
+    height: 4px;
+    background: var(--background-modifier-accent, rgba(79, 84, 92, 0.48));
+    border-radius: 2px;
+    overflow: hidden;
+    max-width: 200px;
+}
+
+.vts-upload-fill {
+    height: 100%;
+    background: var(--brand-500, #5865f2);
+    border-radius: 2px;
+    transition: width 0.2s ease;
+}
+
+.vts-upload-label {
+    white-space: nowrap;
+}
+
+/* ─── API Key Settings Input ──────────────────────────────────────────────── */
+
+.vts-api-key-wrap {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    direction: rtl;
+    width: 100%;
+}
+
+.vts-api-key-input {
+    flex: 1;
+}
+
+.vts-save-btn {
+    background: var(--brand-500, #5865f2);
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 13px;
+    padding: 4px 14px;
+    white-space: nowrap;
+    transition: background 0.15s;
+    flex-shrink: 0;
+}
+
+.vts-save-btn:hover {
+    background: var(--brand-560, #4752c4);
+}
