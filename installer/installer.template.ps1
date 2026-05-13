@@ -97,6 +97,56 @@ function Get-LocalVersion([string]$ResourcesPath) {
 }
 
 # ═══════════════════════════════════════════════════════════════════
+#  إدارة عمليات Discord
+# ═══════════════════════════════════════════════════════════════════
+function Stop-DiscordProcesses {
+    param([string]$ResourcesPath)
+    $appDir     = Split-Path $ResourcesPath -Parent
+    $discordDir = Split-Path $appDir -Parent
+    $procName   = Split-Path $discordDir -Leaf
+    Get-Process -Name $procName -EA SilentlyContinue | Stop-Process -Force -EA SilentlyContinue
+    Start-Sleep -Milliseconds 800
+}
+
+function Start-DiscordProcess {
+    param([string]$ResourcesPath)
+    $appDir  = Split-Path $ResourcesPath -Parent
+    $varName = Split-Path (Split-Path $appDir -Parent) -Leaf
+    $exe     = Join-Path $appDir "$varName.exe"
+    if (Test-Path $exe) { Start-Process $exe -EA SilentlyContinue }
+}
+
+# ═══════════════════════════════════════════════════════════════════
+#  كتابة شيم ASAR (Equilotl-style)
+# ═══════════════════════════════════════════════════════════════════
+function Write-AppAsarShim {
+    param([string]$Path, [string]$EquicordAsarPath)
+    $reqPath  = $EquicordAsarPath -replace '\\', '/'
+    $indexJs  = [System.Text.Encoding]::UTF8.GetBytes("require(`"$reqPath`")")
+    $pkgJson  = [System.Text.Encoding]::UTF8.GetBytes('{"name":"discord","main":"index.js"}')
+    $off1     = $indexJs.Length
+    $hdr      = "{`"files`":{`"index.js`":{`"size`":$off1,`"offset`":`"0`"},`"package.json`":{`"size`":$($pkgJson.Length),`"offset`":`"$off1`"}}}"
+    $hdrBytes = [System.Text.Encoding]::UTF8.GetBytes($hdr)
+    $hdrLen   = $hdrBytes.Length
+    $alignLen = [int]([Math]::Ceiling($hdrLen / 4.0) * 4)
+    $padded   = New-Object byte[] $alignLen
+    [Array]::Copy($hdrBytes, $padded, $hdrLen)
+    $ms = New-Object System.IO.MemoryStream
+    $bw = New-Object System.IO.BinaryWriter($ms)
+    # ASAR Pickle format: sizePickle + headerPickle
+    $bw.Write([uint32]4)
+    $bw.Write([uint32]($alignLen + 8))
+    $bw.Write([uint32]($alignLen + 4))
+    $bw.Write([uint32]$hdrLen)
+    $bw.Write($padded)
+    $bw.Write($indexJs)
+    $bw.Write($pkgJson)
+    $bw.Flush()
+    [System.IO.File]::WriteAllBytes($Path, $ms.ToArray())
+    $bw.Dispose(); $ms.Dispose()
+}
+
+# ═══════════════════════════════════════════════════════════════════
 #  تنزيل الملف مع شريط تقدم
 # ═══════════════════════════════════════════════════════════════════
 function Invoke-Download {
@@ -129,6 +179,10 @@ function Invoke-Download {
 function Install-Mod {
     param([string]$ResourcesPath, [scriptblock]$Status, [scriptblock]$Progress)
 
+    & $Status "إيقاف Discord..."
+    & $Progress 3
+    Stop-DiscordProcesses $ResourcesPath
+
     & $Status "جارٍ جلب معلومات آخر إصدار..."
     & $Progress 5
 
@@ -153,35 +207,46 @@ function Install-Mod {
     $appAsar  = Join-Path $ResourcesPath "app.asar"
     $origAsar = Join-Path $ResourcesPath "_app.asar"
 
-    & $Status "حفظ نسخة احتياطية من Discord الأصلي..."
-    & $Progress 70
+    & $Status "نسخ equicord.asar إلى مجلد البيانات..."
+    & $Progress 68
 
-    # الخطوة 1: احتفظ بنسخة احتياطية من app.asar الأصلي إن لم تكن موجودة
+    # الخطوة 1: حفظ equicord.asar في DataDir للمحدِّث التلقائي
+    Copy-Item $tmp $AsarTarget -Force
+    Remove-Item $tmp -EA SilentlyContinue
+
+    & $Status "حفظ نسخة احتياطية من Discord الأصلي..."
+    & $Progress 75
+
+    # الخطوة 2: احتفظ بنسخة احتياطية من app.asar الأصلي إن لم تكن موجودة
     if (-not (Test-Path $origAsar)) {
         if (Test-Path $appAsar) {
             Copy-Item $appAsar $origAsar -Force
         } else {
-            Remove-Item $tmp -EA SilentlyContinue
             throw "لم يُعثر على app.asar في مجلد موارد Discord"
         }
     }
 
-    & $Status "حقن Equicord-ARABIC في Discord..."
-    & $Progress 80
+    & $Status "كتابة شيم Equicord في Discord..."
+    & $Progress 85
 
-    # الخطوة 2: استبدال app.asar بـ Equicord (desktop.asar)
-    Copy-Item $tmp $appAsar -Force
+    # الخطوة 3: كتابة شيم ASAR مصغّر (Equilotl-style) يحمّل equicord.asar من DataDir
+    Write-AppAsarShim -Path $appAsar -EquicordAsarPath $AsarTarget
 
-    # الخطوة 3: حفظ نسخة في DataDir للمحدِّث التلقائي
-    Copy-Item $tmp $AsarTarget -Force
-    Remove-Item $tmp -EA SilentlyContinue
+    & $Progress 93
+    & $Status "إعادة تشغيل Discord..."
+    Start-DiscordProcess $ResourcesPath
+    Start-Sleep -Milliseconds 300
 
     & $Progress 100
-    & $Status "✔ تم التثبيت — أعد تشغيل Discord لتفعيل Equicord-ARABIC"
+    & $Status "✔ تم التثبيت — Discord يُعاد تشغيله الآن"
 }
 
 function Uninstall-Mod {
     param([string]$ResourcesPath, [scriptblock]$Status, [scriptblock]$Progress)
+
+    & $Status "إيقاف Discord..."
+    & $Progress 10
+    Stop-DiscordProcesses $ResourcesPath
 
     $appAsar  = Join-Path $ResourcesPath "app.asar"
     $origAsar = Join-Path $ResourcesPath "_app.asar"
@@ -199,8 +264,14 @@ function Uninstall-Mod {
 
     & $Progress 80
     if (Test-Path $AsarTarget) { Remove-Item $AsarTarget -EA SilentlyContinue }
+    & $Progress 90
+
+    & $Status "إعادة تشغيل Discord..."
+    Start-DiscordProcess $ResourcesPath
+    Start-Sleep -Milliseconds 300
+
     & $Progress 100
-    & $Status "✔ تمت الإزالة — أعد تشغيل Discord"
+    & $Status "✔ تمت الإزالة — Discord يُعاد تشغيله الآن"
 }
 
 function Install-OpenAsar {
@@ -495,7 +566,7 @@ function Show-Installer {
             Set-Progress 0
             Set-Status "جارٍ التثبيت..." $FG_WHITE
             Install-Mod $target { param($m) Set-Status $m $FG_WHITE } { param($p) Set-Progress $p }
-            Set-Status "✔ تم التثبيت — أعد تشغيل Discord" ([System.Drawing.Color]::FromArgb(87,242,135))
+            Set-Status "✔ تم التثبيت — Discord يُعاد تشغيله تلقائياً" ([System.Drawing.Color]::FromArgb(87,242,135))
             Update-RadioLabels
         } catch {
             Set-Status "✖ خطأ: $_" ([System.Drawing.Color]::FromArgb(237,66,69))
@@ -510,7 +581,7 @@ function Show-Installer {
             Set-Progress 0
             Set-Status "جارٍ إعادة التثبيت..." $FG_WHITE
             Install-Mod $target { param($m) Set-Status $m $FG_WHITE } { param($p) Set-Progress $p }
-            Set-Status "✔ تمت إعادة التثبيت — أعد تشغيل Discord" ([System.Drawing.Color]::FromArgb(87,242,135))
+            Set-Status "✔ تمت إعادة التثبيت — Discord يُعاد تشغيله تلقائياً" ([System.Drawing.Color]::FromArgb(87,242,135))
             Update-RadioLabels
         } catch {
             Set-Status "✖ خطأ: $_" ([System.Drawing.Color]::FromArgb(237,66,69))
@@ -531,7 +602,7 @@ function Show-Installer {
             Set-Progress 0
             Set-Status "جارٍ الإزالة..." $FG_WHITE
             Uninstall-Mod $target { param($m) Set-Status $m $FG_WHITE } { param($p) Set-Progress $p }
-            Set-Status "✔ تمت الإزالة — أعد تشغيل Discord" ([System.Drawing.Color]::FromArgb(87,242,135))
+            Set-Status "✔ تمت الإزالة — Discord يُعاد تشغيله تلقائياً" ([System.Drawing.Color]::FromArgb(87,242,135))
             Update-RadioLabels
         } catch {
             Set-Status "✖ خطأ: $_" ([System.Drawing.Color]::FromArgb(237,66,69))

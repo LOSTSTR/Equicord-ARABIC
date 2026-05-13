@@ -31,6 +31,51 @@ $DataDir = if ($env:EQUICORD_USER_DATA_DIR) {
 }
 $AsarTarget = Join-Path $DataDir "equicord.asar"
 
+# ── إدارة عمليات Discord ────────────────────────────────────────────────
+function Stop-DiscordProcesses {
+    param([string]$ResourcesPath)
+    $appDir     = Split-Path $ResourcesPath -Parent
+    $discordDir = Split-Path $appDir -Parent
+    $procName   = Split-Path $discordDir -Leaf
+    Get-Process -Name $procName -EA SilentlyContinue | Stop-Process -Force -EA SilentlyContinue
+    Start-Sleep -Milliseconds 800
+}
+
+function Start-DiscordProcess {
+    param([string]$ResourcesPath)
+    $appDir  = Split-Path $ResourcesPath -Parent
+    $varName = Split-Path (Split-Path $appDir -Parent) -Leaf
+    $exe     = Join-Path $appDir "$varName.exe"
+    if (Test-Path $exe) { Start-Process $exe -EA SilentlyContinue }
+}
+
+# ── كتابة شيم ASAR (Equilotl-style) ────────────────────────────────────
+function Write-AppAsarShim {
+    param([string]$Path, [string]$EquicordAsarPath)
+    $reqPath  = $EquicordAsarPath -replace '\\', '/'
+    $indexJs  = [System.Text.Encoding]::UTF8.GetBytes("require(`"$reqPath`")")
+    $pkgJson  = [System.Text.Encoding]::UTF8.GetBytes('{"name":"discord","main":"index.js"}')
+    $off1     = $indexJs.Length
+    $hdr      = "{`"files`":{`"index.js`":{`"size`":$off1,`"offset`":`"0`"},`"package.json`":{`"size`":$($pkgJson.Length),`"offset`":`"$off1`"}}}"
+    $hdrBytes = [System.Text.Encoding]::UTF8.GetBytes($hdr)
+    $hdrLen   = $hdrBytes.Length
+    $alignLen = [int]([Math]::Ceiling($hdrLen / 4.0) * 4)
+    $padded   = New-Object byte[] $alignLen
+    [Array]::Copy($hdrBytes, $padded, $hdrLen)
+    $ms = New-Object System.IO.MemoryStream
+    $bw = New-Object System.IO.BinaryWriter($ms)
+    $bw.Write([uint32]4)
+    $bw.Write([uint32]($alignLen + 8))
+    $bw.Write([uint32]($alignLen + 4))
+    $bw.Write([uint32]$hdrLen)
+    $bw.Write($padded)
+    $bw.Write($indexJs)
+    $bw.Write($pkgJson)
+    $bw.Flush()
+    [System.IO.File]::WriteAllBytes($Path, $ms.ToArray())
+    $bw.Dispose(); $ms.Dispose()
+}
+
 # ── واجهة الطرفية ──────────────────────────────────────────────────────
 function Write-Banner {
     Write-Host ""
@@ -141,6 +186,9 @@ function Install-Equicord([System.Collections.Generic.List[hashtable]]$Installs)
 
             Write-Host "  🔍 $($inst.Name): $($inst.Resources)" -ForegroundColor Cyan
 
+            Write-Host "  ⏹  إيقاف $($inst.Name)..." -ForegroundColor Yellow
+            Stop-DiscordProcesses $inst.Resources
+
             # احتفظ بنسخة احتياطية من app.asar الأصلي إن لم تكن موجودة
             if (-not (Test-Path $origAsar)) {
                 if (Test-Path $appAsar) {
@@ -154,9 +202,12 @@ function Install-Equicord([System.Collections.Generic.List[hashtable]]$Installs)
                 Write-Host "  ℹ  _app.asar موجود — تحديث app.asar فقط" -ForegroundColor Yellow
             }
 
-            # استبدال app.asar بـ Equicord
-            Copy-Item $tmpAsar $appAsar -Force
+            # كتابة شيم ASAR (Equilotl-style) يحمّل equicord.asar من DataDir
+            Write-AppAsarShim -Path $appAsar -EquicordAsarPath $AsarTarget
             Write-Host "  ✔  تم الحقن في: $($inst.Name)" -ForegroundColor Green
+
+            Write-Host "  ▶  إعادة تشغيل $($inst.Name)..." -ForegroundColor Cyan
+            Start-DiscordProcess $inst.Resources
         }
     } finally {
         if (Test-Path $tmpAsar) { Remove-Item $tmpAsar -EA SilentlyContinue }
@@ -165,7 +216,7 @@ function Install-Equicord([System.Collections.Generic.List[hashtable]]$Installs)
     Write-Host ""
     Write-Host "  ╔══════════════════════════════════════════╗" -ForegroundColor Green
     Write-Host "  ║  ✅ تم التثبيت بنجاح!                   ║" -ForegroundColor Green
-    Write-Host "  ║  أعد تشغيل Discord لتفعيل Equicord-ARABIC ║" -ForegroundColor Green
+    Write-Host "  ║  Discord يُعاد تشغيله تلقائياً           ║" -ForegroundColor Green
     Write-Host "  ╚══════════════════════════════════════════╝" -ForegroundColor Green
     Write-Host ""
 }
@@ -179,6 +230,9 @@ function Uninstall-Equicord([System.Collections.Generic.List[hashtable]]$Install
         $appAsar  = Join-Path $inst.Resources "app.asar"
         $origAsar = Join-Path $inst.Resources "_app.asar"
 
+        Write-Host "  ⏹  إيقاف $($inst.Name)..." -ForegroundColor Yellow
+        Stop-DiscordProcesses $inst.Resources
+
         if (Test-Path $origAsar) {
             Write-Host "  ← استعادة: _app.asar → app.asar ($($inst.Name))" -ForegroundColor Cyan
             Copy-Item $origAsar $appAsar -Force
@@ -187,6 +241,9 @@ function Uninstall-Equicord([System.Collections.Generic.List[hashtable]]$Install
         } else {
             Write-Host "  ℹ  لا يوجد _app.asar في: $($inst.Name) — ربما غير مثبَّت" -ForegroundColor Yellow
         }
+
+        Write-Host "  ▶  إعادة تشغيل $($inst.Name)..." -ForegroundColor Cyan
+        Start-DiscordProcess $inst.Resources
     }
 
     if (Test-Path $AsarTarget) {
@@ -195,7 +252,7 @@ function Uninstall-Equicord([System.Collections.Generic.List[hashtable]]$Install
     }
 
     Write-Host ""
-    Write-Host "  ✅ تمت إزالة Equicord-ARABIC. أعد تشغيل Discord." -ForegroundColor Green
+    Write-Host "  ✅ تمت إزالة Equicord-ARABIC. Discord يُعاد تشغيله تلقائياً." -ForegroundColor Green
     Write-Host ""
 }
 
