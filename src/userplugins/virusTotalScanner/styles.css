@@ -8,24 +8,25 @@
     gap: 5px;
     margin-top: 6px;
     padding: 3px 10px;
-    background: none;
+    background: transparent;
     border: 1px solid var(--interactive-muted, #4f545c);
     border-radius: 4px;
-    color: var(--interactive-normal, #b9bbbe);
+    color: var(--text-normal, #dcddde) !important;
     font-size: 12px;
+    font-family: inherit;
     cursor: pointer;
     direction: rtl;
-    transition: border-color 0.15s, color 0.15s, background 0.15s;
+    line-height: 1.4;
+    transition: border-color 0.15s, background 0.15s;
 }
 
 .vts-scan-btn:hover {
     border-color: var(--brand-500, #5865f2);
-    color: var(--interactive-hover, #dcddde);
-    background: var(--background-modifier-hover, rgba(79, 84, 92, 0.16));
+    background: var(--background-modifier-hover, rgb(79 84 92 / 16%));
 }
 
 .vts-scan-btn:active {
-    background: var(--background-modifier-active, rgba(79, 84, 92, 0.32));
+    background: var(--background-modifier-active, rgb(79 84 92 / 32%));
 }
 
 /* ─── Status Bar (loading states) ────────────────────────────────────────── */
@@ -58,7 +59,7 @@
     to { transform: rotate(360deg); }
 }
 
-/* ─── Result Card ─────────────────────────────────────────────────────────── */
+/* ─── Result Card (base) ──────────────────────────────────────────────────── */
 
 .vts-result-card {
     display: flex;
@@ -67,7 +68,9 @@
     margin-top: 6px;
     padding: 5px 10px;
     border-radius: 6px;
-    border: 1px solid transparent;
+    border: 1px solid var(--interactive-muted, #4f545c);
+    background: var(--background-secondary, #2f3136);
+    color: var(--text-normal, #dcddde) !important;
     font-size: 12px;
     direction: rtl;
     max-width: 100%;
@@ -75,31 +78,31 @@
 }
 
 /* Clean */
-.vts-result-card-clean {
-    background: rgba(59, 165, 92, 0.12);
-    border-color: rgba(59, 165, 92, 0.3);
-    color: #3ba55c;
+.vts-result-card.vts-clean {
+    background: rgb(59 165 92 / 12%);
+    border-color: rgb(59 165 92 / 40%);
+    color: #3ba55c !important;
 }
 
 /* Malicious */
-.vts-result-card-malicious {
-    background: rgba(237, 66, 69, 0.12);
-    border-color: rgba(237, 66, 69, 0.3);
-    color: #ed4245;
+.vts-result-card.vts-malicious {
+    background: rgb(237 66 69 / 12%);
+    border-color: rgb(237 66 69 / 40%);
+    color: #ed4245 !important;
 }
 
 /* Not found */
-.vts-result-card-not-found {
+.vts-result-card.vts-not-found {
     background: var(--background-secondary, #2f3136);
     border-color: var(--interactive-muted, #4f545c);
-    color: var(--text-muted, #a3a6aa);
+    color: var(--text-muted, #a3a6aa) !important;
 }
 
 /* Error */
-.vts-result-card-error {
-    background: rgba(250, 166, 26, 0.12);
-    border-color: rgba(250, 166, 26, 0.3);
-    color: #faa61a;
+.vts-result-card.vts-error {
+    background: rgb(250 166 26 / 12%);
+    border-color: rgb(250 166 26 / 40%);
+    color: #faa61a !important;
 }
 
 .vts-result-icon {
@@ -113,12 +116,13 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    color: inherit;
 }
 
 /* ─── VT Report Link ──────────────────────────────────────────────────────── */
 
 .vts-vt-link {
-    color: var(--brand-500, #5865f2);
+    color: var(--brand-500, #5865f2) !important;
     text-decoration: none;
     font-size: 12px;
     white-space: nowrap;
@@ -127,36 +131,41 @@
 
 .vts-vt-link:hover {
     text-decoration: underline;
+    color: var(--brand-560, #4752c4) !important;
 }
 
 /* ─── Dismiss / Upload Buttons ────────────────────────────────────────────── */
 
 .vts-dismiss-btn {
-    background: none;
+    background: transparent;
     border: none;
-    color: inherit;
+    color: inherit !important;
     cursor: pointer;
     font-size: 11px;
-    padding: 0 4px;
-    opacity: 0.7;
+    font-family: inherit;
+    padding: 1px 5px;
+    opacity: 0.8;
     flex-shrink: 0;
     border-radius: 3px;
+    line-height: 1.4;
 }
 
 .vts-dismiss-btn:hover {
     opacity: 1;
-    background: var(--background-modifier-hover, rgba(79, 84, 92, 0.16));
+    background: var(--background-modifier-hover, rgb(79 84 92 / 16%));
 }
 
 .vts-upload-btn {
     background: var(--brand-500, #5865f2);
     border: none;
     border-radius: 4px;
-    color: #fff;
+    color: #fff !important;
     cursor: pointer;
     font-size: 11px;
+    font-family: inherit;
     padding: 2px 8px;
     flex-shrink: 0;
+    line-height: 1.4;
     transition: background 0.15s;
 }
 
@@ -179,7 +188,7 @@
 .vts-upload-track {
     flex: 1;
     height: 4px;
-    background: var(--background-modifier-accent, rgba(79, 84, 92, 0.48));
+    background: var(--background-modifier-accent, rgb(79 84 92 / 48%));
     border-radius: 2px;
     overflow: hidden;
     max-width: 200px;
@@ -194,6 +203,7 @@
 
 .vts-upload-label {
     white-space: nowrap;
+    color: var(--text-muted, #a3a6aa);
 }
 
 /* ─── API Key Settings Input ──────────────────────────────────────────────── */
@@ -214,9 +224,10 @@
     background: var(--brand-500, #5865f2);
     border: none;
     border-radius: 4px;
-    color: #fff;
+    color: #fff !important;
     cursor: pointer;
     font-size: 13px;
+    font-family: inherit;
     padding: 4px 14px;
     white-space: nowrap;
     transition: background 0.15s;

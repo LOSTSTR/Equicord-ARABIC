@@ -260,9 +260,14 @@ function ScanButton({ attachmentProps }: { attachmentProps: AttachmentProps; }):
         try {
             setState({ phase: "hashing" });
 
-            const fileRes = await fetch(url!);
-            if (!fileRes.ok) throw new Error("فشل جلب الملف من Discord");
-            const fileData = await fileRes.arrayBuffer();
+            let fileData: ArrayBuffer;
+            try {
+                const fileRes = await fetch(url, { cache: "no-store" });
+                if (!fileRes.ok) throw new Error(`HTTP ${fileRes.status}`);
+                fileData = await fileRes.arrayBuffer();
+            } catch (fetchErr: any) {
+                throw new Error(`تعذّر تنزيل الملف — ${fetchErr?.message ?? "خطأ في الشبكة"}`);
+            }
 
             const hash = await computeSha256(fileData);
 
@@ -275,7 +280,12 @@ function ScanButton({ attachmentProps }: { attachmentProps: AttachmentProps; }):
             }
 
             setState({ phase: "querying" });
-            const lookup = await vtHashLookup(hash, apiKey);
+            let lookup: Awaited<ReturnType<typeof vtHashLookup>>;
+            try {
+                lookup = await vtHashLookup(hash, apiKey);
+            } catch (vtErr: any) {
+                throw new Error(`خطأ في VirusTotal API — ${vtErr?.message ?? "تحقق من مفتاح API"}`);
+            }
 
             if (lookup.found) {
                 scanCache.set(hash, lookup.result);
@@ -296,9 +306,14 @@ function ScanButton({ attachmentProps }: { attachmentProps: AttachmentProps; }):
         try {
             setState({ phase: "uploading", progress: 0 });
 
-            const fileRes = await fetch(url!);
-            if (!fileRes.ok) throw new Error("فشل جلب الملف للرفع");
-            const fileData = await fileRes.arrayBuffer();
+            let fileData: ArrayBuffer;
+            try {
+                const fileRes = await fetch(url, { cache: "no-store" });
+                if (!fileRes.ok) throw new Error(`HTTP ${fileRes.status}`);
+                fileData = await fileRes.arrayBuffer();
+            } catch (fetchErr: any) {
+                throw new Error(`تعذّر تنزيل الملف — ${fetchErr?.message ?? "خطأ في الشبكة"}`);
+            }
 
             const uploadEndpoint = fileData.byteLength > 32 * 1024 * 1024
                 ? await getVtUploadUrl(apiKey)
