@@ -48,29 +48,62 @@ function buildCSS(): string {
             "@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap');"
         );
         parts.push(`
-html, body, #app-mount, [class*="sidebar"], [class*="content"],
-[class*="chat"], [class*="message"], [class*="title"], [class*="label"],
-[class*="name"], [class*="username"], [class*="text"] {
+[class*="message_"], [class*="messageContent_"], [class*="markup_"],
+[class*="contents_"], [class*="scroller_"], [class*="panel_"],
+[class*="text_"], [class*="title_"], [class*="label_"],
+[class*="formText_"], [class*="description_"], [class*="note_"],
+[class*="headerText_"], [class*="defaultColor_"],
+[class*="friendsTable_"], [class*="listItem_"] {
     font-family: 'Tajawal', 'Segoe UI', system-ui, sans-serif !important;
 }`);
     }
 
     if (settings.store.enableRTL) {
         parts.push(`
-html, body, #app-mount {
+/* ── Step 1: RTL for text-bearing content areas only ── */
+[class*="scroller_"],
+[class*="panel_"],
+[class*="text_"],
+[class*="contents_"],
+[class*="messageContent_"],
+[class*="markup_"],
+[class*="message_"],
+[class*="friendsTable_"],
+[class*="formText_"],
+[class*="description_"],
+[class*="note_"],
+[class*="headerText_"],
+[class*="defaultColor_"] {
     direction: rtl !important;
+    text-align: right;
 }
-[class*="messages"], [class*="chat"], [class*="content"] {
-    direction: rtl !important;
-}
-[class*="sidebar"], [class*="guilds"] {
+
+/* ── Step 2: Anchor the shell layout in LTR (declared after RTL to win tie) ── */
+html, body, #app-mount,
+[class*="appAsidePanelWrapper_"],
+[class*="base_"],
+[class*="container_"],
+[class*="sidebar_"],
+[class*="layers_"],
+[class*="guilds_"],
+[class*="guildsList_"],
+[class*="nav_"],
+[class*="panels_"],
+[class*="toolbar_"],
+[class*="avatar_"],
+[class*="avatarWrapper_"],
+[class*="status_"],
+[class*="icon_"],
+[class*="iconWrapper_"],
+[class*="badge_"],
+[class*="presence_"],
+[class*="timestamp_"],
+[class*="codeBlock_"],
+code, pre {
     direction: ltr !important;
 }
-[class*="message-"] [class*="timestamp"] {
-    direction: ltr !important;
-}
-[class*="codeBlock"], code, pre {
-    direction: ltr !important;
+
+[class*="codeBlock_"], code, pre {
     text-align: left !important;
 }`);
     }
