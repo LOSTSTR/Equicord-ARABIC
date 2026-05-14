@@ -738,7 +738,6 @@
 
     "ACTIVITY_JOIN": "الانضمام إلى نشاط",
     "ACTIVITY_LEAVE": "مغادرة النشاط",
-    "ACTIVITY_INVITE": "تمت دعوتك للانضمام",
     "ACTIVITY_SPECTATE": "مشاهدة",
     "ACTIVITY_MATCH": "مباراة",
     "ACTIVITY_JOIN_REQUEST": "طلب انضمام",
