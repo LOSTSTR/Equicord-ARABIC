@@ -242,6 +242,25 @@ Discord هي علامة تجارية مسجلة لشركة Discord Inc.، ولا
 
 ---
 
+## 📜 Credits & License | الحقوق والترخيص
+
+> [!IMPORTANT]
+> **English:** This project is a fork of the original [Equicord](https://github.com/Equicord/Equicord) project. All credits for the core engine and framework belong to the original creators. This version is a specialized Arabic distribution managed by LOSTSTR.
+>
+> **العربية:** هذا المشروع هو اشتقاق (Fork) من مشروع [Equicord](https://github.com/Equicord/Equicord) الأصلي. كل الحقوق والتقدير للمحرك الأساسي تعود للمطورين الأصليين. هذه النسخة هي توزيعة عربية مخصصة تحت إدارة LOSTSTR.
+
+### Key Enhancements in this Version | التحسينات في هذه النسخة
+
+- 🌍 **Full Arabic Localization** | تعريب كامل وشامل للواجهة
+- 🎨 **Modern UI/UX Redesign** | إعادة تصميم الواجهة بشكل عصري واحترافي
+- 🛡️ **Security & Metadata Optimizations** | تحسينات أمنية وإضافة البيانات الوصفية الرسمية
+- 🤝 **Dedicated Arabic Support** | دعم فني مخصص للمجتمع العربي
+
+**Maintained by:** [LOSTSTR](https://github.com/LOSTSTR)  
+**Original Project:** [Equicord](https://github.com/Equicord/Equicord)
+
+---
+
 <div align="center">
 
 **Equicord-ARABIC** • Made with ❤️ by LOSTSTR & Team • [GPL-3.0 License](LICENSE)

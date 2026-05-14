@@ -1,10 +1,10 @@
 #Requires -Version 5.1
 <#
 .SYNOPSIS
-    Equicord-ARABIC Installer — مطابق لتصميم Equilotl الرسمي
+    Equicord-ARABIC Installer
 .DESCRIPTION
-    مُثبِّت Equicord-ARABIC مع واجهة مطابقة لـ Equilotl
-    المستودع: https://github.com/LOSTSTR/Equicord-ARABIC
+    Equicord-ARABIC — glassmorphism installer with Arabic UI
+    Repository: https://github.com/LOSTSTR/Equicord-ARABIC
     Copyright (c) 2026 LOSTSTR — GPL-3.0
 #>
 
@@ -13,17 +13,83 @@ Add-Type -AssemblyName System.Drawing
 [System.Windows.Forms.Application]::EnableVisualStyles()
 [System.Windows.Forms.Application]::SetCompatibleTextRenderingDefault($false)
 
+# GlowButton: custom button with rounded corners and hover glow effect
+Add-Type -TypeDefinition @"
+using System;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Windows.Forms;
+
+public class GlowButton : Button {
+    private bool _h = false;
+    public Color HoverColor   { get; set; }
+    public Color GlowColor    { get; set; }
+    public int   CornerRadius { get; set; }
+
+    public GlowButton() {
+        CornerRadius = 12;
+        HoverColor   = Color.Empty;
+        GlowColor    = Color.FromArgb(140, 88, 101, 242);
+        SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint |
+                 ControlStyles.OptimizedDoubleBuffer, true);
+        FlatStyle = FlatStyle.Flat;
+        FlatAppearance.BorderSize = 0;
+        Cursor = Cursors.Hand;
+    }
+
+    protected override void OnMouseEnter(EventArgs e) { _h = true;  Invalidate(); base.OnMouseEnter(e); }
+    protected override void OnMouseLeave(EventArgs e) { _h = false; Invalidate(); base.OnMouseLeave(e); }
+    protected override void OnResize(EventArgs e)     { base.OnResize(e); RefreshRegion(); }
+
+    private void RefreshRegion() {
+        if (Width < 1 || Height < 1) return;
+        using (var gp = RoundPath(new Rectangle(0, 0, Width, Height)))
+            Region = new Region(gp);
+    }
+
+    private GraphicsPath RoundPath(Rectangle r) {
+        int d = Math.Min(CornerRadius * 2, Math.Min(r.Width, r.Height));
+        var gp = new GraphicsPath();
+        gp.AddArc(r.Left,      r.Top,      d, d, 180, 90);
+        gp.AddArc(r.Right - d, r.Top,      d, d, 270, 90);
+        gp.AddArc(r.Right - d, r.Bottom-d, d, d,   0, 90);
+        gp.AddArc(r.Left,      r.Bottom-d, d, d,  90, 90);
+        gp.CloseFigure();
+        return gp;
+    }
+
+    protected override void OnPaint(PaintEventArgs pe) {
+        var g = pe.Graphics;
+        g.SmoothingMode = SmoothingMode.AntiAlias;
+        var rect = new Rectangle(0, 0, Width - 1, Height - 1);
+        Color bg = (_h && HoverColor != Color.Empty) ? HoverColor : BackColor;
+        using (var path = RoundPath(rect)) {
+            using (var br = new SolidBrush(bg))
+                g.FillPath(br, path);
+            if (_h) {
+                using (var pen = new Pen(GlowColor, 1.5f))
+                    g.DrawPath(pen, path);
+            }
+        }
+        TextRenderer.DrawText(g, Text, Font,
+            new Rectangle(0, 0, Width, Height), ForeColor,
+            TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter |
+            TextFormatFlags.WordBreak);
+    }
+}
+"@ -ReferencedAssemblies @('System.Windows.Forms', 'System.Drawing')
+
 # ═══════════════════════════════════════════════════════════════════
-#  إعدادات ثابتة
+#  Constants
 # ═══════════════════════════════════════════════════════════════════
 $REPO_OWNER    = "LOSTSTR"
 $REPO_NAME     = "Equicord-ARABIC"
 $INSTALLER_VER = "{{INSTALLER_VERSION}}"
-$ASAR_NAME     = "desktop.asar"   # اسم الأصل في الـ release
+$ASAR_NAME     = "desktop.asar"
 $RELEASE_API   = "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/releases/latest"
 $USER_AGENT    = "EquicordArabic-Installer/$INSTALLER_VER (+https://github.com/$REPO_OWNER/$REPO_NAME)"
+$SUPPORT_URL   = "https://discord.gg/A7MycP5xWX"
 
-# مسار بيانات Equicord (يدعم EQUICORD_USER_DATA_DIR)
 $DataDir = if ($env:EQUICORD_USER_DATA_DIR) {
     $env:EQUICORD_USER_DATA_DIR
 } else {
@@ -32,21 +98,27 @@ $DataDir = if ($env:EQUICORD_USER_DATA_DIR) {
 }
 $AsarTarget = Join-Path $DataDir "equicord.asar"
 
-# ألوان مطابقة لـ Equilotl
-$BG_DARK      = [System.Drawing.Color]::FromArgb(30,  31,  34)
-$BG_PANEL     = [System.Drawing.Color]::FromArgb(40,  41,  45)
-$FG_WHITE     = [System.Drawing.Color]::FromArgb(220, 221, 222)
-$FG_MUTED     = [System.Drawing.Color]::FromArgb(148, 155, 164)
-$WARN_BG      = [System.Drawing.Color]::FromArgb(250, 210,  50)
-$WARN_FG      = [System.Drawing.Color]::FromArgb(20,  20,  20)
-$BTN_INSTALL  = [System.Drawing.Color]::FromArgb( 67, 181,  73)
-$BTN_REPAIR   = [System.Drawing.Color]::FromArgb( 88, 101, 242)
-$BTN_REMOVE   = [System.Drawing.Color]::FromArgb(237,  66,  69)
-$BTN_OPENSAR  = [System.Drawing.Color]::FromArgb( 67, 181,  73)
-$LINK_COLOR   = [System.Drawing.Color]::FromArgb(100, 149, 237)
+# Glassmorphism color palette
+$BG_DARK       = [System.Drawing.Color]::FromArgb( 10,  11,  20)
+$BG_PANEL      = [System.Drawing.Color]::FromArgb( 18,  19,  42)
+$FG_WHITE      = [System.Drawing.Color]::FromArgb(227, 229, 232)
+$FG_MUTED      = [System.Drawing.Color]::FromArgb(142, 146, 151)
+$WARN_BG       = [System.Drawing.Color]::FromArgb(254, 231,  92)
+$WARN_FG       = [System.Drawing.Color]::FromArgb( 46,  42,   0)
+$BTN_INSTALL   = [System.Drawing.Color]::FromArgb( 87, 242, 135)
+$BTN_INSTALL_H = [System.Drawing.Color]::FromArgb( 59, 165,  93)
+$BTN_REPAIR    = [System.Drawing.Color]::FromArgb( 88, 101, 242)
+$BTN_REPAIR_H  = [System.Drawing.Color]::FromArgb( 71,  82, 196)
+$BTN_REMOVE    = [System.Drawing.Color]::FromArgb(237,  66,  69)
+$BTN_REMOVE_H  = [System.Drawing.Color]::FromArgb(192,  53,  55)
+$BTN_OPENSAR   = [System.Drawing.Color]::FromArgb( 87, 242, 135)
+$BTN_OPENSAR_H = [System.Drawing.Color]::FromArgb( 59, 165,  93)
+$BTN_SUPPORT   = [System.Drawing.Color]::FromArgb( 88, 101, 242)
+$BTN_SUPPORT_H = [System.Drawing.Color]::FromArgb( 71,  82, 196)
+$LINK_COLOR    = [System.Drawing.Color]::FromArgb(  0, 176, 244)
 
 # ═══════════════════════════════════════════════════════════════════
-#  اكتشاف نسخ Discord
+#  Discord install detection
 # ═══════════════════════════════════════════════════════════════════
 function Get-DiscordInstalls {
     $variants = @(
@@ -65,7 +137,6 @@ function Get-DiscordInstalls {
         if (-not $appDir) { continue }
         $res = Join-Path $appDir.FullName "resources"
         if (-not (Test-Path $res)) { continue }
-        # المثبَّت = يوجد _app.asar (نسخة احتياطية من Discord الأصلي)
         $patched = Test-Path (Join-Path $res "_app.asar")
         $found.Add(@{
             Label     = "$($v.Name) — $base$(if ($patched) { ' [مُثبَّت]' })"
@@ -88,16 +159,14 @@ function Get-LatestTag {
 }
 
 function Get-LocalVersion([string]$ResourcesPath) {
-    # التحقق من وجود نسخة احتياطية (_app.asar) كمؤشر على التثبيت
     if (-not (Test-Path (Join-Path $ResourcesPath "_app.asar"))) { return "لا يوجد" }
-    # إعادة تاريخ آخر تحديث لـ app.asar الحالي (Equicord)
     try {
         return (Get-Item (Join-Path $ResourcesPath "app.asar")).LastWriteTime.ToString("yyyy-MM-dd")
     } catch { return "مثبَّت" }
 }
 
 # ═══════════════════════════════════════════════════════════════════
-#  إدارة عمليات Discord
+#  Discord process management
 # ═══════════════════════════════════════════════════════════════════
 function Stop-DiscordProcesses {
     param([string]$ResourcesPath)
@@ -117,7 +186,7 @@ function Start-DiscordProcess {
 }
 
 # ═══════════════════════════════════════════════════════════════════
-#  كتابة شيم ASAR (Equilotl-style)
+#  ASAR shim writer (Equilotl-style)
 # ═══════════════════════════════════════════════════════════════════
 function Write-AppAsarShim {
     param([string]$Path, [string]$EquicordAsarPath)
@@ -133,7 +202,6 @@ function Write-AppAsarShim {
     [Array]::Copy($hdrBytes, $padded, $hdrLen)
     $ms = New-Object System.IO.MemoryStream
     $bw = New-Object System.IO.BinaryWriter($ms)
-    # ASAR Pickle format: sizePickle + headerPickle
     $bw.Write([uint32]4)
     $bw.Write([uint32]($alignLen + 8))
     $bw.Write([uint32]($alignLen + 4))
@@ -147,7 +215,7 @@ function Write-AppAsarShim {
 }
 
 # ═══════════════════════════════════════════════════════════════════
-#  تنزيل الملف مع شريط تقدم
+#  Download with progress
 # ═══════════════════════════════════════════════════════════════════
 function Invoke-Download {
     param([string]$Url, [string]$Dest, [scriptblock]$OnProgress)
@@ -174,7 +242,7 @@ function Invoke-Download {
 }
 
 # ═══════════════════════════════════════════════════════════════════
-#  عمليات التثبيت
+#  Install / Uninstall / OpenAsar
 # ═══════════════════════════════════════════════════════════════════
 function Install-Mod {
     param([string]$ResourcesPath, [scriptblock]$Status, [scriptblock]$Progress)
@@ -210,14 +278,12 @@ function Install-Mod {
     & $Status "نسخ equicord.asar إلى مجلد البيانات..."
     & $Progress 68
 
-    # الخطوة 1: حفظ equicord.asar في DataDir للمحدِّث التلقائي
     Copy-Item $tmp $AsarTarget -Force
     Remove-Item $tmp -EA SilentlyContinue
 
     & $Status "حفظ نسخة احتياطية من Discord الأصلي..."
     & $Progress 75
 
-    # الخطوة 2: احتفظ بنسخة احتياطية من app.asar الأصلي إن لم تكن موجودة
     if (-not (Test-Path $origAsar)) {
         if (Test-Path $appAsar) {
             Copy-Item $appAsar $origAsar -Force
@@ -229,7 +295,6 @@ function Install-Mod {
     & $Status "كتابة شيم Equicord في Discord..."
     & $Progress 85
 
-    # الخطوة 3: كتابة شيم ASAR مصغّر (Equilotl-style) يحمّل equicord.asar من DataDir
     Write-AppAsarShim -Path $appAsar -EquicordAsarPath $AsarTarget
 
     & $Progress 93
@@ -238,7 +303,7 @@ function Install-Mod {
     Start-Sleep -Milliseconds 300
 
     & $Progress 100
-    & $Status "✔ تم التثبيت — Discord يُعاد تشغيله الآن"
+    & $Status "تم التثبيت — Discord يُعاد تشغيله الآن"
 }
 
 function Uninstall-Mod {
@@ -257,9 +322,9 @@ function Uninstall-Mod {
     if (Test-Path $origAsar) {
         Copy-Item $origAsar $appAsar -Force
         Remove-Item $origAsar -Force
-        & $Status "✔ تمت استعادة app.asar الأصلي"
+        & $Status "تمت استعادة app.asar الأصلي"
     } else {
-        & $Status "⚠ لم يُعثر على _app.asar — ربما لم يُثبَّت Equicord في هذا المسار"
+        & $Status "لم يُعثر على _app.asar — ربما لم يُثبَّت Equicord في هذا المسار"
     }
 
     & $Progress 80
@@ -271,7 +336,7 @@ function Uninstall-Mod {
     Start-Sleep -Milliseconds 300
 
     & $Progress 100
-    & $Status "✔ تمت الإزالة — Discord يُعاد تشغيله الآن"
+    & $Status "تمت الإزالة — Discord يُعاد تشغيله الآن"
 }
 
 function Install-OpenAsar {
@@ -287,58 +352,64 @@ function Install-OpenAsar {
     Copy-Item $tmp (Join-Path $ResourcesPath "app.asar") -Force
     Remove-Item $tmp -EA SilentlyContinue
     & $Progress 100
-    & $Status "✔ تم تثبيت OpenAsar — أعد تشغيل Discord"
+    & $Status "تم تثبيت OpenAsar — أعد تشغيل Discord"
 }
 
 # ═══════════════════════════════════════════════════════════════════
-#  بناء الواجهة
+#  GUI
 # ═══════════════════════════════════════════════════════════════════
 function Show-Installer {
 
-    # ── النموذج الرئيسي ──────────────────────────────────────────────
     $form = New-Object System.Windows.Forms.Form
     $form.Text            = "Equicord-ARABIC"
-    $form.Size            = New-Object System.Drawing.Size(1200, 700)
-    $form.MinimumSize     = $form.Size
-    $form.MaximumSize     = $form.Size
+    $form.ClientSize      = New-Object System.Drawing.Size(1200, 786)
     $form.StartPosition   = [System.Windows.Forms.FormStartPosition]::CenterScreen
     $form.BackColor       = $BG_DARK
     $form.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::FixedSingle
     $form.MaximizeBox     = $false
     $form.Font            = New-Object System.Drawing.Font("Segoe UI", 11)
+    $form.MinimumSize     = $form.Size
+    $form.MaximumSize     = $form.Size
 
     try {
         $form.Icon = [System.Drawing.Icon]::ExtractAssociatedIcon(
             [System.Diagnostics.Process]::GetCurrentProcess().MainModule.FileName)
     } catch {}
 
-    # ── دالة مساعدة للتسميات ──────────────────────────────────────────
     function Lbl {
         param([string]$T, [int]$X, [int]$Y, [System.Drawing.Color]$C,
-              [float]$FS=11, [System.Drawing.FontStyle]$FS2=[System.Drawing.FontStyle]::Regular,
-              [int]$W=0, [int]$H=0)
+              [float]$FS = 11,
+              [System.Drawing.FontStyle]$FS2 = [System.Drawing.FontStyle]::Regular,
+              [int]$W = 0, [int]$H = 0)
         if (-not $C) { $C = $FG_WHITE }
         $l = New-Object System.Windows.Forms.Label
         $l.Text      = $T
-        $l.Location  = New-Object System.Drawing.Point($X,$Y)
+        $l.Location  = New-Object System.Drawing.Point($X, $Y)
         $l.ForeColor = $C
         $l.BackColor = [System.Drawing.Color]::Transparent
-        $l.Font      = New-Object System.Drawing.Font("Segoe UI",$FS,$FS2)
-        if ($W -gt 0) { $l.Size = New-Object System.Drawing.Size($W,$H); $l.AutoSize=$false }
-        else          { $l.AutoSize = $true }
+        $l.Font      = New-Object System.Drawing.Font("Segoe UI", $FS, $FS2)
+        if ($W -gt 0) {
+            $l.AutoSize = $false
+            $l.Size     = New-Object System.Drawing.Size($W, $H)
+        } else {
+            $l.AutoSize = $true
+        }
         return $l
     }
 
-    # ── العنوان ─────────────────────────────────────────────────────
-    $title = Lbl "Equicord-ARABIC" 0 24 $FG_WHITE 28 Bold -W 1200 -H 60
+    # ── Title ─────────────────────────────────────────────────────────
+    $title = Lbl "Equicord-ARABIC" 0 14 $FG_WHITE 28 Bold -W 1200 -H 48
     $title.TextAlign = [System.Drawing.ContentAlignment]::MiddleCenter
-    $title.AutoSize  = $false
     $form.Controls.Add($title)
 
-    # ═══ قسم المعلومات ══════════════════════════════════════════════
-    $infoY = 90
+    # ── Subtitle ──────────────────────────────────────────────────────
+    $subtitle = Lbl "النسخة العربية المطورة من Equicord  *  LOSTSTR Digital Branding" 0 64 $FG_MUTED 10 Regular -W 1200 -H 22
+    $subtitle.TextAlign = [System.Drawing.ContentAlignment]::MiddleCenter
+    $form.Controls.Add($subtitle)
 
-    # سطر المسار + زر Open Directory
+    # ── Info section ──────────────────────────────────────────────────
+    $infoY = 92
+
     $pathLbl = Lbl "سيتم تنزيل Equicord-ARABIC إلى: $AsarTarget" 48 $infoY $FG_WHITE 11
     $form.Controls.Add($pathLbl)
 
@@ -358,40 +429,50 @@ function Show-Installer {
     })
     $form.Controls.Add($btnOpenDir)
 
-    $form.Controls.Add((Lbl "لتخصيص هذا المسار، قم بتعيين متغير البيئة 'EQUICORD_USER_DATA_DIR' ثم أعد تشغيل المثبت" 48 ($infoY+28) $FG_WHITE 11))
+    $form.Controls.Add((Lbl "لتخصيص هذا المسار، قم بتعيين متغير البيئة 'EQUICORD_USER_DATA_DIR' ثم أعد تشغيل المثبت" 48 ($infoY + 28) $FG_MUTED 10))
 
-    # معلومات الإصدار (تُحدَّث لاحقاً)
-    $lblInstallerVer = Lbl "إصدار المثبت: v$INSTALLER_VER" 48 ($infoY+62) $FG_WHITE 11
+    $lblInstallerVer = Lbl "اصدار المثبت: v$INSTALLER_VER" 48 ($infoY + 54) $FG_WHITE 10
     $form.Controls.Add($lblInstallerVer)
 
-    $lblLocalVer = Lbl "الإصدار المثبت محلياً: جارٍ الفحص..." 48 ($infoY+90) $FG_WHITE 11
+    $lblLocalVer = Lbl "الاصدار المثبت محلياً: جارٍ الفحص..." 48 ($infoY + 78) $FG_WHITE 10
     $form.Controls.Add($lblLocalVer)
 
-    $lblLatestVer = Lbl "آخر إصدار متاح: جارٍ الجلب..." 48 ($infoY+118) $FG_WHITE 11
+    $lblLatestVer = Lbl "اخر اصدار متاح: جارٍ الجلب..." 48 ($infoY + 102) $FG_WHITE 10
     $form.Controls.Add($lblLatestVer)
 
-    # ═══ صندوق التحذير (مطابق للأصفر في Equilotl) ══════════════════
-    $warnY = 240
+    # ── Warning panel (rounded corners) ───────────────────────────────
+    $warnY    = 222
+    $warnW    = 1104
+    $warnH    = 80
+    $warnCorD = 24
+
     $warnPanel = New-Object System.Windows.Forms.Panel
     $warnPanel.Location  = New-Object System.Drawing.Point(48, $warnY)
-    $warnPanel.Size      = New-Object System.Drawing.Size(1104, 90)
+    $warnPanel.Size      = New-Object System.Drawing.Size($warnW, $warnH)
     $warnPanel.BackColor = $WARN_BG
+
+    $warpGp = New-Object System.Drawing.Drawing2D.GraphicsPath
+    $warpGp.AddArc(0,                   0,                    $warnCorD, $warnCorD, 180, 90)
+    $warpGp.AddArc($warnW - $warnCorD,  0,                    $warnCorD, $warnCorD, 270, 90)
+    $warpGp.AddArc($warnW - $warnCorD,  $warnH - $warnCorD,  $warnCorD, $warnCorD,   0, 90)
+    $warpGp.AddArc(0,                   $warnH - $warnCorD,  $warnCorD, $warnCorD,  90, 90)
+    $warpGp.CloseFigure()
+    $warnPanel.Region = New-Object System.Drawing.Region($warpGp)
     $form.Controls.Add($warnPanel)
 
     $warnText = New-Object System.Windows.Forms.Label
-    $warnText.Text = "GitHub ومستودع LOSTSTR/Equicord-ARABIC هما المصدران الرسميان الوحيدان للحصول على Equicord-ARABIC.`nأي مصدر آخر يدّعي توزيعه يُعتبر ضاراً. إذا قمت بتنزيله من مكان آخر، احذف كل شيء وأجرِ فحصاً للبرامج الضارة وغيّر كلمة مرور Discord."
-    $warnText.Location  = New-Object System.Drawing.Point(14, 10)
-    $warnText.Size      = New-Object System.Drawing.Size(1076, 70)
+    $warnText.Text      = "GitHub ومستودع LOSTSTR/Equicord-ARABIC هما المصدران الرسميان الوحيدان للحصول على Equicord-ARABIC.`nاي مصدر اخر يدّعي توزيعه يُعتبر ضاراً. إذا قمت بتنزيله من مكان اخر، احذف كل شيء وأجرِ فحصاً للبرامج الضارة وغيّر كلمة مرور Discord."
+    $warnText.Location  = New-Object System.Drawing.Point(14, 8)
+    $warnText.Size      = New-Object System.Drawing.Size(1076, 64)
     $warnText.ForeColor = $WARN_FG
     $warnText.BackColor = [System.Drawing.Color]::Transparent
-    $warnText.Font      = New-Object System.Drawing.Font("Segoe UI", 11)
+    $warnText.Font      = New-Object System.Drawing.Font("Segoe UI", 10)
     $warnPanel.Controls.Add($warnText)
 
-    # ═══ قسم الاختيار ═══════════════════════════════════════════════
-    $selectY = 348
+    # ── Selection section ─────────────────────────────────────────────
+    $selectY = 318
     $form.Controls.Add((Lbl "الرجاء اختيار نسخة Discord للتعديل عليها" 48 $selectY $FG_WHITE 13 Bold))
 
-    # Radio buttons للنسخ المكتشفة
     $radios   = [System.Collections.Generic.List[System.Windows.Forms.RadioButton]]::new()
     $installs = @(Get-DiscordInstalls)
     $radioY   = $selectY + 36
@@ -414,11 +495,10 @@ function Show-Installer {
     if ($radios.Count -gt 0) {
         $radios[0].Checked = $true
     } else {
-        $form.Controls.Add((Lbl "⚠  لم يُعثر على أي نسخة من Discord مثبتة على هذا الجهاز" 52 $radioY $FG_MUTED 10))
+        $form.Controls.Add((Lbl "لم يُعثر على اي نسخة من Discord مثبتة على هذا الجهاز" 52 $radioY $FG_MUTED 10))
         $radioY += 28
     }
 
-    # مسار مخصص
     $rbCustom = New-Object System.Windows.Forms.RadioButton
     $rbCustom.Text      = "مسار تثبيت مخصص"
     $rbCustom.Location  = New-Object System.Drawing.Point(52, ($radioY + 8))
@@ -445,11 +525,11 @@ function Show-Installer {
         $txtCustom.ForeColor = if ($rbCustom.Checked) { $FG_WHITE } else { $FG_MUTED }
     })
 
-    # ═══ شريط الحالة والتقدم ════════════════════════════════════════
+    # ── Status + progress bar ─────────────────────────────────────────
     $statusY = 572
 
     $lblStatus = New-Object System.Windows.Forms.Label
-    $lblStatus.Text      = "اختر نسخة Discord ثم اضغط على أحد الأزرار"
+    $lblStatus.Text      = "اختر نسخة Discord ثم اضغط على احد الازرار"
     $lblStatus.Location  = New-Object System.Drawing.Point(48, $statusY)
     $lblStatus.Size      = New-Object System.Drawing.Size(1104, 26)
     $lblStatus.ForeColor = $FG_MUTED
@@ -459,59 +539,87 @@ function Show-Installer {
 
     $progBar = New-Object System.Windows.Forms.ProgressBar
     $progBar.Location = New-Object System.Drawing.Point(48, ($statusY + 28))
-    $progBar.Size     = New-Object System.Drawing.Size(1104, 6)
+    $progBar.Size     = New-Object System.Drawing.Size(1104, 8)
     $progBar.Minimum  = 0
     $progBar.Maximum  = 100
     $progBar.Value    = 0
     $progBar.Style    = [System.Windows.Forms.ProgressBarStyle]::Continuous
     $form.Controls.Add($progBar)
 
-    # ═══ الأزرار الأربعة ════════════════════════════════════════════
-    $btnY  = 612
-    $btnW  = 264
-    $btnH  = 50
-    $gap   = 8
+    # ── Action buttons (GlowButton) ───────────────────────────────────
+    $btnY   = 616
+    $btnW   = 264
+    $btnH   = 52
+    $gap    = 8
     $startX = 48
 
-    function New-ActionBtn {
-        param([string]$T, [System.Drawing.Color]$Bg, [int]$X)
-        $b = New-Object System.Windows.Forms.Button
-        $b.Text      = $T
-        $b.Location  = New-Object System.Drawing.Point($X, $btnY)
-        $b.Size      = New-Object System.Drawing.Size($btnW, $btnH)
-        $b.BackColor = $Bg
-        $b.ForeColor = [System.Drawing.Color]::White
-        $b.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
-        $b.FlatAppearance.BorderSize = 0
-        $b.Font      = New-Object System.Drawing.Font("Segoe UI", 12, [System.Drawing.FontStyle]::Bold)
-        $b.Cursor    = [System.Windows.Forms.Cursors]::Hand
-        $b.UseVisualStyleBackColor = $false
+    function New-GlowBtn {
+        param(
+            [string]$T,
+            [System.Drawing.Color]$Bg,
+            [System.Drawing.Color]$Hover,
+            [System.Drawing.Color]$Glow,
+            [int]$PosX,
+            [int]$PosY  = -1,
+            [int]$SzW   = -1,
+            [int]$SzH   = -1
+        )
+        $b = New-Object GlowButton
+        $b.Text         = $T
+        $resolvedY      = if ($PosY -ge 0) { $PosY } else { $btnY }
+        $resolvedW      = if ($SzW  -ge 0) { $SzW  } else { $btnW }
+        $resolvedH      = if ($SzH  -ge 0) { $SzH  } else { $btnH }
+        $b.Location     = New-Object System.Drawing.Point($PosX, $resolvedY)
+        $b.Size         = New-Object System.Drawing.Size($resolvedW, $resolvedH)
+        $b.BackColor    = $Bg
+        $b.HoverColor   = $Hover
+        $b.GlowColor    = $Glow
+        $b.ForeColor    = [System.Drawing.Color]::White
+        $b.Font         = New-Object System.Drawing.Font("Segoe UI", 12, [System.Drawing.FontStyle]::Bold)
+        $b.CornerRadius = 12
         $form.Controls.Add($b)
         return $b
     }
 
-    $btnInstall  = New-ActionBtn "تثبيت"                     $BTN_INSTALL ($startX)
-    $btnRepair   = New-ActionBtn "إعادة التثبيت / الإصلاح"  $BTN_REPAIR  ($startX + $btnW + $gap)
-    $btnRemove   = New-ActionBtn "إزالة التثبيت"             $BTN_REMOVE  ($startX + ($btnW+$gap)*2)
-    $btnOpenSar  = New-ActionBtn "تثبيت OpenAsar"            $BTN_OPENSAR ($startX + ($btnW+$gap)*3)
+    $gGreen = [System.Drawing.Color]::FromArgb(140,  59, 165,  93)
+    $gBlue  = [System.Drawing.Color]::FromArgb(140,  71,  82, 196)
+    $gRed   = [System.Drawing.Color]::FromArgb(140, 192,  53,  55)
 
-    # ═══ دوال مساعدة للواجهة ════════════════════════════════════════
+    $btnInstall = New-GlowBtn "تثبيت"                    $BTN_INSTALL  $BTN_INSTALL_H  $gGreen ($startX)
+    $btnRepair  = New-GlowBtn "إعادة التثبيت / الإصلاح" $BTN_REPAIR   $BTN_REPAIR_H   $gBlue  ($startX + $btnW + $gap)
+    $btnRemove  = New-GlowBtn "إزالة التثبيت"            $BTN_REMOVE   $BTN_REMOVE_H   $gRed   ($startX + ($btnW + $gap) * 2)
+    $btnOpenSar = New-GlowBtn "تثبيت OpenAsar"           $BTN_OPENSAR  $BTN_OPENSAR_H  $gGreen ($startX + ($btnW + $gap) * 3)
+
+    # ── Support Discord button ────────────────────────────────────────
+    $btnSupport = New-GlowBtn "انضم الى سيرفر الدعم العربي على Discord" $BTN_SUPPORT $BTN_SUPPORT_H $gBlue 360 672 480 48
+    $btnSupport.Add_Click({ Start-Process $SUPPORT_URL })
+
+    # ── Footer ────────────────────────────────────────────────────────
+    $footerLegal = Lbl "This project is a fork of Equicord. All credits for the core engine go to the original creators. This version focuses on Arabic localization and custom enhancements by LOSTSTR." 0 728 $FG_MUTED 8.5 Regular -W 1200 -H 30
+    $footerLegal.TextAlign = [System.Drawing.ContentAlignment]::MiddleCenter
+    $form.Controls.Add($footerLegal)
+
+    $footerBrand = Lbl "LOSTSTR  -  Equicord-ARABIC  2026  *  GPL-3.0 License" 0 760 $FG_MUTED 9 Regular -W 1200 -H 20
+    $footerBrand.TextAlign = [System.Drawing.ContentAlignment]::MiddleCenter
+    $form.Controls.Add($footerBrand)
+
+    # ── Helper functions ──────────────────────────────────────────────
     function Get-Target {
         if ($rbCustom.Checked) {
             $p = $txtCustom.Text.Trim()
-            if (-not $p -or -not (Test-Path $p)) { throw "المسار المخصص غير صحيح أو غير موجود" }
+            if (-not $p -or -not (Test-Path $p)) { throw "المسار المخصص غير صحيح او غير موجود" }
             return $p
         }
         foreach ($rb in $radios) {
             if ($rb.Checked) { return $rb.Tag.Resources }
         }
-        throw "لم تختر أي نسخة من Discord"
+        throw "لم تختر اي نسخة من Discord"
     }
 
     function Set-Status([string]$Msg, [System.Drawing.Color]$Col) {
         if (-not $Col) { $Col = $FG_WHITE }
         $lblStatus.ForeColor = $Col
-        $lblStatus.Text = $Msg
+        $lblStatus.Text      = $Msg
         $form.Refresh()
         [System.Windows.Forms.Application]::DoEvents()
     }
@@ -526,6 +634,7 @@ function Show-Installer {
         $btnRepair.Enabled  = -not $On
         $btnRemove.Enabled  = -not $On
         $btnOpenSar.Enabled = -not $On
+        $btnSupport.Enabled = -not $On
         $form.UseWaitCursor = $On
     }
 
@@ -541,24 +650,23 @@ function Show-Installer {
         }
     }
 
-    # تحديث حقول الإصدار فور تحميل الشكل
     $form.Add_Shown({
         $sel = $null
         foreach ($rb in $radios) { if ($rb.Checked) { $sel = $rb.Tag; break } }
         if ($sel) {
-            $lblLocalVer.Text = "الإصدار المثبت محلياً: $(Get-LocalVersion $sel.Resources)"
+            $lblLocalVer.Text = "الاصدار المثبت محلياً: $(Get-LocalVersion $sel.Resources)"
         } else {
-            $lblLocalVer.Text = "الإصدار المثبت محلياً: لا يوجد"
+            $lblLocalVer.Text = "الاصدار المثبت محلياً: لا يوجد"
         }
 
-        $lblLatestVer.Text = "آخر إصدار متاح: جارٍ الجلب..."
+        $lblLatestVer.Text = "اخر اصدار متاح: جارٍ الجلب..."
         [System.Windows.Forms.Application]::DoEvents()
 
         $latest = Get-LatestTag
-        $lblLatestVer.Text = "آخر إصدار متاح: $latest"
+        $lblLatestVer.Text = "اخر اصدار متاح: $latest"
     })
 
-    # ═══ معالجات أحداث الأزرار ════════════════════════════════════════
+    # ── Button event handlers ─────────────────────────────────────────
     $btnInstall.Add_Click({
         try {
             $target = Get-Target
@@ -566,10 +674,10 @@ function Show-Installer {
             Set-Progress 0
             Set-Status "جارٍ التثبيت..." $FG_WHITE
             Install-Mod $target { param($m) Set-Status $m $FG_WHITE } { param($p) Set-Progress $p }
-            Set-Status "✔ تم التثبيت — Discord يُعاد تشغيله تلقائياً" ([System.Drawing.Color]::FromArgb(87,242,135))
+            Set-Status "تم التثبيت — Discord يُعاد تشغيله تلقائياً" ([System.Drawing.Color]::FromArgb(87, 242, 135))
             Update-RadioLabels
         } catch {
-            Set-Status "✖ خطأ: $_" ([System.Drawing.Color]::FromArgb(237,66,69))
+            Set-Status "خطا: $_" ([System.Drawing.Color]::FromArgb(237, 66, 69))
             Set-Progress 0
         } finally { Set-Busy $false }
     })
@@ -581,10 +689,10 @@ function Show-Installer {
             Set-Progress 0
             Set-Status "جارٍ إعادة التثبيت..." $FG_WHITE
             Install-Mod $target { param($m) Set-Status $m $FG_WHITE } { param($p) Set-Progress $p }
-            Set-Status "✔ تمت إعادة التثبيت — Discord يُعاد تشغيله تلقائياً" ([System.Drawing.Color]::FromArgb(87,242,135))
+            Set-Status "تمت إعادة التثبيت — Discord يُعاد تشغيله تلقائياً" ([System.Drawing.Color]::FromArgb(87, 242, 135))
             Update-RadioLabels
         } catch {
-            Set-Status "✖ خطأ: $_" ([System.Drawing.Color]::FromArgb(237,66,69))
+            Set-Status "خطا: $_" ([System.Drawing.Color]::FromArgb(237, 66, 69))
             Set-Progress 0
         } finally { Set-Busy $false }
     })
@@ -594,7 +702,7 @@ function Show-Installer {
             $target = Get-Target
             $ans = [System.Windows.Forms.MessageBox]::Show(
                 "هل تريد إزالة Equicord-ARABIC بالكامل؟",
-                "تأكيد الإزالة",
+                "تاكيد الإزالة",
                 [System.Windows.Forms.MessageBoxButtons]::YesNo,
                 [System.Windows.Forms.MessageBoxIcon]::Question)
             if ($ans -ne [System.Windows.Forms.DialogResult]::Yes) { return }
@@ -602,10 +710,10 @@ function Show-Installer {
             Set-Progress 0
             Set-Status "جارٍ الإزالة..." $FG_WHITE
             Uninstall-Mod $target { param($m) Set-Status $m $FG_WHITE } { param($p) Set-Progress $p }
-            Set-Status "✔ تمت الإزالة — Discord يُعاد تشغيله تلقائياً" ([System.Drawing.Color]::FromArgb(87,242,135))
+            Set-Status "تمت الإزالة — Discord يُعاد تشغيله تلقائياً" ([System.Drawing.Color]::FromArgb(87, 242, 135))
             Update-RadioLabels
         } catch {
-            Set-Status "✖ خطأ: $_" ([System.Drawing.Color]::FromArgb(237,66,69))
+            Set-Status "خطا: $_" ([System.Drawing.Color]::FromArgb(237, 66, 69))
             Set-Progress 0
         } finally { Set-Busy $false }
     })
@@ -617,9 +725,9 @@ function Show-Installer {
             Set-Progress 0
             Set-Status "جارٍ تثبيت OpenAsar..." $FG_WHITE
             Install-OpenAsar $target { param($m) Set-Status $m $FG_WHITE } { param($p) Set-Progress $p }
-            Set-Status "✔ تم تثبيت OpenAsar — أعد تشغيل Discord" ([System.Drawing.Color]::FromArgb(87,242,135))
+            Set-Status "تم تثبيت OpenAsar — أعد تشغيل Discord" ([System.Drawing.Color]::FromArgb(87, 242, 135))
         } catch {
-            Set-Status "✖ خطأ: $_" ([System.Drawing.Color]::FromArgb(237,66,69))
+            Set-Status "خطا: $_" ([System.Drawing.Color]::FromArgb(237, 66, 69))
             Set-Progress 0
         } finally { Set-Busy $false }
     })

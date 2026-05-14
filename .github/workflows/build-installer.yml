@@ -144,11 +144,11 @@ jobs:
                       -OutputFile  $out `
                       -IconFile    "installer\icon.ico" `
                       -Title       "Equicord-ARABIC Installer" `
-                      -Description "Equicord-ARABIC Installer by LOSTSTR" `
-                      -Company     "LOSTSTR" `
+                      -Description "Secure Installer for Equicord-ARABIC Client" `
+                      -Company     "LOSTSTR Digital Branding" `
                       -Product     "Equicord-ARABIC" `
                       -Version     $ver4 `
-                      -Copyright   "Copyright (c) 2026 LOSTSTR" `
+                      -Copyright   "© 2026 LOSTSTR - Equicord-ARABIC" `
                       -NoConsole   `
                       -RequireAdmin
 
