@@ -84,11 +84,11 @@ const settings = definePluginSettings({
         description: "خدمة الرفع",
         hidden: true,
         options: [
-            { label: "Catbox (max 200mb)", value: "Catbox", default: true },
-            { label: "Litterbox (Catbox but temporary upload, 1GB)", value: "Litterbox" },
+            { label: "Catbox (حد أقصى 200 ميغابايت)", value: "Catbox", default: true },
+            { label: "Litterbox (Catbox مؤقت، 1 جيجابايت)", value: "Litterbox" },
             { label: "GoFile", value: "GoFile" },
-            { label: "FileFast (Fast)", value: "FileFast" }, // Added FileFast
-            { label: "Custom (ShareX-compatible)", value: "Custom" },
+            { label: "FileFast (سريع)", value: "FileFast" },
+            { label: "مخصص (متوافق مع ShareX)", value: "Custom" },
         ]
     },
     autoSend: {
@@ -126,10 +126,10 @@ const settings = definePluginSettings({
         description: "مدة الاحتفاظ في Litterbox",
         hidden: true,
         options: [
-            { label: "1 hour", value: "1h", default: true },
-            { label: "12 hours", value: "12h" },
-            { label: "24 hours", value: "24h" },
-            { label: "72 hours", value: "72h" },
+            { label: "ساعة واحدة", value: "1h", default: true },
+            { label: "12 ساعة", value: "12h" },
+            { label: "24 ساعة", value: "24h" },
+            { label: "72 ساعة", value: "72h" },
         ]
     },
 
@@ -156,7 +156,7 @@ const settings = definePluginSettings({
         description: "نوع استجابة الرافع المخصص (ShareX: ResponseType)",
         hidden: true,
         options: [
-            { label: "Text", value: "Text", default: true },
+            { label: "نص", value: "Text", default: true },
             { label: "JSON", value: "JSON" },
         ]
     },
@@ -423,7 +423,7 @@ async function confirmUploadIfNeeded(uploader: Uploader, payload: UploadPayload)
     if (!settings.store.confirmBeforeUpload) {
         if (settings.store.showDestinationPreview) {
             const dest = getDestination(uploader);
-            showToast(`Uploading to ${dest.host} (${dest.url})…`, Toasts.Type.MESSAGE);
+            showToast(`جارٍ الرفع إلى ${dest.host} (${dest.url})…`, Toasts.Type.MESSAGE);
         }
         return true;
     }
@@ -432,16 +432,16 @@ async function confirmUploadIfNeeded(uploader: Uploader, payload: UploadPayload)
     const body = (
         <div>
             <Forms.FormText className={Margins.bottom8}>
-                You are about to upload <b>{payload.fileName}</b> ({(payload.fileSizeBytes / (1024 * 1024)).toFixed(2)} MiB) to <b>{getUploaderDisplayName(uploader)}</b>.
+                أنت على وشك رفع <b>{payload.fileName}</b> ({(payload.fileSizeBytes / (1024 * 1024)).toFixed(2)} MiB) إلى <b>{getUploaderDisplayName(uploader)}</b>.
             </Forms.FormText>
             {settings.store.showDestinationPreview && (
                 <div className={Margins.top8}>
-                    <Forms.FormText><b>Destination host:</b> {dest.host}</Forms.FormText>
-                    <Forms.FormText><b>Destination URL:</b> {dest.url}</Forms.FormText>
+                    <Forms.FormText><b>مضيف الوجهة:</b> {dest.host}</Forms.FormText>
+                    <Forms.FormText><b>رابط الوجهة:</b> {dest.url}</Forms.FormText>
                     {dest.note && <Forms.FormText>{dest.note}</Forms.FormText>}
                     {uploader === "Custom" && (
                         <Forms.FormText className={Margins.top8}>
-                            For custom uploaders, make sure you trust the endpoint and configured headers.
+                            للرافعات المخصصة، تأكد من الوثوق بالـ endpoint والترويسات المُعدَّة.
                         </Forms.FormText>
                     )}
                 </div>
@@ -451,10 +451,10 @@ async function confirmUploadIfNeeded(uploader: Uploader, payload: UploadPayload)
 
     return await new Promise<boolean>(resolve => {
         Alerts.show({
-            title: "Confirm upload",
+            title: "تأكيد الرفع",
             body,
-            confirmText: "Upload",
-            cancelText: "Cancel",
+            confirmText: "رفع",
+            cancelText: "إلغاء",
             onConfirm: () => resolve(true),
             onCancel: () => resolve(false)
         });
@@ -463,22 +463,22 @@ async function confirmUploadIfNeeded(uploader: Uploader, payload: UploadPayload)
 
 function validateCustomSettings(): { ok: true; args: Record<string, string>; headers: Record<string, string>; urlPath: string[]; } | { ok: false; error: string; } {
     const requestUrl = settings.store.customRequestUrl?.trim() ?? "";
-    if (!requestUrl) return { ok: false, error: "Custom uploader: Request URL is required." };
-    if (!isHttpUrl(requestUrl)) return { ok: false, error: "Custom uploader: Request URL must be a valid http(s) URL." };
+    if (!requestUrl) return { ok: false, error: "الرافع المخصص: رابط الطلب مطلوب." };
+    if (!isHttpUrl(requestUrl)) return { ok: false, error: "الرافع المخصص: رابط الطلب يجب أن يكون رابط http(s) صحيحاً." };
 
     const fileFormName = settings.store.customFileFormName?.trim() ?? "";
-    if (!fileFormName) return { ok: false, error: "Custom uploader: File form name is required." };
+    if (!fileFormName) return { ok: false, error: "الرافع المخصص: اسم نموذج الملف مطلوب." };
 
     const responseType = settings.store.customResponseType as CustomResponseType;
     if (responseType !== "Text" && responseType !== "JSON")
-        return { ok: false, error: "Custom uploader: Response type must be Text or JSON." };
+        return { ok: false, error: "الرافع المخصص: نوع الاستجابة يجب أن يكون نصاً أو JSON." };
 
     const urlPathRaw = settings.store.customUrlPath?.trim() ?? "";
     const urlPath = responseType === "JSON"
         ? urlPathRaw.split(".").map(s => s.trim()).filter(Boolean)
         : [];
     if (responseType === "JSON" && urlPath.length === 0)
-        return { ok: false, error: "Custom uploader: URL path is required for JSON responses (e.g. data.url)." };
+        return { ok: false, error: "الرافع المخصص: مسار الرابط مطلوب لاستجابات JSON (مثال: data.url)." };
 
     const argsParsed = safeJsonParseObject("custom arguments", settings.store.customArgsJson);
     if (!argsParsed.ok) return { ok: false, error: argsParsed.error };
@@ -609,10 +609,10 @@ async function sendOrInsert(channelId: string, url: string) {
     if (settings.store.autoSend) {
         // Sending the URL without extra surrounding text makes Discord more likely to generate embeds.
         await sendMessage(channelId, { content: url });
-        showToast("Upload link sent!", Toasts.Type.SUCCESS);
+        showToast("تم إرسال رابط الرفع!", Toasts.Type.SUCCESS);
     } else {
         insertTextIntoChatInputBox(`${url} `);
-        await copyWithToast(url, "Upload link copied!");
+        await copyWithToast(url, "تم نسخ رابط الرفع!");
     }
 }
 
@@ -658,31 +658,31 @@ async function runUploadFlow(channelId: string) {
         if (!ok) return;
 
         const toast = createProgressToast();
-        toast.show(`Starting upload via ${getUploaderDisplayName(uploader)}…`);
+        toast.show(`جارٍ الرفع عبر ${getUploaderDisplayName(uploader)}…`);
 
         const maxAttempts = 3;
         let url: string | null = null;
 
         for (let attempt = 1; attempt <= maxAttempts; attempt++) {
             try {
-                if (attempt > 1) toast.show(`Retrying upload (${attempt}/${maxAttempts})…`);
+                if (attempt > 1) toast.show(`إعادة محاولة الرفع (${attempt}/${maxAttempts})…`);
                 url = await uploadToService(uploader, payload);
                 break;
             } catch (err) {
                 if (attempt >= maxAttempts || !isRetryableNetworkError(err)) throw err;
-                toast.show(`Network error; retrying (${attempt + 1}/${maxAttempts})…`, Toasts.Type.MESSAGE, 4000);
+                toast.show(`خطأ في الشبكة؛ إعادة المحاولة (${attempt + 1}/${maxAttempts})…`, Toasts.Type.MESSAGE, 4000);
                 await sleep(900 * attempt);
             }
         }
 
         if (typeof url !== "string" || !(url.startsWith("http://") || url.startsWith("https://")))
-            throw new Error("Upload succeeded but returned an invalid URL.");
+            throw new Error("اكتمل الرفع لكن الرابط المُعاد غير صالح.");
 
         const finalUrl = maybeWrapVideo(url, payload.fileName, payload.fileSizeBytes);
         await sendOrInsert(channelId, finalUrl);
-        toast.show("Upload complete.", Toasts.Type.SUCCESS);
+        toast.show("اكتمل الرفع.", Toasts.Type.SUCCESS);
     } catch (err) {
-        showToast(`Upload failed: ${humanError(err)}`, Toasts.Type.FAILURE);
+        showToast(`فشل الرفع: ${humanError(err)}`, Toasts.Type.FAILURE);
     } finally {
         UploadManager.clearAll(channelId, DraftType.ChannelMessage);
         uploadInFlight = false;
@@ -699,7 +699,7 @@ const ctxMenuPatch: NavContextMenuPatchCallback = (children, props) => {
             label={
                 <div>
                     <OpenExternalIcon height={24} width={24} />
-                    <div>Upload Big File (Enhanced)</div>
+                    <div>رفع ملف كبير (Enhanced)</div>
                 </div>
             }
             action={() => runUploadFlow(props.channel.id)}
@@ -728,7 +728,7 @@ function SettingsComponent() {
         try {
             parsed = JSON.parse(sxcuText);
         } catch (err) {
-            showToast(`Failed to parse .sxcu JSON: ${humanError(err)}`, Toasts.Type.FAILURE);
+            showToast(`فشل تحليل JSON. في ملف sxcu: ${humanError(err)}`, Toasts.Type.FAILURE);
             return;
         }
 
@@ -741,23 +741,23 @@ function SettingsComponent() {
         settings.store.customHeadersJson = JSON.stringify(parsed?.Headers ?? {}, null, 2);
         settings.store.customArgsJson = JSON.stringify(parsed?.Arguments ?? {}, null, 2);
 
-        showToast("Imported ShareX uploader config.", Toasts.Type.SUCCESS);
+        showToast("تم استيراد إعدادات رافع ShareX.", Toasts.Type.SUCCESS);
     };
 
     return (
         <div>
-            <Forms.FormTitle>Safety</Forms.FormTitle>
+            <Forms.FormTitle>الأمان</Forms.FormTitle>
             <Forms.FormText className={Margins.bottom8}>
-                This uploads files to a third-party host and then shares the resulting link in chat.
+                يرفع الملفات إلى خادم خارجي ثم يشارك الرابط الناتج في الدردشة.
             </Forms.FormText>
 
             <Forms.FormText className={Margins.bottom8}>
-                Current destination: <b>{dest.host}</b> ({dest.url})
+                الوجهة الحالية: <b>{dest.host}</b> ({dest.url})
             </Forms.FormText>
 
             <Divider className={Margins.bottom16} />
 
-            <Forms.FormTitle>General</Forms.FormTitle>
+            <Forms.FormTitle>عام</Forms.FormTitle>
             <div className={Margins.bottom16}>
                 <Select
                     options={[
@@ -765,7 +765,7 @@ function SettingsComponent() {
                         { label: "Litterbox (Catbox)", value: "Litterbox" },
                         { label: "GoFile", value: "GoFile" },
                         { label: "FileFast", value: "FileFast" },
-                        { label: "Custom (ShareX-compatible)", value: "Custom" },
+                        { label: "مخصص (متوافق مع ShareX)", value: "Custom" },
                     ]}
                     serialize={v => v}
                     select={(v: Uploader) => settings.store.uploader = v}
@@ -774,29 +774,29 @@ function SettingsComponent() {
             </div>
 
             <FormSwitch
-                title="Confirm before upload"
-                description="Ask for confirmation before uploading"
+                title="تأكيد قبل الرفع"
+                description="طلب تأكيد قبل البدء بالرفع"
                 value={settings.store.confirmBeforeUpload}
                 onChange={v => settings.store.confirmBeforeUpload = v}
             />
 
             <FormSwitch
-                title="Show destination preview"
-                description="Show destination host + URL in the confirmation dialog"
+                title="عرض معاينة الوجهة"
+                description="عرض مضيف الوجهة والرابط في حوار التأكيد"
                 value={settings.store.showDestinationPreview}
                 onChange={v => settings.store.showDestinationPreview = v}
             />
 
             <FormSwitch
-                title="Auto-send link"
-                description="If disabled, the link is copied and inserted into the chat box"
+                title="إرسال الرابط تلقائياً"
+                description="إذا أُوقف، يُنسخ الرابط ويُدرج في صندوق الدردشة"
                 value={settings.store.autoSend}
                 onChange={v => settings.store.autoSend = v}
             />
 
             <FormSwitch
-                title="Opt-in: embeds.video wrapping"
-                description="Wraps large video links with embeds.video (adds a 3rd-party redirect)"
+                title="تغليف بـ embeds.video (اختياري)"
+                description="يغلّف روابط الفيديو الكبيرة بـ embeds.video (يضيف إعادة توجيه من طرف ثالث)"
                 value={settings.store.wrapVideoEmbeds}
                 onChange={v => settings.store.wrapVideoEmbeds = v}
             />
@@ -806,10 +806,10 @@ function SettingsComponent() {
                     <Divider className={Margins.bottom16} />
                     <Forms.FormTitle>GoFile</Forms.FormTitle>
                     <TextInput
-                        label="Token (optional, stored privately)"
+                        label="الرمز المميز (اختياري، يُحفظ بشكل خاص)"
                         type="password"
                         value={settings.store.gofileToken ?? ""}
-                        placeholder="GoFile token"
+                        placeholder="رمز GoFile"
                         onChange={v => settings.store.gofileToken = v}
                     />
                 </>
@@ -820,10 +820,10 @@ function SettingsComponent() {
                     <Divider className={Margins.bottom16} />
                     <Forms.FormTitle>Catbox</Forms.FormTitle>
                     <TextInput
-                        label="User hash (optional, stored privately)"
+                        label="هاش المستخدم (اختياري، يُحفظ بشكل خاص)"
                         type="password"
                         value={settings.store.catboxUserHash ?? ""}
-                        placeholder="Catbox user hash"
+                        placeholder="هاش مستخدم Catbox"
                         onChange={v => settings.store.catboxUserHash = v}
                     />
                 </>
@@ -834,13 +834,13 @@ function SettingsComponent() {
                     <Divider className={Margins.bottom16} />
                     <Forms.FormTitle>FileFast</Forms.FormTitle>
                     <Forms.FormText className={Margins.bottom8}>
-                        Fast file uploads. Files do not expire.
+                        رفع ملفات سريع. الملفات لا تنتهي صلاحيتها.
                     </Forms.FormText>
                     <TextInput
-                        label="Token (optional, stored privately)"
+                        label="الرمز المميز (اختياري، يُحفظ بشكل خاص)"
                         type="password"
                         value={settings.store.filefastToken ?? ""}
-                        placeholder="FileFast token"
+                        placeholder="رمز FileFast"
                         onChange={v => settings.store.filefastToken = v}
                     />
                 </>
@@ -853,10 +853,10 @@ function SettingsComponent() {
                     <div className={Margins.bottom16}>
                         <Select
                             options={[
-                                { label: "1 hour", value: "1h" },
-                                { label: "12 hours", value: "12h" },
-                                { label: "24 hours", value: "24h" },
-                                { label: "72 hours", value: "72h" },
+                                { label: "ساعة واحدة", value: "1h" },
+                                { label: "12 ساعة", value: "12h" },
+                                { label: "24 ساعة", value: "24h" },
+                                { label: "72 ساعة", value: "72h" },
                             ]}
                             serialize={v => v}
                             select={(v: string) => settings.store.litterboxTime = v}
@@ -869,27 +869,27 @@ function SettingsComponent() {
             {uploader === "Custom" && (
                 <>
                     <Divider className={Margins.bottom16} />
-                    <Forms.FormTitle>Custom (ShareX)</Forms.FormTitle>
+                    <Forms.FormTitle>مخصص (ShareX)</Forms.FormTitle>
                     <div className={Margins.bottom16}>
-                        <Button onClick={importShareXConfig}>Import ShareX config</Button>
+                        <Button onClick={importShareXConfig}>استيراد إعدادات ShareX</Button>
                     </div>
 
                     <TextInput
-                        label="Name (display only)"
+                        label="الاسم (للعرض فقط)"
                         value={settings.store.customName}
                         onChange={v => settings.store.customName = v}
-                        placeholder="My uploader"
+                        placeholder="رافعي المخصص"
                     />
 
                     <TextInput
-                        label="Request URL"
+                        label="رابط الطلب"
                         value={settings.store.customRequestUrl}
                         onChange={v => settings.store.customRequestUrl = v}
                         placeholder="https://example.com/upload"
                     />
 
                     <TextInput
-                        label="File form name"
+                        label="اسم نموذج الملف"
                         value={settings.store.customFileFormName}
                         onChange={v => settings.store.customFileFormName = v}
                         placeholder="file"
@@ -898,7 +898,7 @@ function SettingsComponent() {
                     <div className={Margins.bottom16}>
                         <Select
                             options={[
-                                { label: "Text", value: "Text" },
+                                { label: "نص", value: "Text" },
                                 { label: "JSON", value: "JSON" },
                             ]}
                             serialize={v => v}
@@ -908,14 +908,14 @@ function SettingsComponent() {
                     </div>
 
                     <TextInput
-                        label="URL path (JSON dot-path, or ignored for Text)"
+                        label="مسار الرابط (نقطة JSON، أو يُتجاهل للنص)"
                         value={settings.store.customUrlPath}
                         onChange={v => settings.store.customUrlPath = v}
                         placeholder="data.url"
                     />
 
                     <div className={Margins.bottom16}>
-                        <Forms.FormText>Arguments JSON (stored privately)</Forms.FormText>
+                        <Forms.FormText>معطيات JSON (تُحفظ بشكل خاص)</Forms.FormText>
                         <TextArea
                             value={settings.store.customArgsJson ?? ""}
                             onChange={v => settings.store.customArgsJson = v}
@@ -925,7 +925,7 @@ function SettingsComponent() {
                     </div>
 
                     <div className={Margins.bottom16}>
-                        <Forms.FormText>Headers JSON (stored privately)</Forms.FormText>
+                        <Forms.FormText>ترويسات JSON (تُحفظ بشكل خاص)</Forms.FormText>
                         <TextArea
                             value={settings.store.customHeadersJson ?? ""}
                             onChange={v => settings.store.customHeadersJson = v}
@@ -937,11 +937,11 @@ function SettingsComponent() {
                     <Button
                         onClick={() => {
                             const result = validateCustomSettings();
-                            if (result.ok) showToast("Custom uploader settings look OK.", Toasts.Type.SUCCESS);
+                            if (result.ok) showToast("إعدادات الرافع المخصص تبدو صحيحة.", Toasts.Type.SUCCESS);
                             else showToast(result.error, Toasts.Type.FAILURE);
                         }}
                     >
-                        Validate custom settings
+                        التحقق من الإعدادات المخصصة
                     </Button>
                 </>
             )}
