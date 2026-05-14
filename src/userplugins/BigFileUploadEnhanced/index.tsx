@@ -489,8 +489,90 @@ function validateCustomSettings(): { ok: true; args: Record<string, string>; hea
     return { ok: true, args: argsParsed.value, headers: headersParsed.value, urlPath };
 }
 
+// Web fallback: plain fetch() for non-Desktop environments (CORS-compatible services)
+async function uploadToServiceWeb(uploader: Uploader, payload: UploadPayload): Promise<string> {
+    const blob = new Blob([payload.fileBuffer], { type: payload.fileType || "application/octet-stream" });
+    const file = new File([blob], payload.fileName);
+
+    switch (uploader) {
+        case "Catbox": {
+            const form = new FormData();
+            form.append("reqtype", "fileupload");
+            form.append("fileToUpload", file);
+            if (settings.store.catboxUserHash?.trim()) form.append("userhash", settings.store.catboxUserHash.trim());
+            const res = await fetch("https://catbox.moe/user/api.php", { method: "POST", body: form });
+            const text = (await res.text()).trim();
+            if (!res.ok) throw new Error(`Catbox: HTTP ${res.status}`);
+            if (!isHttpUrl(text)) throw new Error("Catbox: unexpected response (not a URL)");
+            return text;
+        }
+        case "Litterbox": {
+            const form = new FormData();
+            form.append("reqtype", "fileupload");
+            form.append("fileToUpload", file);
+            form.append("time", settings.store.litterboxTime);
+            const res = await fetch("https://litterbox.catbox.moe/resources/internals/api.php", { method: "POST", body: form });
+            const text = (await res.text()).trim();
+            if (!res.ok) throw new Error(`Litterbox: HTTP ${res.status}`);
+            if (!isHttpUrl(text)) throw new Error("Litterbox: unexpected response (not a URL)");
+            return text;
+        }
+        case "GoFile": {
+            let server = "store1";
+            try {
+                const sRes = await fetch("https://api.gofile.io/servers");
+                const sJson = (await sRes.json()) as any;
+                const names = sJson?.data?.servers?.map((s: any) => s?.name).filter(Boolean) as string[] | undefined;
+                if (names?.length) server = names[Math.floor(Math.random() * names.length)];
+            } catch { /* keep fallback */ }
+            const form = new FormData();
+            form.append("file", file);
+            if (settings.store.gofileToken?.trim()) form.append("token", settings.store.gofileToken.trim());
+            const res = await fetch(`https://${server}.gofile.io/uploadFile`, { method: "POST", body: form });
+            const json = (await res.json().catch(() => null)) as any;
+            if (!res.ok) throw new Error(`GoFile: HTTP ${res.status}`);
+            if (json?.status === "ok" && typeof json?.data?.downloadPage === "string") return json.data.downloadPage;
+            throw new Error("GoFile: unexpected response shape");
+        }
+        case "FileFast": {
+            const form = new FormData();
+            form.append("files[]", file);
+            if (settings.store.filefastToken?.trim()) form.append("token", settings.store.filefastToken.trim());
+            const res = await fetch("https://file.fast/api/v1/upload", { method: "POST", body: form });
+            const json = (await res.json().catch(() => null)) as any;
+            if (!res.ok || json?.success !== true) throw new Error(`FileFast: HTTP ${res.status} or upload failed`);
+            const url = json?.files?.[0]?.url;
+            if (typeof url !== "string" || !isHttpUrl(url)) throw new Error("FileFast: unexpected response (no valid URL)");
+            return url;
+        }
+        case "Custom": {
+            const validated = validateCustomSettings();
+            if (!validated.ok) throw new Error(validated.error);
+            const form = new FormData();
+            form.append(settings.store.customFileFormName.trim(), file);
+            for (const [k, v] of Object.entries(validated.args)) form.append(k, v);
+            const headers: Record<string, string> = {};
+            for (const [k, v] of Object.entries(validated.headers)) {
+                if (k.toLowerCase() !== "content-type") headers[k] = v;
+            }
+            const res = await fetch(settings.store.customRequestUrl.trim(), { method: "POST", body: form, headers });
+            if (!res.ok) throw new Error(`Custom: HTTP ${res.status} (${res.statusText})`);
+            if (settings.store.customResponseType === "JSON") {
+                const json = (await res.json().catch(() => null)) as any;
+                let cur: any = json;
+                for (const key of validated.urlPath) cur = cur?.[key];
+                if (typeof cur !== "string" || !isHttpUrl(cur)) throw new Error("Custom: JSON response did not contain a valid URL at the configured path");
+                return cur;
+            }
+            const text = (await res.text()).trim();
+            if (!isHttpUrl(text)) throw new Error("Custom: text response was not a valid URL");
+            return text;
+        }
+    }
+}
+
 async function uploadToService(uploader: Uploader, payload: UploadPayload): Promise<string> {
-    if (!Native) throw new Error("This plugin currently requires Discord Desktop.");
+    if (!Native) return await uploadToServiceWeb(uploader, payload);
 
     switch (uploader) {
         case "GoFile": {
@@ -567,7 +649,6 @@ async function runUploadFlow(channelId: string) {
     uploadInFlight = true;
 
     try {
-        if (!Native) throw new Error("This plugin currently requires Discord Desktop.");
         const uploader = settings.store.uploader as Uploader;
         const picked = await pickFile();
         if (!picked) return;
