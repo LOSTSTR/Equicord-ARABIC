@@ -68,7 +68,7 @@ function EaBadgeIcon({ size }: { size: number }): JSX.Element {
 function EqArabicBadge({ size }: { size: number }): JSX.Element {
     return (
         <ErrorBoundary noop>
-            <Tooltip text="Equicord-ARABIC User" position="top">
+            <Tooltip text="Dev Equicord-ARABIC" position="top">
                 {({ onMouseEnter, onMouseLeave }) => (
                     <div
                         className="eq-arabic-badge"
@@ -76,7 +76,7 @@ function EqArabicBadge({ size }: { size: number }): JSX.Element {
                         onMouseLeave={onMouseLeave}
                         style={{ width: size, height: size }}
                         role="img"
-                        aria-label="Equicord-ARABIC User"
+                        aria-label="Dev Equicord-ARABIC"
                     >
                         <EaBadgeIcon size={size} />
                     </div>
@@ -91,7 +91,7 @@ function EqArabicBadge({ size }: { size: number }): JSX.Element {
 const profileBadge: ProfileBadge = {
     id: BADGE_ID,
     key: BADGE_ID,
-    description: "Equicord-ARABIC User",
+    description: "Dev Equicord-ARABIC",
     position: BadgePosition.START,
     shouldShow: ({ userId }: BadgeUserArgs) => hasBadge(userId),
     component: (_props: ProfileBadge & BadgeUserArgs) => <EqArabicBadge size={22} />,
