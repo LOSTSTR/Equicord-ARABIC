@@ -8,7 +8,7 @@ import { definePluginSettings } from "@api/Settings";
 import { EquicordDevs } from "@utils/constants";
 import definePlugin, { OptionType } from "@utils/types";
 import { findByProps } from "@webpack";
-import { FluxDispatcher, i18n } from "@webpack/common";
+import { FluxDispatcher, LocaleStore, i18n } from "@webpack/common";
 
 import rawTranslations from "./translations.json";
 
@@ -16,12 +16,12 @@ const ar: Record<string, string> = rawTranslations as Record<string, string>;
 
 const STYLE_ID = "equicord-ale-styles";
 let styleEl: HTMLStyleElement | null = null;
+let htmlDirObserver: MutationObserver | null = null;
 
-// Modules that have already been overlaid — prevents duplicate teardown entries
-// if I18N_LOAD_SUCCESS fires more than once during the plugin's lifetime.
+// Tracks which legacy Messages modules are already overlaid (idempotency)
 const patchedMods = new Set<object>();
 
-// Ordered teardown steps executed in start() order during stop()
+// Teardown steps executed in push order during stop()
 const teardown: Array<() => void> = [];
 
 const settings = definePluginSettings({
@@ -34,17 +34,21 @@ const settings = definePluginSettings({
 });
 
 // ── CSS ────────────────────────────────────────────────────────────────────
-// Font rules + a targeted safety net: if Discord does write dir="rtl" on
-// the html element despite us bypassing Flux, this overrides it silently.
+// Nuclear LTR block on the three root nodes Discord uses for layout,
+// plus optional Arabic font on all text-bearing class patterns.
 
 function buildCSS() {
-    const rtlGuard = `
-html[dir="rtl"], html[dir="rtl"] body, html[dir="rtl"] #app-mount {
+    const ltrNuke = `
+html, body, #app-mount,
+[class*="appAsidePanelWrapper_"],
+[class*="base_"],
+[class*="container_"] {
     direction: ltr !important;
+    unicode-bidi: isolate !important;
 }`;
-    if (!settings.store.enableFont) return rtlGuard;
+    if (!settings.store.enableFont) return ltrNuke;
     return `@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap');
-${rtlGuard}
+${ltrNuke}
 [class*="message_"],[class*="messageContent_"],[class*="markup_"],[class*="contents_"],
 [class*="panel_"],[class*="text_"],[class*="title_"],[class*="label_"],[class*="formText_"],
 [class*="description_"],[class*="note_"],[class*="headerText_"],[class*="defaultColor_"],
@@ -67,9 +71,31 @@ function injectStyles() {
 function removeStyles() { styleEl?.remove(); styleEl = null; document.getElementById(STYLE_ID)?.remove(); }
 function refreshStyles() { if (styleEl) styleEl.textContent = buildCSS(); }
 
+// ── DOM Guard ──────────────────────────────────────────────────────────────
+// Watches only the single <html> element's dir attribute.
+// If Discord writes dir="rtl" (after or despite our patches), revert instantly.
+// Extremely lightweight — one element, one attribute, no subtree scan.
+
+function startHtmlDirGuard() {
+    document.documentElement.setAttribute("dir", "ltr");
+    htmlDirObserver = new MutationObserver(mutations => {
+        for (const m of mutations) {
+            if (m.attributeName === "dir") {
+                const el = m.target as HTMLElement;
+                if (el.getAttribute("dir") !== "ltr") el.setAttribute("dir", "ltr");
+            }
+        }
+    });
+    htmlDirObserver.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ["dir"],
+    });
+}
+function stopHtmlDirGuard() { htmlDirObserver?.disconnect(); htmlDirObserver = null; }
+
 // ── getLocaleInfo spoof ────────────────────────────────────────────────────
-// Discord queries this to get a locale's writing direction before applying
-// RTL body classes / CSS. Always returning "ltr" prevents any layout flip.
+// Discord reads this before writing dir="rtl" / applying RTL CSS classes.
+// Returning direction:"ltr" + isRTL:false kills the RTL path at the source.
 
 function spoofLocaleInfo() {
     const mod: any =
@@ -85,32 +111,61 @@ function spoofLocaleInfo() {
     teardown.push(() => { mod.getLocaleInfo = orig; });
 }
 
+// ── LocaleStore patch ──────────────────────────────────────────────────────
+// Forces LocaleStore.locale (and getLocale() if present) to report "ar"
+// so every Flux subscriber that checks the current locale sees Arabic.
+// This is what makes settings panels and context menus pick up the strings
+// loaded by intl.setLocale() without a full USER_SETTINGS_UPDATE round-trip.
+
+function patchLocaleStore() {
+    const store: any = LocaleStore;
+    if (!store) return;
+
+    // The `locale` getter lives on the prototype in Discord's Flux stores
+    const proto = Object.getPrototypeOf(store);
+    const localeDesc =
+        Object.getOwnPropertyDescriptor(proto, "locale") ??
+        Object.getOwnPropertyDescriptor(store, "locale");
+
+    if (localeDesc) {
+        const host = localeDesc.get
+            ? proto       // getter defined on prototype
+            : store;      // own property on instance
+        Object.defineProperty(host, "locale", {
+            get: () => "ar",
+            configurable: true,
+            enumerable: localeDesc.enumerable ?? true,
+        });
+        teardown.push(() => Object.defineProperty(host, "locale", localeDesc));
+    }
+
+    // Some builds expose getLocale() as a standalone method
+    if (typeof store.getLocale === "function") {
+        const orig = store.getLocale.bind(store);
+        store.getLocale = () => "ar";
+        teardown.push(() => { store.getLocale = orig; });
+    }
+}
+
 // ── Custom dictionary overlay ──────────────────────────────────────────────
-// Called on I18N_LOAD_SUCCESS so our 1073 keys overlay Discord's freshly
-// loaded Arabic strings (which become the transparent fallback for every
-// key we don't explicitly override).
+// Overlays our 1073-key dict ON TOP of whatever Arabic strings Discord loaded.
+// The `set` trap on the property descriptor keeps the fallback target current
+// when Discord writes a freshly loaded bundle to mod.Messages.
 
 type MessagesObj = Record<string, unknown>;
 
 function overlayMessages(mod: Record<string, unknown>) {
-    if (patchedMods.has(mod)) {
-        // Already patched on a previous I18N_LOAD_SUCCESS. The `set` trap
-        // on the property descriptor will have kept the target up-to-date.
-        return;
-    }
+    if (patchedMods.has(mod)) return; // idempotent
     patchedMods.add(mod);
 
     const savedDesc = Object.getOwnPropertyDescriptor(mod, "Messages") ?? null;
-
-    // Mutable target reference: when Discord assigns `mod.Messages = arabicBundle`
-    // our setter captures it so the proxy's fallback stays current.
     let target: MessagesObj = (mod.Messages ?? {}) as MessagesObj;
 
     const proxy = new Proxy(target, {
         get(_, prop) {
             if (typeof prop !== "string") return (target as any)[prop];
             const arStr = ar[prop];
-            if (!arStr) return (target as any)[prop];
+            if (!arStr) return (target as any)[prop]; // fall through to Discord's Arabic
             const orig = (target as any)[prop];
             if (typeof orig === "function") {
                 return (args?: Record<string, unknown>) =>
@@ -125,9 +180,7 @@ function overlayMessages(mod: Record<string, unknown>) {
 
     Object.defineProperty(mod, "Messages", {
         get: () => proxy,
-        // When Discord writes the freshly loaded Arabic bundle, capture it
-        // as the new fallback target instead of letting the assignment fail.
-        set: (newMessages: MessagesObj) => { target = newMessages; },
+        set: (bundle: MessagesObj) => { target = bundle; }, // keep target live
         configurable: true,
         enumerable: true,
     });
@@ -140,13 +193,12 @@ function overlayMessages(mod: Record<string, unknown>) {
 }
 
 function applyMessagesOverlay() {
-    const candidates = [
+    const seen = new Set<object>();
+    for (const mod of [
         findByProps("Messages", "getLocale", "setLocale"),
         findByProps("Messages", "getLocale"),
         findByProps("Messages", "defaultLocale"),
-    ];
-    const seen = new Set<object>();
-    for (const mod of candidates) {
+    ]) {
         if (!mod || seen.has(mod) || !mod.Messages) continue;
         seen.add(mod);
         overlayMessages(mod as Record<string, unknown>);
@@ -162,45 +214,62 @@ export default definePlugin({
     settings,
 
     start() {
+        // Inject CSS + DOM guard first so layout is locked before any
+        // re-renders triggered by the locale switch can write dir=rtl.
         injectStyles();
+        startHtmlDirGuard();
+
+        // Kill RTL at the metadata level before the locale loads
+        spoofLocaleInfo();
+
+        // Make LocaleStore report "ar" so Flux subscribers re-render
+        patchLocaleStore();
 
         const intl: any = (i18n as any).intl;
         if (!intl?.setLocale) {
-            console.warn("[ALE] @discord/intl IntlManager not found — CSS-only mode");
+            console.warn("[ALE] @discord/intl IntlManager not found — CSS+store-only mode");
             return;
         }
 
-        // 1. Save current locale so stop() can restore it cleanly
         const originalLocale: string = intl.getLocale?.() ?? "en-US";
 
-        // 2. Spoof direction metadata so Discord never applies RTL layout rules
-        spoofLocaleInfo();
-
-        // 3. Subscribe BEFORE setLocale so we never miss the load event.
-        //    Re-applying the overlay on every load is safe: overlayMessages()
-        //    is idempotent for already-patched modules.
+        // Merge our custom dict on every I18N_LOAD_SUCCESS
+        // (covers initial Arabic load and any subsequent forced reloads)
         const onLoad = () => applyMessagesOverlay();
         FluxDispatcher.subscribe("I18N_LOAD_SUCCESS", onLoad);
         teardown.push(() => FluxDispatcher.unsubscribe("I18N_LOAD_SUCCESS", onLoad));
 
-        // 4. Switch to Discord's native Arabic locale via @discord/intl directly.
-        //    Because we bypass the Flux USER_SETTINGS_UPDATE path, LocaleStore
-        //    stays "en-US" — Discord's own RTL-layout trigger never fires.
-        const result: unknown = intl.setLocale("ar");
-        if (result instanceof Promise)
-            result.catch(e => console.error("[ALE] setLocale('ar') failed:", e));
+        // Load Arabic strings via @discord/intl, then dispatch I18N_LOAD_SUCCESS
+        // to wake up all Flux-subscribed React components without touching the
+        // user's persisted locale setting (no USER_SETTINGS_UPDATE → no API call).
+        const dispatchArabic = () =>
+            FluxDispatcher.dispatch({ type: "I18N_LOAD_SUCCESS", locale: "ar" } as any);
 
+        const result = intl.setLocale("ar");
+        if (result instanceof Promise)
+            result.then(dispatchArabic).catch(e => console.error("[ALE] setLocale failed:", e));
+        else
+            dispatchArabic();
+
+        // Teardown: unsubscribe first (already pushed), then revert locale
         teardown.push(() => {
-            const revert: unknown = intl.setLocale(originalLocale);
-            if (revert instanceof Promise)
-                revert.catch(e => console.error("[ALE] locale restore failed:", e));
+            const revert = intl.setLocale(originalLocale);
+            const dispatchRevert = () =>
+                FluxDispatcher.dispatch({ type: "I18N_LOAD_SUCCESS", locale: originalLocale } as any);
+            if (revert instanceof Promise) revert.then(dispatchRevert).catch(() => {});
+            else dispatchRevert();
         });
     },
 
     stop() {
+        stopHtmlDirGuard();
         removeStyles();
-        // Unsubscribe first so the English reload on locale revert
-        // does not re-trigger our overlay.
+        // Teardown order (push order = execution order):
+        // 1. getLocaleInfo restored
+        // 2. LocaleStore.locale restored
+        // 3. LocaleStore.getLocale restored
+        // 4. Unsubscribe I18N_LOAD_SUCCESS (no overlay on English reload)
+        // 5. Revert locale + dispatch English I18N_LOAD_SUCCESS
         for (const fn of teardown) fn();
         teardown.length = 0;
         patchedMods.clear();
