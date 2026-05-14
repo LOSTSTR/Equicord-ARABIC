@@ -79,7 +79,8 @@ public class GlowButton : Button {
         }
         TextRenderer.DrawText(g, Text, Font,
             new Rectangle(4, 4, Width - 8, Height - 8), ForeColor,
-            TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter | TextFormatFlags.WordBreak);
+            TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter |
+            TextFormatFlags.WordBreak | TextFormatFlags.RightToLeft);
     }
 }
 
@@ -441,9 +442,13 @@ function Show-Installer {
         $l.Location  = New-Object System.Drawing.Point($X, $Y)
         $l.ForeColor = $C
         $l.BackColor = [System.Drawing.Color]::Transparent
-        $l.Font      = New-Object System.Drawing.Font("Segoe UI", $FS, $FS2)
-        if ($W -gt 0) { $l.AutoSize = $false; $l.Size = New-Object System.Drawing.Size($W, $H) }
-        else          { $l.AutoSize = $true }
+        $l.Font       = New-Object System.Drawing.Font("Segoe UI", $FS, $FS2)
+        $l.RightToLeft = [System.Windows.Forms.RightToLeft]::Yes
+        if ($W -gt 0) {
+            $l.AutoSize   = $false
+            $l.Size       = New-Object System.Drawing.Size($W, $H)
+            $l.TextAlign  = [System.Drawing.ContentAlignment]::MiddleRight
+        } else { $l.AutoSize = $true }
         return $l
     }
 
@@ -470,8 +475,9 @@ function Show-Installer {
     $btnOpenDir.BackColor = $LINK_COLOR
     $btnOpenDir.ForeColor = [System.Drawing.Color]::White
     $btnOpenDir.FlatAppearance.BorderSize = 0
-    $btnOpenDir.Font      = New-Object System.Drawing.Font("Segoe UI", 9)
-    $btnOpenDir.Cursor    = [System.Windows.Forms.Cursors]::Hand
+    $btnOpenDir.Font        = New-Object System.Drawing.Font("Segoe UI", 9)
+    $btnOpenDir.Cursor      = [System.Windows.Forms.Cursors]::Hand
+    $btnOpenDir.RightToLeft = [System.Windows.Forms.RightToLeft]::Yes
     $btnOpenDir.Add_Click({
         New-Item -ItemType Directory -Path $DataDir -Force | Out-Null
         Start-Process explorer.exe $DataDir
@@ -535,11 +541,12 @@ function Show-Installer {
 
     # "هام جداً" badge (inside warning panel)
     $warnBadge          = New-Object System.Windows.Forms.Label
-    $warnBadge.Text      = "هام جداً"
-    $warnBadge.AutoSize  = $true
-    $warnBadge.ForeColor = $GOLD
-    $warnBadge.BackColor = [System.Drawing.Color]::Transparent
-    $warnBadge.Font      = New-Object System.Drawing.Font("Segoe UI", 11, [System.Drawing.FontStyle]::Bold)
+    $warnBadge.Text        = "هام جداً"
+    $warnBadge.AutoSize    = $true
+    $warnBadge.ForeColor   = $GOLD
+    $warnBadge.BackColor   = [System.Drawing.Color]::Transparent
+    $warnBadge.Font        = New-Object System.Drawing.Font("Segoe UI", 11, [System.Drawing.FontStyle]::Bold)
+    $warnBadge.RightToLeft = [System.Windows.Forms.RightToLeft]::Yes
     $warnPanel.Controls.Add($warnBadge)
     $warnPanel.Add_Layout({
         $warnBadge.Location = New-Object System.Drawing.Point(($warnPanel.Width - $warnBadge.Width - 14), 10)
@@ -548,11 +555,13 @@ function Show-Installer {
     # Warning text
     $warnText          = New-Object System.Windows.Forms.Label
     $warnText.Text     = "GitHub ومستودع LOSTSTR/Equicord-ARABIC هما المصدران الرسميان الوحيدان للحصول على Equicord-ARABIC.`nأي مصدر آخر يُعتبر ضاراً — احذف كل شيء وأجرِ فحصاً للبرامج الضارة وغيّر كلمة مرور Discord."
-    $warnText.Location = New-Object System.Drawing.Point(16, 10)
-    $warnText.Size     = New-Object System.Drawing.Size(900, 62)
-    $warnText.ForeColor = [System.Drawing.Color]::FromArgb(210, 215, 240)
-    $warnText.BackColor = [System.Drawing.Color]::Transparent
-    $warnText.Font     = New-Object System.Drawing.Font("Segoe UI", 10)
+    $warnText.Location    = New-Object System.Drawing.Point(16, 10)
+    $warnText.Size        = New-Object System.Drawing.Size(900, 62)
+    $warnText.ForeColor   = [System.Drawing.Color]::FromArgb(210, 215, 240)
+    $warnText.BackColor   = [System.Drawing.Color]::Transparent
+    $warnText.Font        = New-Object System.Drawing.Font("Segoe UI", 10)
+    $warnText.RightToLeft = [System.Windows.Forms.RightToLeft]::Yes
+    $warnText.TextAlign   = [System.Drawing.ContentAlignment]::TopRight
     $warnPanel.Controls.Add($warnText)
 
     # Discord support button
@@ -584,10 +593,11 @@ function Show-Installer {
         $rb.Tag       = $inst
         $rb.Location  = New-Object System.Drawing.Point(52, $radioY)
         $rb.AutoSize  = $true
-        $rb.ForeColor = $FG_WHITE
-        $rb.BackColor = [System.Drawing.Color]::Transparent
-        $rb.Font      = New-Object System.Drawing.Font("Segoe UI", 11)
-        $rb.Cursor    = [System.Windows.Forms.Cursors]::Hand
+        $rb.ForeColor    = $FG_WHITE
+        $rb.BackColor    = [System.Drawing.Color]::Transparent
+        $rb.Font         = New-Object System.Drawing.Font("Segoe UI", 11)
+        $rb.Cursor       = [System.Windows.Forms.Cursors]::Hand
+        $rb.RightToLeft  = [System.Windows.Forms.RightToLeft]::Yes
         $form.Controls.Add($rb); $radios.Add($rb); $radioY += 30
     }
 
@@ -601,21 +611,24 @@ function Show-Installer {
     $rbCustom.Text      = "مسار تثبيت مخصص"
     $rbCustom.Location  = New-Object System.Drawing.Point(52, ($radioY + 8))
     $rbCustom.AutoSize  = $true
-    $rbCustom.ForeColor = $FG_WHITE
-    $rbCustom.BackColor = [System.Drawing.Color]::Transparent
-    $rbCustom.Font      = New-Object System.Drawing.Font("Segoe UI", 11)
-    $rbCustom.Cursor    = [System.Windows.Forms.Cursors]::Hand
+    $rbCustom.ForeColor    = $FG_WHITE
+    $rbCustom.BackColor    = [System.Drawing.Color]::Transparent
+    $rbCustom.Font         = New-Object System.Drawing.Font("Segoe UI", 11)
+    $rbCustom.Cursor       = [System.Windows.Forms.Cursors]::Hand
+    $rbCustom.RightToLeft  = [System.Windows.Forms.RightToLeft]::Yes
     $form.Controls.Add($rbCustom)
 
     $txtCustom = New-Object System.Windows.Forms.TextBox
     $txtCustom.Location    = New-Object System.Drawing.Point(48, ($radioY + 44))
     $txtCustom.Size        = New-Object System.Drawing.Size(1104, 36)
-    $txtCustom.BackColor   = $BG_PANEL
-    $txtCustom.ForeColor   = $FG_MUTED
-    $txtCustom.BorderStyle = [System.Windows.Forms.BorderStyle]::FixedSingle
-    $txtCustom.Font        = New-Object System.Drawing.Font("Segoe UI", 11)
-    $txtCustom.Text        = "المسار المخصص (مجلد resources الخاص بـ Discord)"
-    $txtCustom.Enabled     = $false
+    $txtCustom.BackColor    = $BG_PANEL
+    $txtCustom.ForeColor    = $FG_MUTED
+    $txtCustom.BorderStyle  = [System.Windows.Forms.BorderStyle]::FixedSingle
+    $txtCustom.Font         = New-Object System.Drawing.Font("Segoe UI", 11)
+    $txtCustom.Text         = "المسار المخصص (مجلد resources الخاص بـ Discord)"
+    $txtCustom.Enabled      = $false
+    $txtCustom.RightToLeft  = [System.Windows.Forms.RightToLeft]::Yes
+    $txtCustom.TextAlign    = [System.Windows.Forms.HorizontalAlignment]::Right
     $form.Controls.Add($txtCustom)
 
     $rbCustom.Add_CheckedChanged({
@@ -662,12 +675,14 @@ function Show-Installer {
 
     # ── Status label ──────────────────────────────────────────────
     $lblStatus          = New-Object System.Windows.Forms.Label
-    $lblStatus.Text     = "اختر نسخة Discord ثم اضغط على أحد الأزرار"
-    $lblStatus.Location = New-Object System.Drawing.Point(48, 616)
-    $lblStatus.Size     = New-Object System.Drawing.Size(1104, 26)
-    $lblStatus.ForeColor = $FG_MUTED
-    $lblStatus.BackColor = [System.Drawing.Color]::Transparent
-    $lblStatus.Font     = New-Object System.Drawing.Font("Segoe UI", 10)
+    $lblStatus.Text        = "اختر نسخة Discord ثم اضغط على أحد الأزرار"
+    $lblStatus.Location    = New-Object System.Drawing.Point(48, 616)
+    $lblStatus.Size        = New-Object System.Drawing.Size(1104, 26)
+    $lblStatus.ForeColor   = $FG_MUTED
+    $lblStatus.BackColor   = [System.Drawing.Color]::Transparent
+    $lblStatus.Font        = New-Object System.Drawing.Font("Segoe UI", 10)
+    $lblStatus.RightToLeft = [System.Windows.Forms.RightToLeft]::Yes
+    $lblStatus.TextAlign   = [System.Drawing.ContentAlignment]::MiddleRight
     $form.Controls.Add($lblStatus)
 
     # ── Gradient progress bar ──────────────────────────────────────
