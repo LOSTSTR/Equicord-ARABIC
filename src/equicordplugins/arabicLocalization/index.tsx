@@ -4,6 +4,51 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
+/**
+ * ╔══════════════════════════════════════════════════════════════════════╗
+ * ║          Arabic Localization Engine — Architecture Reference         ║
+ * ╠══════════════════════════════════════════════════════════════════════╣
+ * ║                                                                      ║
+ * ║  DISCORD STRING PIPELINE (modern @discord/intl, 2024+)              ║
+ * ║  ─────────────────────────────────────────────────────              ║
+ * ║  Build time:                                                         ║
+ * ║    String keys hashed: "ADD_REACTION" → "Ab3xQ1" (xxhash64+base64) ║
+ * ║    Compiled into AST MessageDescriptor nodes per locale              ║
+ * ║                                                                      ║
+ * ║  Runtime:                                                            ║
+ * ║    i18n.t.ADD_REACTION      → MessageDescriptor (AST node)          ║
+ * ║    i18n.intl.string(desc)   → rendered string                       ║
+ * ║    i18n.intl.format(desc)   → React node (rich text)                ║
+ * ║                                                                      ║
+ * ║  Locale switch sequence:                                             ║
+ * ║    intl.setLocale("ar")                                              ║
+ * ║      → loads Arabic AST bundle into @discord/intl                   ║
+ * ║    LocaleStore.locale must return "ar"                               ║
+ * ║      → Flux subscribers see the locale change                        ║
+ * ║    FluxDispatcher.dispatch({ type: "I18N_LOAD_SUCCESS" })            ║
+ * ║      → all subscribed React components call intl.string() again     ║
+ * ║                                                                      ║
+ * ║  LEGACY STRING PIPELINE (backward compat, still active)             ║
+ * ║  ──────────────────────────────────────────────────────             ║
+ * ║    findByProps("Messages","getLocale") → mod.Messages[KEY] → string ║
+ * ║    Our Proxy overlays custom 1073-key dict on top                    ║
+ * ║                                                                      ║
+ * ║  RTL LAYOUT TRIGGER CHAIN (what we neutralize)                      ║
+ * ║  ─────────────────────────────────────────────                      ║
+ * ║    LocaleStore.locale === "ar"                                       ║
+ * ║      → getLocaleInfo("ar").direction === "rtl"                      ║
+ * ║        → document.documentElement.dir = "rtl"                       ║
+ * ║          → Discord applies RTL flexbox/position CSS                  ║
+ * ║                                                                      ║
+ * ║  OUR LTR ENFORCEMENT (4 independent layers)                         ║
+ * ║  ──────────────────────────────────────────                         ║
+ * ║    1. spoofLocaleInfo   getLocaleInfo → { direction:"ltr",isRTL:false }
+ * ║    2. CSS nuclear rule  direction:ltr + unicode-bidi:isolate on roots║
+ * ║    3. DOM guard         MutationObserver reverts html[dir=rtl] live  ║
+ * ║    4. LocaleStore patch forces locale:"ar" for string re-evaluation  ║
+ * ╚══════════════════════════════════════════════════════════════════════╝
+ */
+
 import { definePluginSettings } from "@api/Settings";
 import { EquicordDevs } from "@utils/constants";
 import definePlugin, { OptionType } from "@utils/types";
@@ -12,19 +57,37 @@ import { FluxDispatcher, LocaleStore, i18n } from "@webpack/common";
 
 import rawTranslations from "./translations.json";
 
+// ── Module-level state ─────────────────────────────────────────────────────
+
 const ar: Record<string, string> = rawTranslations as Record<string, string>;
 
 const STYLE_ID = "equicord-ale-styles";
 let styleEl: HTMLStyleElement | null = null;
 let htmlDirObserver: MutationObserver | null = null;
 
-// Tracks which legacy Messages modules are already overlaid (idempotency)
+// Whether translations (locale switch + patches) are currently active
+let translationActive = false;
+
+// Locale to restore when translations are deactivated
+let originalLocale = "en-US";
+
+// Modules already overlaid — prevents duplicate property definition + teardown entries
 const patchedMods = new Set<object>();
 
-// Teardown steps executed in push order during stop()
-const teardown: Array<() => void> = [];
+// Teardown callbacks for the translation subsystem (not styles/DOM guard)
+// Executed in push order so patches unwind before locale is reverted
+const translationTeardown: Array<() => void> = [];
+
+// ── Settings ───────────────────────────────────────────────────────────────
 
 const settings = definePluginSettings({
+    enableTranslations: {
+        type: OptionType.BOOLEAN,
+        description: "تفعيل الترجمة العربية الكاملة",
+        default: true,
+        onChange: (enabled: boolean) =>
+            enabled ? activateTranslations() : deactivateTranslations(),
+    },
     enableFont: {
         type: OptionType.BOOLEAN,
         description: "استخدام خط Tajawal العربي",
@@ -33,12 +96,13 @@ const settings = definePluginSettings({
     },
 });
 
-// ── CSS ────────────────────────────────────────────────────────────────────
-// Nuclear LTR block on the three root nodes Discord uses for layout,
-// plus optional Arabic font on all text-bearing class patterns.
+// ══════════════════════════════════════════════════════════════════════════
+//  CSS — font injection + nuclear LTR root lock
+// ══════════════════════════════════════════════════════════════════════════
 
-function buildCSS() {
-    const ltrNuke = `
+function buildCSS(): string {
+    // Applied regardless of enableFont: prevents any layout flip
+    const ltrLock = `
 html, body, #app-mount,
 [class*="appAsidePanelWrapper_"],
 [class*="base_"],
@@ -46,9 +110,11 @@ html, body, #app-mount,
     direction: ltr !important;
     unicode-bidi: isolate !important;
 }`;
-    if (!settings.store.enableFont) return ltrNuke;
+
+    if (!settings.store.enableFont) return ltrLock;
+
     return `@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap');
-${ltrNuke}
+${ltrLock}
 [class*="message_"],[class*="messageContent_"],[class*="markup_"],[class*="contents_"],
 [class*="panel_"],[class*="text_"],[class*="title_"],[class*="label_"],[class*="formText_"],
 [class*="description_"],[class*="note_"],[class*="headerText_"],[class*="defaultColor_"],
@@ -61,29 +127,35 @@ ${ltrNuke}
 }`;
 }
 
-function injectStyles() {
+function injectStyles(): void {
     if (document.getElementById(STYLE_ID)) return;
     styleEl = document.createElement("style");
     styleEl.id = STYLE_ID;
     styleEl.textContent = buildCSS();
     document.head.appendChild(styleEl);
 }
-function removeStyles() { styleEl?.remove(); styleEl = null; document.getElementById(STYLE_ID)?.remove(); }
-function refreshStyles() { if (styleEl) styleEl.textContent = buildCSS(); }
 
-// ── DOM Guard ──────────────────────────────────────────────────────────────
-// Watches only the single <html> element's dir attribute.
-// If Discord writes dir="rtl" (after or despite our patches), revert instantly.
-// Extremely lightweight — one element, one attribute, no subtree scan.
+function removeStyles(): void {
+    styleEl?.remove();
+    styleEl = null;
+    document.getElementById(STYLE_ID)?.remove();
+}
 
-function startHtmlDirGuard() {
+function refreshStyles(): void {
+    if (styleEl) styleEl.textContent = buildCSS();
+}
+
+// ══════════════════════════════════════════════════════════════════════════
+//  DOM Guard — single-element MutationObserver on <html> dir attribute
+//  Scope: one element, one attribute, no subtree traversal → negligible cost
+// ══════════════════════════════════════════════════════════════════════════
+
+function startHtmlDirGuard(): void {
     document.documentElement.setAttribute("dir", "ltr");
     htmlDirObserver = new MutationObserver(mutations => {
         for (const m of mutations) {
-            if (m.attributeName === "dir") {
-                const el = m.target as HTMLElement;
-                if (el.getAttribute("dir") !== "ltr") el.setAttribute("dir", "ltr");
-            }
+            const el = m.target as HTMLElement;
+            if (el.getAttribute("dir") !== "ltr") el.setAttribute("dir", "ltr");
         }
     });
     htmlDirObserver.observe(document.documentElement, {
@@ -91,81 +163,102 @@ function startHtmlDirGuard() {
         attributeFilter: ["dir"],
     });
 }
-function stopHtmlDirGuard() { htmlDirObserver?.disconnect(); htmlDirObserver = null; }
 
-// ── getLocaleInfo spoof ────────────────────────────────────────────────────
-// Discord reads this before writing dir="rtl" / applying RTL CSS classes.
-// Returning direction:"ltr" + isRTL:false kills the RTL path at the source.
-
-function spoofLocaleInfo() {
-    const mod: any =
-        findByProps("getLocaleInfo", "getAvailableLocales") ??
-        findByProps("getLocaleInfo", "getSystemLocale") ??
-        findByProps("getLocaleInfo");
-    if (!mod?.getLocaleInfo) return;
-    const orig = mod.getLocaleInfo;
-    mod.getLocaleInfo = function(locale?: string, ...rest: unknown[]) {
-        const info = orig.call(this, locale, ...rest);
-        return info ? { ...info, direction: "ltr", isRTL: false } : info;
-    };
-    teardown.push(() => { mod.getLocaleInfo = orig; });
+function stopHtmlDirGuard(): void {
+    htmlDirObserver?.disconnect();
+    htmlDirObserver = null;
 }
 
-// ── LocaleStore patch ──────────────────────────────────────────────────────
-// Forces LocaleStore.locale (and getLocale() if present) to report "ar"
-// so every Flux subscriber that checks the current locale sees Arabic.
-// This is what makes settings panels and context menus pick up the strings
-// loaded by intl.setLocale() without a full USER_SETTINGS_UPDATE round-trip.
+// ══════════════════════════════════════════════════════════════════════════
+//  getLocaleInfo spoof
+//  Discord calls getLocaleInfo(locale) before writing dir="rtl" to <html>
+//  and before applying RTL Flex/position CSS. Returning direction:"ltr" at
+//  this point kills the entire RTL branch unconditionally.
+// ══════════════════════════════════════════════════════════════════════════
 
-function patchLocaleStore() {
+function spoofLocaleInfo(): void {
+    const mod: any =
+        findByProps("getLocaleInfo", "getAvailableLocales") ??
+        findByProps("getLocaleInfo", "getSupportedLocales") ??
+        findByProps("getLocaleInfo", "getSystemLocale") ??
+        findByProps("getLocaleInfo", "getDiscordLocale") ??
+        findByProps("getLocaleInfo");
+
+    if (!mod?.getLocaleInfo) return;
+
+    const orig = mod.getLocaleInfo as (...a: unknown[]) => unknown;
+    mod.getLocaleInfo = function(...args: unknown[]) {
+        const info = orig.apply(this, args);
+        return info && typeof info === "object"
+            ? { ...(info as object), direction: "ltr", isRTL: false }
+            : info;
+    };
+    translationTeardown.push(() => { mod.getLocaleInfo = orig; });
+}
+
+// ══════════════════════════════════════════════════════════════════════════
+//  LocaleStore patch
+//  React components read LocaleStore.locale (via Flux connect) to decide
+//  which strings to display. Without patching this, the store still says
+//  "en-US" and components skip the Arabic re-render path even after
+//  intl.setLocale("ar") has loaded the Arabic bundle.
+// ══════════════════════════════════════════════════════════════════════════
+
+function patchLocaleStore(): void {
     const store: any = LocaleStore;
     if (!store) return;
 
-    // The `locale` getter lives on the prototype in Discord's Flux stores
+    // Getter may live on the prototype (class-based Flux store pattern)
     const proto = Object.getPrototypeOf(store);
     const localeDesc =
         Object.getOwnPropertyDescriptor(proto, "locale") ??
         Object.getOwnPropertyDescriptor(store, "locale");
 
     if (localeDesc) {
-        const host = localeDesc.get
-            ? proto       // getter defined on prototype
-            : store;      // own property on instance
+        const host = localeDesc.get ? proto : store;
         Object.defineProperty(host, "locale", {
             get: () => "ar",
             configurable: true,
             enumerable: localeDesc.enumerable ?? true,
         });
-        teardown.push(() => Object.defineProperty(host, "locale", localeDesc));
+        translationTeardown.push(() => Object.defineProperty(host, "locale", localeDesc));
     }
 
-    // Some builds expose getLocale() as a standalone method
+    // Older builds / some modules call getLocale() as a function
     if (typeof store.getLocale === "function") {
-        const orig = store.getLocale.bind(store);
-        store.getLocale = () => "ar";
-        teardown.push(() => { store.getLocale = orig; });
+        const orig = store.getLocale.bind(store) as () => string;
+        store.getLocale = (): string => "ar";
+        translationTeardown.push(() => { store.getLocale = orig; });
     }
 }
 
-// ── Custom dictionary overlay ──────────────────────────────────────────────
-// Overlays our 1073-key dict ON TOP of whatever Arabic strings Discord loaded.
-// The `set` trap on the property descriptor keeps the fallback target current
-// when Discord writes a freshly loaded bundle to mod.Messages.
+// ══════════════════════════════════════════════════════════════════════════
+//  Legacy Messages proxy (custom dict overlay)
+//  Equicord-specific strings and any gaps in Discord's Arabic bundle are
+//  served from our 1073-key translations.json via a transparent Proxy.
+//  The property descriptor includes a `set` trap so that when Discord
+//  assigns a freshly loaded bundle (mod.Messages = arabicBundle), our
+//  proxy's fallback target updates atomically without breaking the proxy.
+// ══════════════════════════════════════════════════════════════════════════
 
 type MessagesObj = Record<string, unknown>;
 
-function overlayMessages(mod: Record<string, unknown>) {
-    if (patchedMods.has(mod)) return; // idempotent
+function overlayMessages(mod: Record<string, unknown>): void {
+    if (patchedMods.has(mod)) return; // idempotent across I18N_LOAD_SUCCESS firings
     patchedMods.add(mod);
 
     const savedDesc = Object.getOwnPropertyDescriptor(mod, "Messages") ?? null;
+
+    // `target` is updated by the `set` trap on every Discord bundle assignment
     let target: MessagesObj = (mod.Messages ?? {}) as MessagesObj;
 
     const proxy = new Proxy(target, {
         get(_, prop) {
             if (typeof prop !== "string") return (target as any)[prop];
             const arStr = ar[prop];
-            if (!arStr) return (target as any)[prop]; // fall through to Discord's Arabic
+            // No override → fall through to Discord's official Arabic string
+            if (!arStr) return (target as any)[prop];
+            // Function value (ICU formatter) → wrap with our Arabic template
             const orig = (target as any)[prop];
             if (typeof orig === "function") {
                 return (args?: Record<string, unknown>) =>
@@ -180,19 +273,19 @@ function overlayMessages(mod: Record<string, unknown>) {
 
     Object.defineProperty(mod, "Messages", {
         get: () => proxy,
-        set: (bundle: MessagesObj) => { target = bundle; }, // keep target live
+        set: (bundle: MessagesObj) => { target = bundle; }, // live-update fallback
         configurable: true,
         enumerable: true,
     });
 
-    teardown.push(() => {
+    translationTeardown.push(() => {
         patchedMods.delete(mod);
         if (savedDesc) Object.defineProperty(mod, "Messages", savedDesc);
         else delete (mod as any).Messages;
     });
 }
 
-function applyMessagesOverlay() {
+function applyMessagesOverlay(): void {
     const seen = new Set<object>();
     for (const mod of [
         findByProps("Messages", "getLocale", "setLocale"),
@@ -205,7 +298,81 @@ function applyMessagesOverlay() {
     }
 }
 
-// ── Plugin ─────────────────────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════════════════════
+//  Translation activation / deactivation
+//  These functions are called both from start()/stop() and from the
+//  enableTranslations setting's onChange handler, making the toggle live.
+// ══════════════════════════════════════════════════════════════════════════
+
+function activateTranslations(): void {
+    if (translationActive) return;
+
+    const intl: any = (i18n as any).intl;
+    if (!intl?.setLocale) {
+        console.warn("[ALE] @discord/intl IntlManager not found — CSS+store-only mode");
+        return;
+    }
+
+    translationActive = true;
+    originalLocale = (intl.getLocale?.() as string | undefined) ?? "en-US";
+
+    // Layer 1: kill RTL at the metadata level before strings load
+    spoofLocaleInfo();
+
+    // Layer 2: make LocaleStore report "ar" so React components re-render
+    patchLocaleStore();
+
+    // Merge our custom dict every time Discord's Arabic bundle loads
+    const onLoad = () => applyMessagesOverlay();
+    FluxDispatcher.subscribe("I18N_LOAD_SUCCESS", onLoad);
+    translationTeardown.push(() =>
+        FluxDispatcher.unsubscribe("I18N_LOAD_SUCCESS", onLoad)
+    );
+
+    // Load Discord's native Arabic bundle, then fire I18N_LOAD_SUCCESS to
+    // wake all Flux-subscribed components. We do NOT dispatch
+    // USER_SETTINGS_UPDATE so the user's account locale is never modified.
+    const dispatchArabic = () =>
+        void FluxDispatcher.dispatch({ type: "I18N_LOAD_SUCCESS", locale: "ar" } as any);
+
+    const result: unknown = intl.setLocale("ar");
+    if (result instanceof Promise)
+        result.then(dispatchArabic).catch(e => console.error("[ALE] setLocale('ar'):", e));
+    else
+        dispatchArabic();
+
+    // Schedule locale revert for deactivation (pushed last → runs last)
+    translationTeardown.push(() => {
+        const revert: unknown = intl.setLocale(originalLocale);
+        const dispatchRevert = () =>
+            void FluxDispatcher.dispatch({ type: "I18N_LOAD_SUCCESS", locale: originalLocale } as any);
+        if (revert instanceof Promise)
+            revert.then(dispatchRevert).catch(() => {});
+        else
+            dispatchRevert();
+    });
+}
+
+function deactivateTranslations(): void {
+    if (!translationActive) return;
+    translationActive = false;
+
+    // Execution order of translationTeardown array:
+    //   1. getLocaleInfo restored       — direction checks return real values
+    //   2. LocaleStore.locale restored  — store shows original locale
+    //   3. LocaleStore.getLocale restored
+    //   4. Unsubscribe I18N_LOAD_SUCCESS — no dict overlay on English reload
+    //   5. Messages descriptor restored  — proxy removed before English writes
+    //   6. intl.setLocale(original)      — English bundle loaded into clean mod
+    //      + dispatch I18N_LOAD_SUCCESS(original) — components re-render English
+    for (const fn of translationTeardown) fn();
+    translationTeardown.length = 0;
+    patchedMods.clear();
+}
+
+// ══════════════════════════════════════════════════════════════════════════
+//  Plugin entry point
+// ══════════════════════════════════════════════════════════════════════════
 
 export default definePlugin({
     name: "ArabicLocalizationEngine",
@@ -214,64 +381,19 @@ export default definePlugin({
     settings,
 
     start() {
-        // Inject CSS + DOM guard first so layout is locked before any
-        // re-renders triggered by the locale switch can write dir=rtl.
+        // CSS and DOM guard go up first — they must be active before any
+        // locale-triggered re-renders can attempt to write dir="rtl".
         injectStyles();
         startHtmlDirGuard();
 
-        // Kill RTL at the metadata level before the locale loads
-        spoofLocaleInfo();
-
-        // Make LocaleStore report "ar" so Flux subscribers re-render
-        patchLocaleStore();
-
-        const intl: any = (i18n as any).intl;
-        if (!intl?.setLocale) {
-            console.warn("[ALE] @discord/intl IntlManager not found — CSS+store-only mode");
-            return;
-        }
-
-        const originalLocale: string = intl.getLocale?.() ?? "en-US";
-
-        // Merge our custom dict on every I18N_LOAD_SUCCESS
-        // (covers initial Arabic load and any subsequent forced reloads)
-        const onLoad = () => applyMessagesOverlay();
-        FluxDispatcher.subscribe("I18N_LOAD_SUCCESS", onLoad);
-        teardown.push(() => FluxDispatcher.unsubscribe("I18N_LOAD_SUCCESS", onLoad));
-
-        // Load Arabic strings via @discord/intl, then dispatch I18N_LOAD_SUCCESS
-        // to wake up all Flux-subscribed React components without touching the
-        // user's persisted locale setting (no USER_SETTINGS_UPDATE → no API call).
-        const dispatchArabic = () =>
-            FluxDispatcher.dispatch({ type: "I18N_LOAD_SUCCESS", locale: "ar" } as any);
-
-        const result = intl.setLocale("ar");
-        if (result instanceof Promise)
-            result.then(dispatchArabic).catch(e => console.error("[ALE] setLocale failed:", e));
-        else
-            dispatchArabic();
-
-        // Teardown: unsubscribe first (already pushed), then revert locale
-        teardown.push(() => {
-            const revert = intl.setLocale(originalLocale);
-            const dispatchRevert = () =>
-                FluxDispatcher.dispatch({ type: "I18N_LOAD_SUCCESS", locale: originalLocale } as any);
-            if (revert instanceof Promise) revert.then(dispatchRevert).catch(() => {});
-            else dispatchRevert();
-        });
+        if (settings.store.enableTranslations) activateTranslations();
     },
 
     stop() {
+        // Order: kill the DOM guard, remove styles, then cleanly unwind
+        // all translation patches (including locale revert).
         stopHtmlDirGuard();
         removeStyles();
-        // Teardown order (push order = execution order):
-        // 1. getLocaleInfo restored
-        // 2. LocaleStore.locale restored
-        // 3. LocaleStore.getLocale restored
-        // 4. Unsubscribe I18N_LOAD_SUCCESS (no overlay on English reload)
-        // 5. Revert locale + dispatch English I18N_LOAD_SUCCESS
-        for (const fn of teardown) fn();
-        teardown.length = 0;
-        patchedMods.clear();
+        deactivateTranslations();
     },
 });
