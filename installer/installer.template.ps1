@@ -122,8 +122,13 @@ public class GradientLabel : Control {
 public class GradientProgress : Control {
     private int _val;
     public int Progress {
-        get => _val;
-        set { _val = value < 0 ? 0 : (value > 100 ? 100 : value); Invalidate(); }
+        get { return _val; }
+        set {
+            if (value < 0) _val = 0;
+            else if (value > 100) _val = 100;
+            else _val = value;
+            Invalidate();
+        }
     }
     public Color TrackColor { get; set; }
     public Color FillStart  { get; set; }
