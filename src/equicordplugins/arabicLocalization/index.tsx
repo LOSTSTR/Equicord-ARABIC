@@ -5,6 +5,7 @@
  */
 
 import { definePluginSettings } from "@api/Settings";
+import { EquicordDevs } from "@utils/constants";
 import definePlugin, { OptionType } from "@utils/types";
 import { findByProps } from "@webpack";
 
@@ -128,7 +129,7 @@ function makeProxy(original: MessagesObj): MessagesObj {
 export default definePlugin({
     name: "ArabicLocalizationEngine",
     description: "تعريب واجهة Discord — RTL، خط عربي، وترجمة رسائل واجهة المستخدم",
-    authors: [{ name: "LOSTSTR", id: 0n }],
+    authors: [EquicordDevs.LOSTSTR],
     settings,
 
     start() {
