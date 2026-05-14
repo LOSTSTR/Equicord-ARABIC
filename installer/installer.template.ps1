@@ -360,6 +360,8 @@ function Uninstall-Mod {
 
 function Install-OpenAsar {
     param([string]$ResourcesPath, [scriptblock]$Status, [scriptblock]$Progress)
+    & $Status "إيقاف Discord..."; & $Progress 5
+    Stop-DiscordProcesses $ResourcesPath
     & $Status "جارٍ تنزيل OpenAsar..."; & $Progress 10
     $tmp = Join-Path ([System.IO.Path]::GetTempPath()) ("openasar_"+[guid]::NewGuid().ToString("N")+".asar")
     Invoke-Download "https://github.com/GooseMod/OpenAsar/releases/download/nightly/app.asar" $tmp {
@@ -368,7 +370,22 @@ function Install-OpenAsar {
     & $Status "نسخ OpenAsar..."; & $Progress 97
     Copy-Item $tmp (Join-Path $ResourcesPath "app.asar") -Force
     Remove-Item $tmp -EA SilentlyContinue
-    & $Progress 100; & $Status "تم تثبيت OpenAsar — أعد تشغيل Discord"
+    & $Progress 100; & $Status "تم تثبيت OpenAsar — شغّل Discord مرة أخرى"
+}
+
+function Confirm-DiscordStopped([string]$ResourcesPath) {
+    $discordDir = Split-Path (Split-Path $ResourcesPath -Parent) -Parent
+    $procName   = Split-Path $discordDir -Leaf
+    if (Get-Process -Name $procName -EA SilentlyContinue) {
+        $ans = [System.Windows.Forms.MessageBox]::Show(
+            "Discord يعمل حالياً وسيتم إغلاقه تلقائياً لإتمام العملية.`nهل تريد المتابعة؟",
+            "تنبيه — Discord قيد التشغيل",
+            [System.Windows.Forms.MessageBoxButtons]::YesNo,
+            [System.Windows.Forms.MessageBoxIcon]::Warning)
+        if ($ans -ne [System.Windows.Forms.DialogResult]::Yes) { return $false }
+        Stop-DiscordProcesses $ResourcesPath
+    }
+    return $true
 }
 
 # ═══════════════════════════════════════════════════════════════════
@@ -784,7 +801,9 @@ function Show-Installer {
     # ── Button events ─────────────────────────────────────────────
     $btnInstall.Add_Click({
         try {
-            $target = Get-Target; Set-Busy $true; Set-Progress 0
+            $target = Get-Target
+            if (-not (Confirm-DiscordStopped $target)) { return }
+            Set-Busy $true; Set-Progress 0
             Set-Status "جارٍ التثبيت..." $FG_WHITE
             Install-Mod $target { param($m) Set-Status $m $FG_WHITE } { param($p) Set-Progress $p }
             Set-Status "تم التثبيت — Discord يُعاد تشغيله تلقائياً" ([System.Drawing.Color]::FromArgb(87, 242, 135))
@@ -795,7 +814,9 @@ function Show-Installer {
 
     $btnRepair.Add_Click({
         try {
-            $target = Get-Target; Set-Busy $true; Set-Progress 0
+            $target = Get-Target
+            if (-not (Confirm-DiscordStopped $target)) { return }
+            Set-Busy $true; Set-Progress 0
             Set-Status "جارٍ إعادة التثبيت..." $FG_WHITE
             Install-Mod $target { param($m) Set-Status $m $FG_WHITE } { param($p) Set-Progress $p }
             Set-Status "تمت إعادة التثبيت — Discord يُعاد تشغيله تلقائياً" ([System.Drawing.Color]::FromArgb(87, 242, 135))
@@ -812,6 +833,7 @@ function Show-Installer {
                 [System.Windows.Forms.MessageBoxButtons]::YesNo,
                 [System.Windows.Forms.MessageBoxIcon]::Question)
             if ($ans -ne [System.Windows.Forms.DialogResult]::Yes) { return }
+            if (-not (Confirm-DiscordStopped $target)) { return }
             Set-Busy $true; Set-Progress 0
             Set-Status "جارٍ الإزالة..." $FG_WHITE
             Uninstall-Mod $target { param($m) Set-Status $m $FG_WHITE } { param($p) Set-Progress $p }
@@ -823,10 +845,12 @@ function Show-Installer {
 
     $btnOpenSar.Add_Click({
         try {
-            $target = Get-Target; Set-Busy $true; Set-Progress 0
+            $target = Get-Target
+            if (-not (Confirm-DiscordStopped $target)) { return }
+            Set-Busy $true; Set-Progress 0
             Set-Status "جارٍ تثبيت OpenAsar..." $FG_WHITE
             Install-OpenAsar $target { param($m) Set-Status $m $FG_WHITE } { param($p) Set-Progress $p }
-            Set-Status "تم تثبيت OpenAsar — أعد تشغيل Discord" ([System.Drawing.Color]::FromArgb(87, 242, 135))
+            Set-Status "تم تثبيت OpenAsar — شغّل Discord مرة أخرى" ([System.Drawing.Color]::FromArgb(87, 242, 135))
         } catch { Set-Status "خطأ: $_" ([System.Drawing.Color]::FromArgb(237, 66, 69)); Set-Progress 0 }
         finally  { Set-Busy $false }
     })

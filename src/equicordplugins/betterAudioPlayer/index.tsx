@@ -13,7 +13,6 @@ import definePlugin, { OptionType } from "@utils/types";
 import { ColorUtils, React, showToast, Toasts } from "@webpack/common";
 
 const cl = classNameFactory("vc-better-audio-player-");
-const CORS_PROXY = "https://cors.keiran0.workers.dev?url=";
 const MAX_FILE_SIZE = 12e6;
 
 interface PlayerInstance {
@@ -103,7 +102,9 @@ async function fetchAudioBlob(src: string): Promise<string | null> {
     const url = new URL(src);
     url.searchParams.set("t", Date.now().toString());
 
-    const response = await fetch(CORS_PROXY + encodeURIComponent(url.href));
+    const proxyBase = settings.store.corsProxy.trim();
+    const fetchUrl = proxyBase ? proxyBase + encodeURIComponent(url.href) : url.href;
+    const response = await fetch(fetchUrl);
     const contentLength = response.headers.get("content-length");
     if (contentLength && Number(contentLength) > MAX_FILE_SIZE) return null;
 
@@ -268,6 +269,11 @@ const settings = definePluginSettings({
         description: "لون عارض الطيف الصوتي (R, G, B أو #hex).",
         default: "33, 150, 243",
         onChange: value => validateColor(value, "spectrographColor", "33, 150, 243"),
+    },
+    corsProxy: {
+        type: OptionType.STRING,
+        description: "عنوان CORS proxy لتشغيل الصوت. اتركه فارغاً لتعطيل الـ proxy.",
+        default: "https://cors.keiran0.workers.dev?url=",
     },
 });
 

@@ -169,6 +169,8 @@ async function updateData() {
     }
 }
 
+let rpcStatsInterval: ReturnType<typeof setInterval> | null = null;
+
 export default definePlugin({
     name: "RPCStats",
     description: "يعرض إحصائيات نشاطك كـ RPC",
@@ -177,14 +179,17 @@ export default definePlugin({
     async start() {
         updateData();
 
-        setInterval(() => {
+        rpcStatsInterval = setInterval(() => {
             checkForNewDay();
             updateData();
         }, 1000);
-
     },
     settings,
     stop() {
+        if (rpcStatsInterval !== null) {
+            clearInterval(rpcStatsInterval);
+            rpcStatsInterval = null;
+        }
         setRpc(true);
     },
     flux:
