@@ -60,33 +60,32 @@ export function ScreenSharePreviewImageModal({ modalProps, close }: { modalProps
     return (
         <ModalRoot {...modalProps} size={ModalSize.SMALL}>
             <ModalHeader>
-                <Text variant="heading-lg/semibold" style={{ flexGrow: 1 }}>Screen Share Preview</Text>
-                <ModalCloseButton onClick={close}/>
+                <Text variant="heading-lg/semibold" style={{ flexGrow: 1 }}>معاينة مشاركة الشاشة</Text>
+                <ModalCloseButton onClick={close} />
             </ModalHeader>
 
             <ModalContent>
                 <Forms.FormText>
-                    Select an image to use it as your screen share preview.
+                    اختر صورة لاستخدامها كمعاينة لمشاركة شاشتك.
                 </Forms.FormText>
 
-                <br/>
+                <br />
 
                 <Forms.FormText>
-                    NOTE: Important to enable "Hide stream preview" in the stream settings.
-                    Otherwise, the custom stream preview will not be shown.
+                    ملاحظة: يجب تفعيل "إخفاء معاينة البث" في إعدادات البث، وإلا لن تظهر الصورة المخصصة.
                 </Forms.FormText>
 
-                <br/>
+                <br />
 
                 <Forms.FormText>
-                    NOTE: Stream preview images can be updated only once every 60 seconds. This is a Discord limitation.
+                    ملاحظة: يمكن تحديث صورة المعاينة مرة واحدة كل 60 ثانية كحد أقصى (قيد Discord).
                 </Forms.FormText>
 
                 <Button
                     style={{ marginTop: "1rem", marginBottom: "1rem" }}
                     onClick={uploadImageButtonOnClick}
                 >
-                    Select Image
+                    اختيار صورة
                 </Button>
                 <input
                     id="screen-share-preview-image-upload"
@@ -98,11 +97,11 @@ export function ScreenSharePreviewImageModal({ modalProps, close }: { modalProps
 
                 {previewImage && (
                     <>
-                        <Forms.FormDivider style={{ marginTop: "1rem", marginBottom: "1rem" }}/>
+                        <Forms.FormDivider style={{ marginTop: "1rem", marginBottom: "1rem" }} />
 
                         <img
                             src={previewImage}
-                            alt="Preview"
+                            alt="معاينة"
                             style={{ marginTop: "1rem", marginBottom: "1rem", maxWidth: "100%" }}
                         />
                     </>
@@ -117,7 +116,7 @@ export function ScreenSharePreviewImageModal({ modalProps, close }: { modalProps
                             color={Button.Colors.RED}
                             onClick={stopReUploadPreviewButtonOnClick}
                         >
-                            Stop Re-Uploading Preview
+                            إيقاف إعادة إرسال المعاينة
                         </Button>
                     )}
 
@@ -126,7 +125,7 @@ export function ScreenSharePreviewImageModal({ modalProps, close }: { modalProps
                         disabled={uploadButtonDisabled}
                         onClick={uploadButtonOnClick}
                     >
-                        Upload
+                        رفع
                     </Button>
                 </Flex>
             </ModalFooter>

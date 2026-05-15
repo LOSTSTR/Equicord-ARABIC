@@ -4,17 +4,22 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
+import { findByPropsLazy } from "@webpack";
 import { ChannelStore, SelectedChannelStore, UserStore } from "@webpack/common";
 
 import { CustomStreamPreviewState } from "./state";
 import { StreamKey } from "./types";
 
 
-const ChannelTypesMap = {
+const ChannelTypesMap: Record<number, string> = {
     1: "call",
     2: "guild",
     3: "call",
 };
+
+const TokenModule = findByPropsLazy("getToken");
+const SuperPropsModule = findByPropsLazy("getSuperProperties");
+const LocaleModule = findByPropsLazy("getLocale");
 
 export const localConsole = {
     ...console,
@@ -53,8 +58,15 @@ export const parseStreamKey = (streamKey: string): StreamKey => {
     throw new Error("Failed to parse streamKey.");
 };
 
+const buildStreamKey = (channelType: string, guildId: string | null | undefined, channelId: string, userId: string): string => {
+    if (channelType === "guild" && guildId) {
+        return `${channelType}%3A${guildId}%3A${channelId}%3A${userId}`;
+    }
+    return `${channelType}%3A${channelId}%3A${userId}`;
+};
+
 const uploadStreamPreview = async (image: string): Promise<void> => {
-    const uploadPreview = async (interval?: NodeJS.Timeout): Promise<void> => {
+    const uploadPreview = async (interval?: ReturnType<typeof setInterval>): Promise<void> => {
         const channelId = SelectedChannelStore.getVoiceChannelId();
         if (!channelId) {
             if (interval) {
@@ -76,11 +88,11 @@ const uploadStreamPreview = async (image: string): Promise<void> => {
         }
 
         const userId = UserStore.getCurrentUser().id;
-        const guildId = channel.getGuildId();
+        const guildId = channel.getGuildId?.() ?? null;
 
-        const token = Vencord.Webpack.findByProps("getToken").getToken();
-        const superProps = Vencord.Webpack.findByProps("getSuperProperties").getSuperPropertiesBase64();
-        const locale = Vencord.Webpack.findByProps("getLocale")?.getLocale?.();
+        const token: string | undefined = TokenModule?.getToken?.();
+        const superProps: string | undefined = SuperPropsModule?.getSuperPropertiesBase64?.();
+        const locale: string | undefined = LocaleModule?.getLocale?.();
         const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
         if (!token || !superProps || !locale || !timezone) {
@@ -94,7 +106,7 @@ const uploadStreamPreview = async (image: string): Promise<void> => {
 
         localConsole.log("Sending stream preview...");
 
-        const streamKey = `${channelType}%3A${guildId}%3A${channelId}%3A${userId}`;
+        const streamKey = buildStreamKey(channelType, guildId, channelId, userId);
 
         try {
             await fetch(`https://discord.com/api/v9/streams/${streamKey}/preview`, {
@@ -116,7 +128,7 @@ const uploadStreamPreview = async (image: string): Promise<void> => {
                 lastStreamPreviewSend: Date.now(),
             });
 
-            localConsole.log("Successfully send stream preview.");
+            localConsole.log("Successfully sent stream preview.");
         } catch (error) {
             localConsole.error("Failed to upload stream preview.", error);
         }
@@ -139,8 +151,7 @@ export const sendCustomPreview = async (image: string): Promise<void> => {
 
     const { lastStreamPreviewSend } = CustomStreamPreviewState.getState();
 
-    // If a preview was manually uploaded within the last 70 seconds,
-    // delay the next upload to avoid sending too frequently.
+    // Discord limits preview updates to once every 60s; add a buffer of 10s
     const waitUntilSending = Math.max(lastStreamPreviewSend + 70_000 - Date.now(), 0);
     setTimeout(
         () => uploadStreamPreview(image),
@@ -172,12 +183,6 @@ export const stopSendingScreenSharePreview = (): void => {
  *   - Image resized to 454x256 with a 16:9 aspect ratio.
  *   - JPEG quality reduced to 10%.
  *   - Encoded as base64 image/jpeg.
- *
- * @param file
- *   The image file to convert.
- *
- * @return string
- *   base64-encoded JPEG string.
  */
 export const imageFileToStreamPreview = (file: File): Promise<string> => {
     return new Promise((resolve, reject) => {
@@ -235,4 +240,3 @@ export const imageFileToStreamPreview = (file: File): Promise<string> => {
         reader.readAsDataURL(file);
     });
 };
-
