@@ -153,25 +153,31 @@ export const sendCustomPreview = async (image: string): Promise<void> => {
 
     // Discord limits preview updates to once every 60s; add a buffer of 10s
     const waitUntilSending = Math.max(lastStreamPreviewSend + 70_000 - Date.now(), 0);
-    setTimeout(
+    const timeoutId = setTimeout(
         () => uploadStreamPreview(image),
         waitUntilSending
     );
+    CustomStreamPreviewState.setState({ pendingPreviewTimeoutId: timeoutId as unknown as number });
 };
 
 export const stopSendingScreenSharePreview = (): void => {
-    const { resendStreamPreviewIntervalId } = CustomStreamPreviewState.getState();
+    const { resendStreamPreviewIntervalId, pendingPreviewTimeoutId } = CustomStreamPreviewState.getState();
 
     CustomStreamPreviewState.setState({
         isSendingCustomStreamPreview: false,
     });
+
+    if (pendingPreviewTimeoutId !== null) {
+        clearTimeout(pendingPreviewTimeoutId);
+        CustomStreamPreviewState.setState({ pendingPreviewTimeoutId: null });
+        localConsole.log("Cleared pending preview upload timeout.");
+    }
 
     if (resendStreamPreviewIntervalId) {
         clearInterval(resendStreamPreviewIntervalId);
         CustomStreamPreviewState.setState({
             resendStreamPreviewIntervalId: null,
         });
-
         localConsole.log("Cleared stream preview upload interval.");
     }
 };

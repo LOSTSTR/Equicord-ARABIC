@@ -48,7 +48,12 @@ export async function clearLogs(showToast = true) {
 
 let oldGetMessage: typeof MessageStore.getMessage;
 
-const handledMessageIds = new Set();
+const handledMessageIds = new Set<string>();
+// Defensive ceiling: entries are always deleted in `finally`, but if something
+// goes wrong (e.g. an unhandled rejection escaping the try block in a future
+// refactor), this prevents unbounded heap growth.
+const HANDLED_IDS_MAX = 500;
+
 async function messageDeleteHandler(payload: MessageDeletePayload & { isBulk: boolean; }) {
     if (payload.mlDeleted) {
         if (settings.store.permanentlyRemoveLogByDefault)
@@ -59,6 +64,10 @@ async function messageDeleteHandler(payload: MessageDeletePayload & { isBulk: bo
 
     if (handledMessageIds.has(payload.id)) {
         return;
+    }
+
+    if (handledMessageIds.size >= HANDLED_IDS_MAX) {
+        handledMessageIds.clear();
     }
 
     try {

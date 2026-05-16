@@ -172,7 +172,7 @@ function SpotifySeekBar() {
         if (isPlaying && !isSettingPosition) {
             setPosition(SpotifyStore.position);
             const interval = setInterval(() => {
-                setPosition(p => p + 1000);
+                if (!document.hidden) setPosition(p => p + 1000);
             }, 1000);
 
             return () => clearInterval(interval);

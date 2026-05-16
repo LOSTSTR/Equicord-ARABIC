@@ -163,7 +163,6 @@ async function updateData() {
             if (lastFMDataJson == null) return;
 
             const lastFMData = JSON.parse(lastFMDataJson);
-            console.log(lastFMData);
             setRpc(false, settings.store.lastFMStatFormat.replace("$album", lastFMData.albumName).replace("$artist", lastFMData.artistName), lastFMData?.albumCoverUrl);
             break;
     }

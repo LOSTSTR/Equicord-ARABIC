@@ -9,6 +9,7 @@ type StreamingState = {
     isSendingCustomStreamPreview: boolean;
     lastStreamPreviewSend: number;
     resendStreamPreviewIntervalId: number | null;
+    pendingPreviewTimeoutId: number | null;
 };
 
 type Listener<T> = (value: T) => void;
@@ -19,6 +20,7 @@ class CustomStreamPreviewStateManager {
         isSendingCustomStreamPreview: false,
         lastStreamPreviewSend: 0,
         resendStreamPreviewIntervalId: null,
+        pendingPreviewTimeoutId: null,
     };
 
     private listeners = new Set<() => void>();
@@ -111,6 +113,7 @@ class CustomStreamPreviewStateManager {
             isSendingCustomStreamPreview: false,
             lastStreamPreviewSend: 0,
             resendStreamPreviewIntervalId: null,
+            pendingPreviewTimeoutId: null,
         });
     }
 

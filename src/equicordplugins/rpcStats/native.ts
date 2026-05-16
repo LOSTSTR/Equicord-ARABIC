@@ -19,7 +19,7 @@ interface TopAlbumsResponse {
 export async function fetchTopAlbum(_, args) {
     const { apiKey, user, period } = args;
 
-    const url = `http://ws.audioscrobbler.com/2.0/?method=user.getTopAlbums&user=${user}&api_key=${apiKey}&period=${period}&format=json&limit=1`;
+    const url = `https://ws.audioscrobbler.com/2.0/?method=user.getTopAlbums&user=${user}&api_key=${apiKey}&period=${period}&format=json&limit=1`;
 
     const response = await fetch(url);
     const data: TopAlbumsResponse = await response.json();
