@@ -25,7 +25,6 @@ import { BaseText } from "@components/BaseText";
 import { Button } from "@components/Button";
 import ErrorBoundary from "@components/ErrorBoundary";
 import { Flex } from "@components/Flex";
-import { Heading } from "@components/Heading";
 import { Paragraph } from "@components/Paragraph";
 import { debounce } from "@shared/debounce";
 import { gitRemote } from "@shared/vencordUserAgent";
@@ -189,7 +188,7 @@ export default function PluginModal({ plugin, onRestartNeeded, onClose, transiti
             subtitle={
                 <div className={cl("info")}>
                     <div>
-                        <Heading tag="h5">{plugin.description}</Heading>
+                        <Paragraph size="md">{plugin.description}</Paragraph>
                         {!!plugin.tags?.length && <PluginTags tags={plugin.tags} />}
                     </div>
                 </div>
@@ -228,40 +227,40 @@ export default function PluginModal({ plugin, onRestartNeeded, onClose, transiti
                     <BaseText size="lg" weight="semibold" color="text-strong" className={classes(Margins.top16, Margins.bottom8)}>Settings</BaseText>
                     {renderSettings()}
                 </section>
-                <div>
-                    <Flex flexDirection="column" style={{ width: "100%" }}>
-                        <Flex style={{ justifyContent: "space-between", alignItems: "center" }}>
-                            {hasSettings ? (
-                                <Tooltip text="Reset to default settings" shouldShow={!isObjectEmpty(pluginSettings)}>
-                                    {({ onMouseEnter, onMouseLeave }) => (
-                                        <Button
-                                            className={cl("disable-warning")}
-                                            size="small"
-                                            variant="primary"
-                                            onClick={handleResetClick}
-                                            onMouseEnter={onMouseEnter}
-                                            onMouseLeave={onMouseLeave}
-                                        >
-                                            Reset
-                                        </Button>
-                                    )}
-                                </Tooltip>
-                            ) : <div />}
-                            {!pluginMeta.userPlugin && (
-                                <div className={cl("links")}>
-                                    <WebsiteButton
-                                        text="Website"
-                                        href={isEquicordPlugin ? `https://equicord.org/plugins/${plugin.name}` : `https://vencord.dev/plugins/${plugin.name}`}
-                                    />
-                                    <GithubButton
-                                        text="Source Code"
-                                        href={`https://github.com/${gitRemote}/tree/main/${pluginMeta.folderName}`}
-                                    />
-                                </div>
-                            )}
-                        </Flex>
+            </div>
+            <div>
+                <Flex flexDirection="column" style={{ width: "100%" }}>
+                    <Flex style={{ justifyContent: "space-between", alignItems: "center" }}>
+                        {hasSettings ? (
+                            <Tooltip text="Reset to default settings" shouldShow={!isObjectEmpty(pluginSettings)}>
+                                {({ onMouseEnter, onMouseLeave }) => (
+                                    <Button
+                                        className={cl("disable-warning")}
+                                        size="small"
+                                        variant="primary"
+                                        onClick={handleResetClick}
+                                        onMouseEnter={onMouseEnter}
+                                        onMouseLeave={onMouseLeave}
+                                    >
+                                        Reset
+                                    </Button>
+                                )}
+                            </Tooltip>
+                        ) : <div />}
+                        {!pluginMeta.userPlugin && (
+                            <div className={cl("links")}>
+                                <WebsiteButton
+                                    text="Website"
+                                    href={isEquicordPlugin ? `https://equicord.org/plugins/${plugin.name}` : `https://vencord.dev/plugins/${plugin.name}`}
+                                />
+                                <GithubButton
+                                    text="Source Code"
+                                    href={`https://github.com/${gitRemote}/tree/main/${pluginMeta.folderName}`}
+                                />
+                            </div>
+                        )}
                     </Flex>
-                </div>
+                </Flex>
             </div>
         </Modal >
     );

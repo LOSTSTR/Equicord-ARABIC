@@ -1,7 +1,6 @@
 .vc-plugin-modal-header {
     align-items: flex-start;
     position: relative;
-    padding: 16px 16px 0 24px;
 }
 
 .vc-plugin-modal-header-content {
@@ -57,7 +56,10 @@
 
 .vc-settings-modal-content {
     padding-bottom: 24px;
-    display: flex;
+}
+
+div:has(.vc-settings-modal-content) [class*="bodySpacerTop"] {
+    display: none;
 }
 
 .vc-plugin-modal-info {
