@@ -7,7 +7,7 @@
 import { Settings } from "@api/Settings";
 
 export function isArabicMode(): boolean {
-    return (Settings.plugins as any)?.Settings?.arabicMode ?? true;
+    return (Settings.plugins as any)?.Settings?.arabicMode ?? false;
 }
 
 /**

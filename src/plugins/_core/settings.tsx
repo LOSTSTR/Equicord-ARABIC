@@ -99,7 +99,7 @@ const settings = definePluginSettings({
     arabicMode: {
         type: OptionType.BOOLEAN,
         description: "Arabic Mode / وضع اللغة العربية — Show plugin names and descriptions in Arabic. Disable to switch to English.",
-        default: true,
+        default: false,
         restartNeeded: false,
     },
     settingsLocation: {

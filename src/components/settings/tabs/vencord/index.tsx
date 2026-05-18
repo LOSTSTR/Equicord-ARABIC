@@ -8,7 +8,7 @@ import "./VencordTab.css";
 
 import { openNotificationLogModal } from "@api/Notifications/notificationLog";
 import { plugins } from "@api/PluginManager";
-import { useSettings } from "@api/Settings";
+import { Settings, useSettings } from "@api/Settings";
 import { Button } from "@components/Button";
 import { Divider } from "@components/Divider";
 import { Flex } from "@components/Flex";
@@ -24,6 +24,7 @@ import BadgeAPI from "@plugins/_api/badges";
 import { gitRemote } from "@shared/vencordUserAgent";
 import { DONOR_ROLE_ID, GUILD_ID, IS_MAC, IS_WINDOWS, VC_DONOR_ROLE_ID, VC_GUILD_ID } from "@utils/constants";
 import { classNameFactory } from "@utils/css";
+import { t } from "@utils/esharqI18n";
 import { Margins } from "@utils/margins";
 import { identity, isAnyPluginDev } from "@utils/misc";
 import { relaunch } from "@utils/native";
@@ -49,6 +50,9 @@ type KeysOfType<Object, Type> = {
 
 function EquicordSettings() {
     const settings = useSettings();
+    useSettings(["plugins.Settings.arabicMode"]);
+
+    const arabicMode: boolean = (Settings.plugins as any)?.Settings?.arabicMode ?? false;
 
     const donateImage = React.useMemo(
         () => (Math.random() > 0.5 ? DEFAULT_DONATE_IMAGE : SHIGGY_DONATE_IMAGE),
@@ -69,54 +73,87 @@ function EquicordSettings() {
         = [
             {
                 key: "useQuickCss",
-                title: "تفعيل CSS المخصص",
-                description: "تحميل CSS مخصص من محرر QuickCSS.",
+                title: t("تفعيل CSS المخصص", "Enable Custom CSS"),
+                description: t(
+                    "تحميل CSS مخصص من محرر QuickCSS.",
+                    "Load custom CSS from the QuickCSS editor."
+                ),
             },
             !IS_WEB && {
                 key: "enableReactDevtools",
-                title: "تفعيل أدوات مطوري React",
-                description: "تفعيل امتداد أدوات مطوري React لتصحيح مكونات React في ديسكورد.",
+                title: t("تفعيل أدوات مطوري React", "Enable React DevTools"),
+                description: t(
+                    "تفعيل امتداد أدوات مطوري React لتصحيح مكونات React في ديسكورد.",
+                    "Enable the React DevTools extension to debug React components in Discord."
+                ),
                 restartRequired: true,
             },
             (!IS_WEB && !IS_DISCORD_DESKTOP || !IS_WINDOWS) && {
                 key: "mainWindowFrameless",
-                title: "تعطيل إطار النافذة الرئيسية",
-                description: "إزالة إطار النافذة الأصلي للحصول على مظهر أنظف. يمكنك تحريك النافذة بسحب منطقة شريط العنوان.",
+                title: t("تعطيل إطار النافذة الرئيسية", "Disable Main Window Frame"),
+                description: t(
+                    "إزالة إطار النافذة الأصلي للحصول على مظهر أنظف. يمكنك تحريك النافذة بسحب منطقة شريط العنوان.",
+                    "Remove the native window frame for a cleaner look. You can move the window by dragging the title bar area."
+                ),
                 restartRequired: true,
             },
             !IS_WEB && (!IS_DISCORD_DESKTOP || !IS_WINDOWS
                 ? {
                     key: "frameless",
-                    title: "تعطيل جميع إطارات النوافذ",
-                    description: "إزالة إطار النافذة الأصلي للحصول على مظهر أنظف. يمكنك تحريك النافذة بسحب منطقة شريط العنوان.",
+                    title: t("تعطيل جميع إطارات النوافذ", "Disable All Window Frames"),
+                    description: t(
+                        "إزالة إطار النافذة الأصلي للحصول على مظهر أنظف. يمكنك تحريك النافذة بسحب منطقة شريط العنوان.",
+                        "Remove the native window frame for a cleaner look. You can move the window by dragging the title bar area."
+                    ),
                     restartRequired: true,
                 }
                 : {
                     key: "winNativeTitleBar",
-                    title: "استخدام شريط العنوان الأصلي لويندوز بدلاً من شريط ديسكورد المخصص",
-                    description: "استبدال شريط عنوان ديسكورد المخصص بشريط عنوان ويندوز القياسي.",
+                    title: t(
+                        "استخدام شريط العنوان الأصلي لويندوز بدلاً من شريط ديسكورد المخصص",
+                        "Use Native Windows Title Bar Instead of Discord's Custom Bar"
+                    ),
+                    description: t(
+                        "استبدال شريط عنوان ديسكورد المخصص بشريط عنوان ويندوز القياسي.",
+                        "Replace Discord's custom title bar with the standard Windows title bar."
+                    ),
                     restartRequired: true,
                 }
             ),
             !IS_WEB && {
                 key: "transparent",
-                title: "تفعيل شفافية النافذة",
-                description: "جعل نافذة ديسكورد شفافة. يتطلب قالباً يدعم الشفافية وإلا لن يكون له أي أثر.",
+                title: t("تفعيل شفافية النافذة", "Enable Window Transparency"),
+                description: t(
+                    "جعل نافذة ديسكورد شفافة. يتطلب قالباً يدعم الشفافية وإلا لن يكون له أي أثر.",
+                    "Make the Discord window transparent. Requires a theme that supports transparency, otherwise it has no effect."
+                ),
                 restartRequired: true,
                 warning: IS_WINDOWS
-                    ? "سيوقف هذا إمكانية تغيير حجم النافذة ويمنعك من تثبيتها على حواف الشاشة."
-                    : "سيوقف هذا إمكانية تغيير حجم النافذة.",
+                    ? t(
+                        "سيوقف هذا إمكانية تغيير حجم النافذة ويمنعك من تثبيتها على حواف الشاشة.",
+                        "This will prevent resizing the window and snapping it to screen edges."
+                    )
+                    : t(
+                        "سيوقف هذا إمكانية تغيير حجم النافذة.",
+                        "This will prevent resizing the window."
+                    ),
             },
             IS_DISCORD_DESKTOP && {
                 key: "disableMinSize",
-                title: "تعطيل الحجم الأدنى للنافذة",
-                description: "السماح بتصغير نافذة ديسكورد إلى أقل من حجمها الافتراضي الأدنى. مفيد لمديري النوافذ المبلطة والشاشات الصغيرة.",
+                title: t("تعطيل الحجم الأدنى للنافذة", "Disable Minimum Window Size"),
+                description: t(
+                    "السماح بتصغير نافذة ديسكورد إلى أقل من حجمها الافتراضي الأدنى. مفيد لمديري النوافذ المبلطة والشاشات الصغيرة.",
+                    "Allow the Discord window to be resized below its default minimum size. Useful for tiling window managers and small screens."
+                ),
                 restartRequired: true,
             },
             !IS_WEB && IS_WINDOWS && {
                 key: "winCtrlQ",
-                title: "تسجيل Ctrl+Q كاختصار لإغلاق ديسكورد",
-                description: "إضافة Ctrl+Q كاختصار لوحة مفاتيح لإغلاق ديسكورد. يوفر بديلاً لـ Alt+F4 لإغلاق التطبيق بسرعة.",
+                title: t("تسجيل Ctrl+Q كاختصار لإغلاق ديسكورد", "Register Ctrl+Q as Discord Close Shortcut"),
+                description: t(
+                    "إضافة Ctrl+Q كاختصار لوحة مفاتيح لإغلاق ديسكورد. يوفر بديلاً لـ Alt+F4 لإغلاق التطبيق بسرعة.",
+                    "Add Ctrl+Q as a keyboard shortcut to close Discord. Provides an alternative to Alt+F4 for quickly closing the app."
+                ),
                 restartRequired: true,
             },
         ];
@@ -125,14 +162,23 @@ function EquicordSettings() {
         <SettingsTab>
             {(isEquicordDonor(user?.id) || isVencordDonor(user?.id)) ? (
                 <SpecialCard
-                    title="التبرعات"
-                    subtitle="شكراً لتبرعك!"
+                    title={t("التبرعات", "Donations")}
+                    subtitle={t("شكراً لتبرعك!", "Thank you for donating!")}
                     description={
                         isEquicordDonor(user?.id) && isVencordDonor(user?.id)
-                            ? "يرى جميع مستخدمي Vencord شارة متبرع Vencord، ويرى مستخدمو Equicord شارة متبرع Equicord. لتغيير شارتك في Vencord تواصل مع @vending.machine، ولشارة Equicord افتح تذكرة في سيرفر Equicord."
+                            ? t(
+                                "يرى جميع مستخدمي Vencord شارة متبرع Vencord، ويرى مستخدمو Equicord شارة متبرع Equicord. لتغيير شارتك في Vencord تواصل مع @vending.machine، ولشارة Equicord افتح تذكرة في سيرفر Equicord.",
+                                "All Vencord users see a Vencord donor badge, and Equicord users see an Equicord donor badge. To change your Vencord badge contact @vending.machine, and for the Equicord badge open a ticket in the Equicord server."
+                            )
                             : isVencordDonor(user?.id)
-                                ? "يرى جميع مستخدمي Vencord شارتك! يمكنك إدارة مزاياك عبر مراسلة @vending.machine."
-                                : "يرى جميع مستخدمي Equicord شارتك! يمكنك إدارة مزاياك عبر فتح تذكرة في سيرفر Equicord."
+                                ? t(
+                                    "يرى جميع مستخدمي Vencord شارتك! يمكنك إدارة مزاياك عبر مراسلة @vending.machine.",
+                                    "All Vencord users can see your badge! You can manage your perks by messaging @vending.machine."
+                                )
+                                : t(
+                                    "يرى جميع مستخدمي Equicord شارتك! يمكنك إدارة مزاياك عبر فتح تذكرة في سيرفر Equicord.",
+                                    "All Equicord users can see your badge! You can manage your perks by opening a ticket in the Equicord server."
+                                )
                     }
                     cardImage={VENNIE_DONATOR_IMAGE}
                     backgroundImage={DONOR_BACKGROUND_IMAGE}
@@ -142,8 +188,11 @@ function EquicordSettings() {
                 </SpecialCard>
             ) : (
                 <SpecialCard
-                    title="ادعم المشروع"
-                    description="يسعدنا دعمك لتطوير Equicord من خلال التبرع!"
+                    title={t("ادعم المشروع", "Support the Project")}
+                    description={t(
+                        "يسعدنا دعمك لتطوير Equicord من خلال التبرع!",
+                        "Support Equicord development by donating!"
+                    )}
                     cardImage={donateImage}
                     backgroundImage={DONOR_BACKGROUND_IMAGE}
                     backgroundColor="#c3a3ce"
@@ -153,9 +202,12 @@ function EquicordSettings() {
             )}
             {isAnyPluginDev(user?.id) && (
                 <SpecialCard
-                    title="المساهمات"
-                    subtitle="شكراً لمساهمتك!"
-                    description="بفضل مساهمتك في Equicord، حصلت على شارة مميزة!"
+                    title={t("المساهمات", "Contributions")}
+                    subtitle={t("شكراً لمساهمتك!", "Thank you for contributing!")}
+                    description={t(
+                        "بفضل مساهمتك في Equicord، حصلت على شارة مميزة!",
+                        "As a contributor to Equicord, you earned a special badge!"
+                    )}
                     cardImage={COZY_CONTRIB_IMAGE}
                     backgroundImage={CONTRIB_BACKGROUND_IMAGE}
                     backgroundColor="#EDCC87"
@@ -168,44 +220,47 @@ function EquicordSettings() {
                         className="vc-contrib-button"
                     >
                         <GithubIcon aria-hidden fill={"#000000"} className={"vc-contrib-github"} />
-                        عرض مساهماتك
+                        {t("عرض مساهماتك", "View your contributions")}
                     </Button>
                 </SpecialCard>
             )}
 
-            <Heading className={Margins.top16}>إجراءات سريعة</Heading>
+            <Heading className={Margins.top16}>{t("إجراءات سريعة", "Quick Actions")}</Heading>
             <Paragraph className={Margins.bottom16}>
-                إجراءات شائعة الاستخدام. توفر هذه الاختصارات وصولاً سريعاً للميزات الأكثر استخداماً دون التنقل عبر القوائم.
+                {t(
+                    "إجراءات شائعة الاستخدام. توفر هذه الاختصارات وصولاً سريعاً للميزات الأكثر استخداماً دون التنقل عبر القوائم.",
+                    "Common actions. These shortcuts provide quick access to the most used features without navigating through menus."
+                )}
             </Paragraph>
 
             <QuickActionCard>
                 <QuickAction
                     Icon={LogIcon}
-                    text="سجل الإشعارات"
+                    text={t("سجل الإشعارات", "Notification Log")}
                     action={openNotificationLogModal}
                 />
                 <QuickAction
                     Icon={PaintbrushIcon}
-                    text="تعديل QuickCSS"
+                    text={t("تعديل QuickCSS", "Edit QuickCSS")}
                     action={() => VencordNative.quickCss.openEditor()}
                 />
                 {!IS_WEB && (
                     <QuickAction
                         Icon={RestartIcon}
-                        text="إعادة تشغيل ديسكورد"
+                        text={t("إعادة تشغيل ديسكورد", "Restart Discord")}
                         action={relaunch}
                     />
                 )}
                 {!IS_WEB && (
                     <QuickAction
                         Icon={FolderIcon}
-                        text="فتح مجلد الإعدادات"
+                        text={t("فتح مجلد الإعدادات", "Open Settings Folder")}
                         action={() => VencordNative.settings.openFolder()}
                     />
                 )}
                 <QuickAction
                     Icon={GithubIcon}
-                    text="عرض الكود المصدري"
+                    text={t("عرض الكود المصدري", "View Source Code")}
                     action={() =>
                         VencordNative.native.openExternal(
                             "https://github.com/" + gitRemote,
@@ -216,20 +271,39 @@ function EquicordSettings() {
 
             <Divider className={Margins.top20} />
 
-            <Heading className={Margins.top20}>إعدادات العميل</Heading>
+            <Heading className={Margins.top20}>{t("إعدادات العميل", "Client Settings")}</Heading>
             <Paragraph className={Margins.bottom16}>
-                اضبط كيفية عمل Equicord مع ديسكورد. تؤثر هذه الإعدادات على مظهر وسلوك تطبيق ديسكورد.
+                {t(
+                    "اضبط كيفية عمل Equicord مع ديسكورد. تؤثر هذه الإعدادات على مظهر وسلوك تطبيق ديسكورد.",
+                    "Configure how Equicord works with Discord. These settings affect the appearance and behavior of the Discord app."
+                )}
             </Paragraph>
             <Notice.Info className={Margins.bottom20} style={{ width: "100%" }}>
-                يمكنك تخصيص موضع قسم الإعدادات هذا في قائمة إعدادات ديسكورد عبر{" "}
+                {t(
+                    "يمكنك تخصيص موضع قسم الإعدادات هذا في قائمة إعدادات ديسكورد عبر ",
+                    "You can customize the position of this settings section in Discord settings via "
+                )}
                 <a
                     role="button"
                     onClick={() => openPluginModal(plugins.Settings)}
                     style={{ cursor: "pointer", color: "var(--text-link)" }}
                 >
-                    إضافة الإعدادات
+                    {t("إضافة الإعدادات", "the Settings plugin")}
                 </a>.
             </Notice.Info>
+
+            <FormSwitch
+                value={arabicMode}
+                onChange={v => {
+                    (Settings.plugins as any).Settings.arabicMode = v;
+                }}
+                title="وضع اللغة العربية / Arabic Mode"
+                description={t(
+                    "تفعيل أسماء ووصف الإضافات وإعدادات Esharq باللغة العربية.",
+                    "Enable Arabic names, descriptions, and settings for plugins and the Esharq panel."
+                )}
+                hideBorder
+            />
 
             {Switches.filter((s): s is Exclude<typeof s, false> => !!s).map(
                 s => (
@@ -241,10 +315,13 @@ function EquicordSettings() {
 
                             if (s.restartRequired) {
                                 Alerts.show({
-                                    title: "إعادة تشغيل مطلوبة",
-                                    body: "يلزم إعادة تشغيل ديسكورد لتطبيق هذا التغيير",
-                                    confirmText: "إعادة التشغيل الآن",
-                                    cancelText: "لاحقاً",
+                                    title: t("إعادة تشغيل مطلوبة", "Restart Required"),
+                                    body: t(
+                                        "يلزم إعادة تشغيل ديسكورد لتطبيق هذا التغيير",
+                                        "A Discord restart is required to apply this change"
+                                    ),
+                                    confirmText: t("إعادة التشغيل الآن", "Restart Now"),
+                                    cancelText: t("لاحقاً", "Later"),
                                     onConfirm: relaunch
                                 });
                             }
@@ -271,65 +348,67 @@ function EquicordSettings() {
                 <>
                     <Divider className={Margins.top20} />
 
-                    <Heading className={Margins.top20}>شفافية النافذة</Heading>
+                    <Heading className={Margins.top20}>{t("شفافية النافذة", "Window Vibrancy")}</Heading>
                     <Paragraph className={Margins.bottom16}>
-                        خصّص تأثير شفافية نافذة macOS. يتحكم هذا الإعداد في نمط الضبابية والشفافية لنافذة ديسكورد. تستلزم التغييرات إعادة تشغيل لتصبح سارية.
+                        {t(
+                            "خصّص تأثير شفافية نافذة macOS. يتحكم هذا الإعداد في نمط الضبابية والشفافية لنافذة ديسكورد. تستلزم التغييرات إعادة تشغيل لتصبح سارية.",
+                            "Customize the macOS window transparency effect. This setting controls the blur and vibrancy style of the Discord window. Changes require a restart to take effect."
+                        )}
                     </Paragraph>
                     <Select
                         className={Margins.bottom20}
-                        placeholder="نمط شفافية النافذة"
+                        placeholder={t("نمط شفافية النافذة", "Window Vibrancy Style")}
                         options={[
-                            // مرتبة من الأكثر تعتيماً إلى الأكثر شفافية
                             {
-                                label: "بلا شفافية",
+                                label: t("بلا شفافية", "No Vibrancy"),
                                 value: undefined,
                             },
                             {
-                                label: "تحت الصفحة (تلوين النافذة)",
+                                label: t("تحت الصفحة (تلوين النافذة)", "Under Page (Window Tinting)"),
                                 value: "under-page",
                             },
                             {
-                                label: "المحتوى",
+                                label: t("المحتوى", "Content"),
                                 value: "content",
                             },
                             {
-                                label: "النافذة",
+                                label: t("النافذة", "Window"),
                                 value: "window",
                             },
                             {
-                                label: "التحديد",
+                                label: t("التحديد", "Selection"),
                                 value: "selection",
                             },
                             {
-                                label: "شريط العنوان",
+                                label: t("شريط العنوان", "Titlebar"),
                                 value: "titlebar",
                             },
                             {
-                                label: "الرأس",
+                                label: t("الرأس", "Header"),
                                 value: "header",
                             },
                             {
-                                label: "الشريط الجانبي",
+                                label: t("الشريط الجانبي", "Sidebar"),
                                 value: "sidebar",
                             },
                             {
-                                label: "التلميح",
+                                label: t("التلميح", "Tooltip"),
                                 value: "tooltip",
                             },
                             {
-                                label: "القائمة",
+                                label: t("القائمة", "Menu"),
                                 value: "menu",
                             },
                             {
-                                label: "النافذة المنبثقة",
+                                label: t("النافذة المنبثقة", "Popover"),
                                 value: "popover",
                             },
                             {
-                                label: "واجهة ملء الشاشة (شفافة مع تعتيم طفيف)",
+                                label: t("واجهة ملء الشاشة (شفافة مع تعتيم طفيف)", "Fullscreen UI (Transparent with slight blur)"),
                                 value: "fullscreen-ui",
                             },
                             {
-                                label: "HUD (الأكثر شفافية)",
+                                label: t("HUD (الأكثر شفافية)", "HUD (Most Transparent)"),
                                 value: "hud",
                             },
                         ]}
@@ -342,17 +421,20 @@ function EquicordSettings() {
 
             <Divider className={Margins.top20} />
 
-            <Heading className={Margins.top20}>الإشعارات</Heading>
+            <Heading className={Margins.top20}>{t("الإشعارات", "Notifications")}</Heading>
             <Paragraph className={Margins.bottom16}>
-                اضبط كيفية تعامل Equicord مع الإشعارات. يمكنك تخصيص متى وكيف تتلقى التنبيهات، أو الاطلاع على سجل الإشعارات السابقة.
+                {t(
+                    "اضبط كيفية تعامل Equicord مع الإشعارات. يمكنك تخصيص متى وكيف تتلقى التنبيهات، أو الاطلاع على سجل الإشعارات السابقة.",
+                    "Configure how Equicord handles notifications. You can customize when and how you receive alerts, or view the previous notification log."
+                )}
             </Paragraph>
 
             <Flex gap="16px">
                 <Button onClick={openNotificationSettingsModal}>
-                    إعدادات الإشعارات
+                    {t("إعدادات الإشعارات", "Notification Settings")}
                 </Button>
                 <Button variant="secondary" onClick={openNotificationLogModal}>
-                    عرض سجل الإشعارات
+                    {t("عرض سجل الإشعارات", "View Notification Log")}
                 </Button>
             </Flex>
         </SettingsTab>
