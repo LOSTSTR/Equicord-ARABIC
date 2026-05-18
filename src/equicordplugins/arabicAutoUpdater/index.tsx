@@ -11,10 +11,10 @@ import { Alerts } from "@webpack/common";
 import gitHash from "~git-hash";
 
 const logger = new Logger("ArabicAutoUpdater");
-const REPO = "LOSTSTR/Equicord-ARABIC";
+const REPO = "LOSTSTR/Esharq";
 const RELEASES_PAGE = `https://github.com/${REPO}/releases/latest`;
 const API_URL = `https://api.github.com/repos/${REPO}/releases/latest`;
-const SEEN_KEY = "equicord-arabic-last-seen-update";
+const SEEN_KEY = "esharq-last-seen-update";
 
 let checked = false;
 

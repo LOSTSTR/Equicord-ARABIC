@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     continue-on-error: true
     # Extra guard: only run on the real main branch, never on forks or PRs
-    if: github.repository == 'LOSTSTR/Equicord-ARABIC' && github.ref == 'refs/heads/main'
+    if: github.repository == 'LOSTSTR/Esharq' && github.ref == 'refs/heads/main'
 
     steps:
       - name: Checkout (with parent commit for diff)

@@ -1,6 +1,6 @@
 <div align="center">
 
-# [<img src="./browser/icon.png" width="45" align="center" alt="Esharq">](https://github.com/LOSTSTR/Equicord-ARABIC) Esharq
+# [<img src="./browser/icon.png" width="45" align="center" alt="Esharq">](https://github.com/LOSTSTR/Esharq) Esharq
 
 ### النسخة العربية المطورة من Equicord
 
@@ -9,11 +9,11 @@
 
 ---
 
-[![GitHub Release](https://img.shields.io/github/v/release/LOSTSTR/Equicord-ARABIC?style=flat&color=5865F2&label=إصدار)](https://github.com/LOSTSTR/Equicord-ARABIC/releases/latest)
-[![Tests](https://github.com/LOSTSTR/Equicord-ARABIC/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/LOSTSTR/Equicord-ARABIC/actions/workflows/test.yml)
+[![GitHub Release](https://img.shields.io/github/v/release/LOSTSTR/Esharq?style=flat&color=5865F2&label=إصدار)](https://github.com/LOSTSTR/Esharq/releases/latest)
+[![Tests](https://github.com/LOSTSTR/Esharq/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/LOSTSTR/Esharq/actions/workflows/test.yml)
 [![Discord](https://img.shields.io/badge/Discord-5865F2?style=flat&logo=discord&logoColor=white)](https://discord.gg/QamdqDNEDa)
-[![License](https://img.shields.io/github/license/LOSTSTR/Equicord-ARABIC?color=green&label=رخصة)](LICENSE)
-[![Security Verified](https://img.shields.io/badge/security-verified-brightgreen?style=flat&logo=shield&logoColor=white)](https://github.com/LOSTSTR/Equicord-ARABIC)
+[![License](https://img.shields.io/github/license/LOSTSTR/Esharq?color=green&label=رخصة)](LICENSE)
+[![Security Verified](https://img.shields.io/badge/security-verified-brightgreen?style=flat&logo=shield&logoColor=white)](https://github.com/LOSTSTR/Esharq)
 
 </div>
 
@@ -232,11 +232,11 @@ pnpm buildWeb
 
 ## 📊 Star History
 
-<a href="https://star-history.com/#LOSTSTR/Equicord-ARABIC&Timeline">
+<a href="https://star-history.com/#LOSTSTR/Esharq&Timeline">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=LOSTSTR/Equicord-ARABIC&type=Timeline&theme=dark" />
-    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=LOSTSTR/Equicord-ARABIC&type=Timeline" />
-    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=LOSTSTR/Equicord-ARABIC&type=Timeline" />
+    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=LOSTSTR/Esharq&type=Timeline&theme=dark" />
+    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=LOSTSTR/Esharq&type=Timeline" />
+    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=LOSTSTR/Esharq&type=Timeline" />
   </picture>
 </a>
 

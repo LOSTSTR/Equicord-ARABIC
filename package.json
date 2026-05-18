@@ -3,13 +3,13 @@
     "private": "true",
     "version": "1.14.13.1",
     "description": "Esharq — The Arabic Discord client mod",
-    "homepage": "https://github.com/LOSTSTR/Equicord-ARABIC#readme",
+    "homepage": "https://github.com/LOSTSTR/Esharq#readme",
     "bugs": {
-        "url": "https://github.com/LOSTSTR/Equicord-ARABIC/issues"
+        "url": "https://github.com/LOSTSTR/Esharq/issues"
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/LOSTSTR/Equicord-ARABIC.git"
+        "url": "git+https://github.com/LOSTSTR/Esharq.git"
     },
     "license": "GPL-3.0-or-later",
     "author": "LOSTSTR <noreply@github.com>",

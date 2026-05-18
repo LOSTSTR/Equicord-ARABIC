@@ -5,7 +5,7 @@
 
 set -euo pipefail
 
-REPO="LOSTSTR/Equicord-ARABIC"
+REPO="LOSTSTR/Esharq"
 ASAR_FILENAME="equicord.asar"
 DATA_DIR="${EQUICORD_USER_DATA_DIR:-$HOME/.config/Esharq}"
 ASAR_PATH="$DATA_DIR/$ASAR_FILENAME"

@@ -181,7 +181,7 @@ public class GradientProgress : Control {
 
 # ═══════════════════════════════════════════════════════════════════
 $REPO_OWNER    = "LOSTSTR"
-$REPO_NAME     = "Equicord-ARABIC"
+$REPO_NAME     = "Esharq"
 $INSTALLER_VER = "{{INSTALLER_VERSION}}"
 $ASAR_NAME     = "desktop.asar"
 $RELEASE_API   = "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/releases/latest"
@@ -571,7 +571,7 @@ function Show-Installer {
 
     # Warning text
     $warnText          = New-Object System.Windows.Forms.Label
-    $warnText.Text     = "GitHub ومستودع Esharq (LOSTSTR/Equicord-ARABIC) هما المصدران الرسميان الوحيدان للحصول على Esharq.`nأي مصدر آخر يُعتبر ضاراً — احذف كل شيء وأجرِ فحصاً للبرامج الضارة وغيّر كلمة مرور Discord."
+    $warnText.Text     = "GitHub ومستودع LOSTSTR/Esharq هما المصدران الرسميان الوحيدان للحصول على Esharq.`nأي مصدر آخر يُعتبر ضاراً — احذف كل شيء وأجرِ فحصاً للبرامج الضارة وغيّر كلمة مرور Discord."
     $warnText.Location    = New-Object System.Drawing.Point(16, 10)
     $warnText.Size        = New-Object System.Drawing.Size(900, 62)
     $warnText.ForeColor   = [System.Drawing.Color]::FromArgb(210, 215, 240)

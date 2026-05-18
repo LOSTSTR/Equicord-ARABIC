@@ -18,7 +18,7 @@ Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
 $REPO_OWNER  = "LOSTSTR"
-$REPO_NAME   = "Equicord-ARABIC"
+$REPO_NAME   = "Esharq"
 $ASAR_NAME   = "desktop.asar"
 $RELEASE_API = "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/releases/latest"
 $USER_AGENT  = "Esharq-CLI/1.0 (+https://github.com/$REPO_OWNER/$REPO_NAME)"

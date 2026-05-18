@@ -96,6 +96,12 @@ interface SettingsLayoutBuilder {
 }
 
 const settings = definePluginSettings({
+    arabicMode: {
+        type: OptionType.BOOLEAN,
+        description: "Arabic Mode / وضع اللغة العربية — Show plugin names and descriptions in Arabic. Disable to switch to English.",
+        default: true,
+        restartNeeded: false,
+    },
     settingsLocation: {
         type: OptionType.SELECT,
         description: "مكان عرض قسم إعدادات Equicord",
