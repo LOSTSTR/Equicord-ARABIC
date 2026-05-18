@@ -1,5 +1,9 @@
 <div align="center">
 
+<kbd>**العربية**</kbd> &nbsp;|&nbsp; <kbd>[English](README.en.md)</kbd>
+
+---
+
 # [<img src="./browser/icon.png" width="45" align="center" alt="Esharq">](https://github.com/LOSTSTR/Esharq) Esharq
 
 ### النسخة العربية المطورة من Equicord

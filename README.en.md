@@ -1,5 +1,9 @@
 <div align="center">
 
+<kbd>[العربية](README.md)</kbd> &nbsp;|&nbsp; <kbd>**English**</kbd>
+
+---
+
 # [<img src="./browser/icon.png" width="45" align="center" alt="Esharq">](https://github.com/LOSTSTR/Esharq) Esharq
 
 ### The Arabic-Enhanced Discord Client Mod
