@@ -18,7 +18,7 @@ permissions:
 
 jobs:
     build:
-        name: Build EquicordArabicSetup.exe
+        name: Build EsharqSetup.exe
         runs-on: windows-latest
 
         permissions:
@@ -42,7 +42,7 @@ jobs:
                   $v        = "${{ steps.ver.outputs.version }}"
                   $template = Get-Content "installer\installer.template.ps1" -Raw -Encoding UTF8
                   $ps1      = $template -replace '\{\{INSTALLER_VERSION\}\}', $v
-                  $outPs1   = "${{ github.workspace }}\installer\EquicordArabic-Installer.ps1"
+                  $outPs1   = "${{ github.workspace }}\installer\Esharq-Installer.ps1"
                   [System.IO.File]::WriteAllText($outPs1, $ps1, [System.Text.Encoding]::UTF8)
                   $lines = ($ps1 -split "`n").Count
                   Write-Host "Generated installer PS1 for v$v ($lines lines)"
@@ -136,19 +136,19 @@ jobs:
               shell: pwsh
               run: |
                   $v    = "${{ steps.ver.outputs.version }}"
-                  $out  = "installer\EquicordArabicSetup.exe"
+                  $out  = "installer\EsharqSetup.exe"
                   $ver4 = if (($v -split '\.').Count -lt 4) { "$v.0" } else { $v }
 
                   Invoke-ps2exe `
-                      -InputFile   "installer\EquicordArabic-Installer.ps1" `
+                      -InputFile   "installer\Esharq-Installer.ps1" `
                       -OutputFile  $out `
                       -IconFile    "installer\icon.ico" `
-                      -Title       "Equicord-ARABIC Installer" `
-                      -Description "Secure Installer for Equicord-ARABIC Client" `
+                      -Title       "Esharq Installer" `
+                      -Description "Secure Installer for Esharq Client" `
                       -Company     "LOSTSTR Digital Branding" `
-                      -Product     "Equicord-ARABIC" `
+                      -Product     "Esharq" `
                       -Version     $ver4 `
-                      -Copyright   "© 2026 LOSTSTR - Equicord-ARABIC" `
+                      -Copyright   "© 2026 LOSTSTR - Esharq" `
                       -NoConsole   `
                       -RequireAdmin
 
@@ -159,8 +159,8 @@ jobs:
             - name: Upload artifact
               uses: actions/upload-artifact@v4
               with:
-                  name: EquicordArabicSetup
-                  path: installer/EquicordArabicSetup.exe
+                  name: EsharqSetup
+                  path: installer/EsharqSetup.exe
                   retention-days: 60
 
             - name: Upload to v1.0.0-stable release
@@ -172,13 +172,13 @@ jobs:
                   V="${{ steps.ver.outputs.version }}"
                   if gh release view v1.0.0-stable >/dev/null 2>&1; then
                     echo "Release v1.0.0-stable exists — updating title"
-                    gh release edit v1.0.0-stable --title "Equicord-ARABIC $V"
+                    gh release edit v1.0.0-stable --title "Esharq $V"
                   else
                     echo "Creating release v1.0.0-stable"
                     gh release create v1.0.0-stable \
                         --target main \
-                        --title "Equicord-ARABIC $V" \
-                        --notes "Official Arabic Release"
+                        --title "Esharq $V" \
+                        --notes "Official Release"
                   fi
-                  gh release upload v1.0.0-stable installer/EquicordArabicSetup.exe --clobber
-                  echo "Uploaded EquicordArabicSetup.exe to release v1.0.0-stable"
+                  gh release upload v1.0.0-stable installer/EsharqSetup.exe --clobber
+                  echo "Uploaded EsharqSetup.exe to release v1.0.0-stable"

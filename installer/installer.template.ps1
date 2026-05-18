@@ -395,7 +395,7 @@ function Show-Installer {
 
     # ── Form ──────────────────────────────────────────────────────
     $form = New-Object System.Windows.Forms.Form
-    $form.Text            = "Equicord-ARABIC"
+    $form.Text            = "Esharq"
     $form.ClientSize      = New-Object System.Drawing.Size(1200, 762)
     $form.StartPosition   = [System.Windows.Forms.FormStartPosition]::CenterScreen
     $form.BackColor       = $BG_DARK
@@ -471,7 +471,7 @@ function Show-Installer {
 
     # ── Gradient title ─────────────────────────────────────────────
     $titleCtrl = New-Object GradientLabel
-    $titleCtrl.Text          = "Equicord-ARABIC"
+    $titleCtrl.Text          = "Esharq"
     $titleCtrl.Location      = New-Object System.Drawing.Point(4, 8)
     $titleCtrl.Size          = New-Object System.Drawing.Size(1196, 60)
     $titleCtrl.BackColor     = $BG_DARK
@@ -481,7 +481,7 @@ function Show-Installer {
 
     # ── Info section ───────────────────────────────────────────────
     $infoY = 74
-    $pathLbl = Lbl "سيتم تنزيل Equicord-ARABIC إلى: $AsarTarget" 48 $infoY $FG_WHITE 11
+    $pathLbl = Lbl "سيتم تنزيل Esharq إلى: $AsarTarget" 48 $infoY $FG_WHITE 11
     $form.Controls.Add($pathLbl)
 
     $btnOpenDir = New-Object System.Windows.Forms.Button
@@ -571,7 +571,7 @@ function Show-Installer {
 
     # Warning text
     $warnText          = New-Object System.Windows.Forms.Label
-    $warnText.Text     = "GitHub ومستودع LOSTSTR/Equicord-ARABIC هما المصدران الرسميان الوحيدان للحصول على Equicord-ARABIC.`nأي مصدر آخر يُعتبر ضاراً — احذف كل شيء وأجرِ فحصاً للبرامج الضارة وغيّر كلمة مرور Discord."
+    $warnText.Text     = "GitHub ومستودع Esharq (LOSTSTR/Equicord-ARABIC) هما المصدران الرسميان الوحيدان للحصول على Esharq.`nأي مصدر آخر يُعتبر ضاراً — احذف كل شيء وأجرِ فحصاً للبرامج الضارة وغيّر كلمة مرور Discord."
     $warnText.Location    = New-Object System.Drawing.Point(16, 10)
     $warnText.Size        = New-Object System.Drawing.Size(900, 62)
     $warnText.ForeColor   = [System.Drawing.Color]::FromArgb(210, 215, 240)
@@ -749,7 +749,7 @@ function Show-Installer {
     $sepPanel.BackColor = [System.Drawing.Color]::FromArgb(35, 38, 68)
     $form.Controls.Add($sepPanel)
 
-    $footerLbl = Lbl "LOSTSTR  —  Equicord-ARABIC  2026  •  GPL-3.0  |  krym511  •  RAYMOND  •  Abo Ahmed  •  S99" 0 740 $FG_MUTED 8.5 Regular -W 1200 -H 20
+    $footerLbl = Lbl "LOSTSTR  —  Esharq  2026  •  GPL-3.0  |  krym511  •  RAYMOND  •  Abo Ahmed  •  S99" 0 740 $FG_MUTED 8.5 Regular -W 1200 -H 20
     $footerLbl.TextAlign = [System.Drawing.ContentAlignment]::MiddleCenter
     $form.Controls.Add($footerLbl)
 
@@ -829,7 +829,7 @@ function Show-Installer {
         try {
             $target = Get-Target
             $ans = [System.Windows.Forms.MessageBox]::Show(
-                "هل تريد إزالة Equicord-ARABIC بالكامل؟", "تأكيد الإزالة",
+                "هل تريد إزالة Esharq بالكامل؟", "تأكيد الإزالة",
                 [System.Windows.Forms.MessageBoxButtons]::YesNo,
                 [System.Windows.Forms.MessageBoxIcon]::Question)
             if ($ans -ne [System.Windows.Forms.DialogResult]::Yes) { return }

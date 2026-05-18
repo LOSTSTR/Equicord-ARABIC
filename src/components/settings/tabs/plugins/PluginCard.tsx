@@ -108,8 +108,8 @@ export function PluginCard({ plugin, disabled, onRestartNeeded, onMouseEnter, on
         {
             condition: isForkBranded,
             src: USERPLUGINS_ICON_URI,
-            alt: "Equicord-ARABIC",
-            title: "Equicord-ARABIC Exclusive"
+            alt: "Esharq",
+            title: "Esharq Exclusive"
         },
         {
             condition: isEquicordPlugin,

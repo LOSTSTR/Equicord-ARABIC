@@ -43,7 +43,7 @@ async function checkForUpdate() {
             title: "تحديث جديد متاح!",
             body: (
                 <>
-                    <p>يتوفر إصدار جديد من <strong>Equicord-ARABIC</strong>.</p>
+                    <p>يتوفر إصدار جديد من <strong>Esharq</strong>.</p>
                     <p>الإصدار الحالي: <code>{gitHash.slice(0, 7)}</code></p>
                     <p>الإصدار الجديد: <code>{remoteHash.slice(0, 7)}</code></p>
                     <p>هل تريد التحديث الآن؟</p>
@@ -62,7 +62,7 @@ async function checkForUpdate() {
 
 export default definePlugin({
     name: "ArabicAutoUpdater",
-    description: "يتحقق تلقائياً من توفر تحديثات لـ Equicord-ARABIC ويُعلمك عند توفر إصدار جديد",
+    description: "يتحقق تلقائياً من توفر تحديثات لـ Esharq ويُعلمك عند توفر إصدار جديد",
     authors: [Devs.thororen],
     tags: ["Utility"],
 

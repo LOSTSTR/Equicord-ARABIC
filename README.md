@@ -1,6 +1,6 @@
 <div align="center">
 
-# [<img src="./browser/icon.png" width="45" align="center" alt="Equicord-ARABIC">](https://github.com/LOSTSTR/Equicord-ARABIC) Equicord-ARABIC
+# [<img src="./browser/icon.png" width="45" align="center" alt="Esharq">](https://github.com/LOSTSTR/Equicord-ARABIC) Esharq
 
 ### النسخة العربية المطورة من Equicord
 
@@ -71,7 +71,7 @@
 
 ## 📖 عن المشروع
 
-**Equicord-ARABIC** هي النسخة العربية المطورة من [Equicord](https://github.com/Equicord/Equicord)، وهو بدوره مشتق من [Vencord](https://github.com/Vendicated/Vencord).
+**Esharq** هي النسخة العربية المطورة من [Equicord](https://github.com/Equicord/Equicord)، وهو بدوره مشتق من [Vencord](https://github.com/Vendicated/Vencord).
 
 تتميز هذه النسخة بـ:
 
@@ -104,7 +104,7 @@
 
 | المنصة | الطريقة | التحميل |
 |--------|---------|---------|
-| 🪟 **Windows** | واجهة رسومية (GUI) | [![Windows Setup](https://img.shields.io/badge/Windows-Setup.exe-0078D4?style=flat&logo=windows&logoColor=white)](https://github.com/LOSTSTR/Equicord-ARABIC/releases/latest/download/EquicordArabicSetup.exe) |
+| 🪟 **Windows** | واجهة رسومية (GUI) | [![Windows Setup](https://img.shields.io/badge/Windows-EsharqSetup.exe-0078D4?style=flat&logo=windows&logoColor=white)](https://github.com/LOSTSTR/Equicord-ARABIC/releases/latest/download/EsharqSetup.exe) |
 | 🍎 **macOS** | Apple Silicon & Intel | [![macOS Script](https://img.shields.io/badge/macOS-Shell_Script-000000?style=flat&logo=apple&logoColor=white)](https://github.com/LOSTSTR/Equicord-ARABIC/releases/latest/download/install-macos.sh) |
 | 🐧 **Linux** | سكريبت تلقائي (CLI) | [![Linux Script](https://img.shields.io/badge/Linux-Shell_Script-FCC624?style=flat&logo=linux&logoColor=black)](https://github.com/LOSTSTR/Equicord-ARABIC/releases/latest/download/install-linux.sh) |
 
@@ -114,7 +114,7 @@
 
 ### 🪟 Windows
 
-حمّل **EquicordArabicSetup.exe** وشغّله — يكتشف Discord تلقائياً ويثبّت التعديل.
+حمّل **EsharqSetup.exe** وشغّله — يكتشف Discord تلقائياً ويثبّت التعديل.
 
 ### 🍎 macOS — Apple Silicon & Intel
 
@@ -170,7 +170,7 @@ pnpm install --frozen-lockfile
 pnpm build
 ```
 
-**5. حقن Equicord-ARABIC في Discord**
+**5. حقن Esharq في Discord**
 
 ```shell
 pnpm inject
@@ -247,7 +247,7 @@ pnpm buildWeb
 Discord هي علامة تجارية مسجلة لشركة Discord Inc.، ولا يُعدّ هذا المشروع تابعاً لها أو معتمداً منها.
 
 <details>
-<summary>استخدام Equicord-ARABIC ينتهك شروط خدمة Discord</summary>
+<summary>استخدام Esharq ينتهك شروط خدمة Discord</summary>
 
 تعديلات العميل (Client modifications) تتعارض مع شروط خدمة Discord.
 
@@ -262,7 +262,7 @@ Discord هي علامة تجارية مسجلة لشركة Discord Inc.، ولا
 ## 📜 Credits & License | الحقوق والترخيص
 
 > [!IMPORTANT]
-> **English:** This project is a fork of the original [Equicord](https://github.com/Equicord/Equicord) project. All credits for the core engine and framework belong to the original creators. This version is a specialized Arabic distribution managed by LOSTSTR.
+> **English:** This project is a fork of the original [Equicord](https://github.com/Equicord/Equicord) project. All credits for the core engine and framework belong to the original creators. This version is a specialized Arabic distribution managed by LOSTSTR under the name **Esharq**.
 >
 > **العربية:** هذا المشروع هو اشتقاق (Fork) من مشروع [Equicord](https://github.com/Equicord/Equicord) الأصلي. كل الحقوق والتقدير للمحرك الأساسي تعود للمطورين الأصليين. هذه النسخة هي توزيعة عربية مخصصة تحت إدارة LOSTSTR بمشاركة الفريق: **krym511** و **𝚁𝙰𝚈𝙼𝙾𝙽𝙳♞** و **Abo Ahmed** و **S99**.
 
@@ -280,7 +280,7 @@ Discord هي علامة تجارية مسجلة لشركة Discord Inc.، ولا
 
 <div align="center">
 
-**Equicord-ARABIC** • Made with ❤️ by LOSTSTR & Team • [GPL-3.0 License](LICENSE)
+**Esharq** • Made with ❤️ by LOSTSTR & Team • [GPL-3.0 License](LICENSE)
 
 [⬆ العودة للأعلى](#)
 
