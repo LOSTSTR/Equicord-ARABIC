@@ -105,4 +105,4 @@ jobs:
 
             - name: Already up to date
               if: steps.check.outputs.new_commits == '0'
-              run: echo "✅ Equicord-ARABIC is already aligned with upstream."
+              run: echo "✅ Esharq is already aligned with upstream."

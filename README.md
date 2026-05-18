@@ -104,11 +104,11 @@
 
 | المنصة | الطريقة | التحميل |
 |--------|---------|---------|
-| 🪟 **Windows** | واجهة رسومية (GUI) | [![Windows Setup](https://img.shields.io/badge/Windows-EsharqSetup.exe-0078D4?style=flat&logo=windows&logoColor=white)](https://github.com/LOSTSTR/Equicord-ARABIC/releases/latest/download/EsharqSetup.exe) |
-| 🍎 **macOS** | Apple Silicon & Intel | [![macOS Script](https://img.shields.io/badge/macOS-Shell_Script-000000?style=flat&logo=apple&logoColor=white)](https://github.com/LOSTSTR/Equicord-ARABIC/releases/latest/download/install-macos.sh) |
-| 🐧 **Linux** | سكريبت تلقائي (CLI) | [![Linux Script](https://img.shields.io/badge/Linux-Shell_Script-FCC624?style=flat&logo=linux&logoColor=black)](https://github.com/LOSTSTR/Equicord-ARABIC/releases/latest/download/install-linux.sh) |
+| 🪟 **Windows** | واجهة رسومية (GUI) | [![Windows Setup](https://img.shields.io/badge/Windows-EsharqSetup.exe-0078D4?style=flat&logo=windows&logoColor=white)](https://github.com/LOSTSTR/Esharq/releases/latest/download/EsharqSetup.exe) |
+| 🍎 **macOS** | Apple Silicon & Intel | [![macOS Script](https://img.shields.io/badge/macOS-Shell_Script-000000?style=flat&logo=apple&logoColor=white)](https://github.com/LOSTSTR/Esharq/releases/latest/download/install-macos.sh) |
+| 🐧 **Linux** | سكريبت تلقائي (CLI) | [![Linux Script](https://img.shields.io/badge/Linux-Shell_Script-FCC624?style=flat&logo=linux&logoColor=black)](https://github.com/LOSTSTR/Esharq/releases/latest/download/install-linux.sh) |
 
-> تجد جميع الإصدارات في صفحة [**Releases**](https://github.com/LOSTSTR/Equicord-ARABIC/releases).
+> تجد جميع الإصدارات في صفحة [**Releases**](https://github.com/LOSTSTR/Esharq/releases).
 
 ---
 
@@ -119,7 +119,7 @@
 ### 🍎 macOS — Apple Silicon & Intel
 
 ```bash
-curl -fsSL https://github.com/LOSTSTR/Equicord-ARABIC/releases/latest/download/install-macos.sh | bash
+curl -fsSL https://github.com/LOSTSTR/Esharq/releases/latest/download/install-macos.sh | bash
 ```
 
 يكتشف السكريبت نوع المعالج (ARM64 / Intel) تلقائياً ويدعم جميع إصدارات Discord (Stable، PTB، Canary).
@@ -127,7 +127,7 @@ curl -fsSL https://github.com/LOSTSTR/Equicord-ARABIC/releases/latest/download/i
 ### 🐧 Linux
 
 ```bash
-curl -fsSL https://github.com/LOSTSTR/Equicord-ARABIC/releases/latest/download/install-linux.sh | bash
+curl -fsSL https://github.com/LOSTSTR/Esharq/releases/latest/download/install-linux.sh | bash
 ```
 
 ---
@@ -154,8 +154,8 @@ npm i -g pnpm
 **2. استنساخ المستودع**
 
 ```shell
-git clone https://github.com/LOSTSTR/Equicord-ARABIC
-cd Equicord-ARABIC
+git clone https://github.com/LOSTSTR/Esharq
+cd Esharq
 ```
 
 **3. تثبيت التبعيات**
@@ -216,7 +216,7 @@ pnpm buildWeb
 - ⭐ **Star** للمستودع على GitHub
 - 📢 مشاركة المشروع مع أصدقائك
 - 💬 الانضمام لسيرفر الديسكورد والمساهمة في التطوير: **[discord.gg/QamdqDNEDa](https://discord.gg/QamdqDNEDa)**
-- 🐛 الإبلاغ عن أي مشكلة أو اقتراح عبر [Issues](https://github.com/LOSTSTR/Equicord-ARABIC/issues)
+- 🐛 الإبلاغ عن أي مشكلة أو اقتراح عبر [Issues](https://github.com/LOSTSTR/Esharq/issues)
 
 دعمكم هو ما يجعلنا نستمر في تطوير وتحسين هذا المشروع! 💪
 

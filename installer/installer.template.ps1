@@ -1,8 +1,8 @@
 #Requires -Version 5.1
 <#
-.SYNOPSIS  Equicord-ARABIC Installer
+.SYNOPSIS  Esharq Installer
 .DESCRIPTION
-    Repository: https://github.com/LOSTSTR/Equicord-ARABIC
+    Repository: https://github.com/LOSTSTR/Esharq
     Copyright (c) 2026 LOSTSTR — GPL-3.0
 #>
 
@@ -185,14 +185,14 @@ $REPO_NAME     = "Equicord-ARABIC"
 $INSTALLER_VER = "{{INSTALLER_VERSION}}"
 $ASAR_NAME     = "desktop.asar"
 $RELEASE_API   = "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/releases/latest"
-$USER_AGENT    = "EquicordArabic-Installer/$INSTALLER_VER (+https://github.com/$REPO_OWNER/$REPO_NAME)"
+$USER_AGENT    = "Esharq-Installer/$INSTALLER_VER (+https://github.com/$REPO_OWNER/$REPO_NAME)"
 $SUPPORT_URL   = "https://discord.gg/A7MycP5xWX"
 
 $DataDir = if ($env:EQUICORD_USER_DATA_DIR) {
     $env:EQUICORD_USER_DATA_DIR
 } else {
     $appData = if ($env:APPDATA) { $env:APPDATA } else { [System.Environment]::GetFolderPath("ApplicationData") }
-    Join-Path $appData "Equicord-ARABIC"
+    Join-Path $appData "Esharq"
 }
 $AsarTarget = Join-Path $DataDir "equicord.asar"
 

@@ -1,11 +1,11 @@
 #Requires -Version 5.1
 <#
 .SYNOPSIS
-    Equicord-ARABIC — مُرقِّع PowerShell (بدون واجهة رسومية)
+    Esharq — مُرقِّع PowerShell (بدون واجهة رسومية)
 .DESCRIPTION
-    يثبّت Equicord-ARABIC على Discord دون الحاجة لأي واجهة رسومية.
+    يثبّت Esharq على Discord دون الحاجة لأي واجهة رسومية.
     الاستخدام: install-windows.ps1 [-Uninstall] [-DiscordVariant <Stable|PTB|Canary|Development|All>]
-    المستودع: https://github.com/LOSTSTR/Equicord-ARABIC
+    المستودع: https://github.com/LOSTSTR/Esharq
     Copyright (c) 2026 LOSTSTR — GPL-3.0
 #>
 param(
@@ -21,13 +21,13 @@ $REPO_OWNER  = "LOSTSTR"
 $REPO_NAME   = "Equicord-ARABIC"
 $ASAR_NAME   = "desktop.asar"
 $RELEASE_API = "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/releases/latest"
-$USER_AGENT  = "EquicordArabic-CLI/1.0 (+https://github.com/$REPO_OWNER/$REPO_NAME)"
+$USER_AGENT  = "Esharq-CLI/1.0 (+https://github.com/$REPO_OWNER/$REPO_NAME)"
 
 $DataDir = if ($env:EQUICORD_USER_DATA_DIR) {
     $env:EQUICORD_USER_DATA_DIR
 } else {
     $appData = if ($env:APPDATA) { $env:APPDATA } else { [System.Environment]::GetFolderPath("ApplicationData") }
-    Join-Path $appData "Equicord-ARABIC"
+    Join-Path $appData "Esharq"
 }
 $AsarTarget = Join-Path $DataDir "equicord.asar"
 
@@ -80,7 +80,7 @@ function Write-AppAsarShim {
 function Write-Banner {
     Write-Host ""
     Write-Host "  ╔══════════════════════════════════════════╗" -ForegroundColor Blue
-    Write-Host "  ║   Equicord-ARABIC — مُرقِّع PowerShell   ║" -ForegroundColor Blue
+    Write-Host "  ║        Esharq — مُرقِّع PowerShell        ║" -ForegroundColor Blue
     Write-Host "  ║   النسخة العربية الرسمية من Equicord     ║" -ForegroundColor Blue
     Write-Host "  ╚══════════════════════════════════════════╝" -ForegroundColor Blue
     Write-Host ""
@@ -252,7 +252,7 @@ function Uninstall-Equicord([System.Collections.Generic.List[hashtable]]$Install
     }
 
     Write-Host ""
-    Write-Host "  ✅ تمت إزالة Equicord-ARABIC. Discord يُعاد تشغيله تلقائياً." -ForegroundColor Green
+    Write-Host "  ✅ تمت إزالة Esharq. Discord يُعاد تشغيله تلقائياً." -ForegroundColor Green
     Write-Host ""
 }
 

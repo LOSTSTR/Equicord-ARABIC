@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
-# Equicord-ARABIC — مُثبِّت macOS التفاعلي
-# https://github.com/LOSTSTR/Equicord-ARABIC
+# Esharq — مُثبِّت macOS التفاعلي
+# https://github.com/LOSTSTR/Esharq
 # يدعم: Apple Silicon (ARM64) و Intel (x86_64)
 
 set -euo pipefail
 
 REPO="LOSTSTR/Equicord-ARABIC"
 ASAR_FILENAME="equicord.asar"
-DATA_DIR="${EQUICORD_USER_DATA_DIR:-$HOME/Library/Application Support/Equicord-ARABIC}"
+DATA_DIR="${EQUICORD_USER_DATA_DIR:-$HOME/Library/Application Support/Esharq}"
 ASAR_PATH="$DATA_DIR/$ASAR_FILENAME"
 
 DISCORD_APPS=(
@@ -28,7 +28,7 @@ NC='\033[0m'
 print_banner() {
     echo -e "${BLUE}${BOLD}"
     echo "  ╔══════════════════════════════════════════╗"
-    echo "  ║      Equicord-ARABIC — مُثبِّت macOS      ║"
+    echo "  ║          Esharq — مُثبِّت macOS            ║"
     echo "  ║   النسخة العربية الرسمية من Equicord     ║"
     echo "  ╚══════════════════════════════════════════╝"
     echo -e "${NC}"
@@ -44,7 +44,7 @@ check_requirements() {
 }
 
 download_asar() {
-    echo -e "${BLUE}⬇️  جارٍ تحميل أحدث إصدار من Equicord-ARABIC...${NC}"
+    echo -e "${BLUE}⬇️  جارٍ تحميل أحدث إصدار من Esharq...${NC}"
 
     local api_url="https://api.github.com/repos/$REPO/releases/latest"
     local download_url
@@ -81,12 +81,12 @@ write_bootstrap() {
 PKGJSON
 
     cat > "$app_dir/index.js" << INDEXJS
-// Equicord-ARABIC Loader — https://github.com/LOSTSTR/Equicord-ARABIC
+// Esharq Loader — https://github.com/LOSTSTR/Esharq
 const path = require("path");
 const os = require("os");
 
 const dataDir = process.env.EQUICORD_USER_DATA_DIR
-    || path.join(os.homedir(), "Library", "Application Support", "Equicord-ARABIC");
+    || path.join(os.homedir(), "Library", "Application Support", "Esharq");
 
 require(path.join(dataDir, "equicord.asar"));
 INDEXJS
@@ -107,7 +107,7 @@ inject_into_discord() {
     if [[ -f "$resources/app/index.js" ]]; then
         echo -e "  ${CYAN}♻️  تحديث حقن موجود مسبقاً في: $app_name${NC}"
     else
-        echo -e "  ${BLUE}🔧 حقن Equicord-ARABIC في: $app_name${NC}"
+        echo -e "  ${BLUE}🔧 حقن Esharq في: $app_name${NC}"
     fi
 
     write_bootstrap "$resources"
@@ -144,7 +144,7 @@ find_discord_apps() {
 
 show_menu() {
     echo -e "${BOLD}اختر العملية:${NC}"
-    echo -e "  ${GREEN}1)${NC} تثبيت / تحديث Equicord-ARABIC"
+    echo -e "  ${GREEN}1)${NC} تثبيت / تحديث Esharq"
     echo -e "  ${YELLOW}2)${NC} إلغاء التثبيت"
     echo -e "  ${RED}3)${NC} خروج"
     echo ""
@@ -221,7 +221,7 @@ main() {
             fi
             ;;
         2)
-            echo -e "${YELLOW}🗑️  جارٍ إزالة Equicord-ARABIC...${NC}"
+            echo -e "${YELLOW}🗑️  جارٍ إزالة Esharq...${NC}"
             for app in "${found_apps[@]}"; do
                 uninstall_from_discord "$app"
             done
@@ -230,7 +230,7 @@ main() {
                 echo -e "${GREEN}✅ تم حذف: $ASAR_PATH${NC}"
             fi
             echo ""
-            echo -e "${GREEN}✅ تمت إزالة Equicord-ARABIC. أعد تشغيل Discord.${NC}"
+            echo -e "${GREEN}✅ تمت إزالة Esharq. أعد تشغيل Discord.${NC}"
             ;;
         3)
             echo -e "${CYAN}خروج.${NC}"
