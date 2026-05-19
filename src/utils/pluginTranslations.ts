@@ -357,6 +357,9 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
     DisableCameras: {
         description: "Disables the camera in calls by default.",
     },
+    DisableDeepLinks: {
+        description: "Disables Discord's deep link feature that forces you to open links in the desktop app.",
+    },
     DiscordDevBanner: {
         description: "Enables Discord's developer info banner to display the build ID.",
     },
@@ -377,6 +380,9 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
     },
     ElementHighlighter: {
         description: "Easily highlight and inspect UI elements.",
+    },
+    EqArabicBrand: {
+        description: "Internal plugin for Esharq Arabic brand customization.",
     },
     EquibopStreamFixes: {
         description: "Attempts to fix streaming quality on Equibop by tweaking Discord's encoder and quality limits.",
@@ -1158,6 +1164,9 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
             waitSeconds: "Seconds to wait between actions.",
         },
     },
+    VoiceChatDoubleClick: {
+        description: "Join voice channels on double click instead of single click.",
+    },
     VoiceJoinMessages: {
         description: "Receive temporary client-side messages when your friends join voice channels.",
         options: {
@@ -1814,6 +1823,12 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
     NoF1: {
         description: "Disables the F1 help shortcut.",
     },
+    NoMaskedUrlPaste: {
+        description: "Pasting a URL with selected text will not convert it into a masked link.",
+    },
+    NoMiddleClickPaste: {
+        description: "Disables middle-click paste on Linux. Linux only.",
+    },
     NoMosaic: {
         description: "Removes the mosaic (grid) layout for multiple image attachments.",
         options: {
@@ -1848,6 +1863,9 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
         options: {
             shownEmojis: "Which emoji to show: all, only animated, or none.",
         },
+    },
+    NoSystemBadge: {
+        description: "Disables the unread message badge in the taskbar and system tray.",
     },
     NoticesAPI: {
         description: "Prevents notices from being automatically dismissed.",
