@@ -81,3 +81,9 @@
     padding: 6px 12px;
     color: var(--text-default);
 }
+
+.vc-plugin-modal-about-box {
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid var(--border-normal, var(--background-modifier-accent));
+}
