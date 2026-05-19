@@ -271,6 +271,7 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
     CommandPalette: {
         description: "Run actions quickly through a searchable command palette.",
         options: {
+            customCommands: "Manage custom command palette entries.",
             compactStartEnabled: "Open the command palette in compact mode first.",
             closeAfterExecute: "Close the command palette after executing a command.",
         },
@@ -380,15 +381,50 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
     },
     ElementHighlighter: {
         description: "Easily highlight and inspect UI elements.",
+        options: {
+            keybind: "Enable/disable the highlighter tool.",
+            showClasses: "Show the element's CSS class names in the tooltip.",
+            showId: "Show the element's ID attribute in the tooltip.",
+            showFont: "Show the computed font family and size.",
+            showPadding: "Show the element's padding values.",
+            showMargin: "Show the element's margin values.",
+            showBorderRadius: "Show the element's border-radius values.",
+            showPosition: "Show the CSS position type and Z-index of the element.",
+            showDisplay: "Show the display type with flex or grid properties.",
+        },
     },
     EqArabicBrand: {
         description: "Internal plugin for Esharq Arabic brand customization.",
     },
     EquibopStreamFixes: {
         description: "Attempts to fix streaming quality on Equibop by tweaking Discord's encoder and quality limits.",
+        options: {
+            unlockQualityOptions: "Unlock stream quality options regardless of Nitro status.",
+            removeResolutionCap: "Allow resolutions higher than 720p at 60fps.",
+            forceEncoderSettings: "Force the encoder to use the configured resolution and frame rate.",
+            preventDownscale: "Prevent Discord from downscaling the stream resolution.",
+            keyframeInterval: "Keyframe interval in milliseconds (0 = encoder default, 5000 = every 5 seconds).",
+            minBitrate: "Minimum encoder bitrate in kbps.",
+            raiseBitrateCaps: "Raise the default desktop bitrate caps (600kbps target → 10Mbps, 3.5Mbps max → 40Mbps).",
+            preventFramerateReduction: "Prevent Discord from reducing stream frame rate when not speaking.",
+            bitsPerPixelPct: "Bits-per-pixel percentage for the target bitrate (8 = 0.08 bpp, 12 = 0.12 bpp).",
+        },
     },
     EquicordHelper: {
         description: "Used to provide support and fix issues caused by Discord and various other features.",
+        options: {
+            noMirroredCamera: "Prevent the camera image from being mirrored on your screen.",
+            removeActivitySection: "Remove the activity section above the member list.",
+            showYourOwnActivityButtons: "Show your own activity buttons that Discord hides for unknown reasons.",
+            refreshSlashCommands: "Refresh slash commands to show newly added commands without restarting the client.",
+            forceRoleIcon: "Force role icons to appear next to messages in compact mode.",
+            accountStandingButton: "Show the account standing button in the header bar.",
+            restoreFileDownloadButton: "Restore the download button in the top-right corner of files.",
+            noBulletPoints: "Prevent writing bullet points in Markdown format.",
+            noModalAnimation: "Remove the 300ms animation when opening or closing modal windows.",
+            disableAdoptTagPrompt: "Disable the adopt tag prompt.",
+            jsonGateway: "Force JSON usage when reconnecting to the gateway.",
+        },
     },
     EquicordToolbox: {
         description: "Adds a button next to the inbox in the channel header with quick Equicord actions.",
@@ -398,6 +434,9 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
     },
     Equissant: {
         description: "Plays a croissant sound every N clicks. :trolley:",
+        options: {
+            amount: "Number of clicks required to trigger the sound.",
+        },
     },
     ExitSounds: {
         description: "Plays soundboard sounds when you disconnect from voice.",
@@ -408,18 +447,36 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
     },
     ExportMessages: {
         description: "Lets you export any message to a file.",
+        options: {
+            openFileAfterExport: "Open the exported file with the default application after exporting.",
+            exportContacts: "Export the friend list to clipboard. Adds a new button in the menu bar of the Friends tab.",
+        },
     },
     FastDeleteChannels: {
         description: "Adds a trash icon for fast channel deletion.",
+        options: {
+            keyBind: "Key to toggle the delete icon visibility when pressed.",
+            reqCtrl: "Require holding the Control key.",
+            reqShift: "Require holding the Shift key.",
+            reqAlt: "Require holding the Alt key.",
+        },
     },
     FavouriteAnything: {
         description: "Lets you favourite any image, video, or attachment.",
     },
     FileUpload: {
         description: "Upload images and videos to file-hosting services like Zipline and Nest.",
+        options: {
+            autoUploadPastedFiles: "Automatically upload pasted files from the clipboard to the image service when pasting in the chat box.",
+        },
     },
     FindReply: {
         description: "Jumps to the oldest reply to a message in a channel (useful for following old conversations).",
+        options: {
+            includePings: "Also search messages that directly mention the author with @.",
+            includeAuthor: "Also search messages that reply to the author in general, not just to that specific message.",
+            hideButtonIfNoReply: "Hide the button if there are no replies to the message.",
+        },
     },
     FixFileExtensions: {
         description: "Fixes file extensions by renaming them to a supported format when possible.",
@@ -441,6 +498,9 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
     },
     ForwardAnywhere: {
         description: "If forwarding fails, sends it as a regular message. Also allows forwarding NSFW content.",
+        options: {
+            forwardPreface: "The prefix that precedes the 'Forwarded from' text.",
+        },
     },
     FrequentQuickSwitcher: {
         description: "Reorders Quick Switcher results to show your most-used channels first.",
@@ -476,12 +536,22 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
     },
     GitHubRepos: {
         description: "Displays a user's public GitHub repositories on their profile.",
+        options: {
+            showStars: "Show the star count for each repository.",
+            showLanguage: "Show the programming language of each repository.",
+        },
     },
     GlobalBadges: {
         description: "Adds global badges from other Discord modifications.",
     },
     GoogleThat: {
         description: "Adds a command to send an internet search link.",
+        options: {
+            hyperlink: "Make the sent link a hyperlink using the query as the title.",
+            embed: "Whether the sent link should show a preview embed.",
+            defaultEngine: "The search engine to use.",
+            customEngineURL: "URL of the custom search engine you want to use.",
+        },
     },
     GuildPickerDumper: {
         description: "Adds a context-menu option to download emoji and stickers from any server.",
@@ -557,6 +627,9 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
     },
     InvisibleChat: {
         description: "Encrypt your messages in an unsuspicious way!",
+        options: {
+            savedPasswords: "Saved passwords (comma-separated).",
+        },
     },
     InviteDefaults: {
         description: "Lets you modify the default values when creating server invites.",
@@ -791,9 +864,20 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
     },
     QuickThemeSwitcher: {
         description: "Quickly switch between themes using keyboard shortcuts.",
+        options: {
+            includeLocal: "Include local themes.",
+            includeOnline: "Include online themes.",
+            sortOrder: "Sort order for the theme list.",
+            autoRefresh: "Automatically refresh the theme list when changes are detected.",
+            showNotifications: "Show notifications when themes are added or removed.",
+        },
     },
     Quoter: {
         description: "Adds the ability to generate an inspirational quote image from a message.",
+        options: {
+            quoteFont: "Font for the quote text (author/name always uses M PLUS Rounded 1c).",
+            watermark: "Custom watermark text (max 32 characters).",
+        },
     },
     RandomVoice: {
         description: "Adds a button next to the mute button to join a random voice channel.",
@@ -859,9 +943,21 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
     },
     RPCStats: {
         description: "Displays your activity statistics as an RPC.",
+        options: {
+            assetURL: "Image used in the RPC. Uses your profile picture if left empty.",
+            RPCTitle: "RPC title.",
+            statDisplay: "What the RPC should display (only one line can be shown at a time).",
+            lastFMApiKey: "Your Last.fm API key.",
+            lastFMUsername: "Your Last.fm username.",
+            albumCoverImage: "Use the album cover as the RPC image (when Last.fm display is selected).",
+            lastFMStatFormat: "How to format the Last.fm stat. $album is replaced with the album name and $artist with the artist name.",
+        },
     },
     SaveFavoriteGIFs: {
         description: "Export your favourite GIF links.",
+        options: {
+            showToolboxButton: "Show the 'Save Favourite GIFs' button in the Equicord toolbox (requires a reload).",
+        },
     },
     ScheduledMessages: {
         description: "Schedule messages to be sent at a specified time or after a delay.",
@@ -906,10 +1002,15 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
         description: "Automatic signature/footer text.",
         options: {
             signature: "The signature appended to the end of your messages.",
+            name: "The signature appended to the end of your messages.",
             header: "Header text added before the signature.",
+            textHeader: "Header text added before the signature.",
             showChatBarIcon: "Show an icon in the chat bar to toggle the plugin.",
+            showIcon: "Show an icon in the chat bar to toggle the plugin.",
             addContextMenu: "Add a context menu option to toggle the signature.",
+            contextMenu: "Add a context menu option to toggle the signature.",
             enabled: "Toggle the signature on or off.",
+            isEnabled: "Toggle the signature on or off.",
         },
     },
     SilenceUsers: {
@@ -990,6 +1091,12 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
     },
     StickerBlocker: {
         description: "Lets you block stickers from being displayed.",
+        options: {
+            showGif: "Show a cute cat GIF image when a sticker is blocked.",
+            showMessage: "Whether to show a message detailing the blocked sticker ID.",
+            showButton: "Whether to show a button to unblock the sticker.",
+            blockedStickers: "List of blocked sticker IDs (do not edit unless you know what you are doing).",
+        },
     },
     Streaks: {
         description: "Shows a streak counter next to a user when you exchange DMs with them daily.",
@@ -1015,6 +1122,9 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
     },
     TiktokTTS: {
         description: "Adds a context-menu option to read chat messages aloud using TikTok TTS. :sob:",
+        options: {
+            volume: "Playback volume level.",
+        },
     },
     Timezones: {
         description: "Displays users' local time in profiles and message headers.",
@@ -1057,6 +1167,12 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
     },
     ToggleVideoBind: {
         description: "Adds a customizable shortcut to toggle the camera.",
+        options: {
+            keyBind: "Key to toggle the camera when pressed.",
+            reqCtrl: "Require holding the Ctrl key.",
+            reqShift: "Require holding the Shift key.",
+            reqAlt: "Require holding the Alt key.",
+        },
     },
     ToneIndicators: {
         description: "Shows tooltips for tone indicators like /srs, /gen, etc. on sent messages.",
@@ -1086,9 +1202,16 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
     },
     UnlimitedAccounts: {
         description: "Increases the maximum number of accounts you can add.",
+        options: {
+            maxAccounts: "Number of accounts that can be added, or 0 to remove the limit.",
+        },
     },
     UnreadCountBadge: {
         description: "Shows unread message count badges on channels in the channel list.",
+        options: {
+            showOnMutedChannels: "Show unread message count on muted channels.",
+            notificationCountLimit: "Show +99 instead of the actual count when the number is large.",
+        },
     },
     UserAreaAPI: {
         description: "API for adding buttons to the user area panel.",
@@ -1103,9 +1226,19 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
     },
     UserPFP: {
         description: "Lets you use an animated profile picture without Nitro.",
+        options: {
+            overrideServerAvatars: "Replace server profile pictures with custom or default ones if no custom picture is set.",
+            preferNitro: "Which avatar to use when both an animated Nitro avatar and a UserPFP avatar are present.",
+            databaseSource: "URL to download the database from.",
+        },
     },
     UserpluginInstaller: {
         description: "Install user plugins with a single button click.",
+        options: {
+            allowlistedChannels: "Comma-separated list of channel IDs where the install plugin button is shown.",
+            notifyIfUpdate: "Show a Vencord notification if installed user plugins need updating.",
+            neverNotifyForPlugins: "Do not show update notifications for these plugins (you can still update them from the UserPlugins tab).",
+        },
     },
     VcNarratorCustom: {
         description: "Announces when users join, leave, or move between voice channels using a narrator via TikTok TTS. Revived and back again.",
@@ -1182,6 +1315,10 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
     },
     VoiceMessageTranscriber: {
         description: "Transcribes voice messages on-device using Whisper v3.",
+        options: {
+            selectedModel: "Whisper model size.",
+            quantized: "Use the quantized (compressed) model (smaller size, slightly lower accuracy).",
+        },
     },
     VoiceRejoin: {
         description: "Automatically rejoins DM calls and server voice channels after Discord restarts.",
@@ -1204,6 +1341,9 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
     },
     WebpackTarball: {
         description: "Converts Discord's webpack sources into a tarball.",
+        options: {
+            patched: "Include patched modules in the archive.",
+        },
     },
     WhitelistedEmojis: {
         description: "Adds the ability to disable all emoji in messages except those on your whitelist.",
@@ -1233,6 +1373,7 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
         description: "Capitalizes the first letter of each sentence in the message input.",
         options: {
             excludedWords: "Words that should not be capitalized (comma-separated).",
+            blockedWords: "Words that should not be capitalized (comma-separated).",
         },
     },
     ConcatenatedModules: {
@@ -1294,15 +1435,22 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
             activityType: "Activity type displayed.",
             showInMemberList: "Show track/artist name in the members list.",
             refreshRate: "Time between activity updates (in seconds).",
+            refreshInterval: "Time between activity updates (in seconds).",
             enableTimestamps: "Toggle timestamps on or off.",
             enableButtons: "Toggle buttons on or off.",
             nameFormat: "Activity name format text.",
+            nameString: "Activity name format text.",
             detailsFormat: "Activity details format text.",
+            detailsString: "Activity details format text.",
             stateFormat: "Activity state format text.",
+            stateString: "Activity state format text.",
             largeImageType: "Large image type in activity assets.",
             largeTextFormat: "Large text format in activity assets.",
+            largeTextString: "Large text format in activity assets.",
             smallImageType: "Small image type in activity assets.",
             smallTextFormat: "Small text format in activity assets.",
+            smallTextString: "Small text format in activity assets.",
+            statusDisplayType: "Show track/artist name in the members list.",
         },
     },
     WebRichPresence: {
@@ -1960,6 +2108,7 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
             messages: "Show platform indicators next to usernames in messages.",
             colorMobileIndicator: "Color the mobile indicator.",
             showBots: "Show platform indicators for bots.",
+            ConsoleIcon: "Console icon used for console platform indicator.",
         },
     },
     PreviewMessage: {
@@ -2011,6 +2160,12 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
     },
     ReviewDB: {
         description: "Rate other users (adds a reviews section to profiles).",
+        options: {
+            notifyReviews: "Notify me about new reviews when Discord starts.",
+            showWarning: "Show a warning to respect others at the top of the review list.",
+            hideTimestamps: "Hide timestamps on reviews.",
+            hideBlockedUsers: "Hide reviews from blocked users.",
+        },
     },
     RoleColorEverywhere: {
         description: "Applies the role color to names in all places in Discord.",
@@ -2054,6 +2209,13 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
     },
     ShikiCodeblocks: {
         description: "Brings VSCode-style code blocks to Discord powered by Shiki.",
+        options: {
+            theme: "Default themes.",
+            customTheme: "URL to a custom VSCode theme.",
+            tryHljs: "Use Discord's lighter default highlighter and its accompanying theme.",
+            useDevIcon: "How to display language icons on code blocks.",
+            bgOpacity: "Background opacity.",
+        },
     },
     ShowAllMessageButtons: {
         description: "Always shows all message buttons without hovering.",
@@ -2095,6 +2257,24 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
             memberList: "Show usernames in the member list.",
             profilePopout: "Show usernames in the profile popout.",
             voiceChannels: "Show usernames in voice channel user lists.",
+            reactions: "Show the first available name in reaction tooltips and the full name in reaction popouts.",
+            discriminators: "Append discriminators to bot usernames.",
+            hideDefaultAtSign: "Hide the default @ sign before usernames.",
+            truncateAllNamesWithStreamerMode: "Truncate all names (not just usernames) in streamer mode.",
+            removeDuplicates: "If any names are identical, remove duplicates leaving only unique names.",
+            ignoreFonts: "Use Discord's default fonts for non-primary names regardless of the user's custom Nitro font.",
+            ignoreGradients: "For non-primary names, ignore role gradient colors.",
+            animateGradients: "For non-primary names, animate role gradient or Nitro effects.",
+            nameSeparator: "Separator used between names. Default is a single space.",
+            friendNameOnlyInDirectMessages: "Show friend names only in DMs, not in servers.",
+            customNameOnlyInDirectMessages: "Show custom names only in DMs, not in servers.",
+            alwaysShowEffects: "Always show name effects as if hovering.",
+            includedNames: "Order and configuration of displayed name components.",
+            customNameColor: "Color used for the custom name if it is not the first displayed name.",
+            friendNameColor: "Color used for the friend name if it is not the first displayed name.",
+            nicknameColor: "Color used for the nickname if it is not the first displayed name.",
+            displayNameColor: "Color used for the display name if it is not the first displayed name.",
+            usernameColor: "Color used for the username if it is not the first displayed name.",
         },
     },
     ShowTimeoutDuration: {
@@ -2181,6 +2361,13 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
     },
     Translate: {
         description: "Translate messages using Google Translate, DeepL, or Kagi.",
+        options: {
+            service: "Translation provider.",
+            deeplApiKey: "Your DeepL API key (from deepl.com/your-account).",
+            kagiSession: "Your Kagi session token (from kagi.com/settings?p=user_details).",
+            autoTranslate: "Automatically translate your messages before sending. You can also Shift-click or right-click the translate button to toggle this option.",
+            showAutoTranslateTooltip: "Show a tooltip on the chat bar button when a message is auto-translated.",
+        },
     },
     TypingIndicator: {
         description: "Shows who is typing in other channels.",
@@ -2222,6 +2409,10 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
     },
     UserMessagesPronouns: {
         description: "Adds pronouns to user messages in chat.",
+        options: {
+            pronounsFormat: "Format for displaying pronouns in chat.",
+            showSelf: "Enable or disable showing your own pronouns.",
+        },
     },
     UserSettingsAPI: {
         description: "Modifies Discord user settings to expose group and name.",
@@ -2265,6 +2456,10 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
     },
     ViewRaw: {
         description: "Shows the raw code of messages and embeds.",
+        options: {
+            clickMethod: "Change the button interaction method for viewing raw message content.",
+            messageContextMenu: "Show in the message context menu.",
+        },
     },
     VoiceDownload: {
         description: "Adds a download button for voice messages (opens a new browser tab).",
@@ -2315,6 +2510,8 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
             soundPath: "Sound to play for XSOverlay notifications.",
             timeout: "How long notifications are shown (in seconds).",
             lengthBasedTimeout: "Scale notification duration based on message length.",
+            opacity: "Notification opacity.",
+            volume: "Notification volume.",
         },
     },
     YoutubeAdblock: {
@@ -2323,6 +2520,7 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
     Settings: {
         description: "Adds a settings UI and diagnostic information.",
         options: {
+            arabicMode: "Arabic Mode — Show plugin names and descriptions in Arabic. Disable to switch to English.",
             settingsLocation: "Where to display the Equicord settings section.",
             includeVencordInfoWhenCopying: "Also copy Vencord info (Vencord, Electron, Chromium) when clicking the version info in the bottom-left corner of the settings page.",
         },
@@ -2332,6 +2530,9 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
 
     BigFileUploadEnhanced: {
         description: "Bypass Discord's upload limit by uploading files to an external server and sharing the link in chat. Faster and uses no DOM manipulation.",
+        options: {
+            config: "Uploader settings.",
+        },
     },
     NitroSniper: {
         description: "Automatically redeems Nitro gift links sent in chat.",
@@ -2363,6 +2564,9 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
     },
     "VirusTotal-Scanner": {
         description: "Scan Discord attachments with the VirusTotal API — local SHA-256 fingerprinting, no data uploaded without your explicit request.",
+        options: {
+            apiKeyInput: "VirusTotal API v3 key.",
+        },
     },
     CustomScreenSharePreview: {
         description: "Adds the ability to choose a custom image as your screen-share preview.",
