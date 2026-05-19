@@ -9,7 +9,9 @@ import "./styles.css";
 import { NavContextMenuPatchCallback } from "@api/ContextMenu";
 import { HeaderBarButton } from "@api/HeaderBar";
 import { DataStore } from "@api/index";
+import { useSettings } from "@api/Settings";
 import { classNameFactory } from "@utils/css";
+import { t } from "@utils/esharqI18n";
 import { closeModal, ModalCloseButton, ModalContent, ModalHeader, ModalRoot, ModalSize, openModal } from "@utils/modal";
 import definePlugin from "@utils/types";
 import type { Message } from "@vencord/discord-types";
@@ -55,8 +57,8 @@ async function addBookmark(msg: Message & { guild_id?: string; }): Promise<boole
         messageId: msg.id,
         channelId: msg.channel_id,
         guildId: msg.guild_id ?? null,
-        authorName: (msg.author as any)?.globalName ?? (msg.author as any)?.username ?? "مجهول",
-        snippet: snippet || "(لا يوجد نص)",
+        authorName: (msg.author as any)?.globalName ?? (msg.author as any)?.username ?? t("مجهول", "Unknown"),
+        snippet: snippet || t("(لا يوجد نص)", "(no text)"),
         savedAt: Date.now(),
     });
 
@@ -96,6 +98,7 @@ function HeartOutlineIcon(props: React.SVGProps<SVGSVGElement>) {
 // ─── Bookmarks Modal ──────────────────────────────────────────────────────────
 
 function BookmarksModal({ modalProps, onClose }: { modalProps: any; onClose: () => void; }) {
+    useSettings(["plugins.Settings.arabicMode"]);
     const [bookmarks, setBookmarks] = useState<Bookmark[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -121,27 +124,28 @@ function BookmarksModal({ modalProps, onClose }: { modalProps: any; onClose: () 
     }
 
     function formatDate(ts: number) {
-        return new Date(ts).toLocaleDateString("ar-SA", { day: "numeric", month: "short", year: "numeric" });
+        const locale = t("ar-SA", "en-US");
+        return new Date(ts).toLocaleDateString(locale, { day: "numeric", month: "short", year: "numeric" });
     }
 
     return (
         <ModalRoot {...modalProps} size={ModalSize.MEDIUM}>
             <ModalHeader className={cl("modal-header")}>
                 <HeartIcon style={{ marginInlineEnd: 8, color: "var(--red-400, #ed4245)" }} />
-                <Text variant="heading-lg/semibold">المفضلة ({bookmarks.length})</Text>
+                <Text variant="heading-lg/semibold">{t("المفضلة", "Bookmarks")} ({bookmarks.length})</Text>
                 <ModalCloseButton onClick={onClose} />
             </ModalHeader>
             <ModalContent className={cl("modal-content")}>
                 {loading ? (
-                    <Text variant="text-md/normal" className={cl("empty")}>جارٍ التحميل…</Text>
+                    <Text variant="text-md/normal" className={cl("empty")}>{t("جارٍ التحميل…", "Loading…")}</Text>
                 ) : bookmarks.length === 0 ? (
                     <div className={cl("empty-state")}>
                         <HeartOutlineIcon style={{ color: "var(--text-muted)", width: 40, height: 40, marginBottom: 12 }} />
                         <Text variant="text-md/normal" style={{ color: "var(--text-muted)" }}>
-                            لا توجد رسائل في المفضلة بعد.
+                            {t("لا توجد رسائل في المفضلة بعد.", "No bookmarked messages yet.")}
                         </Text>
                         <Text variant="text-sm/normal" style={{ color: "var(--text-muted)", marginTop: 4 }}>
-                            انقر بزر الماوس الأيمن على أي رسالة واختر «إضافة للمفضلة».
+                            {t("انقر بزر الماوس الأيمن على أي رسالة واختر «إضافة للمفضلة».", "Right-click any message and choose \"Add to Bookmarks\".")}
                         </Text>
                     </div>
                 ) : (
@@ -169,8 +173,8 @@ function BookmarksModal({ modalProps, onClose }: { modalProps: any; onClose: () 
                                 <button
                                     className={cl("remove-btn")}
                                     onClick={e => remove(b, e)}
-                                    title="إزالة من المفضلة"
-                                    aria-label="إزالة من المفضلة"
+                                    title={t("إزالة من المفضلة", "Remove from Bookmarks")}
+                                    aria-label={t("إزالة من المفضلة", "Remove from Bookmarks")}
                                 >
                                     ✕
                                 </button>
@@ -186,6 +190,7 @@ function BookmarksModal({ modalProps, onClose }: { modalProps: any; onClose: () 
 // ─── Header Bar Button ────────────────────────────────────────────────────────
 
 function HeartHeaderButton(): JSX.Element {
+    useSettings(["plugins.Settings.arabicMode"]);
     const buttonRef = useRef<HTMLDivElement>(null);
     const [show, setShow] = useState(false);
 
@@ -210,7 +215,7 @@ function HeartHeaderButton(): JSX.Element {
             targetElementRef={buttonRef}
             renderPopout={() => (
                 <div className={cl("quick-popout")}>
-                    <Text variant="text-sm/semibold" className={cl("quick-title")}>المفضلة</Text>
+                    <Text variant="text-sm/semibold" className={cl("quick-title")}>{t("المفضلة", "Bookmarks")}</Text>
                     <QuickPopoutContent onOpen={openBookmarksModal} />
                 </div>
             )}
@@ -219,10 +224,10 @@ function HeartHeaderButton(): JSX.Element {
                 <HeaderBarButton
                     ref={buttonRef}
                     onClick={() => setShow(v => !v)}
-                    tooltip={isShown ? null : "المفضلة"}
+                    tooltip={isShown ? null : t("المفضلة", "Bookmarks")}
                     icon={HeartIcon}
                     selected={isShown}
-                    aria-label="فتح المفضلة"
+                    aria-label={t("فتح المفضلة", "Open Bookmarks")}
                 />
             )}
         </Popout>
@@ -232,6 +237,7 @@ function HeartHeaderButton(): JSX.Element {
 // ─── Quick Popout (mini preview) ──────────────────────────────────────────────
 
 function QuickPopoutContent({ onOpen }: { onOpen: () => void; }) {
+    useSettings(["plugins.Settings.arabicMode"]);
     const [bookmarks, setBookmarks] = useState<Bookmark[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -243,13 +249,13 @@ function QuickPopoutContent({ onOpen }: { onOpen: () => void; }) {
     }, []);
 
     if (loading) {
-        return <Text variant="text-sm/normal" className={cl("qp-empty")}>جارٍ التحميل…</Text>;
+        return <Text variant="text-sm/normal" className={cl("qp-empty")}>{t("جارٍ التحميل…", "Loading…")}</Text>;
     }
 
     return (
         <div className={cl("qp-body")}>
             {bookmarks.length === 0 ? (
-                <Text variant="text-sm/normal" className={cl("qp-empty")}>لا توجد مفضلة بعد.</Text>
+                <Text variant="text-sm/normal" className={cl("qp-empty")}>{t("لا توجد مفضلة بعد.", "No bookmarks yet.")}</Text>
             ) : (
                 bookmarks.map(b => (
                     <div
@@ -275,7 +281,7 @@ function QuickPopoutContent({ onOpen }: { onOpen: () => void; }) {
                 ))
             )}
             <button className={cl("qp-open-all")} onClick={onOpen}>
-                عرض الكل ({bookmarks.length > 5 ? `${bookmarks.length}+` : bookmarks.length})
+                {t("عرض الكل", "View all")} ({bookmarks.length > 5 ? `${bookmarks.length}+` : bookmarks.length})
             </button>
         </div>
     );
@@ -291,7 +297,7 @@ const messageContextMenuPatch: NavContextMenuPatchCallback = (children, props) =
         <Menu.MenuItem
             key="lh-bookmark"
             id="lh-bookmark"
-            label="إضافة للمفضلة"
+            label={t("إضافة للمفضلة", "Add to Bookmarks")}
             icon={HeartOutlineIcon}
             action={async () => {
                 const added = await addBookmark(message);

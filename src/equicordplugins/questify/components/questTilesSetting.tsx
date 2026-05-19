@@ -4,12 +4,14 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
+import { useSettings } from "@api/Settings";
 import type { Quest } from "@vencord/discord-types";
 import { findComponentByCodeLazy } from "@webpack";
 import { QuestStore, useEffect, useMemo, useRef, useState, useStateFromStores } from "@webpack/common";
 import type { JSX, SyntheticEvent } from "react";
 
 import { getQuestifySettings, useQuestifySettings } from "../settings/access";
+import { t } from "@utils/esharqI18n";
 import { defaultQuestTileClaimedColorSetting, defaultQuestTileExpiredColorSetting, defaultQuestTileIgnoredColorSetting, defaultQuestTileUnclaimedColorSetting, type QuestTileColorSetting, type QuestTileGradient } from "../settings/def";
 import { rerenderQuests } from "../settings/rerender";
 import { getQuestTileClasses, getQuestTileStyle } from "../utils/questTiles";
@@ -21,23 +23,21 @@ const QuestTile = findComponentByCodeLazy(".rowIndex,trackGuildAndChannelMetadat
     quest: Quest;
 }>;
 
-const gradientOptions = [
-    { label: "تدرج مكثف", value: "intense" },
-    { label: "تدرج افتراضي", value: "default" },
-    { label: "تدرج أسود خفيف", value: "black" },
-    { label: "بدون تدرج", value: "hide" },
-] as const satisfies readonly { label: string, value: QuestTileGradient; }[];
+function getGradientOptions(): readonly { label: string, value: QuestTileGradient; }[] {
+    return [
+        { label: t("تدرج مكثف", "Intense gradient"), value: "intense" },
+        { label: t("تدرج افتراضي", "Default gradient"), value: "default" },
+        { label: t("تدرج أسود خفيف", "Subtle black gradient"), value: "black" },
+        { label: t("بدون تدرج", "No gradient"), value: "hide" },
+    ];
+}
 
-const gradientManaOptions: ManaSelectOption[] = gradientOptions.map(({ label, value }) => ({
-    id: value,
-    label,
-    value,
-}));
-
-const preloadManaOptions: ManaSelectOption[] = [
-    { id: "true", label: "تحميل جميع الأصول عند فتح الصفحة", value: "true" },
-    { id: "false", label: "تحميل الأصول أثناء التمرير", value: "false" },
-];
+function getPreloadManaOptions(): ManaSelectOption[] {
+    return [
+        { id: "true", label: t("تحميل جميع الأصول عند فتح الصفحة", "Preload all assets when page opens"), value: "true" },
+        { id: "false", label: t("تحميل الأصول أثناء التمرير", "Load assets while scrolling"), value: "false" },
+    ];
+}
 
 type QuestTileColorKey =
     | "questTileUnclaimedColor"
@@ -51,28 +51,14 @@ interface QuestTileColorOption {
     defaultValue: QuestTileColorSetting;
 }
 
-const colorOptions = [
-    {
-        key: "questTileUnclaimedColor",
-        label: "غير مطالَب",
-        defaultValue: defaultQuestTileUnclaimedColorSetting,
-    },
-    {
-        key: "questTileClaimedColor",
-        label: "مطالَب",
-        defaultValue: defaultQuestTileClaimedColorSetting,
-    },
-    {
-        key: "questTileIgnoredColor",
-        label: "مُتجاهَل",
-        defaultValue: defaultQuestTileIgnoredColorSetting,
-    },
-    {
-        key: "questTileExpiredColor",
-        label: "منتهي",
-        defaultValue: defaultQuestTileExpiredColorSetting,
-    },
-] as const satisfies readonly QuestTileColorOption[];
+function getColorOptions(): readonly QuestTileColorOption[] {
+    return [
+        { key: "questTileUnclaimedColor", label: t("غير مطالَب", "Unclaimed"), defaultValue: defaultQuestTileUnclaimedColorSetting },
+        { key: "questTileClaimedColor", label: t("مطالَب", "Claimed"), defaultValue: defaultQuestTileClaimedColorSetting },
+        { key: "questTileIgnoredColor", label: t("مُتجاهَل", "Ignored"), defaultValue: defaultQuestTileIgnoredColorSetting },
+        { key: "questTileExpiredColor", label: t("منتهي", "Expired"), defaultValue: defaultQuestTileExpiredColorSetting },
+    ];
+}
 
 const defaultPreviewColorKey: QuestTileColorKey = "questTileUnclaimedColor";
 
@@ -194,6 +180,8 @@ function DummyQuestPreview({
 }
 
 export function QuestTilesSetting(): JSX.Element {
+    useSettings(["plugins.Settings.arabicMode"]);
+
     const questTiles = useQuestifySettings([
         "disableQuestsEverything",
         "questTileUnclaimedColor",
@@ -203,6 +191,15 @@ export function QuestTilesSetting(): JSX.Element {
         "questTileGradient",
         "questTilePreload",
     ]);
+
+    const gradientOptions = getGradientOptions();
+    const gradientManaOptions: ManaSelectOption[] = gradientOptions.map(({ label, value }) => ({
+        id: value,
+        label,
+        value,
+    }));
+    const preloadManaOptions = getPreloadManaOptions();
+    const colorOptions = getColorOptions();
 
     const [previewColorKey, setPreviewColorKey] = useState<QuestTileColorKey>(defaultPreviewColorKey);
 
@@ -246,13 +243,13 @@ export function QuestTilesSetting(): JSX.Element {
 
     return (
         <SettingsCard>
-            <SettingsHeader> بلاطات المهام </SettingsHeader>
-            <SettingsDescription> إبراز المهام بألوان اختيارية لتمييزها بصرياً. </SettingsDescription>
-            <SettingsSubheader> سلوك البلاطة </SettingsSubheader>
+            <SettingsHeader>{t("بلاطات المهام", "Quest Tiles")}</SettingsHeader>
+            <SettingsDescription>{t("إبراز المهام بألوان اختيارية لتمييزها بصرياً.", "Highlight quests with optional colors for visual distinction.")}</SettingsDescription>
+            <SettingsSubheader>{t("سلوك البلاطة", "Tile Behavior")}</SettingsSubheader>
             <SettingsRow className="quest-tile-behavior-row">
                 <SettingsRowItem className="quest-tile-gradient-row-item">
                     <SettingsSelect
-                        label="نمط التدرج:"
+                        label={t("نمط التدرج:", "Gradient style:")}
                         options={gradientManaOptions}
                         value={questTiles.questTileGradient}
                         selectionMode="single"
@@ -262,15 +259,20 @@ export function QuestTilesSetting(): JSX.Element {
                         onSelectionChange={updateGradient}
                         tooltip={{
                             position: "top",
-                            text: "المكثف والافتراضي يستخدمان لون البلاطة المختار في تدرج الصورة."
-                                + "\n\nالأسود الخفيف يحافظ على تدرج محايد أغمق للتباين."
-                                + "\n\nبدون تدرج يزيل التدرج، مما قد يجعل بعض صور المهام أصعب قراءةً."
+                            text: t(
+                                "المكثف والافتراضي يستخدمان لون البلاطة المختار في تدرج الصورة."
+                                    + "\n\nالأسود الخفيف يحافظ على تدرج محايد أغمق للتباين."
+                                    + "\n\nبدون تدرج يزيل التدرج، مما قد يجعل بعض صور المهام أصعب قراءةً.",
+                                "Intense and Default use the selected tile color in the image gradient."
+                                    + "\n\nSubtle black maintains a neutral darker gradient for contrast."
+                                    + "\n\nNo gradient removes the gradient, which may make some quest images harder to read."
+                            )
                         }}
                     />
                 </SettingsRowItem>
                 <SettingsRowItem className="quest-tile-preload-row-item">
                     <SettingsSelect
-                        label="التحميل المسبق للأصول:"
+                        label={t("التحميل المسبق للأصول:", "Preload assets:")}
                         options={preloadManaOptions}
                         value={String(questTiles.questTilePreload)}
                         selectionMode="single"
@@ -280,13 +282,17 @@ export function QuestTilesSetting(): JSX.Element {
                         onSelectionChange={updatePreload}
                         tooltip={{
                             position: "top",
-                            text: "تحميل جميع الأصول عند فتح الصفحة يقلل من الاهتزاز أثناء التمرير."
-                                + "\n\nالتحميل أثناء التمرير أقرب لسلوك Discord الافتراضي وقد يستهلك موارد أقل."
+                            text: t(
+                                "تحميل جميع الأصول عند فتح الصفحة يقلل من الاهتزاز أثناء التمرير."
+                                    + "\n\nالتحميل أثناء التمرير أقرب لسلوك Discord الافتراضي وقد يستهلك موارد أقل.",
+                                "Preloading all assets when the page opens reduces jank while scrolling."
+                                    + "\n\nLoading assets while scrolling is closer to Discord's default behavior and may use fewer resources."
+                            )
                         }}
                     />
                 </SettingsRowItem>
             </SettingsRow>
-            <SettingsSubheader> ألوان البلاطة </SettingsSubheader>
+            <SettingsSubheader>{t("ألوان البلاطة", "Tile Colors")}</SettingsSubheader>
             <SettingsRow className="quest-tile-color-row">
                 {colorOptions.map(({ key, label }) => {
                     const setting = questTiles[key] as QuestTileColorSetting;
@@ -308,7 +314,7 @@ export function QuestTilesSetting(): JSX.Element {
                             </div>
                             <div className={q("settings-button", "quest-tile-color-button")}>
                                 <ManaButton
-                                    text={setting.enabled ? "تعطيل" : "تمكين"}
+                                    text={setting.enabled ? t("تعطيل", "Disable") : t("تمكين", "Enable")}
                                     variant={setting.enabled ? "critical-secondary" : "primary"}
                                     disabled={disabled}
                                     fullWidth={true}

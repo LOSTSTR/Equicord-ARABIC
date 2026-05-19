@@ -5,7 +5,8 @@
  */
 
 import { NavContextMenuPatchCallback } from "@api/ContextMenu";
-import { definePluginSettings } from "@api/Settings";
+import { definePluginSettings, useSettings } from "@api/Settings";
+import { t } from "@utils/esharqI18n";
 import { Divider } from "@components/Divider";
 import { FormSwitch } from "@components/FormSwitch";
 import { OpenExternalIcon } from "@components/Icons";
@@ -423,7 +424,7 @@ async function confirmUploadIfNeeded(uploader: Uploader, payload: UploadPayload)
     if (!settings.store.confirmBeforeUpload) {
         if (settings.store.showDestinationPreview) {
             const dest = getDestination(uploader);
-            showToast(`جارٍ الرفع إلى ${dest.host} (${dest.url})…`, Toasts.Type.MESSAGE);
+            showToast(`${t("جارٍ الرفع إلى", "Uploading to")} ${dest.host} (${dest.url})…`, Toasts.Type.MESSAGE);
         }
         return true;
     }
@@ -432,16 +433,16 @@ async function confirmUploadIfNeeded(uploader: Uploader, payload: UploadPayload)
     const body = (
         <div>
             <Forms.FormText className={Margins.bottom8}>
-                أنت على وشك رفع <b>{payload.fileName}</b> ({(payload.fileSizeBytes / (1024 * 1024)).toFixed(2)} MiB) إلى <b>{getUploaderDisplayName(uploader)}</b>.
+                {t("أنت على وشك رفع", "You are about to upload")} <b>{payload.fileName}</b> ({(payload.fileSizeBytes / (1024 * 1024)).toFixed(2)} MiB) {t("إلى", "to")} <b>{getUploaderDisplayName(uploader)}</b>.
             </Forms.FormText>
             {settings.store.showDestinationPreview && (
                 <div className={Margins.top8}>
-                    <Forms.FormText><b>مضيف الوجهة:</b> {dest.host}</Forms.FormText>
-                    <Forms.FormText><b>رابط الوجهة:</b> {dest.url}</Forms.FormText>
+                    <Forms.FormText><b>{t("مضيف الوجهة:", "Destination Host:")}</b> {dest.host}</Forms.FormText>
+                    <Forms.FormText><b>{t("رابط الوجهة:", "Destination URL:")}</b> {dest.url}</Forms.FormText>
                     {dest.note && <Forms.FormText>{dest.note}</Forms.FormText>}
                     {uploader === "Custom" && (
                         <Forms.FormText className={Margins.top8}>
-                            للرافعات المخصصة، تأكد من الوثوق بالـ endpoint والترويسات المُعدَّة.
+                            {t("للرافعات المخصصة، تأكد من الوثوق بالـ endpoint والترويسات المُعدَّة.", "For custom uploaders, make sure you trust the endpoint and configured headers.")}
                         </Forms.FormText>
                     )}
                 </div>
@@ -451,10 +452,10 @@ async function confirmUploadIfNeeded(uploader: Uploader, payload: UploadPayload)
 
     return await new Promise<boolean>(resolve => {
         Alerts.show({
-            title: "تأكيد الرفع",
+            title: t("تأكيد الرفع", "Confirm Upload"),
             body,
-            confirmText: "رفع",
-            cancelText: "إلغاء",
+            confirmText: t("رفع", "Upload"),
+            cancelText: t("إلغاء", "Cancel"),
             onConfirm: () => resolve(true),
             onCancel: () => resolve(false)
         });
@@ -463,22 +464,22 @@ async function confirmUploadIfNeeded(uploader: Uploader, payload: UploadPayload)
 
 function validateCustomSettings(): { ok: true; args: Record<string, string>; headers: Record<string, string>; urlPath: string[]; } | { ok: false; error: string; } {
     const requestUrl = settings.store.customRequestUrl?.trim() ?? "";
-    if (!requestUrl) return { ok: false, error: "الرافع المخصص: رابط الطلب مطلوب." };
-    if (!isHttpUrl(requestUrl)) return { ok: false, error: "الرافع المخصص: رابط الطلب يجب أن يكون رابط http(s) صحيحاً." };
+    if (!requestUrl) return { ok: false, error: t("الرافع المخصص: رابط الطلب مطلوب.", "Custom uploader: Request URL is required.") };
+    if (!isHttpUrl(requestUrl)) return { ok: false, error: t("الرافع المخصص: رابط الطلب يجب أن يكون رابط http(s) صحيحاً.", "Custom uploader: Request URL must be a valid http(s) URL.") };
 
     const fileFormName = settings.store.customFileFormName?.trim() ?? "";
-    if (!fileFormName) return { ok: false, error: "الرافع المخصص: اسم نموذج الملف مطلوب." };
+    if (!fileFormName) return { ok: false, error: t("الرافع المخصص: اسم نموذج الملف مطلوب.", "Custom uploader: File form name is required.") };
 
     const responseType = settings.store.customResponseType as CustomResponseType;
     if (responseType !== "Text" && responseType !== "JSON")
-        return { ok: false, error: "الرافع المخصص: نوع الاستجابة يجب أن يكون نصاً أو JSON." };
+        return { ok: false, error: t("الرافع المخصص: نوع الاستجابة يجب أن يكون نصاً أو JSON.", "Custom uploader: Response type must be Text or JSON.") };
 
     const urlPathRaw = settings.store.customUrlPath?.trim() ?? "";
     const urlPath = responseType === "JSON"
         ? urlPathRaw.split(".").map(s => s.trim()).filter(Boolean)
         : [];
     if (responseType === "JSON" && urlPath.length === 0)
-        return { ok: false, error: "الرافع المخصص: مسار الرابط مطلوب لاستجابات JSON (مثال: data.url)." };
+        return { ok: false, error: t("الرافع المخصص: مسار الرابط مطلوب لاستجابات JSON (مثال: data.url).", "Custom uploader: URL path is required for JSON responses (e.g. data.url).") };
 
     const argsParsed = safeJsonParseObject("custom arguments", settings.store.customArgsJson);
     if (!argsParsed.ok) return { ok: false, error: argsParsed.error };
@@ -609,10 +610,10 @@ async function sendOrInsert(channelId: string, url: string) {
     if (settings.store.autoSend) {
         // Sending the URL without extra surrounding text makes Discord more likely to generate embeds.
         await sendMessage(channelId, { content: url });
-        showToast("تم إرسال رابط الرفع!", Toasts.Type.SUCCESS);
+        showToast(t("تم إرسال رابط الرفع!", "Upload link sent!"), Toasts.Type.SUCCESS);
     } else {
         insertTextIntoChatInputBox(`${url} `);
-        await copyWithToast(url, "تم نسخ رابط الرفع!");
+        await copyWithToast(url, t("تم نسخ رابط الرفع!", "Upload link copied!"));
     }
 }
 
@@ -658,31 +659,31 @@ async function runUploadFlow(channelId: string) {
         if (!ok) return;
 
         const toast = createProgressToast();
-        toast.show(`جارٍ الرفع عبر ${getUploaderDisplayName(uploader)}…`);
+        toast.show(`${t("جارٍ الرفع عبر", "Uploading via")} ${getUploaderDisplayName(uploader)}…`);
 
         const maxAttempts = 3;
         let url: string | null = null;
 
         for (let attempt = 1; attempt <= maxAttempts; attempt++) {
             try {
-                if (attempt > 1) toast.show(`إعادة محاولة الرفع (${attempt}/${maxAttempts})…`);
+                if (attempt > 1) toast.show(`${t("إعادة محاولة الرفع", "Retrying upload")} (${attempt}/${maxAttempts})…`);
                 url = await uploadToService(uploader, payload);
                 break;
             } catch (err) {
                 if (attempt >= maxAttempts || !isRetryableNetworkError(err)) throw err;
-                toast.show(`خطأ في الشبكة؛ إعادة المحاولة (${attempt + 1}/${maxAttempts})…`, Toasts.Type.MESSAGE, 4000);
+                toast.show(`${t("خطأ في الشبكة؛ إعادة المحاولة", "Network error; retrying")} (${attempt + 1}/${maxAttempts})…`, Toasts.Type.MESSAGE, 4000);
                 await sleep(900 * attempt);
             }
         }
 
         if (typeof url !== "string" || !(url.startsWith("http://") || url.startsWith("https://")))
-            throw new Error("اكتمل الرفع لكن الرابط المُعاد غير صالح.");
+            throw new Error(t("اكتمل الرفع لكن الرابط المُعاد غير صالح.", "Upload completed but returned URL is invalid."));
 
         const finalUrl = maybeWrapVideo(url, payload.fileName, payload.fileSizeBytes);
         await sendOrInsert(channelId, finalUrl);
-        toast.show("اكتمل الرفع.", Toasts.Type.SUCCESS);
+        toast.show(t("اكتمل الرفع.", "Upload complete."), Toasts.Type.SUCCESS);
     } catch (err) {
-        showToast(`فشل الرفع: ${humanError(err)}`, Toasts.Type.FAILURE);
+        showToast(`${t("فشل الرفع:", "Upload failed:")} ${humanError(err)}`, Toasts.Type.FAILURE);
     } finally {
         UploadManager.clearAll(channelId, DraftType.ChannelMessage);
         uploadInFlight = false;
@@ -699,7 +700,7 @@ const ctxMenuPatch: NavContextMenuPatchCallback = (children, props) => {
             label={
                 <div>
                     <OpenExternalIcon height={24} width={24} />
-                    <div>رفع ملف كبير (Enhanced)</div>
+                    <div>{t("رفع ملف كبير (Enhanced)", "Upload Large File (Enhanced)")}</div>
                 </div>
             }
             action={() => runUploadFlow(props.channel.id)}
@@ -708,6 +709,7 @@ const ctxMenuPatch: NavContextMenuPatchCallback = (children, props) => {
 };
 
 function SettingsComponent() {
+    useSettings(["plugins.Settings.arabicMode"]);
     const uploader = settings.store.uploader as Uploader;
     const dest = useMemo(() => getDestination(uploader), [uploader, settings.store.customRequestUrl]);
 
@@ -728,7 +730,7 @@ function SettingsComponent() {
         try {
             parsed = JSON.parse(sxcuText);
         } catch (err) {
-            showToast(`فشل تحليل JSON. في ملف sxcu: ${humanError(err)}`, Toasts.Type.FAILURE);
+            showToast(`${t("فشل تحليل JSON. في ملف sxcu:", "Failed to parse JSON in sxcu file:")} ${humanError(err)}`, Toasts.Type.FAILURE);
             return;
         }
 
@@ -741,23 +743,23 @@ function SettingsComponent() {
         settings.store.customHeadersJson = JSON.stringify(parsed?.Headers ?? {}, null, 2);
         settings.store.customArgsJson = JSON.stringify(parsed?.Arguments ?? {}, null, 2);
 
-        showToast("تم استيراد إعدادات رافع ShareX.", Toasts.Type.SUCCESS);
+        showToast(t("تم استيراد إعدادات رافع ShareX.", "ShareX uploader settings imported."), Toasts.Type.SUCCESS);
     };
 
     return (
         <div>
-            <Forms.FormTitle>الأمان</Forms.FormTitle>
+            <Forms.FormTitle>{t("الأمان", "Security")}</Forms.FormTitle>
             <Forms.FormText className={Margins.bottom8}>
-                يرفع الملفات إلى خادم خارجي ثم يشارك الرابط الناتج في الدردشة.
+                {t("يرفع الملفات إلى خادم خارجي ثم يشارك الرابط الناتج في الدردشة.", "Uploads files to an external server then shares the resulting link in the chat.")}
             </Forms.FormText>
 
             <Forms.FormText className={Margins.bottom8}>
-                الوجهة الحالية: <b>{dest.host}</b> ({dest.url})
+                {t("الوجهة الحالية:", "Current destination:")} <b>{dest.host}</b> ({dest.url})
             </Forms.FormText>
 
             <Divider className={Margins.bottom16} />
 
-            <Forms.FormTitle>عام</Forms.FormTitle>
+            <Forms.FormTitle>{t("عام", "General")}</Forms.FormTitle>
             <div className={Margins.bottom16}>
                 <Select
                     options={[
@@ -765,7 +767,7 @@ function SettingsComponent() {
                         { label: "Litterbox (Catbox)", value: "Litterbox" },
                         { label: "GoFile", value: "GoFile" },
                         { label: "FileFast", value: "FileFast" },
-                        { label: "مخصص (متوافق مع ShareX)", value: "Custom" },
+                        { label: t("مخصص (متوافق مع ShareX)", "Custom (ShareX compatible)"), value: "Custom" },
                     ]}
                     serialize={v => v}
                     select={(v: Uploader) => settings.store.uploader = v}
@@ -774,29 +776,29 @@ function SettingsComponent() {
             </div>
 
             <FormSwitch
-                title="تأكيد قبل الرفع"
-                description="طلب تأكيد قبل البدء بالرفع"
+                title={t("تأكيد قبل الرفع", "Confirm before upload")}
+                description={t("طلب تأكيد قبل البدء بالرفع", "Request confirmation before starting the upload")}
                 value={settings.store.confirmBeforeUpload}
                 onChange={v => settings.store.confirmBeforeUpload = v}
             />
 
             <FormSwitch
-                title="عرض معاينة الوجهة"
-                description="عرض مضيف الوجهة والرابط في حوار التأكيد"
+                title={t("عرض معاينة الوجهة", "Show destination preview")}
+                description={t("عرض مضيف الوجهة والرابط في حوار التأكيد", "Show destination host and URL in the confirmation dialog")}
                 value={settings.store.showDestinationPreview}
                 onChange={v => settings.store.showDestinationPreview = v}
             />
 
             <FormSwitch
-                title="إرسال الرابط تلقائياً"
-                description="إذا أُوقف، يُنسخ الرابط ويُدرج في صندوق الدردشة"
+                title={t("إرسال الرابط تلقائياً", "Auto-send link")}
+                description={t("إذا أُوقف، يُنسخ الرابط ويُدرج في صندوق الدردشة", "If disabled, the link is copied and inserted into the chat box")}
                 value={settings.store.autoSend}
                 onChange={v => settings.store.autoSend = v}
             />
 
             <FormSwitch
-                title="تغليف بـ embeds.video (اختياري)"
-                description="يغلّف روابط الفيديو الكبيرة بـ embeds.video (يضيف إعادة توجيه من طرف ثالث)"
+                title={t("تغليف بـ embeds.video (اختياري)", "Wrap with embeds.video (optional)")}
+                description={t("يغلّف روابط الفيديو الكبيرة بـ embeds.video (يضيف إعادة توجيه من طرف ثالث)", "Wraps large video links with embeds.video (adds a third-party redirect)")}
                 value={settings.store.wrapVideoEmbeds}
                 onChange={v => settings.store.wrapVideoEmbeds = v}
             />
@@ -806,10 +808,10 @@ function SettingsComponent() {
                     <Divider className={Margins.bottom16} />
                     <Forms.FormTitle>GoFile</Forms.FormTitle>
                     <TextInput
-                        label="الرمز المميز (اختياري، يُحفظ بشكل خاص)"
+                        label={t("الرمز المميز (اختياري، يُحفظ بشكل خاص)", "Token (optional, stored privately)")}
                         type="password"
                         value={settings.store.gofileToken ?? ""}
-                        placeholder="رمز GoFile"
+                        placeholder={t("رمز GoFile", "GoFile token")}
                         onChange={v => settings.store.gofileToken = v}
                     />
                 </>
@@ -820,10 +822,10 @@ function SettingsComponent() {
                     <Divider className={Margins.bottom16} />
                     <Forms.FormTitle>Catbox</Forms.FormTitle>
                     <TextInput
-                        label="هاش المستخدم (اختياري، يُحفظ بشكل خاص)"
+                        label={t("هاش المستخدم (اختياري، يُحفظ بشكل خاص)", "User hash (optional, stored privately)")}
                         type="password"
                         value={settings.store.catboxUserHash ?? ""}
-                        placeholder="هاش مستخدم Catbox"
+                        placeholder={t("هاش مستخدم Catbox", "Catbox user hash")}
                         onChange={v => settings.store.catboxUserHash = v}
                     />
                 </>
@@ -834,13 +836,13 @@ function SettingsComponent() {
                     <Divider className={Margins.bottom16} />
                     <Forms.FormTitle>FileFast</Forms.FormTitle>
                     <Forms.FormText className={Margins.bottom8}>
-                        رفع ملفات سريع. الملفات لا تنتهي صلاحيتها.
+                        {t("رفع ملفات سريع. الملفات لا تنتهي صلاحيتها.", "Fast file uploads. Files do not expire.")}
                     </Forms.FormText>
                     <TextInput
-                        label="الرمز المميز (اختياري، يُحفظ بشكل خاص)"
+                        label={t("الرمز المميز (اختياري، يُحفظ بشكل خاص)", "Token (optional, stored privately)")}
                         type="password"
                         value={settings.store.filefastToken ?? ""}
-                        placeholder="رمز FileFast"
+                        placeholder={t("رمز FileFast", "FileFast token")}
                         onChange={v => settings.store.filefastToken = v}
                     />
                 </>
@@ -853,10 +855,10 @@ function SettingsComponent() {
                     <div className={Margins.bottom16}>
                         <Select
                             options={[
-                                { label: "ساعة واحدة", value: "1h" },
-                                { label: "12 ساعة", value: "12h" },
-                                { label: "24 ساعة", value: "24h" },
-                                { label: "72 ساعة", value: "72h" },
+                                { label: t("ساعة واحدة", "1 hour"), value: "1h" },
+                                { label: t("12 ساعة", "12 hours"), value: "12h" },
+                                { label: t("24 ساعة", "24 hours"), value: "24h" },
+                                { label: t("72 ساعة", "72 hours"), value: "72h" },
                             ]}
                             serialize={v => v}
                             select={(v: string) => settings.store.litterboxTime = v}
@@ -869,27 +871,27 @@ function SettingsComponent() {
             {uploader === "Custom" && (
                 <>
                     <Divider className={Margins.bottom16} />
-                    <Forms.FormTitle>مخصص (ShareX)</Forms.FormTitle>
+                    <Forms.FormTitle>{t("مخصص (ShareX)", "Custom (ShareX)")}</Forms.FormTitle>
                     <div className={Margins.bottom16}>
-                        <Button onClick={importShareXConfig}>استيراد إعدادات ShareX</Button>
+                        <Button onClick={importShareXConfig}>{t("استيراد إعدادات ShareX", "Import ShareX config")}</Button>
                     </div>
 
                     <TextInput
-                        label="الاسم (للعرض فقط)"
+                        label={t("الاسم (للعرض فقط)", "Name (display only)")}
                         value={settings.store.customName}
                         onChange={v => settings.store.customName = v}
-                        placeholder="رافعي المخصص"
+                        placeholder={t("رافعي المخصص", "My custom uploader")}
                     />
 
                     <TextInput
-                        label="رابط الطلب"
+                        label={t("رابط الطلب", "Request URL")}
                         value={settings.store.customRequestUrl}
                         onChange={v => settings.store.customRequestUrl = v}
                         placeholder="https://example.com/upload"
                     />
 
                     <TextInput
-                        label="اسم نموذج الملف"
+                        label={t("اسم نموذج الملف", "File form name")}
                         value={settings.store.customFileFormName}
                         onChange={v => settings.store.customFileFormName = v}
                         placeholder="file"
@@ -898,7 +900,7 @@ function SettingsComponent() {
                     <div className={Margins.bottom16}>
                         <Select
                             options={[
-                                { label: "نص", value: "Text" },
+                                { label: t("نص", "Text"), value: "Text" },
                                 { label: "JSON", value: "JSON" },
                             ]}
                             serialize={v => v}
@@ -908,14 +910,14 @@ function SettingsComponent() {
                     </div>
 
                     <TextInput
-                        label="مسار الرابط (نقطة JSON، أو يُتجاهل للنص)"
+                        label={t("مسار الرابط (نقطة JSON، أو يُتجاهل للنص)", "URL path (JSON dot-path, or ignored for Text)")}
                         value={settings.store.customUrlPath}
                         onChange={v => settings.store.customUrlPath = v}
                         placeholder="data.url"
                     />
 
                     <div className={Margins.bottom16}>
-                        <Forms.FormText>معطيات JSON (تُحفظ بشكل خاص)</Forms.FormText>
+                        <Forms.FormText>{t("معطيات JSON (تُحفظ بشكل خاص)", "JSON Arguments (stored privately)")}</Forms.FormText>
                         <TextArea
                             value={settings.store.customArgsJson ?? ""}
                             onChange={v => settings.store.customArgsJson = v}
@@ -925,7 +927,7 @@ function SettingsComponent() {
                     </div>
 
                     <div className={Margins.bottom16}>
-                        <Forms.FormText>ترويسات JSON (تُحفظ بشكل خاص)</Forms.FormText>
+                        <Forms.FormText>{t("ترويسات JSON (تُحفظ بشكل خاص)", "JSON Headers (stored privately)")}</Forms.FormText>
                         <TextArea
                             value={settings.store.customHeadersJson ?? ""}
                             onChange={v => settings.store.customHeadersJson = v}
@@ -937,11 +939,11 @@ function SettingsComponent() {
                     <Button
                         onClick={() => {
                             const result = validateCustomSettings();
-                            if (result.ok) showToast("إعدادات الرافع المخصص تبدو صحيحة.", Toasts.Type.SUCCESS);
+                            if (result.ok) showToast(t("إعدادات الرافع المخصص تبدو صحيحة.", "Custom uploader settings look correct."), Toasts.Type.SUCCESS);
                             else showToast(result.error, Toasts.Type.FAILURE);
                         }}
                     >
-                        التحقق من الإعدادات المخصصة
+                        {t("التحقق من الإعدادات المخصصة", "Validate custom settings")}
                     </Button>
                 </>
             )}

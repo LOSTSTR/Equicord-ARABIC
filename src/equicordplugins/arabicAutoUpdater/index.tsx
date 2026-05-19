@@ -5,6 +5,7 @@
  */
 
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import { Logger } from "@utils/Logger";
 import definePlugin from "@utils/types";
 import { Alerts } from "@webpack/common";
@@ -40,17 +41,17 @@ async function checkForUpdate() {
         localStorage.setItem(SEEN_KEY, remoteHash);
 
         Alerts.show({
-            title: "تحديث جديد متاح!",
+            title: t("تحديث جديد متاح!", "New update available!"),
             body: (
                 <>
-                    <p>يتوفر إصدار جديد من <strong>Esharq</strong>.</p>
-                    <p>الإصدار الحالي: <code>{gitHash.slice(0, 7)}</code></p>
-                    <p>الإصدار الجديد: <code>{remoteHash.slice(0, 7)}</code></p>
-                    <p>هل تريد التحديث الآن؟</p>
+                    <p>{t("يتوفر إصدار جديد من", "A new version of")} <strong>Esharq</strong>{t(" متاح.", " is available.")}</p>
+                    <p>{t("الإصدار الحالي:", "Current version:")} <code>{gitHash.slice(0, 7)}</code></p>
+                    <p>{t("الإصدار الجديد:", "New version:")} <code>{remoteHash.slice(0, 7)}</code></p>
+                    <p>{t("هل تريد التحديث الآن؟", "Do you want to update now?")}</p>
                 </>
             ),
-            confirmText: "تحديث الآن",
-            cancelText: "لاحقاً",
+            confirmText: t("تحديث الآن", "Update now"),
+            cancelText: t("لاحقاً", "Later"),
             onConfirm() {
                 VencordNative.native.openExternal(RELEASES_PAGE);
             }

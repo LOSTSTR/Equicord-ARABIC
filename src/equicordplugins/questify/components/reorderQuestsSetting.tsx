@@ -4,48 +4,54 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
+import { useSettings } from "@api/Settings";
 import type { JSX } from "react";
 
 import { getQuestifySettings, useQuestifySettings } from "../settings/access";
+import { t } from "@utils/esharqI18n";
 import { defaultQuestOrder, type QuestOrderStatus, type QuestSubsort } from "../settings/def";
 import { rerenderQuests } from "../settings/rerender";
 import { type ManaSelectOption, SettingsCard, SettingsDescription, SettingsHeader, SettingsRow, SettingsRowItem, SettingsSelect, SettingsSubheader, SettingsSubtleSwitch } from "./shared";
 
-const questStatusOptions = [
-    { label: "غير مطالَب", value: "UNCLAIMED" },
-    { label: "مطالَب", value: "CLAIMED" },
-    { label: "مُتجاهَل", value: "IGNORED" },
-    { label: "منتهي", value: "EXPIRED" },
-] as const satisfies readonly { label: string, value: QuestOrderStatus; }[];
+function getQuestStatusOptions(): readonly { label: string, value: QuestOrderStatus; }[] {
+    return [
+        { label: t("غير مطالَب", "Unclaimed"), value: "UNCLAIMED" },
+        { label: t("مطالَب", "Claimed"), value: "CLAIMED" },
+        { label: t("مُتجاهَل", "Ignored"), value: "IGNORED" },
+        { label: t("منتهي", "Expired"), value: "EXPIRED" },
+    ];
+}
 
-const questStatusManaOptions: ManaSelectOption[] = questStatusOptions.map(({ label, value }) => ({
-    id: value,
-    label,
-    value,
-}));
+function getBaseSubsortOptions(): readonly { label: string, value: QuestSubsort; }[] {
+    return [
+        { label: t("الأحدث إضافةً", "Newest added"), value: "Recent DESC" },
+        { label: t("الأقدم إضافةً", "Oldest added"), value: "Recent ASC" },
+    ];
+}
 
-const baseSubsortOptions = [
-    { label: "الأحدث إضافةً", value: "Recent DESC" },
-    { label: "الأقدم إضافةً", value: "Recent ASC" },
-] as const satisfies readonly { label: string, value: QuestSubsort; }[];
+function getExpiringSubsortOptions(): readonly { label: string, value: QuestSubsort; }[] {
+    return [
+        ...getBaseSubsortOptions(),
+        { label: t("الأقرب انتهاءً", "Soonest expiring"), value: "Expiring ASC" },
+        { label: t("الأبعد انتهاءً", "Latest expiring"), value: "Expiring DESC" },
+    ];
+}
 
-const expiringSubsortOptions = [
-    ...baseSubsortOptions,
-    { label: "الأقرب انتهاءً", value: "Expiring ASC" },
-    { label: "الأبعد انتهاءً", value: "Expiring DESC" },
-] as const satisfies readonly { label: string, value: QuestSubsort; }[];
+function getExpiredSubsortOptions(): readonly { label: string, value: QuestSubsort; }[] {
+    return [
+        ...getBaseSubsortOptions(),
+        { label: t("الأحدث انتهاءً", "Most recently expired"), value: "Expiring DESC" },
+        { label: t("الأقدم انتهاءً", "Oldest expired"), value: "Expiring ASC" },
+    ];
+}
 
-const expiredSubsortOptions = [
-    ...baseSubsortOptions,
-    { label: "الأحدث انتهاءً", value: "Expiring DESC" },
-    { label: "الأقدم انتهاءً", value: "Expiring ASC" },
-] as const satisfies readonly { label: string, value: QuestSubsort; }[];
-
-const claimedSubsortOptions = [
-    ...baseSubsortOptions,
-    { label: "الأحدث مطالبةً", value: "Claimed DESC" },
-    { label: "الأقدم مطالبةً", value: "Claimed ASC" },
-] as const satisfies readonly { label: string, value: QuestSubsort; }[];
+function getClaimedSubsortOptions(): readonly { label: string, value: QuestSubsort; }[] {
+    return [
+        ...getBaseSubsortOptions(),
+        { label: t("الأحدث مطالبةً", "Most recently claimed"), value: "Claimed DESC" },
+        { label: t("الأقدم مطالبةً", "Oldest claimed"), value: "Claimed ASC" },
+    ];
+}
 
 function toManaOptions(options: readonly { label: string, value: QuestSubsort; }[]): ManaSelectOption[] {
     return options.map(({ label, value }) => ({
@@ -55,17 +61,35 @@ function toManaOptions(options: readonly { label: string, value: QuestSubsort; }
     }));
 }
 
-const unclaimedSubsortManaOptions = toManaOptions(expiringSubsortOptions);
-const claimedSubsortManaOptions = toManaOptions(claimedSubsortOptions);
-const ignoredSubsortManaOptions = toManaOptions(expiringSubsortOptions);
-const expiredSubsortManaOptions = toManaOptions(expiredSubsortOptions);
-const positionLabels = ["الأول", "الثاني", "الثالث", "الرابع"] as const;
-const subsortTooltips = {
-    unclaimedSubsort: "تبقى المهام المكتملة وغير المطالَب بها أسفل المهام غير المكتملة، ثم يُطبَّق هذا الترتيب الفرعي داخل كل مجموعة.",
-    claimedSubsort: "يمكن ترتيب المهام المطالَب بها حسب وقت المطالبة أو وقت إضافة المهمة.",
-    ignoredSubsort: "تحتفظ المهام المُتجاهَلة بموضعها ضمن المجموعة المتجاهلة، ويتحكم هذا الترتيب في ترتيبها داخل تلك المجموعة.",
-    expiredSubsort: "يمكن ترتيب المهام المنتهية حسب وقت الانتهاء أو وقت الإضافة.",
-} as const;
+function getPositionLabels(): string[] {
+    return [
+        t("الأول", "1st"),
+        t("الثاني", "2nd"),
+        t("الثالث", "3rd"),
+        t("الرابع", "4th"),
+    ];
+}
+
+function getSubsortTooltips() {
+    return {
+        unclaimedSubsort: t(
+            "تبقى المهام المكتملة وغير المطالَب بها أسفل المهام غير المكتملة، ثم يُطبَّق هذا الترتيب الفرعي داخل كل مجموعة.",
+            "Completed unclaimed quests remain below incomplete ones, then this sub-sort is applied within each group."
+        ),
+        claimedSubsort: t(
+            "يمكن ترتيب المهام المطالَب بها حسب وقت المطالبة أو وقت إضافة المهمة.",
+            "Claimed quests can be sorted by claim time or quest addition time."
+        ),
+        ignoredSubsort: t(
+            "تحتفظ المهام المُتجاهَلة بموضعها ضمن المجموعة المتجاهلة، ويتحكم هذا الترتيب في ترتيبها داخل تلك المجموعة.",
+            "Ignored quests retain their position within the ignored group, and this sort controls their order within that group."
+        ),
+        expiredSubsort: t(
+            "يمكن ترتيب المهام المنتهية حسب وقت الانتهاء أو وقت الإضافة.",
+            "Expired quests can be sorted by expiry time or addition time."
+        ),
+    };
+}
 
 function sanitizeQuestOrder(order: unknown): QuestOrderStatus[] {
     const validStatuses = new Set<QuestOrderStatus>(defaultQuestOrder);
@@ -83,6 +107,8 @@ function sanitizeQuestOrder(order: unknown): QuestOrderStatus[] {
 }
 
 export function ReorderQuestsSetting(): JSX.Element {
+    useSettings(["plugins.Settings.arabicMode"]);
+
     const reorderQuests = useQuestifySettings([
         "disableQuestsEverything",
         "questOrder",
@@ -93,6 +119,19 @@ export function ReorderQuestsSetting(): JSX.Element {
         "rememberQuestPageSort",
         "rememberQuestPageFilters",
     ]);
+
+    const questStatusOptions = getQuestStatusOptions();
+    const questStatusManaOptions: ManaSelectOption[] = questStatusOptions.map(({ label, value }) => ({
+        id: value,
+        label,
+        value,
+    }));
+    const unclaimedSubsortManaOptions = toManaOptions(getExpiringSubsortOptions());
+    const claimedSubsortManaOptions = toManaOptions(getClaimedSubsortOptions());
+    const ignoredSubsortManaOptions = toManaOptions(getExpiringSubsortOptions());
+    const expiredSubsortManaOptions = toManaOptions(getExpiredSubsortOptions());
+    const positionLabels = getPositionLabels();
+    const subsortTooltips = getSubsortTooltips();
 
     const disabled = reorderQuests.disableQuestsEverything;
     const questOrder = sanitizeQuestOrder(reorderQuests.questOrder);
@@ -127,9 +166,9 @@ export function ReorderQuestsSetting(): JSX.Element {
 
     return (
         <SettingsCard>
-            <SettingsHeader> إعادة ترتيب المهام </SettingsHeader>
-            <SettingsDescription> رتّب المهام حسب حالتها عند تحديد خيار الترتيب Questify في صفحة المهام. </SettingsDescription>
-            <SettingsSubheader> ترتيب الحالة </SettingsSubheader>
+            <SettingsHeader>{t("إعادة ترتيب المهام", "Reorder Quests")}</SettingsHeader>
+            <SettingsDescription>{t("رتّب المهام حسب حالتها عند تحديد خيار الترتيب Questify في صفحة المهام.", "Sort quests by status when the Questify sort option is selected on the quests page.")}</SettingsDescription>
+            <SettingsSubheader>{t("ترتيب الحالة", "Status Order")}</SettingsSubheader>
             <SettingsRow>
                 {questOrder.map((status, index) => (
                     <SettingsRowItem key={index}>
@@ -144,17 +183,20 @@ export function ReorderQuestsSetting(): JSX.Element {
                             onSelectionChange={value => updateQuestOrder(index, value)}
                             tooltip={{
                                 position: "top",
-                                text: "لا يمكن تكرار الحالة في أكثر من موضع. اختيار حالة مستخدمة في موضع آخر يُبادل الموضعين."
+                                text: t(
+                                    "لا يمكن تكرار الحالة في أكثر من موضع. اختيار حالة مستخدمة في موضع آخر يُبادل الموضعين.",
+                                    "A status cannot appear in more than one position. Selecting a status already used in another position swaps the two positions."
+                                )
                             }}
                         />
                     </SettingsRowItem>
                 ))}
             </SettingsRow>
-            <SettingsSubheader> الترتيب الفرعي </SettingsSubheader>
+            <SettingsSubheader>{t("الترتيب الفرعي", "Sub-sort")}</SettingsSubheader>
             <SettingsRow>
                 <SettingsRowItem>
                     <SettingsSelect
-                        label="ترتيب غير المطالَب فرعياً:"
+                        label={t("ترتيب غير المطالَب فرعياً:", "Unclaimed sub-sort:")}
                         options={unclaimedSubsortManaOptions}
                         value={reorderQuests.unclaimedSubsort}
                         selectionMode="single"
@@ -170,7 +212,7 @@ export function ReorderQuestsSetting(): JSX.Element {
                 </SettingsRowItem>
                 <SettingsRowItem>
                     <SettingsSelect
-                        label="ترتيب المطالَب فرعياً:"
+                        label={t("ترتيب المطالَب فرعياً:", "Claimed sub-sort:")}
                         options={claimedSubsortManaOptions}
                         value={reorderQuests.claimedSubsort}
                         selectionMode="single"
@@ -188,7 +230,7 @@ export function ReorderQuestsSetting(): JSX.Element {
             <SettingsRow>
                 <SettingsRowItem>
                     <SettingsSelect
-                        label="ترتيب المُتجاهَل فرعياً:"
+                        label={t("ترتيب المُتجاهَل فرعياً:", "Ignored sub-sort:")}
                         options={ignoredSubsortManaOptions}
                         value={reorderQuests.ignoredSubsort}
                         selectionMode="single"
@@ -204,7 +246,7 @@ export function ReorderQuestsSetting(): JSX.Element {
                 </SettingsRowItem>
                 <SettingsRowItem>
                     <SettingsSelect
-                        label="ترتيب المنتهي فرعياً:"
+                        label={t("ترتيب المنتهي فرعياً:", "Expired sub-sort:")}
                         options={expiredSubsortManaOptions}
                         value={reorderQuests.expiredSubsort}
                         selectionMode="single"
@@ -219,26 +261,32 @@ export function ReorderQuestsSetting(): JSX.Element {
                     />
                 </SettingsRowItem>
             </SettingsRow>
-            <SettingsSubheader> ذاكرة صفحة المهام </SettingsSubheader>
+            <SettingsSubheader>{t("ذاكرة صفحة المهام", "Quest Page Memory")}</SettingsSubheader>
             <SettingsSubtleSwitch
                 checked={reorderQuests.rememberQuestPageSort}
                 disabled={disabled}
-                label="تذكر ترتيب صفحة المهام المحدد:"
+                label={t("تذكر ترتيب صفحة المهام المحدد:", "Remember selected quest page sort:")}
                 onChange={checked => updateRememberSetting("rememberQuestPageSort", checked)}
                 bottomSpacing="5"
                 tooltip={{
                     position: "top",
-                    text: "عند التعطيل، تفتح صفحة المهام دائماً بخيار الترتيب Questify."
+                    text: t(
+                        "عند التعطيل، تفتح صفحة المهام دائماً بخيار الترتيب Questify.",
+                        "When disabled, the quests page always opens with the Questify sort option."
+                    )
                 }}
             />
             <SettingsSubtleSwitch
                 checked={reorderQuests.rememberQuestPageFilters}
                 disabled={disabled}
-                label="تذكر فلاتر صفحة المهام المحددة:"
+                label={t("تذكر فلاتر صفحة المهام المحددة:", "Remember selected quest page filters:")}
                 onChange={checked => updateRememberSetting("rememberQuestPageFilters", checked)}
                 tooltip={{
                     position: "top",
-                    text: "عند التعطيل، تفتح صفحة المهام بدون فلاتر مهام أو مكافآت في كل مرة."
+                    text: t(
+                        "عند التعطيل، تفتح صفحة المهام بدون فلاتر مهام أو مكافآت في كل مرة.",
+                        "When disabled, the quests page opens without any quest or reward filters each time."
+                    )
                 }}
             />
         </SettingsCard>

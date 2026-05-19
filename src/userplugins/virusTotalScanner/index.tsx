@@ -6,8 +6,9 @@
 
 import "./styles.css";
 
-import { definePluginSettings } from "@api/Settings";
+import { definePluginSettings, useSettings } from "@api/Settings";
 import { classNameFactory } from "@utils/css";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { React, TextInput, useState } from "@webpack/common";
 
@@ -78,6 +79,7 @@ const settings = definePluginSettings({
 });
 
 function ApiKeyInput(): JSX.Element {
+    useSettings(["plugins.Settings.arabicMode"]);
     const [value, setValue] = useState(settings.store.apiKey ?? "");
     const [saved, setSaved] = useState(false);
 
@@ -93,11 +95,11 @@ function ApiKeyInput(): JSX.Element {
                 type="password"
                 value={value}
                 onChange={v => { setValue(v); setSaved(false); }}
-                placeholder="أدخل مفتاح VirusTotal API v3"
+                placeholder={t("أدخل مفتاح VirusTotal API v3", "Enter your VirusTotal API v3 key")}
                 className={cl("api-key-input")}
             />
             <button className={cl("save-btn")} onClick={save}>
-                {saved ? "✔ تم الحفظ" : "حفظ"}
+                {saved ? t("✔ تم الحفظ", "✔ Saved") : t("حفظ", "Save")}
             </button>
         </div>
     );
@@ -122,7 +124,7 @@ async function vtHashLookup(hash: string, apiKey: string): Promise<{ found: true
     });
 
     if (res.status === 404) return { found: false };
-    if (!res.ok) throw new Error(`خطأ من VirusTotal: ${res.status}`);
+    if (!res.ok) throw new Error(`${t("خطأ من VirusTotal", "VirusTotal error")}: ${res.status}`);
 
     const json = await res.json();
     const attrs = json?.data?.attributes ?? {};
@@ -147,7 +149,7 @@ async function getVtUploadUrl(apiKey: string): Promise<string> {
     const res = await fetch(`${VT_BASE}/files/upload_url`, {
         headers: { "x-apikey": apiKey }
     });
-    if (!res.ok) throw new Error("لم نتمكن من الحصول على رابط الرفع");
+    if (!res.ok) throw new Error(t("لم نتمكن من الحصول على رابط الرفع", "Could not get upload URL"));
     const json = await res.json();
     return json.data as string;
 }
@@ -177,14 +179,14 @@ function vtUpload(
                     const json = JSON.parse(xhr.responseText);
                     resolve(json.data.id as string);
                 } catch {
-                    reject(new Error("استجابة غير صالحة من VirusTotal"));
+                    reject(new Error(t("استجابة غير صالحة من VirusTotal", "Invalid response from VirusTotal")));
                 }
             } else {
-                reject(new Error(`فشل الرفع: ${xhr.status}`));
+                reject(new Error(`${t("فشل الرفع", "Upload failed")}: ${xhr.status}`));
             }
         };
 
-        xhr.onerror = () => reject(new Error("خطأ في الاتصال أثناء الرفع"));
+        xhr.onerror = () => reject(new Error(t("خطأ في الاتصال أثناء الرفع", "Connection error during upload")));
         xhr.send(formData);
     });
 }
@@ -195,7 +197,7 @@ async function vtPollAnalysis(analysisId: string, apiKey: string): Promise<ScanR
         const res = await fetch(`${VT_BASE}/analyses/${analysisId}`, {
             headers: { "x-apikey": apiKey }
         });
-        if (!res.ok) throw new Error(`خطأ أثناء متابعة نتائج الفحص: ${res.status}`);
+        if (!res.ok) throw new Error(`${t("خطأ أثناء متابعة نتائج الفحص", "Error while polling scan results")}: ${res.status}`);
 
         const json = await res.json();
         const attrs = json?.data?.attributes ?? {};
@@ -216,7 +218,7 @@ async function vtPollAnalysis(analysisId: string, apiKey: string): Promise<ScanR
             };
         }
     }
-    throw new Error("انتهت مهلة انتظار نتائج الفحص");
+    throw new Error(t("انتهت مهلة انتظار نتائج الفحص", "Timed out waiting for scan results"));
 }
 
 // ─── Icons ────────────────────────────────────────────────────────────────────
@@ -236,6 +238,7 @@ function Spinner(): JSX.Element {
 // ─── ScanButton Component ─────────────────────────────────────────────────────
 
 function ScanButton({ attachmentProps }: { attachmentProps: AttachmentProps; }): JSX.Element | null {
+    useSettings(["plugins.Settings.arabicMode"]);
     const url = attachmentProps.url
         ?? attachmentProps.item?.downloadUrl
         ?? attachmentProps.item?.originalItem?.url
@@ -244,7 +247,7 @@ function ScanButton({ attachmentProps }: { attachmentProps: AttachmentProps; }):
     const filename = attachmentProps.fileName
         ?? attachmentProps.item?.originalItem?.filename
         ?? attachmentProps.item?.originalItem?.title
-        ?? "ملف";
+        ?? t("ملف", "file");
 
     const [state, setState] = useState<ScanPhase>({ phase: "idle" });
 
@@ -253,7 +256,7 @@ function ScanButton({ attachmentProps }: { attachmentProps: AttachmentProps; }):
     async function doScan() {
         const apiKey = settings.store.apiKey?.trim();
         if (!apiKey) {
-            setState({ phase: "error", message: "يرجى إدخال مفتاح VirusTotal API في إعدادات الإضافة أولاً" });
+            setState({ phase: "error", message: t("يرجى إدخال مفتاح VirusTotal API في إعدادات الإضافة أولاً", "Please enter your VirusTotal API key in the plugin settings first") });
             return;
         }
 
@@ -263,14 +266,14 @@ function ScanButton({ attachmentProps }: { attachmentProps: AttachmentProps; }):
             let fileData: ArrayBuffer;
             try {
                 const fileRes = await fetch(url, { cache: "no-store", credentials: "include" });
-                if (!fileRes.ok) throw new Error(`الملف غير متاح (${fileRes.status})`);
+                if (!fileRes.ok) throw new Error(`${t("الملف غير متاح", "File unavailable")} (${fileRes.status})`);
                 fileData = await fileRes.arrayBuffer();
             } catch (fetchErr: any) {
                 const msg: string = fetchErr?.message ?? "";
                 if (!msg || /failed to fetch|networkerror|network request failed/i.test(msg)) {
-                    throw new Error("الملف غير متاح — قد يكون الرابط منتهي الصلاحية أو المرفق محذوف");
+                    throw new Error(t("الملف غير متاح — قد يكون الرابط منتهي الصلاحية أو المرفق محذوف", "File unavailable — the link may have expired or the attachment was deleted"));
                 }
-                throw new Error(`تعذّر تنزيل الملف — ${msg}`);
+                throw new Error(`${t("تعذّر تنزيل الملف", "Failed to download file")} — ${msg}`);
             }
 
             const hash = await computeSha256(fileData);
@@ -288,7 +291,7 @@ function ScanButton({ attachmentProps }: { attachmentProps: AttachmentProps; }):
             try {
                 lookup = await vtHashLookup(hash, apiKey);
             } catch (vtErr: any) {
-                throw new Error(`خطأ في VirusTotal API — ${vtErr?.message ?? "تحقق من مفتاح API"}`);
+                throw new Error(`${t("خطأ في VirusTotal API", "VirusTotal API error")} — ${vtErr?.message ?? t("تحقق من مفتاح API", "check your API key")}`);
             }
 
             if (lookup.found) {
@@ -299,7 +302,7 @@ function ScanButton({ attachmentProps }: { attachmentProps: AttachmentProps; }):
                 setState({ phase: "notFound", sha256: hash });
             }
         } catch (e: any) {
-            setState({ phase: "error", message: e?.message ?? "خطأ غير متوقع" });
+            setState({ phase: "error", message: e?.message ?? t("خطأ غير متوقع", "Unexpected error") });
         }
     }
 
@@ -313,14 +316,14 @@ function ScanButton({ attachmentProps }: { attachmentProps: AttachmentProps; }):
             let fileData: ArrayBuffer;
             try {
                 const fileRes = await fetch(url, { cache: "no-store", credentials: "include" });
-                if (!fileRes.ok) throw new Error(`الملف غير متاح (${fileRes.status})`);
+                if (!fileRes.ok) throw new Error(`${t("الملف غير متاح", "File unavailable")} (${fileRes.status})`);
                 fileData = await fileRes.arrayBuffer();
             } catch (fetchErr: any) {
                 const msg: string = fetchErr?.message ?? "";
                 if (!msg || /failed to fetch|networkerror|network request failed/i.test(msg)) {
-                    throw new Error("الملف غير متاح — قد يكون الرابط منتهي الصلاحية أو المرفق محذوف");
+                    throw new Error(t("الملف غير متاح — قد يكون الرابط منتهي الصلاحية أو المرفق محذوف", "File unavailable — the link may have expired or the attachment was deleted"));
                 }
-                throw new Error(`تعذّر تنزيل الملف — ${msg}`);
+                throw new Error(`${t("تعذّر تنزيل الملف", "Failed to download file")} — ${msg}`);
             }
 
             const uploadEndpoint = fileData.byteLength > 32 * 1024 * 1024
@@ -337,7 +340,7 @@ function ScanButton({ attachmentProps }: { attachmentProps: AttachmentProps; }):
             scanCache.set(sha256hash, result);
             setState({ phase: "result", result });
         } catch (e: any) {
-            setState({ phase: "error", message: e?.message ?? "فشل الرفع" });
+            setState({ phase: "error", message: e?.message ?? t("فشل الرفع", "Upload failed") });
         }
     }
 
@@ -345,9 +348,9 @@ function ScanButton({ attachmentProps }: { attachmentProps: AttachmentProps; }):
 
     if (phase === "idle") {
         return (
-            <button className={cl("scan-btn")} onClick={doScan} title="فحص الملف بـ VirusTotal">
+            <button className={cl("scan-btn")} onClick={doScan} title={t("فحص الملف بـ VirusTotal", "Scan file with VirusTotal")}>
                 <ShieldIcon />
-                <span>فحص الملف</span>
+                <span>{t("فحص الملف", "Scan File")}</span>
             </button>
         );
     }
@@ -356,7 +359,7 @@ function ScanButton({ attachmentProps }: { attachmentProps: AttachmentProps; }):
         return (
             <div className={cl("status-bar")}>
                 <Spinner />
-                <span>{phase === "hashing" ? "جارٍ حساب البصمة…" : "جارٍ الفحص…"}</span>
+                <span>{phase === "hashing" ? t("جارٍ حساب البصمة…", "Computing hash…") : t("جارٍ الفحص…", "Scanning…")}</span>
             </div>
         );
     }
@@ -371,8 +374,8 @@ function ScanButton({ attachmentProps }: { attachmentProps: AttachmentProps; }):
                 <span className={cl("result-icon")}>{isMalicious ? "🔴" : "🟢"}</span>
                 <span className={cl("result-label")}>
                     {isMalicious
-                        ? `ضار — ${threatCount} مكتشِف`
-                        : `آمن — ${stats.harmless + stats.undetected} فاحص`}
+                        ? `${t("ضار", "Malicious")} — ${threatCount} ${t("مكتشِف", "detections")}`
+                        : `${t("آمن", "Clean")} — ${stats.harmless + stats.undetected} ${t("فاحص", "scanners")}`}
                 </span>
                 <a
                     href={permalink}
@@ -381,13 +384,13 @@ function ScanButton({ attachmentProps }: { attachmentProps: AttachmentProps; }):
                     className={cl("vt-link")}
                     onClick={e => e.stopPropagation()}
                 >
-                    تقرير VT ↗
+                    {t("تقرير VT", "VT Report")} ↗
                 </a>
                 <button
                     className={cl("dismiss-btn")}
                     onClick={() => setState({ phase: "idle" })}
-                    title="إغلاق"
-                    aria-label="إغلاق"
+                    title={t("إغلاق", "Close")}
+                    aria-label={t("إغلاق", "Close")}
                 >
                     ✕
                 </button>
@@ -401,15 +404,15 @@ function ScanButton({ attachmentProps }: { attachmentProps: AttachmentProps; }):
         return (
             <div className={cl("result-card", "not-found")}>
                 <span className={cl("result-icon")}>⚪</span>
-                <span className={cl("result-label")}>هذا الملف جديد ولم يسبق فحصُه</span>
+                <span className={cl("result-label")}>{t("هذا الملف جديد ولم يسبق فحصُه", "This file is new and has not been scanned before")}</span>
                 <button className={cl("upload-btn")} onClick={() => doUpload(sha256)}>
-                    رفع وفحص الملف
+                    {t("رفع وفحص الملف", "Upload and Scan")}
                 </button>
                 <button
                     className={cl("dismiss-btn")}
                     onClick={() => setState({ phase: "idle" })}
-                    title="إغلاق"
-                    aria-label="إغلاق"
+                    title={t("إغلاق", "Close")}
+                    aria-label={t("إغلاق", "Close")}
                 >
                     ✕
                 </button>
@@ -425,7 +428,7 @@ function ScanButton({ attachmentProps }: { attachmentProps: AttachmentProps; }):
                 <div className={cl("upload-track")}>
                     <div className={cl("upload-fill")} style={{ width: `${progress}%` }} />
                 </div>
-                <span className={cl("upload-label")}>جارٍ الرفع… {progress}%</span>
+                <span className={cl("upload-label")}>{t("جارٍ الرفع…", "Uploading…")} {progress}%</span>
             </div>
         );
     }
@@ -434,7 +437,7 @@ function ScanButton({ attachmentProps }: { attachmentProps: AttachmentProps; }):
         return (
             <div className={cl("status-bar")}>
                 <Spinner />
-                <span>جارٍ انتظار نتائج الفحص…</span>
+                <span>{t("جارٍ انتظار نتائج الفحص…", "Waiting for scan results…")}</span>
             </div>
         );
     }
@@ -447,7 +450,7 @@ function ScanButton({ attachmentProps }: { attachmentProps: AttachmentProps; }):
                 <span className={cl("result-icon")}>⚠️</span>
                 <span className={cl("result-label")}>{message}</span>
                 <button className={cl("dismiss-btn")} onClick={() => setState({ phase: "idle" })}>
-                    إعادة المحاولة
+                    {t("إعادة المحاولة", "Retry")}
                 </button>
             </div>
         );

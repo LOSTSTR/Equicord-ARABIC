@@ -5,22 +5,26 @@
  */
 
 import { type AudioPlayerInterface, createAudioPlayer, defaultAudioNames } from "@api/AudioPlayer";
+import { useSettings } from "@api/Settings";
 import { useEffect, useMemo, useRef, useState } from "@webpack/common";
 import type { JSX, MouseEvent } from "react";
 
 import { getQuestifySettings, useQuestifySettings } from "../settings/access";
+import { t } from "@utils/esharqI18n";
 import { startAutoFetchingQuests } from "../settings/fetching";
 import { q } from "../utils/ui";
 import { ManaSelectFormattedOption, ManaSelectOption, SettingsCard, SettingsDescription, SettingsHeader, SettingsRow, SettingsRowItem, SettingsSelect, SettingsSlider, SettingsSubheader, SettingsSubtleSwitch } from "./shared";
 
-const questFetchIntervalOptions = [
-    { id: "30-minutes", label: "30 دقيقة", value: String(30 * 60) },
-    { id: "45-minutes", label: "45 دقيقة", value: String(45 * 60) },
-    { id: "1-hour", label: "ساعة واحدة", value: String(60 * 60) },
-    { id: "3-hours", label: "3 ساعات", value: String(3 * 60 * 60) },
-    { id: "6-hours", label: "6 ساعات", value: String(6 * 60 * 60) },
-    { id: "12-hours", label: "12 ساعة", value: String(12 * 60 * 60) },
-] satisfies ManaSelectOption[];
+function getQuestFetchIntervalOptions(): ManaSelectOption[] {
+    return [
+        { id: "30-minutes", label: t("30 دقيقة", "30 minutes"), value: String(30 * 60) },
+        { id: "45-minutes", label: t("45 دقيقة", "45 minutes"), value: String(45 * 60) },
+        { id: "1-hour", label: t("ساعة واحدة", "1 hour"), value: String(60 * 60) },
+        { id: "3-hours", label: t("3 ساعات", "3 hours"), value: String(3 * 60 * 60) },
+        { id: "6-hours", label: t("6 ساعات", "6 hours"), value: String(6 * 60 * 60) },
+        { id: "12-hours", label: t("12 ساعة", "12 hours"), value: String(12 * 60 * 60) },
+    ];
+}
 
 function SoundIcon({ className }: { className?: string; }): JSX.Element {
     return (
@@ -137,6 +141,8 @@ function QuestNotificationSoundSelect({
 }
 
 export function QuestNotificationsSetting(): JSX.Element {
+    useSettings(["plugins.Settings.arabicMode"]);
+
     const questNotifications = useQuestifySettings([
         "newExcludedQuestAlertSound",
         "newExcludedQuestAlertVolume",
@@ -151,6 +157,7 @@ export function QuestNotificationsSetting(): JSX.Element {
         "questCompletedAlertVolume",
     ]);
 
+    const questFetchIntervalOptions = getQuestFetchIntervalOptions();
     const soundOptions = useMemo(getSoundOptions, []);
     const activePlayer = useRef<AudioPlayerInterface | null>(null);
     const [playingSound, setPlayingSound] = useState<string | null>(null);
@@ -194,20 +201,20 @@ export function QuestNotificationsSetting(): JSX.Element {
 
     return (
         <SettingsCard>
-            <SettingsHeader> إشعارات المهام </SettingsHeader>
-            <SettingsDescription>إعداد إشعارات وتنبيهات إتمام المهام واكتشاف المهام الجديدة.</SettingsDescription>
-            <SettingsSubheader> المهمة مكتملة </SettingsSubheader>
+            <SettingsHeader>{t("إشعارات المهام", "Quest Notifications")}</SettingsHeader>
+            <SettingsDescription>{t("إعداد إشعارات وتنبيهات إتمام المهام واكتشاف المهام الجديدة.", "Configure notifications and alerts for quest completion and new quest discovery.")}</SettingsDescription>
+            <SettingsSubheader>{t("المهمة مكتملة", "Quest Completed")}</SettingsSubheader>
             <SettingsSubtleSwitch
                 checked={questNotifications.notifyOnQuestComplete}
                 disabled={disabled}
-                label="إظهار إشعار عند إتمام مهمة:"
+                label={t("إظهار إشعار عند إتمام مهمة:", "Show notification on quest completion:")}
                 onChange={checked => { getQuestifySettings().notifyOnQuestComplete = checked; }}
                 bottomSpacing="5"
             />
             <SettingsRow>
                 <SettingsRowItem className="sound-select-row-item">
                     <QuestNotificationSoundSelect
-                        label="تشغيل صوت عند إتمام مهمة:"
+                        label={t("تشغيل صوت عند إتمام مهمة:", "Play sound on quest completion:")}
                         disabled={disabled}
                         options={soundOptions}
                         value={questNotifications.questCompletedAlertSound}
@@ -218,7 +225,7 @@ export function QuestNotificationsSetting(): JSX.Element {
                 </SettingsRowItem>
                 <SettingsRowItem className="volume-slider-row-item">
                     <SettingsSlider
-                        label="الصوت:"
+                        label={t("الصوت:", "Sound:")}
                         className="inline-volume-slider"
                         disabled={disabled}
                         value={questNotifications.questCompletedAlertVolume}
@@ -226,11 +233,11 @@ export function QuestNotificationsSetting(): JSX.Element {
                     />
                 </SettingsRowItem>
             </SettingsRow>
-            <SettingsSubheader> مهام جديدة مُكتشفة </SettingsSubheader>
+            <SettingsSubheader>{t("مهام جديدة مُكتشفة", "New Quests Found")}</SettingsSubheader>
             <SettingsSubtleSwitch
                 checked={questNotifications.notifyOnNewQuests}
                 disabled={disabled}
-                label="إظهار إشعار عند اكتشاف مهام جديدة:"
+                label={t("إظهار إشعار عند اكتشاف مهام جديدة:", "Show notification when new quests are found:")}
                 bottomSpacing="5"
                 onChange={checked => {
                     getQuestifySettings().notifyOnNewQuests = checked;
@@ -240,7 +247,7 @@ export function QuestNotificationsSetting(): JSX.Element {
             <SettingsRow>
                 <SettingsRowItem className="sound-select-row-item">
                     <QuestNotificationSoundSelect
-                        label="تشغيل صوت عند اكتشاف مهام جديدة:"
+                        label={t("تشغيل صوت عند اكتشاف مهام جديدة:", "Play sound when new quests are found:")}
                         disabled={disabled}
                         options={soundOptions}
                         value={questNotifications.newQuestAlertSound}
@@ -254,7 +261,7 @@ export function QuestNotificationsSetting(): JSX.Element {
                 </SettingsRowItem>
                 <SettingsRowItem className="volume-slider-row-item">
                     <SettingsSlider
-                        label="الصوت:"
+                        label={t("الصوت:", "Sound:")}
                         className="inline-volume-slider"
                         disabled={disabled}
                         value={questNotifications.newQuestAlertVolume}
@@ -266,7 +273,7 @@ export function QuestNotificationsSetting(): JSX.Element {
                 className="margin-top-14"
                 checked={questNotifications.notifyOnNewExcludedQuests}
                 disabled={disabled}
-                label="إظهار إشعار عند اكتشاف مهام مستبعدة جديدة:"
+                label={t("إظهار إشعار عند اكتشاف مهام مستبعدة جديدة:", "Show notification when new ignored quests are found:")}
                 bottomSpacing="5"
                 onChange={checked => {
                     getQuestifySettings().notifyOnNewExcludedQuests = checked;
@@ -274,14 +281,18 @@ export function QuestNotificationsSetting(): JSX.Element {
                 }}
                 tooltip={{
                     position: "top",
-                    text: "بعض المهام مستبعدة من قائمتك بسبب قيود المنطقة أو المنصة."
-                        + "\n\nعند التمكين، ستجلب Questify إعداداتها، وتطبق فلاتر المهام والمكافآت، وتطبع البيانات في وحدة التحكم، وتعرض إشعاراً منفصلاً للمهام المستبعدة المطابقة."
+                    text: t(
+                        "بعض المهام مستبعدة من قائمتك بسبب قيود المنطقة أو المنصة."
+                            + "\n\nعند التمكين، ستجلب Questify إعداداتها، وتطبق فلاتر المهام والمكافآت، وتطبع البيانات في وحدة التحكم، وتعرض إشعاراً منفصلاً للمهام المستبعدة المطابقة.",
+                        "Some quests are excluded from your list due to region or platform restrictions."
+                            + "\n\nWhen enabled, Questify will fetch their settings, apply quest and reward filters, print data to the console, and show a separate notification for matching excluded quests."
+                    )
                 }}
             />
             <SettingsRow>
                 <SettingsRowItem className="sound-select-row-item">
                     <QuestNotificationSoundSelect
-                        label="تشغيل صوت عند اكتشاف مهام مستبعدة جديدة:"
+                        label={t("تشغيل صوت عند اكتشاف مهام مستبعدة جديدة:", "Play sound when new ignored quests are found:")}
                         disabled={disabled}
                         options={soundOptions}
                         value={questNotifications.newExcludedQuestAlertSound}
@@ -293,14 +304,18 @@ export function QuestNotificationsSetting(): JSX.Element {
                         }}
                         tooltip={{
                             position: "top",
-                            text: "بعض المهام مستبعدة من قائمتك بسبب قيود المنطقة أو المنصة."
-                                + "\n\nعند اختيار صوت، ستجلب Questify إعداداتها وتشغّل هذا الصوت للمهام المستبعدة المطابقة."
+                            text: t(
+                                "بعض المهام مستبعدة من قائمتك بسبب قيود المنطقة أو المنصة."
+                                    + "\n\nعند اختيار صوت، ستجلب Questify إعداداتها وتشغّل هذا الصوت للمهام المستبعدة المطابقة.",
+                                "Some quests are excluded from your list due to region or platform restrictions."
+                                    + "\n\nWhen a sound is selected, Questify will fetch their settings and play this sound for matching excluded quests."
+                            )
                         }}
                     />
                 </SettingsRowItem>
                 <SettingsRowItem className="volume-slider-row-item">
                     <SettingsSlider
-                        label="الصوت:"
+                        label={t("الصوت:", "Sound:")}
                         className="inline-volume-slider"
                         disabled={disabled}
                         value={questNotifications.newExcludedQuestAlertVolume}
@@ -312,21 +327,26 @@ export function QuestNotificationsSetting(): JSX.Element {
                 <SettingsRowItem>
                     <SettingsSelect
                         className="margin-top-12"
-                        label="فترة جلب المهام:"
+                        label={t("فترة جلب المهام:", "Quest fetch interval:")}
                         options={questFetchIntervalOptions}
                         value={questNotifications.questFetchInterval > 0 ? String(questNotifications.questFetchInterval) : null}
                         selectionMode="single"
                         disabled={disabled}
                         clearable={true}
                         fullWidth={true}
-                        placeholder="معطّل"
+                        placeholder={t("معطّل", "Disabled")}
                         maxOptionsVisible={questFetchIntervalOptions.length}
                         onSelectionChange={updateFetchInterval}
                         tooltip={{
                             position: "top",
-                            text: "يجلب Discord المهام عند التحميل وعند زيارة صفحة المهام فقط."
-                                + "\n\nتجلب هذه الفترة المهام بشكل دوري بينما يظل العميل مفتوحاً، لتبقى مؤشرات زر المهام وتنبيهات المهام الجديدة محدَّثة طوال اليوم."
-                                + "\n\nلا تعمل إلا إذا كانت إعدادات زر المهام أو إشعاراتها تستوجب الجلب الدوري."
+                            text: t(
+                                "يجلب Discord المهام عند التحميل وعند زيارة صفحة المهام فقط."
+                                    + "\n\nتجلب هذه الفترة المهام بشكل دوري بينما يظل العميل مفتوحاً، لتبقى مؤشرات زر المهام وتنبيهات المهام الجديدة محدَّثة طوال اليوم."
+                                    + "\n\nلا تعمل إلا إذا كانت إعدادات زر المهام أو إشعاراتها تستوجب الجلب الدوري.",
+                                "Discord only fetches quests on load and when visiting the quests page."
+                                    + "\n\nThis interval fetches quests periodically while the client is open, keeping quest button indicators and new quest alerts up to date throughout the day."
+                                    + "\n\nOnly works if quest button or notification settings require periodic fetching."
+                            )
                         }}
                     />
                 </SettingsRowItem>

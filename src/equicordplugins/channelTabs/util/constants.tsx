@@ -4,7 +4,8 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-import { definePluginSettings } from "@api/Settings";
+import { definePluginSettings, useSettings } from "@api/Settings";
+import { t } from "@utils/esharqI18n";
 import { Heading } from "@components/Heading";
 import { Paragraph } from "@components/Paragraph";
 import { ChannelTabsPreview } from "@equicordplugins/channelTabs/components/ChannelTabsContainer";
@@ -21,22 +22,23 @@ interface DynamicDropdownSettingOption {
 }
 
 function AnimationSettings(): JSX.Element {
+    useSettings(["plugins.Settings.arabicMode"]);
     const animationOptions: DynamicDropdownSettingOption[] = [
-        { label: "تأثيرات التمرير فوق التبويب (رفع + تكبير)", value: "hover", selected: settings.store.animationHover },
-        { label: "حركة رفع التبويب المحدد", value: "selection", selected: settings.store.animationSelection },
-        { label: "سحب وإفلات التبويب (شبح + إعادة ترتيب)", value: "drag-drop", selected: settings.store.animationDragDrop },
-        { label: "انزلاق دخول/خروج التبويب (إنشاء + إغلاق)", value: "enter-exit", selected: settings.store.animationEnterExit },
-        { label: "تكبير الأيقونة عند التحديد", value: "icon-pop", selected: settings.store.animationIconPop },
-        { label: "دوران زر الإغلاق", value: "close-rotation", selected: settings.store.animationCloseRotation },
-        { label: "نبضة زر الإضافة (+)", value: "plus-pulse", selected: settings.store.animationPlusPulse },
-        { label: "توهج شارة الإشارة", value: "mention-glow", selected: settings.store.animationMentionGlow },
-        { label: "توسّع الوضع المضغوط", value: "compact-expand", selected: settings.store.animationCompactExpand },
-        { label: "حد أزرق للتبويب المحدد", value: "selected-border", selected: settings.store.animationSelectedBorder },
-        { label: "لون خلفية التبويب المحدد", value: "selected-background", selected: settings.store.animationSelectedBackground },
-        { label: "تأثيرات ظل التبويب", value: "tab-shadows", selected: settings.store.animationTabShadows },
-        { label: "إعادة تموضع التبويب (انتقالات سلسة)", value: "tab-positioning", selected: settings.store.animationTabPositioning },
-        { label: "تلاشي مقبض تغيير الحجم", value: "resize-handle", selected: settings.store.animationResizeHandle },
-        { label: "تدرج تبويب المهام النشطة", value: "quests-active", selected: settings.store.animationQuestsActive }
+        { label: t("تأثيرات التمرير فوق التبويب (رفع + تكبير)", "Tab hover effects (lift + scale)"), value: "hover", selected: settings.store.animationHover },
+        { label: t("حركة رفع التبويب المحدد", "Selected tab lift animation"), value: "selection", selected: settings.store.animationSelection },
+        { label: t("سحب وإفلات التبويب (شبح + إعادة ترتيب)", "Tab drag & drop (ghost + reorder)"), value: "drag-drop", selected: settings.store.animationDragDrop },
+        { label: t("انزلاق دخول/خروج التبويب (إنشاء + إغلاق)", "Tab enter/exit slide (create + close)"), value: "enter-exit", selected: settings.store.animationEnterExit },
+        { label: t("تكبير الأيقونة عند التحديد", "Icon pop on selection"), value: "icon-pop", selected: settings.store.animationIconPop },
+        { label: t("دوران زر الإغلاق", "Close button rotation"), value: "close-rotation", selected: settings.store.animationCloseRotation },
+        { label: t("نبضة زر الإضافة (+)", "Add button (+) pulse"), value: "plus-pulse", selected: settings.store.animationPlusPulse },
+        { label: t("توهج شارة الإشارة", "Mention badge glow"), value: "mention-glow", selected: settings.store.animationMentionGlow },
+        { label: t("توسّع الوضع المضغوط", "Compact mode expand"), value: "compact-expand", selected: settings.store.animationCompactExpand },
+        { label: t("حد أزرق للتبويب المحدد", "Blue border for selected tab"), value: "selected-border", selected: settings.store.animationSelectedBorder },
+        { label: t("لون خلفية التبويب المحدد", "Selected tab background color"), value: "selected-background", selected: settings.store.animationSelectedBackground },
+        { label: t("تأثيرات ظل التبويب", "Tab shadow effects"), value: "tab-shadows", selected: settings.store.animationTabShadows },
+        { label: t("إعادة تموضع التبويب (انتقالات سلسة)", "Tab repositioning (smooth transitions)"), value: "tab-positioning", selected: settings.store.animationTabPositioning },
+        { label: t("تلاشي مقبض تغيير الحجم", "Resize handle fade"), value: "resize-handle", selected: settings.store.animationResizeHandle },
+        { label: t("تدرج تبويب المهام النشطة", "Active quests tab gradient"), value: "quests-active", selected: settings.store.animationQuestsActive }
     ];
 
     const [currentValue, setCurrentValue] = useState(animationOptions.filter(option => option.selected).map(option => option.value));

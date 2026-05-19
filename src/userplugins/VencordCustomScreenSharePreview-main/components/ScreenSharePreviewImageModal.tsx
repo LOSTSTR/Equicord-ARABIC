@@ -4,14 +4,17 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
+import { useSettings } from "@api/Settings";
 import { Flex } from "@components/Flex";
 import { ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalProps, ModalRoot, ModalSize } from "@utils/modal";
+import { t } from "@utils/esharqI18n";
 import { Button, Forms, React, Text, useCallback, useEffect, useMemo, useState } from "@webpack/common";
 
 import { CustomStreamPreviewState } from "../state";
 import { imageFileToStreamPreview, sendCustomPreview, stopSendingScreenSharePreview } from "../utilities";
 
 export function ScreenSharePreviewImageModal({ modalProps, close }: { modalProps: ModalProps; close: () => void; }) {
+    useSettings(["plugins.Settings.arabicMode"]);
     const [previewImage, setPreviewImage] = useState<string | null>(null);
     const [isStreamPreviewSending, setIsStreamPreviewSending] = useState(() => {
         return CustomStreamPreviewState
@@ -60,32 +63,38 @@ export function ScreenSharePreviewImageModal({ modalProps, close }: { modalProps
     return (
         <ModalRoot {...modalProps} size={ModalSize.SMALL}>
             <ModalHeader>
-                <Text variant="heading-lg/semibold" style={{ flexGrow: 1 }}>معاينة مشاركة الشاشة</Text>
+                <Text variant="heading-lg/semibold" style={{ flexGrow: 1 }}>{t("معاينة مشاركة الشاشة", "Screen Share Preview")}</Text>
                 <ModalCloseButton onClick={close} />
             </ModalHeader>
 
             <ModalContent>
                 <Forms.FormText>
-                    اختر صورة لاستخدامها كمعاينة لمشاركة شاشتك.
+                    {t("اختر صورة لاستخدامها كمعاينة لمشاركة شاشتك.", "Choose an image to use as your screen share preview.")}
                 </Forms.FormText>
 
                 <br />
 
                 <Forms.FormText>
-                    ملاحظة: يجب تفعيل "إخفاء معاينة البث" في إعدادات البث، وإلا لن تظهر الصورة المخصصة.
+                    {t(
+                        "ملاحظة: يجب تفعيل \"إخفاء معاينة البث\" في إعدادات البث، وإلا لن تظهر الصورة المخصصة.",
+                        "Note: \"Hide Stream Preview\" must be enabled in stream settings, otherwise the custom image will not appear."
+                    )}
                 </Forms.FormText>
 
                 <br />
 
                 <Forms.FormText>
-                    ملاحظة: يمكن تحديث صورة المعاينة مرة واحدة كل 60 ثانية كحد أقصى (قيد Discord).
+                    {t(
+                        "ملاحظة: يمكن تحديث صورة المعاينة مرة واحدة كل 60 ثانية كحد أقصى (قيد Discord).",
+                        "Note: The preview image can be updated at most once every 60 seconds (Discord limitation)."
+                    )}
                 </Forms.FormText>
 
                 <Button
                     style={{ marginTop: "1rem", marginBottom: "1rem" }}
                     onClick={uploadImageButtonOnClick}
                 >
-                    اختيار صورة
+                    {t("اختيار صورة", "Choose Image")}
                 </Button>
                 <input
                     id="screen-share-preview-image-upload"
@@ -101,7 +110,7 @@ export function ScreenSharePreviewImageModal({ modalProps, close }: { modalProps
 
                         <img
                             src={previewImage}
-                            alt="معاينة"
+                            alt={t("معاينة", "Preview")}
                             style={{ marginTop: "1rem", marginBottom: "1rem", maxWidth: "100%" }}
                         />
                     </>
@@ -116,7 +125,7 @@ export function ScreenSharePreviewImageModal({ modalProps, close }: { modalProps
                             color={Button.Colors.RED}
                             onClick={stopReUploadPreviewButtonOnClick}
                         >
-                            إيقاف إعادة إرسال المعاينة
+                            {t("إيقاف إعادة إرسال المعاينة", "Stop Re-sending Preview")}
                         </Button>
                     )}
 
@@ -125,7 +134,7 @@ export function ScreenSharePreviewImageModal({ modalProps, close }: { modalProps
                         disabled={uploadButtonDisabled}
                         onClick={uploadButtonOnClick}
                     >
-                        رفع
+                        {t("رفع", "Upload")}
                     </Button>
                 </Flex>
             </ModalFooter>

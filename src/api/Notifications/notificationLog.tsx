@@ -17,12 +17,13 @@
 */
 
 import * as DataStore from "@api/DataStore";
-import { Settings } from "@api/Settings";
+import { Settings, useSettings } from "@api/Settings";
 import { BaseText } from "@components/BaseText";
 import { Flex } from "@components/Flex";
 import { Paragraph } from "@components/Paragraph";
 import { openNotificationSettingsModal } from "@components/settings/tabs/vencord/NotificationSettings";
 import { classNameFactory } from "@utils/css";
+import { t } from "@utils/esharqI18n";
 import { closeModal, ModalCloseButton, ModalFooter, ModalHeader, ModalProps, ModalRoot, ModalSize, openModal } from "@utils/modal";
 import { useAwaiter } from "@utils/react";
 import { Alerts, Button, ListScrollerThin, React, Timestamp, useEffect, useReducer, useState } from "@webpack/common";
@@ -130,12 +131,13 @@ function NotificationEntry({ data }: { data: PersistentNotificationData; }) {
 }
 
 export function NotificationLog({ log, pending }: { log: PersistentNotificationData[], pending: boolean; }) {
+    useSettings(["plugins.Settings.arabicMode"]);
     if (!log.length && !pending)
         return (
             <div className={cl("container")}>
                 <div className={cl("empty")} />
                 <Paragraph style={{ textAlign: "center" }}>
-                    لا توجد إشعارات بعد
+                    {t("لا توجد إشعارات بعد", "No notifications yet")}
                 </Paragraph>
             </div>
         );
@@ -154,11 +156,12 @@ export function NotificationLog({ log, pending }: { log: PersistentNotificationD
 
 function LogModal({ modalProps, close }: { modalProps: ModalProps; close(): void; }) {
     const [log, pending] = useLogs();
+    useSettings(["plugins.Settings.arabicMode"]);
 
     return (
         <ModalRoot {...modalProps} size={ModalSize.LARGE} className={cl("modal")}>
             <ModalHeader>
-                <BaseText size="lg" weight="semibold" style={{ flexGrow: 1 }}>سجل الإشعارات</BaseText>
+                <BaseText size="lg" weight="semibold" style={{ flexGrow: 1 }}>{t("سجل الإشعارات", "Notification Log")}</BaseText>
                 <ModalCloseButton onClick={close} />
             </ModalHeader>
 
@@ -169,7 +172,7 @@ function LogModal({ modalProps, close }: { modalProps: ModalProps; close(): void
             <ModalFooter>
                 <Flex>
                     <Button onClick={openNotificationSettingsModal}>
-                        إعدادات الإشعارات
+                        {t("إعدادات الإشعارات", "Notification Settings")}
                     </Button>
 
                     <Button
@@ -177,19 +180,22 @@ function LogModal({ modalProps, close }: { modalProps: ModalProps; close(): void
                         color={Button.Colors.RED}
                         onClick={() => {
                             Alerts.show({
-                                title: "هل أنت متأكد؟",
-                                body: `سيتم حذف ${log.length} إشعار${log.length === 1 ? "" : ""} نهائياً. لا يمكن التراجع عن هذا الإجراء.`,
+                                title: t("هل أنت متأكد؟", "Are you sure?"),
+                                body: t(
+                                    `سيتم حذف ${log.length} إشعار نهائياً. لا يمكن التراجع عن هذا الإجراء.`,
+                                    `This will permanently delete ${log.length} notification${log.length === 1 ? "" : "s"}. This action cannot be undone.`
+                                ),
                                 async onConfirm() {
                                     await DataStore.set(KEY, []);
                                     signals.forEach(x => x());
                                 },
-                                confirmText: "نعم، احذف",
+                                confirmText: t("نعم، احذف", "Yes, Delete"),
                                 confirmColor: "vc-notification-log-danger-btn",
-                                cancelText: "إلغاء"
+                                cancelText: t("إلغاء", "Cancel")
                             });
                         }}
                     >
-                        مسح سجل الإشعارات
+                        {t("مسح سجل الإشعارات", "Clear Notification Log")}
                     </Button>
                 </Flex>
             </ModalFooter>

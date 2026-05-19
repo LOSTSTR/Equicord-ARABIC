@@ -16,9 +16,11 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+import { useSettings } from "@api/Settings";
 import { Card } from "@components/Card";
 import { Flex } from "@components/Flex";
 import { Switch } from "@components/Switch";
+import { t } from "@utils/esharqI18n";
 import { MicrophoneProfile, MicrophoneStore } from "@plugins/betterMicrophone.desktop/stores";
 import {
     ProfilableStore,
@@ -35,24 +37,14 @@ import { ModalSize } from "@utils/modal";
 import { SelectOption } from "@vencord/discord-types";
 import { Forms, Select, Slider, TextInput, useEffect, useState } from "@webpack/common";
 
-const simpleVoiceBitrates: readonly SelectOption[] = [
-    {
-        label: "عادي",
-        value: 96
-    },
-    {
-        label: "متوسط-عالٍ",
-        value: 160
-    },
-    {
-        label: "عالٍ",
-        value: 320
-    },
-    {
-        label: "عالٍ جداً",
-        value: 512
-    }
-] as const;
+function getSimpleVoiceBitrates(): readonly SelectOption[] {
+    return [
+        { label: t("عادي", "Normal"), value: 96 },
+        { label: t("متوسط-عالٍ", "Medium-High"), value: 160 },
+        { label: t("عالٍ", "High"), value: 320 },
+        { label: t("عالٍ جداً", "Very High"), value: 512 },
+    ] as const;
+}
 
 export interface MicrophoneSettingsModalProps extends React.ComponentProps<typeof SettingsModal> {
     microphoneStore: ProfilableStore<MicrophoneStore, MicrophoneProfile>;
@@ -60,6 +52,7 @@ export interface MicrophoneSettingsModalProps extends React.ComponentProps<typeo
 }
 
 export const MicrophoneSettingsModal = (props: MicrophoneSettingsModalProps) => {
+    useSettings(["plugins.Settings.arabicMode"]);
     const { microphoneStore, showInfo } = props;
 
     const {
@@ -118,13 +111,13 @@ export const MicrophoneSettingsModal = (props: MicrophoneSettingsModalProps) => 
 
     const simpleToggle =
         <Flex style={{ justifyContent: "center", alignItems: "center", gap: "0.6em" }}>
-            <Forms.FormTitle style={{ margin: 0 }} tag="h5">وضع مبسَّط</Forms.FormTitle>
+            <Forms.FormTitle style={{ margin: 0 }} tag="h5">{t("وضع مبسَّط", "Simple Mode")}</Forms.FormTitle>
             <Switch checked={simpleMode ?? false} disabled={isSaving} onChange={checked => setSimpleMode(checked)} />
         </Flex>;
 
     const settingsCardVoiceBitrateSimple =
         <SettingsModalCard
-            title="معدل بت الصوت"
+            title={t("معدل بت الصوت", "Voice Bitrate")}
             switchEnabled
             flex={0.8}
             switchProps={{
@@ -135,7 +128,7 @@ export const MicrophoneSettingsModal = (props: MicrophoneSettingsModalProps) => 
             <SettingsModalCardItem>
                 <Select
                     isDisabled={!voiceBitrateEnabled || isSaving}
-                    options={simpleVoiceBitrates}
+                    options={getSimpleVoiceBitrates()}
                     select={(value: number) => setVoiceBitrate(value)}
                     isSelected={(value: number) => value === voiceBitrate}
                     serialize={() => ""} />
@@ -144,7 +137,7 @@ export const MicrophoneSettingsModal = (props: MicrophoneSettingsModalProps) => 
 
     const settingsCardChannelsSimple =
         <SettingsModalCard
-            title="صوت ستيريو"
+            title={t("صوت ستيريو", "Stereo Audio")}
             flex={0.2}
             switchEnabled
             switchProps={{
@@ -159,7 +152,7 @@ export const MicrophoneSettingsModal = (props: MicrophoneSettingsModalProps) => 
 
     const settingsCardVoiceBitrate =
         <SettingsModalCard
-            title="معدل بت الصوت"
+            title={t("معدل بت الصوت", "Voice Bitrate")}
             switchEnabled
             flex={0.4}
             switchProps={{
@@ -167,7 +160,7 @@ export const MicrophoneSettingsModal = (props: MicrophoneSettingsModalProps) => 
                 disabled: isSaving,
                 onChange: status => setVoiceBitrateEnabled(status)
             }}>
-            <SettingsModalCardItem title="كيلوبت/ث">
+            <SettingsModalCardItem title={t("كيلوبت/ث", "kbps")}>
                 <div style={{ paddingTop: "0.3em", paddingRight: "0.4em", paddingLeft: "0.4em", boxSizing: "border-box" }}>
                     <Slider
                         disabled={!voiceBitrateEnabled || isSaving}
@@ -183,7 +176,7 @@ export const MicrophoneSettingsModal = (props: MicrophoneSettingsModalProps) => 
 
     const settingsCardRate =
         <SettingsModalCard
-            title="معدل أخذ العينات"
+            title={t("معدل أخذ العينات", "Sample Rate")}
             switchEnabled
             switchProps={{
                 checked: rateEnabled ?? false,
@@ -205,7 +198,7 @@ export const MicrophoneSettingsModal = (props: MicrophoneSettingsModalProps) => 
 
     const settingsCardFreq =
         <SettingsModalCard
-            title="تردد أخذ العينات"
+            title={t("تردد أخذ العينات", "Sample Frequency")}
             switchEnabled
             switchProps={{
                 checked: freqEnabled ?? false,
@@ -227,7 +220,7 @@ export const MicrophoneSettingsModal = (props: MicrophoneSettingsModalProps) => 
 
     const settingsCardPacsize =
         <SettingsModalCard
-            title="حجم الحزمة"
+            title={t("حجم الحزمة", "Packet Size")}
             switchEnabled
             switchProps={{
                 checked: pacsizeEnabled ?? false,
@@ -249,7 +242,7 @@ export const MicrophoneSettingsModal = (props: MicrophoneSettingsModalProps) => 
 
     const settingsCardChannels =
         <SettingsModalCard
-            title="القنوات"
+            title={t("القنوات", "Channels")}
             switchEnabled
             switchProps={{
                 checked: channelsEnabled ?? false,
@@ -277,17 +270,20 @@ export const MicrophoneSettingsModal = (props: MicrophoneSettingsModalProps) => 
 
     const infoCard =
         <Card style={{ ...Styles.infoCard }}>
-            <Forms.FormTitle tag="h5">ملاحظة مهمة</Forms.FormTitle>
+            <Forms.FormTitle tag="h5">{t("ملاحظة مهمة", "Important Note")}</Forms.FormTitle>
             <Forms.FormText>
-                للاستفادة الكاملة من هذه الإضافة، يُرجى تعطيل <span style={{ fontWeight: "bold" }}>Krisp</span> و<span style={{ fontWeight: "bold" }}>إلغاء الصدى</span>، وإلا لن تعمل ميزات مثل الصوت الستيريو (القنوات).
+                {t(
+                    "للاستفادة الكاملة من هذه الإضافة، يُرجى تعطيل",
+                    "To fully benefit from this plugin, please disable"
+                )} <span style={{ fontWeight: "bold" }}>Krisp</span> {t("و", "and")} <span style={{ fontWeight: "bold" }}>{t("إلغاء الصدى", "Echo Cancellation")}</span>{t("، وإلا لن تعمل ميزات مثل الصوت الستيريو (القنوات).", ", otherwise features like stereo audio (channels) will not work.")}
             </Forms.FormText>
         </Card>;
 
     return (
         <SettingsModal
             size={simpleMode ? ModalSize.DYNAMIC : ModalSize.DYNAMIC}
-            title="إعدادات الميكروفون"
-            closeButtonName="تطبيق"
+            title={t("إعدادات الميكروفون", "Microphone Settings")}
+            closeButtonName={t("تطبيق", "Apply")}
             footerContent={
                 <Flex style={{ justifyContent: "center", alignItems: "center", marginLeft: "auto" }}>
                     {simpleToggle}
