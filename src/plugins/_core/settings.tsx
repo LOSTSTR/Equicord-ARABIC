@@ -104,7 +104,7 @@ const settings = definePluginSettings({
     },
     settingsLocation: {
         type: OptionType.SELECT,
-        description: "مكان عرض قسم إعدادات Equicord",
+        description: "مكان عرض قسم إعدادات Equicord / Where to display the Equicord settings section",
         options: [
             { label: "At the very top", value: "top" },
             { label: "Above the Nitro section", value: "aboveNitro", default: true },
@@ -116,7 +116,7 @@ const settings = definePluginSettings({
     },
     includeVencordInfoWhenCopying: {
         type: OptionType.BOOLEAN,
-        description: "نسخ معلومات Vencord (Vencord, Electron, Chromium) أيضاً عند النقر على معلومات الإصدار في الزاوية السفلية اليسرى من صفحة الإعدادات",
+        description: "نسخ معلومات Vencord (Vencord, Electron, Chromium) أيضاً عند النقر على معلومات الإصدار في الزاوية السفلية اليسرى من صفحة الإعدادات / Also copy Vencord info when clicking the version info in settings",
         default: true
     }
 });
