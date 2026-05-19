@@ -597,6 +597,363 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
         description: "Previews the contents of ZIP files directly inside message attachments.",
     },
 
+    // ── src/plugins (arabized Vencord/Equicord built-ins) ───────────────────
+
+    AccountPanelServerProfile: {
+        description: "Shows the server profile instead of the global profile when clicking the account panel.",
+    },
+    AlwaysAnimate: {
+        description: "Always animate avatars and animated emoji, even without Nitro.",
+    },
+    AlwaysExpandRoles: {
+        description: "Automatically expands the role list in user profiles.",
+    },
+    AlwaysTrust: {
+        description: "Removes verification prompts and warning dialogs when opening external links or downloading files.",
+    },
+    AnonymiseFileNames: {
+        description: "Assigns random names to files before uploading.",
+    },
+    AppleMusic: {
+        description: "Displays your Apple Music activity as a status.",
+    },
+    arRPC: {
+        description: "Adds an arRPC client to enable RPC on Discord Web (experimental).",
+    },
+    AutoDndWhilePlaying: {
+        description: "Automatically sets your status to Do Not Disturb while playing a game.",
+    },
+    BetterFolders: {
+        description: "Adds improvements to server folders.",
+    },
+    BetterGifPicker: {
+        description: "Improves the GIF picker and adds category filtering.",
+    },
+    BetterRoleContext: {
+        description: "Adds extra options to role context menus.",
+    },
+    BetterRoleDot: {
+        description: "Replaces the role dot color in names with custom role emoji.",
+    },
+    BetterSettings: {
+        description: "Improves the Discord settings UI with visual effects.",
+    },
+    BetterSessions: {
+        description: "Improves the sessions page and adds identifiers.",
+    },
+    BetterUploadButton: {
+        description: "Single click to upload a file, right-click to open the menu.",
+    },
+    BiggerStreamPreview: {
+        description: "Allows enlarging stream previews in Discord.",
+    },
+    BlurNSFW: {
+        description: "Automatically blurs NSFW images and videos.",
+    },
+    CallTimer: {
+        description: "Adds a timer to voice calls.",
+    },
+    CharacterCounter: {
+        description: "Adds a character counter to the message input box.",
+    },
+    ClearURLs: {
+        description: "Automatically removes tracking elements from links you send.",
+    },
+    ClientTheme: {
+        description: "Recreates the old theme experience. Add a custom color to your Discord theme.",
+    },
+    ColorSighted: {
+        description: "Removes the custom color-blind status icons, as they were in Discord between 2015–2017.",
+    },
+    ConsoleJanitor: {
+        description: "Hides useless log messages from the console.",
+    },
+    ConsoleShortcuts: {
+        description: "Adds shorter aliases for many things on the window. Run `shortcutList` to see the list.",
+    },
+    CopyEmojiMarkdown: {
+        description: "Adds an option to copy the raw emoji format.",
+    },
+    CopyFileContents: {
+        description: "Adds a button on text file attachments to copy their contents.",
+    },
+    CopyStickerLinks: {
+        description: "Adds the ability to copy and open sticker links.",
+    },
+    CopyUserURLs: {
+        description: "Adds a 'Copy User URL' option to the user context menu.",
+    },
+    CrashHandler: {
+        description: "Handles Discord crashes and allows recovery.",
+    },
+    CustomCommands: {
+        description: "Adds custom commands to replace text in your messages.",
+    },
+    CustomIdle: {
+        description: "Allows setting a custom timeout for switching to idle status.",
+    },
+    CustomRPC: {
+        description: "Adds a fully customizable Rich Presence activity to your Discord profile.",
+    },
+    DeArrow: {
+        description: "Improves YouTube titles and thumbnails using DeArrow.",
+    },
+    Decor: {
+        description: "Create and use custom avatar decorations, or choose from ready-made templates.",
+    },
+    DevCompanion: {
+        description: "Vencord developer tool for debugging.",
+    },
+    DisableCallIdle: {
+        description: "Prevents automatic removal from a DM voice call after 3 minutes and being moved to the AFK channel.",
+    },
+    DontRoundMyTimestamps: {
+        description: "Always rounds relative timestamps down, so 7.6 years becomes 7 years instead of 8.",
+    },
+    Experiments: {
+        description: "Enables access to Discord's experimental developer features.",
+    },
+    ExpressionCloner: {
+        description: "Allows cloning emoji and stickers to your server (right-click them).",
+    },
+    F8Break: {
+        description: "Pauses the app when F8 is pressed with DevTools open.",
+    },
+    FakeNitro: {
+        description: "Allows sending paid emoji, stickers, and streaming in Nitro quality.",
+    },
+    FakeProfileThemes: {
+        description: "Customizes profile colors using invisible 3y3 encoding.",
+    },
+    FavEmojiFirst: {
+        description: "Shows your favorite emoji at the top of the emoji list.",
+    },
+    FavGifSearch: {
+        description: "Allows searching within favorite GIFs.",
+    },
+    FixCodeblockGap: {
+        description: "Removes the extra gap between code blocks and the text below them.",
+    },
+    FixImagesQuality: {
+        description: "Restores images to the highest possible resolution.",
+    },
+    FixSpotifyEmbeds: {
+        description: "Fixes the Spotify session expiry issue in embeds.",
+    },
+    FixYoutubeEmbeds: {
+        description: "Fixes the preview of embedded YouTube videos.",
+    },
+    ForceOwnerCrown: {
+        description: "Always shows the owner crown next to their name, even in large servers.",
+    },
+    FriendInvites: {
+        description: "Create and manage friend invite links via slash commands.",
+    },
+    FriendsSince: {
+        description: "Shows when you became friends with a user in their profile popup.",
+    },
+    FullSearchContext: {
+        description: "Adds all message context menu options to search results.",
+    },
+    FullUserInChatbox: {
+        description: "Adds extra functions to user mentions in the chat input box, like left and right click.",
+    },
+    GameActivityToggle: {
+        description: "Adds a button to quickly toggle game activity on or off.",
+    },
+    GifPaste: {
+        description: "Makes selecting a GIF paste its link in the chat box instead of sending it immediately.",
+    },
+    GreetStickerPicker: {
+        description: "Improves the greeting sticker picker.",
+    },
+    HideAttachments: {
+        description: "Hides attachments and embeds for specific messages via a button that appears on hover.",
+    },
+    ILoveSpam: {
+        description: "Does not hide messages from users suspected of sending spam.",
+    },
+    ImageFilename: {
+        description: "Shows the original filename instead of a modified one.",
+    },
+    ImageLink: {
+        description: "Does not hide image links in messages even if they are the only content.",
+    },
+    ImageZoom: {
+        description: "Allows zooming images by dragging and panning.",
+    },
+    ImplicitRelationships: {
+        description: "Adds unofficial DM channels to the friends list.",
+    },
+    IgnoreActivities: {
+        description: "Allows ignoring specific activities from showing in your status.",
+    },
+    IRCColors: {
+        description: "Adds IRC colors to messages.",
+    },
+    KeepCurrentChannel: {
+        description: "Attempts to return to the channel you were in before switching accounts or restarting Discord.",
+    },
+    LastFMRichPresence: {
+        description: "Shows what you're listening to on Last.fm as a status.",
+    },
+    LoadingQuotes: {
+        description: "Changes the loading screen quotes.",
+    },
+    MemberCount: {
+        description: "Shows the member count of a server and channel.",
+    },
+    MentionAvatars: {
+        description: "Adds avatars next to mentions in messages.",
+    },
+    MessageClickActions: {
+        description: "Adds actions when clicking on messages.",
+    },
+    MessageLatency: {
+        description: "Shows an indicator for messages that took ≥n seconds to send.",
+    },
+    MessageLinkEmbeds: {
+        description: "Adds a preview for message links wrapped in <>.",
+    },
+    MessageLogger: {
+        description: "Saves deleted and edited messages.",
+    },
+    MutualGroupDMs: {
+        description: "Shows mutual group DMs in user profiles.",
+    },
+    NoDevtoolsWarning: {
+        description: "Disables the 'HOLD UP' console warning and prevents Discord from hiding the token to avoid random sign-outs.",
+    },
+    NoF1: {
+        description: "Disables the F1 help shortcut.",
+    },
+    NoOnboardingDelay: {
+        description: "Skips the slow and annoying initial setup delay.",
+    },
+    NoPendingCount: {
+        description: "Removes the counter badge on the pending requests icon.",
+    },
+    NoProfileThemes: {
+        description: "Removes Nitro themes from others' profiles while keeping yours.",
+    },
+    NoReplyMention: {
+        description: "Automatically removes the mention ping from replies.",
+    },
+    NoTypingAnimation: {
+        description: "Disables the typing dots animation that consumes resources.",
+    },
+    NoUnblockToJump: {
+        description: "Allows jumping to messages from blocked or ignored users without having to unblock them.",
+    },
+    OnePingPerDM: {
+        description: "Sends only one notification per DM conversation.",
+    },
+    OpenInApp: {
+        description: "Opens external app links directly in their respective apps.",
+    },
+    PetPet: {
+        description: "Adds a /petpet command to create animated GIFs from any image.",
+    },
+    PictureInPicture: {
+        description: "Adds Picture-in-Picture support for video attachments.",
+    },
+    PinDMs: {
+        description: "Allows pinning DM conversations to the top of the list.",
+    },
+    PlainFolderIcon: {
+        description: "Hides the small server icons inside folders.",
+    },
+    PlatformIndicators: {
+        description: "Shows an icon indicating the device the user is on next to their name.",
+    },
+    PreviewMessage: {
+        description: "Allows previewing your message before sending it.",
+    },
+    ReadAllNotificationsButton: {
+        description: "Read all server notifications with a single button click!",
+    },
+    ReverseImageSearch: {
+        description: "Adds a reverse image search option to the context menu.",
+    },
+    ReviewDB: {
+        description: "Rate other users (adds a reviews section to profiles).",
+    },
+    RoleColorEverywhere: {
+        description: "Applies the role color to names in all places in Discord.",
+    },
+    SendTimestamps: {
+        description: "Adds a command to send a formatted timestamp.",
+    },
+    ServerListIndicators: {
+        description: "Adds visual indicators in the server list.",
+    },
+    ShikiCodeblocks: {
+        description: "Brings VSCode-style code blocks to Discord powered by Shiki.",
+    },
+    ShowAllMessageButtons: {
+        description: "Always shows all message buttons without hovering.",
+    },
+    ShowConnections: {
+        description: "Shows linked accounts in the mini profile.",
+    },
+    ShowHiddenChannels: {
+        description: "Shows hidden channels with an indicator that they cannot be accessed.",
+    },
+    ShowMeYourName: {
+        description: "Shows the original username next to the display name.",
+    },
+    ShowTimeouts: {
+        description: "Shows timed-out users in the member list.",
+    },
+    SilentMessageToggle: {
+        description: "Adds a button to toggle silent messages on or off.",
+    },
+    SilentTyping: {
+        description: "Prevents your typing indicator from showing to others.",
+    },
+    SortFriendRequests: {
+        description: "Sorts friend requests by date.",
+    },
+    Translate: {
+        description: "Translate messages using Google Translate, DeepL, or Kagi.",
+    },
+    TypingIndicator: {
+        description: "Shows who is typing in other channels.",
+    },
+    TypingTweaks: {
+        description: "Improves the typing indicator with avatars and names.",
+    },
+    Unindent: {
+        description: "Removes leading indentation from code blocks.",
+    },
+    UnsuppressEmbeds: {
+        description: "Allows you to un-suppress embedded content in messages.",
+    },
+    UserVoiceShow: {
+        description: "Shows the voice channel a user is in on their profile.",
+    },
+    ValidReply: {
+        description: "Fixes the 'message not found' error in replies.",
+    },
+    ViewIcons: {
+        description: "Allows viewing server and user icons at full resolution.",
+    },
+    ViewRaw: {
+        description: "Shows the raw code of messages and embeds.",
+    },
+    VoiceDownload: {
+        description: "Adds a download button for voice messages (opens a new browser tab).",
+    },
+    VolumeBooster: {
+        description: "Allows raising the volume above 200%.",
+    },
+    WebContextMenus: {
+        description: "Restores the original context menus in the web version.",
+    },
+    WhoReacted: {
+        description: "Shows a list of who reacted to each reaction on hover.",
+    },
+
     // ── userplugins ──────────────────────────────────────────────────────────
 
     BigFileUploadEnhanced: {
