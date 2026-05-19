@@ -185,6 +185,38 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
     },
     ChannelTabs: {
         description: "Browse your most-visited channels in browser-style tabs.",
+        options: {
+            onStartup: "What to do when Discord starts.",
+            noPomeloNames: "Use display names instead of usernames in DMs.",
+            showStatusIndicators: "Show status indicators in DMs.",
+            showBookmarkBar: "Show the bookmark bar.",
+            bookmarkNotificationDot: "Show notification dot on bookmarks.",
+            persistUnreadCountFallback: "Persist fallback unread badges across reloads for tabs and bookmarks.",
+            widerTabsAndBookmarks: "Extend tab and bookmark length for larger screens.",
+            tabHeightScale: "Tab height scale (percentage).",
+            renderAllTabs: "Keep all tabs in memory for faster switching (preserves scroll position and state).",
+            switchToExistingTab: "Switch to an existing tab when navigating to a channel that already has one open.",
+            createNewTabIfNotExists: "Create a new tab if none exists for the channel you navigate to.",
+            enableRapidNavigation: "Enable rapid navigation — fast channel switching replaces the current tab instead of opening new tabs.",
+            rapidNavigationThreshold: "Time window (seconds) for rapid navigation.",
+            tabBarPosition: "Where to display the tab bar.",
+            enableNumberKeySwitching: "Enable number keys (1–9) to switch between tabs.",
+            numberKeySwitchCount: "Number of tabs accessible via number keys.",
+            enableCloseTabShortcut: "Enable keyboard shortcut to close a tab.",
+            enableNewTabShortcut: "Enable keyboard shortcut to open a new tab.",
+            enableTabCycleShortcut: "Enable keyboard shortcut to cycle through tabs.",
+            showTabNumbers: "Show numbered badges on tabs for keyboard shortcut hints.",
+            tabNumberPosition: "Where to display the numbered badge on tabs.",
+            compactAutoExpandSelected: "Auto-expand compact tabs when selected to show the full channel name.",
+            compactAutoExpandOnHover: "Auto-expand compact tabs on hover to show the full channel name.",
+            openInNewTabAutoSwitch: "Auto-switch to new tabs opened from the 'Open in New Tab' context menu.",
+            bookmarksIndependentFromTabs: "Bookmarks navigate independently without affecting the active tab bar.",
+            showResizeHandle: "Show a resize handle on hover to adjust tab width.",
+            openNewTabsInCompactMode: "Open all new tabs in compact mode by default.",
+            newTabButtonBehavior: "New tab (+) button follows tabs instead of staying pinned to the right.",
+            oneTabPerServer: "Limit to one tab per server; opening a new channel reuses the existing tab for that server.",
+            maxOpenTabs: "Maximum number of open tabs (0 = no limit).",
+        },
     },
     CleanChannelName: {
         description: "Removes emoji and decorations from channel names; shows the original name when editing.",
@@ -213,6 +245,14 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
     },
     ClipsEnhancements: {
         description: "Adds extra frame-rate and duration options for clips, a custom length, RPC highlights, and more.",
+        options: {
+            richPresenceTagging: "When to tag clips with the current Rich Presence.",
+            enableScreenshotKeybind: "Enable keyboard shortcut to take screenshots.",
+            enableVoiceOnlyClips: "Enable voice-only clips (no video).",
+            enableSpeakingIndicators: "Enable speaking indicators.",
+            enableAdvancedSignals: "Enable advanced clip signals (automatic recording triggers).",
+            ignorePlatformRestriction: "Allow recording on restricted platforms (may cause save errors).",
+        },
     },
     CollapsibleUI: {
         description: "Makes the channel panel, member list, chat buttons, and user area collapsible.",
@@ -230,6 +270,10 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
     },
     CommandPalette: {
         description: "Run actions quickly through a searchable command palette.",
+        options: {
+            compactStartEnabled: "Open the command palette in compact mode first.",
+            closeAfterExecute: "Close the command palette after executing a command.",
+        },
     },
     ContentWarning: {
         description: "Lets you specify words that are automatically blurred. Hover or click blurred content to reveal it.",
@@ -262,6 +306,9 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
     },
     CustomFolderIcons: {
         description: "Lets you customize folder icons with any PNG image.",
+        options: {
+            solidIcon: "Use a solid background behind the folder icon.",
+        },
     },
     CustomSounds: {
         description: "Customize Discord's notification sounds.",
@@ -1194,6 +1241,9 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
             prioritizeServerProfile: "Prioritize the server profile when left-clicking your account panel.",
         },
     },
+    BadgeAPI: {
+        description: "API for adding badges to users.",
+    },
     AlwaysAnimate: {
         description: "Always animate avatars and animated emoji, even without Nitro.",
         options: {
@@ -1339,6 +1389,9 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
             colorEffects: "Show color effects when approaching or exceeding the character limit.",
         },
     },
+    ChatInputButtonAPI: {
+        description: "API for adding buttons to the chat input box.",
+    },
     ClearURLs: {
         description: "Automatically removes tracking elements from links you send.",
     },
@@ -1347,6 +1400,12 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
     },
     ColorSighted: {
         description: "Removes the custom color-blind status icons, as they were in Discord between 2015–2017.",
+    },
+    CommandsAPI: {
+        description: "API required for all plugins that use commands.",
+    },
+    ConcatenatedComponentExtractor: {
+        description: "Extracts components bundled together by the bundler.",
     },
     ConsoleJanitor: {
         description: "Hides useless log messages from the console.",
@@ -1365,6 +1424,9 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
         options: {
             copyUnicode: "Copy the raw Unicode character instead of the emoji markup for standard emoji.",
         },
+    },
+    ContextMenuAPI: {
+        description: "API for adding and removing items from context menus.",
     },
     CopyFileContents: {
         description: "Adds a button on text file attachments to copy their contents.",
@@ -1419,6 +1481,9 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
     },
     DontRoundMyTimestamps: {
         description: "Always rounds relative timestamps down, so 7.6 years becomes 7 years instead of 8.",
+    },
+    DynamicImageModalAPI: {
+        description: "Lets you ignore width or height when opening the image modal.",
     },
     Experiments: {
         description: "Enables access to Discord's experimental developer features.",
@@ -1615,6 +1680,9 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
             voiceActivity: "Show voice activity counts.",
         },
     },
+    MemberListDecoratorsAPI: {
+        description: "API for adding decorators to member list entries in servers and DMs.",
+    },
     MentionAvatars: {
         description: "Adds avatars next to mentions in messages.",
         options: {
@@ -1683,6 +1751,21 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
             separatedDiffs: "Show the diff in a separate section.",
         },
     },
+    MessageAccessoriesAPI: {
+        description: "API for adding accessories to messages.",
+    },
+    MessageDecorationsAPI: {
+        description: "API for adding decorations to messages.",
+    },
+    MessageEventsAPI: {
+        description: "API required for all plugins that use message events.",
+    },
+    MessagePopoverAPI: {
+        description: "API for adding buttons to message popover menus.",
+    },
+    MessageUpdaterAPI: {
+        description: "API for updating and re-rendering messages.",
+    },
     MoreQuickReactions: {
         description: "Adds more quick reactions to the reaction picker.",
         options: {
@@ -1710,6 +1793,9 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
             mobilePush: "Enable mobile push notifications by default.",
             voiceChannels: "Suppress voice channel join messages by default.",
         },
+    },
+    NicknameIconsAPI: {
+        description: "API for adding icons next to names in profiles.",
     },
     NoBlockedMessages: {
         description: "Hides messages from blocked users completely.",
@@ -1762,6 +1848,9 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
         options: {
             shownEmojis: "Which emoji to show: all, only animated, or none.",
         },
+    },
+    NoticesAPI: {
+        description: "Prevents notices from being automatically dismissed.",
     },
     NoTrack: {
         description: "Disable Discord tracking (analytics/metrics), performance metrics, and Sentry crash reports.",
@@ -1822,6 +1911,9 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
             permissionsSortOrder: "Sort order for permissions in the viewer.",
         },
     },
+    PauseInvitesForever: {
+        description: "Brings back the option to pause invites indefinitely that Discord removed.",
+    },
     PetPet: {
         description: "Adds a /petpet command to create animated GIFs from any image.",
     },
@@ -1855,6 +1947,9 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
     PreviewMessage: {
         description: "Allows previewing your message before sending it.",
     },
+    QuickMention: {
+        description: "Adds a quick mention button to the message action bar.",
+    },
     QuickReply: {
         description: "Allows quick replies by pressing R without opening a menu.",
         options: {
@@ -1865,6 +1960,20 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
     ReadAllNotificationsButton: {
         description: "Read all server notifications with a single button click!",
     },
+    ReactErrorDecoder: {
+        description: "Translates React error codes into readable messages.",
+    },
+    RelationshipNotifier: {
+        description: "Notifies you when removed from a friend list, group DM, or server.",
+        options: {
+            notices: "Show a notice at the top of the screen when removed.",
+            offlineRemovals: "Notify you on startup if you were removed while offline.",
+            friends: "Notify you when removed from someone's friend list.",
+            friendRequestCancels: "Notify you when a friend request is cancelled.",
+            servers: "Notify you when removed from a server.",
+            groups: "Notify you when removed from a group DM.",
+        },
+    },
     ReplaceGoogleSearch: {
         description: "Replaces Google with another search engine in the search context menu.",
         options: {
@@ -1873,8 +1982,14 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
             replacementEngine: "Search engine to replace Google with.",
         },
     },
+    ReplyTimestamp: {
+        description: "Shows the timestamp on reply message previews.",
+    },
     ReverseImageSearch: {
         description: "Adds a reverse image search option to the context menu.",
+    },
+    RevealAllSpoilers: {
+        description: "Reveal all spoilers by ctrl+clicking a spoiler, or in a message by ctrl+shift+clicking.",
     },
     ReviewDB: {
         description: "Rate other users (adds a reviews section to profiles).",
@@ -1909,6 +2024,9 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
             sorting: "Sort order for the server info display.",
         },
     },
+    ServerListAPI: {
+        description: "API required for plugins that modify the server list.",
+    },
     ServerListIndicators: {
         description: "Adds visual indicators in the server list.",
         options: {
@@ -1939,6 +2057,14 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
             channelStyle: "Visual style for hidden channels.",
             showMode: "What to show for hidden channels.",
             defaultAllowedUsersAndRolesDropdownState: "Default state of the allowed users/roles dropdown.",
+        },
+    },
+    ShowHiddenThings: {
+        description: "Shows hidden elements and admin-only features regardless of permissions.",
+        options: {
+            showTimeouts: "Show member timeout icons in chat.",
+            showInvitesPaused: "Show the invites paused tooltip in the server list.",
+            showModView: "Show the member mod view context menu item in all servers.",
         },
     },
     ShowMeYourName: {
@@ -1995,6 +2121,15 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
             keepSpotifyActivityOnIdle: "Keep the Spotify activity visible when idle.",
         },
     },
+    SpotifyShareCommands: {
+        description: "Share your current Spotify track, album, or artist via slash commands (/track, /album, /artist).",
+    },
+    StickerPaste: {
+        description: "Makes selecting a sticker insert it into the chat box instead of sending it immediately.",
+    },
+    StreamerModeOn: {
+        description: "Automatically enables streamer mode when you start streaming in Discord.",
+    },
     Summaries: {
         description: "Allows viewing conversation summaries for long threads.",
         options: {
@@ -2009,6 +2144,12 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
             superReactionPlayingLimit: "Maximum number of super reactions playing at once (when unlimited is off).",
         },
     },
+    SupportHelper: {
+        description: "Helps us provide technical support to you.",
+    },
+    StartupTimings: {
+        description: "Adds startup timings to the settings menu.",
+    },
     TextReplace: {
         description: "Automatically replaces text while typing using custom rules.",
         options: {
@@ -2016,6 +2157,9 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
             stringRules: "String replacement rules.",
             regexRules: "Regex replacement rules.",
         },
+    },
+    ThemeAttributes: {
+        description: "Adds data attributes to various elements for theme customization purposes.",
     },
     Translate: {
         description: "Translate messages using Google Translate, DeepL, or Kagi.",
@@ -2058,6 +2202,12 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
     UnsuppressEmbeds: {
         description: "Allows you to un-suppress embedded content in messages.",
     },
+    UserMessagesPronouns: {
+        description: "Adds pronouns to user messages in chat.",
+    },
+    UserSettingsAPI: {
+        description: "Modifies Discord user settings to expose group and name.",
+    },
     UserVoiceShow: {
         description: "Shows the voice channel a user is in on their profile.",
         options: {
@@ -2071,6 +2221,22 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
     },
     ValidUser: {
         description: "Adds user mention validation.",
+    },
+    VcNarrator: {
+        description: "Announces when users join, leave, or move between voice channels using a narrator.",
+        options: {
+            volume: "Narrator volume.",
+            rate: "Narrator speed.",
+            sayOwnName: "Announce your own name.",
+            latinOnly: "Remove non-Latin characters from names before announcing.",
+            joinMessage: "Join message template.",
+            leaveMessage: "Leave message template.",
+            moveMessage: "Move message template.",
+            muteMessage: "Mute message template (self only for now).",
+            unmuteMessage: "Unmute message template (self only for now).",
+            deafenMessage: "Deafen message template (self only for now).",
+            undeafenMessage: "Undeafen message template (self only for now).",
+        },
     },
     ViewIcons: {
         description: "Allows viewing server and user icons at full resolution.",
@@ -2104,6 +2270,12 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
             addBack: "Re-add removed context menu entries.",
         },
     },
+    WebKeybinds: {
+        description: "Restores missing keyboard shortcuts in Discord Web: ctrl+t, ctrl+shift+t, ctrl+tab, ctrl+1-9, ctrl+,. Fully functional only on Vesktop/Legcord.",
+    },
+    WebScreenShareFixes: {
+        description: "Removes the 2500kbps bitrate cap on Chromium clients and Vesktop.",
+    },
     WhoReacted: {
         description: "Shows a list of who reacted to each reaction on hover.",
         options: {
@@ -2127,6 +2299,9 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
             lengthBasedTimeout: "Scale notification duration based on message length.",
         },
     },
+    YoutubeAdblock: {
+        description: "Blocks ads in embedded YouTube videos and WatchTogether via AdGuard.",
+    },
     Settings: {
         description: "Adds a settings UI and diagnostic information.",
         options: {
@@ -2142,6 +2317,10 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
     },
     NitroSniper: {
         description: "Automatically redeems Nitro gift links sent in chat.",
+        options: {
+            notifyOnRedeem: "Show a notification when a Nitro code is successfully redeemed.",
+            notifyOnFail: "Show a notification when a Nitro code fails to redeem.",
+        },
     },
     BetterMicrophone: {
         description: "Lets you customize your microphone settings in much greater depth.",
@@ -2151,6 +2330,15 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
     },
     GuildCopier: {
         description: "Copies roles, channels, emoji, stickers, and more from one server to another.",
+        options: {
+            copyRoles: "Copy roles from the original server.",
+            copyChannels: "Copy channels and categories from the original server.",
+            copyEmojis: "Copy emoji from the original server.",
+            copyStickers: "Copy stickers from the original server.",
+            copyBots: "Create a #bots-list channel with invite links for all bots in the original server.",
+            emojiCount: "Maximum number of emoji to copy per type (PNG and GIF).",
+            stickerCount: "Maximum number of stickers to copy.",
+        },
     },
     MessageBookmarks: {
         description: "Save your favourite messages and jump to them with a single click.",
@@ -2160,5 +2348,16 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
     },
     CustomScreenSharePreview: {
         description: "Adds the ability to choose a custom image as your screen-share preview.",
+    },
+    Leash: {
+        description: "Tethers a user to you by automatically moving them to the voice channel you join.",
+        options: {
+            enabled: "Enable the Leash plugin.",
+            onlyWhenInVoice: "Only move the user when you are in a voice channel.",
+            showNotifications: "Show notifications on move operations.",
+        },
+    },
+    PhilsPluginLibrary: {
+        description: "A library for Phil's plugins.",
     },
 };
