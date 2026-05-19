@@ -15,6 +15,7 @@ import { HeadingSecondary } from "@components/Heading";
 import { Devs, EquicordDevs } from "@utils/constants";
 import { classNameFactory } from "@utils/css";
 import { Margins } from "@utils/margins";
+import { useForceUpdater } from "@utils/react";
 import { wordsToTitle } from "@utils/text";
 import definePlugin, { OptionType } from "@utils/types";
 import { RenderModalProps, type User } from "@vencord/discord-types";
