@@ -7,6 +7,7 @@
 import { definePluginSettings } from "@api/Settings";
 import { Button } from "@components/Button";
 import { Flex } from "@components/Flex";
+import { t } from "@utils/esharqI18n";
 import { OptionType } from "@utils/types";
 import { UserStore } from "@webpack/common";
 
@@ -16,7 +17,7 @@ import { useStreaksStore } from "./stores/StreaksStore";
 export const settings = definePluginSettings({
     account: {
         type: OptionType.COMPONENT,
-        description: "Log in or out of the Streaks API.",
+        description: "تسجيل الدخول أو الخروج من واجهة برمجة التطبيقات Streaks.",
         component() {
             const { isAuthorized, authorize, remove } = useAuthorizationStore();
 
@@ -27,7 +28,7 @@ export const settings = definePluginSettings({
                             onClick={() => remove(UserStore.getCurrentUser()?.id)}
                             variant="dangerPrimary"
                         >
-                            Log Out of Streaks API
+                            {t("تسجيل الخروج من Streaks API", "Log Out of Streaks API")}
                         </Button>
                     </Flex>
                 );
@@ -39,7 +40,7 @@ export const settings = definePluginSettings({
                             await useStreaksStore.getState().migrate();
                             await useStreaksStore.getState().fetch();
                         }}>
-                            Log In to Streaks API
+                            {t("تسجيل الدخول إلى Streaks API", "Log In to Streaks API")}
                         </Button>
                     </Flex>
                 );
@@ -48,37 +49,37 @@ export const settings = definePluginSettings({
     },
     eliteColor: {
         type: OptionType.STRING,
-        description: "Elite Streak Color (100+ days)",
+        description: "لون النيزك Elite (100+ يوم)",
         default: "#9b39fe"
     },
     diamondColor: {
         type: OptionType.STRING,
-        description: "Diamond Streak Color (60+ days)",
+        description: "لون النيزك Diamond (60+ يوم)",
         default: "#f7409c"
     },
     platinumColor: {
         type: OptionType.STRING,
-        description: "Platinum Streak Color (45+ days)",
+        description: "لون النيزك Platinum (45+ يوم)",
         default: "#856bfe"
     },
     goldColor: {
         type: OptionType.STRING,
-        description: "Gold Streak Color (30+ days)",
+        description: "لون النيزك Gold (30+ يوم)",
         default: "#f75340"
     },
     silverColor: {
         type: OptionType.STRING,
-        description: "Silver Streak Color (14+ days)",
+        description: "لون النيزك Silver (14+ يوم)",
         default: "#f57b0b"
     },
     bronzeColor: {
         type: OptionType.STRING,
-        description: "Bronze Streak Color (7+ days)",
+        description: "لون النيزك Bronze (7+ أيام)",
         default: "#b08d57"
     },
     defaultColor: {
         type: OptionType.STRING,
-        description: "Default Streak Color (1+ days)",
+        description: "لون النيزك الافتراضي (1+ يوم)",
         default: "#f59e0b"
     }
 });

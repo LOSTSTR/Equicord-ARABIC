@@ -972,7 +972,7 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
         description: "Adds an option to record your screen and upload the recording to the channel.",
     },
     SearchFix: {
-        description: "Fixes the search functionality.",
+        description: 'Fixes the annoying "We dropped the magnifying glass!" error.',
     },
     SekaiStickers: {
         description: "Sekai stickers integrated into Discord; original source: github.com/TheOriginalAyaka.",
@@ -1100,6 +1100,15 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
     },
     Streaks: {
         description: "Shows a streak counter next to a user when you exchange DMs with them daily.",
+        options: {
+            eliteColor: "Elite Streak Color (100+ days)",
+            diamondColor: "Diamond Streak Color (60+ days)",
+            platinumColor: "Platinum Streak Color (45+ days)",
+            goldColor: "Gold Streak Color (30+ days)",
+            silverColor: "Silver Streak Color (14+ days)",
+            bronzeColor: "Bronze Streak Color (7+ days)",
+            defaultColor: "Default Streak Color (1+ days)",
+        },
     },
     StreamingCodecDisabler: {
         description: "Disable streaming codecs of your choice.",
