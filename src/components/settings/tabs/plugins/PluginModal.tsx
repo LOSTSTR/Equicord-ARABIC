@@ -137,11 +137,13 @@ export default function PluginModal({ plugin, onRestartNeeded, onClose, transiti
             }
 
             const Component = OptionComponentMap[setting.type];
+            const enOptionDesc = !arabicMode && PLUGIN_TRANSLATIONS[plugin.name]?.options?.[key];
+            const resolvedSetting = enOptionDesc ? { ...setting, description: enOptionDesc } : setting;
             return (
                 <ErrorBoundary noop key={key}>
                     <Component
                         id={key}
-                        setting={setting}
+                        setting={resolvedSetting}
                         onChange={debounce(onChange)}
                         pluginSettings={pluginSettings}
                         definedSettings={settings}

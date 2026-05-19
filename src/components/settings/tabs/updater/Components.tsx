@@ -11,6 +11,7 @@ import { Flex } from "@components/Flex";
 import { Link } from "@components/Link";
 import { Paragraph } from "@components/Paragraph";
 import { Span } from "@components/Span";
+import { t } from "@utils/esharqI18n";
 import { Margins } from "@utils/margins";
 import { relaunch } from "@utils/native";
 import { changes, checkForUpdates, update, updateError } from "@utils/updater";
@@ -101,7 +102,7 @@ export function Updatable(props: CommonProps) {
                         }
                     })}
                 >
-                    تحقق من التحديثات
+                    {t("تحقق من التحديثات", "Check for Updates")}
                 </Button>
                 {isOutdated && (
                     <Button
@@ -148,7 +149,7 @@ export function Updatable(props: CommonProps) {
                 </>
             ) : (
                 <Paragraph>
-                    أنت تستخدم أحدث إصدار من Equicord
+                    {t("أنت تستخدم أحدث إصدار من Equicord", "You are running the latest version of Equicord")}
                 </Paragraph>
             )}
         </>

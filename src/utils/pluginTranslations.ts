@@ -6,6 +6,7 @@
 
 export interface PluginI18n {
     description: string;
+    options?: Record<string, string>;
 }
 
 export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
@@ -79,6 +80,9 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
     },
     CleanerChannelGroups: {
         description: "Hides all channels inside collapsed categories, even if they have unread messages.",
+    },
+    CancelFriendRequest: {
+        description: "Adds a way to cancel outgoing friend requests from user profiles.",
     },
     ClickableRoles: {
         description: "Makes roles in profiles and the member list clickable to see who has them.",
@@ -601,33 +605,95 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
 
     AccountPanelServerProfile: {
         description: "Shows the server profile instead of the global profile when clicking the account panel.",
+        options: {
+            prioritizeServerProfile: "Prioritize the server profile when left-clicking your account panel.",
+        },
     },
     AlwaysAnimate: {
         description: "Always animate avatars and animated emoji, even without Nitro.",
+        options: {
+            icons: "Always animate server icons, avatars, and decorations.",
+            statusEmojis: "Always animate status emojis.",
+            serverBanners: "Always animate server banners.",
+            nameplates: "Always animate nameplates.",
+            roleGradients: "Always animate role gradients.",
+        },
     },
     AlwaysExpandRoles: {
         description: "Automatically expands the role list in user profiles.",
+        options: {
+            hideArrow: "Hide the expand arrow.",
+        },
     },
     AlwaysTrust: {
         description: "Removes verification prompts and warning dialogs when opening external links or downloading files.",
+        options: {
+            domain: "Remove the warning popup when opening links from untrusted domains.",
+            file: "Remove the 'Potentially dangerous download' popup when opening links.",
+            noDeleteSafety: "Remove the server name input requirement when deleting it.",
+            confirmModal: "Show a 'Are you sure you want to delete?' confirmation modal.",
+        },
     },
     AnonymiseFileNames: {
         description: "Assigns random names to files before uploading.",
+        options: {
+            anonymiseByDefault: "Anonymise file names by default.",
+            spoilerMessages: "Add a spoiler prefix to messages.",
+            method: "Anonymisation method.",
+            randomisedLength: "Random characters length.",
+            consistent: "Fixed file name.",
+        },
     },
     AppleMusic: {
         description: "Displays your Apple Music activity as a status.",
+        options: {
+            activityType: "Activity type displayed.",
+            showInMemberList: "Show track/artist name in the members list.",
+            refreshRate: "Time between activity updates (in seconds).",
+            enableTimestamps: "Toggle timestamps on or off.",
+            enableButtons: "Toggle buttons on or off.",
+            nameFormat: "Activity name format text.",
+            detailsFormat: "Activity details format text.",
+            stateFormat: "Activity state format text.",
+            largeImageType: "Large image type in activity assets.",
+            largeTextFormat: "Large text format in activity assets.",
+            smallImageType: "Small image type in activity assets.",
+            smallTextFormat: "Small text format in activity assets.",
+        },
     },
     arRPC: {
         description: "Adds an arRPC client to enable RPC on Discord Web (experimental).",
     },
-    AutoDndWhilePlaying: {
+    AutoDNDWhilePlaying: {
         description: "Automatically sets your status to Do Not Disturb while playing a game.",
+        options: {
+            statusToSet: "The status to set while playing a game.",
+            excludeInvisible: "Prevent automatic status changes when your status is set to invisible.",
+        },
+    },
+    BetterGifAltText: {
+        description: "Changes the Alt Text of GIFs from just 'GIF' to include the GIF tags or file name.",
     },
     BetterFolders: {
         description: "Adds improvements to server folders.",
+        options: {
+            sidebar: "Show servers from a folder in a dedicated sidebar.",
+            sidebarAnim: "Animate opening the folder sidebar.",
+            closeAllFolders: "Close all folders when selecting a server not in any folder.",
+            closeAllHomeButton: "Close all folders when clicking the home button.",
+            closeOthers: "Close other folders when opening a folder.",
+            closeServerFolder: "Close the folder when selecting a server inside it.",
+            forceOpen: "Force the folder to open when navigating to a server inside it.",
+            enableNestedFolders: "Allow folders to be nested inside each other via drag and drop.",
+            keepIcons: "Keep showing server icons in the main server bar when the BetterFolders sidebar is open.",
+            showFolderIcon: "Show the folder icon above folder servers in the BetterFolders sidebar.",
+        },
     },
     BetterGifPicker: {
         description: "Improves the GIF picker and adds category filtering.",
+        options: {
+            keepOpen: "Keep the GIF picker open after selecting a GIF.",
+        },
     },
     BetterRoleContext: {
         description: "Adds extra options to role context menus.",
