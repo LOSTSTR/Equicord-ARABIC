@@ -20,7 +20,7 @@ import "./PluginModal.css";
 
 import { generateId } from "@api/Commands";
 import { hasAnyVisibleSettings, isSettingHidden } from "@api/PluginManager";
-import { useSettings } from "@api/Settings";
+import { Settings, useSettings } from "@api/Settings";
 import { BaseText } from "@components/BaseText";
 import { Button } from "@components/Button";
 import ErrorBoundary from "@components/ErrorBoundary";
@@ -34,6 +34,7 @@ import { Margins } from "@utils/margins";
 import { classes, isObjectEmpty } from "@utils/misc";
 import { ModalContent, ModalFooter, ModalHeader, ModalProps, ModalRoot, ModalSize, openModal } from "@utils/modal";
 import { OptionType, Plugin, PluginTag } from "@utils/types";
+import { PLUGIN_TRANSLATIONS } from "@utils/pluginTranslations";
 import { User } from "@vencord/discord-types";
 import { findComponentByCodeLazy, findCssClassesLazy } from "@webpack";
 import { Clickable, FluxDispatcher, React, Toasts, Tooltip, useEffect, useMemo, UserStore, UserSummaryItem, UserUtils, useState } from "@webpack/common";
@@ -86,8 +87,10 @@ function PluginTags({ tags }: { tags: PluginTag[]; }) {
 }
 
 export default function PluginModal({ plugin, onRestartNeeded, onClose, transitionState }: PluginModalProps) {
-    const pluginSettings = useSettings([`plugins.${plugin.name}.*`]).plugins[plugin.name];
+    const pluginSettings = useSettings([`plugins.${plugin.name}.*`, "plugins.Settings.arabicMode"]).plugins[plugin.name];
+    const arabicMode = (Settings.plugins as any)?.Settings?.arabicMode ?? false;
     const hasSettings = hasAnyVisibleSettings(plugin);
+    const displayDescription = (!arabicMode && PLUGIN_TRANSLATIONS[plugin.name]?.description) || plugin.description;
 
     // avoid layout shift by showing dummy users while loading users
     const fallbackAuthors = useMemo(() => [makeDummyUser({ username: "Loading...", id: "-1465912127305809920" })], []);
@@ -180,7 +183,7 @@ export default function PluginModal({ plugin, onRestartNeeded, onClose, transiti
             <ModalHeader separator={false} className={cl("header")}>
                 <div className={cl("header-content")}>
                     <BaseText size="lg" weight="semibold" className={cl("title")}>{plugin.name}</BaseText>
-                    <BaseText size="sm" className={cl("description")}>{plugin.description}</BaseText>
+                    <BaseText size="sm" className={cl("description")}>{displayDescription}</BaseText>
                     {!!plugin.tags?.length && <PluginTags tags={plugin.tags} />}
                     {!!plugin.settingsAboutComponent && (
                         <div className={Margins.top8}>

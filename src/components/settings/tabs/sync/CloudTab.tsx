@@ -30,6 +30,7 @@ import { Link } from "@components/Link";
 import { Notice } from "@components/Notice";
 import { Paragraph } from "@components/Paragraph";
 import { SettingsTab, wrapTab } from "@components/settings/tabs/BaseTab";
+import { isArabicMode, t } from "@utils/esharqI18n";
 import { localStorage } from "@utils/localStorage";
 import { Margins } from "@utils/margins";
 import { useForceUpdater } from "@utils/react";
@@ -64,21 +65,21 @@ const cloudBackendOptions = [
     { label: "Vencord Cloud", value: "https://api.vencord.dev/" }
 ];
 
-const syncDirectionOptions = [
-    { label: "مزامنة ثنائية الاتجاه (التغييرات تسير في كلا الاتجاهين)", value: "both" },
-    { label: "هذا الجهاز هو المصدر (رفع فقط)", value: "push" },
-    { label: "السحابة هي المصدر (تنزيل فقط)", value: "pull" },
-    { label: "بلا مزامنة تلقائية (مزامنة يدوية عبر الأزرار أدناه فقط)", value: "manual" }
-];
-
 function CloudTab() {
-    const settings = useSettings(["cloud.authenticated", "cloud.url", "cloud.settingsSync"]);
+    const settings = useSettings(["cloud.authenticated", "cloud.url", "cloud.settingsSync", "plugins.Settings.arabicMode"]);
     const [inputKey, setInputKey] = useState(0);
     const forceUpdate = useForceUpdater();
 
     const { cloud } = settings;
     const isAuthenticated = cloud.authenticated;
     const syncEnabled = isAuthenticated && cloud.settingsSync;
+
+    const syncDirectionOptions = [
+        { label: t("مزامنة ثنائية الاتجاه (التغييرات تسير في كلا الاتجاهين)", "Two-way sync (changes flow in both directions)"), value: "both" },
+        { label: t("هذا الجهاز هو المصدر (رفع فقط)", "This device is the source (upload only)"), value: "push" },
+        { label: t("السحابة هي المصدر (تنزيل فقط)", "Cloud is the source (download only)"), value: "pull" },
+        { label: t("بلا مزامنة تلقائية (مزامنة يدوية عبر الأزرار أدناه فقط)", "No auto-sync (manual sync via buttons below only)"), value: "manual" }
+    ];
 
     async function changeUrl(url: string) {
         cloud.url = url;
@@ -92,20 +93,21 @@ function CloudTab() {
 
     return (
         <SettingsTab>
-            <Heading className={Margins.top16}>تكامل السحابة</Heading>
+            <Heading className={Margins.top16}>{t("تكامل السحابة", "Cloud Integration")}</Heading>
             <Paragraph className={Margins.bottom16}>
-                يتيح تكامل سحابة Equicord مزامنة إعداداتك عبر أجهزة متعددة
+                {t("يتيح تكامل سحابة Equicord مزامنة إعداداتك عبر أجهزة متعددة", "Equicord Cloud integration allows you to sync your settings across multiple devices")}
             </Paragraph>
 
             <Notice.Info className={Margins.bottom16}>
-                نستخدم خادمنا الخاص <Link href="https://github.com/Equicord/Equicloud">Equicloud</Link> بمزايا محسّنة.
-                اطلع على <Link href="https://equicord.org/cloud/policy">سياسة الخصوصية</Link> لمعرفة ما نخزّنه وكيف نستخدم بياناتك.
-                Equicloud مرخص بترخيص BSD 3.0، يمكنك استضافته بنفسك إن أردت.
+                {isArabicMode()
+                    ? <>نستخدم خادمنا الخاص <Link href="https://github.com/Equicord/Equicloud">Equicloud</Link> بمزايا محسّنة. اطلع على <Link href="https://equicord.org/cloud/policy">سياسة الخصوصية</Link> لمعرفة ما نخزّنه وكيف نستخدم بياناتك. Equicloud مرخص بترخيص BSD 3.0، يمكنك استضافته بنفسك إن أردت.</>
+                    : <>We use our own <Link href="https://github.com/Equicord/Equicloud">Equicloud</Link> server with enhanced features. See our <Link href="https://equicord.org/cloud/policy">Privacy Policy</Link> to learn what we store and how we use your data. Equicloud is licensed under BSD 3.0 — you can self-host it if you wish.</>
+                }
             </Notice.Info>
 
             <FormSwitch
-                title="تفعيل تكامل السحابة"
-                description="الاتصال بالسحابة لمزامنة الإعدادات."
+                title={t("تفعيل تكامل السحابة", "Enable Cloud Integration")}
+                description={t("الاتصال بالسحابة لمزامنة الإعدادات.", "Connect to the cloud to sync settings.")}
                 value={isAuthenticated}
                 onChange={v => {
                     if (v)
@@ -118,9 +120,9 @@ function CloudTab() {
 
             <Divider className={Margins.top20} />
 
-            <Heading className={Margins.top20}>الخادم السحابي</Heading>
+            <Heading className={Margins.top20}>{t("الخادم السحابي", "Cloud Backend")}</Heading>
             <Paragraph className={Margins.bottom16}>
-                اختر الخادم السحابي المراد استخدامه لحفظ إعداداتك.
+                {t("اختر الخادم السحابي المراد استخدامه لحفظ إعداداتك.", "Choose the cloud backend to use for storing your settings.")}
             </Paragraph>
 
             <div className={Margins.bottom8}>
@@ -156,21 +158,21 @@ function CloudTab() {
                 >
                     <Flex gap="8px" alignItems="center">
                         <RefreshIcon color="currentColor" />
-                        إعادة التفويض
+                        {t("إعادة التفويض", "Re-authorize")}
                     </Flex>
                 </Button>
             </Flex>
 
             <Divider className={Margins.top20} />
 
-            <Heading className={Margins.top20}>مزامنة الإعدادات</Heading>
+            <Heading className={Margins.top20}>{t("مزامنة الإعدادات", "Settings Sync")}</Heading>
             <Paragraph className={Margins.bottom16}>
-                زامن إعدادات Equicord مع السحابة. يتيح ذلك الحفاظ على اتساق إعداداتك عبر أجهزة متعددة دون الحاجة إلى تصدير واستيراد يدوي.
+                {t("زامن إعدادات Equicord مع السحابة. يتيح ذلك الحفاظ على اتساق إعداداتك عبر أجهزة متعددة دون الحاجة إلى تصدير واستيراد يدوي.", "Sync your Equicord settings with the cloud. This keeps your settings consistent across multiple devices without the need for manual export and import.")}
             </Paragraph>
 
             <FormSwitch
-                title="تفعيل مزامنة الإعدادات"
-                description="عند التفعيل، يمكن مزامنة إعداداتك مع السحابة وإليها. استخدم الأزرار أدناه للمزامنة اليدوية."
+                title={t("تفعيل مزامنة الإعدادات", "Enable Settings Sync")}
+                description={t("عند التفعيل، يمكن مزامنة إعداداتك مع السحابة وإليها. استخدم الأزرار أدناه للمزامنة اليدوية.", "When enabled, your settings can be synced to and from the cloud. Use the buttons below for manual sync.")}
                 value={cloud.settingsSync}
                 onChange={v => { cloud.settingsSync = v; }}
                 disabled={!isAuthenticated}
@@ -179,9 +181,9 @@ function CloudTab() {
 
             <Divider className={Margins.top20} />
 
-            <Heading className={Margins.top20}>قواعد المزامنة لهذا الجهاز</Heading>
+            <Heading className={Margins.top20}>{t("قواعد المزامنة لهذا الجهاز", "Sync Rules for This Device")}</Heading>
             <Paragraph className={Margins.bottom16}>
-                يتحكم هذا الإعداد في كيفية انتقال الإعدادات بين <strong>هذا الجهاز</strong> والسحابة. يمكنك السماح بتدفق التغييرات في كلا الاتجاهين، أو اختيار مصدر رئيسي واحد.
+                {t("يتحكم هذا الإعداد في كيفية انتقال الإعدادات بين هذا الجهاز والسحابة. يمكنك السماح بتدفق التغييرات في كلا الاتجاهين، أو اختيار مصدر رئيسي واحد.", "This setting controls how settings flow between this device and the cloud. You can allow changes to flow in both directions, or choose a single primary source.")}
             </Paragraph>
 
             <Select
@@ -203,7 +205,7 @@ function CloudTab() {
                 >
                     <Flex gap="8px" alignItems="center">
                         <CloudUploadIcon />
-                        رفع إلى السحابة
+                        {t("رفع إلى السحابة", "Upload to Cloud")}
                     </Flex>
                 </Button>
                 <Button
@@ -213,22 +215,22 @@ function CloudTab() {
                 >
                     <Flex gap="8px" alignItems="center">
                         <CloudDownloadIcon />
-                        تنزيل من السحابة
+                        {t("تنزيل من السحابة", "Download from Cloud")}
                     </Flex>
                 </Button>
             </Flex>
 
             {!isAuthenticated && (
                 <Notice.Warning className={Margins.top8}>
-                    فعّل تكامل السحابة أعلاه لاستخدام ميزات مزامنة الإعدادات.
+                    {t("فعّل تكامل السحابة أعلاه لاستخدام ميزات مزامنة الإعدادات.", "Enable Cloud Integration above to use the settings sync features.")}
                 </Notice.Warning>
             )}
 
             <Divider className={Margins.top20} />
 
-            <Heading className={Margins.top20}>منطقة الخطر</Heading>
+            <Heading className={Margins.top20}>{t("منطقة الخطر", "Danger Zone")}</Heading>
             <Paragraph className={Margins.bottom16}>
-                احذف جميع بياناتك من السحابة نهائياً. لا يمكن التراجع عن هذا الإجراء وسيُزيل جميع الإعدادات المزامَنة وأي بيانات أخرى مخزّنة على الخادم السحابي.
+                {t("احذف جميع بياناتك من السحابة نهائياً. لا يمكن التراجع عن هذا الإجراء وسيُزيل جميع الإعدادات المزامَنة وأي بيانات أخرى مخزّنة على الخادم السحابي.", "Permanently delete all your data from the cloud. This action cannot be undone and will remove all synced settings and any other data stored on the cloud server.")}
             </Paragraph>
 
             <Flex gap="8px">
@@ -240,7 +242,7 @@ function CloudTab() {
                 >
                     <Flex gap="8px" alignItems="center">
                         <TrashIcon color="currentColor" />
-                        حذف إعدادات السحابة
+                        {t("حذف إعدادات السحابة", "Delete Cloud Settings")}
                     </Flex>
                 </Button>
                 <Button
@@ -248,17 +250,17 @@ function CloudTab() {
                     size="medium"
                     disabled={!isAuthenticated}
                     onClick={() => Alerts.show({
-                        title: "حذف حساب السحابة",
-                        body: "هل أنت متأكد أنك تريد حذف حسابك السحابي وجميع البيانات المرتبطة به نهائياً؟ لا يمكن التراجع عن هذا الإجراء.",
+                        title: t("حذف حساب السحابة", "Delete Cloud Account"),
+                        body: t("هل أنت متأكد أنك تريد حذف حسابك السحابي وجميع البيانات المرتبطة به نهائياً؟ لا يمكن التراجع عن هذا الإجراء.", "Are you sure you want to permanently delete your cloud account and all associated data? This action cannot be undone."),
                         onConfirm: eraseAllCloudData,
-                        confirmText: "حذف الحساب",
+                        confirmText: t("حذف الحساب", "Delete Account"),
                         confirmColor: "vc-cloud-erase-data-danger-btn",
-                        cancelText: "إلغاء"
+                        cancelText: t("إلغاء", "Cancel")
                     })}
                 >
                     <Flex gap="8px" alignItems="center">
                         <SkullIcon color="currentColor" />
-                        حذف حساب السحابة
+                        {t("حذف حساب السحابة", "Delete Cloud Account")}
                     </Flex>
                 </Button>
             </Flex>

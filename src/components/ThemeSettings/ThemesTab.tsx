@@ -43,6 +43,7 @@ import { useAwaiter, useForceUpdater } from "@utils/react";
 import type { ThemeHeader } from "@utils/themes";
 import { getThemeInfo, stripBOM, type UserThemeHeader } from "@utils/themes/bd";
 import { usercssParse } from "@utils/themes/usercss";
+import { isArabicMode, t } from "@utils/esharqI18n";
 import { getStylusWebStoreUrl } from "@utils/web";
 import { findComponentByCodeLazy, findLazy } from "@webpack";
 import { Alerts, Menu, React, Select, showToast, TextInput, Toasts, Tooltip, useEffect, useMemo, useState } from "@webpack/common";
@@ -165,13 +166,6 @@ enum ThemeFilter {
     Disabled = "disabled"
 }
 
-const filterOptions = [
-    { label: "عرض الكل", value: ThemeFilter.All },
-    { label: "قوالب إلكترونية", value: ThemeFilter.Online },
-    { label: "قوالب محلية", value: ThemeFilter.Local },
-    { label: "مفعّل", value: ThemeFilter.Enabled },
-    { label: "معطّل", value: ThemeFilter.Disabled }
-];
 
 function Validator({ link, onValidate }: { link: string; onValidate: (valid: boolean) => void; }) {
     const [res, err, pending] = useAwaiter(() => fetch(link).then(res => {
@@ -486,7 +480,15 @@ interface UnifiedTheme {
 }
 
 function ThemesTab() {
-    const settings = useSettings(["themeLinks", "enabledThemeLinks", "enabledThemes", "enableOnlineThemes", "pinnedThemes", "themeActivationModes.*"]);
+    const settings = useSettings(["themeLinks", "enabledThemeLinks", "enabledThemes", "enableOnlineThemes", "pinnedThemes", "themeActivationModes.*", "plugins.Settings.arabicMode"]);
+
+    const filterOptions = [
+        { label: t("عرض الكل", "Show All"), value: ThemeFilter.All },
+        { label: t("قوالب إلكترونية", "Online Themes"), value: ThemeFilter.Online },
+        { label: t("قوالب محلية", "Local Themes"), value: ThemeFilter.Local },
+        { label: t("مفعّل", "Enabled"), value: ThemeFilter.Enabled },
+        { label: t("معطّل", "Disabled"), value: ThemeFilter.Disabled }
+    ];
 
     const fileInputRef = useState<HTMLInputElement | null>(null)[1];
     const [currentThemeLink, setCurrentThemeLink] = useState("");
@@ -805,14 +807,14 @@ function ThemesTab() {
         <SettingsTab>
             <CspErrorCard />
 
-            <Heading className={Margins.top16}>إدارة القوالب</Heading>
+            <Heading className={Margins.top16}>{t("إدارة القوالب", "Manage Themes")}</Heading>
             <Paragraph className={Margins.bottom16}>
-                خصّص مظهر ديسكورد باستخدام القوالب.
+                {t("خصّص مظهر ديسكورد باستخدام القوالب.", "Customize Discord's appearance using themes.")}
             </Paragraph>
 
-            <Heading>إجراءات سريعة</Heading>
+            <Heading>{t("إجراءات سريعة", "Quick Actions")}</Heading>
             <Paragraph className={Margins.bottom16}>
-                اختصارات لإدارة قوالبك.
+                {t("اختصارات لإدارة قوالبك.", "Shortcuts for managing your themes.")}
             </Paragraph>
 
             <QuickActionCard>
@@ -833,13 +835,13 @@ function ThemesTab() {
                     />
                 ) : (
                     <QuickAction
-                        text="فتح مجلد القوالب"
+                        text={t("فتح مجلد القوالب", "Open Themes Folder")}
                         action={() => VencordNative.themes.openFolder()}
                         Icon={FolderIcon}
                     />
                 )}
                 <QuickAction
-                    text="تحميل القوالب المفقودة"
+                    text={t("تحميل القوالب المفقودة", "Reload Missing Themes")}
                     action={refreshLocalThemes}
                     Icon={RestartIcon}
                 />
@@ -859,13 +861,13 @@ function ThemesTab() {
 
             <Divider className={Margins.top20} />
 
-            <Heading className={Margins.top20}>قوالب إلكترونية</Heading>
+            <Heading className={Margins.top20}>{t("قوالب إلكترونية", "Online Themes")}</Heading>
             <Paragraph className={Margins.bottom16}>
-                تحميل القوالب مباشرة من روابط URL
+                {t("تحميل القوالب مباشرة من روابط URL", "Load themes directly from URLs")}
             </Paragraph>
             <FormSwitch
-                title="تفعيل القوالب الإلكترونية"
-                description="تبديل تحميل القوالب الإلكترونية."
+                title={t("تفعيل القوالب الإلكترونية", "Enable Online Themes")}
+                description={t("تبديل تحميل القوالب الإلكترونية.", "Toggle loading of online themes.")}
                 value={settings.enableOnlineThemes ?? true}
                 onChange={value => {
                     settings.enableOnlineThemes = value;
@@ -876,7 +878,10 @@ function ThemesTab() {
             />
 
             <Notice.Info className={Margins.bottom16} style={{ width: "100%" }}>
-                تبحث عن قوالب؟ تفقد <Link href="https://betterdiscord.app/themes">قوالب BetterDiscord</Link> أو ابحث على <Link href="https://github.com/search?q=discord+theme">GitHub</Link>.
+                {isArabicMode()
+                    ? <>تبحث عن قوالب؟ تفقد <Link href="https://betterdiscord.app/themes">قوالب BetterDiscord</Link> أو ابحث على <Link href="https://github.com/search?q=discord+theme">GitHub</Link>.</>
+                    : <>Looking for themes? Check out <Link href="https://betterdiscord.app/themes">BetterDiscord Themes</Link> or search on <Link href="https://github.com/search?q=discord+theme">GitHub</Link>.</>
+                }
             </Notice.Info>
 
             <div className={cl("link-row")}>
@@ -898,9 +903,9 @@ function ThemesTab() {
 
             <Divider className={Margins.top20} />
 
-            <Heading className={Margins.top20}>القوالب المثبتة</Heading>
+            <Heading className={Margins.top20}>{t("القوالب المثبتة", "Installed Themes")}</Heading>
             <Paragraph className={Margins.bottom8}>
-                أدِر قوالبك من هنا. تُحمَّل القوالب المحلية من مجلد القوالب، والقوالب الإلكترونية من روابط URL. القوالب التي تحتوي على أيقونة الترس لها إعدادات قابلة للتخصيص.
+                {t("أدِر قوالبك من هنا. تُحمَّل القوالب المحلية من مجلد القوالب، والقوالب الإلكترونية من روابط URL. القوالب التي تحتوي على أيقونة الترس لها إعدادات قابلة للتخصيص.", "Manage your themes here. Local themes are loaded from the themes folder, and online themes from URLs. Themes with a gear icon have customizable settings.")}
             </Paragraph>
             <Paragraph color="text-subtle" className={Margins.bottom16}>
                 {allThemes.length} theme{allThemes.length !== 1 ? "s" : ""} installed ({localCount} local, {onlineCount} online) · {enabledCount} enabled
@@ -908,7 +913,7 @@ function ThemesTab() {
 
             <div className={cl("filter-row")}>
                 <TextInput
-                    placeholder="البحث عن قالب..."
+                    placeholder={t("البحث عن قالب...", "Search for a theme...")}
                     value={searchQuery}
                     onChange={setSearchQuery}
                 />
@@ -923,12 +928,12 @@ function ThemesTab() {
             </div>
 
             {userThemes === null ? (
-                <Paragraph color="text-muted" className={Margins.top16}>جار تحميل القوالب...</Paragraph>
+                <Paragraph color="text-muted" className={Margins.top16}>{t("جار تحميل القوالب...", "Loading themes...")}</Paragraph>
             ) : filteredThemes.length === 0 ? (
                 <Paragraph color="text-muted" className={Margins.top16}>
                     {allThemes.length === 0
-                        ? "لا توجد قوالب مثبتة بعد. أضف ملفات القوالب إلى مجلد القوالب أو أضف قالباً إلكترونياً أعلاه للبدء."
-                        : "لا توجد قوالب تطابق معايير البحث أو التصفية."
+                        ? t("لا توجد قوالب مثبتة بعد. أضف ملفات القوالب إلى مجلد القوالب أو أضف قالباً إلكترونياً أعلاه للبدء.", "No themes installed yet. Add theme files to the themes folder or add an online theme above to get started.")
+                        : t("لا توجد قوالب تطابق معايير البحث أو التصفية.", "No themes match your search or filter criteria.")
                     }
                 </Paragraph>
             ) : (
