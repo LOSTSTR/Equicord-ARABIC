@@ -26,8 +26,6 @@
     --cp-radius-sm: 8px;
     --cp-shadow: 0 16px 44px rgb(0 0 0 / 38%), 0 6px 18px rgb(0 0 0 / 28%);
 
-    width: min(900px, 92vw) !important;
-    max-width: min(900px, 92vw) !important;
     background: var(--cp-bg) !important;
     border-radius: var(--cp-radius) !important;
     box-shadow: var(--cp-shadow) !important;
@@ -44,9 +42,7 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    max-width: 100%;
-    min-height: 67vh;
-    max-height: 67vh;
+    height: 100%;
     background: var(--cp-bg);
     border-radius: var(--cp-radius);
     box-sizing: border-box;
@@ -388,7 +384,7 @@
 }
 
 .vc-command-palette-row-subtitle {
-    font-size: 13px;
+    font-size: 14px;
     color: var(--cp-text-secondary);
     line-height: 1.4;
 }
@@ -749,46 +745,7 @@
     font-size: 13px;
 }
 
-/* Compact Mode */
-.vc-command-palette-compact .vc-command-palette-shell {
-    max-height: fit-content;
-    min-height: 100%;
-    overflow: hidden;
-}
 
-.vc-command-palette-compact {
-    min-height: 0 !important;
-}
-
-.vc-command-palette-action-bar-logo {
-    display: flex;
-    align-items: center;
-    color: var(--cp-text-muted);
-}
-
-.vc-command-palette-compact .vc-command-palette-input {
-    border-bottom: none;
-}
-
-.vc-command-palette-action-bar-compact-btn {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 7px 12px;
-    background: var(--cp-bg-secondary);
-    border: 1px solid var(--cp-border);
-    border-radius: 8px;
-    color: var(--cp-text-secondary);
-    font-size: 12px;
-    cursor: pointer;
-    transition: all 0.15s ease;
-    line-height: 1;
-}
-
-.vc-command-palette-action-bar-compact-btn:hover {
-    background: var(--cp-bg-hover);
-    border-color: var(--cp-border-strong);
-}
 
 .vc-command-palette-keybind-input {
     display: flex;
@@ -1029,7 +986,7 @@
 }
 
 .vc-command-palette-picker .vc-command-palette-main-input input {
-    min-height: 40px !important;
+    width: 100px !important;
     height: 40px !important;
     font-size: 18px !important;
 }
@@ -1050,6 +1007,11 @@
 .vc-command-palette-page-input input:focus {
     border-color: var(--cp-accent) !important;
     outline: none !important;
+}
+
+.vc-command-palette-main-search-input {
+    width: 100%;
+    margin-left: 6px;
 }
 
 input.vc-command-palette-main-search-input:read-only,

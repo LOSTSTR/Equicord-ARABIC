@@ -12,7 +12,7 @@ import { copyWithToast } from "@utils/discord";
 import { Logger } from "@utils/Logger";
 import { classes } from "@utils/misc";
 import { RenderModalProps } from "@vencord/discord-types";
-import { Modal,TextInput, Toasts, useEffect, useMemo, useRef, useState } from "@webpack/common";
+import { Modal, TextInput, Toasts, useEffect, useMemo, useRef, useState } from "@webpack/common";
 import type { KeyboardEvent as ReactKeyboardEvent } from "react";
 
 import { buildQueryResolution } from "../actions/executors";
@@ -284,18 +284,16 @@ function createInitialPageState(ref: PalettePageRef): PalettePageValuesState {
 
 export function CommandPaletteModal({ modalProps, instanceKey }: { modalProps: RenderModalProps; instanceKey: number; }) {
     const {
-        compactStartEnabled = true,
         closeAfterExecute = true
     } = settings.use();
     const [query, setQuery] = useState("");
-    const [expanded, setExpanded] = useState(false);
     const [selectedIndex, setSelectedIndex] = useState(-1);
     const [selectedKey, setSelectedKey] = useState<string | null>(null);
     const [keyboardSelectedKey, setKeyboardSelectedKey] = useState<string | null>(null);
     const [registryVersion, setRegistryVersion] = useState(() => getRegistryVersion());
     const [pinnedIds, setPinnedIds] = useState<Set<string>>(new Set());
     const [navigationLevel, setNavigationLevel] = useState<NavigationLevel>(() => {
-        if (compactStartEnabled || !persistedCategoryId) return { type: "root" };
+        if (!persistedCategoryId) return { type: "root" };
         return buildNavigationLevelForCategory(persistedCategoryId);
     });
     const [activePromptCommand, setActivePromptCommand] = useState<CommandEntry | null>(null);
@@ -326,7 +324,6 @@ export function CommandPaletteModal({ modalProps, instanceKey }: { modalProps: R
 
     useEffect(() => {
         setQuery("");
-        setExpanded(false);
         setSelectedIndex(-1);
         setSelectedKey(null);
         setKeyboardSelectedKey(null);
@@ -343,10 +340,10 @@ export function CommandPaletteModal({ modalProps, instanceKey }: { modalProps: R
         closeReasonRef.current = null;
         keyboardNavigationAtRef.current = 0;
         setNavigationLevel(() => {
-            if (compactStartEnabled || !persistedCategoryId) return { type: "root" };
+            if (!persistedCategoryId) return { type: "root" };
             return buildNavigationLevelForCategory(persistedCategoryId);
         });
-    }, [compactStartEnabled, instanceKey]);
+    }, [instanceKey]);
 
     useEffect(() => {
         return () => {
@@ -374,7 +371,6 @@ export function CommandPaletteModal({ modalProps, instanceKey }: { modalProps: R
     }, [navigationLevel]);
 
     const trimmedQuery = query.trim();
-    const compact = compactStartEnabled && trimmedQuery.length === 0 && !expanded && navigationLevel.type === "root" && pageStack.length === 0;
 
     const allCommands = useMemo(() => listCommands(), [registryVersion]);
 
@@ -472,7 +468,7 @@ export function CommandPaletteModal({ modalProps, instanceKey }: { modalProps: R
             expandedItems.push({ type: "section", id: "section-breadcrumb", label: breadcrumb });
         }
 
-        if (!compact && navigationLevel.type === "root" && trimmedQuery.length === 0) {
+        if (navigationLevel.type === "root" && trimmedQuery.length === 0) {
             if (pinnedCandidates.length > 0) {
                 expandedItems.push({ type: "section", id: "section-pinned", label: "Pinned" });
                 expandedItems.push(...pinnedCandidates);
@@ -507,7 +503,7 @@ export function CommandPaletteModal({ modalProps, instanceKey }: { modalProps: R
         }
 
         return expandedItems;
-    }, [compact, navigationLevel, pinnedCandidates, rankedCommandCandidates, recentCandidates, suggestedCandidates, trimmedQuery]);
+    }, [navigationLevel, pinnedCandidates, rankedCommandCandidates, recentCandidates, suggestedCandidates, trimmedQuery]);
 
     const emptyStateText = navigationLevel.type === "category" && navigationLevel.categoryId === MENTIONS_CATEGORY_ID
         ? "All caught up."
@@ -606,12 +602,6 @@ export function CommandPaletteModal({ modalProps, instanceKey }: { modalProps: R
     }, [queryCandidates, selectedPromptCandidateId]);
 
     useEffect(() => {
-        if (compact) {
-            setSelectedIndex(-1);
-            setSelectedKey(null);
-            return;
-        }
-
         if (!hasCommandItems) {
             setSelectedIndex(-1);
             setSelectedKey(null);
@@ -635,7 +625,7 @@ export function CommandPaletteModal({ modalProps, instanceKey }: { modalProps: R
 
         setSelectedIndex(firstSelectable);
         setSelectedKey(items[firstSelectable].id);
-    }, [hasCommandItems, items, selectedKey, compact]);
+    }, [hasCommandItems, items, selectedKey]);
 
     useEffect(() => {
         if (selectedIndex < 0) return;
@@ -662,7 +652,7 @@ export function CommandPaletteModal({ modalProps, instanceKey }: { modalProps: R
         if (previous === trimmedQuery) return;
         lastTrimmedQueryRef.current = trimmedQuery;
 
-        if (compact || isPageOpen) return;
+        if (isPageOpen) return;
 
         setSelectedIndex(-1);
         setSelectedKey(null);
@@ -671,7 +661,7 @@ export function CommandPaletteModal({ modalProps, instanceKey }: { modalProps: R
         if (listRef.current) {
             listRef.current.scrollTop = 0;
         }
-    }, [compact, isPageOpen, trimmedQuery]);
+    }, [isPageOpen, trimmedQuery]);
 
     useEffect(() => {
         if (!focusPromptInput) return;
@@ -1256,17 +1246,12 @@ export function CommandPaletteModal({ modalProps, instanceKey }: { modalProps: R
 
         if (isMainInputTarget && event.key === "ArrowDown") {
             event.preventDefault();
-            if (compact) {
-                setExpanded(true);
-                return;
-            }
             moveSelection(1);
             return;
         }
 
         if (isMainInputTarget && event.key === "ArrowUp") {
             event.preventDefault();
-            if (compact) return;
             if (selectedIndex <= 0) {
                 focusSearchInput();
                 return;
@@ -1289,24 +1274,12 @@ export function CommandPaletteModal({ modalProps, instanceKey }: { modalProps: R
 
         if (event.key === "ArrowDown") {
             event.preventDefault();
-            if (compact) {
-                setExpanded(true);
-                return;
-            }
-
             moveSelection(1);
             return;
         }
 
         if (event.key === "ArrowUp") {
             event.preventDefault();
-            if (compact) return;
-
-            if (selectedIndex <= 0 && trimmedQuery.length === 0 && navigationLevel.type === "root") {
-                setExpanded(false);
-                return;
-            }
-
             moveSelection(-1);
             return;
         }
@@ -1368,14 +1341,8 @@ export function CommandPaletteModal({ modalProps, instanceKey }: { modalProps: R
                 return;
             }
 
-            if (!compact && trimmedQuery.length > 0) {
+            if (trimmedQuery.length > 0) {
                 setQuery("");
-                setExpanded(false);
-                return;
-            }
-
-            if (!compact) {
-                setExpanded(false);
                 return;
             }
 
@@ -1471,10 +1438,10 @@ export function CommandPaletteModal({ modalProps, instanceKey }: { modalProps: R
     return (
         <Modal
             {...modalProps}
-            size={compact ? "sm" : "lg"}
+            size="lg"
             title="Command Palette"
         >
-            <div className={cn("vc-command-palette", cl("shell"), compact && cl("compact"))} onKeyDown={onKeyDown}>
+            <div className={cn("vc-command-palette", cl("shell"))} onKeyDown={onKeyDown}>
                 {!isPageOpen && (
                     <CommandPaletteInput
                         inputRef={mainInputRef}
@@ -1581,11 +1548,11 @@ export function CommandPaletteModal({ modalProps, instanceKey }: { modalProps: R
                     </CommandPaletteInput>
                 )}
 
-                {!compact && !isPageOpen && calculatorResult && (
+                {!isPageOpen && calculatorResult && (
                     <CommandPaletteCalculatorCards result={calculatorResult} mode={calculatorViewMode} />
                 )}
 
-                {!compact && !isPageOpen && (
+                {!isPageOpen && (
                     <div ref={listRef} className={cl("list")}>
                         {!hasCommandItems && <div className={cl("empty")}>{emptyStateText}</div>}
                         {items.map((item, index) => {
@@ -1626,9 +1593,9 @@ export function CommandPaletteModal({ modalProps, instanceKey }: { modalProps: R
                     </div>
                 )}
 
-                {!compact && isPageOpen && activePageView}
+                {isPageOpen && activePageView}
 
-                {!compact && (isActionsMenuOpen || isActionsMenuClosing) && (
+                {(isActionsMenuOpen || isActionsMenuClosing) && (
                     <CommandPaletteActionsMenu
                         actions={paletteActions}
                         title={activePageSpec?.title ?? selectedLabel ?? "Actions"}
@@ -1651,8 +1618,6 @@ export function CommandPaletteModal({ modalProps, instanceKey }: { modalProps: R
                             setIsActionsMenuOpen(true);
                             setIsActionsMenuClosing(false);
                         }}
-                        compact={compact}
-                        onExpand={() => setExpanded(true)}
                     />
                 )}
             </div>
