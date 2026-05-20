@@ -44,6 +44,7 @@ import { initPluginManager, PMLogger, startAllPlugins } from "./api/PluginManage
 import { PlainSettings, Settings, SettingsStore } from "./api/Settings";
 import { areLocalSettingsDirty, getCloudSettings, getCloudSyncDirection, markLocalSettingsDirty, putCloudSettings, shouldCloudSync } from "./api/SettingsSync/cloudSync";
 import { relaunch } from "./utils/native";
+import { t } from "./utils/esharqI18n";
 import { checkForUpdates, isOutdated as getIsOutdated, update, UpdateLogger } from "./utils/updater";
 import { onceReady } from "./webpack";
 import { patches } from "./webpack/patchWebpack";
@@ -140,14 +141,14 @@ async function runUpdateCheck() {
         if (!isOutdated) return;
 
         if (Settings.autoUpdate) {
-            await update();
-            if (Settings.autoUpdateNotification) {
+            const didUpdate = await update();
+            if (didUpdate && Settings.autoUpdateNotification) {
                 if (notifiedForUpdatesThisSession) return;
                 notifiedForUpdatesThisSession = true;
 
                 showNotice(
-                    "Equicord has been updated!",
-                    "Restart",
+                    t("تم تحديث Esharq!", "Esharq has been updated!"),
+                    t("إعادة تشغيل", "Restart"),
                     relaunch
                 );
             }
@@ -158,8 +159,8 @@ async function runUpdateCheck() {
         notifiedForUpdatesThisSession = true;
 
         showNotice(
-            "A new version of Equicord is available!",
-            "View Update",
+            t("يتوفر إصدار جديد من Esharq!", "A new version of Esharq is available!"),
+            t("عرض التحديث", "View Update"),
             () => openSettingsTabModal(UpdaterTab!)
         );
     } catch (err) {

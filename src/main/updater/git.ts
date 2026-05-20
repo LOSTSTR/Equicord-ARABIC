@@ -68,8 +68,10 @@ async function calculateGitChanges() {
 }
 
 async function pull() {
-    const res = await git("pull");
-    return res.stdout.includes("Fast-forward");
+    const before = (await git("rev-parse", "HEAD")).stdout.trim();
+    await git("pull");
+    const after = (await git("rev-parse", "HEAD")).stdout.trim();
+    return before !== after;
 }
 
 async function build() {

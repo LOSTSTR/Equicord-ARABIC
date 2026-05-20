@@ -52,12 +52,13 @@ export async function checkForUpdates() {
 }
 
 export async function update() {
-    if (!isOutdated) return true;
+    if (!isOutdated) return false;
 
     const res = await Unwrap(VencordNative.updater.update());
 
     if (res) {
         isOutdated = false;
+        changes = [];
         if (!await Unwrap(VencordNative.updater.rebuild()))
             throw new Error("The Build failed. Please try manually building the new update");
     }
