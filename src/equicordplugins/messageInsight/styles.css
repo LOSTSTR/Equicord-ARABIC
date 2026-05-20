@@ -42,10 +42,34 @@
     background: var(--background-modifier-hover);
 }
 
+.mi-reply-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.mi-reply-avatar {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
 .mi-reply-author {
     font-weight: 600;
     font-size: 14px;
     color: var(--header-primary);
+}
+
+.mi-reply-time {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-left: 2px;
+}
+
+.mi-reply-attachment {
+    font-size: 12px;
+    line-height: 1;
 }
 
 .mi-reply-content {
