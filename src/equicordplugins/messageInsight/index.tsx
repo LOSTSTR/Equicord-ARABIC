@@ -11,8 +11,9 @@ import ErrorBoundary from "@components/ErrorBoundary";
 import { EquicordDevs } from "@utils/constants";
 import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
-import { ChannelStore, FluxDispatcher, MessageStore, openModal, React, Toasts } from "@webpack/common";
+import { ChannelStore, FluxDispatcher, MessageStore, openModal, React } from "@webpack/common";
 
+import { ChannelBriefModal } from "./ChannelBrief";
 import { EditDiffModal } from "./EditDiff";
 import { ReplyTreeModal } from "./ReplyTree";
 import { settings } from "./settings";
@@ -62,16 +63,20 @@ function onChannelSelect({ channelId }: any) {
         });
         const newCount = newMsgs.length;
         const elapsed = Math.floor((Date.now() - prev.time) / 60000);
+
         if (newCount > 0 && elapsed >= settings.store.briefThresholdMinutes) {
-            Toasts.show({
-                id: Toasts.genId(),
-                message: t(
-                    `${newCount} رسالة جديدة خلال ${elapsed} دقيقة`,
-                    `${newCount} new message${newCount !== 1 ? "s" : ""} in the last ${elapsed} min`
-                ),
-                type: Toasts.Type.MESSAGE,
-                options: { duration: 5000, position: Toasts.Position.BOTTOM },
-            });
+            const previewCount = Math.max(1, settings.store.briefPreviewCount ?? 5);
+            const preview = newMsgs.slice(-previewCount);
+            openModal(props => (
+                <ErrorBoundary>
+                    <ChannelBriefModal
+                        modalProps={props}
+                        newMessages={preview}
+                        totalCount={newCount}
+                        elapsed={elapsed}
+                    />
+                </ErrorBoundary>
+            ));
         }
     }
 
@@ -99,9 +104,10 @@ function renderEditDiffButton(message: any) {
     const history = editHistory.get(message.id);
     if (!history || history.length < 2) return null;
 
+    const editCount = history.length - 1;
     return {
         key: "mi-edit-diff",
-        label: t("عرض سجل التعديلات", "Show Edit History"),
+        label: t(`عرض سجل التعديلات (${editCount}×)`, `Show Edit History (${editCount}×)`),
         icon: EditDiffIcon,
         message,
         channel: ChannelStore.getChannel(message.channel_id),

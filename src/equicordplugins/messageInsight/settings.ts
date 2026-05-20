@@ -21,12 +21,17 @@ export const settings = definePluginSettings({
     },
     channelBrief: {
         type: OptionType.BOOLEAN,
-        get description() { return t("عرض عدد الرسائل الجديدة عند العودة إلى قناة بعد فترة غياب", "Show new message count toast when returning to a channel after inactivity"); },
+        get description() { return t("عرض ملخص الرسائل الجديدة عند العودة إلى قناة بعد فترة غياب", "Show new messages preview when returning to a channel after inactivity"); },
         default: true,
     },
     briefThresholdMinutes: {
         type: OptionType.NUMBER,
         get description() { return t("عدد دقائق الغياب قبل عرض ملخص القناة (الافتراضي: 15)", "Minutes of inactivity before showing channel brief (default: 15)"); },
         default: 15,
+    },
+    briefPreviewCount: {
+        type: OptionType.NUMBER,
+        get description() { return t("عدد الرسائل المعروضة في ملخص القناة (3، 5، أو 10)", "Number of messages to preview in channel brief (3, 5, or 10)"); },
+        default: 5,
     },
 });

@@ -78,3 +78,36 @@
     white-space: pre-wrap;
     word-break: break-word;
 }
+
+.mi-brief-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 8px 12px;
+    border-radius: 4px;
+    margin-bottom: 4px;
+    background: var(--background-secondary);
+}
+
+.mi-brief-content-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.mi-brief-jump {
+    background: none;
+    border: none;
+    color: var(--text-link);
+    cursor: pointer;
+    font-size: 14px;
+    padding: 0 4px;
+    flex-shrink: 0;
+    line-height: 1.4;
+    border-radius: 3px;
+    transition: background 0.1s ease;
+}
+
+.mi-brief-jump:hover {
+    background: var(--background-modifier-hover);
+}

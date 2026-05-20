@@ -8,37 +8,9 @@ import { t } from "@utils/esharqI18n";
 import { findByPropsLazy } from "@webpack";
 import { Modal, React } from "@webpack/common";
 
+import { avatarUrl, formatTime, sanitizeContent } from "./utils";
+
 const jumper = findByPropsLazy("jumpToMessage");
-
-function sanitizeContent(content: string): string {
-    return content
-        .replace(/<a?:(\w+):\d+>/g, ":$1:")
-        .replace(/<@!?(\d+)>/g, "@user")
-        .replace(/<#\d+>/g, "#channel")
-        .replace(/<@&\d+>/g, "@role")
-        .replace(/\[([^\]]+)\]\(https?:\/\/cdn\.discordapp\.com\/emojis\/[^)]+\)/g, ":$1:")
-        .replace(/<t:(\d+)(?::[tTdDfFR])?>/g, (_, ts) => {
-            try { return new Date(parseInt(ts, 10) * 1000).toLocaleString(); } catch { return ts; }
-        });
-}
-
-function avatarUrl(author: { id: string; avatar?: string | null; }): string {
-    if (!author?.avatar) {
-        const index = Number(BigInt(author.id) >> 22n) % 6;
-        return `https://cdn.discordapp.com/embed/avatars/${index}.png`;
-    }
-    const ext = author.avatar.startsWith("a_") ? "gif" : "png";
-    return `https://cdn.discordapp.com/avatars/${author.id}/${author.avatar}.${ext}?size=32`;
-}
-
-function formatTime(timestamp: string | Date | undefined): string {
-    if (!timestamp) return "";
-    try {
-        return new Date(timestamp).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-    } catch {
-        return "";
-    }
-}
 
 export function ReplyTreeModal({ modalProps, message, replies }: {
     modalProps: any;
