@@ -18,42 +18,12 @@ const extraFramerates = [45, 90, 120, 144, 165, 240];
 const settings = definePluginSettings({
     richPresenceTagging: {
         type: OptionType.SELECT,
-        description: "متى يتم تمييز المقاطع بـ Rich Presence الحالي؟",
+        description: "When should clips be tagged with the current Rich Presence?",
         options: [
             { label: "Always", value: "always" },
             { label: "Only when beginning or end of activity name matches", value: "whenMatched", default: true },
             { label: "Never", value: "never" },
         ]
-    },
-    enableScreenshotKeybind: {
-        type: OptionType.BOOLEAN,
-        description: "تفعيل اختصار لوحة المفاتيح لأخذ لقطات الشاشة",
-        default: true,
-        restartNeeded: true
-    },
-    enableVoiceOnlyClips: {
-        type: OptionType.BOOLEAN,
-        description: "تفعيل مقاطع الصوت فقط (بدون فيديو)",
-        default: true,
-        restartNeeded: true
-    },
-    enableSpeakingIndicators: {
-        type: OptionType.BOOLEAN,
-        description: "تفعيل مؤشرات الكلام",
-        default: true,
-        restartNeeded: true
-    },
-    enableAdvancedSignals: {
-        type: OptionType.BOOLEAN,
-        description: "تفعيل إشارات المقاطع المتقدمة (مشغّلات التسجيل التلقائي)",
-        default: true,
-        restartNeeded: true
-    },
-    ignorePlatformRestriction: {
-        type: OptionType.BOOLEAN,
-        description: "السماح بالتسجيل على المنصات المقيدة (قد يسبب أخطاء في الحفظ)",
-        default: true,
-        restartNeeded: true
     },
     clipsLink: {
         type: OptionType.COMPONENT,
@@ -77,7 +47,7 @@ const settings = definePluginSettings({
 migratePluginSettings("ClipsEnhancements", "TimelessClips");
 export default definePlugin({
     name: "ClipsEnhancements",
-    description: "يضيف خيارات إضافية لمعدل الإطارات ومدة المقاطع، وطول مخصص، وتمييز RPC والمزيد",
+    description: "Add more Clip FPS and duration options, custom clip length, RPC tagging and more",
     tags: ["Activity", "Media", "Utility"],
     authors: [Devs.niko, Devs.Joona, EquicordDevs.keircn],
     settings,
@@ -103,14 +73,6 @@ export default definePlugin({
                 replace: "$self.patchTimeslots($&)"
             }
         },
-        // enables clips
-        {
-            find: "2026-03-clips-experiment",
-            replacement: {
-                match: /defaultConfig:\{enableClips:!\d,ignorePlatformRestriction:!\d,enableScreenshotKeybind:!\d,enableVoiceOnlyClips:!\d,enableSpeakingIndicators:!\d,enableAdvancedSignals:!\d\}/,
-                replace: "defaultConfig:{enableClips:!0,ignorePlatformRestriction:$self.settings.store.ignorePlatformRestriction,enableScreenshotKeybind:$self.settings.store.enableScreenshotKeybind,enableVoiceOnlyClips:$self.settings.store.enableVoiceOnlyClips,enableSpeakingIndicators:$self.settings.store.enableSpeakingIndicators,enableAdvancedSignals:$self.settings.store.enableAdvancedSignals}"
-            }
-        }
     ],
 
     patchTimeslots(timeslots: { id: string; value: number; label: string; }[]) {

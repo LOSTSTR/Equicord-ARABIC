@@ -17,16 +17,13 @@
 */
 
 import * as DataStore from "@api/DataStore";
-import { Settings, useSettings } from "@api/Settings";
-import { BaseText } from "@components/BaseText";
-import { Flex } from "@components/Flex";
+import { Settings } from "@api/Settings";
 import { Paragraph } from "@components/Paragraph";
 import { openNotificationSettingsModal } from "@components/settings/tabs/vencord/NotificationSettings";
 import { classNameFactory } from "@utils/css";
-import { t } from "@utils/esharqI18n";
-import { closeModal, ModalCloseButton, ModalFooter, ModalHeader, ModalProps, ModalRoot, ModalSize, openModal } from "@utils/modal";
 import { useAwaiter } from "@utils/react";
-import { Alerts, Button, ListScrollerThin, React, Timestamp, useEffect, useReducer, useState } from "@webpack/common";
+import { RenderModalProps } from "@vencord/discord-types";
+import { ConfirmModal, ListScrollerThin, Modal, openModal, React, Timestamp, useEffect, useReducer, useState } from "@webpack/common";
 import { nanoid } from "nanoid";
 import type { DispatchWithoutAction } from "react";
 
@@ -131,13 +128,12 @@ function NotificationEntry({ data }: { data: PersistentNotificationData; }) {
 }
 
 export function NotificationLog({ log, pending }: { log: PersistentNotificationData[], pending: boolean; }) {
-    useSettings(["plugins.Settings.arabicMode"]);
     if (!log.length && !pending)
         return (
-            <div className={cl("container")}>
+            <div>
                 <div className={cl("empty")} />
                 <Paragraph style={{ textAlign: "center" }}>
-                    {t("لا توجد إشعارات بعد", "No notifications yet")}
+                    No notifications yet
                 </Paragraph>
             </div>
         );
@@ -154,60 +150,46 @@ export function NotificationLog({ log, pending }: { log: PersistentNotificationD
     );
 }
 
-function LogModal({ modalProps, close }: { modalProps: ModalProps; close(): void; }) {
+function LogModal(props: RenderModalProps) {
     const [log, pending] = useLogs();
-    useSettings(["plugins.Settings.arabicMode"]);
 
     return (
-        <ModalRoot {...modalProps} size={ModalSize.LARGE} className={cl("modal")}>
-            <ModalHeader>
-                <BaseText size="lg" weight="semibold" style={{ flexGrow: 1 }}>{t("سجل الإشعارات", "Notification Log")}</BaseText>
-                <ModalCloseButton onClick={close} />
-            </ModalHeader>
-
-            <div style={{ width: "100%" }}>
-                <NotificationLog log={log} pending={pending} />
-            </div>
-
-            <ModalFooter>
-                <Flex>
-                    <Button onClick={openNotificationSettingsModal}>
-                        {t("إعدادات الإشعارات", "Notification Settings")}
-                    </Button>
-
-                    <Button
-                        disabled={log.length === 0}
-                        color={Button.Colors.RED}
-                        onClick={() => {
-                            Alerts.show({
-                                title: t("هل أنت متأكد؟", "Are you sure?"),
-                                body: t(
-                                    `سيتم حذف ${log.length} إشعار نهائياً. لا يمكن التراجع عن هذا الإجراء.`,
-                                    `This will permanently delete ${log.length} notification${log.length === 1 ? "" : "s"}. This action cannot be undone.`
-                                ),
-                                async onConfirm() {
+        <Modal
+            {...props}
+            size="xl"
+            title="Notification Log"
+            actions={[
+                {
+                    text: "Notification Settings",
+                    variant: "primary",
+                    onClick: openNotificationSettingsModal
+                },
+                {
+                    text: "Clear Notification Log",
+                    variant: "critical-primary",
+                    disabled: !log.length,
+                    onClick() {
+                        openModal(props =>
+                            <ConfirmModal
+                                {...props}
+                                title="Are you sure?"
+                                subtitle={`This will permanently remove ${log.length} notification${log.length === 1 ? "" : "s"}. This action cannot be undone.`}
+                                confirmText="Do it!"
+                                onConfirm={async () => {
                                     await DataStore.set(KEY, []);
                                     signals.forEach(x => x());
-                                },
-                                confirmText: t("نعم، احذف", "Yes, Delete"),
-                                confirmColor: "vc-notification-log-danger-btn",
-                                cancelText: t("إلغاء", "Cancel")
-                            });
-                        }}
-                    >
-                        {t("مسح سجل الإشعارات", "Clear Notification Log")}
-                    </Button>
-                </Flex>
-            </ModalFooter>
-        </ModalRoot>
+                                }}
+                            />
+                        );
+                    }
+                }
+            ]}
+        >
+            <NotificationLog log={log} pending={pending} />
+        </Modal>
     );
 }
 
 export function openNotificationLogModal() {
-    const key = openModal(modalProps => (
-        <LogModal
-            modalProps={modalProps}
-            close={() => closeModal(key)}
-        />
-    ));
+    openModal(props => <LogModal {...props} />);
 }

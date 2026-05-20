@@ -6,7 +6,6 @@
 
 import { openNotificationLogModal } from "@api/Notifications/notificationLog";
 import { useSettings } from "@api/Settings";
-import { BaseText } from "@components/BaseText";
 import { Button } from "@components/Button";
 import { ErrorCard } from "@components/ErrorCard";
 import { Flex } from "@components/Flex";
@@ -16,8 +15,7 @@ import { Paragraph } from "@components/Paragraph";
 import { t } from "@utils/esharqI18n";
 import { Margins } from "@utils/margins";
 import { identity } from "@utils/misc";
-import { ModalCloseButton, ModalContent, ModalHeader, ModalRoot, ModalSize, openModal } from "@utils/modal";
-import { Select, Slider } from "@webpack/common";
+import { Modal, openModal, Select, Slider } from "@webpack/common";
 
 export function NotificationSection() {
     const { plugins: { Settings: { arabicMode } } } = useSettings(["plugins.Settings.arabicMode"]);
@@ -45,16 +43,13 @@ export function NotificationSection() {
 
 export function openNotificationSettingsModal() {
     openModal(props => (
-        <ModalRoot {...props} size={ModalSize.MEDIUM}>
-            <ModalHeader>
-                <BaseText size="lg" weight="semibold" style={{ flexGrow: 1 }}>{t("إعدادات الإشعارات", "Notification Settings")}</BaseText>
-                <ModalCloseButton onClick={props.onClose} />
-            </ModalHeader>
-
-            <ModalContent>
-                <NotificationSettings />
-            </ModalContent>
-        </ModalRoot>
+        <Modal
+            {...props}
+            size="lg"
+            title={t("إعدادات الإشعارات", "Notification Settings")}
+        >
+            <NotificationSettings />
+        </Modal>
     ));
 }
 
@@ -62,8 +57,8 @@ function NotificationSettings() {
     const settings = useSettings(["notifications.*", "plugins.Settings.arabicMode"]).notifications;
 
     return (
-        <div style={{ padding: "1em 0" }}>
-            <Heading>{t("أسلوب الإشعارات", "Notification Style")}</Heading>
+        <>
+            <Heading tag="h5">{t("أسلوب الإشعارات", "Notification Style")}</Heading>
             {settings.useNative !== "never" && Notification?.permission === "denied" && (
                 <ErrorCard style={{ padding: "1em" }} className={Margins.bottom8}>
                     <Heading>{t("تم رفض إذن إشعارات سطح المكتب", "Desktop Notification Permission Denied")}</Heading>
@@ -144,6 +139,6 @@ function NotificationSettings() {
                 onValueRender={v => v === 200 ? "∞" : v}
                 onMarkerRender={v => v === 200 ? "∞" : v}
             />
-        </div>
+        </>
     );
 }

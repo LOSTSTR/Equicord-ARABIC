@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-import { definePluginSettings, SettingsStore } from "@api/Settings";
+import { definePluginSettings } from "@api/Settings";
 import { EquicordDevs } from "@utils/index";
 import definePlugin, { OptionType } from "@utils/types";
 
@@ -50,7 +50,7 @@ function handleMouseUp(event: MouseEvent) {
 const settings = definePluginSettings({
     openScope: {
         type: OptionType.SELECT,
-        description: "منع فتح هذه الأنواع من المحتوى بالنقر الأوسط",
+        description: "Prevent middle clicking on these content types from opening them.",
         options: [
             { label: "Links", value: "links" },
             { label: "Media", value: "media" },
@@ -61,7 +61,7 @@ const settings = definePluginSettings({
     },
     pasteScope: {
         type: OptionType.SELECT,
-        description: "منع النقر الأوسط من اللصق في هذه الحالات.",
+        description: "Prevent middle click from pasting during these situations.",
         options: [
             { label: "Always Prevent Middle Click Pasting", value: "always", default: true },
             { label: "Only Prevent When Text Area Not Focused", value: "focus" },
@@ -69,39 +69,19 @@ const settings = definePluginSettings({
     },
     pasteThreshold: {
         type: OptionType.NUMBER,
-        description: "الميلي ثانية حتى يُعاد تفعيل اللصق بعد النقر الأوسط.",
+        description: "Milliseconds until pasting is enabled again after a middle click.",
         default: 100,
         onChange(newValue) { if (newValue < 1) { settings.store.pasteThreshold = 1; } }
     }
 });
 
-function migrate() {
-    const { plugins } = SettingsStore.plain;
-    const oldPlugin = plugins?.LimitMiddleClickPaste;
-
-    if (!oldPlugin) return;
-
-    const newPlugin = plugins.MiddleClickTweaks ??= { enabled: false };
-    const { scope, threshold, preventLinkOpen } = oldPlugin;
-
-    if (scope) newPlugin.pasteScope = scope;
-    if (threshold) newPlugin.pasteThreshold = threshold;
-    if (preventLinkOpen) newPlugin.openScope = "both";
-    if (oldPlugin.enabled) newPlugin.enabled = true;
-
-    delete plugins.LimitMiddleClickPaste;
-    SettingsStore.markAsChanged();
-}
-
-migrate();
-
 export default definePlugin({
     name: "MiddleClickTweaks",
-    description: "تعديلات متنوعة للنقر الأوسط، كاللصق وفتح الروابط.",
-    tags: ["Utility"],
+    description: "Various middle click tweaks, such as with pasting and link opening.",
     authors: [EquicordDevs.Etorix, EquicordDevs.korzi],
     settings,
 
+    tags: ["Utility"],
     searchTerms: ["LimitMiddleClickPaste"],
 
     isPastingDisabled(isInput: boolean) {
@@ -115,11 +95,7 @@ export default definePlugin({
         return false;
     },
 
-    start() {
-        migrate();
-        updateListeners();
-    },
-
+    start() { updateListeners(); },
     stop() { updateListeners(false); },
 
     patches: [
@@ -132,10 +108,10 @@ export default definePlugin({
             }
         },
         {
-            // Detects paste events triggered inside of Discord's text input.
+            // Detects paste events triggered inside of Discord's text inputs.
             find: ",origin:\"clipboard\"});",
             replacement: {
-                match: /(?<=handlePaste=(\i)=>{)(?=let)/,
+                match: /(?<=handlePaste=(\i)=>{)(?=let)/g,
                 replace: "if($self.isPastingDisabled(true)){$1.preventDefault?.();$1.stopPropagation?.();return;}"
             }
         },

@@ -11,7 +11,6 @@ import { plugins } from "@api/PluginManager";
 import { Settings, useSettings } from "@api/Settings";
 import { Button } from "@components/Button";
 import { Divider } from "@components/Divider";
-import { Flex } from "@components/Flex";
 import { FormSwitch } from "@components/FormSwitch";
 import { Heading } from "@components/Heading";
 import { FolderIcon, GithubIcon, LogIcon, PaintbrushIcon, RestartIcon } from "@components/Icons";
@@ -22,16 +21,18 @@ import { QuickAction, QuickActionCard } from "@components/settings/QuickAction";
 import { SpecialCard } from "@components/settings/SpecialCard";
 import BadgeAPI from "@plugins/_api/badges";
 import { gitRemote } from "@shared/vencordUserAgent";
-import { DONOR_ROLE_ID, GUILD_ID, IS_MAC, IS_WINDOWS, VC_DONOR_ROLE_ID, VC_GUILD_ID } from "@utils/constants";
+import { DONOR_ROLE_ID, GUILD_ID, IS_WINDOWS, VC_DONOR_ROLE_ID, VC_GUILD_ID } from "@utils/constants";
 import { classNameFactory } from "@utils/css";
 import { t } from "@utils/esharqI18n";
 import { Margins } from "@utils/margins";
-import { identity, isAnyPluginDev } from "@utils/misc";
+import { isAnyPluginDev } from "@utils/misc";
 import { relaunch } from "@utils/native";
-import { Alerts, GuildMemberStore, React, Select, UserStore } from "@webpack/common";
+import { Alerts, GuildMemberStore, React, useMemo, UserStore } from "@webpack/common";
 
 import { DonateButtonComponent } from "./DonateButton";
-import { openNotificationSettingsModal } from "./NotificationSettings";
+import { MacOSVibrancySettings } from "./MacVibrancySettings";
+import { NotificationSection } from "./NotificationSettings";
+import { WindowsMaterialSettings } from "./WindowsMaterialSettings";
 
 const DEFAULT_DONATE_IMAGE = "https://raw.githubusercontent.com/LOSTSTR/Esharq/main/browser/icon.png";
 const SHIGGY_DONATE_IMAGE = "https://raw.githubusercontent.com/LOSTSTR/Esharq/main/browser/icon.png";
@@ -54,109 +55,106 @@ function EquicordSettings() {
 
     const arabicMode: boolean = (Settings.plugins as any)?.Settings?.arabicMode ?? false;
 
-    const donateImage = React.useMemo(
-        () => (Math.random() > 0.5 ? DEFAULT_DONATE_IMAGE : SHIGGY_DONATE_IMAGE),
-        [],
+    const donateImage = useMemo(() =>
+        Math.random() > 0.5 ? DEFAULT_DONATE_IMAGE : SHIGGY_DONATE_IMAGE,
+        []
     );
-
-    const needsVibrancySettings = IS_DISCORD_DESKTOP && IS_MAC;
 
     const user = UserStore?.getCurrentUser();
 
-    const Switches: Array<false | {
-        key: KeysOfType<typeof settings, boolean>;
-        title: string;
-        description?: string;
-        restartRequired?: boolean;
-        warning?: string;
-    }>
-        = [
-            {
-                key: "useQuickCss",
-                title: t("تفعيل CSS المخصص", "Enable Custom CSS"),
-                description: t(
-                    "تحميل CSS مخصص من محرر QuickCSS.",
-                    "Load custom CSS from the QuickCSS editor."
-                ),
-            },
-            !IS_WEB && {
-                key: "enableReactDevtools",
-                title: t("تفعيل أدوات مطوري React", "Enable React DevTools"),
-                description: t(
-                    "تفعيل امتداد أدوات مطوري React لتصحيح مكونات React في ديسكورد.",
-                    "Enable the React DevTools extension to debug React components in Discord."
-                ),
-                restartRequired: true,
-            },
-            (!IS_WEB && !IS_DISCORD_DESKTOP || !IS_WINDOWS) && {
-                key: "mainWindowFrameless",
-                title: t("تعطيل إطار النافذة الرئيسية", "Disable Main Window Frame"),
+    const switches = [
+        {
+            key: "useQuickCss",
+            title: t("تفعيل CSS المخصص", "Enable Custom CSS"),
+            description: t(
+                "تحميل CSS مخصص من محرر QuickCSS.",
+                "Load custom CSS from the QuickCSS editor."
+            ),
+        },
+        !IS_WEB && {
+            key: "enableReactDevtools",
+            title: t("تفعيل أدوات مطوري React", "Enable React DevTools"),
+            description: t(
+                "تفعيل امتداد أدوات مطوري React لتصحيح مكونات React في ديسكورد.",
+                "Enable the React DevTools extension to debug React components in Discord."
+            ),
+            restartRequired: true,
+        },
+        (!IS_WEB && !IS_DISCORD_DESKTOP || !IS_WINDOWS) && {
+            key: "mainWindowFrameless",
+            title: t("تعطيل إطار النافذة الرئيسية", "Disable Main Window Frame"),
+            description: t(
+                "إزالة إطار النافذة الأصلي للحصول على مظهر أنظف. يمكنك تحريك النافذة بسحب منطقة شريط العنوان.",
+                "Remove the native window frame for a cleaner look. You can move the window by dragging the title bar area."
+            ),
+            restartRequired: true,
+        },
+        !IS_WEB && (!IS_DISCORD_DESKTOP || !IS_WINDOWS
+            ? {
+                key: "frameless",
+                title: t("تعطيل جميع إطارات النوافذ", "Disable All Window Frames"),
                 description: t(
                     "إزالة إطار النافذة الأصلي للحصول على مظهر أنظف. يمكنك تحريك النافذة بسحب منطقة شريط العنوان.",
                     "Remove the native window frame for a cleaner look. You can move the window by dragging the title bar area."
                 ),
                 restartRequired: true,
-            },
-            !IS_WEB && (!IS_DISCORD_DESKTOP || !IS_WINDOWS
-                ? {
-                    key: "frameless",
-                    title: t("تعطيل جميع إطارات النوافذ", "Disable All Window Frames"),
-                    description: t(
-                        "إزالة إطار النافذة الأصلي للحصول على مظهر أنظف. يمكنك تحريك النافذة بسحب منطقة شريط العنوان.",
-                        "Remove the native window frame for a cleaner look. You can move the window by dragging the title bar area."
-                    ),
-                    restartRequired: true,
-                }
-                : {
-                    key: "winNativeTitleBar",
-                    title: t(
-                        "استخدام شريط العنوان الأصلي لويندوز بدلاً من شريط ديسكورد المخصص",
-                        "Use Native Windows Title Bar Instead of Discord's Custom Bar"
-                    ),
-                    description: t(
-                        "استبدال شريط عنوان ديسكورد المخصص بشريط عنوان ويندوز القياسي.",
-                        "Replace Discord's custom title bar with the standard Windows title bar."
-                    ),
-                    restartRequired: true,
-                }
+            }
+            : {
+                key: "winNativeTitleBar",
+                title: t(
+                    "استخدام شريط العنوان الأصلي لويندوز بدلاً من شريط ديسكورد المخصص",
+                    "Use Native Windows Title Bar Instead of Discord's Custom Bar"
+                ),
+                description: t(
+                    "استبدال شريط عنوان ديسكورد المخصص بشريط عنوان ويندوز القياسي.",
+                    "Replace Discord's custom title bar with the standard Windows title bar."
+                ),
+                restartRequired: true,
+            }
+        ),
+        !IS_WEB && {
+            key: "transparent",
+            title: t("تفعيل شفافية النافذة", "Enable Window Transparency"),
+            description: t(
+                "جعل نافذة ديسكورد شفافة. يتطلب قالباً يدعم الشفافية وإلا لن يكون له أي أثر.",
+                "Make the Discord window transparent. Requires a theme that supports transparency, otherwise it has no effect."
             ),
-            !IS_WEB && {
-                key: "transparent",
-                title: t("تفعيل شفافية النافذة", "Enable Window Transparency"),
-                description: t(
-                    "جعل نافذة ديسكورد شفافة. يتطلب قالباً يدعم الشفافية وإلا لن يكون له أي أثر.",
-                    "Make the Discord window transparent. Requires a theme that supports transparency, otherwise it has no effect."
+            restartRequired: true,
+            warning: IS_WINDOWS
+                ? t(
+                    "سيوقف هذا إمكانية تغيير حجم النافذة ويمنعك من تثبيتها على حواف الشاشة.",
+                    "This will prevent resizing the window and snapping it to screen edges."
+                )
+                : t(
+                    "سيوقف هذا إمكانية تغيير حجم النافذة.",
+                    "This will prevent resizing the window."
                 ),
-                restartRequired: true,
-                warning: IS_WINDOWS
-                    ? t(
-                        "سيوقف هذا إمكانية تغيير حجم النافذة ويمنعك من تثبيتها على حواف الشاشة.",
-                        "This will prevent resizing the window and snapping it to screen edges."
-                    )
-                    : t(
-                        "سيوقف هذا إمكانية تغيير حجم النافذة.",
-                        "This will prevent resizing the window."
-                    ),
-            },
-            IS_DISCORD_DESKTOP && {
-                key: "disableMinSize",
-                title: t("تعطيل الحجم الأدنى للنافذة", "Disable Minimum Window Size"),
-                description: t(
-                    "السماح بتصغير نافذة ديسكورد إلى أقل من حجمها الافتراضي الأدنى. مفيد لمديري النوافذ المبلطة والشاشات الصغيرة.",
-                    "Allow the Discord window to be resized below its default minimum size. Useful for tiling window managers and small screens."
-                ),
-                restartRequired: true,
-            },
-            !IS_WEB && IS_WINDOWS && {
-                key: "winCtrlQ",
-                title: t("تسجيل Ctrl+Q كاختصار لإغلاق ديسكورد", "Register Ctrl+Q as Discord Close Shortcut"),
-                description: t(
-                    "إضافة Ctrl+Q كاختصار لوحة مفاتيح لإغلاق ديسكورد. يوفر بديلاً لـ Alt+F4 لإغلاق التطبيق بسرعة.",
-                    "Add Ctrl+Q as a keyboard shortcut to close Discord. Provides an alternative to Alt+F4 for quickly closing the app."
-                ),
-                restartRequired: true,
-            },
-        ];
+        },
+        IS_DISCORD_DESKTOP && {
+            key: "disableMinSize",
+            title: t("تعطيل الحجم الأدنى للنافذة", "Disable Minimum Window Size"),
+            description: t(
+                "السماح بتصغير نافذة ديسكورد إلى أقل من حجمها الافتراضي الأدنى. مفيد لمديري النوافذ المبلطة والشاشات الصغيرة.",
+                "Allow the Discord window to be resized below its default minimum size. Useful for tiling window managers and small screens."
+            ),
+            restartRequired: true,
+        },
+        !IS_WEB && IS_WINDOWS && {
+            key: "winCtrlQ",
+            title: t("تسجيل Ctrl+Q كاختصار لإغلاق ديسكورد", "Register Ctrl+Q as Discord Close Shortcut"),
+            description: t(
+                "إضافة Ctrl+Q كاختصار لوحة مفاتيح لإغلاق ديسكورد. يوفر بديلاً لـ Alt+F4 لإغلاق التطبيق بسرعة.",
+                "Add Ctrl+Q as a keyboard shortcut to close Discord. Provides an alternative to Alt+F4 for quickly closing the app."
+            ),
+            restartRequired: true,
+        },
+    ] satisfies Array<false | {
+        key: KeysOfType<typeof settings, boolean>;
+        title: string;
+        description?: string;
+        restartRequired?: boolean;
+        warning?: string;
+    }>;
 
     return (
         <SettingsTab>
@@ -305,7 +303,7 @@ function EquicordSettings() {
                 hideBorder
             />
 
-            {Switches.filter((s): s is Exclude<typeof s, false> => !!s).map(
+            {switches.filter((s): s is Exclude<typeof s, false> => !!s).map(
                 s => (
                     <FormSwitch
                         key={s.key}
@@ -344,99 +342,10 @@ function EquicordSettings() {
                 ),
             )}
 
-            {needsVibrancySettings && (
-                <>
-                    <Divider className={Margins.top20} />
+            <MacOSVibrancySettings />
+            <WindowsMaterialSettings />
 
-                    <Heading className={Margins.top20}>{t("شفافية النافذة", "Window Vibrancy")}</Heading>
-                    <Paragraph className={Margins.bottom16}>
-                        {t(
-                            "خصّص تأثير شفافية نافذة macOS. يتحكم هذا الإعداد في نمط الضبابية والشفافية لنافذة ديسكورد. تستلزم التغييرات إعادة تشغيل لتصبح سارية.",
-                            "Customize the macOS window transparency effect. This setting controls the blur and vibrancy style of the Discord window. Changes require a restart to take effect."
-                        )}
-                    </Paragraph>
-                    <Select
-                        className={Margins.bottom20}
-                        placeholder={t("نمط شفافية النافذة", "Window Vibrancy Style")}
-                        options={[
-                            {
-                                label: t("بلا شفافية", "No Vibrancy"),
-                                value: undefined,
-                            },
-                            {
-                                label: t("تحت الصفحة (تلوين النافذة)", "Under Page (Window Tinting)"),
-                                value: "under-page",
-                            },
-                            {
-                                label: t("المحتوى", "Content"),
-                                value: "content",
-                            },
-                            {
-                                label: t("النافذة", "Window"),
-                                value: "window",
-                            },
-                            {
-                                label: t("التحديد", "Selection"),
-                                value: "selection",
-                            },
-                            {
-                                label: t("شريط العنوان", "Titlebar"),
-                                value: "titlebar",
-                            },
-                            {
-                                label: t("الرأس", "Header"),
-                                value: "header",
-                            },
-                            {
-                                label: t("الشريط الجانبي", "Sidebar"),
-                                value: "sidebar",
-                            },
-                            {
-                                label: t("التلميح", "Tooltip"),
-                                value: "tooltip",
-                            },
-                            {
-                                label: t("القائمة", "Menu"),
-                                value: "menu",
-                            },
-                            {
-                                label: t("النافذة المنبثقة", "Popover"),
-                                value: "popover",
-                            },
-                            {
-                                label: t("واجهة ملء الشاشة (شفافة مع تعتيم طفيف)", "Fullscreen UI (Transparent with slight blur)"),
-                                value: "fullscreen-ui",
-                            },
-                            {
-                                label: t("HUD (الأكثر شفافية)", "HUD (Most Transparent)"),
-                                value: "hud",
-                            },
-                        ]}
-                        select={v => (settings.macosVibrancyStyle = v)}
-                        isSelected={v => settings.macosVibrancyStyle === v}
-                        serialize={identity}
-                    />
-                </>
-            )}
-
-            <Divider className={Margins.top20} />
-
-            <Heading className={Margins.top20}>{t("الإشعارات", "Notifications")}</Heading>
-            <Paragraph className={Margins.bottom16}>
-                {t(
-                    "اضبط كيفية تعامل Equicord مع الإشعارات. يمكنك تخصيص متى وكيف تتلقى التنبيهات، أو الاطلاع على سجل الإشعارات السابقة.",
-                    "Configure how Equicord handles notifications. You can customize when and how you receive alerts, or view the previous notification log."
-                )}
-            </Paragraph>
-
-            <Flex gap="16px">
-                <Button onClick={openNotificationSettingsModal}>
-                    {t("إعدادات الإشعارات", "Notification Settings")}
-                </Button>
-                <Button variant="secondary" onClick={openNotificationLogModal}>
-                    {t("عرض سجل الإشعارات", "View Notification Log")}
-                </Button>
-            </Flex>
+            <NotificationSection />
         </SettingsTab>
     );
 }
