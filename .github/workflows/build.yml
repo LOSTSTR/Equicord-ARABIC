@@ -11,6 +11,7 @@ env:
 
 permissions:
     contents: write
+    actions: write
 
 jobs:
     Validate:
@@ -99,4 +100,4 @@ jobs:
                   gh workflow run build-installer-macos.yml --ref main
                   gh workflow run build-installer-linux.yml --ref main
               env:
-                  GITHUB_TOKEN: ${{ secrets.ETOKEN }}
+                  GITHUB_TOKEN: ${{ github.token }}
