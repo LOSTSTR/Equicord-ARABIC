@@ -165,8 +165,8 @@ function EquicordSettings() {
                     description={
                         isEquicordDonor(user?.id) && isVencordDonor(user?.id)
                             ? t(
-                                "يرى جميع مستخدمي Vencord شارة متبرع Vencord، ويرى مستخدمو Equicord شارة متبرع Equicord. لتغيير شارتك في Vencord تواصل مع @vending.machine، ولشارة Equicord افتح تذكرة في سيرفر Equicord.",
-                                "All Vencord users see a Vencord donor badge, and Equicord users see an Equicord donor badge. To change your Vencord badge contact @vending.machine, and for the Equicord badge open a ticket in the Equicord server."
+                                "يرى جميع مستخدمي Vencord شارة متبرع Vencord، ويرى مستخدمو Esharq شارة متبرع Esharq. لتغيير شارتك في Vencord تواصل مع @vending.machine، ولشارة Esharq افتح تذكرة في سيرفر Esharq.",
+                                "All Vencord users see a Vencord donor badge, and Esharq users see an Esharq donor badge. To change your Vencord badge contact @vending.machine, and for the Esharq badge open a ticket in the Esharq server."
                             )
                             : isVencordDonor(user?.id)
                                 ? t(
@@ -174,8 +174,8 @@ function EquicordSettings() {
                                     "All Vencord users can see your badge! You can manage your perks by messaging @vending.machine."
                                 )
                                 : t(
-                                    "يرى جميع مستخدمي Equicord شارتك! يمكنك إدارة مزاياك عبر فتح تذكرة في سيرفر Equicord.",
-                                    "All Equicord users can see your badge! You can manage your perks by opening a ticket in the Equicord server."
+                                    "يرى جميع مستخدمي Esharq شارتك! يمكنك إدارة مزاياك عبر فتح تذكرة في سيرفر Esharq.",
+                                    "All Esharq users can see your badge! You can manage your perks by opening a ticket in the Esharq server."
                                 )
                     }
                     cardImage={VENNIE_DONATOR_IMAGE}
@@ -203,8 +203,8 @@ function EquicordSettings() {
                     title={t("المساهمات", "Contributions")}
                     subtitle={t("شكراً لمساهمتك!", "Thank you for contributing!")}
                     description={t(
-                        "بفضل مساهمتك في Equicord، حصلت على شارة مميزة!",
-                        "As a contributor to Equicord, you earned a special badge!"
+                        "بفضل مساهمتك في Esharq، حصلت على شارة مميزة!",
+                        "As a contributor to Esharq, you earned a special badge!"
                     )}
                     cardImage={COZY_CONTRIB_IMAGE}
                     backgroundImage={CONTRIB_BACKGROUND_IMAGE}
@@ -272,8 +272,8 @@ function EquicordSettings() {
             <Heading className={Margins.top20}>{t("إعدادات العميل", "Client Settings")}</Heading>
             <Paragraph className={Margins.bottom16}>
                 {t(
-                    "اضبط كيفية عمل Equicord مع ديسكورد. تؤثر هذه الإعدادات على مظهر وسلوك تطبيق ديسكورد.",
-                    "Configure how Equicord works with Discord. These settings affect the appearance and behavior of the Discord app."
+                    "اضبط كيفية عمل Esharq مع ديسكورد. تؤثر هذه الإعدادات على مظهر وسلوك تطبيق ديسكورد.",
+                    "Configure how Esharq works with Discord. These settings affect the appearance and behavior of the Discord app."
                 )}
             </Paragraph>
             <Notice.Info className={Margins.bottom20} style={{ width: "100%" }}>

@@ -153,7 +153,7 @@ export function Updatable(props: CommonProps) {
                 </>
             ) : (
                 <Paragraph>
-                    {t("أنت تستخدم أحدث إصدار من Equicord", "You are running the latest version of Equicord")}
+                    {t("أنت تستخدم أحدث إصدار من Esharq", "You are running the latest version of Esharq")}
                 </Paragraph>
             )}
         </>

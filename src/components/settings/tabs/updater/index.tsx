@@ -89,12 +89,12 @@ function Updater() {
             <EquibopSection />
             <Heading className={Margins.top16}>{t("تفضيلات التحديث", "Update Preferences")}</Heading>
             <Paragraph className={Margins.bottom20}>
-                {t("تحكم في كيفية تحديث Equicord تلقائياً.", "Control how Equicord updates automatically.")}
+                {t("تحكم في كيفية تحديث Esharq تلقائياً.", "Control how Esharq updates automatically.")}
             </Paragraph>
 
             <FormSwitch
                 title={t("تحديث تلقائي", "Auto Update")}
-                description={t("عند التفعيل، يقوم Equicord بتنزيل التحديثات وتثبيتها في الخلفية دون طلب تأكيد. ستحتاج إلى إعادة تشغيل ديسكورد لتطبيق التغييرات.", "When enabled, Equicord will download and install updates in the background without prompting. A Discord restart is required to apply changes.")}
+                description={t("عند التفعيل، يقوم Esharq بتنزيل التحديثات وتثبيتها في الخلفية دون طلب تأكيد. ستحتاج إلى إعادة تشغيل ديسكورد لتطبيق التغييرات.", "When enabled, Esharq will download and install updates in the background without prompting. A Discord restart is required to apply changes.")}
                 value={settings.autoUpdate}
                 onChange={(v: boolean) => settings.autoUpdate = v}
                 hideBorder
@@ -103,7 +103,7 @@ function Updater() {
                 value={settings.autoUpdateNotification}
                 onChange={(v: boolean) => settings.autoUpdateNotification = v}
                 title={t("إشعار عند اكتمال التحديث التلقائي", "Notify on Auto-Update Completion")}
-                description={t("تلقّ إشعاراً عندما ينتهي Equicord من تنزيل تحديث في الخلفية", "Receive a notification when Equicord finishes downloading an update in the background")}
+                description={t("تلقّ إشعاراً عندما ينتهي Esharq من تنزيل تحديث في الخلفية", "Receive a notification when Esharq finishes downloading an update in the background")}
                 disabled={!settings.autoUpdate}
                 hideBorder
             />
@@ -112,7 +112,7 @@ function Updater() {
 
             <Heading className={Margins.top20}>{t("المستودع", "Repository")}</Heading>
             <Paragraph className={Margins.bottom8}>
-                {t("هذا هو مستودع GitHub الذي يسحب Equicord منه التحديثات.", "This is the GitHub repository Equicord pulls updates from.")}
+                {t("هذا هو مستودع GitHub الذي يسحب Esharq منه التحديثات.", "This is the GitHub repository Esharq pulls updates from.")}
             </Paragraph>
             <Paragraph color="text-subtle">
                 {repoPending

@@ -25,8 +25,8 @@ export function NotificationSection() {
             <Heading>{t("الإشعارات", "Notifications")}</Heading>
             <Paragraph className={Margins.bottom8}>
                 {t(
-                    "إعدادات الإشعارات الصادرة من Equicord. لا تشمل إشعارات Discord العادية (الرسائل وغيرها)",
-                    "Settings for Equicord notifications. This does not include regular Discord notifications (messages, etc.)"
+                    "إعدادات الإشعارات الصادرة من Esharq. لا تشمل إشعارات Discord العادية (الرسائل وغيرها)",
+                    "Settings for Esharq notifications. This does not include regular Discord notifications (messages, etc.)"
                 )}
             </Paragraph>
             <Flex>
@@ -71,7 +71,7 @@ function NotificationSettings() {
                     "Some plugins may show notifications. These come in two types:"
                 )}
                 <ul>
-                    <li><strong>{t("إشعارات Equicord", "Esharq Notifications")}</strong>: {t("إشعارات داخل التطبيق", "in-app notifications")}</li>
+                    <li><strong>{t("إشعارات Esharq", "Esharq Notifications")}</strong>: {t("إشعارات داخل التطبيق", "in-app notifications")}</li>
                     <li><strong>{t("إشعارات سطح المكتب", "Desktop Notifications")}</strong>: {t("إشعارات سطح المكتب الأصلية (مثل إشعارات الإشارات)", "native desktop notifications (e.g. mention pings)")}</li>
                 </ul>
             </Paragraph>
@@ -80,7 +80,7 @@ function NotificationSettings() {
                 options={[
                     { label: t("استخدام إشعارات سطح المكتب فقط عند عدم التركيز على Discord", "Only use desktop notifications when not focused"), value: "not-focused", default: true },
                     { label: t("استخدام إشعارات سطح المكتب دائماً", "Always use desktop notifications"), value: "always" },
-                    { label: t("استخدام إشعارات Equicord دائماً", "Always use Esharq notifications"), value: "never" },
+                    { label: t("استخدام إشعارات Esharq دائماً", "Always use Esharq notifications"), value: "never" },
                 ] satisfies Array<{ value: typeof settings["useNative"]; } & Record<string, any>>}
                 closeOnSelect={true}
                 select={v => settings.useNative = v}

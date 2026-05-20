@@ -16,8 +16,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { downloadSettingsBackup, uploadSettingsBackup } from "@api/SettingsSync/offline";
 import { useSettings } from "@api/Settings";
+import { downloadSettingsBackup, uploadSettingsBackup } from "@api/SettingsSync/offline";
 import { Button } from "@components/Button";
 import { Divider } from "@components/Divider";
 import { Flex } from "@components/Flex";
@@ -35,7 +35,7 @@ function BackupAndRestoreTab() {
         <SettingsTab>
             <Heading className={Margins.top16}>{t("النسخ الاحتياطي والاستعادة", "Backup & Restore")}</Heading>
             <Paragraph className={Margins.bottom20}>
-                {t("استيراد وتصدير إعدادات Equicord كملف JSON.", "Import and export your Equicord settings as a JSON file.")}
+                {t("استيراد وتصدير إعدادات Esharq كملف JSON.", "Import and export your Esharq settings as a JSON file.")}
             </Paragraph>
 
             <Notice.Warning className={Margins.bottom20}>

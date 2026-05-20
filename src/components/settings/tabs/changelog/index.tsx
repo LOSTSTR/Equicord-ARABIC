@@ -558,7 +558,7 @@ function ChangelogContent() {
 
             <Heading className={Margins.top20}>{t("المستودع", "Repository")}</Heading>
             <Paragraph className={Margins.bottom8}>
-                {t("مستودع GitHub الذي يجلب منه Equicord التحديثات.", "The GitHub repository Equicord fetches updates from.")}
+                {t("مستودع GitHub الذي يجلب منه Esharq التحديثات.", "The GitHub repository Esharq fetches updates from.")}
             </Paragraph>
             <Paragraph color="text-subtle">
                 {repoPending ? (

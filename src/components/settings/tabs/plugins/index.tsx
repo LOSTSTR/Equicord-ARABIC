@@ -38,7 +38,7 @@ import { Margins } from "@utils/margins";
 import { classes } from "@utils/misc";
 import { useAwaiter, useCleanupEffect, useIntersection } from "@utils/react";
 import { PluginTag, PluginTags } from "@utils/types";
-import { Alerts, ConfirmModal, lodash, openModal, Parser, React, SearchableSelect, Select, TextInput, Toasts, Tooltip, useCallback, useMemo, useRef, useState } from "@webpack/common";
+import { Alerts, lodash, Parser, React, SearchableSelect, Select, TextInput, Toasts, Tooltip, useCallback, useMemo, useRef, useState } from "@webpack/common";
 import { JSX } from "react";
 
 import Plugins, { ExcludedPlugins, PluginMeta } from "~plugins";
@@ -124,7 +124,7 @@ export const ExcludedReasons: Record<"web" | "discordDesktop" | "vesktop" | "equ
     vesktop: t("تطبيقات Vesktop/Equibop", "Vesktop/Equibop"),
     equibop: t("تطبيقات Vesktop/Equibop", "Vesktop/Equibop"),
     web: t("تطبيقات Vesktop/Equibop ومتصفح Discord", "Vesktop/Equibop and Discord web"),
-    dev: t("إصدار المطورين من Equicord", "Equicord dev build")
+    dev: t("إصدار المطورين من Esharq", "Esharq dev build")
 };
 
 function ExcludedPluginsList({ search }: { search: string; }) {
@@ -286,7 +286,7 @@ export default function PluginSettings() {
 
             if (isRequired) {
                 const tooltipText = p.required || !depMap[p.name]
-                    ? t("هذه الإضافة ضرورية لعمل Equicord.", "This plugin is required for Equicord to function.")
+                    ? t("هذه الإضافة ضرورية لعمل Esharq.", "This plugin is required for Esharq to function.")
                     : <PluginDependencyList deps={depMap[p.name]?.filter(d => settings.plugins[d].enabled)} />;
 
                 requiredPlugins.push(
@@ -427,7 +427,7 @@ export default function PluginSettings() {
                             { label: t("عرض الكل", "Show All"), value: SearchStatus.ALL, default: true },
                             { label: t("عرض المفعَّلة", "Show Enabled"), value: SearchStatus.ENABLED },
                             { label: t("عرض المعطَّلة", "Show Disabled"), value: SearchStatus.DISABLED },
-                            { label: t("عرض Equicord", "Show Equicord"), value: SearchStatus.EQUICORD },
+                            { label: t("عرض Esharq", "Show Esharq"), value: SearchStatus.EQUICORD },
                             { label: t("عرض Vencord", "Show Vencord"), value: SearchStatus.VENCORD },
                             { label: t("عرض الجديدة", "Show New"), value: SearchStatus.NEW },
                             hasUserPlugins && { label: t("عرض الإضافات الشخصية", "Show User Plugins"), value: SearchStatus.USER_PLUGINS },
