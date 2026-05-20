@@ -6,7 +6,7 @@ on:
 
 env:
     FORCE_COLOR: true
-    GITHUB_TOKEN: ${{ secrets.ETOKEN }}
+    GITHUB_TOKEN: ${{ github.token }}
     EQUICORD_REMOTE: LOSTSTR/Esharq
 
 permissions:
