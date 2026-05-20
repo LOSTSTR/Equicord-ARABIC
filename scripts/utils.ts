@@ -20,7 +20,7 @@ import { Dirent, readdirSync, readFileSync, writeFileSync } from "fs";
 import { access, readFile } from "fs/promises";
 import { join, sep } from "path";
 import { normalize as posixNormalize, sep as posixSep } from "path/posix";
-import { BigIntLiteral, createSourceFile, Identifier, isArrayLiteralExpression, isCallExpression, isExportAssignment, isIdentifier, isObjectLiteralExpression, isPropertyAccessExpression, isPropertyAssignment, isSatisfiesExpression, isStringLiteral, isVariableStatement, NamedDeclaration, NodeArray, ObjectLiteralExpression, PropertyAssignment, ScriptTarget, StringLiteral, SyntaxKind } from "typescript";
+import { BigIntLiteral, createSourceFile, Identifier, isArrayLiteralExpression, isCallExpression, isExportAssignment, isGetAccessorDeclaration, isIdentifier, isObjectLiteralExpression, isPropertyAccessExpression, isPropertyAssignment, isReturnStatement, isSatisfiesExpression, isStringLiteral, isVariableStatement, NamedDeclaration, NodeArray, ObjectLiteralExpression, PropertyAssignment, ScriptTarget, StringLiteral, SyntaxKind } from "typescript";
 
 import { getPluginTarget } from "./utils.mjs";
 
@@ -163,10 +163,26 @@ export async function parseFile(fileName: string) {
 
             switch (key) {
                 case "name":
-                case "description":
-                    if (!isStringLiteral(value)) throw fail(`${key} is not a string literal`);
-                    data[key] = value.text;
+                case "description": {
+                    if (isStringLiteral(value)) {
+                        data[key] = value.text;
+                    } else if (isGetAccessorDeclaration(value) && value.body) {
+                        // Support: get description() { return t("ar", "en"); }
+                        const ret = value.body.statements.find(isReturnStatement);
+                        const call = ret?.expression && isCallExpression(ret.expression) ? ret.expression : null;
+                        const en = call && isIdentifier(call.expression) && call.expression.text === "t" && call.arguments.length >= 2
+                            ? call.arguments[1]
+                            : null;
+                        if (en && isStringLiteral(en)) {
+                            data[key] = en.text;
+                        } else {
+                            throw fail(`${key} is not a string literal`);
+                        }
+                    } else {
+                        throw fail(`${key} is not a string literal`);
+                    }
                     break;
+                }
                 case "patches":
                     data.hasPatches = true;
                     break;
