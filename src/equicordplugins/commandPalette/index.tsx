@@ -122,11 +122,8 @@ export const settings = definePluginSettings({
         type: OptionType.COMPONENT,
         component: CommandPaletteSettingsPanel
     },
-    compactStartEnabled: {
-        description: "فتح لوحة الأوامر في الوضع المضغوط أولاً.",
-        type: OptionType.BOOLEAN,
-        default: true
-    },
+
+
     closeAfterExecute: {
         description: "إغلاق لوحة الأوامر بعد تنفيذ أمر.",
         type: OptionType.BOOLEAN,
