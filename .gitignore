@@ -10,6 +10,9 @@ installer/EquicordArabic-Installer.ps1
 .secrets
 .input
 
+# MCP server config — may contain tokens or sensitive tool config
+.mcp.json
+
 # Environment & secrets — never commit these
 .env
 .env.*

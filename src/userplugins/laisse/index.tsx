@@ -133,7 +133,7 @@ const UserContextMenuPatch: NavContextMenuPatchCallback = (
 export default definePlugin({
     name: "Leash",
     description:
-        "يربط مستخدماً بك عبر نقله تلقائياً إلى القناة الصوتية التي تنتقل إليها",
+        "يربط مستخدماً بك عبر نقله تلقائياً إلى القناة الصوتية التي تنتقل إليها\n\n⚠️ WARNING: Moving users to voice channels without their consent may violate Discord's Terms of Service and community guidelines. This feature requires server moderation permissions. Use responsibly.\n\n⚠️ تحذير: نقل المستخدمين قسراً إلى القنوات الصوتية دون موافقتهم قد ينتهك شروط خدمة Discord وإرشادات المجتمع. تتطلب هذه الميزة صلاحيات الإشراف في السيرفر. استخدمها بمسؤولية.",
     tags: ["Utility"],
     authors: [{ name: "x2b", id: 0n }],
     settings,

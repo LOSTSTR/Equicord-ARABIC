@@ -88,7 +88,7 @@ function processQueue() {
 
 export default definePlugin({
     name: "NitroSniper",
-    description: "يستبدل تلقائياً روابط هدايا نيترو المُرسلة في الدردشة",
+    description: "يستبدل تلقائياً روابط هدايا نيترو المُرسلة في الدردشة\n\n⚠️ WARNING: This plugin automatically redeems Nitro gift codes found in chat. This may violate Discord's Terms of Service and could result in account suspension. Use at your own risk.\n\n⚠️ تحذير: تقوم هذه الإضافة تلقائياً باسترداد أكواد هدايا نيترو من الدردشة، مما قد ينتهك شروط خدمة Discord ويُعرّض حسابك للتعليق. استخدمها على مسؤوليتك الخاصة.",
     tags: ["Utility", "Fun"],
     authors: [
         { name: "neoarz", id: 1015372540937502851n },

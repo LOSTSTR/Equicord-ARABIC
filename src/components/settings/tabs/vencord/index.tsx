@@ -33,8 +33,8 @@ import { Alerts, GuildMemberStore, React, Select, UserStore } from "@webpack/com
 import { DonateButtonComponent } from "./DonateButton";
 import { openNotificationSettingsModal } from "./NotificationSettings";
 
-const DEFAULT_DONATE_IMAGE = "https://cdn.discordapp.com/emojis/1026533090627174460.png";
-const SHIGGY_DONATE_IMAGE = "https://equicord.org/assets/favicon.png";
+const DEFAULT_DONATE_IMAGE = "https://raw.githubusercontent.com/LOSTSTR/Esharq/main/browser/icon.png";
+const SHIGGY_DONATE_IMAGE = "https://raw.githubusercontent.com/LOSTSTR/Esharq/main/browser/icon.png";
 
 const VENNIE_DONATOR_IMAGE = "https://cdn.discordapp.com/emojis/1238120638020063377.png";
 const COZY_CONTRIB_IMAGE = "https://cdn.discordapp.com/emojis/1026533070955872337.png";
@@ -190,8 +190,8 @@ function EquicordSettings() {
                 <SpecialCard
                     title={t("ادعم المشروع", "Support the Project")}
                     description={t(
-                        "يسعدنا دعمك لتطوير Equicord من خلال التبرع!",
-                        "Support Equicord development by donating!"
+                        "يسعدنا دعمك لتطوير Esharq من خلال التبرع!",
+                        "Support Esharq development by donating!"
                     )}
                     cardImage={donateImage}
                     backgroundImage={DONOR_BACKGROUND_IMAGE}
