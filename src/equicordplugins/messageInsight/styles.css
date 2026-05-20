@@ -7,19 +7,19 @@
     padding: 10px 14px;
     border-radius: 4px;
     white-space: pre-wrap;
-    word-break: break-word;
+    overflow-wrap: break-word;
     line-height: 1.6;
 }
 
 .mi-diff-add {
-    background: rgba(59, 165, 92, 0.25);
+    background: rgb(59 165 92 / 25%);
     color: var(--text-positive);
     border-radius: 2px;
     padding: 0 2px;
 }
 
 .mi-diff-remove {
-    background: rgba(237, 66, 69, 0.25);
+    background: rgb(237 66 69 / 25%);
     color: var(--text-danger);
     text-decoration: line-through;
     border-radius: 2px;
@@ -76,7 +76,7 @@
     font-size: 13px;
     color: var(--text-muted);
     white-space: pre-wrap;
-    word-break: break-word;
+    overflow-wrap: break-word;
 }
 
 .mi-brief-item {
