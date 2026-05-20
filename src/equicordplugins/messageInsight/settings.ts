@@ -5,27 +5,28 @@
  */
 
 import { definePluginSettings } from "@api/Settings";
+import { t } from "@utils/esharqI18n";
 import { OptionType } from "@utils/types";
 
 export const settings = definePluginSettings({
     editDiff: {
         type: OptionType.BOOLEAN,
-        description: "Show word-level diff button on edited messages",
+        get description() { return t("إظهار زر مقارنة التعديلات على الرسائل المعدّلة", "Show word-level diff button on edited messages"); },
         default: true,
     },
     replyTree: {
         type: OptionType.BOOLEAN,
-        description: "Show reply tree button to list all replies to a message",
+        get description() { return t("إضافة زر لعرض جميع الردود على رسالة معينة", "Show reply tree button to list all replies to a message"); },
         default: true,
     },
     channelBrief: {
         type: OptionType.BOOLEAN,
-        description: "Show new message count toast when returning to a channel after inactivity",
+        get description() { return t("عرض عدد الرسائل الجديدة عند العودة إلى قناة بعد فترة غياب", "Show new message count toast when returning to a channel after inactivity"); },
         default: true,
     },
     briefThresholdMinutes: {
         type: OptionType.NUMBER,
-        description: "Minutes of inactivity before showing channel brief (default: 15)",
+        get description() { return t("عدد دقائق الغياب قبل عرض ملخص القناة (الافتراضي: 15)", "Minutes of inactivity before showing channel brief (default: 15)"); },
         default: 15,
     },
 });

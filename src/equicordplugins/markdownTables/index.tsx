@@ -7,6 +7,7 @@
 import ErrorBoundary from "@components/ErrorBoundary";
 import { EquicordDevs } from "@utils/constants";
 import { classNameFactory } from "@utils/css";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 import { waitFor } from "@webpack";
 import { Parser, useLayoutEffect, useRef, useState } from "@webpack/common";
@@ -331,7 +332,7 @@ function installTableRuleForParser(parser: { defaultRules?: MarkdownRules; }) {
 
 export default definePlugin({
     name: "MarkdownTables",
-    description: "Render GitHub-style markdown tables in Discord messages.",
+    get description() { return t("يعرض جداول Markdown بأسلوب GitHub داخل رسائل ديسكورد", "Render GitHub-style markdown tables in Discord messages."); },
     tags: ["Chat", "Appearance"],
     authors: [EquicordDevs.yafyx],
     managedStyle,
