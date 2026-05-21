@@ -9,7 +9,7 @@
 ### النسخة العربية المطورة من Equicord
 
 **تجربة ديسكورد فائقة الأداء، بتخصيصات حصرية من تطوير**
-**LOSTSTR و krym511 و 𝚁𝙰𝚈𝙼𝙾𝙽𝙳♞ و Abo Ahmed و S99**
+**LOSTSTR و krym511 و 𝚁𝙰𝚈𝙼𝙾𝙽𝙳♞ و Abo Ahmed و S99 و iosiph**
 
 ---
 
@@ -103,6 +103,7 @@
 | **𝚁𝙰𝚈𝙼𝙾𝙽𝙳♞** | مساهم في التطوير |
 | **Abo Ahmed** | مساهم في التطوير |
 | **S99** | مساهم في التطوير |
+| **iosiph** | مساهم في التطوير |
 
 ---
 
@@ -272,7 +273,7 @@ Discord هي علامة تجارية مسجلة لشركة Discord Inc.، ولا
 > [!IMPORTANT]
 > **English:** This project is a fork of the original [Equicord](https://github.com/Equicord/Equicord) project. All credits for the core engine and framework belong to the original creators. This version is a specialized Arabic distribution managed by LOSTSTR under the name **Esharq**.
 >
-> **العربية:** هذا المشروع هو اشتقاق (Fork) من مشروع [Equicord](https://github.com/Equicord/Equicord) الأصلي. كل الحقوق والتقدير للمحرك الأساسي تعود للمطورين الأصليين. هذه النسخة هي توزيعة عربية مخصصة تحت إدارة LOSTSTR بمشاركة الفريق: **krym511** و **𝚁𝙰𝚈𝙼𝙾𝙽𝙳♞** و **Abo Ahmed** و **S99**.
+> **العربية:** هذا المشروع هو اشتقاق (Fork) من مشروع [Equicord](https://github.com/Equicord/Equicord) الأصلي. كل الحقوق والتقدير للمحرك الأساسي تعود للمطورين الأصليين. هذه النسخة هي توزيعة عربية مخصصة تحت إدارة LOSTSTR بمشاركة الفريق: **krym511** و **𝚁𝙰𝚈𝙼𝙾𝙽𝙳♞** و **Abo Ahmed** و **S99** و **iosiph**.
 
 ### Key Enhancements in this Version | التحسينات في هذه النسخة
 

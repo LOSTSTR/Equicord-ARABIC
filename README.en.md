@@ -9,7 +9,7 @@
 ### The Arabic-Enhanced Discord Client Mod
 
 **A high-performance Discord experience with exclusive customizations by**  
-**LOSTSTR · krym511 · 𝚁𝙰𝚈𝙼𝙾𝙽𝙳♞ · Abo Ahmed · S99**
+**LOSTSTR · krym511 · 𝚁𝙰𝚈𝙼𝙾𝙽𝙳♞ · Abo Ahmed · S99 · iosiph**
 
 ---
 
@@ -97,6 +97,7 @@ Join our community: **[discord.gg/QamdqDNEDa](https://discord.gg/QamdqDNEDa)**
 | **𝚁𝙰𝚈𝙼𝙾𝙽𝙳♞** | Contributor |
 | **Abo Ahmed** | Contributor |
 | **S99** | Contributor |
+| **iosiph** | Contributor |
 
 ---
 
@@ -279,7 +280,7 @@ If your account is critically important to you, it's safest to avoid all client 
 ## 📜 Credits & License
 
 > [!IMPORTANT]
-> This project is a fork of the original [Equicord](https://github.com/Equicord/Equicord) project. All credits for the core engine and framework belong to the original creators. This version is a specialized Arabic distribution managed by LOSTSTR under the name **Esharq**, with contributions from **krym511**, **𝚁𝙰𝚈𝙼𝙾𝙽𝙳♞**, **Abo Ahmed**, and **S99**.
+> This project is a fork of the original [Equicord](https://github.com/Equicord/Equicord) project. All credits for the core engine and framework belong to the original creators. This version is a specialized Arabic distribution managed by LOSTSTR under the name **Esharq**, with contributions from **krym511**, **𝚁𝙰𝚈𝙼𝙾𝙽𝙳♞**, **Abo Ahmed**, **S99**, and **iosiph**.
 
 ### Key enhancements in this version
 
