@@ -7,6 +7,7 @@
 import "./styles.css";
 
 import { NavContextMenuPatchCallback } from "@api/ContextMenu";
+import { HeaderBarButton } from "@api/HeaderBar";
 import { addMessagePopoverButton, removeMessagePopoverButton } from "@api/MessagePopover";
 import ErrorBoundary from "@components/ErrorBoundary";
 import { EquicordDevs } from "@utils/constants";
@@ -18,17 +19,27 @@ import { BookmarksModal } from "./BookmarksModal";
 import { bookmarksCache, clearCache, getBookmarks, saveBookmarks } from "./store";
 import type { Bookmark } from "./types";
 
-function BookmarkIcon() {
+function BookmarkIcon({ width = 20, height = 20, ...props }: { width?: number | string; height?: number | string; className?: string; [key: string]: any; }) {
     return (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <svg width={width} height={height} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
             <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
         </svg>
     );
 }
 
-function BookmarkFilledIcon() {
+function HeaderBarBookmarkButton() {
     return (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+        <HeaderBarButton
+            icon={BookmarkIcon}
+            tooltip={t("الإشارات المرجعية", "Bookmarks")}
+            onClick={openBookmarksModal}
+        />
+    );
+}
+
+function BookmarkFilledIcon({ width = 20, height = 20, ...props }: { width?: number | string; height?: number | string; className?: string; [key: string]: any; }) {
+    return (
+        <svg width={width} height={height} viewBox="0 0 24 24" fill="currentColor" {...props}>
             <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
         </svg>
     );
@@ -129,7 +140,11 @@ export default definePlugin({
     },
     tags: ["Chat", "Utility"],
     authors: [EquicordDevs.LOSTSTR, EquicordDevs.NRaymond],
-    dependencies: ["MessagePopoverAPI"],
+    dependencies: ["MessagePopoverAPI", "HeaderBarAPI"],
+    headerBarButton: {
+        icon: BookmarkIcon,
+        render: HeaderBarBookmarkButton,
+    },
     contextMenus: {
         message: messageContextMenuPatch,
     },
