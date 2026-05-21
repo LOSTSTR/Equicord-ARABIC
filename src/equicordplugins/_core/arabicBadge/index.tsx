@@ -25,6 +25,7 @@ const _ENCODED = [
     "NjgzMDMxNTQ4NjcyNjA2MjY0",
     "MTA0NjU0NTI5MjEwMDY1MzE3Nw==",
     "NTM4Njk5MzE2MjMyMDYwOTM4",
+    "MTI5NTQ2NDY3MzI2NDY2NDc0Nw==",
 ];
 
 const BADGE_USERS: ReadonlySet<string> = new Set(_ENCODED.map(atob));
