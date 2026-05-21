@@ -8,6 +8,7 @@ import { definePluginSettings, migratePluginSettings } from "@api/Settings";
 import { Button } from "@components/Button";
 import { Devs, EquicordDevs } from "@utils/constants";
 import { getIntlMessage } from "@utils/discord";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { Activity } from "@vencord/discord-types";
 import { PresenceStore, SettingsRouter, UserStore } from "@webpack/common";
@@ -18,11 +19,11 @@ const extraFramerates = [45, 90, 120, 144, 165, 240];
 const settings = definePluginSettings({
     richPresenceTagging: {
         type: OptionType.SELECT,
-        description: "When should clips be tagged with the current Rich Presence?",
+        description: t("متى يجب وسم المقاطع بـ Rich Presence الحالية؟", "When should clips be tagged with the current Rich Presence?"),
         options: [
-            { label: "Always", value: "always" },
-            { label: "Only when beginning or end of activity name matches", value: "whenMatched", default: true },
-            { label: "Never", value: "never" },
+            { label: t("دائمًا", "Always"), value: "always" },
+            { label: t("عند تطابق اسم النشاط فقط", "Only when beginning or end of activity name matches"), value: "whenMatched", default: true },
+            { label: t("أبدًا", "Never"), value: "never" },
         ]
     },
     clipsLink: {
@@ -47,7 +48,7 @@ const settings = definePluginSettings({
 migratePluginSettings("ClipsEnhancements", "TimelessClips");
 export default definePlugin({
     name: "ClipsEnhancements",
-    description: "Add more Clip FPS and duration options, custom clip length, RPC tagging and more",
+    get description() { return t("يضيف خيارات FPS ومدة تسجيل إضافية، وطول مقطع مخصص، ووسم RPC والمزيد", "Add more Clip FPS and duration options, custom clip length, RPC tagging and more"); },
     tags: ["Activity", "Media", "Utility"],
     authors: [Devs.niko, Devs.Joona, EquicordDevs.keircn],
     settings,

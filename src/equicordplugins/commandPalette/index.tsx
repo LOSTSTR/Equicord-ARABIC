@@ -123,7 +123,6 @@ export const settings = definePluginSettings({
         component: CommandPaletteSettingsPanel
     },
 
-
     closeAfterExecute: {
         description: "إغلاق لوحة الأوامر بعد تنفيذ أمر.",
         type: OptionType.BOOLEAN,

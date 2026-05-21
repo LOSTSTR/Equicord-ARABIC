@@ -14,6 +14,7 @@ import ErrorBoundary from "@components/ErrorBoundary";
 import { HeadingSecondary } from "@components/Heading";
 import { Devs, EquicordDevs } from "@utils/constants";
 import { classNameFactory } from "@utils/css";
+import { t } from "@utils/esharqI18n";
 import { Margins } from "@utils/margins";
 import { useForceUpdater } from "@utils/react";
 import { wordsToTitle } from "@utils/text";
@@ -694,31 +695,31 @@ function playSample(tempSettings: any, type: string) {
 const settings = definePluginSettings({
     customVoice: {
         type: OptionType.SELECT,
-        description: "Narrator voice",
+        description: t("صوت الراوي", "Narrator voice"),
         options: VOICE_OPTIONS,
         default: "en_us_001",
     },
     volume: {
         type: OptionType.SLIDER,
-        description: "Narrator Volume",
+        description: t("مستوى صوت الراوي", "Narrator Volume"),
         default: 1,
         markers: [0, 0.25, 0.5, 0.75, 1],
         stickToMarkers: false,
     },
     rate: {
         type: OptionType.SLIDER,
-        description: "Narrator Speed",
+        description: t("سرعة الراوي", "Narrator Speed"),
         default: 1,
         markers: [0.1, 0.5, 1, 2, 5, 10],
         stickToMarkers: false,
     },
     sayOwnName: {
-        description: "Say own name",
+        description: t("قول اسمك الخاص", "Say own name"),
         type: OptionType.BOOLEAN,
         default: false,
     },
     ignoreSelf: {
-        description: "Ignore yourself for all events.",
+        description: t("تجاهل نفسك في جميع الأحداث.", "Ignore yourself for all events."),
         type: OptionType.BOOLEAN,
         default: false,
     },
@@ -1045,7 +1046,7 @@ const UserContextMenuPatch: NavContextMenuPatchCallback = (children, { user }: U
 
 export default definePlugin({
     name: "VcNarratorCustom",
-    description: "Announces when users join, leave, or move voice channels via narrator using TikTok TTS. Revamped and back from the dead.",
+    get description() { return t("يُعلن عند انضمام المستخدمين أو مغادرتهم أو تنقلهم في القنوات الصوتية عبر TikTok TTS.", "Announces when users join, leave, or move voice channels via narrator using TikTok TTS. Revamped and back from the dead."); },
     tags: ["Accessibility", "Voice"],
     authors: [Devs.Ven, Devs.Nyako, EquicordDevs.Loukios, EquicordDevs.examplegit, EquicordDevs.qdnx],
     settings,

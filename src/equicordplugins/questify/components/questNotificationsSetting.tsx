@@ -6,11 +6,11 @@
 
 import { type AudioPlayerInterface, createAudioPlayer, defaultAudioNames } from "@api/AudioPlayer";
 import { useSettings } from "@api/Settings";
+import { t } from "@utils/esharqI18n";
 import { useEffect, useMemo, useRef, useState } from "@webpack/common";
 import type { JSX, MouseEvent } from "react";
 
 import { getQuestifySettings, useQuestifySettings } from "../settings/access";
-import { t } from "@utils/esharqI18n";
 import { startAutoFetchingQuests } from "../settings/fetching";
 import { q } from "../utils/ui";
 import { ManaSelectFormattedOption, ManaSelectOption, SettingsCard, SettingsDescription, SettingsHeader, SettingsRow, SettingsRowItem, SettingsSelect, SettingsSlider, SettingsSubheader, SettingsSubtleSwitch } from "./shared";

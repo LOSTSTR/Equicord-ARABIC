@@ -5,11 +5,11 @@
  */
 
 import { definePluginSettings, useSettings } from "@api/Settings";
-import { t } from "@utils/esharqI18n";
 import { Heading } from "@components/Heading";
 import { Paragraph } from "@components/Paragraph";
 import { ChannelTabsPreview } from "@equicordplugins/channelTabs/components/ChannelTabsContainer";
 import { KeybindSettings } from "@equicordplugins/channelTabs/components/KeybindSettings";
+import { t } from "@utils/esharqI18n";
 import { Logger } from "@utils/Logger";
 import { makeRange, OptionType } from "@utils/types";
 import { SearchableSelect, useState } from "@webpack/common";

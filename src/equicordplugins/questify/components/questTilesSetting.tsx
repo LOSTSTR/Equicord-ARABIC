@@ -5,13 +5,13 @@
  */
 
 import { useSettings } from "@api/Settings";
+import { t } from "@utils/esharqI18n";
 import type { Quest } from "@vencord/discord-types";
 import { findComponentByCodeLazy } from "@webpack";
 import { QuestStore, useEffect, useMemo, useRef, useState, useStateFromStores } from "@webpack/common";
 import type { JSX, SyntheticEvent } from "react";
 
 import { getQuestifySettings, useQuestifySettings } from "../settings/access";
-import { t } from "@utils/esharqI18n";
 import { defaultQuestTileClaimedColorSetting, defaultQuestTileExpiredColorSetting, defaultQuestTileIgnoredColorSetting, defaultQuestTileUnclaimedColorSetting, type QuestTileColorSetting, type QuestTileGradient } from "../settings/def";
 import { rerenderQuests } from "../settings/rerender";
 import { getQuestTileClasses, getQuestTileStyle } from "../utils/questTiles";

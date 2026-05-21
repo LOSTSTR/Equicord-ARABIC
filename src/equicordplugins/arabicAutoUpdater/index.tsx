@@ -9,6 +9,7 @@ import { t } from "@utils/esharqI18n";
 import { Logger } from "@utils/Logger";
 import definePlugin from "@utils/types";
 import { Alerts } from "@webpack/common";
+
 import gitHash from "~git-hash";
 
 const logger = new Logger("ArabicAutoUpdater");

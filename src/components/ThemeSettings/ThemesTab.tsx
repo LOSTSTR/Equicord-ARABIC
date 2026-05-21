@@ -35,6 +35,7 @@ import { OnlineThemeCard } from "@components/settings/OnlineThemeCard";
 import { CspBlockedUrls, useCspErrors } from "@utils/cspViolations";
 import { classNameFactory } from "@utils/css";
 import { copyWithToast, openInviteModal } from "@utils/discord";
+import { isArabicMode, t } from "@utils/esharqI18n";
 import { Margins } from "@utils/margins";
 import { classes } from "@utils/misc";
 import { relaunch, showItemInFolder } from "@utils/native";
@@ -42,7 +43,6 @@ import { useAwaiter, useForceUpdater } from "@utils/react";
 import type { ThemeHeader } from "@utils/themes";
 import { getThemeInfo, stripBOM, type UserThemeHeader } from "@utils/themes/bd";
 import { usercssParse } from "@utils/themes/usercss";
-import { isArabicMode, t } from "@utils/esharqI18n";
 import { getStylusWebStoreUrl } from "@utils/web";
 import { findComponentByCodeLazy, findLazy } from "@webpack";
 import { Alerts, Menu, openModal,React, Select, showToast, TextInput, Toasts, Tooltip, useEffect, useMemo, useState } from "@webpack/common";
@@ -164,7 +164,6 @@ enum ThemeFilter {
     Enabled = "enabled",
     Disabled = "disabled"
 }
-
 
 function Validator({ link, onValidate }: { link: string; onValidate: (valid: boolean) => void; }) {
     const [res, err, pending] = useAwaiter(() => fetch(link).then(res => {

@@ -1,7 +1,7 @@
 /*
- * Esharq — Arabic/English locale utility
- * Reads Settings.plugins.Settings.arabicMode at call time so it works
- * both in eager module init (getters) and in React renders.
+ * Vencord, a Discord client mod
+ * Copyright (c) 2026 Vendicated and contributors
+ * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
 import { Settings } from "@api/Settings";

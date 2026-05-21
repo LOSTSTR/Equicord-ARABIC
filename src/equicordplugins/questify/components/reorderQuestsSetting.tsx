@@ -5,10 +5,10 @@
  */
 
 import { useSettings } from "@api/Settings";
+import { t } from "@utils/esharqI18n";
 import type { JSX } from "react";
 
 import { getQuestifySettings, useQuestifySettings } from "../settings/access";
-import { t } from "@utils/esharqI18n";
 import { defaultQuestOrder, type QuestOrderStatus, type QuestSubsort } from "../settings/def";
 import { rerenderQuests } from "../settings/rerender";
 import { type ManaSelectOption, SettingsCard, SettingsDescription, SettingsHeader, SettingsRow, SettingsRowItem, SettingsSelect, SettingsSubheader, SettingsSubtleSwitch } from "./shared";

@@ -207,7 +207,6 @@ export function getStackTracePatchesSucceeded(): { videoProgress: boolean; heart
     };
 }
 
-
 export function hasEnabledAutoCompleteQuestTypes(): boolean {
     return autoCompleteQuestTaskTypes.some(questType => getQuestifySettings().autoCompleteQuestTypes[questType]);
 }

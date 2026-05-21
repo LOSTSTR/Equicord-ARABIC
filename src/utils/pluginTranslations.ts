@@ -1,7 +1,7 @@
 /*
- * Esharq — English translations for all arabized plugins.
- * Keys are the plugin's `name` field from definePlugin().
- * Absence of a key means the plugin already has an English description.
+ * Vencord, a Discord client mod
+ * Copyright (c) 2026 Vendicated and contributors
+ * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
 export interface PluginI18n {

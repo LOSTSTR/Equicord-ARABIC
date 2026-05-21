@@ -6,6 +6,7 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { EquicordDevs } from "@utils/index";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 
 const MIDDLE_CLICK = 1;
@@ -50,26 +51,26 @@ function handleMouseUp(event: MouseEvent) {
 const settings = definePluginSettings({
     openScope: {
         type: OptionType.SELECT,
-        description: "Prevent middle clicking on these content types from opening them.",
+        description: t("منع النقر الأوسط على هذه الأنواع من المحتوى.", "Prevent middle clicking on these content types from opening them."),
         options: [
-            { label: "Links", value: "links" },
-            { label: "Media", value: "media" },
-            { label: "Links & Media", value: "both" },
-            { label: "None", value: "none", default: true },
+            { label: t("روابط", "Links"), value: "links" },
+            { label: t("وسائط", "Media"), value: "media" },
+            { label: t("روابط ووسائط", "Links & Media"), value: "both" },
+            { label: t("لا شيء", "None"), value: "none", default: true },
         ],
         onChange(newValue) { updateListeners(newValue !== "none"); }
     },
     pasteScope: {
         type: OptionType.SELECT,
-        description: "Prevent middle click from pasting during these situations.",
+        description: t("منع اللصق عبر النقر الأوسط في هذه الحالات.", "Prevent middle click from pasting during these situations."),
         options: [
-            { label: "Always Prevent Middle Click Pasting", value: "always", default: true },
-            { label: "Only Prevent When Text Area Not Focused", value: "focus" },
+            { label: t("منع اللصق دائمًا", "Always Prevent Middle Click Pasting"), value: "always", default: true },
+            { label: t("منع فقط عند عدم التركيز على حقل النص", "Only Prevent When Text Area Not Focused"), value: "focus" },
         ]
     },
     pasteThreshold: {
         type: OptionType.NUMBER,
-        description: "Milliseconds until pasting is enabled again after a middle click.",
+        description: t("المدة بالمللي ثانية قبل إعادة تفعيل اللصق بعد النقر الأوسط.", "Milliseconds until pasting is enabled again after a middle click."),
         default: 100,
         onChange(newValue) { if (newValue < 1) { settings.store.pasteThreshold = 1; } }
     }
@@ -77,7 +78,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "MiddleClickTweaks",
-    description: "Various middle click tweaks, such as with pasting and link opening.",
+    get description() { return t("تعديلات متعددة للنقر الأوسط، مثل اللصق وفتح الروابط.", "Various middle click tweaks, such as with pasting and link opening."); },
     authors: [EquicordDevs.Etorix, EquicordDevs.korzi],
     settings,
 

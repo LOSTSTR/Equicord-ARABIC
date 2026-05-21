@@ -5,12 +5,12 @@
  */
 
 import { useSettings } from "@api/Settings";
+import { t } from "@utils/esharqI18n";
 import { QuestRewardType, QuestTaskType } from "@vencord/discord-types/enums";
 import type { JSX } from "react";
 
 import { enabledOnStartup } from "..";
 import { getQuestifySettings, useQuestifySettings } from "../settings/access";
-import { t } from "@utils/esharqI18n";
 import { type QuestButtonAction, type QuestButtonDisplayMode, type QuestButtonIncludedTypes, type QuestButtonIndicatorMode } from "../settings/def";
 import { startAutoFetchingQuests } from "../settings/fetching";
 import { validateIgnoredQuests } from "../settings/ignoredQuests";
