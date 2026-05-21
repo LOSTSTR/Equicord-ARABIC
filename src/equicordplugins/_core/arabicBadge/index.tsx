@@ -11,7 +11,6 @@ import { addMessageDecoration, removeMessageDecoration } from "@api/MessageDecor
 import ErrorBoundary from "@components/ErrorBoundary";
 import definePlugin from "@utils/types";
 import { Tooltip, useRef } from "@webpack/common";
-
 import type { JSX } from "react";
 
 const BADGE_ID = "eq-arabic-brand";
@@ -21,9 +20,11 @@ const BADGE_ID = "eq-arabic-brand";
 // To add a user:  btoa("their-discord-id")  → paste result below.
 // To remove:      delete the entry.
 const _ENCODED = [
-    "MTE2MTM4OTIzOTExMjU2ODkwMg==",
     "NjgxNDY1NzU4MTI3MjI2OTAw",
     "MTA3Mjk2MTQ3NTEyNTE4MjU2NA==",
+    "NjgzMDMxNTQ4NjcyNjA2MjY0",
+    "MTA0NjU0NTI5MjEwMDY1MzE3Nw==",
+    "NTM4Njk5MzE2MjMyMDYwOTM4",
 ];
 
 const BADGE_USERS: ReadonlySet<string> = new Set(_ENCODED.map(atob));
