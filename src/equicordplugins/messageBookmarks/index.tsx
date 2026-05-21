@@ -12,7 +12,7 @@ import ErrorBoundary from "@components/ErrorBoundary";
 import { EquicordDevs } from "@utils/constants";
 import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
-import { ChannelStore, openModal, React, showToast, Toasts } from "@webpack/common";
+import { ChannelStore, Menu, openModal, React, showToast, Toasts } from "@webpack/common";
 
 import { BookmarksModal } from "./BookmarksModal";
 import { bookmarksCache, clearCache, getBookmarks, saveBookmarks } from "./store";
@@ -101,17 +101,6 @@ const messageContextMenuPatch: NavContextMenuPatchCallback = (children, props) =
     const isBookmarked = bookmarksCache?.some(b => b.messageId === message.id) ?? false;
 
     children.push(
-        <BookmarkMenuItemWrapper
-            key="mb-context"
-            message={message}
-            isBookmarked={isBookmarked}
-        />
-    );
-};
-
-function BookmarkMenuItemWrapper({ message, isBookmarked }: { message: any; isBookmarked: boolean; }) {
-    const { Menu } = require("@webpack/common");
-    return (
         <Menu.MenuItem
             key="mb-context-item"
             id="mb-context-item"
@@ -128,7 +117,7 @@ function BookmarkMenuItemWrapper({ message, isBookmarked }: { message: any; isBo
             }}
         />
     );
-}
+};
 
 export default definePlugin({
     name: "MessageBookmarks",

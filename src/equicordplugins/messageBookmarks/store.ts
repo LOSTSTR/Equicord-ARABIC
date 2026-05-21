@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-import { DataStore } from "@api/DataStore";
+import * as DataStore from "@api/DataStore";
 
 import type { Bookmark } from "./types";
 
@@ -16,7 +16,7 @@ export async function getBookmarks(): Promise<Bookmark[]> {
     if (bookmarksCache === null) {
         bookmarksCache = await DataStore.get<Bookmark[]>(STORE_KEY) ?? [];
     }
-    return bookmarksCache;
+    return bookmarksCache!;
 }
 
 export async function saveBookmarks(bookmarks: Bookmark[]): Promise<void> {
