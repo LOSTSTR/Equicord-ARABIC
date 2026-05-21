@@ -30,6 +30,7 @@ import {
     ChangelogHistory,
     clearChangelogHistory,
     clearIndividualLog,
+    fetchRecentCommits,
     formatTimestamp,
     getChangelogHistory,
     getCommitsSinceLastSeen,
@@ -236,6 +237,7 @@ function ChangelogContent() {
         React.useState<ChangelogHistory>([]);
     const [newPlugins, setNewPlugins] = React.useState<string[]>([]);
     const [updatedPlugins, setUpdatedPlugins] = React.useState<string[]>([]);
+    const [recentCommits, setRecentCommits] = React.useState<ChangelogEntry[]>([]);
     const [isLoading, setIsLoading] = React.useState(true);
     const [error, setError] = React.useState<string | null>(null);
     const [expandedLogs, setExpandedLogs] = React.useState<Set<string>>(
@@ -280,6 +282,15 @@ function ChangelogContent() {
             setUpdatedPlugins(updatedPlgs);
         } catch (err) {
             console.error("Failed to load new plugins:", err);
+        }
+    }, []);
+
+    const loadRecentCommits = React.useCallback(async (repoUrl: string) => {
+        try {
+            const commits = await fetchRecentCommits(repoUrl, 15);
+            setRecentCommits(commits);
+        } catch (err) {
+            console.error("Failed to load recent commits:", err);
         }
     }, []);
 
@@ -445,6 +456,7 @@ function ChangelogContent() {
         const loadInitialData = async () => {
             if (!repoPending && !repoErr) {
                 await loadNewPlugins();
+                loadRecentCommits(repo);
                 const logged = await ensureLocalUpdateLogged();
                 if (!logged) {
                     await fetchChangelog();
@@ -463,6 +475,7 @@ function ChangelogContent() {
         repoErr,
         fetchChangelog,
         loadNewPlugins,
+        loadRecentCommits,
         ensureLocalUpdateLogged,
     ]);
 
@@ -624,10 +637,25 @@ function ChangelogContent() {
                 <>
                     <Divider className={Margins.top20} />
                     <Heading className={Margins.top20}>{t("التغييرات الأخيرة", "Recent Changes")}</Heading>
-                    <Paragraph color="text-subtle">
-                        {t('لا توجد إيداعات متقدمة عن نسختك الحالية. اضغط على "جلب من المستودع" للتحقق من التغييرات الجديدة.', 'No commits ahead of your current version. Click "Fetch from Repository" to check for new changes.')}
+                    <Paragraph color="text-subtle" className={Margins.bottom16}>
+                        {t("نسختك محدَّثة. فيما يلي آخر التغييرات في المستودع.", "Your version is up to date. Here are the latest changes in the repository.")}
                     </Paragraph>
                 </>
+            )}
+
+            {recentCommits.length > 0 && !hasCurrentChanges && !isLoading && (
+                <div>
+                    <div className="vc-changelog-commits-list">
+                        {recentCommits.map(entry => (
+                            <ChangelogCard
+                                key={entry.hash}
+                                entry={entry}
+                                repo={repo}
+                                repoPending={repoPending}
+                            />
+                        ))}
+                    </div>
+                </div>
             )}
 
             {showHistory && changelogHistory.length > 0 && (
