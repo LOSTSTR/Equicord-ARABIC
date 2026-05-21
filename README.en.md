@@ -94,10 +94,10 @@ Join our community: **[discord.gg/QamdqDNEDa](https://discord.gg/QamdqDNEDa)**
 |--------|------|
 | **LOSTSTR** | Lead developer — architecture, infrastructure, and project management |
 | **krym511** | Core supporter — sustained support and development contributions |
+| **iosiph** | Contributor |
 | **𝚁𝙰𝚈𝙼𝙾𝙽𝙳♞** | Contributor |
 | **Abo Ahmed** | Contributor |
 | **S99** | Contributor |
-| **iosiph** | Contributor |
 
 ---
 
