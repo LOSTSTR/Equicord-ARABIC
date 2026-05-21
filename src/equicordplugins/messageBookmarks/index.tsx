@@ -9,6 +9,7 @@ import "./styles.css";
 import { NavContextMenuPatchCallback } from "@api/ContextMenu";
 import { HeaderBarButton } from "@api/HeaderBar";
 import { addMessagePopoverButton, removeMessagePopoverButton } from "@api/MessagePopover";
+import { useSettings } from "@api/Settings";
 import ErrorBoundary from "@components/ErrorBoundary";
 import { EquicordDevs } from "@utils/constants";
 import { t } from "@utils/esharqI18n";
@@ -28,6 +29,7 @@ function BookmarkIcon({ width = 20, height = 20, ...props }: { width?: number | 
 }
 
 function HeaderBarBookmarkButton() {
+    useSettings(["plugins.Settings.arabicMode"]);
     return (
         <HeaderBarButton
             icon={BookmarkIcon}
