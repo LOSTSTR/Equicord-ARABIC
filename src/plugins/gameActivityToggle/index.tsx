@@ -22,6 +22,7 @@ import { UserAreaButton, UserAreaRenderProps } from "@api/UserArea";
 import { getUserSettingLazy } from "@api/UserSettings";
 import equicordToolbox from "@equicordplugins/equicordToolbox";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { Menu } from "@webpack/common";
 
@@ -30,12 +31,12 @@ const ShowCurrentGame = getUserSettingLazy<boolean>("status", "showCurrentGame")
 const settings = definePluginSettings({
     oldIcon: {
         type: OptionType.BOOLEAN,
-        description: "استخدام شكل الأيقونة القديم قبل تحديث تصميم Discord",
+        description: t("استخدام شكل الأيقونة القديم قبل تحديث تصميم Discord", "Use the old icon style from before the Discord design update"),
         default: false
     },
     location: {
         type: OptionType.SELECT,
-        description: "مكان عرض زر تبديل نشاط اللعبة",
+        description: t("مكان عرض زر تبديل نشاط اللعبة", "Location to display the game activity toggle button"),
         options: [
             { label: "Next to Mute/Deafen", value: "PANEL", default: true },
             { label: "Equicord Toolbox", value: "TOOLBOX" }
@@ -97,7 +98,7 @@ function GameActivityToggleButton({ iconForeground, hideTooltips, nameplate }: U
 
 export default definePlugin({
     name: "GameActivityToggle",
-    description: "يُضيف زراً لتفعيل/تعطيل نشاط الألعاب بسرعة",
+    get description() { return t("يُضيف زراً لتفعيل/تعطيل نشاط الألعاب بسرعة", "Adds a button to quickly enable/disable game activity"); },
     tags: ["Activity", "Shortcuts"],
     authors: [Devs.Nuckyz, Devs.RuukuLada],
     dependencies: ["UserSettingsAPI", "UserAreaAPI"],

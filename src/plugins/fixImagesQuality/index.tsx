@@ -10,20 +10,21 @@ import { Flex } from "@components/Flex";
 import { Margins } from "@components/margins";
 import { Paragraph } from "@components/Paragraph";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import { Logger } from "@utils/Logger";
 import definePlugin, { OptionType } from "@utils/types";
 
 const settings = definePluginSettings({
     originalImagesInChat: {
         type: OptionType.BOOLEAN,
-        description: "تحميل الصورة الأصلية أيضاً في الدردشة. تحذير: اقرأ التنبيهات أعلاه",
+        description: t("تحميل الصورة الأصلية أيضاً في الدردشة. تحذير: اقرأ التنبيهات أعلاه", "Also load the original image in chat. Warning: read the notices above"),
         default: false,
     }
 });
 
 export default definePlugin({
     name: "FixImagesQuality",
-    description: "يعيد جودة الصور إلى أعلى دقة ممكنة",
+    get description() { return t("يعيد جودة الصور إلى أعلى دقة ممكنة", "Restores image quality to the highest possible resolution"); },
     tags: ["Media", "Appearance"],
     authors: [Devs.Nuckyz, Devs.Ven],
     settings,

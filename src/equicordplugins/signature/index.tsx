@@ -9,6 +9,7 @@ import { ApplicationCommandInputType, ApplicationCommandOptionType, findOption, 
 import { findGroupChildrenByChildId, NavContextMenuPatchCallback } from "@api/ContextMenu";
 import { definePluginSettings } from "@api/Settings";
 import { Devs, EquicordDevs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { Menu, React } from "@webpack/common";
 
@@ -18,28 +19,28 @@ const settings = definePluginSettings(
     {
         name: {
             type: OptionType.STRING,
-            description: "التوقيع الذي سيُضاف في نهاية رسائلك",
+            description: t("التوقيع الذي سيُضاف في نهاية رسائلك", "The signature that will be added to the end of your messages"),
             default: "a chronic discord user"
         },
         textHeader: {
-            description: "العنوان الذي يُضاف قبل النص",
+            description: t("العنوان الذي يُضاف قبل النص", "The header added before the text"),
             type: OptionType.STRING,
             default: ">",
         },
         showIcon: {
             type: OptionType.BOOLEAN,
             default: true,
-            description: "عرض أيقونة لتبديل تفعيل الإضافة في شريط الدردشة",
+            description: t("عرض أيقونة لتبديل تفعيل الإضافة في شريط الدردشة", "Show an icon to toggle the plugin in the chat bar"),
             restartNeeded: true,
         },
         contextMenu: {
             type: OptionType.BOOLEAN,
-            description: "إضافة خيار لتبديل الوظيفة في قائمة السياق لمدخل الدردشة",
+            description: t("إضافة خيار لتبديل الوظيفة في قائمة السياق لمدخل الدردشة", "Add an option to toggle the feature in the chat input context menu"),
             default: true
         },
         isEnabled: {
             type: OptionType.BOOLEAN,
-            description: "تبديل تفعيل الوظيفة",
+            description: t("تبديل تفعيل الوظيفة", "Toggle feature activation"),
             default: true,
         },
     });
@@ -99,7 +100,7 @@ const ChatBarContextCheckbox: NavContextMenuPatchCallback = children => {
 
 export default definePlugin({
     name: "Signature",
-    description: "نص توقيع/ختام تلقائي",
+    get description() { return t("نص توقيع/ختام تلقائي", "Automatic signature/sign-off text"); },
     dependencies: ["CommandsAPI", "ChatInputButtonAPI", "MessagePopoverAPI"],
     tags: ["Appearance", "Chat"],
     authors: [Devs.Ven, Devs.Rini, Devs.ImBanana, EquicordDevs.KrystalSkull],
@@ -131,12 +132,12 @@ export default definePlugin({
     commands: [
         {
             name: "signature",
-            description: "تبديل توقيعك",
+            description: t("تبديل توقيعك", "Toggle your signature"),
             inputType: ApplicationCommandInputType.BUILT_IN,
             options: [
                 {
                     name: "value",
-                    description: "تبديل توقيعك (الافتراضي هو التبديل)",
+                    description: t("تبديل توقيعك (الافتراضي هو التبديل)", "Toggle your signature (defaults to toggling)"),
                     required: false,
                     type: ApplicationCommandOptionType.BOOLEAN,
                 },

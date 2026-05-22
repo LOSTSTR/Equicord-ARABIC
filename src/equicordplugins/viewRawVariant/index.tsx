@@ -11,6 +11,7 @@ import ErrorBoundary from "@components/ErrorBoundary";
 import { Heading } from "@components/Heading";
 import { Devs } from "@utils/constants";
 import { getIntlMessage } from "@utils/discord";
+import { t } from "@utils/esharqI18n";
 import { Margins } from "@utils/margins";
 import definePlugin from "@utils/types";
 import { Message } from "@vencord/discord-types";
@@ -114,7 +115,7 @@ function makeContextCallback(
 
 export default definePlugin({
     name: "ViewRawVariant",
-    description: "عرض أو نسخ المحتوى الخام لأي رسالة أو قناة أو سيرفر من قائمة النقر الأيمن",
+    get description() { return t("عرض أو نسخ المحتوى الخام لأي رسالة أو قناة أو سيرفر من قائمة النقر الأيمن", "View or copy the raw content of any message, channel, or server from the right-click menu."); },
     tags: ["Appearance", "Customisation", "Chat", "Organisation", "Servers"],
     authors: [Devs.KingFish, Devs.Ven, Devs.rad, Devs.ImLvna, Devs.Kyuuhachi],
     contextMenus: {

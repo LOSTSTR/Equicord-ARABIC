@@ -8,6 +8,7 @@ import { definePluginSettings } from "@api/Settings";
 import { FormSwitch } from "@components/FormSwitch";
 import { Devs, EquicordDevs } from "@utils/constants";
 import { getCurrentChannel } from "@utils/discord";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { Message, RenderModalProps } from "@vencord/discord-types";
 import { IconUtils, Menu, Modal, openModal, TextInput, UploadHandler, useEffect, useState } from "@webpack/common";
@@ -19,7 +20,7 @@ import { createQuoteImage, ensureFontLoaded, generateFileNamePreview, getFileExt
 const settings = definePluginSettings({
     quoteFont: {
         type: OptionType.SELECT,
-        description: "خط نص الاقتباس (المؤلف/الاسم يستخدم دائماً M PLUS Rounded 1c)",
+        description: t("خط نص الاقتباس (المؤلف/الاسم يستخدم دائماً M PLUS Rounded 1c)", "Quote text font (author/name always uses M PLUS Rounded 1c)"),
         options: [
             { label: "M PLUS Rounded 1c", value: QuoteFont.MPlusRounded, default: true },
             { label: "Open Sans", value: QuoteFont.OpenSans },
@@ -30,24 +31,24 @@ const settings = definePluginSettings({
     },
     watermark: {
         type: OptionType.STRING,
-        description: "نص العلامة المائية المخصصة (32 حرفاً كحد أقصى)",
+        description: t("نص العلامة المائية المخصصة (32 حرفاً كحد أقصى)", "Custom watermark text (max 32 characters)"),
         default: "Made with Equicord"
     },
     grayscale: {
         type: OptionType.BOOLEAN,
-        description: "تفعيل التدرج الرمادي افتراضياً",
+        description: t("تفعيل التدرج الرمادي افتراضياً", "Enable grayscale by default"),
         default: true,
         hidden: true
     },
     showWatermark: {
         type: OptionType.BOOLEAN,
-        description: "إظهار العلامة المائية افتراضياً",
+        description: t("إظهار العلامة المائية افتراضياً", "Show watermark by default"),
         default: false,
         hidden: true
     },
     saveAsGif: {
         type: OptionType.BOOLEAN,
-        description: "الحفظ كـ GIF افتراضياً",
+        description: t("الحفظ كـ GIF افتراضياً", "Save as GIF by default"),
         default: false,
         hidden: true
     }
@@ -55,7 +56,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "Quoter",
-    description: "يضيف إمكانية إنشاء صورة اقتباس ملهم من رسالة.",
+    get description() { return t("يضيف إمكانية إنشاء صورة اقتباس ملهم من رسالة.", "Adds the ability to create an inspirational quote image from a message."); },
     tags: ["Chat"],
     authors: [Devs.Samwich, Devs.thororen, EquicordDevs.neoarz, Devs.prism],
     settings,

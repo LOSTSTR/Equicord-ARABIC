@@ -8,6 +8,7 @@ import { NavContextMenuPatchCallback } from "@api/ContextMenu";
 import { definePluginSettings } from "@api/Settings";
 import { Notice } from "@components/Notice";
 import { EquicordDevs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { Channel, User, VoiceState } from "@vencord/discord-types";
 import { findByPropsLazy, findStoreLazy } from "@webpack";
@@ -34,12 +35,12 @@ const settings = definePluginSettings({
     onlyWhenInVoice: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "يتابع المستخدم فقط عندما تكون في قناة صوتية"
+        get description() { return t("يتابع المستخدم فقط عندما تكون في قناة صوتية", "Only follow the user when you are in a voice channel"); }
     },
     leaveWhenUserLeaves: {
         type: OptionType.BOOLEAN,
         default: false,
-        description: "مغادرة القناة الصوتية عند مغادرة المستخدم. (قد يتسبب ذلك أحياناً في حلقة لا نهائية من المغادرة/الانضمام)"
+        get description() { return t("مغادرة القناة الصوتية عند مغادرة المستخدم. (قد يتسبب ذلك أحياناً في حلقة لا نهائية من المغادرة/الانضمام)", "Leave the voice channel when the user leaves. (May sometimes cause an infinite leave/join loop)"); }
     }
 });
 
@@ -73,7 +74,7 @@ const UserContextMenuPatch: NavContextMenuPatchCallback = (children, { channel, 
 
 export default definePlugin({
     name: "FollowVoiceUser",
-    description: "تابع صديقاً في الدردشة الصوتية.",
+    get description() { return t("تابع صديقاً في الدردشة الصوتية.", "Follow a friend into voice chat."); }
     tags: ["Voice"],
     authors: [EquicordDevs.TheArmagan],
     settings,

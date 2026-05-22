@@ -19,6 +19,7 @@
 import { definePluginSettings } from "@api/Settings";
 import ErrorBoundary from "@components/ErrorBoundary";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import { sleep } from "@utils/misc";
 import { Queue } from "@utils/Queue";
 import { useForceUpdater } from "@utils/react";
@@ -133,7 +134,7 @@ function ReactionUsers({ message, emoji, type }: ReactionProps) {
 
 const settings = definePluginSettings({
     avatarClick: {
-        description: "تبديل النقر على الصور الرمزية في التفاعلات",
+        description: t("تبديل النقر على الصور الرمزية في التفاعلات", "Toggle clicking on avatars in reactions"),
         type: OptionType.BOOLEAN,
         default: false,
         restartNeeded: true
@@ -142,7 +143,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "WhoReacted",
-    description: "يعرض قائمة من تفاعل على كل رد فعل عند التحويم",
+    get description() { return t("يعرض قائمة من تفاعل على كل رد فعل عند التحويم", "Shows a list of who reacted to each reaction on hover"); },
     tags: ["Reactions", "Chat", "Appearance"],
     authors: [Devs.Ven, Devs.KannaDev, Devs.newwares],
     isModified: true,

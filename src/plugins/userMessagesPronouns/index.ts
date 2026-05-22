@@ -18,6 +18,7 @@
 
 import { migratePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 import { CompactPronounsChatComponentWrapper, PronounsChatComponentWrapper } from "./PronounsChatComponent";
@@ -27,7 +28,7 @@ migratePluginSettings("UserMessagesPronouns", "PronounDB");
 export default definePlugin({
     name: "UserMessagesPronouns",
     authors: [Devs.Tyman, Devs.TheKodeToad, Devs.Ven, Devs.Elvyra],
-    description: "يضيف الضمائر إلى رسائل المستخدمين في الدردشة",
+    get description() { return t("يضيف الضمائر إلى رسائل المستخدمين في الدردشة", "Adds pronouns to user messages in chat"); },
     tags: ["Chat", "Appearance"],
     settings,
 

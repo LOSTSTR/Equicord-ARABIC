@@ -12,6 +12,7 @@ import { definePluginSettings, migratePluginToSettings, Settings } from "@api/Se
 import { ShieldIcon, WarningIcon } from "@components/Icons";
 import customRPC from "@plugins/customRPC";
 import { Devs, EquicordDevs, GUILD_ID, SUPPORT_CHANNEL_ID, SUPPORT_CHANNEL_IDS, VC_SUPPORT_CHANNEL_IDS } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import { isAnyPluginDev } from "@utils/misc";
 import definePlugin, { OptionType } from "@utils/types";
 import { StandingState } from "@vencord/discord-types/enums";
@@ -70,66 +71,66 @@ const listener = async (channelId, msg) => {
 const settings = definePluginSettings({
     noMirroredCamera: {
         type: OptionType.BOOLEAN,
-        description: "يمنع عكس صورة الكاميرا على شاشتك",
+        description: t("يمنع عكس صورة الكاميرا على شاشتك", "Prevents your camera from being mirrored on your screen"),
         restartNeeded: true,
         default: false,
     },
     removeActivitySection: {
         type: OptionType.BOOLEAN,
-        description: "إزالة قسم النشاط فوق قائمة الأعضاء",
+        description: t("إزالة قسم النشاط فوق قائمة الأعضاء", "Remove the activity section above the member list"),
         restartNeeded: true,
         default: false,
     },
     showYourOwnActivityButtons: {
         type: OptionType.BOOLEAN,
-        description: "يُظهر أزرار نشاطك الخاصة التي يخفيها ديسكورد لأسباب غير معروفة",
+        description: t("يُظهر أزرار نشاطك الخاصة التي يخفيها ديسكورد لأسباب غير معروفة", "Shows your own activity buttons that Discord hides for unknown reasons"),
         restartNeeded: true,
         default: false,
     },
     refreshSlashCommands: {
         type: OptionType.BOOLEAN,
-        description: "تحديث أوامر Slash لإظهار الأوامر المضافة حديثاً دون إعادة تشغيل العميل.",
+        description: t("تحديث أوامر Slash لإظهار الأوامر المضافة حديثاً دون إعادة تشغيل العميل.", "Refresh slash commands to show newly added ones without restarting the client."),
         default: false,
     },
     forceRoleIcon: {
         type: OptionType.BOOLEAN,
-        description: "إجبار عرض أيقونات الرتب بجانب الرسائل في الوضع المضغوط",
+        description: t("إجبار عرض أيقونات الرتب بجانب الرسائل في الوضع المضغوط", "Force display of role icons next to messages in compact mode"),
         restartNeeded: true,
         default: false
     },
     accountStandingButton: {
         type: OptionType.BOOLEAN,
-        description: "إظهار زر حالة الحساب في شريط الرأس",
+        description: t("إظهار زر حالة الحساب في شريط الرأس", "Show account standing button in the header bar"),
         restartNeeded: true,
         default: false,
     },
     restoreFileDownloadButton: {
         type: OptionType.BOOLEAN,
-        description: "استعادة زر التنزيل في الركن العلوي الأيمن من الملفات",
+        description: t("استعادة زر التنزيل في الركن العلوي الأيمن من الملفات", "Restore the download button in the top right corner of files"),
         restartNeeded: true,
         default: false
     },
     noBulletPoints: {
         type: OptionType.BOOLEAN,
-        description: "منع كتابة نقاط القوائم بصيغة Markdown",
+        description: t("منع كتابة نقاط القوائم بصيغة Markdown", "Prevent Markdown bullet points from being typed"),
         restartNeeded: true,
         default: false
     },
     noModalAnimation: {
         type: OptionType.BOOLEAN,
-        description: "إزالة الحركة التي تستغرق 300 مللي ثانية عند فتح أو إغلاق النوافذ المنبثقة",
+        description: t("إزالة الحركة التي تستغرق 300 مللي ثانية عند فتح أو إغلاق النوافذ المنبثقة", "Remove the 300ms animation when opening or closing modals"),
         restartNeeded: true,
         default: false
     },
     disableAdoptTagPrompt: {
         type: OptionType.BOOLEAN,
-        description: "تعطيل مطالبة تبني الشارات",
+        description: t("تعطيل مطالبة تبني الشارات", "Disable the adopt tag prompt"),
         restartNeeded: true,
         default: false,
     },
     jsonGateway: {
         type: OptionType.BOOLEAN,
-        description: "إجبار استخدام JSON عند إعادة الاتصال بالبوابة",
+        description: t("إجبار استخدام JSON عند إعادة الاتصال بالبوابة", "Force JSON usage when reconnecting to the gateway"),
         restartNeeded: true,
         default: false,
     }
@@ -137,7 +138,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "EquicordHelper",
-    description: "يُستخدم لتقديم الدعم وإصلاح الأعطال الناجمة عن ديسكورد وميزات متنوعة أخرى.",
+    get description() { return t("يُستخدم لتقديم الدعم وإصلاح الأعطال الناجمة عن ديسكورد وميزات متنوعة أخرى.", "Used for providing support and fixing bugs caused by Discord and various other features."); },
     tags: ["Appearance", "Commands", "Utility"],
     dependencies: ["CommandsAPI", "HeaderBarAPI", "MessageAccessoriesAPI"],
     authors: [
@@ -361,7 +362,7 @@ export default definePlugin({
     commands: [
         {
             name: "refresh-commands",
-            description: "تحديث أوامر Slash",
+            description: t("تحديث أوامر Slash", "Refresh Slash commands"),
             inputType: ApplicationCommandInputType.BUILT_IN,
             predicate: () => settings.store.refreshSlashCommands,
             execute: async (opts, ctx) => {

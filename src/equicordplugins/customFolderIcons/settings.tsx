@@ -5,6 +5,7 @@
  */
 
 import { definePluginSettings } from "@api/Settings";
+import { t } from "@utils/esharqI18n";
 import { OptionType } from "@utils/types";
 
 export interface folderIcon {
@@ -17,12 +18,12 @@ export const settings = definePluginSettings({
     solidIcon: {
         type: OptionType.BOOLEAN,
         default: false,
-        description: "استخدام خلفية صلبة خلف الصورة"
+        description: t("استخدام خلفية صلبة خلف الصورة", "Use a solid background behind the image")
     },
     folderIcons: {
         type: OptionType.COMPONENT,
         hidden: true,
-        description: "إعدادات أيقونة المجلد",
+        description: t("إعدادات أيقونة المجلد", "Folder icon settings"),
         component: () => <></>
     }
 });

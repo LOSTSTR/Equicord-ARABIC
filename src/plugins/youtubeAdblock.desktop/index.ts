@@ -5,12 +5,13 @@
  */
 
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 // The entire code of this plugin can be found in native.ts
 export default definePlugin({
     name: "YoutubeAdblock",
-    description: "يحجب الإعلانات في مقاطع YouTube المضمّنة وفي نشاط WatchTogether عبر AdGuard",
+    get description() { return t("يحجب الإعلانات في مقاطع YouTube المضمّنة وفي نشاط WatchTogether عبر AdGuard", "Blocks ads in embedded YouTube videos and WatchTogether activity via AdGuard"); },
     tags: ["Media", "Utility"],
     authors: [Devs.ImLvna, Devs.Ven],
 });

@@ -10,6 +10,7 @@ import { findGroupChildrenByChildId, NavContextMenuPatchCallback } from "@api/Co
 import ErrorBoundary from "@components/ErrorBoundary";
 import { OpenExternalIcon } from "@components/Icons";
 import { Devs, EquicordDevs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import { classNameFactory } from "@utils/css";
 import definePlugin from "@utils/types";
 import { findByPropsLazy } from "@webpack";
@@ -249,7 +250,7 @@ const channelAttachMenuPatch: NavContextMenuPatchCallback = (children, props) =>
 
 export default definePlugin({
     name: "FileUpload",
-    description: "يرفع الصور والفيديوهات إلى خدمات استضافة الملفات مثل Zipline وNest",
+    get description() { return t("يرفع الصور والفيديوهات إلى خدمات استضافة الملفات مثل Zipline وNest", "Uploads images and videos to file hosting services like Zipline and Nest"); }
     tags: ["Media"],
     authors: [EquicordDevs.creations, EquicordDevs.keircn, Devs.ScattrdBlade],
     settings,

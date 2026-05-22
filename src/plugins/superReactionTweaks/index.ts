@@ -6,23 +6,24 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { OverridePremiumTypeStore } from "@webpack/common";
 
 export const settings = definePluginSettings({
     superReactByDefault: {
         type: OptionType.BOOLEAN,
-        description: "يجعل منتقي التفاعلات يختار التفاعلات الفائقة افتراضياً",
+        description: t("يجعل منتقي التفاعلات يختار التفاعلات الفائقة افتراضياً", "Makes the reaction picker default to super reactions"),
         default: true,
     },
     unlimitedSuperReactionPlaying: {
         type: OptionType.BOOLEAN,
-        description: "إزالة الحد من تشغيل التفاعلات الفائقة في آنٍ واحد",
+        description: t("إزالة الحد من تشغيل التفاعلات الفائقة في آنٍ واحد", "Remove the limit on playing super reactions simultaneously"),
         default: false,
     },
 
     superReactionPlayingLimit: {
-        description: "الحد الأقصى للتفاعلات الفائقة المتزامنة. 0 لتعطيل التشغيل",
+        description: t("الحد الأقصى للتفاعلات الفائقة المتزامنة. 0 لتعطيل التشغيل", "Maximum number of concurrent super reactions. 0 to disable playback"),
         type: OptionType.SLIDER,
         default: 20,
         markers: [0, 5, 10, 20, 40, 60, 80, 100],
@@ -36,7 +37,7 @@ export const settings = definePluginSettings({
 
 export default definePlugin({
     name: "SuperReactionTweaks",
-    description: "يُتيح تخصيص ردود الفعل الكبيرة",
+    get description() { return t("يُتيح تخصيص ردود الفعل الكبيرة", "Allows customizing super reactions"); },
     tags: ["Reactions", "Emotes"],
     authors: [Devs.FieryFlames, Devs.ant0n],
     patches: [

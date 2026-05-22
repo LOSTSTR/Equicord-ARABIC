@@ -28,6 +28,7 @@ import { HeadingSecondary } from "@components/Heading";
 import { Paragraph } from "@components/Paragraph";
 import { Devs } from "@utils/constants";
 import { copyWithToast, fetchUserProfile } from "@utils/discord";
+import { t } from "@utils/esharqI18n";
 import { Margins } from "@utils/margins";
 import { classes } from "@utils/misc";
 import { useAwaiter } from "@utils/react";
@@ -78,7 +79,7 @@ function decode(bio: string): Array<number> | null {
 
 const settings = definePluginSettings({
     nitroFirst: {
-        description: "مصدر الألوان الافتراضي عند توفر كليهما",
+        description: t("مصدر الألوان الافتراضي عند توفر كليهما", "The default color source when both are available"),
         type: OptionType.SELECT,
         options: [
             { label: "Nitro colors", value: true, default: true },
@@ -199,7 +200,7 @@ function SettingsAboutComponent() {
 
 export default definePlugin({
     name: "FakeProfileThemes",
-    description: "يُخصّص ألوان الملف الشخصي باستخدام ترميز 3y3 غير المرئي",
+    get description() { return t("يُخصّص ألوان الملف الشخصي باستخدام ترميز 3y3 غير المرئي", "Customizes profile colors using invisible 3y3 encoding"); },
     tags: ["Appearance", "Customisation"],
     authors: [Devs.Alyxia, Devs.Remty],
     patches: [

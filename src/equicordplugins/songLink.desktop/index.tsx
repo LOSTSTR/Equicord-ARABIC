@@ -8,6 +8,7 @@ import { ApplicationCommandInputType, ApplicationCommandOptionType, findOption, 
 import { definePluginSettings } from "@api/Settings";
 import { Devs, EquicordDevs } from "@utils/constants";
 import { sendMessage } from "@utils/discord";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType, PluginNative } from "@utils/types";
 import { useEffect, useState } from "@webpack/common";
 
@@ -18,7 +19,7 @@ import SongLinker from "./SongLinker";
 export const settings = definePluginSettings({
     servicesSettings: {
         type: OptionType.CUSTOM,
-        description: "إعدادات الخدمات",
+        description: t("إعدادات الخدمات", "Services settings"),
         default: Object.fromEntries(Object.entries(Providers).map(([name, data]) => [name, {
             enabled: true,
             // @ts-ignore
@@ -27,12 +28,12 @@ export const settings = definePluginSettings({
     },
     userCountry: {
         type: OptionType.STRING,
-        description: "الدولة المستخدمة للبحث (رمز دولة مؤلف من حرفين)",
+        description: t("الدولة المستخدمة للبحث (رمز دولة مؤلف من حرفين)", "Country used for searching (two-letter country code)"),
         default: "US"
     },
     includeMetadata: {
         type: OptionType.BOOLEAN,
-        description: "تضمين عنوان المقطوعة واسم الفنان كعنوان رئيسي.",
+        description: t("تضمين عنوان المقطوعة واسم الفنان كعنوان رئيسي.", "Include track title and artist name as a header."),
         default: true,
     },
     servicesComponent: {
@@ -123,7 +124,7 @@ function SongLinkerList({ urls }: { urls: string[]; }) {
 
 export default definePlugin({
     name: "SongLink",
-    description: "يضيف أزرار خدمات البث أسفل روابط الأغاني",
+    get description() { return t("يضيف أزرار خدمات البث أسفل روابط الأغاني", "Adds streaming service buttons below song links"); },
     dependencies: ["MessageAccessoriesAPI"],
     tags: ["Media", "Utility"],
     authors: [Devs.nin0dev, EquicordDevs.NassCT],
@@ -155,12 +156,12 @@ export default definePlugin({
     commands: [
         {
             name: "musiclink",
-            description: "تحويل رابط موسيقى إلى منصات بث أخرى.",
+            description: t("تحويل رابط موسيقى إلى منصات بث أخرى.", "Convert a music link to other streaming platforms."),
             inputType: ApplicationCommandInputType.BUILT_IN,
             options: [
                 {
                     name: "url",
-                    description: "رابط موسيقى (Spotify, Deezer, YouTube, Tidal, Apple Music, SoundCloud)",
+                    description: t("رابط موسيقى (Spotify, Deezer, YouTube, Tidal, Apple Music, SoundCloud)", "Music link (Spotify, Deezer, YouTube, Tidal, Apple Music, SoundCloud)"),
                     type: ApplicationCommandOptionType.STRING,
                     required: true,
                 },

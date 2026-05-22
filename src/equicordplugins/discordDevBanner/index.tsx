@@ -7,13 +7,14 @@
 import "./styles.css";
 
 import { Devs, EquicordDevs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 import { makeDevBanner, settings } from "./components";
 
 export default definePlugin({
     name: "DiscordDevBanner",
-    description: "يُفعّل شريط معلومات المطوّر في Discord لعرض معرّف الإصدار",
+    get description() { return t("يُفعّل شريط معلومات المطوّر في Discord لعرض معرّف الإصدار", "Enables the Discord developer info banner to display the build ID"); },
     tags: ["Appearance", "Console", "Developers"],
     authors: [EquicordDevs.KrystalSkull, Devs.thororen],
     settings,

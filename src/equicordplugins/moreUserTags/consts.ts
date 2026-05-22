@@ -7,6 +7,7 @@
 import { Channel, Guild, Message, RC, User } from "@vencord/discord-types";
 import { findByCodeLazy, findLazy } from "@webpack";
 import { GuildStore } from "@webpack/common";
+import { t } from "@utils/esharqI18n";
 
 import { settings } from "./settings";
 import type { ITag } from "./types";
@@ -20,37 +21,37 @@ export const tags = [
     {
         name: "WEBHOOK",
         displayName: "Webhook",
-        description: "الرسائل المرسلة عبر Webhooks",
+        description: t("الرسائل المرسلة عبر Webhooks", "Messages sent via Webhooks"),
         condition: isWebhook
     }, {
         name: "OWNER",
         displayName: "Owner",
-        description: "يمتلك السيرفر",
+        description: t("يمتلك السيرفر", "Owns the server"),
         condition: (_, user, channel) => GuildStore.getGuild(channel?.guild_id)?.ownerId === user.id
     }, {
         name: "ADMINISTRATOR",
         displayName: "Admin",
-        description: "لديه صلاحية المسؤول",
+        description: t("لديه صلاحية المسؤول", "Has administrator permission"),
         permissions: ["ADMINISTRATOR"]
     }, {
         name: "MODERATOR_STAFF",
         displayName: "Staff",
-        description: "يمكنه إدارة السيرفر أو القنوات أو الرتب",
+        description: t("يمكنه إدارة السيرفر أو القنوات أو الرتب", "Can manage server, channels, or roles"),
         permissions: ["MANAGE_GUILD", "MANAGE_CHANNELS", "MANAGE_ROLES"]
     }, {
         name: "MODERATOR",
         displayName: "Mod",
-        description: "يمكنه إدارة الرسائل أو طرد/حظر الأعضاء",
+        description: t("يمكنه إدارة الرسائل أو طرد/حظر الأعضاء", "Can manage messages or kick/ban members"),
         permissions: ["MANAGE_MESSAGES", "KICK_MEMBERS", "BAN_MEMBERS"]
     }, {
         name: "VOICE_MODERATOR",
         displayName: "VC Mod",
-        description: "يمكنه إدارة المحادثات الصوتية",
+        description: t("يمكنه إدارة المحادثات الصوتية", "Can manage voice channels"),
         permissions: ["MOVE_MEMBERS", "MUTE_MEMBERS", "DEAFEN_MEMBERS"]
     }, {
         name: "CHAT_MODERATOR",
         displayName: "Chat Mod",
-        description: "يمكنه تطبيق عقوبة المهلة على الأعضاء",
+        description: t("يمكنه تطبيق عقوبة المهلة على الأعضاء", "Can timeout members"),
         permissions: ["MODERATE_MEMBERS"]
     }
 ] as const satisfies ITag[];

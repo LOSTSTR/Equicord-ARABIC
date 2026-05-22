@@ -9,6 +9,7 @@ import "./styles.css";
 import { createAudioPlayer } from "@api/AudioPlayer";
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { createRoot, FluxDispatcher, useCallback, useEffect, useState } from "@webpack/common";
 import { Root } from "react-dom/client";
@@ -18,17 +19,17 @@ let jumpscareRoot: Root | undefined;
 const settings = definePluginSettings({
     imageSource: {
         type: OptionType.STRING,
-        description: "رابط صورة المفاجأة المرعبة",
+        description: t("رابط صورة المفاجأة المرعبة", "Jumpscare image URL"),
         default: "https://github.com/Equicord/Equibored/blob/main/icons/jumpscare/troll.gif?raw=true"
     },
     audioSource: {
         type: OptionType.STRING,
-        description: "رابط صوت المفاجأة المرعبة",
+        description: t("رابط صوت المفاجأة المرعبة", "Jumpscare audio URL"),
         default: "https://github.com/Equicord/Equibored/raw/main/sounds/jumpscare/trollolol.mp3?raw=true"
     },
     chance: {
         type: OptionType.NUMBER,
-        description: "احتمالية حدوث المفاجأة المرعبة (1 من X، مثال: 100 = 1/100 أي 1%، 50 = 1/50 أي 2%، إلخ)",
+        description: t("احتمالية حدوث المفاجأة المرعبة (1 من X، مثال: 100 = 1/100 أي 1%، 50 = 1/50 أي 2%، إلخ)", "Jumpscare chance (1 in X, example: 100 = 1/100 i.e. 1%, 50 = 1/50 i.e. 2%, etc)"),
         default: 1000
     }
 });
@@ -47,7 +48,7 @@ function getJumpscareRoot(): Root {
 
 export default definePlugin({
     name: "Jumpscare",
-    description: "يضيف احتمالية قابلة للإعداد لإخافتك في كل مرة تفتح فيها قناة. مستوحى من Geometry Dash Mega Hack",
+    get description() { return t("يضيف احتمالية قابلة للإعداد لإخافتك في كل مرة تفتح فيها قناة. مستوحى من Geometry Dash Mega Hack", "Adds a configurable chance to jumpscare you every time you open a channel. Inspired by Geometry Dash Mega Hack"); },
     tags: ["Fun"],
     authors: [Devs.surgedevs],
     dependencies: ["AudioPlayerAPI"],

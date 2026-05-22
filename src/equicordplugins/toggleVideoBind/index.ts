@@ -6,6 +6,7 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { EquicordDevs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { findByPropsLazy } from "@webpack";
 import { FluxDispatcher } from "@webpack/common";
@@ -22,23 +23,23 @@ const validKeycodes = [
 
 const settings = definePluginSettings({
     keyBind: {
-        description: "المفتاح لتبديل الكاميرا عند الضغط عليه.",
+        description: t("المفتاح لتبديل الكاميرا عند الضغط عليه.", "Key to toggle camera when pressed."),
         type: OptionType.STRING,
         default: "KeyX",
         isValid: (value: string) => validKeycodes.includes(value),
     },
     reqCtrl: {
-        description: "يتطلب الضغط على مفتاح Ctrl.",
+        description: t("يتطلب الضغط على مفتاح Ctrl.", "Requires Ctrl key to be held."),
         type: OptionType.BOOLEAN,
         default: true,
     },
     reqShift: {
-        description: "يتطلب الضغط على مفتاح Shift.",
+        description: t("يتطلب الضغط على مفتاح Shift.", "Requires Shift key to be held."),
         type: OptionType.BOOLEAN,
         default: true,
     },
     reqAlt: {
-        description: "يتطلب الضغط على مفتاح Alt.",
+        description: t("يتطلب الضغط على مفتاح Alt.", "Requires Alt key to be held."),
         type: OptionType.BOOLEAN,
         default: false,
     },
@@ -58,7 +59,7 @@ function handleKeydown({ code, ctrlKey, shiftKey, altKey }: KeyboardEvent) {
 
 export default definePlugin({
     name: "ToggleVideoBind",
-    description: "يضيف اختصاراً قابلاً للتخصيص لتبديل تشغيل الكاميرا.",
+    get description() { return t("يضيف اختصاراً قابلاً للتخصيص لتبديل تشغيل الكاميرا.", "Adds a customizable shortcut to toggle the camera."); },
     tags: ["Utility", "Voice"],
     authors: [EquicordDevs.mochienya],
     settings,

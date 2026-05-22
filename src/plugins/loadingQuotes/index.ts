@@ -18,6 +18,7 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import { Logger } from "@utils/Logger";
 import definePlugin, { OptionType } from "@utils/types";
 import presetQuotesText from "file://quotes.txt";
@@ -27,28 +28,28 @@ const noQuotesQuote = "Did you really disable all loading quotes? What a buffoon
 
 const settings = definePluginSettings({
     replaceEvents: {
-        description: "تطبيق الإضافة أيضاً خلال الفعاليات ذات الاقتباسات الخاصة (مثل الهالوين)",
+        description: t("تطبيق الإضافة أيضاً خلال الفعاليات ذات الاقتباسات الخاصة (مثل الهالوين)", "Also apply the plugin during events with special quotes (such as Halloween)"),
         type: OptionType.BOOLEAN,
         default: true
     },
     enablePluginPresetQuotes: {
-        description: "تفعيل الاقتباسات المحددة مسبقاً بواسطة هذه الإضافة",
+        description: t("تفعيل الاقتباسات المحددة مسبقاً بواسطة هذه الإضافة", "Enable the preset quotes provided by this plugin"),
         type: OptionType.BOOLEAN,
         default: true
     },
     enableDiscordPresetQuotes: {
-        description: "تفعيل اقتباسات Discord المحددة مسبقاً (بما في ذلك اقتباسات الفعاليات)",
+        description: t("تفعيل اقتباسات Discord المحددة مسبقاً (بما في ذلك اقتباسات الفعاليات)", "Enable Discord's preset quotes (including event quotes)"),
         type: OptionType.BOOLEAN,
         default: false
     },
     additionalQuotes: {
-        description: "اقتباسات مخصصة إضافية قد تظهر، مفصولة بالمحدد أدناه",
+        description: t("اقتباسات مخصصة إضافية قد تظهر، مفصولة بالمحدد أدناه", "Additional custom quotes that may appear, separated by the delimiter below"),
         type: OptionType.STRING,
         default: "",
         multiline: true
     },
     additionalQuotesDelimiter: {
-        description: "محدد الاقتباسات الإضافية",
+        description: t("محدد الاقتباسات الإضافية", "Delimiter for additional quotes"),
         type: OptionType.STRING,
         default: "|",
     },
@@ -56,7 +57,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "LoadingQuotes",
-    description: "يُغيّر اقتباسات شاشة التحميل",
+    get description() { return t("يُغيّر اقتباسات شاشة التحميل", "Changes the loading screen quotes"); },
     tags: ["Appearance", "Fun", "Customisation"],
     authors: [Devs.Ven, Devs.KraXen72, Devs.UlyssesZhan],
 

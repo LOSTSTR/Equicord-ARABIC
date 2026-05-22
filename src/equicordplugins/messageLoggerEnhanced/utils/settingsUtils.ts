@@ -17,6 +17,7 @@
 */
 
 import JSONParser from "@streamparser/json/jsonparser.js";
+import { t } from "@utils/esharqI18n";
 import { chooseFile as chooseFileWeb } from "@utils/web";
 import { Toasts } from "@webpack/common";
 import { showSaveFilePicker } from "native-file-system-adapter";
@@ -119,7 +120,7 @@ export async function exportLogs() {
             const handle = await showSaveFilePicker({
                 suggestedName: filename,
                 types: [{
-                    description: "ملف JSON",
+                    description: t("ملف JSON", "JSON file"),
                     accept: { "application/json": [".json"] },
                 }],
             });

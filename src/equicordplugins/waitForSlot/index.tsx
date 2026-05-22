@@ -9,6 +9,7 @@ import { NavContextMenuPatchCallback } from "@api/ContextMenu";
 import { popNotice, showNotice } from "@api/Notices";
 import { definePluginSettings } from "@api/Settings";
 import { Devs, EquicordDevs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import type { Channel } from "@vencord/discord-types";
 import { ChannelType } from "@vencord/discord-types/enums";
@@ -21,12 +22,12 @@ const NOTIFICATION_AUDIO_URL = "https://raw.githubusercontent.com/Equicord/Equib
 const settings = definePluginSettings({
     autoJoin: {
         type: OptionType.BOOLEAN,
-        description: "الانضمام للقناة فوراً عند توفر مقعد بدلاً من عرض إشعار",
+        description: t("الانضمام للقناة فوراً عند توفر مقعد بدلاً من عرض إشعار", "Automatically join the channel when a slot becomes available instead of showing a notification"),
         default: false,
     },
     notificationSound: {
         type: OptionType.BOOLEAN,
-        description: "تشغيل صوت عند توفر مقعد.",
+        description: t("تشغيل صوت عند توفر مقعد.", "Play a sound when a slot becomes available."),
         default: true,
     },
 });
@@ -63,7 +64,7 @@ function promptVoiceChannel(channel: Channel | null | undefined): boolean {
 
 export default definePlugin({
     name: "WaitForSlot",
-    description: "ينضم تلقائياً إلى قناة صوتية ممتلئة عند توفر مقعد.",
+    get description() { return t("ينضم تلقائياً إلى قناة صوتية ممتلئة عند توفر مقعد.", "Automatically joins a full voice channel when a slot becomes available."); },
     tags: ["Servers", "Utility", "Voice"],
     authors: [EquicordDevs.omaw, Devs.prism],
     settings,

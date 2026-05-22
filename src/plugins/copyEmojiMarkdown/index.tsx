@@ -7,6 +7,7 @@
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
 import { copyWithToast } from "@utils/discord";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { findByPropsLazy } from "@webpack";
 import { Menu } from "@webpack/common";
@@ -43,14 +44,14 @@ function getEmojiMarkdown(target: Target, copyUnicode: boolean): string {
 const settings = definePluginSettings({
     copyUnicode: {
         type: OptionType.BOOLEAN,
-        description: "ينسخ حرف الـ unicode الخام بدلًا من :name: للإيموجي الافتراضية (👽)",
+        description: t("ينسخ حرف الـ unicode الخام بدلًا من :name: للإيموجي الافتراضية (👽)", "Copies the raw unicode character instead of :name: for default emojis (👽)"),
         default: true,
     },
 });
 
 export default definePlugin({
     name: "CopyEmojiMarkdown",
-    description: "يُضيف خيار نسخ صيغة الإيموجي الخام",
+    get description() { return t("يُضيف خيار نسخ صيغة الإيموجي الخام", "Adds an option to copy emojis as raw markup"); },
     tags: ["Emotes", "Utility"],
     authors: [Devs.HappyEnderman, Devs.Vishnya],
     settings,

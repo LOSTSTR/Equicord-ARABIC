@@ -11,6 +11,7 @@ import { OpenExternalIcon } from "@components/Icons";
 import { Paragraph } from "@components/Paragraph";
 import { copyToClipboard } from "@utils/clipboard";
 import { classNameFactory } from "@utils/css";
+import { t } from "@utils/esharqI18n";
 import { OptionType } from "@utils/types";
 import { Button, Toasts } from "@webpack/common";
 
@@ -22,12 +23,12 @@ export const settings = definePluginSettings({
     hideWarningCard: {
         type: OptionType.BOOLEAN,
         default: false,
-        description: "يخفي بطاقة التحذير في أعلى تبويب مكتبة الثيمات",
+        description: t("يخفي بطاقة التحذير في أعلى تبويب مكتبة الثيمات", "Hides the warning card at the top of the theme library tab"),
         restartNeeded: false,
     },
     buttons: {
         type: OptionType.COMPONENT,
-        description: "أزرار مكتبة الثيمات",
+        description: t("أزرار مكتبة الثيمات", "Theme library buttons"),
         component: () => {
             const handleClick = async () => {
                 const token = await DataStore.get("ThemeLibrary_uniqueToken");

@@ -6,12 +6,13 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 
 const settings = definePluginSettings({
     notificationVolume: {
         type: OptionType.SLIDER,
-        description: "مستوى صوت الإشعارات",
+        description: t("مستوى صوت الإشعارات", "Notification volume"),
         markers: [0, 25, 50, 75, 100],
         default: 100,
         stickToMarkers: false
@@ -20,7 +21,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "NotificationVolume",
-    description: "يُتيح ضبط مستوى صوت الإشعارات بشكل مستقل",
+    get description() { return t("يُتيح ضبط مستوى صوت الإشعارات بشكل مستقل", "Allows adjusting notification volume independently"); },
     tags: ["Notifications", "Voice"],
     authors: [Devs.philipbry],
     settings,

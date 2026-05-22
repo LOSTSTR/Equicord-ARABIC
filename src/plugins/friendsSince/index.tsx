@@ -10,6 +10,7 @@ import { BaseText } from "@components/BaseText";
 import ErrorBoundary from "@components/ErrorBoundary";
 import { Devs } from "@utils/constants";
 import { getCurrentChannel } from "@utils/discord";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 import { findByCodeLazy, findByPropsLazy, findComponentByCodeLazy, findCssClassesLazy } from "@webpack";
 import { RelationshipStore } from "@webpack/common";
@@ -72,7 +73,7 @@ const FriendsSinceSection = ErrorBoundary.wrap(({ userId, isSideBar }: { userId:
 
 export default definePlugin({
     name: "FriendsSince",
-    description: "يعرض تاريخ صداقتك مع شخص ما في نافذة معلومات المستخدم",
+    get description() { return t("يعرض تاريخ صداقتك مع شخص ما في نافذة معلومات المستخدم", "Shows the date you became friends with someone in the user info panel"); },
     tags: ["Friends"],
     authors: [Devs.Elvyra, Devs.Antti],
     dependencies: ["ProfileSectionsAPI"],

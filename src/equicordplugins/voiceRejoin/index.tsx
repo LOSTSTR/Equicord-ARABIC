@@ -7,6 +7,7 @@
 import * as DataStore from "@api/DataStore";
 import { definePluginSettings } from "@api/Settings";
 import { EquicordDevs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import { Logger } from "@utils/Logger";
 import definePlugin, { makeRange, OptionType } from "@utils/types";
 import { VoiceState } from "@vencord/discord-types";
@@ -19,21 +20,21 @@ const logger = new Logger("VoiceRejoin");
 const settings = definePluginSettings({
     rejoinDelay: {
         type: OptionType.SLIDER,
-        description: "ضبط التأخير قبل إعادة الانضمام للقناة الصوتية",
+        description: t("ضبط التأخير قبل إعادة الانضمام للقناة الصوتية", "Set the delay before rejoining the voice channel"),
         markers: makeRange(1, 10, 1),
         default: 2,
         stickToMarkers: true,
     },
     rejoinTimeout: {
         type: OptionType.SLIDER,
-        description: "لا تحاول إعادة الانضمام بعد مرور هذا العدد من الثواني منذ انقطاع الاتصال.",
+        description: t("لا تحاول إعادة الانضمام بعد مرور هذا العدد من الثواني منذ انقطاع الاتصال.", "Don't try to rejoin after this many seconds since disconnecting."),
         markers: makeRange(5, 120, 5),
         default: 30,
         stickToMarkers: true,
     },
     preventReconnectIfCallEnded: {
         type: OptionType.SELECT,
-        description: "لا تعيد الاتصال إذا انتهت المكالمة أو كانت القناة الصوتية فارغة أو غير موجودة.",
+        description: t("لا تعيد الاتصال إذا انتهت المكالمة أو كانت القناة الصوتية فارغة أو غير موجودة.", "Don't reconnect if the call ended or the voice channel is empty or missing."),
         options: [
             { label: "None", value: "none", default: false },
             { label: "DMs only", value: "dms", default: false },
@@ -43,14 +44,14 @@ const settings = definePluginSettings({
     },
     applyOnlyToDms: {
         type: OptionType.BOOLEAN,
-        description: "التطبيق على الرسائل المباشرة فقط.",
+        description: t("التطبيق على الرسائل المباشرة فقط.", "Apply only to DMs."),
         default: false,
     }
 });
 
 export default definePlugin({
     name: "VoiceRejoin",
-    description: "يعيد الانضمام إلى مكالمات الرسائل المباشرة والسيرفرات تلقائياً عند إعادة تشغيل Discord.",
+    get description() { return t("يعيد الانضمام إلى مكالمات الرسائل المباشرة والسيرفرات تلقائياً عند إعادة تشغيل Discord.", "Automatically rejoins DM and server calls when Discord restarts."); },
     tags: ["Servers", "Utility", "Voice"],
     authors: [EquicordDevs.omaw, EquicordDevs.keircn],
     settings,

@@ -5,12 +5,13 @@
  */
 
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 import { OverridePremiumTypeStore } from "@webpack/common";
 
 export default definePlugin({
     name: "NoNitroUpsell",
-    description: "يزيل جميع نوافذ الترويج لنيترو بإيهام العميل بأنك مشترك فيه.",
+    get description() { return t("يزيل جميع نوافذ الترويج لنيترو بإيهام العميل بأنك مشترك فيه.", "Removes all Nitro upsell prompts by tricking the client into thinking you are subscribed."); },
     tags: ["Utility"],
     authors: [Devs.thororen],
     flux: {

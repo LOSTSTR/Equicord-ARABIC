@@ -14,6 +14,7 @@ import betterActivities from "@equicordplugins/betterActivities";
 import showMeYourName from "@plugins/showMeYourName";
 import { Devs, EquicordDevs } from "@utils/constants";
 import { classNameFactory } from "@utils/css";
+import { t } from "@utils/esharqI18n";
 import { classes } from "@utils/misc";
 import definePlugin, { OptionType } from "@utils/types";
 import { Activity, ApplicationStream, Channel, Message, OnlineStatus, User } from "@vencord/discord-types";
@@ -35,7 +36,7 @@ const ONE_HOUR_MS = 60 * 60 * 1000;
 const settings = definePluginSettings({
     hideMuted: {
         type: OptionType.BOOLEAN,
-        description: "إخفاء معاينات الرسائل والتواريخ للمحادثات والمجموعات المكتومة",
+        description: t("إخفاء معاينات الرسائل والتواريخ للمحادثات والمجموعات المكتومة", "Hide message previews and timestamps for muted conversations and groups"),
         default: false
     }
 });
@@ -239,7 +240,7 @@ function shouldShowActivity(lastMessage: Message | undefined, hasActivity: boole
 
 export default definePlugin({
     name: "MessagePeek",
-    description: "يُظهر معاينة آخر رسالة والطابع الزمني في قائمة الرسائل المباشرة.",
+    get description() { return t("يُظهر معاينة آخر رسالة والطابع الزمني في قائمة الرسائل المباشرة.", "Shows a preview of the last message and timestamp in the DM list."); },
     dependencies: ["MemberListDecoratorsAPI"],
     tags: ["Appearance", "Chat"],
     authors: [Devs.prism, EquicordDevs.justjxke],

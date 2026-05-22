@@ -9,6 +9,7 @@ import "./styles.css";
 import { migratePluginToSettings } from "@api/Settings";
 import { Devs, EquicordDevs } from "@utils/constants";
 import { classNameFactory } from "@utils/css";
+import { t } from "@utils/esharqI18n";
 import { getCurrentChannel, getIntlMessage } from "@utils/discord";
 import definePlugin from "@utils/types";
 import { Channel, Message, User } from "@vencord/discord-types";
@@ -36,7 +37,7 @@ migratePluginToSettings(true, "MoreUserTags", "NoAppsAllowed", "noAppsAllowed");
 
 export default definePlugin({
     name: "MoreUserTags",
-    description: "يضيف شارات للـ webhooks والأدوار الإدارية (مالك، مشرف، إلخ)",
+    get description() { return t("يضيف شارات للـ webhooks والأدوار الإدارية (مالك، مشرف، إلخ)", "Adds tags for webhooks and admin roles (owner, moderator, etc.)"); },
     dependencies: ["MemberListDecoratorsAPI", "MessageDecorationsAPI", "NicknameIconsAPI"],
     tags: ["Appearance", "Chat"],
     authors: [Devs.Cyn, Devs.TheSun, Devs.RyanCaoDev, Devs.LordElias, Devs.AutumnVN, EquicordDevs.Hen, EquicordDevs.meowabyte],

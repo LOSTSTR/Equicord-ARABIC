@@ -8,6 +8,7 @@ import { definePluginSettings } from "@api/Settings";
 import { managedStyleRootNode } from "@api/Styles";
 import { Devs } from "@utils/constants";
 import { createAndAppendStyle } from "@utils/css";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 
 let style: HTMLStyleElement;
@@ -15,13 +16,13 @@ let style: HTMLStyleElement;
 const settings = definePluginSettings({
     blurAmount: {
         type: OptionType.NUMBER,
-        description: "مقدار التعتيم (بالبكسل)",
+        description: t("مقدار التعتيم (بالبكسل)", "Blur amount (in pixels)"),
         default: 10,
         onChange: setCss
     },
     blurAllChannels: {
         type: OptionType.BOOLEAN,
-        description: "تعتيم المرفقات في جميع القنوات (وليس القنوات الحساسة فقط)",
+        description: t("تعتيم المرفقات في جميع القنوات (وليس القنوات الحساسة فقط)", "Blur attachments in all channels (not just NSFW channels)"),
         default: false
     },
 });
@@ -42,7 +43,7 @@ function setCss() {
 
 export default definePlugin({
     name: "BlurNSFW",
-    description: "يُعتّم الصور والمقاطع الحساسة تلقائياً",
+    get description() { return t("يُعتّم الصور والمقاطع الحساسة تلقائياً", "Automatically blurs NSFW images and videos"); },
     tags: ["Privacy", "Appearance"],
     authors: [Devs.Ven],
     isModified: true,

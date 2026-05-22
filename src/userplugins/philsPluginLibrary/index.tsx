@@ -19,11 +19,12 @@
 import { fakeD } from "@plugins/fakeDeafen";
 import { replacedUserPanelComponent } from "@plugins/philsPluginLibrary/patches";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "PhilsPluginLibrary",
-    description: "مكتبة لإضافات phil",
+    get description() { return t("مكتبة لإضافات phil", "A library for phil's plugins."); },
     authors: [Devs.viciouscal],
     patches: [
         {

@@ -18,11 +18,12 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { makeRange, OptionType } from "@utils/types";
 
 const settings = definePluginSettings({
     multiplier: {
-        description: "مضاعف الصوت",
+        description: t("مضاعف الصوت", "Volume multiplier"),
         type: OptionType.SLIDER,
         markers: makeRange(1, 5, 0.5),
         default: 2,
@@ -50,7 +51,7 @@ interface StreamData {
 export default definePlugin({
     name: "VolumeBooster",
     authors: [Devs.Nuckyz, Devs.sadan],
-    description: "يُتيح رفع مستوى الصوت فوق 200%",
+    get description() { return t("يُتيح رفع مستوى الصوت فوق 200%", "Allows raising the volume above 200%"); },
     tags: ["Voice", "Utility"],
     settings,
 

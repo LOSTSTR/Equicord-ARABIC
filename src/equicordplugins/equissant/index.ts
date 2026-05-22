@@ -7,6 +7,7 @@
 import { AudioPlayerInterface, createAudioPlayer } from "@api/AudioPlayer";
 import { definePluginSettings } from "@api/Settings";
 import { Devs, EquicordDevs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 
 let clickCount = 0;
@@ -25,14 +26,14 @@ function play() {
 const settings = definePluginSettings({
     amount: {
         type: OptionType.NUMBER,
-        description: "عدد النقرات اللازمة لتشغيل الصوت",
+        get description() { return t("عدد النقرات اللازمة لتشغيل الصوت", "Number of clicks required to trigger the sound"); },
         default: 10,
     }
 });
 
 export default definePlugin({
     name: "Equissant",
-    description: "يُشغّل صوت الكرواسون عند كل عدد محدد من النقرات :trolley:",
+    get description() { return t("يُشغّل صوت الكرواسون عند كل عدد محدد من النقرات :trolley:", "Plays a croissant sound every N clicks :trolley:"); }
     tags: ["Fun"],
     authors: [EquicordDevs.SomeAspy, Devs.thororen],
     dependencies: ["AudioPlayerAPI"],

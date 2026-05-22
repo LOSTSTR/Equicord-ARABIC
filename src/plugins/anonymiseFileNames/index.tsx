@@ -21,6 +21,7 @@ import { definePluginSettings, Settings } from "@api/Settings";
 import ErrorBoundary from "@components/ErrorBoundary";
 import { reverseExtensionMap } from "@equicordplugins/fixFileExtensions";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { CloudUpload } from "@vencord/discord-types";
 import { findByCodeLazy } from "@webpack";
@@ -39,17 +40,17 @@ export const tarExtMatcher = /\.tar\.\w+$/;
 
 const settings = definePluginSettings({
     anonymiseByDefault: {
-        description: "إخفاء هوية أسماء الملفات تلقائياً افتراضياً",
+        description: t("إخفاء هوية أسماء الملفات تلقائياً افتراضياً", "Anonymise file names by default"),
         type: OptionType.BOOLEAN,
         default: true,
     },
     spoilerMessages: {
-        description: "إضافة بادئة السبويلر للرسائل",
+        description: t("إضافة بادئة السبويلر للرسائل", "Prepend spoiler to messages"),
         type: OptionType.BOOLEAN,
         default: false,
     },
     method: {
-        description: "طريقة إخفاء الهوية",
+        description: t("طريقة إخفاء الهوية", "Anonymisation method"),
         type: OptionType.SELECT,
         options: [
             { label: "Random Characters", value: Methods.Random, default: true },
@@ -58,12 +59,12 @@ const settings = definePluginSettings({
         ],
     },
     randomisedLength: {
-        description: "طول الأحرف العشوائية",
+        description: t("طول الأحرف العشوائية", "Length of random characters"),
         type: OptionType.NUMBER,
         default: 7
     },
     consistent: {
-        description: "اسم الملف الثابت",
+        description: t("اسم الملف الثابت", "Consistent file name"),
         type: OptionType.STRING,
         default: "image"
     },
@@ -79,7 +80,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "AnonymiseFileNames",
     authors: [Devs.fawn],
-    description: "يُعيّن أسماء عشوائية للملفات قبل رفعها",
+    get description() { return t("يُعيّن أسماء عشوائية للملفات قبل رفعها", "Anonymises file names before uploading"); },
     dependencies: ["CommandsAPI"],
     tags: ["Privacy", "Utility"],
     isModified: true,
@@ -160,12 +161,12 @@ export default definePlugin({
     commands: [
         {
             name: "Spoiler",
-            description: "تبديل الحذف التشويقي",
+            description: t("تبديل الحذف التشويقي", "Toggle spoiler"),
             inputType: ApplicationCommandInputType.BUILT_IN,
             options: [
                 {
                     name: "value",
-                    description: "تبديل الحذف التشويقي (الافتراضي هو التبديل)",
+                    description: t("تبديل الحذف التشويقي (الافتراضي هو التبديل)", "Toggle spoiler (default is toggle)"),
                     required: false,
                     type: ApplicationCommandOptionType.BOOLEAN,
                 },

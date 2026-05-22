@@ -19,6 +19,7 @@
 import { definePluginSettings } from "@api/Settings";
 import { disableStyle, enableStyle } from "@api/Styles";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { Message } from "@vencord/discord-types";
 import { findByPropsLazy } from "@webpack";
@@ -68,19 +69,19 @@ function findReplies(message: Message) {
 const settings = definePluginSettings({
     includePings: {
         type: OptionType.BOOLEAN,
-        description: "يبحث أيضاً في الرسائل التي تذكر الكاتب مباشرةً بـ @",
+        get description() { return t("يبحث أيضاً في الرسائل التي تذكر الكاتب مباشرةً بـ @", "Also searches messages that mention the author directly with @"); },
         default: false,
         restartNeeded: false
     },
     includeAuthor: {
         type: OptionType.BOOLEAN,
-        description: "يبحث أيضاً في الرسائل التي ترد على الكاتب بشكل عام، لا على تلك الرسالة بالتحديد",
+        get description() { return t("يبحث أيضاً في الرسائل التي ترد على الكاتب بشكل عام، لا على تلك الرسالة بالتحديد", "Also searches messages that reply to the author in general, not just to that specific message"); },
         default: false,
         restartNeeded: false
     },
     hideButtonIfNoReply: {
         type: OptionType.BOOLEAN,
-        description: "إخفاء الزر إذا لم تكن هناك ردود على الرسالة",
+        get description() { return t("إخفاء الزر إذا لم تكن هناك ردود على الرسالة", "Hide the button if there are no replies to the message"); },
         default: true,
         restartNeeded: true
     }
@@ -88,7 +89,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "FindReply",
-    description: "ينتقل إلى أقدم رد على رسالة في قناة (يتيح لك متابعة المحادثات القديمة بسهولة).",
+    get description() { return t("ينتقل إلى أقدم رد على رسالة في قناة (يتيح لك متابعة المحادثات القديمة بسهولة).", "Jumps to the earliest reply to a message in a channel (lets you follow old conversations easily)."); }
     dependencies: ["MessagePopoverAPI"],
     tags: ["Chat", "Shortcuts"],
     authors: [Devs.newwares],

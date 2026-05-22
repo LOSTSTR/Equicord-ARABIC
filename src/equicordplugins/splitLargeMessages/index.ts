@@ -8,6 +8,7 @@ import { MessageSendListener } from "@api/MessageEvents";
 import { definePluginSettings } from "@api/Settings";
 import { EquicordDevs } from "@utils/constants";
 import { getCurrentChannel, sendMessage } from "@utils/discord";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { ChannelStore, ComponentDispatch, PermissionsBits, UserStore } from "@webpack/common";
 
@@ -76,7 +77,7 @@ const listener: MessageSendListener = async (channelId, msg) => {
 const settings = definePluginSettings({
     maxLength: {
         type: OptionType.NUMBER,
-        description: "الحد الأقصى لطول الرسالة قبل التقسيم. اضبطه على 0 للكشف التلقائي.",
+        description: t("الحد الأقصى لطول الرسالة قبل التقسيم. اضبطه على 0 للكشف التلقائي.", "Maximum message length before splitting. Set to 0 for auto-detection."),
         default: 0,
         max: 4000,
         onChange(newValue) {
@@ -86,27 +87,27 @@ const settings = definePluginSettings({
     },
     disableFileConversion: {
         type: OptionType.BOOLEAN,
-        description: "عند التفعيل، يعطّل تحويل الملفات للرسائل الطويلة.",
+        description: t("عند التفعيل، يعطّل تحويل الملفات للرسائل الطويلة.", "When enabled, disables file conversion for long messages."),
         default: true,
     },
     sendDelay: {
         type: OptionType.SLIDER,
-        description: "التأخير بين كل جزء بالثواني.",
+        description: t("التأخير بين كل جزء بالثواني.", "Delay between each chunk in seconds."),
         default: 1,
         markers: [1, 2, 3, 5, 10],
     },
     hardSplit: {
         type: OptionType.BOOLEAN,
-        description: "عند التفعيل، يقسم عند آخر حرف بدلاً من آخر مسافة/سطر جديد.",
+        description: t("عند التفعيل، يقسم عند آخر حرف بدلاً من آخر مسافة/سطر جديد.", "When enabled, splits at the last character instead of the last space/newline."),
         default: false,
     },
     splitInSlowmode: {
         type: OptionType.BOOLEAN,
-        description: "هل يجب تقسيم الرسائل إذا كان الوضع البطيء مفعّلاً في القناة؟",
+        description: t("هل يجب تقسيم الرسائل إذا كان الوضع البطيء مفعّلاً في القناة؟", "Should messages be split if the channel has slow mode enabled?"),
     },
     slowmodeMax: {
         type: OptionType.NUMBER,
-        description: "الحد الأقصى لوقت الوضع البطيء عند التقسيم فيه.",
+        description: t("الحد الأقصى لوقت الوضع البطيء عند التقسيم فيه.", "Maximum slowmode duration when splitting in it."),
         default: 5,
         min: 1,
         max: 30,
@@ -115,7 +116,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "SplitLargeMessages",
-    description: "يقسّم الرسائل الطويلة لأجزاء متعددة لتناسب حد رسائل ديسكورد.",
+    get description() { return t("يقسّم الرسائل الطويلة لأجزاء متعددة لتناسب حد رسائل ديسكورد.", "Splits long messages into multiple parts to fit Discord's message limit."); },
     dependencies: ["MessageEventsAPI"],
     tags: ["Appearance", "Customisation", "Chat"],
     authors: [EquicordDevs.Reycko],

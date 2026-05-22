@@ -12,6 +12,7 @@ import { Divider } from "@components/Divider";
 import { Heading } from "@components/Heading";
 import { Devs, EquicordDevs } from "@utils/constants";
 import { classNameFactory } from "@utils/css";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { ColorPicker } from "@webpack/common";
 
@@ -81,7 +82,7 @@ function OnekoColorSettings() {
 
 const settings = definePluginSettings({
     buddy: {
-        description: "اختر شخصية مؤشر الفأرة",
+        description: t("اختر شخصية مؤشر الفأرة", "Choose your cursor buddy character"),
         type: OptionType.SELECT,
         options: [
             {
@@ -90,21 +91,21 @@ const settings = definePluginSettings({
                 default: true
             },
             {
-                label: "Fatass Horse",
+                label: t("حصان سمين", "Fatass Horse"),
                 value: "fathorse"
             }
         ],
         onChange: load,
     },
     speed: {
-        description: "سرعة الشخصية",
+        description: t("سرعة الشخصية", "Character speed"),
         type: OptionType.NUMBER,
         default: 10,
         isValid: (value: number) => value >= 0 || "Speed must be bigger than 0",
         onChange: load,
     },
     fps: {
-        description: "معدل إطارات الشخصية",
+        description: t("معدل إطارات الشخصية", "Character framerate"),
         type: OptionType.NUMBER,
         default: 24,
         isValid: (value: number) => value > 0 || "Framerate must be bigger than 0",
@@ -125,14 +126,14 @@ const settings = definePluginSettings({
         component: OnekoColorSettings,
     },
     furColor: {
-        description: "لون الفراء بصيغة hex لـ Oneko",
+        description: t("لون الفراء بصيغة hex لـ Oneko", "Oneko fur color in hex"),
         type: OptionType.STRING,
         default: "#FFFFFF",
         onChange: load,
         hidden: true,
     },
     outlineColor: {
-        description: "لون الحدود بصيغة hex لـ Oneko",
+        description: t("لون الحدود بصيغة hex لـ Oneko", "Oneko outline color in hex"),
         type: OptionType.STRING,
         default: "#000000",
         onChange: load,
@@ -149,26 +150,26 @@ const settings = definePluginSettings({
         ),
     },
     size: {
-        description: "حجم الحصان",
+        description: t("حجم الحصان", "Horse size"),
         type: OptionType.NUMBER,
         default: 120,
         isValid: (value: number) => value > 0 || "Size must be bigger than 0",
         onChange: load
     },
     fade: {
-        description: "تلاشي الحصان عند اقتراب المؤشر منه",
+        description: t("تلاشي الحصان عند اقتراب المؤشر منه", "Fade the horse when cursor is nearby"),
         type: OptionType.BOOLEAN,
         default: true,
         onChange: load
     },
     freeroam: {
-        description: "تجوال الحصان بحرية عند التوقف",
+        description: t("تجوال الحصان بحرية عند التوقف", "Horse roams freely when idle"),
         type: OptionType.BOOLEAN,
         default: true,
         onChange: load
     },
     shake: {
-        description: "اهتزاز النافذة أثناء مشي الحصان",
+        description: t("اهتزاز النافذة أثناء مشي الحصان", "Shake the window while the horse walks"),
         type: OptionType.BOOLEAN,
         default: false,
         onChange: load,
@@ -234,7 +235,7 @@ function load() {
 migratePluginSettings("CursorBuddy", "Oneko", "oneko");
 export default definePlugin({
     name: "CursorBuddy",
-    description: "يضيف شخصية متحركة تتبع مؤشر الفأرة",
+    get description() { return t("يضيف شخصية متحركة تتبع مؤشر الفأرة", "Adds an animated character that follows your cursor"); },
     tags: ["Appearance", "Customisation", "Fun"],
     authors: [Devs.Ven, Devs.adryd, EquicordDevs.nexpid, EquicordDevs.ZcraftElite],
     searchTerms: ["Oneko", "FatassHorse", "Pet"],

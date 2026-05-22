@@ -17,12 +17,13 @@
 */
 
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "BetterUploadButton",
     authors: [Devs.fawn, Devs.Ven],
-    description: "رفع ملف بنقرة واحدة، وفتح القائمة بنقرة اليمين",
+    get description() { return t("رفع ملف بنقرة واحدة، وفتح القائمة بنقرة اليمين", "Upload a file with one click, open the menu with right click"); },
     tags: ["Utility", "Shortcuts"],
     patches: [
         {

@@ -6,57 +6,58 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { EquicordDevs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { SelectedChannelStore, UserStore } from "@webpack/common";
 
 const settings = definePluginSettings({
     volume: {
         type: OptionType.SLIDER,
-        description: "مستوى صوت الـ Animalese",
+        description: t("مستوى صوت الـ Animalese", "Animalese Volume"),
         default: 0.5,
         markers: [0, 0.1, 0.25, 0.5, 0.6, 0.75, 1],
     },
     speed: {
         type: OptionType.SLIDER,
-        description: "سرعة صوت الـ Animalese",
+        description: t("سرعة صوت الـ Animalese", "Animalese Speed"),
         default: 1,
         markers: [0.5, 0.75, 1, 1.25, 1.5],
     },
     pitch: {
         type: OptionType.SLIDER,
-        description: "مضاعف درجة الصوت",
+        description: t("مضاعف درجة الصوت", "Pitch Multiplier"),
         default: 1,
         markers: [0.75, 0.8, 0.85, 1, 1.15, 1.25, 1.35, 1.5],
     },
     messageLengthLimit: {
         type: OptionType.NUMBER,
-        description: "الحد الأقصى لطول الرسالة المراد معالجتها",
+        description: t("الحد الأقصى لطول الرسالة المراد معالجتها", "Maximum message length to process"),
         default: 50,
     },
     processOwnMessages: {
         type: OptionType.BOOLEAN,
-        description: "تفعيل لتشغيل الصوت على رسائلك الخاصة أيضاً",
+        description: t("تفعيل لتشغيل الصوت على رسائلك الخاصة أيضاً", "Enable to play sound for your own messages too"),
         default: true,
     },
     soundQuality: {
         type: OptionType.SELECT,
-        description: "جودة الصوت المستخدم",
+        description: t("جودة الصوت المستخدم", "Sound quality to use"),
         options: [
             {
-                label: "High",
+                label: t("عالية", "High"),
                 value: "high",
                 default: true
             },
             {
-                label: "Medium",
+                label: t("متوسطة", "Medium"),
                 value: "med"
             },
             {
-                label: "Low",
+                label: t("منخفضة", "Low"),
                 value: "low"
             },
             {
-                label: "Lowest",
+                label: t("منخفضة جداً", "Lowest"),
                 value: "low"
             }
         ]
@@ -192,7 +193,7 @@ async function playSound(buffer: AudioBuffer, volume: number) {
 
 export default definePlugin({
     name: "Animalese",
-    description: "يشغّل صوت Animalese من Animal Crossing لكل رسالة مرسلة",
+    get description() { return t("يشغّل صوت Animalese من Animal Crossing لكل رسالة مرسلة", "Plays Animalese sounds from Animal Crossing for each sent message"); },
     tags: ["Customisation", "Fun"],
     authors: [EquicordDevs.ryanamay, EquicordDevs.Mocha],
     settings,

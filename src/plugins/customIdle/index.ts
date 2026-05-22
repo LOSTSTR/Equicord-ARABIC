@@ -7,12 +7,13 @@
 import { currentNotice, noticesQueue, popNotice, showNotice } from "@api/Notices";
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { makeRange, OptionType } from "@utils/types";
 import { FluxDispatcher } from "@webpack/common";
 
 const settings = definePluginSettings({
     idleTimeout: {
-        description: "الدقائق قبل أن يتحول Discord إلى وضع الخمول (0 لتعطيل الخمول التلقائي)",
+        description: t("الدقائق قبل أن يتحول Discord إلى وضع الخمول (0 لتعطيل الخمول التلقائي)", "Minutes before Discord goes idle (0 to disable auto-idle)"),
         type: OptionType.SLIDER,
         markers: makeRange(0, 60, 5),
         default: 10,
@@ -20,7 +21,7 @@ const settings = definePluginSettings({
         restartNeeded: true // Because of the setInterval patch
     },
     remainInIdle: {
-        description: "عند العودة إلى Discord، ابقَ في وضع الخمول حتى تؤكد رغبتك في الظهور متصلاً",
+        description: t("عند العودة إلى Discord، ابقَ في وضع الخمول حتى تؤكد رغبتك في الظهور متصلاً", "When returning to Discord, remain idle until you confirm you want to appear online"),
         type: OptionType.BOOLEAN,
         default: true
     }
@@ -28,7 +29,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "CustomIdle",
-    description: "يُتيح ضبط مهلة مخصصة لتغيير الحالة إلى غير نشط",
+    get description() { return t("يُتيح ضبط مهلة مخصصة لتغيير الحالة إلى غير نشط", "Allows setting a custom timeout before changing status to idle"); },
     tags: ["Activity", "Customisation"],
     authors: [Devs.newwares],
     settings,

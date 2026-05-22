@@ -9,6 +9,7 @@ import "./styles.css";
 import { MagnifyingGlassIcon } from "@components/Icons";
 import SettingsPlugin from "@plugins/_core/settings";
 import { EquicordDevs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import { removeFromArray } from "@utils/misc";
 import definePlugin, { StartAt } from "@utils/types";
 import { SettingsRouter } from "@webpack/common";
@@ -18,7 +19,7 @@ import { SettingsAbout } from "./components/Modals";
 
 export default definePlugin({
     name: "IconViewer",
-    description: "يضيف تبويباً جديداً في الإعدادات لمعاينة جميع الأيقونات",
+    get description() { return t("يضيف تبويباً جديداً في الإعدادات لمعاينة جميع الأيقونات", "Adds a new tab in settings to preview all icons"); },
     tags: ["Developers"],
     authors: [EquicordDevs.iamme],
     dependencies: ["Settings", "ConcatenatedModules"],

@@ -18,12 +18,13 @@
 
 import { migratePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 migratePluginSettings("IloveSpam", "iLoveSpam");
 export default definePlugin({
     name: "ILoveSpam",
-    description: "لا يُخفي رسائل المستخدمين المشتبه بهم كمرسلي سبام",
+    get description() { return t("لا يُخفي رسائل المستخدمين المشتبه بهم كمرسلي سبام", "Does not hide messages from users suspected of being spammers"); },
     tags: ["Utility", "Chat"],
     authors: [Devs.botato, Devs.Nyako],
     patches: [

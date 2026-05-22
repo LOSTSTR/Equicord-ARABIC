@@ -9,6 +9,7 @@ import "./styles.css";
 import { definePluginSettings } from "@api/Settings";
 import { EquicordDevs } from "@utils/constants";
 import { classNameFactory } from "@utils/css";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { ColorUtils, React, showToast, Toasts } from "@webpack/common";
 
@@ -240,46 +241,46 @@ function Visualizer({ playerRef, src }: { playerRef: React.RefObject<HTMLAudioEl
 const settings = definePluginSettings({
     oscilloscope: {
         type: OptionType.BOOLEAN,
-        description: "تفعيل عارض الأوسيلوسكوب.",
+        description: t("تفعيل عارض الأوسيلوسكوب.", "Enable the oscilloscope visualizer."),
         default: true,
     },
     spectrograph: {
         type: OptionType.BOOLEAN,
-        description: "تفعيل عارض الطيف الصوتي (Spectrograph).",
+        description: t("تفعيل عارض الطيف الصوتي (Spectrograph).", "Enable the spectrograph visualizer."),
         default: true,
     },
     oscilloscopeSolidColor: {
         type: OptionType.BOOLEAN,
-        description: "استخدام لون ثابت للأوسيلوسكوب.",
+        description: t("استخدام لون ثابت للأوسيلوسكوب.", "Use a solid color for the oscilloscope."),
         default: false,
     },
     oscilloscopeColor: {
         type: OptionType.STRING,
-        description: "لون الأوسيلوسكوب (R, G, B أو #hex).",
+        description: t("لون الأوسيلوسكوب (R, G, B أو #hex).", "Oscilloscope color (R, G, B or #hex)."),
         default: "255, 255, 255",
         onChange: value => validateColor(value, "oscilloscopeColor", "255, 255, 255"),
     },
     spectrographSolidColor: {
         type: OptionType.BOOLEAN,
-        description: "استخدام لون ثابت لعارض الطيف الصوتي.",
+        description: t("استخدام لون ثابت لعارض الطيف الصوتي.", "Use a solid color for the spectrograph visualizer."),
         default: false,
     },
     spectrographColor: {
         type: OptionType.STRING,
-        description: "لون عارض الطيف الصوتي (R, G, B أو #hex).",
+        description: t("لون عارض الطيف الصوتي (R, G, B أو #hex).", "Spectrograph visualizer color (R, G, B or #hex)."),
         default: "33, 150, 243",
         onChange: value => validateColor(value, "spectrographColor", "33, 150, 243"),
     },
     corsProxy: {
         type: OptionType.STRING,
-        description: "عنوان CORS proxy لتشغيل الصوت. اتركه فارغاً لتعطيل الـ proxy.",
+        description: t("عنوان CORS proxy لتشغيل الصوت. اتركه فارغاً لتعطيل الـ proxy.", "CORS proxy URL for audio playback. Leave empty to disable the proxy."),
         default: "https://cors.keiran0.workers.dev?url=",
     },
 });
 
 export default definePlugin({
     name: "BetterAudioPlayer",
-    description: "يضيف مرئي طيف صوتي وأوسيلوسكوب لمشغّلات الصوت في المرفقات",
+    get description() { return t("يضيف مرئي طيف صوتي وأوسيلوسكوب لمشغّلات الصوت في المرفقات", "Adds a spectrograph and oscilloscope visualizer to audio players in attachments"); },
     tags: ["Appearance", "Media", "Voice"],
     authors: [EquicordDevs.creations],
     settings,

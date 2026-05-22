@@ -10,6 +10,7 @@ import { NavContextMenuPatchCallback } from "@api/ContextMenu";
 import { get } from "@api/DataStore";
 import { definePluginSettings, Settings } from "@api/Settings";
 import { EquicordDevs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { Channel, User } from "@vencord/discord-types";
 import { extractAndLoadChunksLazy } from "@webpack";
@@ -86,19 +87,19 @@ export function getCustomColorString(id: string | undefined, withHash?: boolean)
 const settings = definePluginSettings({
     dmList: {
         type: OptionType.BOOLEAN,
-        description: "تلوين اسم المستخدمين ذوي الألوان المخصصة في قائمة الرسائل المباشرة",
+        description: t("تلوين اسم المستخدمين ذوي الألوان المخصصة في قائمة الرسائل المباشرة", "Color the names of users with custom colors in the DM list"),
         default: true,
     },
     colorInServers: {
         type: OptionType.BOOLEAN,
-        description: "تغيير ألوان الأسماء داخل السيرفرات",
+        description: t("تغيير ألوان الأسماء داخل السيرفرات", "Change name colors inside servers"),
         default: true,
     }
 });
 
 export default definePlugin({
     name: "CustomUserColors",
-    description: "يتيح لك إضافة لون مخصص لأي مستخدم في أي مكان! يُنصح باستخدامه مع typingTweaks و roleColorEverywhere",
+    get description() { return t("يتيح لك إضافة لون مخصص لأي مستخدم في أي مكان! يُنصح باستخدامه مع typingTweaks و roleColorEverywhere", "Lets you assign a custom color to any user anywhere! Recommended to use with typingTweaks and roleColorEverywhere"); },
     tags: ["Appearance", "Customisation", "Chat"],
     authors: [EquicordDevs.mochienya],
     contextMenus: {

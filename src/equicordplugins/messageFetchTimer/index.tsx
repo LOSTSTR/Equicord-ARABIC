@@ -8,6 +8,7 @@ import { ChatBarButton, ChatBarButtonFactory } from "@api/ChatButtons";
 import { definePluginSettings } from "@api/Settings";
 import { EquicordDevs } from "@utils/constants";
 import { getCurrentChannel } from "@utils/discord";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { FluxDispatcher, React } from "@webpack/common";
 
@@ -26,17 +27,17 @@ const channelTimings: Map<string, { time: number; timestamp: Date; }> = new Map(
 const settings = definePluginSettings({
     showIcon: {
         type: OptionType.BOOLEAN,
-        description: "إظهار أيقونة وقت التحميل في شريط الرسائل",
+        description: t("إظهار أيقونة وقت التحميل في شريط الرسائل", "Show loading time icon in the message bar"),
         default: true,
     },
     showMs: {
         type: OptionType.BOOLEAN,
-        description: "عرض الميلي ثانية في التوقيت",
+        description: t("عرض الميلي ثانية في التوقيت", "Show milliseconds in the timing"),
         default: true,
     },
     iconColor: {
         type: OptionType.STRING,
-        description: "لون الأيقونة (قيمة CSS للون)",
+        description: t("لون الأيقونة (قيمة CSS للون)", "Icon color (CSS color value)"),
         default: "#00d166",
     }
 });
@@ -146,7 +147,7 @@ function handleMessageLoad(data: any) {
 
 export default definePlugin({
     name: "MessageFetchTimer",
-    description: "يُظهر المدة التي استغرقها تحميل الرسائل في القناة الحالية",
+    get description() { return t("يُظهر المدة التي استغرقها تحميل الرسائل في القناة الحالية", "Shows how long it took to load messages in the current channel"); },
     dependencies: ["ChatInputButtonAPI"],
     tags: ["Chat", "Utility"],
     authors: [EquicordDevs.GroupXyz],

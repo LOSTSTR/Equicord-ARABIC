@@ -5,6 +5,7 @@
  */
 
 import { definePluginSettings } from "@api/Settings";
+import { t } from "@utils/esharqI18n";
 import { makeRange, OptionType } from "@utils/types";
 
 import { apiConstants } from "./lib/api";
@@ -13,12 +14,12 @@ import Settings from "./ui/settings";
 export default definePluginSettings({
     collapseSongList: {
         type: OptionType.BOOLEAN,
-        description: "يطوي قائمة الأغاني في ملفات المستخدمين إلى زر يفتح قائمة منفصلة",
+        description: t("يطوي قائمة الأغاني في ملفات المستخدمين إلى زر يفتح قائمة منفصلة", "Collapses the song list in user profiles into a button that opens a separate list"),
         default: false,
     },
     profileSongsLimit: {
         type: OptionType.SLIDER,
-        description: "عدد الأغاني التي تظهر عند النقر على ملف المستخدم أول مرة",
+        description: t("عدد الأغاني التي تظهر عند النقر على ملف المستخدم أول مرة", "Number of songs shown when first clicking on a user profile"),
         default: apiConstants.songLimit,
         markers: makeRange(1, 3),
     },

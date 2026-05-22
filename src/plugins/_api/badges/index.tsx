@@ -23,6 +23,7 @@ import ErrorBoundary from "@components/ErrorBoundary";
 import { openContributorModal } from "@components/settings/tabs";
 import { Devs } from "@utils/constants";
 import { copyWithToast } from "@utils/discord";
+import { t } from "@utils/esharqI18n";
 import { Logger } from "@utils/Logger";
 import { shouldShowContributorBadge, shouldShowEquicordContributorBadge } from "@utils/misc";
 import definePlugin from "@utils/types";
@@ -38,7 +39,7 @@ const USERPLUGIN_CONTRIBUTOR_BADGE = "https://equicord.org/assets/icons/misc/use
 
 const ContributorBadge: ProfileBadge = {
     id: "vencord_contributor_badge",
-    description: "مساهم Vencord",
+    get description() { return t("مساهم Vencord", "Vencord contributor"); },
     iconSrc: CONTRIBUTOR_BADGE,
     position: BadgePosition.START,
     shouldShow: ({ userId }) => shouldShowContributorBadge(userId),
@@ -47,7 +48,7 @@ const ContributorBadge: ProfileBadge = {
 
 const EquicordContributorBadge: ProfileBadge = {
     id: "equicord_contributor_badge",
-    description: "مساهم Equicord",
+    get description() { return t("مساهم Equicord", "Equicord contributor"); },
     iconSrc: EQUICORD_CONTRIBUTOR_BADGE,
     position: BadgePosition.START,
     shouldShow: ({ userId }) => shouldShowEquicordContributorBadge(userId),
@@ -62,7 +63,7 @@ const EquicordContributorBadge: ProfileBadge = {
 
 const UserPluginContributorBadge: ProfileBadge = {
     id: "user_plugin_contributor_badge",
-    description: "مساهم إضافات المستخدم",
+    get description() { return t("مساهم إضافات المستخدم", "User plugin contributor"); },
     iconSrc: USERPLUGIN_CONTRIBUTOR_BADGE,
     position: BadgePosition.START,
     shouldShow: ({ userId }) => {
@@ -129,7 +130,7 @@ export function BadgeContextMenu({ badge }: { badge: Omit<ProfileBadge, "id"> & 
 
 export default definePlugin({
     name: "BadgeAPI",
-    description: "واجهة برمجية لإضافة شارات للمستخدمين",
+    get description() { return t("واجهة برمجية لإضافة شارات للمستخدمين", "API to add badges to users"); },
     authors: [Devs.Megu, Devs.Ven, Devs.TheSun],
     required: true,
     patches: [

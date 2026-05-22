@@ -7,13 +7,14 @@
 import { addMessagePreSendListener, MessageSendListener, removeMessagePreSendListener } from "@api/MessageEvents";
 import { definePluginSettings } from "@api/Settings";
 import { Devs, EquicordDevs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 
 const settings = definePluginSettings(
     {
         blockedWords: {
             type: OptionType.STRING,
-            description: "كلمات لا تُكبَّر (افصل بينها بفاصلة)",
+            description: t("كلمات لا تُكبَّر (افصل بينها بفاصلة)", "Words that won't be capitalized (separate with commas)"),
             default: "http, https, ok"
         }
     }
@@ -36,7 +37,7 @@ const presendObject: MessageSendListener = (_, msg) => {
 
 export default definePlugin({
     name: "WriteUpperCase",
-    description: "يغيّر الحرف الأول من كل جملة في مدخلات الرسائل إلى حرف كبير",
+    get description() { return t("يغيّر الحرف الأول من كل جملة في مدخلات الرسائل إلى حرف كبير", "Capitalizes the first letter of each sentence in message inputs"); },
     tags: ["Appearance", "Customisation", "Chat"],
     authors: [Devs.Samwich, EquicordDevs.KrystalSkull],
     settings,

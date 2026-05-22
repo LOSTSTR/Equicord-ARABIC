@@ -8,6 +8,7 @@ import { Notifications } from "@api/index";
 import { definePluginSettings } from "@api/Settings";
 import { EquicordDevs } from "@utils/constants";
 import { getCurrentChannel } from "@utils/discord";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { MessageJSON } from "@vencord/discord-types";
 import { MessageType } from "@vencord/discord-types/enums";
@@ -22,7 +23,7 @@ interface MessageCreatePayload {
 const settings = definePluginSettings({
     users: {
         type: OptionType.STRING,
-        description: "قائمة معرّفات المستخدمين مفصولة بفاصلة للحصول على إشعارات رسائلهم",
+        description: t("قائمة معرّفات المستخدمين مفصولة بفاصلة للحصول على إشعارات رسائلهم", "Comma-separated list of user IDs to receive notifications for their messages"),
         default: "",
         isValid(value: string) {
             if (value === "") return true;
@@ -37,7 +38,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     authors: [EquicordDevs.cassie, EquicordDevs.mochienya],
     name: "MessageNotifier",
-    description: "يُرسل إشعارات عند إرسال مستخدمين مختارين رسالة",
+    get description() { return t("يُرسل إشعارات عند إرسال مستخدمين مختارين رسالة", "Sends notifications when selected users send a message"); },
     tags: ["Chat", "Notifications"],
     settings,
     flux: {

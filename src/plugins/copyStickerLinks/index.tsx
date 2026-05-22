@@ -21,6 +21,7 @@ import { isPluginEnabled } from "@api/PluginManager";
 import ExpressionClonerPlugin from "@plugins/expressionCloner";
 import { Devs } from "@utils/constants";
 import { copyWithToast } from "@utils/discord";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 import { Message, Sticker } from "@vencord/discord-types";
 import { Menu, React, StickersStore } from "@webpack/common";
@@ -86,7 +87,7 @@ const expressionPickerPatch: NavContextMenuPatchCallback = (children, props: { t
 
 export default definePlugin({
     name: "CopyStickerLinks",
-    description: "يضيف إمكانية نسخ وفتح روابط الستيكر",
+    get description() { return t("يضيف إمكانية نسخ وفتح روابط الستيكر", "Adds the ability to copy and open sticker links"); },
     tags: ["Emotes", "Utility"],
     authors: [Devs.Ven, Devs.Byeoon],
     contextMenus: {

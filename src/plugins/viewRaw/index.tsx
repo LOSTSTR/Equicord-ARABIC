@@ -23,6 +23,7 @@ import { Divider } from "@components/Divider";
 import ErrorBoundary from "@components/ErrorBoundary";
 import { Devs } from "@utils/constants";
 import { copyWithToast, getCurrentGuild, getIntlMessage } from "@utils/discord";
+import { t } from "@utils/esharqI18n";
 import { isTruthy } from "@utils/guards";
 import { Margins } from "@utils/margins";
 import definePlugin, { IconComponent, OptionType } from "@utils/types";
@@ -112,7 +113,7 @@ function openViewRawModalMessage(msg: Message) {
 
 const settings = definePluginSettings({
     clickMethod: {
-        description: "تغيير الزر لعرض المحتوى/البيانات الخام لأي رسالة.",
+        description: t("تغيير الزر لعرض المحتوى/البيانات الخام لأي رسالة.", "Change the button to view the raw content/data for any message."),
         type: OptionType.SELECT,
         options: [
             { label: "Left Click to view the raw content.", value: "Left", default: true },
@@ -120,7 +121,7 @@ const settings = definePluginSettings({
         ]
     },
     messageContextMenu: {
-        description: "إظهار في قائمة سياق الرسالة",
+        description: t("إظهار في قائمة سياق الرسالة", "Show in the message context menu"),
         type: OptionType.BOOLEAN,
         default: false
     }
@@ -172,7 +173,7 @@ const devContextCallback: NavContextMenuPatchCallback = (children, { id }: { id:
 
 export default definePlugin({
     name: "ViewRaw",
-    description: "يعرض الكود الخام للرسائل والمضمّنات",
+    get description() { return t("يعرض الكود الخام للرسائل والمضمّنات", "Shows the raw code for messages and embeds"); },
     dependencies: ["MessagePopoverAPI"],
     tags: ["Chat", "Developers"],
     authors: [Devs.KingFish, Devs.Ven, Devs.rad, Devs.ImLvna],

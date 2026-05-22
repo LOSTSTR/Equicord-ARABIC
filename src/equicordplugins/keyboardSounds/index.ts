@@ -7,6 +7,7 @@
 import { AudioPlayerInterface, createAudioPlayer } from "@api/AudioPlayer";
 import { definePluginSettings } from "@api/Settings";
 import { Devs, EquicordDevs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 
 import { ignoredKeys, packs } from "./packs";
@@ -105,7 +106,7 @@ function assignSounds(volume: number, pack: "operagx" | "osu") {
 
 const settings = definePluginSettings({
     volume: {
-        description: "مستوى صوت أصوات لوحة المفاتيح",
+        description: t("مستوى صوت أصوات لوحة المفاتيح", "Keyboard sounds volume"),
         type: OptionType.SLIDER,
         markers: [0, 25, 50, 75, 100],
         stickToMarkers: false,
@@ -113,7 +114,7 @@ const settings = definePluginSettings({
         onChange: value => { assignSounds(value, settings.store.soundPack); }
     },
     soundPack: {
-        description: "حزمة الصوت المستخدمة.",
+        description: t("حزمة الصوت المستخدمة.", "Sound pack to use."),
         type: OptionType.SELECT,
         options: [
             { label: "OperaGX", value: "operagx" as "operagx", default: true },
@@ -125,7 +126,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "KeyboardSounds",
-    description: "يضيف مؤثرات صوتية من OperaGX أو osu! عند الكتابة على لوحة المفاتيح.",
+    get description() { return t("يضيف مؤثرات صوتية من OperaGX أو osu! عند الكتابة على لوحة المفاتيح.", "Adds sound effects from OperaGX or osu! when typing on the keyboard."); },
     tags: ["Fun"],
     authors: [Devs.HypedDomi, EquicordDevs.Etorix],
     dependencies: ["AudioPlayerAPI"],

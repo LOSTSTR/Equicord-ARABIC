@@ -24,6 +24,7 @@ import { BaseText } from "@components/BaseText";
 import ErrorBoundary from "@components/ErrorBoundary";
 import { Devs, EquicordDevs } from "@utils/constants";
 import { classNameFactory } from "@utils/css";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { findStoreLazy } from "@webpack";
 import { GuildStore, PresenceStore, RelationshipStore, Tooltip, useStateFromStores } from "@webpack/common";
@@ -121,7 +122,7 @@ function ServersIndicator() {
 
 export const settings = definePluginSettings({
     mode: {
-        description: "وضع العرض",
+        description: t("وضع العرض", "Display mode"),
         type: OptionType.SELECT,
         options: [
             { label: "Only online friend count", value: IndicatorType.FRIEND, default: true },
@@ -131,7 +132,7 @@ export const settings = definePluginSettings({
         restartNeeded: true // Restart needed just to force update
     },
     useCompact: {
-        description: "جعل المؤشر يظهر بالنص فقط",
+        description: t("جعل المؤشر يظهر بالنص فقط", "Make the indicator display text only"),
         type: OptionType.BOOLEAN,
         default: false,
         restartNeeded: true // Restart needed just to force update
@@ -140,7 +141,7 @@ export const settings = definePluginSettings({
 
 export default definePlugin({
     name: "ServerListIndicators",
-    description: "يُضيف مؤشرات مرئية في قائمة الخوادم",
+    get description() { return t("يُضيف مؤشرات مرئية في قائمة الخوادم", "Adds visual indicators in the server list"); },
     tags: ["Servers", "Appearance"],
     authors: [Devs.dzshn, EquicordDevs.Panniku],
     dependencies: ["ServerListAPI"],

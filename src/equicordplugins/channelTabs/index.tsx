@@ -9,6 +9,7 @@ import "./style.css";
 import { findGroupChildrenByChildId, NavContextMenuPatchCallback } from "@api/ContextMenu";
 import ErrorBoundary from "@components/ErrorBoundary";
 import { Devs, EquicordDevs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 import { Channel, Message } from "@vencord/discord-types";
 import { ChannelStore, Menu } from "@webpack/common";
@@ -46,7 +47,7 @@ const contextMenuPatch: NavContextMenuPatchCallback = (children, props: { channe
 
 export default definePlugin({
     name: "ChannelTabs",
-    description: "يتيح تصفح القنوات الأكثر زيارة في تبويبات كالمتصفح",
+    get description() { return t("يتيح تصفح القنوات الأكثر زيارة في تبويبات كالمتصفح", "Allows browsing your most visited channels in browser-like tabs"); },
     tags: ["Appearance", "Customisation", "Organisation", "Servers"],
     authors: [Devs.TheSun, Devs.TheKodeToad, EquicordDevs.keifufu, Devs.Nickyux, EquicordDevs.DiabeloDEV, EquicordDevs.justjxke, EquicordDevs.keircn],
     dependencies: ["ContextMenuAPI", "ConcatenatedModules"],

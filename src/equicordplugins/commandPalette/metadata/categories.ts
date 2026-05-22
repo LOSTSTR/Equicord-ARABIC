@@ -4,6 +4,8 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
+import { t } from "@utils/esharqI18n";
+
 import {
     EXTENSIONS_CATALOG_CATEGORY_ID,
     EXTENSIONS_ROOT_CATEGORY_ID,
@@ -127,17 +129,17 @@ export const BUILT_IN_CATEGORIES: CommandCategory[] = [
     {
         id: DEFAULT_CATEGORY_ID,
         label: "Quick Actions",
-        description: "اختصارات Equicord الشائعة"
+        description: t("اختصارات Equicord الشائعة", "Common Equicord shortcuts")
     },
     {
         id: "plugins",
         label: "Plugins",
-        description: "إدارة إضافات Equicord و Vencord"
+        description: t("إدارة إضافات Equicord و Vencord", "Manage Equicord and Vencord plugins")
     },
     {
         id: CONTEXT_PROVIDER_ID,
         label: "Current Context",
-        description: "إجراءات للقناة والسيرفر المحددَين"
+        description: t("إجراءات للقناة والسيرفر المحددَين", "Actions for the currently selected channel and server")
     },
     {
         id: "plugins-enable",
@@ -157,52 +159,52 @@ export const BUILT_IN_CATEGORIES: CommandCategory[] = [
     {
         id: "updates",
         label: "Updates",
-        description: "ابقَ محدّثاً مع Equicord"
+        description: t("ابقَ محدّثاً مع Equicord", "Stay up to date with Equicord")
     },
     {
         id: "discord-settings",
         label: "Discord Settings",
-        description: "الانتقال إلى صفحات إعدادات ديسكورد"
+        description: t("الانتقال إلى صفحات إعدادات ديسكورد", "Navigate to Discord settings pages")
     },
     {
         id: CUSTOM_COMMANDS_CATEGORY_ID,
         label: "Custom Commands",
-        description: "إدخالات لوحة الأوامر المعرّفة من المستخدم"
+        description: t("إدخالات لوحة الأوامر المعرّفة من المستخدم", "User-defined command palette entries")
     },
     {
         id: SESSION_TOOLS_CATEGORY_ID,
         label: "Session Tools",
-        description: "أدوات لإدارة جلسة ديسكورد"
+        description: t("أدوات لإدارة جلسة ديسكورد", "Tools for managing your Discord session")
     },
     {
         id: GUILD_CATEGORY_ID,
         label: "Guilds",
-        description: "الانتقال السريع إلى سيرفراتك"
+        description: t("الانتقال السريع إلى سيرفراتك", "Quickly navigate to your servers")
     },
     {
         id: FRIENDS_CATEGORY_ID,
         label: "Friends",
-        description: "إرسال رسائل مباشرة سريعة لأصدقائك"
+        description: t("إرسال رسائل مباشرة سريعة لأصدقائك", "Send quick direct messages to your friends")
     },
     {
         id: PINNED_CATEGORY_ID,
         label: "Pinned Commands",
-        description: "الأوامر التي ثبّتها للوصول السريع"
+        description: t("الأوامر التي ثبّتها للوصول السريع", "Commands you have pinned for quick access")
     },
     {
         id: MENTIONS_CATEGORY_ID,
         label: "Mentions",
-        description: "الإشارات الأخيرة ورسائل البريد الوارد"
+        description: t("الإشارات الأخيرة ورسائل البريد الوارد", "Recent mentions and inbox messages")
     },
     {
         id: RECENTS_CATEGORY_ID,
         label: "Recent Commands",
-        description: "الأوامر المنفّذة مؤخراً"
+        description: t("الأوامر المنفّذة مؤخراً", "Recently executed commands")
     },
     {
         id: EXTENSIONS_ROOT_CATEGORY_ID,
         label: "Extensions",
-        description: "تثبيت حزم أوامر الإضافات."
+        description: t("تثبيت حزم أوامر الإضافات.", "Install plugin command packs.")
     },
     {
         id: EXTENSIONS_CATALOG_CATEGORY_ID,

@@ -18,11 +18,12 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 
 const settings = definePluginSettings({
     maxAccounts: {
-        description: "عدد الحسابات القابلة للإضافة، أو 0 لإزالة الحد",
+        description: t("عدد الحسابات القابلة للإضافة، أو 0 لإزالة الحد", "Number of accounts that can be added, or 0 to remove the limit"),
         default: 0,
         type: OptionType.NUMBER,
         restartNeeded: true,
@@ -31,7 +32,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "UnlimitedAccounts",
-    description: "يزيد الحد الأقصى لعدد الحسابات التي يمكنك إضافتها.",
+    get description() { return t("يزيد الحد الأقصى لعدد الحسابات التي يمكنك إضافتها.", "Increases the maximum number of accounts you can add."); },
     tags: ["Utility"],
     authors: [Devs.thororen],
     settings,

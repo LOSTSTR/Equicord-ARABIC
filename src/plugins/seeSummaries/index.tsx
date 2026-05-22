@@ -8,6 +8,7 @@ import * as DataStore from "@api/DataStore";
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
 import { hasGuildFeature } from "@utils/discord";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { findByPropsLazy } from "@webpack";
 import { ChannelStore, GuildStore } from "@webpack/common";
@@ -17,7 +18,7 @@ const SummaryStore = findByPropsLazy("allSummaries", "findSummary");
 const settings = definePluginSettings({
     summaryExpiryThresholdDays: {
         type: OptionType.SLIDER,
-        description: "المدة بالأيام قبل حذف الملخص. ملاحظة: يُحتفظ بـ 50 ملخصاً كحد أقصى لكل قناة",
+        description: t("المدة بالأيام قبل حذف الملخص. ملاحظة: يُحتفظ بـ 50 ملخصاً كحد أقصى لكل قناة", "Number of days before a summary is deleted. Note: A maximum of 50 summaries are kept per channel"),
         markers: [1, 3, 5, 7, 10, 15, 20, 25, 30],
         stickToMarkers: false,
         default: 3,
@@ -65,7 +66,7 @@ function createChannelSummaryFromServer(s: Summary, channelId: string): ChannelS
 
 export default definePlugin({
     name: "Summaries",
-    description: "يُتيح مشاهدة ملخصات المحادثات الطويلة",
+    get description() { return t("يُتيح مشاهدة ملخصات المحادثات الطويلة", "Enables viewing summaries of long conversations"); },
     tags: ["Chat", "Fun"],
     authors: [Devs.mantikafasi],
     settings,

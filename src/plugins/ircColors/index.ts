@@ -20,6 +20,7 @@ import { definePluginSettings, Settings } from "@api/Settings";
 import { getCustomColorString } from "@equicordplugins/customUserColors";
 import { hash as h64 } from "@intrnl/xxhash64";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { useMemo, UserStore } from "@webpack/common";
 
@@ -33,24 +34,24 @@ function calculateNameColorForUser(id?: string) {
 
 const settings = definePluginSettings({
     lightness: {
-        description: "السطوع بالنسبة المئوية. عدّله إذا كانت الألوان فاتحة أو داكنة جداً",
+        description: t("السطوع بالنسبة المئوية. عدّله إذا كانت الألوان فاتحة أو داكنة جداً", "Lightness as a percentage. Adjust if colors are too light or too dark"),
         type: OptionType.NUMBER,
         default: 70,
     },
     memberListColors: {
-        description: "استبدال ألوان الرتب في قائمة الأعضاء",
+        description: t("استبدال ألوان الرتب في قائمة الأعضاء", "Replace role colors in the member list"),
         restartNeeded: true,
         type: OptionType.BOOLEAN,
         default: true
     },
     applyColorOnlyToUsersWithoutColor: {
-        description: "تطبيق الألوان فقط على المستخدمين الذين ليس لديهم لون محدد مسبقاً",
+        description: t("تطبيق الألوان فقط على المستخدمين الذين ليس لديهم لون محدد مسبقاً", "Apply colors only to users who don't have a preset color"),
         restartNeeded: false,
         type: OptionType.BOOLEAN,
         default: false
     },
     applyColorOnlyInDms: {
-        description: "تطبيق الألوان في الرسائل المباشرة فقط؛ عدم تطبيقها في السيرفرات.",
+        description: t("تطبيق الألوان في الرسائل المباشرة فقط؛ عدم تطبيقها في السيرفرات.", "Apply colors in direct messages only; do not apply them in servers"),
         restartNeeded: false,
         type: OptionType.BOOLEAN,
         default: false
@@ -59,7 +60,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "IrcColors",
-    description: "يُضيف ألوان IRC للرسائل",
+    get description() { return t("يُضيف ألوان IRC للرسائل", "Adds IRC colors to messages"); },
     tags: ["Appearance", "Customisation"],
     authors: [Devs.Grzesiek11, Devs.jamesbt365],
     settings,

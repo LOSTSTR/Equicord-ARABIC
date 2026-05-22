@@ -18,6 +18,7 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import { Logger } from "@utils/Logger";
 import definePlugin, { OptionType, PluginSettingDef } from "@utils/types";
 import { GuildMember, Role } from "@vencord/discord-types";
@@ -38,7 +39,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "ShowHiddenThings",
     searchTerms: ["ShowTimeouts", "ShowInvitesPaused", "ShowModView", "DisableDiscoveryFilters"],
-    description: "يعرض عناصر مخفية ومقتصرة على المشرفين بغض النظر عن الصلاحيات.",
+    get description() { return t("يعرض عناصر مخفية ومقتصرة على المشرفين بغض النظر عن الصلاحيات.", "Shows hidden and moderator-only elements regardless of permissions."); },
     tags: ["Servers", "Utility"],
     authors: [Devs.Dolfies],
     settings,

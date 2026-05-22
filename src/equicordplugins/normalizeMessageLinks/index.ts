@@ -5,11 +5,12 @@
  */
 
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "NormalizeMessageLinks",
-    description: "يزيل canary/ptb من روابط الرسائل",
+    get description() { return t("يزيل canary/ptb من روابط الرسائل", "Removes canary/ptb from message links"); },
     tags: ["Chat"],
     authors: [Devs.bb010g],
     patches: [

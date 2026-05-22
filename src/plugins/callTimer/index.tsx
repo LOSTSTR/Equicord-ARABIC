@@ -7,6 +7,7 @@
 import { definePluginSettings } from "@api/Settings";
 import ErrorBoundary from "@components/ErrorBoundary";
 import { Devs, EquicordDevs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import { useFixedTimer } from "@utils/react";
 import { formatDurationMs } from "@utils/text";
 import definePlugin, { OptionType } from "@utils/types";
@@ -19,7 +20,7 @@ import { Timer } from "./Timer";
 export const settings = definePluginSettings({
     format: {
         type: OptionType.SELECT,
-        description: "صيغة مضغوطة أو قابلة للقراءة:",
+        description: t("صيغة مضغوطة أو قابلة للقراءة:", "Compact or human-readable format:"),
         options: [
             {
                 label: "30:23:00:42",
@@ -34,37 +35,37 @@ export const settings = definePluginSettings({
     },
     allCallTimers: {
         type: OptionType.BOOLEAN,
-        description: "إضافة مؤقت المكالمة لجميع المستخدمين في قناة صوت بالسيرفر",
+        description: t("إضافة مؤقت المكالمة لجميع المستخدمين في قناة صوت بالسيرفر", "Add a call timer for all users in a guild voice channel"),
         restartNeeded: true,
         default: false
     },
     showWithoutHover: {
         type: OptionType.BOOLEAN,
-        description: "إظهار المؤقت دائماً دون الحاجة للمرور بالمؤشر فوقه",
+        description: t("إظهار المؤقت دائماً دون الحاجة للمرور بالمؤشر فوقه", "Always show the timer without needing to hover"),
         restartNeeded: true,
         default: false
     },
     showRoleColor: {
         type: OptionType.BOOLEAN,
-        description: "إظهار لون رتبة المستخدم (إذا كانت هذه الإضافة مفعلة)",
+        description: t("إظهار لون رتبة المستخدم (إذا كانت هذه الإضافة مفعلة)", "Show the user's role color (if this plugin is enabled)"),
         restartNeeded: false,
         default: false
     },
     trackSelf: {
         type: OptionType.BOOLEAN,
-        description: "تتبع وقت انضمامك أنت أيضاً",
+        description: t("تتبع وقت انضمامك أنت أيضاً", "Track your own join time as well"),
         restartNeeded: false,
         default: false
     },
     showSeconds: {
         type: OptionType.BOOLEAN,
-        description: "إظهار الثواني في المؤقت",
+        description: t("إظهار الثواني في المؤقت", "Show seconds in the timer"),
         restartNeeded: false,
         default: false
     },
     watchLargeGuilds: {
         type: OptionType.BOOLEAN,
-        description: "تتبع المستخدمين في السيرفرات الكبيرة. قد يسبب بطئاً إذا كنت في سيرفرات كبيرة كثيرة بمستخدمي صوت نشطين. تم اختباره مع ما يصل إلى 2000 مستخدم صوت نشط دون مشاكل.",
+        description: t("تتبع المستخدمين في السيرفرات الكبيرة. قد يسبب بطئاً إذا كنت في سيرفرات كبيرة كثيرة بمستخدمي صوت نشطين. تم اختباره مع ما يصل إلى 2000 مستخدم صوت نشط دون مشاكل.", "Track users in large servers. May cause lag if in many large servers with active voice users. Tested up to 2000 active voice users without issues."),
         restartNeeded: true,
         default: false
     }
@@ -108,7 +109,7 @@ let runOneTime = true;
 
 export default definePlugin({
     name: "CallTimer",
-    description: "يُضيف مؤقتاً للمكالمات الصوتية",
+    get description() { return t("يُضيف مؤقتاً للمكالمات الصوتية", "Adds a timer to voice calls"); },
     tags: ["Voice", "Utility"],
     authors: [Devs.Ven, EquicordDevs.MaxHerbold, Devs.D3SOX],
     managedStyle: alignedChatInputFix,

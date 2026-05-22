@@ -18,17 +18,18 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 
 const settings = definePluginSettings({
     noSpotifyAutoPause: {
-        description: "تعطيل الإيقاف المؤقت التلقائي لـ Spotify",
+        description: t("تعطيل الإيقاف المؤقت التلقائي لـ Spotify", "Disable Spotify's auto-pause feature"),
         type: OptionType.BOOLEAN,
         default: true,
         restartNeeded: true
     },
     keepSpotifyActivityOnIdle: {
-        description: "الإبقاء على نشاط Spotify أثناء التوقف",
+        description: t("الإبقاء على نشاط Spotify أثناء التوقف", "Keep Spotify activity while idle"),
         type: OptionType.BOOLEAN,
         default: false,
         restartNeeded: true
@@ -37,7 +38,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "SpotifyCrack",
-    description: "يُحسّن تجربة استخدام Spotify مع ديسكورد",
+    get description() { return t("يُحسّن تجربة استخدام Spotify مع ديسكورد", "Improves the Spotify experience with Discord"); },
     tags: ["Media", "Utility", "Activity"],
     authors: [Devs.Cyn, Devs.Nuckyz],
     settings,

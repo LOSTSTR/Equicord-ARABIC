@@ -10,6 +10,7 @@ import ErrorBoundary from "@components/ErrorBoundary";
 import { Devs } from "@utils/constants";
 import { classNameFactory } from "@utils/css";
 import { openUserProfile } from "@utils/discord";
+import { t } from "@utils/esharqI18n";
 import { isTruthy } from "@utils/guards";
 import { Logger } from "@utils/Logger";
 import definePlugin from "@utils/types";
@@ -145,7 +146,7 @@ const WrappedClickableRole = ErrorBoundary.wrap(ClickableRole, { noop: true });
 
 export default definePlugin({
     name: "ClickableRoles",
-    description: "يتيح النقر على الرتب في الملفات الشخصية وقائمة الأعضاء لعرض من يحملها.",
+    get description() { return t("يتيح النقر على الرتب في الملفات الشخصية وقائمة الأعضاء لعرض من يحملها.", "Allows clicking on roles in profiles and the member list to view who holds them."); },
     tags: ["Appearance", "Roles"],
     authors: [Devs.prism],
 

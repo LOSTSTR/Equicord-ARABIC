@@ -20,6 +20,7 @@ import "./style.css";
 
 import { definePluginSettings } from "@api/Settings";
 import { Devs, EquicordDevs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 
 import { VoiceChannelIndicator } from "./components";
@@ -27,19 +28,19 @@ import { VoiceChannelIndicator } from "./components";
 const settings = definePluginSettings({
     showInUserProfileModal: {
         type: OptionType.BOOLEAN,
-        description: "عرض مؤشر القناة الصوتية للمستخدم في ملفه الشخصي بجانب الاسم",
+        description: t("عرض مؤشر القناة الصوتية للمستخدم في ملفه الشخصي بجانب الاسم", "Show the user's voice channel indicator in their profile next to the name"),
         default: true,
         restartNeeded: true
     },
     showInMemberList: {
         type: OptionType.BOOLEAN,
-        description: "عرض مؤشر القناة الصوتية للمستخدم في قائمة الأعضاء والرسائل المباشرة",
+        description: t("عرض مؤشر القناة الصوتية للمستخدم في قائمة الأعضاء والرسائل المباشرة", "Show the user's voice channel indicator in the member list and DMs"),
         default: true,
         restartNeeded: true
     },
     showInMessages: {
         type: OptionType.BOOLEAN,
-        description: "عرض مؤشر القناة الصوتية للمستخدم في الرسائل",
+        description: t("عرض مؤشر القناة الصوتية للمستخدم في الرسائل", "Show the user's voice channel indicator in messages"),
         default: true,
         restartNeeded: true
     }
@@ -47,7 +48,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "UserVoiceShow",
-    description: "يعرض القناة الصوتية التي يتواجد فيها المستخدم في ملفه الشخصي",
+    get description() { return t("يعرض القناة الصوتية التي يتواجد فيها المستخدم في ملفه الشخصي", "Shows the voice channel a user is in on their profile"); },
     tags: ["Voice", "Appearance", "Friends"],
     dependencies: ["MemberListDecoratorsAPI", "MessageDecorationsAPI", "NicknameIconsAPI"],
     authors: [Devs.Nuckyz, Devs.LordElias, EquicordDevs.omaw],

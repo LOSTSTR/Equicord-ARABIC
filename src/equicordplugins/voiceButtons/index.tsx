@@ -6,6 +6,7 @@
 
 import { Flex } from "@components/Flex";
 import { EquicordDevs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 import { User } from "@vencord/discord-types";
 import { React } from "@webpack/common";
@@ -15,7 +16,7 @@ import { UserChatButton, UserDeafenButton, UserMuteButton } from "./utils";
 
 export default definePlugin({
     name: "VoiceButtons",
-    description: "إرسال رسالة خاصة أو كتم أو تصميم أي مستخدم مباشرةً من لوحة المكالمة الصوتية",
+    get description() { return t("إرسال رسالة خاصة أو كتم أو تصميم أي مستخدم مباشرةً من لوحة المكالمة الصوتية", "Send a DM, mute, or deafen any user directly from the voice call panel"); },
     tags: ["Servers", "Utility", "Voice"],
     authors: [EquicordDevs.nicola02nb, EquicordDevs.omaw],
     settings,

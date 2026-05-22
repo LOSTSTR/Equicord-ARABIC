@@ -17,13 +17,14 @@
 */
 
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 import { moment } from "@webpack/common";
 
 export default definePlugin({
     name: "DontRoundMyTimestamps",
     authors: [Devs.Lexi],
-    description: "يقرّب الطوابع الزمنية النسبية دائمًا للأسفل، فتصبح 7.6 سنة 7 سنوات بدلًا من 8",
+    get description() { return t("يقرّب الطوابع الزمنية النسبية دائمًا للأسفل، فتصبح 7.6 سنة 7 سنوات بدلًا من 8", "Always rounds relative timestamps down, so 7.6 years becomes 7 years instead of 8"); },
     tags: ["Appearance", "Utility"],
 
     start() {

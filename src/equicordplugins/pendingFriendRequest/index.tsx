@@ -6,6 +6,7 @@
 
 import type { NavContextMenuPatchCallback } from "@api/ContextMenu";
 import { EquicordDevs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 import { RelationshipType } from "@vencord/discord-types/enums";
 import { findByPropsLazy } from "@webpack";
@@ -36,7 +37,7 @@ const userContextPatch: NavContextMenuPatchCallback = (children, { user }) => {
 
 export default definePlugin({
     name: "CancelFriendRequest",
-    description: "يضيف طريقة لإلغاء طلبات الصداقة الصادرة من الملفات الشخصية.",
+    get description() { return t("يضيف طريقة لإلغاء طلبات الصداقة الصادرة من الملفات الشخصية.", "Adds a way to cancel outgoing friend requests from profiles."); },
     authors: [EquicordDevs.omaw],
 
     contextMenus: {

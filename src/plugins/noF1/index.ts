@@ -17,11 +17,12 @@
 */
 
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "NoF1",
-    description: "يعطّل اختصار F1 للمساعدة.",
+    get description() { return t("يعطّل اختصار F1 للمساعدة.", "Disables the F1 help shortcut."); },
     tags: ["Utility"],
     authors: [Devs.Cyn],
     patches: [

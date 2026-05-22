@@ -17,13 +17,14 @@
 */
 
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 import managedStyle from "./style.css?managed";
 
 export default definePlugin({
     name: "MessageDecorationsAPI",
-    description: "واجهة برمجية لإضافة زخارف على الرسائل",
+    get description() { return t("واجهة برمجية لإضافة زخارف على الرسائل", "API to add decorations to messages"); },
     authors: [Devs.TheSun],
 
     managedStyle,

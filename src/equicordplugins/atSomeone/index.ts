@@ -6,13 +6,14 @@
 
 import { addMessagePreSendListener, removeMessagePreSendListener } from "@api/MessageEvents";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 import { ChannelStore, GuildMemberStore, SelectedChannelStore, SelectedGuildStore } from "@webpack/common";
 
 export default definePlugin({
     name: "AtSomeone",
     authors: [Devs.Joona],
-    description: "يذكر شخصاً عشوائياً في القناة",
+    get description() { return t("يذكر شخصاً عشوائياً في القناة", "Mentions a random person in the channel"); },
     tags: ["Chat", "Fun"],
     patches: [
         {

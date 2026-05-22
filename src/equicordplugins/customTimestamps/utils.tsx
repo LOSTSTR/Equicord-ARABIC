@@ -8,6 +8,7 @@ import "./style.css";
 
 import ErrorBoundary from "@components/ErrorBoundary";
 import { Paragraph } from "@components/Paragraph";
+import { t } from "@utils/esharqI18n";
 import { findByCodeLazy, findComponentByCodeLazy } from "@webpack";
 import { moment, useRef, UserStore, useState } from "@webpack/common";
 
@@ -33,49 +34,49 @@ const populateMessagePrototype = findByCodeLazy("isProbablyAValidSnowflake", "me
 export const timeFormats: Record<string, TimeFormat> = {
     cozyFormat: {
         name: "Cozy mode",
-        description: "صيغة الوقت للرسائل في الوضع المريح",
+        description: t("صيغة الوقت للرسائل في الوضع المريح", "Time format for messages in cozy mode"),
         default: "[calendar]",
         offset: 0,
     },
     compactFormat: {
         name: "Compact mode",
-        description: "تنسيق الوقت في الوضع المضغوط وعند التمرير فوق الرسائل",
+        description: t("تنسيق الوقت في الوضع المضغوط وعند التمرير فوق الرسائل", "Time format in compact mode and when hovering over messages"),
         default: "LT",
         offset: 0,
     },
     tooltipFormat: {
         name: "Tooltip",
-        description: "تنسيق الوقت المستخدم في تلميحات الأدوات",
+        description: t("تنسيق الوقت المستخدم في تلميحات الأدوات", "Time format used in tooltips"),
         default: "LLLL • [relative]",
         offset: 0,
     },
     ariaLabelFormat: {
         name: "Aria label",
-        description: "تنسيق الوقت المستخدم في تسميات aria",
+        description: t("تنسيق الوقت المستخدم في تسميات aria", "Time format used in aria labels"),
         default: "[calendar]",
         offset: 0,
     },
     sameDayFormat: {
         name: "Same day",
-        description: "تنسيق [calendar] لليوم الحالي",
+        description: t("تنسيق [calendar] لليوم الحالي", "[calendar] format for the current day"),
         default: "[Today at] HH:mm:ss",
         offset: 0,
     },
     lastDayFormat: {
         name: "Last day",
-        description: "تنسيق [calendar] لأمس",
+        description: t("تنسيق [calendar] لأمس", "[calendar] format for yesterday"),
         default: "[Yesterday at] HH:mm:ss",
         offset: -1000 * 60 * 60 * 24,
     },
     lastWeekFormat: {
         name: "Last week",
-        description: "تنسيق [calendar] للأسبوع الماضي",
+        description: t("تنسيق [calendar] للأسبوع الماضي", "[calendar] format for the last week"),
         default: "ddd DD.MM.YYYY HH:mm:ss",
         offset: -1000 * 60 * 60 * 24 * 6, // setting an offset of a week exactly pushes it into "older date" territory as soon as a second passes
     },
     sameElseFormat: {
         name: "Older date",
-        description: "تنسيق [calendar] للتواريخ القديمة",
+        description: t("تنسيق [calendar] للتواريخ القديمة", "[calendar] format for older dates"),
         default: "ddd DD.MM.YYYY HH:mm:ss",
         offset: -1000 * 60 * 60 * 24 * 31,
     }

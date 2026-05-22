@@ -5,11 +5,12 @@
  */
 
 import { EquicordDevs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "TidalEmbeds",
-    description: "يدمج أغاني TIDAL لتشغيلها مباشرة داخل Discord.",
+    get description() { return t("يدمج أغاني TIDAL لتشغيلها مباشرة داخل Discord.", "Embeds TIDAL songs for direct playback inside Discord."); },
     tags: ["Appearance", "Chat", "Media"],
     authors: [EquicordDevs.vmohammad],
     dependencies: ["MessageUpdaterAPI", "MessageAccessoriesAPI"],

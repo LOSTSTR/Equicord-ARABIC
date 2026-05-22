@@ -9,6 +9,7 @@ import "./styles.css";
 import { definePluginSettings } from "@api/Settings";
 import { EquicordDevs } from "@utils/constants";
 import { classNameFactory } from "@utils/css";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { React } from "@webpack/common";
 
@@ -19,7 +20,7 @@ export const cl = classNameFactory("vc-profile-presets-");
 export const settings = definePluginSettings({
     avatarSize: {
         type: OptionType.SLIDER,
-        description: "حجم الصورة الرمزية في قائمة الإعدادات المسبقة.",
+        description: t("حجم الصورة الرمزية في قائمة الإعدادات المسبقة.", "Avatar size in the preset list."),
         markers: [56, 64, 72, 80, 88, 96],
         default: 56,
         stickToMarkers: true
@@ -28,7 +29,7 @@ export const settings = definePluginSettings({
 
 export default definePlugin({
     name: "ProfileSets",
-    description: "يتيح لك حفظ وتحميل إعدادات الملف الشخصي المختلفة، عبر قسم الملف الشخصي في الإعدادات.",
+    get description() { return t("يتيح لك حفظ وتحميل إعدادات الملف الشخصي المختلفة، عبر قسم الملف الشخصي في الإعدادات.", "Allows you to save and load different profile settings, via the profile section in settings."); },
     tags: ["Appearance", "Customisation", "Utility"],
     authors: [EquicordDevs.omaw, EquicordDevs.justjxke],
     settings,

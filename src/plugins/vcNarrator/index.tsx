@@ -20,6 +20,7 @@ import { ErrorCard } from "@components/ErrorCard";
 import { HeadingSecondary } from "@components/Heading";
 import { Paragraph } from "@components/Paragraph";
 import { Devs, IS_LINUX } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import { Logger } from "@utils/Logger";
 import { Margins } from "@utils/margins";
 import { wordsToTitle } from "@utils/text";
@@ -141,7 +142,7 @@ function playSample(type: string) {
 
 export default definePlugin({
     name: "VcNarrator",
-    description: "يُعلن عبر الراوي عند انضمام المستخدمين أو مغادرتهم أو تنقّلهم بين القنوات الصوتية",
+    get description() { return t("يُعلن عبر الراوي عند انضمام المستخدمين أو مغادرتهم أو تنقّلهم بين القنوات الصوتية", "Announces via the narrator when users join, leave, or move between voice channels"); },
     tags: ["Voice", "Accessibility"],
     authors: [Devs.Ven],
     reporterTestable: ReporterTestable.None,

@@ -18,6 +18,7 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import { Logger } from "@utils/Logger";
 import definePlugin, { OptionType } from "@utils/types";
 import { Constants, FluxDispatcher, GuildStore, RelationshipStore, SnowflakeUtils, UserAffinitiesStore, UserStore } from "@webpack/common";
@@ -27,7 +28,7 @@ const settings = definePluginSettings(
         sortByAffinity: {
             type: OptionType.BOOLEAN,
             default: true,
-            description: "ترتيب العلاقات الضمنية بحسب درجة التقارب معك",
+            description: t("ترتيب العلاقات الضمنية بحسب درجة التقارب معك", "Sort implicit relationships by affinity level with you"),
             restartNeeded: true
         },
     }
@@ -35,7 +36,7 @@ const settings = definePluginSettings(
 
 export default definePlugin({
     name: "ImplicitRelationships",
-    description: "يُضيف قنوات DM غير الرسمية إلى قائمة الأصدقاء",
+    get description() { return t("يُضيف قنوات DM غير الرسمية إلى قائمة الأصدقاء", "Adds unofficial DM channels to the friends list"); },
     tags: ["Friends", "Servers"],
     authors: [Devs.Dolfies],
     settings,

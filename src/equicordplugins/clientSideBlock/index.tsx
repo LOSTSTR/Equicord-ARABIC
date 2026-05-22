@@ -7,6 +7,7 @@
 import { definePluginSettings } from "@api/Settings";
 import { Paragraph } from "@components/Paragraph";
 import { Devs, EquicordDevs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { GuildMember } from "@vencord/discord-types";
 import { ChannelStore, GuildMemberStore, GuildRoleStore, React, RelationshipStore, UserStore } from "@webpack/common";
@@ -14,52 +15,52 @@ import { ChannelStore, GuildMemberStore, GuildRoleStore, React, RelationshipStor
 const settings = definePluginSettings({
     hideVc: {
         type: OptionType.BOOLEAN,
-        description: "إخفاء قنوات الصوت التي تحتوي مستخدمين محجوبين.",
+        description: t("إخفاء قنوات الصوت التي تحتوي مستخدمين محجوبين.", "Hide voice channels that contain blocked users"),
         default: false,
         restartNeeded: true
     },
     usersToBlock: {
         type: OptionType.STRING,
-        description: "معرّفات المستخدمين مفصولة بفاصلة ومسافة",
+        description: t("معرّفات المستخدمين مفصولة بفاصلة ومسافة", "Comma-separated user IDs to block"),
         restartNeeded: true,
         default: ""
     },
     hideBlockedUsers: {
         type: OptionType.BOOLEAN,
-        description: "إخفاء المستخدمين المحجوبين في كل مكان",
+        description: t("إخفاء المستخدمين المحجوبين في كل مكان", "Hide blocked users everywhere"),
         default: true,
         restartNeeded: true
     },
     hideBlockedMessages: {
         type: OptionType.BOOLEAN,
-        description: "إخفاء رسائل المستخدمين المحجوبين بالكامل (مشابه لإضافة noblockedmessages القديمة)",
+        description: t("إخفاء رسائل المستخدمين المحجوبين بالكامل (مشابه لإضافة noblockedmessages القديمة)", "Completely hide blocked users' messages (similar to the old noblockedmessages plugin)"),
         default: true,
         restartNeeded: true
     },
     hideEmptyRoles: {
         type: OptionType.BOOLEAN,
-        description: "إخفاء عناوين الرتب إذا كان جميع أعضائها محجوبين",
+        description: t("إخفاء عناوين الرتب إذا كان جميع أعضائها محجوبين", "Hide role headers if all their members are blocked"),
         restartNeeded: true,
         default: true
     },
     blockedReplyDisplay: {
         type: OptionType.SELECT,
-        description: "ما الذي يُعرض بدلاً من الرسالة عند الرد على مستخدم مخفي",
+        description: t("ما الذي يُعرض بدلاً من الرسالة عند الرد على مستخدم مخفي", "What to show instead of the message when replying to a hidden user"),
         restartNeeded: true,
         options: [
-            { value: "displayText", label: "Display text saying a hidden message was replied to", default: true },
-            { value: "hideReply", label: "Literally nothing" }
+            { value: "displayText", label: t("عرض نص يشير إلى وجود رد على رسالة مخفية", "Display text saying a hidden message was replied to"), default: true },
+            { value: "hideReply", label: t("لا شيء على الإطلاق", "Literally nothing") }
         ]
     },
     guildBlackList: {
         type: OptionType.STRING,
-        description: "معرّفات السيرفرات لتعطيل الإضافة فيها",
+        description: t("معرّفات السيرفرات لتعطيل الإضافة فيها", "Server IDs to disable the plugin in"),
         restartNeeded: true,
         default: ""
     },
     guildWhiteList: {
         type: OptionType.STRING,
-        description: "معرّفات السيرفرات لتفعيل الإضافة فيها فقط",
+        description: t("معرّفات السيرفرات لتفعيل الإضافة فيها فقط", "Server IDs to only enable the plugin in"),
         restartNeeded: true,
         default: ""
     }
@@ -141,7 +142,7 @@ function activeNowView(cards) {
 
 export default definePlugin({
     name: "ClientSideBlock",
-    description: "يتيح لك إخفاء تقريباً جميع محتوى أي مستخدم محلياً",
+    get description() { return t("يتيح لك إخفاء تقريباً جميع محتوى أي مستخدم محلياً", "Lets you locally hide almost all content from any user"); },
     tags: ["Utility"],
     searchTerms: ["blocked", "block", "hide", "hidden", "noblockedmessages"],
     authors: [Devs.Samwich, EquicordDevs.KamiRu],

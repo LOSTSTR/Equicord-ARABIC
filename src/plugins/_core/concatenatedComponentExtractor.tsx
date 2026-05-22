@@ -5,12 +5,13 @@
  */
 
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 import { setColorPicker, setCreateScroller } from "@webpack/common";
 
 export default definePlugin({
     name: "ConcatenatedComponentExtractor",
-    description: "يستخرج المكونات التي دمجها المُجمِّع",
+    get description() { return t("يستخرج المكونات التي دمجها المُجمِّع", "Extracts components concatenated by the bundler"); },
     authors: [Devs.sadan],
 
     required: true,

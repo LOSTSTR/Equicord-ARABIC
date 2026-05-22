@@ -7,6 +7,7 @@
 import { showNotification } from "@api/Notifications";
 import { definePluginSettings } from "@api/Settings";
 import { EquicordDevs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { findStoreLazy } from "@webpack";
 import {
@@ -25,27 +26,27 @@ const settings = definePluginSettings({
     friends: {
         type: OptionType.BOOLEAN,
         default: false,
-        description: "يُنبّهك عندما يرسل أصدقاؤك رسائل في السيرفرات"
+        description: t("يُنبّهك عندما يرسل أصدقاؤك رسائل في السيرفرات", "Notify you when your friends send messages in servers")
     },
     mentions: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "إشعار عند ذكرك مباشرةً بعلامة @"
+        description: t("إشعار عند ذكرك مباشرةً بعلامة @", "Notify when you are directly mentioned with @")
     },
     dms: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "إشعار عند استقبال رسائل مباشرة (DMs)"
+        description: t("إشعار عند استقبال رسائل مباشرة (DMs)", "Notify when you receive direct messages (DMs)")
     },
     showInActive: {
         type: OptionType.BOOLEAN,
         default: false,
-        description: "إظهار الإشعارات حتى للقناة النشطة حالياً"
+        description: t("إظهار الإشعارات حتى للقناة النشطة حالياً", "Show notifications even for the currently active channel")
     },
     ignoreMuted: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "تجاهل الإشعارات من السيرفرات والقنوات والمستخدمين المكتومين"
+        description: t("تجاهل الإشعارات من السيرفرات والقنوات والمستخدمين المكتومين", "Ignore notifications from muted servers, channels, and users")
     }
 });
 
@@ -91,7 +92,7 @@ function isUserBlocked(userId) {
 
 export default definePlugin({
     name: "PingNotifications",
-    description: "إشعارات قابلة للتخصيص مع تنسيق محسّن للإشارات",
+    get description() { return t("إشعارات قابلة للتخصيص مع تنسيق محسّن للإشارات", "Customizable notifications with improved mention formatting"); },
     tags: ["Chat", "Friends", "Notifications", "Servers"],
     authors: [EquicordDevs.smuki],
     settings,

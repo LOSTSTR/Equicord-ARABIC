@@ -18,6 +18,7 @@ import {
 } from "@components/settings";
 import { gitHashShort } from "@shared/vencordUserAgent";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import { isTruthy } from "@utils/guards";
 import definePlugin, { IconProps, OptionType } from "@utils/types";
 import { waitFor } from "@webpack";
@@ -104,7 +105,7 @@ const settings = definePluginSettings({
     },
     settingsLocation: {
         type: OptionType.SELECT,
-        description: "مكان عرض قسم إعدادات Equicord / Where to display the Equicord settings section",
+        description: t("مكان عرض قسم إعدادات Equicord في الإعدادات", "Where to display the Equicord settings section"),
         options: [
             { label: "At the very top", value: "top" },
             { label: "Above the Nitro section", value: "aboveNitro", default: true },
@@ -116,14 +117,14 @@ const settings = definePluginSettings({
     },
     includeVencordInfoWhenCopying: {
         type: OptionType.BOOLEAN,
-        description: "نسخ معلومات Vencord (Vencord, Electron, Chromium) أيضاً عند النقر على معلومات الإصدار في الزاوية السفلية اليسرى من صفحة الإعدادات / Also copy Vencord info when clicking the version info in settings",
+        description: t("نسخ معلومات Vencord (Vencord، Electron، Chromium) أيضاً عند النقر على معلومات الإصدار في صفحة الإعدادات", "Also copy Vencord info when clicking the version info in settings"),
         default: true
     }
 });
 
 export default definePlugin({
     name: "Settings",
-    description: "يضيف واجهة الإعدادات ومعلومات التشخيص",
+    get description() { return t("يضيف واجهة الإعدادات ومعلومات التشخيص", "Adds the settings UI and debug info"); },
     authors: [Devs.Ven, Devs.Megu],
     required: true,
 

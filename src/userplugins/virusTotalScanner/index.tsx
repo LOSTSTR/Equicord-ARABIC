@@ -67,13 +67,13 @@ const scanCache = new Map<string, ScanResult | "notFound">();
 const settings = definePluginSettings({
     apiKey: {
         type: OptionType.STRING,
-        description: "مفتاح VirusTotal API",
+        description: t("مفتاح VirusTotal API", "VirusTotal API key"),
         default: "",
         hidden: true,
     },
     apiKeyInput: {
         type: OptionType.COMPONENT,
-        description: "مفتاح VirusTotal API v3",
+        description: t("مفتاح VirusTotal API v3", "VirusTotal API v3 key"),
         component: ApiKeyInput,
     }
 });
@@ -463,7 +463,7 @@ function ScanButton({ attachmentProps }: { attachmentProps: AttachmentProps; }):
 
 export default definePlugin({
     name: "VirusTotal-Scanner",
-    description: "افحص مرفقات Discord باستخدام VirusTotal API — بصمة SHA-256 محلية، بدون رفع بياناتك إلا عند الطلب.",
+    get description() { return t("افحص مرفقات Discord باستخدام VirusTotal API — بصمة SHA-256 محلية، بدون رفع بياناتك إلا عند الطلب.", "Scan Discord attachments using the VirusTotal API — SHA-256 hash computed locally, no data uploaded unless you request it."); },
     authors: [{ name: "『N』𝐀𝐁𝐨 𝐆𝐡𝐚𝐲𝐮𝐌 ^", id: 1161389239112568902n }],
     settings,
 

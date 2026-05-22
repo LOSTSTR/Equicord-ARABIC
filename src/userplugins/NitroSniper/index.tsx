@@ -6,6 +6,7 @@
 
 import { showNotification } from "@api/Notifications";
 import { definePluginSettings } from "@api/Settings";
+import { t } from "@utils/esharqI18n";
 import { Logger } from "@utils/Logger";
 import definePlugin, { OptionType } from "@utils/types";
 import { findByPropsLazy } from "@webpack";
@@ -22,12 +23,12 @@ const settings = definePluginSettings({
     notifyOnRedeem: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "عرض إشعار عند استبدال كود نيترو بنجاح."
+        description: t("عرض إشعار عند استبدال كود نيترو بنجاح.", "Show a notification when a Nitro code is successfully redeemed.")
     },
     notifyOnFail: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "عرض إشعار عند فشل استبدال كود نيترو."
+        description: t("عرض إشعار عند فشل استبدال كود نيترو.", "Show a notification when a Nitro code fails to redeem.")
     }
 });
 
@@ -88,7 +89,7 @@ function processQueue() {
 
 export default definePlugin({
     name: "NitroSniper",
-    description: "يستبدل تلقائياً روابط هدايا نيترو المُرسلة في الدردشة\n\n⚠️ WARNING: This plugin automatically redeems Nitro gift codes found in chat. This may violate Discord's Terms of Service and could result in account suspension. Use at your own risk.\n\n⚠️ تحذير: تقوم هذه الإضافة تلقائياً باسترداد أكواد هدايا نيترو من الدردشة، مما قد ينتهك شروط خدمة Discord ويُعرّض حسابك للتعليق. استخدمها على مسؤوليتك الخاصة.",
+    get description() { return t("يستبدل تلقائياً روابط هدايا نيترو المُرسلة في الدردشة\n\n⚠️ WARNING: This plugin automatically redeems Nitro gift codes found in chat. This may violate Discord's Terms of Service and could result in account suspension. Use at your own risk.\n\n⚠️ تحذير: تقوم هذه الإضافة تلقائياً باسترداد أكواد هدايا نيترو من الدردشة، مما قد ينتهك شروط خدمة Discord ويُعرّض حسابك للتعليق. استخدمها على مسؤوليتك الخاصة.", "Automatically redeems Nitro gift links sent in chat.\n\n⚠️ WARNING: This plugin automatically redeems Nitro gift codes found in chat. This may violate Discord's Terms of Service and could result in account suspension. Use at your own risk."); },
     tags: ["Utility", "Fun"],
     authors: [
         { name: "neoarz", id: 1015372540937502851n },

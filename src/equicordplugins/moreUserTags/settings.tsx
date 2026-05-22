@@ -9,6 +9,7 @@ import { Card } from "@components/Card";
 import { Flex } from "@components/Flex";
 import { FormSwitch } from "@components/FormSwitch";
 import { Paragraph } from "@components/Paragraph";
+import { t } from "@utils/esharqI18n";
 import { Margins } from "@utils/margins";
 import { OptionType } from "@utils/types";
 import { Forms, TextInput, Tooltip } from "@webpack/common";
@@ -95,28 +96,28 @@ function SettingsComponent() {
 
 export const settings = definePluginSettings({
     dontShowForBots: {
-        description: "عدم إظهار شارات إضافية للبوتات (باستثناء الـ webhooks)",
+        description: t("عدم إظهار شارات إضافية للبوتات (باستثناء الـ webhooks)", "Do not show extra tags for bots (except webhooks)"),
         type: OptionType.BOOLEAN,
         default: false
     },
     dontShowBotTag: {
-        description: "إظهار الوسوم الإضافية للبوتات فقط / إخفاء نص [APP]",
+        description: t("إظهار الوسوم الإضافية للبوتات فقط / إخفاء نص [APP]", "Only show extra tags for bots / hide [APP] text"),
         type: OptionType.BOOLEAN,
         default: false,
         restartNeeded: true
     },
     showWebhookTagFully: {
-        description: "إظهار وسم Webhook في القنوات المتابعة مثل قنوات الإعلانات",
+        description: t("إظهار وسم Webhook في القنوات المتابعة مثل قنوات الإعلانات", "Show Webhook tag in followed channels like announcement channels"),
         type: OptionType.BOOLEAN,
         default: false
     },
     tagSettings: {
         type: OptionType.COMPONENT,
         component: SettingsComponent,
-        description: "إعدادات الوسوم"
+        description: t("إعدادات الوسوم", "Tag settings")
     },
     noAppsAllowed: {
-        description: "يستبدل كلمة 'app' بكلمة 'bot'",
+        description: t("يستبدل كلمة 'app' بكلمة 'bot'", "Replace 'app' with 'bot'"),
         type: OptionType.BOOLEAN,
         default: false,
         restartNeeded: true

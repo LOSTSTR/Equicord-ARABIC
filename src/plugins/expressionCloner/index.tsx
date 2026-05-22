@@ -25,6 +25,7 @@ import { Heading } from "@components/Heading";
 import { Paragraph } from "@components/Paragraph";
 import { Devs } from "@utils/constants";
 import { getGuildAcronym } from "@utils/discord";
+import { t } from "@utils/esharqI18n";
 import { Logger } from "@utils/Logger";
 import definePlugin from "@utils/types";
 import { Guild, GuildSticker } from "@vencord/discord-types";
@@ -411,7 +412,7 @@ const expressionPickerPatch: NavContextMenuPatchCallback = (children, props: { t
 migratePluginSettings("ExpressionCloner", "EmoteCloner");
 export default definePlugin({
     name: "ExpressionCloner",
-    description: "يتيح نسخ الإيموجي والستيكرات إلى سيرفرك (اضغط عليها بالزر الأيمن)",
+    get description() { return t("يتيح نسخ الإيموجي والستيكرات إلى سيرفرك (اضغط عليها بالزر الأيمن)", "Allows cloning emojis and stickers to your server (right-click them)"); },
     tags: ["Emotes", "Servers"],
     searchTerms: ["StickerCloner", "EmoteCloner", "EmojiCloner"],
     authors: [Devs.Ven, Devs.Nuckyz],

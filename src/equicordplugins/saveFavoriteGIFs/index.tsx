@@ -10,6 +10,7 @@ import { isPluginEnabled } from "@api/PluginManager";
 import { definePluginSettings } from "@api/Settings";
 import equicordToolbox from "@equicordplugins/equicordToolbox";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { saveFile } from "@utils/web";
 import { Menu, UserSettingsActionCreators } from "@webpack/common";
@@ -102,7 +103,7 @@ async function saveWorkingGifs() {
 
 const settings = definePluginSettings({
     showToolboxButton: {
-        description: "يعرض زر 'حفظ GIF المفضلة' في صندوق أدوات Equicord (يتطلب إعادة تحميل)",
+        description: t("يعرض زر 'حفظ GIF المفضلة' في صندوق أدوات Equicord (يتطلب إعادة تحميل)", "Show 'Save Favorite GIFs' button in the Equicord toolbox (requires reload)"),
         type: OptionType.BOOLEAN,
         default: true,
         restartNeeded: true,
@@ -114,7 +115,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "SaveFavoriteGIFs",
-    description: "تصدير روابط GIF المفضلة",
+    get description() { return t("تصدير روابط GIF المفضلة", "Export favorite GIF links"); },
     dependencies: ["CommandsAPI"],
     tags: ["Emotes", "Utility"],
     authors: [Devs.thororen],
@@ -122,13 +123,13 @@ export default definePlugin({
     commands: [
         {
             name: "savegifs",
-            description: "حفظ جميع روابط GIF المفضلة في ملف نصي",
+            description: t("حفظ جميع روابط GIF المفضلة في ملف نصي", "Save all favorite GIF links to a text file"),
             inputType: ApplicationCommandInputType.BUILT_IN,
             execute: saveAllGifs
         },
         {
             name: "saveworkinggifs",
-            description: "اختبار جميع GIF المفضلة وحفظ العاملة منها فقط",
+            description: t("اختبار جميع GIF المفضلة وحفظ العاملة منها فقط", "Test all favorite GIFs and save only the working ones"),
             inputType: ApplicationCommandInputType.BUILT_IN,
             execute: saveWorkingGifs
         }

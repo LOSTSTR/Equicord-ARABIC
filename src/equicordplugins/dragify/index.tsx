@@ -9,6 +9,7 @@ import "./style.css";
 import { definePluginSettings } from "@api/Settings";
 import { EquicordDevs } from "@utils/constants";
 import { getGuildAcronym, insertTextIntoChatInputBox } from "@utils/discord";
+import { t } from "@utils/esharqI18n";
 import { Logger } from "@utils/Logger";
 import definePlugin, { OptionType } from "@utils/types";
 import type { Channel } from "@vencord/discord-types";
@@ -88,67 +89,67 @@ function inspectDragTarget(event: DragEvent, runtime: Pick<DragifyRuntime, "getD
 const settings = definePluginSettings({
     userOutput: {
         type: OptionType.SELECT,
-        description: "ناتج إفلات المستخدم.",
+        description: t("ناتج إفلات المستخدم.", "User drop output."),
         options: [
-            { label: "Mention user", value: "mention", default: true },
-            { label: "User ID", value: "id" },
+            { label: t("ذكر المستخدم", "Mention user"), value: "mention", default: true },
+            { label: t("معرّف المستخدم", "User ID"), value: "id" },
         ],
     },
     channelOutput: {
         type: OptionType.SELECT,
-        description: "ناتج إفلات القناة.",
+        description: t("ناتج إفلات القناة.", "Channel drop output."),
         options: [
-            { label: "#channel mention", value: "mention", default: true },
-            { label: "Channel link", value: "link" },
+            { label: t("ذكر القناة", "#channel mention"), value: "mention", default: true },
+            { label: t("رابط القناة", "Channel link"), value: "link" },
         ],
     },
     inviteExpireAfter: {
         type: OptionType.SELECT,
-        description: "انتهاء صلاحية الدعوة.",
+        description: t("انتهاء صلاحية الدعوة.", "Invite expiry time."),
         options: [
-            { label: "30 minutes", value: 1800 },
-            { label: "1 hour", value: 3600 },
-            { label: "6 hours", value: 21600 },
-            { label: "12 hours", value: 43200 },
-            { label: "1 day", value: 86400 },
-            { label: "7 days", value: 604800 },
-            { label: "Never", value: 0, default: true },
+            { label: t("30 دقيقة", "30 minutes"), value: 1800 },
+            { label: t("ساعة واحدة", "1 hour"), value: 3600 },
+            { label: t("6 ساعات", "6 hours"), value: 21600 },
+            { label: t("12 ساعة", "12 hours"), value: 43200 },
+            { label: t("يوم واحد", "1 day"), value: 86400 },
+            { label: t("7 أيام", "7 days"), value: 604800 },
+            { label: t("أبداً", "Never"), value: 0, default: true },
         ],
     },
     inviteMaxUses: {
         type: OptionType.SELECT,
-        description: "الحد الأقصى لاستخدام الدعوة.",
+        description: t("الحد الأقصى لاستخدام الدعوة.", "Maximum invite uses."),
         options: [
-            { label: "No limit", value: 0, default: true },
-            { label: "1 use", value: 1 },
-            { label: "5 uses", value: 5 },
-            { label: "10 uses", value: 10 },
-            { label: "25 uses", value: 25 },
-            { label: "50 uses", value: 50 },
-            { label: "100 uses", value: 100 },
+            { label: t("بلا حدود", "No limit"), value: 0, default: true },
+            { label: t("استخدام واحد", "1 use"), value: 1 },
+            { label: t("5 استخدامات", "5 uses"), value: 5 },
+            { label: t("10 استخدامات", "10 uses"), value: 10 },
+            { label: t("25 استخداماً", "25 uses"), value: 25 },
+            { label: t("50 استخداماً", "50 uses"), value: 50 },
+            { label: t("100 استخدام", "100 uses"), value: 100 },
         ],
     },
     inviteTemporaryMembership: {
         type: OptionType.BOOLEAN,
         default: false,
-        description: "منح عضوية مؤقتة.",
+        description: t("منح عضوية مؤقتة.", "Grant temporary membership."),
     },
     reuseExistingInvites: {
         type: OptionType.BOOLEAN,
         default: false,
-        description: "إعادة استخدام الدعوة الموجودة بدلاً من إنشاء دعوة جديدة.",
+        description: t("إعادة استخدام الدعوة الموجودة بدلاً من إنشاء دعوة جديدة.", "Reuse existing invite instead of creating a new one."),
     },
     allowChatBodyDrop: {
         type: OptionType.BOOLEAN,
         default: false,
         restartNeeded: true,
-        description: "السماح بالإفلات في جسم الدردشة الرئيسي لإدراج نص.",
+        description: t("السماح بالإفلات في جسم الدردشة الرئيسي لإدراج نص.", "Allow dropping in the main chat body to insert text."),
     },
 });
 
 export default definePlugin({
     name: "Dragify",
-    description: "اسحب المستخدمين أو القنوات أو السيرفرات إلى الدردشة لإدراج إشارات أو دعوات.",
+    get description() { return t("اسحب المستخدمين أو القنوات أو السيرفرات إلى الدردشة لإدراج إشارات أو دعوات.", "Drag users, channels, or servers into chat to insert mentions or invites."); },
     tags: ["Chat", "Servers", "Utility", "Voice"],
     authors: [EquicordDevs.justjxke],
     settings,

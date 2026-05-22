@@ -10,6 +10,7 @@ import { definePluginSettings } from "@api/Settings";
 import { getUserSettingLazy } from "@api/UserSettings";
 import ErrorBoundary from "@components/ErrorBoundary";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { findComponentByCodeLazy } from "@webpack";
 import { ChannelStore, Constants, MessageStore, RestAPI, Tooltip, useEffect, useState, useStateFromStores } from "@webpack/common";
@@ -21,38 +22,38 @@ const ChannelMessage = findComponentByCodeLazy("isFirstMessageInForumPost", "tra
 
 const settings = definePluginSettings({
     onLink: {
-        description: "إظهار تلميح عند المرور على روابط الرسائل",
+        description: t("إظهار تلميح عند المرور على روابط الرسائل", "Show tooltip when hovering over message links"),
         type: OptionType.BOOLEAN,
         default: true,
         restartNeeded: true,
     },
     onReply: {
-        description: "إظهار تلميح عند المرور على ردود الرسائل",
+        description: t("إظهار تلميح عند المرور على ردود الرسائل", "Show tooltip when hovering over message replies"),
         type: OptionType.BOOLEAN,
         default: true,
         restartNeeded: true,
     },
     onForward: {
-        description: "إظهار تلميح عند المرور على الرسائل المُعادة توجيهها",
+        description: t("إظهار تلميح عند المرور على الرسائل المُعادة توجيهها", "Show tooltip when hovering over forwarded messages"),
         type: OptionType.BOOLEAN,
         default: true,
         restartNeeded: true,
     },
     display: {
-        description: "نمط العرض",
+        description: t("نمط العرض", "Display mode"),
         type: OptionType.SELECT,
         options: [
             {
-                label: "Same as message",
+                label: t("مثل الرسالة", "Same as message"),
                 value: "auto",
                 default: true
             },
             {
-                label: "Compact",
+                label: t("مضغوط", "Compact"),
                 value: "compact"
             },
             {
-                label: "Cozy",
+                label: t("مريح", "Cozy"),
                 value: "cozy"
             },
         ]
@@ -61,7 +62,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "MessageLinkTooltip",
-    description: "يضيف تلميحاً بمعاينة الرسالة عند المرور على روابط الرسائل والردود والرسائل المُعادة توجيهها.",
+    get description() { return t("يضيف تلميحاً بمعاينة الرسالة عند المرور على روابط الرسائل والردود والرسائل المُعادة توجيهها.", "Adds a message preview tooltip when hovering over message links, replies, and forwarded messages."); },
     tags: ["Appearance", "Chat"],
     authors: [Devs.Kyuuhachi],
 

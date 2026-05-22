@@ -19,6 +19,7 @@
 import { definePluginSettings } from "@api/Settings";
 import ErrorBoundary from "@components/ErrorBoundary";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { useCallback, useEffect, useRef, useState } from "@webpack/common";
 
@@ -61,7 +62,7 @@ interface Instance {
 export const settings = definePluginSettings({
     searchOption: {
         type: OptionType.SELECT,
-        description: "الجزء من الرابط الذي تريد البحث فيه",
+        description: t("الجزء من الرابط الذي تريد البحث فيه", "The part of the URL you want to search in"),
         options: [
             {
                 label: "Entire Url",
@@ -83,7 +84,7 @@ export const settings = definePluginSettings({
 export default definePlugin({
     name: "FavoriteGifSearch",
     authors: [Devs.Aria],
-    description: "يُتيح البحث في GIF المفضلة",
+    get description() { return t("يُتيح البحث في GIF المفضلة", "Enables searching through favorite GIFs"); },
     tags: ["Media", "Customisation"],
 
     patches: [

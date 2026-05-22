@@ -11,6 +11,7 @@ import { NavContextMenuPatchCallback } from "@api/ContextMenu";
 import { definePluginSettings } from "@api/Settings";
 import { Button } from "@components/Button";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import { classNameFactory } from "@utils/css";
 import definePlugin, { OptionType } from "@utils/types";
 import { findComponentByCodeLazy } from "@webpack";
@@ -74,12 +75,12 @@ function SoundIdInput() {
 const settings = definePluginSettings({
     soundGuildId: {
         type: OptionType.COMPONENT,
-        description: "اختر السيرفر الذي يحتوي الصوت.",
+        get description() { return t("اختر السيرفر الذي يحتوي الصوت.", "Select the server that contains the sound."); },
         component: GuildSelector
     },
     soundId: {
         type: OptionType.COMPONENT,
-        description: "أدخل معرّف الصوت الذي تريد تشغيله.",
+        get description() { return t("أدخل معرّف الصوت الذي تريد تشغيله.", "Enter the ID of the sound you want to play."); },
         component: SoundIdInput
     }
 });
@@ -103,7 +104,7 @@ let original: typeof ChannelActions.selectVoiceChannel;
 
 export default definePlugin({
     name: "ExitSounds",
-    description: "يُشغّل أصوات لوحة الأصوات عند قطع الاتصال بالصوت.",
+    get description() { return t("يُشغّل أصوات لوحة الأصوات عند قطع الاتصال بالصوت.", "Plays soundboard sounds when disconnecting from voice."); }
     tags: ["Fun", "Voice"],
     authors: [Devs.prism],
     dependencies: ["AudioPlayerAPI"],

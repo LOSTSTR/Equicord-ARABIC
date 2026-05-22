@@ -5,11 +5,12 @@
  */
 
 import { EquicordDevs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "CleanerChannelGroups",
-    description: "يخفي جميع القنوات ضمن الفئات المطوية حتى وإن كانت تحتوي رسائل غير مقروءة.",
+    get description() { return t("يخفي جميع القنوات ضمن الفئات المطوية حتى وإن كانت تحتوي رسائل غير مقروءة.", "Hides all channels within collapsed categories even if they contain unread messages."); },
     tags: ["Appearance", "Customisation", "Chat", "Organisation", "Servers"],
     authors: [EquicordDevs.justjxke],
     patches: [

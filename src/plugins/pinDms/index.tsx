@@ -9,6 +9,7 @@ import "./styles.css";
 import { definePluginSettings } from "@api/Settings";
 import ErrorBoundary from "@components/ErrorBoundary";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import { classes } from "@utils/misc";
 import definePlugin, { OptionType, StartAt } from "@utils/types";
 import { Channel } from "@vencord/discord-types";
@@ -40,7 +41,7 @@ export const enum PinOrder {
 export const settings = definePluginSettings({
     pinOrder: {
         type: OptionType.SELECT,
-        description: "ترتيب عرض المحادثات الخاصة المثبتة",
+        description: t("ترتيب عرض المحادثات الخاصة المثبتة", "The display order of pinned private conversations"),
         options: [
             { label: "Most recent message", value: PinOrder.LastMessage, default: true },
             { label: "Custom (right click channels to reorder)", value: PinOrder.Custom }
@@ -48,12 +49,12 @@ export const settings = definePluginSettings({
     },
     canCollapseDmSection: {
         type: OptionType.BOOLEAN,
-        description: "السماح بطي قسم الرسائل المباشرة غير المصنفة",
+        description: t("السماح بطي قسم الرسائل المباشرة غير المصنفة", "Allow collapsing the uncategorized DMs section"),
         default: false
     },
     dmSectionCollapsed: {
         type: OptionType.BOOLEAN,
-        description: "طي قسم الرسائل المباشرة",
+        description: t("طي قسم الرسائل المباشرة", "Collapse the DMs section"),
         default: false,
         hidden: true
     },
@@ -66,7 +67,7 @@ export const settings = definePluginSettings({
 
 export default definePlugin({
     name: "PinDMs",
-    description: "يُتيح تثبيت المحادثات الخاصة في أعلى القائمة",
+    get description() { return t("يُتيح تثبيت المحادثات الخاصة في أعلى القائمة", "Allows pinning DMs to the top of the list"); },
     tags: ["Friends", "Organisation"],
     authors: [Devs.Ven, Devs.Aria],
     settings,

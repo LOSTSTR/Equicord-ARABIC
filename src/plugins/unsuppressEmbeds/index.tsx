@@ -19,6 +19,7 @@
 import { findGroupChildrenByChildId, NavContextMenuPatchCallback } from "@api/ContextMenu";
 import { ImageInvisible, ImageVisible } from "@components/Icons";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 import { Channel, Message } from "@vencord/discord-types";
 import { Constants, Menu, PermissionsBits, PermissionStore, RestAPI, UserStore } from "@webpack/common";
@@ -61,7 +62,7 @@ const messageContextMenuPatch: NavContextMenuPatchCallback = (
 export default definePlugin({
     name: "UnsuppressEmbeds",
     authors: [Devs.rad, Devs.HypedDomi],
-    description: "يتيح لك إلغاء كتم المحتوى المضمّن في الرسائل",
+    get description() { return t("يتيح لك إلغاء كتم المحتوى المضمّن في الرسائل", "Allows you to unsuppress embeds in messages"); },
     tags: ["Chat", "Utility"],
     contextMenus: {
         "message": messageContextMenuPatch

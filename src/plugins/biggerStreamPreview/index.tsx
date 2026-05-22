@@ -20,6 +20,7 @@ import { NavContextMenuPatchCallback } from "@api/ContextMenu";
 import { ScreenshareIcon } from "@components/Icons";
 import { Devs } from "@utils/constants";
 import { openImageModal } from "@utils/discord";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 import { ApplicationStream, Channel, Stream, User } from "@vencord/discord-types";
 import { ApplicationStreamingStore, ApplicationStreamPreviewStore, Menu } from "@webpack/common";
@@ -88,7 +89,7 @@ export const userContextPatch: NavContextMenuPatchCallback = (children, { user }
 
 export default definePlugin({
     name: "BiggerStreamPreview",
-    description: "يتيح تكبير معاينات البث في Discord",
+    get description() { return t("يتيح تكبير معاينات البث في Discord", "Allows viewing stream previews at a larger size"); },
     tags: ["Media", "Appearance"],
     authors: [Devs.phil],
     contextMenus: {

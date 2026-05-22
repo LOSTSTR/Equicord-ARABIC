@@ -6,6 +6,7 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { Constants, PermissionsBits, PermissionStore, React, RestAPI, useCallback, useEffect, useState } from "@webpack/common";
 
@@ -49,23 +50,23 @@ function showIcon() {
 // TY ToggleVideoBind
 const settings = definePluginSettings({
     keyBind: {
-        description: "المفتاح لتبديل ظهور أيقونة الحذف عند الضغط عليه.",
+        get description() { return t("المفتاح لتبديل ظهور أيقونة الحذف عند الضغط عليه.", "Key to toggle the delete icon visibility when held."); },
         type: OptionType.STRING,
         default: "KeyZ",
         isValid: (value: string) => validKeycodes.includes(value),
     },
     reqCtrl: {
-        description: "يتطلب الضغط على مفتاح Control.",
+        get description() { return t("يتطلب الضغط على مفتاح Control.", "Require holding the Control key."); },
         type: OptionType.BOOLEAN,
         default: true,
     },
     reqShift: {
-        description: "يتطلب الضغط على مفتاح Shift.",
+        get description() { return t("يتطلب الضغط على مفتاح Shift.", "Require holding the Shift key."); },
         type: OptionType.BOOLEAN,
         default: true,
     },
     reqAlt: {
-        description: "يتطلب الضغط على مفتاح Alt.",
+        get description() { return t("يتطلب الضغط على مفتاح Alt.", "Require holding the Alt key."); },
         type: OptionType.BOOLEAN,
         default: false,
     },
@@ -73,7 +74,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "FastDeleteChannels",
-    description: "يضيف أيقونة سلة المهملات لحذف القنوات",
+    get description() { return t("يضيف أيقونة سلة المهملات لحذف القنوات", "Adds a trash icon to quickly delete channels"); }
     tags: ["Servers", "Utility"],
     authors: [Devs.thororen],
     settings,

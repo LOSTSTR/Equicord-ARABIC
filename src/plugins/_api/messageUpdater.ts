@@ -17,11 +17,12 @@
 */
 
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "MessageUpdaterAPI",
-    description: "واجهة برمجية لتحديث وإعادة عرض الرسائل",
+    get description() { return t("واجهة برمجية لتحديث وإعادة عرض الرسائل", "API to update and rerender messages"); },
     authors: [Devs.Nuckyz],
 
     patches: [

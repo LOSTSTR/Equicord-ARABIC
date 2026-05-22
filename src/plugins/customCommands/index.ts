@@ -22,6 +22,7 @@ import { ApplicationCommandInputType, ApplicationCommandOptionType, findOption, 
 import { migratePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
 import { sendMessage } from "@utils/discord";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 import { FluxDispatcher, MessageActions, PendingReplyStore } from "@webpack/common";
 
@@ -62,7 +63,7 @@ export function registerTagCommand(tag: Tag) {
             })),
             {
                 name: "ephemeral",
-                description: "هل يكون الرد مرئيًا لك فقط",
+                description: t("هل يكون الرد مرئيًا لك فقط", "Should the reply be visible to you only"),
                 type: ApplicationCommandOptionType.BOOLEAN,
                 required: false
             }
@@ -89,7 +90,7 @@ export function registerTagCommand(tag: Tag) {
 migratePluginSettings("CustomCommands", "MessageTags");
 export default definePlugin({
     name: "CustomCommands",
-    description: "يُضيف أوامر مخصصة لاستبدال النصوص في رسائلك",
+    get description() { return t("يُضيف أوامر مخصصة لاستبدال النصوص في رسائلك", "Adds custom commands to replace text in your messages"); },
     dependencies: ["CommandsAPI"],
     searchTerms: ["MessageTags"],
     authors: [Devs.Ven, Devs.Luna,],
@@ -106,28 +107,28 @@ export default definePlugin({
     commands: [
         {
             name: "tags",
-            description: "إدارة جميع الأوامر المخصصة",
+            description: t("إدارة جميع الأوامر المخصصة", "Manage all custom commands"),
             inputType: ApplicationCommandInputType.BUILT_IN,
             options: [
                 {
                     name: "create",
-                    description: "إنشاء وسم جديد",
+                    description: t("إنشاء وسم جديد", "Create a new tag"),
                     type: ApplicationCommandOptionType.SUB_COMMAND,
                 },
                 {
                     name: "list",
-                    description: "عرض جميع وسوماتك",
+                    description: t("عرض جميع وسوماتك", "List all your tags"),
                     type: ApplicationCommandOptionType.SUB_COMMAND,
                     options: []
                 },
                 {
                     name: "delete",
-                    description: "حذف وسم بالاسم",
+                    description: t("حذف وسم بالاسم", "Delete a tag by name"),
                     type: ApplicationCommandOptionType.SUB_COMMAND,
                     options: [
                         {
                             name: "tag-name",
-                            description: "اسم الوسم",
+                            description: t("اسم الوسم", "The tag name"),
                             type: ApplicationCommandOptionType.STRING,
                             required: true
                         }

@@ -5,11 +5,12 @@
  */
 
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "NicknameIconsAPI",
-    description: "واجهة برمجية لإضافة أيقونات بجانب الأسماء في الملفات الشخصية",
+    get description() { return t("واجهة برمجية لإضافة أيقونات بجانب الأسماء في الملفات الشخصية", "API to add icons next to names in profiles"); },
     authors: [Devs.Nuckyz],
     patches: [
         {

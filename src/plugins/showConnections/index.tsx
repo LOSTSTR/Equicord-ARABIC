@@ -26,6 +26,7 @@ import { CopyIcon, LinkIcon } from "@components/Icons";
 import OpenInAppPlugin from "@plugins/openInApp";
 import { Devs } from "@utils/constants";
 import { copyWithToast } from "@utils/discord";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { ConnectedAccount, User } from "@vencord/discord-types";
 import { findByCodeLazy, findByPropsLazy } from "@webpack";
@@ -47,12 +48,12 @@ const getSpacingPx = (spacing: Spacing | undefined) => (spacing ?? Spacing.COMPA
 const settings = definePluginSettings({
     iconSize: {
         type: OptionType.NUMBER,
-        description: "حجم الأيقونة (بكسل)",
+        description: t("حجم الأيقونة (بكسل)", "Icon size (pixels)"),
         default: 32
     },
     iconSpacing: {
         type: OptionType.SELECT,
-        description: "هامش الأيقونة",
+        description: t("هامش الأيقونة", "Icon spacing"),
         default: Spacing.COZY,
         options: [
             { label: "Compact", value: Spacing.COMPACT },
@@ -160,7 +161,7 @@ function CompactConnectionComponent({ connection, theme }: { connection: Connect
 
 export default definePlugin({
     name: "ShowConnections",
-    description: "يعرض الحسابات المرتبطة في الملف الشخصي الصغير",
+    get description() { return t("يعرض الحسابات المرتبطة في الملف الشخصي الصغير", "Shows linked accounts in the mini profile"); },
     tags: ["Friends", "Appearance"],
     authors: [Devs.TheKodeToad],
     settings,

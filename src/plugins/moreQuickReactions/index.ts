@@ -8,41 +8,42 @@ import "./styles.css";
 
 import { definePluginSettings, migratePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { makeRange, OptionType } from "@utils/types";
 
 const settings = definePluginSettings({
     reactionCount: {
-        description: "عدد التفاعلات السريعة (0-42)",
+        description: t("عدد التفاعلات السريعة (0-42)", "Number of quick reactions (0-42)"),
         type: OptionType.NUMBER,
         default: 5
     },
     frequentEmojis: {
-        description: "استخدام الإيموجي الأكثر استخداماً بدلاً من المفضلة",
+        description: t("استخدام الإيموجي الأكثر استخداماً بدلاً من المفضلة", "Use the most frequently used emojis instead of favorites"),
         type: OptionType.BOOLEAN,
         restartNeeded: true,
         default: true
     },
     rows: {
-        description: "عدد صفوف التفاعلات السريعة للعرض",
+        description: t("عدد صفوف التفاعلات السريعة للعرض", "Number of quick reaction rows to display"),
         type: OptionType.SLIDER,
         default: 2,
         markers: makeRange(1, 16, 1),
         stickToMarkers: true
     },
     columns: {
-        description: "عدد أعمدة التفاعلات السريعة للعرض",
+        description: t("عدد أعمدة التفاعلات السريعة للعرض", "Number of quick reaction columns to display"),
         type: OptionType.SLIDER,
         default: 4,
         markers: makeRange(1, 12, 1),
         stickToMarkers: true
     },
     compactMode: {
-        description: "تصغير الأزرار إلى 75% من حجمها الأصلي مع تكبير الإيموجي الداخلي إلى 125%. ستكون الإيموجي 93.75% من حجمها الأصلي. يُنصح بوجود 5 أعمدة على الأقل",
+        description: t("تصغير الأزرار إلى 75% من حجمها الأصلي مع تكبير الإيموجي الداخلي إلى 125%. ستكون الإيموجي 93.75% من حجمها الأصلي. يُنصح بوجود 5 أعمدة على الأقل", "Shrink buttons to 75% of their original size while scaling up the inner emoji to 125%. Emojis will be 93.75% of their original size. At least 5 columns recommended"),
         type: OptionType.BOOLEAN,
         default: false
     },
     scroll: {
-        description: "تفعيل التمرير في قائمة الإيموجي",
+        description: t("تفعيل التمرير في قائمة الإيموجي", "Enable scrolling in the emoji list"),
         type: OptionType.BOOLEAN,
         default: true
     }
@@ -51,7 +52,7 @@ const settings = definePluginSettings({
 migratePluginSettings("MoreQuickReactions", "BetterQuickReact");
 export default definePlugin({
     name: "MoreQuickReactions",
-    description: "يُضيف المزيد من ردود الفعل السريعة",
+    get description() { return t("يُضيف المزيد من ردود الفعل السريعة", "Adds more quick reactions"); },
     tags: ["Emotes", "Reactions", "Customisation", "Shortcuts"],
     authors: [Devs.Ven, Devs.Sqaaakoi, Devs.iamme],
     isModified: true,

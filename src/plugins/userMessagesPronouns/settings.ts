@@ -17,6 +17,7 @@
 */
 
 import { definePluginSettings } from "@api/Settings";
+import { t } from "@utils/esharqI18n";
 import { OptionType } from "@utils/types";
 
 export const enum PronounsFormat {
@@ -27,7 +28,7 @@ export const enum PronounsFormat {
 export const settings = definePluginSettings({
     pronounsFormat: {
         type: OptionType.SELECT,
-        description: "صيغة عرض الضمائر في الدردشة",
+        description: t("صيغة عرض الضمائر في الدردشة", "The format for displaying pronouns in chat"),
         options: [
             {
                 label: "Lowercase",
@@ -42,7 +43,7 @@ export const settings = definePluginSettings({
     },
     showSelf: {
         type: OptionType.BOOLEAN,
-        description: "تفعيل أو تعطيل عرض الضمائر الخاصة بك",
+        description: t("تفعيل أو تعطيل عرض الضمائر الخاصة بك", "Enable or disable showing your own pronouns"),
         default: true
     }
 });

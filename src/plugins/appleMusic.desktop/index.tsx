@@ -7,6 +7,7 @@
 import { definePluginSettings } from "@api/Settings";
 import { Paragraph } from "@components/Paragraph";
 import { Devs, IS_MAC } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType, PluginNative, ReporterTestable } from "@utils/types";
 import { Activity, ActivityAssets, ActivityButton } from "@vencord/discord-types";
 import { ActivityFlags, ActivityStatusDisplayType, ActivityType } from "@vencord/discord-types/enums";
@@ -50,14 +51,14 @@ function setActivity(activity: Activity | null) {
 const settings = definePluginSettings({
     activityType: {
         type: OptionType.SELECT,
-        description: "نوع النشاط المعروض",
+        description: t("نوع النشاط المعروض", "Activity type to display"),
         options: [
             { label: "Playing", value: ActivityType.PLAYING, default: true },
             { label: "Listening", value: ActivityType.LISTENING }
         ],
     },
     statusDisplayType: {
-        description: "إظهار اسم المقطع/الفنان في قائمة الأعضاء",
+        description: t("إظهار اسم المقطع/الفنان في قائمة الأعضاء", "Show track/artist name in the member list"),
         type: OptionType.SELECT,
         options: [
             {
@@ -77,39 +78,39 @@ const settings = definePluginSettings({
     },
     refreshInterval: {
         type: OptionType.SLIDER,
-        description: "الفاصل الزمني بين تحديثات النشاط (بالثواني)",
+        description: t("الفاصل الزمني بين تحديثات النشاط (بالثواني)", "Interval between activity updates (in seconds)"),
         markers: [1, 2, 2.5, 3, 5, 10, 15],
         default: 5,
         restartNeeded: true,
     },
     enableTimestamps: {
         type: OptionType.BOOLEAN,
-        description: "تفعيل أو تعطيل الطوابع الزمنية",
+        description: t("تفعيل أو تعطيل الطوابع الزمنية", "Enable or disable timestamps"),
         default: true,
     },
     enableButtons: {
         type: OptionType.BOOLEAN,
-        description: "تفعيل أو تعطيل الأزرار",
+        description: t("تفعيل أو تعطيل الأزرار", "Enable or disable buttons"),
         default: true,
     },
     nameString: {
         type: OptionType.STRING,
-        description: "نص تنسيق اسم النشاط",
+        description: t("نص تنسيق اسم النشاط", "Activity name format string"),
         default: "Apple Music"
     },
     detailsString: {
         type: OptionType.STRING,
-        description: "نص تنسيق تفاصيل النشاط",
+        description: t("نص تنسيق تفاصيل النشاط", "Activity details format string"),
         default: "{name}"
     },
     stateString: {
         type: OptionType.STRING,
-        description: "نص تنسيق حالة النشاط",
+        description: t("نص تنسيق حالة النشاط", "Activity state format string"),
         default: "{artist} · {album}"
     },
     largeImageType: {
         type: OptionType.SELECT,
-        description: "نوع الصورة الكبيرة في أصول النشاط",
+        description: t("نوع الصورة الكبيرة في أصول النشاط", "Large image type in activity assets"),
         options: [
             { label: "Album artwork", value: AssetImageType.Album, default: true },
             { label: "Artist artwork", value: AssetImageType.Artist },
@@ -118,12 +119,12 @@ const settings = definePluginSettings({
     },
     largeTextString: {
         type: OptionType.STRING,
-        description: "نص تنسيق النص الكبير في أصول النشاط",
+        description: t("نص تنسيق النص الكبير في أصول النشاط", "Large text format string in activity assets"),
         default: "{album}"
     },
     smallImageType: {
         type: OptionType.SELECT,
-        description: "نوع الصورة الصغيرة في أصول النشاط",
+        description: t("نوع الصورة الصغيرة في أصول النشاط", "Small image type in activity assets"),
         options: [
             { label: "Album artwork", value: AssetImageType.Album },
             { label: "Artist artwork", value: AssetImageType.Artist, default: true },
@@ -132,7 +133,7 @@ const settings = definePluginSettings({
     },
     smallTextString: {
         type: OptionType.STRING,
-        description: "نص تنسيق النص الصغير في أصول النشاط",
+        description: t("نص تنسيق النص الصغير في أصول النشاط", "Small text format string in activity assets"),
         default: "{artist}"
     },
 });
@@ -156,7 +157,7 @@ function getImageAsset(type: AssetImageType, data: TrackData) {
 
 export default definePlugin({
     name: "AppleMusicRichPresence",
-    description: "يعرض نشاطك الموسيقي في Apple Music",
+    get description() { return t("يعرض نشاطك الموسيقي في Apple Music", "Displays your Apple Music activity"); },
     tags: ["Activity", "Media"],
     authors: [Devs.RyanCaoDev],
     hidden: !IS_MAC,

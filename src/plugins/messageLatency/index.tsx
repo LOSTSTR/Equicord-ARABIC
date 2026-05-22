@@ -7,6 +7,7 @@
 import { definePluginSettings } from "@api/Settings";
 import ErrorBoundary from "@components/ErrorBoundary";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import { isNonNullish } from "@utils/guards";
 import definePlugin, { OptionType } from "@utils/types";
 import { Message } from "@vencord/discord-types";
@@ -28,29 +29,29 @@ const DISCORD_KT_DELAY = 1471228928;
 
 export default definePlugin({
     name: "MessageLatency",
-    description: "يعرض مؤشراً للرسائل التي استغرق إرسالها ≥n ثانية",
+    get description() { return t("يعرض مؤشراً للرسائل التي استغرق إرسالها ≥n ثانية", "Shows an indicator for messages that took ≥n seconds to send"); },
     tags: ["Chat", "Utility"],
     authors: [Devs.arHSM],
 
     settings: definePluginSettings({
         latency: {
             type: OptionType.NUMBER,
-            description: "الحد الأدنى بالثواني لإظهار مؤشر التأخير",
+            description: t("الحد الأدنى بالثواني لإظهار مؤشر التأخير", "Minimum latency in seconds to show the latency indicator"),
             default: 2
         },
         detectDiscordKotlin: {
             type: OptionType.BOOLEAN,
-            description: "الكشف عن عملاء Discord القديمة على أندرويد",
+            description: t("الكشف عن عملاء Discord القديمة على أندرويد", "Detect old Discord clients on Android"),
             default: true
         },
         showMillis: {
             type: OptionType.BOOLEAN,
-            description: "إظهار الميلي ثانية",
+            description: t("إظهار الميلي ثانية", "Show milliseconds"),
             default: false
         },
         ignoreSelf: {
             type: OptionType.BOOLEAN,
-            description: "عدم إضافة المؤشر لرسائلك الخاصة",
+            description: t("عدم إضافة المؤشر لرسائلك الخاصة", "Do not add the indicator to your own messages"),
             default: false
         }
     }),

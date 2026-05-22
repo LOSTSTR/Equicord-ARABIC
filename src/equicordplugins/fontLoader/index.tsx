@@ -12,6 +12,7 @@ import { HeadingSecondary, HeadingTertiary } from "@components/Heading";
 import { Paragraph } from "@components/Paragraph";
 import { debounce } from "@shared/debounce";
 import { EquicordDevs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import { Margins } from "@utils/margins";
 import { classes } from "@utils/misc";
 import definePlugin, { OptionType } from "@utils/types";
@@ -173,13 +174,13 @@ migratePluginSetting("FontLoader", "applyOnCodeBlocks", "applyOnClodeBlocks");
 const settings = definePluginSettings({
     selectedFont: {
         type: OptionType.STRING,
-        description: "الخط المحدد حالياً",
+        get description() { return t("الخط المحدد حالياً", "Currently selected font"); },
         default: "",
         hidden: true
     },
     fontSearch: {
         type: OptionType.COMPONENT,
-        description: "بحث واختيار خطوط Google Fonts",
+        get description() { return t("بحث واختيار خطوط Google Fonts", "Search and select Google Fonts"); },
         component: () => (
             <GoogleFontSearch
                 onSelect={font => {
@@ -191,14 +192,14 @@ const settings = definePluginSettings({
     },
     applyOnCodeBlocks: {
         type: OptionType.BOOLEAN,
-        description: "تطبيق الخط على كتل الكود",
+        get description() { return t("تطبيق الخط على كتل الكود", "Apply the font to code blocks"); },
         default: false
     }
 });
 
 export default definePlugin({
     name: "FontLoader",
-    description: "يحمّل أي خط من Google Fonts",
+    get description() { return t("يحمّل أي خط من Google Fonts", "Loads any font from Google Fonts"); }
     tags: ["Appearance", "Customisation"],
     authors: [EquicordDevs.vmohammad],
     settings,

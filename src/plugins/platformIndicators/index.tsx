@@ -20,6 +20,7 @@ import "./style.css";
 
 import { definePluginSettings, migratePluginSetting } from "@api/Settings";
 import { Devs, EquicordDevs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import { classes } from "@utils/misc";
 import definePlugin, { OptionType } from "@utils/types";
 import { DiscordPlatform, User } from "@vencord/discord-types";
@@ -169,34 +170,34 @@ migratePluginSetting("PlatformIndicators", "profiles", "badges");
 const settings = definePluginSettings({
     list: {
         type: OptionType.BOOLEAN,
-        description: "إظهار الأيقونات في قائمة الأعضاء",
+        description: t("إظهار الأيقونات في قائمة الأعضاء", "Show icons in the member list"),
         default: true,
     },
     profiles: {
         type: OptionType.BOOLEAN,
-        description: "إظهار المؤشرات في ملفات المستخدمين الشخصية",
+        description: t("إظهار المؤشرات في ملفات المستخدمين الشخصية", "Show indicators in user profiles"),
         default: true,
     },
     messages: {
         type: OptionType.BOOLEAN,
-        description: "إظهار المؤشرات داخل الرسائل",
+        description: t("إظهار المؤشرات داخل الرسائل", "Show indicators inside messages"),
         default: true,
     },
     colorMobileIndicator: {
         type: OptionType.BOOLEAN,
-        description: "جعل مؤشر الجوال يطابق لون حالة المستخدم.",
+        description: t("جعل مؤشر الجوال يطابق لون حالة المستخدم.", "Make the mobile indicator match the user's status color."),
         default: true,
         restartNeeded: true
     },
     showBots: {
         type: OptionType.BOOLEAN,
-        description: "إظهار مؤشرات المنصة على البوتات",
+        description: t("إظهار مؤشرات المنصة على البوتات", "Show platform indicators on bots"),
         default: false,
         restartNeeded: false
     },
     ConsoleIcon: {
         type: OptionType.SELECT,
-        description: "أيقونة وحدة التحكم المستخدمة",
+        description: t("أيقونة وحدة التحكم المستخدمة", "The console icon to use"),
         restartNeeded: true,
         options: [
             {
@@ -218,7 +219,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "PlatformIndicators",
-    description: "يعرض أيقونة الجهاز المستخدم بجانب اسم المستخدم",
+    get description() { return t("يعرض أيقونة الجهاز المستخدم بجانب اسم المستخدم", "Displays the device icon next to the username"); },
     dependencies: ["MemberListDecoratorsAPI", "MessageDecorationsAPI", "NicknameIconsAPI"],
     tags: ["Appearance"],
     authors: [Devs.kemo, Devs.TheSun, Devs.Nuckyz, Devs.Ven, EquicordDevs.neoarz],

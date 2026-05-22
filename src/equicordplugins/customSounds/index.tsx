@@ -12,6 +12,7 @@ import { definePluginSettings } from "@api/Settings";
 import { Heading } from "@components/Heading";
 import { Devs } from "@utils/constants";
 import { classNameFactory } from "@utils/css";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType, StartAt } from "@utils/types";
 import { Button, React, showToast, TextInput } from "@webpack/common";
 
@@ -392,7 +393,7 @@ export function findOverride(id: string): SoundOverride | null {
 
 export default definePlugin({
     name: "CustomSounds",
-    description: "تخصيص أصوات ديسكورد",
+    get description() { return t("تخصيص أصوات ديسكورد", "Customize Discord sounds"); },
     dependencies: ["AudioPlayerAPI"],
     tags: ["Customisation", "Notifications", "Voice"],
     authors: [Devs.ScattrdBlade, Devs.TheKodeToad],

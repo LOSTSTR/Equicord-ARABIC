@@ -9,6 +9,7 @@ import { definePluginSettings } from "@api/Settings";
 import NoReplyMentionPlugin from "@plugins/noReplyMention";
 import { Devs, EquicordDevs } from "@utils/constants";
 import { copyWithToast, insertTextIntoChatInputBox } from "@utils/discord";
+import { t } from "@utils/esharqI18n";
 import { Logger } from "@utils/Logger";
 import definePlugin, { makeRange, OptionType } from "@utils/types";
 import type { Channel, Message } from "@vencord/discord-types";
@@ -138,67 +139,67 @@ let secondMouseDownTime = 0;
 export const settings = definePluginSettings({
     singleClickAction: {
         type: OptionType.SELECT,
-        description: "الإجراء عند النقر مرة واحدة (رسائلك)",
+        description: t("الإجراء عند النقر مرة واحدة (رسائلك)", "Action on single click (your messages)"),
         options: actions,
         default: "DELETE"
     },
     singleClickModifier: {
         type: OptionType.SELECT,
-        description: "المعدِّل المطلوب للنقر المفرد (رسائلك)",
+        description: t("المعدِّل المطلوب للنقر المفرد (رسائلك)", "Required modifier for single click (your messages)"),
         options: singleClickModifiers,
         default: "BACKSPACE"
     },
     singleClickOthersAction: {
         type: OptionType.SELECT,
-        description: "الإجراء عند النقر مرة واحدة (رسائل الآخرين)",
+        description: t("الإجراء عند النقر مرة واحدة (رسائل الآخرين)", "Action on single click (others' messages)"),
         options: actions,
         default: "DELETE"
     },
     singleClickOthersModifier: {
         type: OptionType.SELECT,
-        description: "المعدِّل المطلوب للنقر المفرد (رسائل الآخرين)",
+        description: t("المعدِّل المطلوب للنقر المفرد (رسائل الآخرين)", "Required modifier for single click (others' messages)"),
         options: singleClickModifiers,
         default: "BACKSPACE"
     },
     doubleClickAction: {
         type: OptionType.SELECT,
-        description: "الإجراء عند النقر المزدوج (رسائلك)",
+        description: t("الإجراء عند النقر المزدوج (رسائلك)", "Action on double click (your messages)"),
         options: doubleClickOwnActions,
         default: "EDIT"
     },
     doubleClickOthersAction: {
         type: OptionType.SELECT,
-        description: "الإجراء عند النقر المزدوج (رسائل الآخرين)",
+        description: t("الإجراء عند النقر المزدوج (رسائل الآخرين)", "Action on double click (others' messages)"),
         options: doubleClickOthersActions,
         default: "REPLY"
     },
     doubleClickModifier: {
         type: OptionType.SELECT,
-        description: "المعدِّل المطلوب للنقر المزدوج",
+        description: t("المعدِّل المطلوب للنقر المزدوج", "Required modifier for double click"),
         options: modifiers,
         default: "NONE"
     },
     tripleClickAction: {
         type: OptionType.SELECT,
-        description: "الإجراء عند النقر الثلاثي",
+        description: t("الإجراء عند النقر الثلاثي", "Action on triple click"),
         options: actions,
         default: "REACT"
     },
     tripleClickModifier: {
         type: OptionType.SELECT,
-        description: "المعدِّل المطلوب للنقر الثلاثي",
+        description: t("المعدِّل المطلوب للنقر الثلاثي", "Required modifier for triple click"),
         options: modifiers,
         default: "NONE"
     },
     reactEmoji: {
         type: OptionType.COMPONENT,
-        description: "الإيموجي المستخدم لإجراءات التفاعل.",
+        description: t("الإيموجي المستخدم لإجراءات التفاعل.", "The emoji used for reaction actions"),
         component: ReactEmojiSetting,
         default: "💀"
     },
     addAdditionalReacts: {
         type: OptionType.BOOLEAN,
-        description: "إضافة إيموجيات تفاعل إضافية مخصصة أيضاً",
+        description: t("إضافة إيموجيات تفاعل إضافية مخصصة أيضاً", "Also add custom additional reaction emojis"),
         default: false
     },
     additionalReactEmojis: {
@@ -212,45 +213,45 @@ export const settings = definePluginSettings({
     },
     disableInDms: {
         type: OptionType.BOOLEAN,
-        description: "تعطيل جميع إجراءات النقر في الرسائل المباشرة",
+        description: t("تعطيل جميع إجراءات النقر في الرسائل المباشرة", "Disable all click actions in direct messages"),
         default: false
     },
     disableInSystemDms: {
         type: OptionType.BOOLEAN,
-        description: "تعطيل جميع إجراءات النقر في رسائل النظام",
+        description: t("تعطيل جميع إجراءات النقر في رسائل النظام", "Disable all click actions in system messages"),
         default: true
     },
     clickTimeout: {
         type: OptionType.NUMBER,
-        description: "مهلة التمييز بين النقر المزدوج/الثلاثي (بالمللي ثانية)",
+        description: t("مهلة التمييز بين النقر المزدوج/الثلاثي (بالمللي ثانية)", "Timeout for distinguishing between double/triple click (in milliseconds)"),
         markers: makeRange(100, 500, 50),
         default: 300
     },
     doubleClickHoldThreshold: {
         type: OptionType.NUMBER,
-        description: "أقصى مدة ضغط للنقر المزدوج (مللي ثانية). الضغط الأطول يتيح تحديد النص",
+        description: t("أقصى مدة ضغط للنقر المزدوج (مللي ثانية). الضغط الأطول يتيح تحديد النص", "Maximum press duration for double click (milliseconds). Longer presses allow text selection"),
         markers: makeRange(50, 500, 50),
         default: 150
     },
     deferDoubleClickForTriple: {
         type: OptionType.BOOLEAN,
-        description: "تأخير النقر المزدوج للسماح بإجراءات النقر الثلاثي (تعطيل النقر الثلاثي عند الإيقاف)",
+        description: t("تأخير النقر المزدوج للسماح بإجراءات النقر الثلاثي (تعطيل النقر الثلاثي عند الإيقاف)", "Defer double click to allow triple click actions (disables triple click when turned off)"),
         default: false
     },
     selectionHoldTimeout: {
         type: OptionType.NUMBER,
-        description: "مهلة للسماح بتحديد النص (بالمللي ثانية)",
+        description: t("مهلة للسماح بتحديد النص (بالمللي ثانية)", "Timeout to allow text selection (in milliseconds)"),
         markers: makeRange(100, 1000, 100),
         default: 300
     },
     quoteWithReply: {
         type: OptionType.BOOLEAN,
-        description: "عند الاقتباس، الرد على الرسالة أيضاً",
+        description: t("عند الاقتباس، الرد على الرسالة أيضاً", "When quoting, also reply to the message"),
         default: true
     },
     useSelectionForQuote: {
         type: OptionType.BOOLEAN,
-        description: "عند الاقتباس، استخدام النص المحدد إن توفر",
+        description: t("عند الاقتباس، استخدام النص المحدد إن توفر", "When quoting, use the selected text if available"),
         default: false
     }
 });
@@ -576,7 +577,7 @@ async function executeAction(
 
 export default definePlugin({
     name: "MessageClickActions",
-    description: "يُضيف إجراءات عند النقر على الرسائل",
+    get description() { return t("يُضيف إجراءات عند النقر على الرسائل", "Adds actions when clicking on messages"); },
     tags: ["Chat", "Shortcuts"],
     authors: [Devs.Ven, EquicordDevs.keircn, EquicordDevs.ZcraftElite, EquicordDevs.omaw],
     isModified: true,

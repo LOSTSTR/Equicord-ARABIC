@@ -10,6 +10,7 @@ import { ButtonCompat } from "@components/Button";
 import { HeadingSecondary } from "@components/Heading";
 import { Paragraph } from "@components/Paragraph";
 import { SettingsSection } from "@components/settings/tabs/plugins/components/Common";
+import { t } from "@utils/esharqI18n";
 import { makeRange, OptionType } from "@utils/types";
 import { MaskedLink, Select, showToast, TextInput, Toasts } from "@webpack/common";
 
@@ -80,18 +81,18 @@ function LyricsProviderSettings() {
 
 export const settings = definePluginSettings({
     hoverControls: {
-        description: "إظهار أدوات التحكم عند التمرير بالمؤشر",
+        description: t("إظهار أدوات التحكم عند التمرير بالمؤشر", "Show controls when hovering with the cursor"),
         type: OptionType.BOOLEAN,
         default: false,
         onChange: v => toggleHoverControls(v)
     },
     showMusicNoteOnNoLyrics: {
-        description: "إظهار أيقونة نوتة موسيقية عند عدم وجود كلمات أغنية",
+        description: t("إظهار أيقونة نوتة موسيقية عند عدم وجود كلمات أغنية", "Show a music note icon when there are no lyrics"),
         type: OptionType.BOOLEAN,
         default: true,
     },
     lyricsPosition: {
-        description: "موضع كلمات الأغنية",
+        description: t("موضع كلمات الأغنية", "Lyrics position"),
         type: OptionType.SELECT,
         options: [
             { value: "above", label: "Above Player(s)" },
@@ -99,7 +100,7 @@ export const settings = definePluginSettings({
         ],
     },
     lyricsProvider: {
-        description: "مصدر جلب كلمات الأغاني",
+        description: t("مصدر جلب كلمات الأغاني", "Source for fetching song lyrics"),
         type: OptionType.SELECT,
         options: [
             { value: Provider.Lrclib, label: "LRCLIB", default: true },
@@ -109,7 +110,7 @@ export const settings = definePluginSettings({
     },
     spotifyLyricsApiUrl: {
         type: OptionType.STRING,
-        description: "رابط API كلمات Spotify الأساسي.",
+        description: t("رابط API كلمات Spotify الأساسي.", "Base URL for the Spotify lyrics API."),
         hidden: true,
         default: "https://spotify-lyrics-api-pi.vercel.app",
         onChange: async () => {
@@ -122,7 +123,7 @@ export const settings = definePluginSettings({
         component: LyricsProviderSettings,
     },
     translateTo: {
-        description: "ترجمة كلمات الأغنية إلى - سيؤدي تغيير هذا إلى حذف الترجمات الموجودة",
+        description: t("ترجمة كلمات الأغنية إلى - سيؤدي تغيير هذا إلى حذف الترجمات الموجودة", "Translate lyrics to - changing this will delete existing translations"),
         type: OptionType.SELECT,
         options: languages,
         onChange: async () => {
@@ -131,7 +132,7 @@ export const settings = definePluginSettings({
         }
     },
     lyricsConversion: {
-        description: "ترجمة كلمات الأغنية أو تحويلها إلى الحروف اللاتينية تلقائياً",
+        description: t("ترجمة كلمات الأغنية أو تحويلها إلى الحروف اللاتينية تلقائياً", "Automatically translate lyrics or convert them to Latin characters"),
         type: OptionType.SELECT,
         options: [
             { value: Provider.None, label: "None", default: true },
@@ -140,12 +141,12 @@ export const settings = definePluginSettings({
         ]
     },
     fallbackProvider: {
-        description: "عند فشل مزود كلمات الأغاني، جرّب مزودين آخرين",
+        description: t("عند فشل مزود كلمات الأغاني، جرّب مزودين آخرين", "When the lyrics provider fails, try other providers"),
         type: OptionType.BOOLEAN,
         default: true,
     },
     showFailedToasts: {
-        description: "إخفاء الإشعارات عند فشل جلب كلمات الأغنية",
+        description: t("إخفاء الإشعارات عند فشل جلب كلمات الأغنية", "Hide notifications when fetching lyrics fails"),
         type: OptionType.BOOLEAN,
         default: true,
     },
@@ -156,7 +157,7 @@ export const settings = definePluginSettings({
         ...sliderOptions
     },
     purgeLyricsCache: {
-        description: "مسح ذاكرة التخزين المؤقت لكلمات الأغاني",
+        description: t("مسح ذاكرة التخزين المؤقت لكلمات الأغاني", "Clear the lyrics cache"),
         type: OptionType.COMPONENT,
         component: () => (
             <ButtonCompat
@@ -179,23 +180,23 @@ export const settings = definePluginSettings({
         )
     },
     showSpotifyControls: {
-        description: "إظهار أدوات التحكم في Spotify",
+        description: t("إظهار أدوات التحكم في Spotify", "Show Spotify controls"),
         type: OptionType.BOOLEAN,
         default: false,
     },
     showSpotifyLyrics: {
-        description: "إظهار كلمات Spotify",
+        description: t("إظهار كلمات Spotify", "Show Spotify lyrics"),
         type: OptionType.BOOLEAN,
         default: false,
     },
     useSpotifyUris: {
         type: OptionType.BOOLEAN,
-        description: "فتح روابط Spotify URI بدلاً من روابط URL. يعمل فقط إذا كان Spotify مثبتاً وقد لا يعمل على جميع الأنظمة",
+        description: t("فتح روابط Spotify URI بدلاً من روابط URL. يعمل فقط إذا كان Spotify مثبتاً وقد لا يعمل على جميع الأنظمة", "Open Spotify URI links instead of URL links. Only works if Spotify is installed and may not work on all systems"),
         default: false
     },
     previousButtonRestartsTrack: {
         type: OptionType.BOOLEAN,
-        description: "إعادة تشغيل الأغنية الحالية عند الضغط على زر السابق إذا تجاوز وقت التشغيل 3 ثوانٍ",
+        description: t("إعادة تشغيل الأغنية الحالية عند الضغط على زر السابق إذا تجاوز وقت التشغيل 3 ثوانٍ", "Restart the current song when pressing the previous button if playback time exceeds 3 seconds"),
         default: true
     },
 
@@ -212,18 +213,18 @@ export const settings = definePluginSettings({
         component: () => <InstallInstructions />
     },
     showTidalControls: {
-        description: "إظهار مشغل Tidal",
+        description: t("إظهار مشغل Tidal", "Show Tidal player"),
         type: OptionType.BOOLEAN,
         default: false,
     },
     showTidalLyrics: {
-        description: "إظهار أدوات التحكم في Tidal",
+        description: t("إظهار أدوات التحكم في Tidal", "Show Tidal controls"),
         type: OptionType.BOOLEAN,
         default: false,
     },
     websocketURL: {
         type: OptionType.STRING,
-        description: "الافتراضي هو ws://localhost:24123",
+        description: t("الافتراضي هو ws://localhost:24123", "Default is ws://localhost:24123"),
         default: "ws://localhost:24123",
         restartNeeded: true,
     }

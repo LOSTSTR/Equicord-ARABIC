@@ -17,13 +17,14 @@
 */
 
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 import managedStyle from "./style.css?managed";
 
 export default definePlugin({
     name: "MemberListDecoratorsAPI",
-    description: "واجهة برمجية لإضافة عناصر تزيينية لقائمة الأعضاء في السيرفرات والرسائل الخاصة",
+    get description() { return t("واجهة برمجية لإضافة عناصر تزيينية لقائمة الأعضاء في السيرفرات والرسائل الخاصة", "API to add decorators to the member list in guilds and DMs"); },
     authors: [Devs.TheSun, Devs.Ven],
 
     managedStyle,

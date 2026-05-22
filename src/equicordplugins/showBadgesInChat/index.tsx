@@ -8,6 +8,7 @@ import "./styles.css";
 
 import badges from "@plugins/_api/badges";
 import { Devs, EquicordDevs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import { isEquicordPluginDev, isPluginDev } from "@utils/misc";
 import definePlugin from "@utils/types";
 import { findComponentByCodeLazy, findCssClassesLazy } from "@webpack";
@@ -141,7 +142,7 @@ function ChatBadges({ author }: { author: User; }) {
 export default definePlugin({
     name: "ShowBadgesInChat",
     authors: [Devs.Inbestigator, EquicordDevs.KrystalSkull],
-    description: "يعرض شارات المستخدم بجانب اسمه في الشات.",
+    get description() { return t("يعرض شارات المستخدم بجانب اسمه في الشات.", "Shows user badges next to their name in chat."); },
     dependencies: ["MessageDecorationsAPI"],
     tags: ["Appearance", "Chat"],
     settings,

@@ -8,6 +8,7 @@ import { ChatBarButton, ChatBarButtonFactory } from "@api/ChatButtons";
 import { addMessagePreSendListener, removeMessagePreSendListener } from "@api/MessageEvents";
 import { definePluginSettings } from "@api/Settings";
 import { EquicordDevs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { React } from "@webpack/common";
 
@@ -20,13 +21,13 @@ const settings = definePluginSettings({
     showIcon: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "إظهار زر لتشغيل/إيقاف إضافة Ingtoninator",
+        description: t("إظهار زر لتشغيل/إيقاف إضافة Ingtoninator", "Show a button to toggle the Ingtoninator plugin"),
         restartNeeded: true
     },
     isEnabled: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "تفعيل أو تعطيل Ingtoninator"
+        description: t("تفعيل أو تعطيل Ingtoninator", "Enable or disable Ingtoninator")
     }
 });
 
@@ -145,7 +146,7 @@ function disabledIcon() {
 
 export default definePlugin({
     name: "Ingtoninator",
-    description: "يُضيف 'ington' لاحقةً لكلمة عشوائية في رسالتك",
+    get description() { return t("يُضيف 'ington' لاحقةً لكلمة عشوائية في رسالتك", "Adds 'ington' as a suffix to a random word in your message"); },
     dependencies: ["ChatInputButtonAPI"],
     tags: ["Fun"],
     authors: [EquicordDevs.zyqunix, EquicordDevs.BioTomateDE],

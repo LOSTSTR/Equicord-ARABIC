@@ -17,13 +17,14 @@
 */
 
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 import { Channel, User } from "@vencord/discord-types";
 import { GuildStore } from "@webpack/common";
 
 export default definePlugin({
     name: "ForceOwnerCrown",
-    description: "يُظهر تاج المالك بجانب اسمه دائماً حتى في السيرفرات الكبيرة.",
+    get description() { return t("يُظهر تاج المالك بجانب اسمه دائماً حتى في السيرفرات الكبيرة.", "Always shows the owner crown next to their name, even in large servers."); },
     authors: [Devs.D3SOX, Devs.Nickyux],
     tags: ["Roles", "Appearance", "Servers"],
     patches: [

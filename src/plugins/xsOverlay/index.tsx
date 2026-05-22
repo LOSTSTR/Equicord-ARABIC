@@ -6,6 +6,7 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import { Logger } from "@utils/Logger";
 import definePlugin, { makeRange, OptionType, PluginNative, ReporterTestable } from "@utils/types";
 import type { Channel, Embed, GuildMember, MessageAttachment, User } from "@vencord/discord-types";
@@ -95,7 +96,7 @@ const logger = new Logger("XSOverlay");
 const settings = definePluginSettings({
     webSocketPort: {
         type: OptionType.NUMBER,
-        description: "منفذ Websocket",
+        description: t("منفذ Websocket", "Websocket port"),
         default: 42070,
         async onChange() {
             await start();
@@ -103,69 +104,69 @@ const settings = definePluginSettings({
     },
     preferUDP: {
         type: OptionType.BOOLEAN,
-        description: "فعّل إذا كنت تستخدم إصداراً قديماً من XSOverlay غير قادر على الاتصال عبر WebSocket. يُتجاهل هذا الإعداد على الويب.",
+        description: t("فعّل إذا كنت تستخدم إصداراً قديماً من XSOverlay غير قادر على الاتصال عبر WebSocket. يُتجاهل هذا الإعداد على الويب.", "Enable if you are using an older version of XSOverlay that cannot connect via WebSocket. This setting is ignored on web."),
         default: false,
         disabled: () => IS_WEB
     },
     botNotifications: {
         type: OptionType.BOOLEAN,
-        description: "السماح بإشعارات البوتات",
+        description: t("السماح بإشعارات البوتات", "Allow bot notifications"),
         default: false
     },
     serverNotifications: {
         type: OptionType.BOOLEAN,
-        description: "السماح بإشعارات السيرفر",
+        description: t("السماح بإشعارات السيرفر", "Allow server notifications"),
         default: true
     },
     dmNotifications: {
         type: OptionType.BOOLEAN,
-        description: "السماح بإشعارات الرسائل المباشرة",
+        description: t("السماح بإشعارات الرسائل المباشرة", "Allow DM notifications"),
         default: true
     },
     groupDmNotifications: {
         type: OptionType.BOOLEAN,
-        description: "السماح بإشعارات المجموعات",
+        description: t("السماح بإشعارات المجموعات", "Allow group DM notifications"),
         default: true
     },
     callNotifications: {
         type: OptionType.BOOLEAN,
-        description: "السماح بإشعارات المكالمات",
+        description: t("السماح بإشعارات المكالمات", "Allow call notifications"),
         default: true
     },
     pingColor: {
         type: OptionType.STRING,
-        description: "لون ذكر المستخدم",
+        description: t("لون ذكر المستخدم", "User mention color"),
         default: "#7289da"
     },
     channelPingColor: {
         type: OptionType.STRING,
-        description: "لون ذكر القناة",
+        description: t("لون ذكر القناة", "Channel mention color"),
         default: "#8a2be2"
     },
     soundPath: {
         type: OptionType.STRING,
-        description: "صوت الإشعار (default/warning/error)",
+        description: t("صوت الإشعار (default/warning/error)", "Notification sound (default/warning/error)"),
         default: "default"
     },
     timeout: {
         type: OptionType.NUMBER,
-        description: "مدة الإشعار (بالثواني)",
+        description: t("مدة الإشعار (بالثواني)", "Notification duration (in seconds)"),
         default: 3,
     },
     lengthBasedTimeout: {
         type: OptionType.BOOLEAN,
-        description: "تمديد المدة بحسب طول الرسالة",
+        description: t("تمديد المدة بحسب طول الرسالة", "Extend duration based on message length"),
         default: true
     },
     opacity: {
         type: OptionType.SLIDER,
-        description: "شفافية الإشعار",
+        description: t("شفافية الإشعار", "Notification opacity"),
         default: 1,
         markers: makeRange(0, 1, 0.1)
     },
     volume: {
         type: OptionType.SLIDER,
-        description: "الصوت",
+        description: t("الصوت", "Volume"),
         default: 0.2,
         markers: makeRange(0, 1, 0.1)
     },
@@ -187,7 +188,7 @@ const Native = VencordNative.pluginHelpers.XSOverlay as PluginNative<typeof impo
 
 export default definePlugin({
     name: "XSOverlay",
-    description: "يدعم تراكب XSOverlay للواقع الافتراضي",
+    get description() { return t("يدعم تراكب XSOverlay للواقع الافتراضي", "Supports the XSOverlay VR overlay"); },
     tags: ["Notifications"],
     authors: [Devs.Nyako],
     searchTerms: ["vr", "notify"],

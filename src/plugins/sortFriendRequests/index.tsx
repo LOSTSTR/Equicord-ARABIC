@@ -25,6 +25,7 @@ import { Flex } from "@components/Flex";
 import { TooltipContainer } from "@components/TooltipContainer";
 import { Devs, EquicordDevs } from "@utils/constants";
 import { classNameFactory } from "@utils/css";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { User } from "@vencord/discord-types";
 import { DateUtils, RelationshipStore } from "@webpack/common";
@@ -45,7 +46,7 @@ function getSince(user: User) {
 const settings = definePluginSettings({
     showDates: {
         type: OptionType.BOOLEAN,
-        description: "اعرض التواريخ على طلبات الصداقة",
+        description: t("اعرض التواريخ على طلبات الصداقة", "Show dates on friend requests"),
         default: false,
         restartNeeded: true
     }
@@ -55,7 +56,7 @@ migratePluginSettings("SortFriends", "SortFriendRequests");
 export default definePlugin({
     name: "SortFriends",
     authors: [Devs.Megu, EquicordDevs.CallMeGii],
-    description: "يُرتّب طلبات الصداقة حسب التاريخ",
+    get description() { return t("يُرتّب طلبات الصداقة حسب التاريخ", "Sorts friend requests by date"); },
     tags: ["Friends", "Organisation"],
     isModified: true,
     settings,

@@ -10,6 +10,7 @@ import { addContextMenuPatch, NavContextMenuPatchCallback, removeContextMenuPatc
 import { DataStore } from "@api/index";
 import { definePluginSettings } from "@api/Settings";
 import { EquicordDevs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { chooseFile, saveFile } from "@utils/web";
 import { CustomEmoji, UnicodeEmoji } from "@vencord/discord-types";
@@ -338,34 +339,34 @@ const resetEmojis = () => withWriteLock(async () => {
 const settings = definePluginSettings({
     defaultEmojis: {
         type: OptionType.BOOLEAN,
-        description: "إخفاء الإيموجي الافتراضية من الإكمال التلقائي إلا ما أُضيف للقائمة البيضاء",
+        description: t("إخفاء الإيموجي الافتراضية من الإكمال التلقائي إلا ما أُضيف للقائمة البيضاء", "Hide default emojis from autocomplete except those added to the whitelist"),
         default: true
     },
     serverEmojis: {
         type: OptionType.BOOLEAN,
-        description: "إخفاء الإيموجي المخصصة للسيرفر من الإكمال التلقائي إلا ما أُضيف للقائمة البيضاء.",
+        description: t("إخفاء الإيموجي المخصصة للسيرفر من الإكمال التلقائي إلا ما أُضيف للقائمة البيضاء.", "Hide server-specific emojis from autocomplete except those added to the whitelist."),
         default: true
     },
     disableToasts: {
         type: OptionType.BOOLEAN,
-        description: "لا تعرض إشعارات منبثقة عند إضافة الإيموجي أو إزالتها.",
+        description: t("لا تعرض إشعارات منبثقة عند إضافة الإيموجي أو إزالتها.", "Don't show toast notifications when adding or removing emojis."),
         default: false
     },
     whiteListedEmojis: {
         type: OptionType.COMPONENT,
-        description: "الإيموجي في القائمة البيضاء",
+        description: t("الإيموجي في القائمة البيضاء", "Whitelisted emojis"),
         component: WhiteListedEmojisComponent
     },
     exportEmojis: {
         type: OptionType.COMPONENT,
-        description: "تصدير الإيموجي",
+        description: t("تصدير الإيموجي", "Export emojis"),
         component: () => (
             <Button onClick={exportEmojis}>Export Emojis</Button>
         )
     },
     importEmojis: {
         type: OptionType.COMPONENT,
-        description: "استيراد الإيموجي",
+        description: t("استيراد الإيموجي", "Import emojis"),
         component: () => (
             <Button onClick={() =>
                 Alerts.show({
@@ -382,7 +383,7 @@ const settings = definePluginSettings({
     },
     resetEmojis: {
         type: OptionType.COMPONENT,
-        description: "إعادة تعيين الإيموجي",
+        description: t("إعادة تعيين الإيموجي", "Reset emojis"),
         component: () => (
             <Button onClick={() =>
                 Alerts.show({
@@ -401,7 +402,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "WhitelistedEmojis",
-    description: "يضيف القدرة على تعطيل جميع الإيموجي في الرسائل إلا ما أُدرج في القائمة البيضاء.",
+    get description() { return t("يضيف القدرة على تعطيل جميع الإيموجي في الرسائل إلا ما أُدرج في القائمة البيضاء.", "Adds the ability to disable all emojis in messages except those in the whitelist."); },
     tags: ["Chat", "Emotes"],
     authors: [EquicordDevs.creations],
     patches: [

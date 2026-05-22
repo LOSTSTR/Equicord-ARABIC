@@ -18,11 +18,12 @@
 
 import { Notice } from "@components/Notice";
 import { EquicordDevs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "NeverPausePreviews",
-    description: "يمنع إيقاف معاينات المكالمات/PiP (مشاركة الشاشة، البث، إلخ) حتى عند فقدان التركيز",
+    get description() { return t("يمنع إيقاف معاينات المكالمات/PiP (مشاركة الشاشة، البث، إلخ) حتى عند فقدان التركيز", "Prevents call/PiP previews (screen share, streams, etc.) from pausing even when focus is lost"); },
     tags: ["Media"],
     authors: [EquicordDevs.vappstar],
     settingsAboutComponent: () => (

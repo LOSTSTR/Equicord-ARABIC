@@ -6,13 +6,14 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { EquicordDevs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { FluxDispatcher } from "@webpack/common";
 
 const settings = definePluginSettings({
     mutedUserIds: {
         type: OptionType.STRING,
-        description: "معرّفات مستخدمي Discord مفصولة بفواصل لكتم إشعاراتهم وشاراتهم.",
+        description: t("معرّفات مستخدمي Discord مفصولة بفواصل لكتم إشعاراتهم وشاراتهم.", "Comma-separated Discord user IDs to silence their notifications and badges."),
         default: "",
         restartNeeded: false,
     },
@@ -55,7 +56,7 @@ function interceptor(event: any) {
 
 export default definePlugin({
     name: "SilenceUsers",
-    description: "يكتم تنبيهات @mention وعدادات شارات السيرفر من مستخدمين محددين. لا تتأثر الرسائل العادية والرسائل المباشرة.",
+    get description() { return t("يكتم تنبيهات @mention وعدادات شارات السيرفر من مستخدمين محددين. لا تتأثر الرسائل العادية والرسائل المباشرة.", "Silences @mention notifications and server badge counts from specific users. Regular messages and DMs are unaffected."); },
     authors: [EquicordDevs.dka],
     settings,
     start() {

@@ -9,6 +9,7 @@ import { type NavContextMenuPatchCallback } from "@api/ContextMenu";
 import { Notifications } from "@api/index";
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import { getCurrentChannel } from "@utils/discord";
 import { Logger } from "@utils/Logger";
 import definePlugin, { OptionType } from "@utils/types";
@@ -96,58 +97,58 @@ function ContextCallback(name: "guild" | "user" | "channel"): NavContextMenuPatc
 const settings = definePluginSettings({
     guilds: {
         type: OptionType.STRING,
-        description: "السيرفرات المسموح لها بالتجاوز (تُشعَر عند الإشارة إليك في أي مكان بالسيرفر)",
+        description: t("السيرفرات المسموح لها بالتجاوز (تُشعَر عند الإشارة إليك في أي مكان بالسيرفر)", "Servers allowed to bypass (notified when mentioned anywhere in the server)"),
         default: "",
         placeholder: "Separate with commas",
         onChange: value => settings.store.guilds = processIds(value)
     },
     channels: {
         type: OptionType.STRING,
-        description: "القنوات المسموح لها بالتجاوز (تُشعَر عند الإشارة إليك في تلك القناة)",
+        description: t("القنوات المسموح لها بالتجاوز (تُشعَر عند الإشارة إليك في تلك القناة)", "Channels allowed to bypass (notified when mentioned in that channel)"),
         default: "",
         placeholder: "Separate with commas",
         onChange: value => settings.store.channels = processIds(value)
     },
     users: {
         type: OptionType.STRING,
-        description: "المستخدمون المسموح لهم بالتجاوز (تُشعَر بجميع رسائلهم المباشرة)",
+        description: t("المستخدمون المسموح لهم بالتجاوز (تُشعَر بجميع رسائلهم المباشرة)", "Users allowed to bypass (notified of all their direct messages)"),
         default: "",
         placeholder: "Separate with commas",
         onChange: value => settings.store.users = processIds(value)
     },
     allowOutsideOfDms: {
         type: OptionType.BOOLEAN,
-        description: "السماح للمستخدمين المختارين بالتجاوز خارج الرسائل المباشرة أيضاً (يعمل كتجاوز للقناة/السيرفر لجميع رسائل المستخدمين المختارين)"
+        description: t("السماح للمستخدمين المختارين بالتجاوز خارج الرسائل المباشرة أيضاً (يعمل كتجاوز للقناة/السيرفر لجميع رسائل المستخدمين المختارين)", "Allow selected users to bypass outside of DMs too (acts as a channel/server bypass for all messages from selected users)")
     },
     notificationSound: {
         type: OptionType.BOOLEAN,
-        description: "ما إذا كان صوت الإشعار سيُشغَّل",
+        description: t("ما إذا كان صوت الإشعار سيُشغَّل", "Whether the notification sound will play"),
         default: true,
     },
     respectSilentPings: {
         type: OptionType.BOOLEAN,
-        description: "احترام الإشارات الصامتة (@silent / كتم الإشعارات)",
+        description: t("احترام الإشارات الصامتة (@silent / كتم الإشعارات)", "Respect silent pings (@silent / suppressed notifications)"),
         default: true
     },
     statusToUse: {
         type: OptionType.SELECT,
-        description: "الحالة المستخدمة لتفعيل القائمة البيضاء",
+        description: t("الحالة المستخدمة لتفعيل القائمة البيضاء", "The status used to activate the whitelist"),
         options: [
             {
-                label: "Online",
+                label: t("متصل", "Online"),
                 value: "online",
             },
             {
-                label: "Idle",
+                label: t("بعيد", "Idle"),
                 value: "idle",
             },
             {
-                label: "Do Not Disturb",
+                label: t("لا تزعجني", "Do Not Disturb"),
                 value: "dnd",
                 default: true
             },
             {
-                label: "Invisible",
+                label: t("غير مرئي", "Invisible"),
                 value: "invisible",
             }
         ]
@@ -156,7 +157,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "BypassStatus",
-    description: "استمر في تلقي إشعارات من مصادر محددة حتى في وضع عدم الإزعاج. انقر بزر الماوس الأيمن على المستخدمين/القنوات/السيرفرات لإعدادها لتجاوز وضع عدم الإزعاج.",
+    get description() { return t("استمر في تلقي إشعارات من مصادر محددة حتى في وضع عدم الإزعاج. انقر بزر الماوس الأيمن على المستخدمين/القنوات/السيرفرات لإعدادها لتجاوز وضع عدم الإزعاج.", "Continue receiving notifications from specific sources even in Do Not Disturb. Right-click users/channels/servers to configure them to bypass DND."); },
     tags: ["Activity", "Customisation", "Notifications", "Servers"],
     authors: [Devs.Inbestigator],
     dependencies: ["AudioPlayerAPI"],

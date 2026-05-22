@@ -6,6 +6,7 @@
 
 import { isPluginEnabled, plugins } from "@api/PluginManager";
 import { openPluginModal } from "@components/settings/tabs";
+import { t } from "@utils/esharqI18n";
 import { toggleEnabled } from "@equicordplugins/equicordHelper/utils";
 import { Toasts } from "@webpack/common";
 
@@ -105,7 +106,7 @@ export function createSilentMessageToggleExtensionCommand(extensionKeybinds: Map
     return {
         id: "extension-silent-message-toggle-plugin",
         label: "Toggle SilentMessageToggle",
-        description: "تفعيل/تعطيل إضافة SilentMessageToggle.",
+        description: t("تفعيل/تعطيل إضافة SilentMessageToggle.", "Enable/disable the SilentMessageToggle plugin."),
         keywords: ["silent", "message", "toggle", "plugin", "extension", "auto disable", "settings"],
         categoryId: DEFAULT_CATEGORY_ID,
         tags: [TAG_PLUGINS, TAG_UTILITY],

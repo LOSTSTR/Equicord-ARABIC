@@ -6,12 +6,13 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import type { Channel, Emoji } from "@vencord/discord-types";
 
 const settings = definePluginSettings({
     shownEmojis: {
-        description: "أنواع الإيموجيات التي تظهر في قائمة الإكمال التلقائي.",
+        description: t("أنواع الإيموجيات التي تظهر في قائمة الإكمال التلقائي.", "The types of emojis that appear in the autocomplete list."),
         type: OptionType.SELECT,
         default: "onlyUnicode",
         options: [
@@ -25,7 +26,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "NoServerEmojis",
     authors: [Devs.UlyssesZhan],
-    description: "يمنع ديسكورد من تحويل نص الإيموجي إلى صور الخادم",
+    get description() { return t("يمنع ديسكورد من تحويل نص الإيموجي إلى صور الخادم", "Prevents Discord from converting emoji text into server emoji images"); },
     tags: ["Emotes", "Servers"],
     settings,
 

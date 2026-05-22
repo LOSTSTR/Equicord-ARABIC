@@ -6,6 +6,7 @@
 
 import { isPluginEnabled, plugins } from "@api/PluginManager";
 import { openPluginModal } from "@components/settings/tabs";
+import { t } from "@utils/esharqI18n";
 import { toggleEnabled } from "@equicordplugins/equicordHelper/utils";
 import { SelectedChannelStore, Toasts } from "@webpack/common";
 
@@ -123,7 +124,7 @@ export function createSilentTypingExtensionCommand(extensionKeybinds: Map<string
     return {
         id: "extension-silent-typing-toggle",
         label: "Toggle SilentTyping",
-        description: "تفعيل/تعطيل SilentTyping للقناة الحالية.",
+        description: t("تفعيل/تعطيل SilentTyping للقناة الحالية.", "Enable/disable SilentTyping for the current channel."),
         keywords: ["silenttyping", "silent typing", "typing", "plugin", "extension", "toggle", "channel", "global", "settings"],
         categoryId: DEFAULT_CATEGORY_ID,
         tags: [TAG_PLUGINS, TAG_UTILITY],

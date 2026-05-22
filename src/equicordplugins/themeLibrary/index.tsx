@@ -7,6 +7,7 @@
 import { ColorPaletteIcon } from "@components/Icons";
 import SettingsPlugin from "@plugins/_core/settings";
 import { EquicordDevs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import { removeFromArray } from "@utils/misc";
 import definePlugin from "@utils/types";
 import { SettingsRouter } from "@webpack/common";
@@ -15,7 +16,7 @@ import { settings } from "./utils/settings";
 
 export default definePlugin({
     name: "ThemeLibrary",
-    description: "مكتبة ثيمات لـ Vencord.",
+    get description() { return t("مكتبة ثيمات لـ Vencord.", "A theme library for Vencord."); },
     tags: ["Appearance", "Customisation"],
     authors: [EquicordDevs.Fafa],
     settings,

@@ -7,6 +7,7 @@
 import { isPluginEnabled } from "@api/PluginManager";
 import declutter from "@equicordplugins/declutter";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 import { findCssClassesLazy } from "@webpack";
 
@@ -14,7 +15,7 @@ const accountClasses = findCssClassesLazy("iconForeground", "accountPopoutButton
 
 export default definePlugin({
     name: "UserAreaAPI",
-    description: "واجهة برمجية لإضافة أزرار إلى لوحة منطقة المستخدم.",
+    get description() { return t("واجهة برمجية لإضافة أزرار إلى لوحة منطقة المستخدم.", "An API for adding buttons to the user area panel."); },
     authors: [Devs.prism],
 
     patches: [

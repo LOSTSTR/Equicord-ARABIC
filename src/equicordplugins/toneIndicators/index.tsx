@@ -6,6 +6,7 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { EquicordDevs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { React } from "@webpack/common";
 import { type ReactNode } from "react";
@@ -16,12 +17,12 @@ import ToneIndicator from "./ToneIndicator";
 const settings = definePluginSettings({
     prefix: {
         type: OptionType.STRING,
-        description: "الحرف/الأحرف البادئة لمؤشرات النبرة.",
+        description: t("الحرف/الأحرف البادئة لمؤشرات النبرة.", "The prefix character(s) for tone indicators."),
         default: "/",
     },
     customIndicators: {
         type: OptionType.STRING,
-        description: "مؤشرات نبرة مخصصة (التنسيق: jk=Joking; srs=Serious)",
+        description: t("مؤشرات نبرة مخصصة (التنسيق: jk=Joking; srs=Serious)", "Custom tone indicators (format: jk=Joking; srs=Serious)"),
         default: "",
     },
 });
@@ -162,7 +163,7 @@ function patchChildrenTree(children: any): any {
 
 export default definePlugin({
     name: "ToneIndicators",
-    description: "تعرض تلميحات لمؤشرات النبرة مثل /srs و/gen وغيرها في الرسائل المرسلة.",
+    get description() { return t("تعرض تلميحات لمؤشرات النبرة مثل /srs و/gen وغيرها في الرسائل المرسلة.", "Shows tooltips for tone indicators like /srs and /gen in sent messages."); },
     tags: ["Chat", "Utility"],
     authors: [EquicordDevs.justjxke],
     settings,

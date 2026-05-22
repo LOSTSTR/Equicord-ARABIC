@@ -7,6 +7,7 @@
 import { definePluginSettings } from "@api/Settings";
 import { TextButton } from "@components/Button";
 import { Paragraph } from "@components/Paragraph";
+import { t } from "@utils/esharqI18n";
 import { Margins } from "@utils/margins";
 import { classes } from "@utils/misc";
 import { OptionType } from "@utils/types";
@@ -40,12 +41,12 @@ export const settings = definePluginSettings({
     baseUrl: {
         type: OptionType.STRING,
         hidden: true,
-        description: "رابط Decor API",
+        description: t("رابط Decor API", "Decor API URL"),
         default: "https://decor.fieryflames.dev"
     },
     agreedToGuidelines: {
         type: OptionType.BOOLEAN,
-        description: "موافق على الإرشادات",
+        description: t("موافق على الإرشادات", "Agreed to the guidelines"),
         hidden: true,
         default: false
     }

@@ -17,11 +17,12 @@
 */
 
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "DisableCallIdle",
-    description: "يمنع الطرد التلقائي من مكالمة صوتية في الرسائل الخاصة بعد 3 دقائق ونقلك إلى قناة AFK.",
+    get description() { return t("يمنع الطرد التلقائي من مكالمة صوتية في الرسائل الخاصة بعد 3 دقائق ونقلك إلى قناة AFK.", "Prevents automatic disconnection from a private voice call after 3 minutes of inactivity and being moved to the AFK channel."); },
     tags: ["Voice", "Utility"],
     authors: [Devs.Nuckyz],
     patches: [

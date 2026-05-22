@@ -17,6 +17,7 @@
 */
 
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 import { React } from "@webpack/common";
 
@@ -24,7 +25,7 @@ let ERROR_CODES: Record<string, string> | undefined;
 
 export default definePlugin({
     name: "ReactErrorDecoder",
-    description: "يُترجم أكواد أخطاء React إلى رسائل مفهومة",
+    get description() { return t("يُترجم أكواد أخطاء React إلى رسائل مفهومة", "Translates React error codes into understandable messages"); },
     tags: ["Developers"],
     authors: [Devs.Cyn, Devs.maisymoe],
     patches: [

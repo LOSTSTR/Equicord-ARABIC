@@ -17,11 +17,12 @@
 */
 
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "NoDevtoolsWarning",
-    description: "يعطّل تحذير 'HOLD UP' في الكونسول، ويمنع Discord من إخفاء التوكن لتجنب تسجيل الخروج العشوائي.",
+    get description() { return t("يعطّل تحذير 'HOLD UP' في الكونسول، ويمنع Discord من إخفاء التوكن لتجنب تسجيل الخروج العشوائي.", "Disables the 'HOLD UP' warning in the console and prevents Discord from hiding your token to avoid random logouts."); },
     authors: [Devs.Ven],
     tags: ["Developers", "Console"],
     patches: [{

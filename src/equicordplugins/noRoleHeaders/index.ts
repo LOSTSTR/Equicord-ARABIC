@@ -5,11 +5,12 @@
  */
 
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "NoRoleHeaders",
-    description: "كلنا سواء!! يزيل رؤوس الرتب من قائمة الأعضاء.",
+    get description() { return t("كلنا سواء!! يزيل رؤوس الرتب من قائمة الأعضاء.", "We are all equal!! Removes role headers from the member list."); },
     tags: ["Appearance", "Fun", "Roles"],
     authors: [Devs.Samwich],
     patches: [

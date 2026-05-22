@@ -9,6 +9,7 @@ import { NotesIcon } from "@components/Icons";
 import { toggleEnabled } from "@equicordplugins/equicordHelper/utils";
 import type { ScheduledMessage } from "@equicordplugins/scheduledMessages/types";
 import { addScheduledMessage, getChannelDisplayInfo, getScheduledMessages, removeScheduledMessage, sendScheduledMessageNow, updateScheduledMessageTime } from "@equicordplugins/scheduledMessages/utils";
+import { t } from "@utils/esharqI18n";
 import { sleep } from "@utils/misc";
 import { ChannelActionCreators, ChannelStore, NavigationRouter, SelectedChannelStore, Toasts, UserStore } from "@webpack/common";
 
@@ -165,7 +166,7 @@ function buildSendCandidates(target: string, content: string, useFilePicker: boo
         return [{
             id: "query-send-invalid",
             label: "Send message",
-            description: "لا يوجد مستخدم مطابق.",
+            description: t("لا يوجد مستخدم مطابق.", "No matching user found."),
             badge: "Query",
             icon: NotesIcon,
             run: () => showToast("No matching user found.", Toasts.Type.FAILURE)
@@ -175,7 +176,7 @@ function buildSendCandidates(target: string, content: string, useFilePicker: boo
     const candidates = matches.slice(0, 5).map(match => ({
         id: `query-send-${match.user.id}`,
         label: `Send message to ${match.display}`,
-        description: "رسالة مباشرة",
+        description: t("رسالة مباشرة", "Direct message"),
         inputPreview: content,
         badge: "Query",
         icon: makeIconFromUrl(match.iconUrl) ?? NotesIcon,
@@ -199,7 +200,7 @@ function buildSendChannelCandidates(target: string, content: string, useFilePick
         return [{
             id: "query-send-channel-invalid",
             label: "Send to channel",
-            description: "لا توجد قناة مطابقة.",
+            description: t("لا توجد قناة مطابقة.", "No matching channel found."),
             badge: "Query",
             icon: NotesIcon,
             run: () => showToast("No matching channel found.", Toasts.Type.FAILURE)
@@ -209,7 +210,7 @@ function buildSendChannelCandidates(target: string, content: string, useFilePick
     return matches.map(match => ({
         id: `query-send-channel-${match.id}`,
         label: `Send to ${match.display}`,
-        description: "رسالة قناة",
+        description: t("رسالة قناة", "Channel message"),
         inputPreview: content,
         badge: "Query",
         icon: makeIconFromUrl(match.iconUrl) ?? NotesIcon,
@@ -243,7 +244,7 @@ function buildOpenDmCandidates(target: string): QueryActionCandidate[] {
     return matches.slice(0, 24).map(match => ({
         id: `query-open-dm-${match.user.id}`,
         label: match.display,
-        description: "رسالة مباشرة",
+        description: t("رسالة مباشرة", "Direct message"),
         badge: "Query",
         icon: makeIconFromUrl(match.iconUrl) ?? NotesIcon,
         iconUrl: match.iconUrl,
@@ -282,7 +283,7 @@ function buildGoToCandidates(target: string): QueryActionCandidate[] {
     return [{
         id: "query-go-invalid",
         label: "Navigate to",
-        description: "لا يوجد سيرفر يطابق الهدف.",
+        description: t("لا يوجد سيرفر يطابق الهدف.", "No server matches the target."),
         badge: "Query",
         run: () => showToast("No server matches that target.", Toasts.Type.FAILURE)
     }];
@@ -294,7 +295,7 @@ function buildOpenSettingsCandidates(target: string): QueryActionCandidate[] {
         return [{
             id: "query-settings-invalid",
             label: "Open settings",
-            description: "لا يوجد قسم إعدادات مطابق.",
+            description: t("لا يوجد قسم إعدادات مطابق.", "No matching settings section found."),
             badge: "Query",
             run: () => showToast("No matching settings section.", Toasts.Type.FAILURE)
         }];
@@ -306,7 +307,7 @@ function buildOpenSettingsCandidates(target: string): QueryActionCandidate[] {
             return {
                 id: `query-settings-missing-${commandId}`,
                 label: "Open settings",
-                description: "أمر الإعدادات غير متاح.",
+                description: t("أمر الإعدادات غير متاح.", "Settings command is unavailable."),
                 badge: "Query",
                 run: () => showToast("Settings command is unavailable.", Toasts.Type.FAILURE)
             } satisfies QueryActionCandidate;
@@ -330,7 +331,7 @@ function buildTogglePluginCandidates(target: string): QueryActionCandidate[] {
         return [{
             id: "query-toggle-plugin-invalid",
             label: "Toggle plugin",
-            description: "لا توجد إضافة مطابقة.",
+            description: t("لا توجد إضافة مطابقة.", "No matching plugin found."),
             badge: "Query",
             run: () => showToast("No matching plugin.", Toasts.Type.FAILURE)
         }];
@@ -367,7 +368,7 @@ function buildOpenUrlCandidates(target: string): QueryActionCandidate[] {
         return [{
             id: "query-open-url-invalid",
             label: "Open URL",
-            description: "رابط غير صالح.",
+            description: t("رابط غير صالح.", "Invalid URL."),
             badge: "Query",
             run: () => showToast("Invalid URL.", Toasts.Type.FAILURE)
         }];
@@ -565,7 +566,7 @@ function buildQuickScheduleMessageCandidates(target: string): QueryActionCandida
     return [{
         id: `query-schedule-message-${channelChoice.id}-${scheduledTime}`,
         label,
-        description: "جدولة رسالة",
+        description: t("جدولة رسالة", "Schedule a message"),
         badge: "Query",
         run: async () => {
             if (!await ensureScheduledMessagesEnabled()) return false;
@@ -586,7 +587,7 @@ function buildRescheduleMessageCandidates(target: string): QueryActionCandidate[
             return [{
                 id: "query-reschedule-none",
                 label: "Reschedule message",
-                description: "لا توجد رسائل مجدولة.",
+                description: t("لا توجد رسائل مجدولة.", "No scheduled messages found."),
                 badge: "Query",
                 run: () => {
                     showToast("No scheduled messages found.", Toasts.Type.MESSAGE);
@@ -600,7 +601,7 @@ function buildRescheduleMessageCandidates(target: string): QueryActionCandidate[
             return {
                 id: `query-reschedule-select-${message.id}`,
                 label,
-                description: "اختر رسالة لإعادة الجدولة.",
+                description: t("اختر رسالة لإعادة الجدولة.", "Select a message to reschedule."),
                 badge: "Query",
                 run: () => {
                     stagedRescheduleMessage = { id: message.id, label };
@@ -616,7 +617,7 @@ function buildRescheduleMessageCandidates(target: string): QueryActionCandidate[
         return [{
             id: "query-reschedule-time-invalid",
             label: stagedRescheduleMessage.label,
-            description: "استخدم: في 10م، غداً 5م، أو 2026-02-14 18:00.",
+            description: t("استخدم: في 10م، غداً 5م، أو 2026-02-14 18:00.", "Use: in 10m, tomorrow 5pm, or 2026-02-14 18:00."),
             badge: "Query",
             run: () => {
                 showToast("Type a valid future time.", Toasts.Type.MESSAGE);
@@ -628,7 +629,7 @@ function buildRescheduleMessageCandidates(target: string): QueryActionCandidate[
     return [{
         id: `query-reschedule-apply-${stagedRescheduleMessage.id}-${scheduledTime}`,
         label: `${stagedRescheduleMessage.label} -> ${formatScheduledTime(scheduledTime)}`,
-        description: "تطبيق وقت الجدولة الجديد.",
+        description: t("تطبيق وقت الجدولة الجديد.", "Apply the new scheduled time."),
         badge: "Query",
         run: async () => {
             if (!await ensureScheduledMessagesEnabled()) return false;
@@ -649,7 +650,7 @@ function buildSendScheduledNowCandidates(target: string): QueryActionCandidate[]
         return [{
             id: "query-send-scheduled-none",
             label: "Send scheduled message now",
-            description: "لا توجد رسائل مجدولة.",
+            description: t("لا توجد رسائل مجدولة.", "No scheduled messages found."),
             badge: "Query",
             run: () => {
                 showToast("No scheduled messages found.", Toasts.Type.MESSAGE);
@@ -661,7 +662,7 @@ function buildSendScheduledNowCandidates(target: string): QueryActionCandidate[]
     return messages.map(message => ({
         id: `query-send-scheduled-${message.id}`,
         label: toScheduledMessageLabel(message),
-        description: "إرسال الآن.",
+        description: t("إرسال الآن.", "Send now."),
         badge: "Query",
         run: async () => {
             if (!await ensureScheduledMessagesEnabled()) return false;
@@ -684,7 +685,7 @@ function buildCancelScheduledMessageCandidates(target: string): QueryActionCandi
             return [{
                 id: `query-cancel-scheduled-confirm-${message.id}`,
                 label: `Confirm cancel · ${toScheduledMessageLabel(message)}`,
-                description: "تأكيد الإزالة.",
+                description: t("تأكيد الإزالة.", "Confirm removal."),
                 badge: "Query",
                 run: async () => {
                     if (!await ensureScheduledMessagesEnabled()) return false;
@@ -701,7 +702,7 @@ function buildCancelScheduledMessageCandidates(target: string): QueryActionCandi
         return [{
             id: "query-cancel-scheduled-none",
             label: "Cancel scheduled message",
-            description: "لا توجد رسائل مجدولة.",
+            description: t("لا توجد رسائل مجدولة.", "No scheduled messages found."),
             badge: "Query",
             run: () => {
                 showToast("No scheduled messages found.", Toasts.Type.MESSAGE);
@@ -713,7 +714,7 @@ function buildCancelScheduledMessageCandidates(target: string): QueryActionCandi
     return messages.map(message => ({
         id: `query-cancel-scheduled-pick-${message.id}`,
         label: toScheduledMessageLabel(message),
-        description: "اختر للتأكيد على الإلغاء.",
+        description: t("اختر للتأكيد على الإلغاء.", "Select to confirm cancellation."),
         badge: "Query",
         run: () => {
             pendingCancelScheduledMessageId = message.id;

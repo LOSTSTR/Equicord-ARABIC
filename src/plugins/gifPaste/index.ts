@@ -20,12 +20,13 @@ import { isPluginEnabled } from "@api/PluginManager";
 import betterGifPicker from "@plugins/betterGifPicker";
 import { Devs } from "@utils/constants";
 import { insertTextIntoChatInputBox } from "@utils/discord";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 import { ExpressionPickerStore } from "@webpack/common";
 
 export default definePlugin({
     name: "GifPaste",
-    description: "يجعل اختيار GIF يضع رابطه في صندوق الكتابة بدلاً من إرساله فوراً",
+    get description() { return t("يجعل اختيار GIF يضع رابطه في صندوق الكتابة بدلاً من إرساله فوراً", "Makes selecting a GIF paste its link into the chatbox instead of sending it immediately"); },
     tags: ["Media", "Chat"],
     authors: [Devs.Ven],
 

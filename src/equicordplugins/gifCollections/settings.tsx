@@ -9,6 +9,7 @@ import { definePluginSettings } from "@api/Settings";
 import { Divider } from "@components/Divider";
 import { Heading } from "@components/Heading";
 import { Paragraph } from "@components/Paragraph";
+import { t } from "@utils/esharqI18n";
 import { OptionType } from "@utils/types";
 import { Alerts, Button, useState } from "@webpack/common";
 
@@ -24,63 +25,63 @@ export const SortingOptions = {
 
 export const settings = definePluginSettings({
     itemPrefix: {
-        description: "البادئة لعناصر GIF.",
+        description: t("البادئة لعناصر GIF.", "Prefix for GIF items."),
         type: OptionType.STRING,
         default: "gc-item:",
         restartNeeded: true,
     },
     collectionPrefix: {
-        description: "البادئة للمجموعات.",
+        description: t("البادئة للمجموعات.", "Prefix for collections."),
         type: OptionType.STRING,
         default: "gc:",
         restartNeeded: true,
     },
     onlyShowCollections: {
-        description: "عرض المجموعات فقط في منتقي GIF.",
+        description: t("عرض المجموعات فقط في منتقي GIF.", "Only show collections in the GIF picker."),
         type: OptionType.BOOLEAN,
         default: false,
         restartNeeded: true,
     },
     stopWarnings: {
-        description: "تخطي مربعات تأكيد الحذف.",
+        description: t("تخطي مربعات تأكيد الحذف.", "Skip delete confirmation dialogs."),
         type: OptionType.BOOLEAN,
         default: false,
     },
     showCopyImageLink: {
-        description: "إظهار خيار نسخ رابط الصورة في قوائم السياق.",
+        description: t("إظهار خيار نسخ رابط الصورة في قوائم السياق.", "Show copy image link option in context menus."),
         type: OptionType.BOOLEAN,
         default: false,
     },
     preventDuplicates: {
-        description: "منع إضافة نفس GIF إلى المجموعة أكثر من مرة.",
+        description: t("منع إضافة نفس GIF إلى المجموعة أكثر من مرة.", "Prevent adding the same GIF to a collection more than once."),
         type: OptionType.BOOLEAN,
         default: false,
     },
     defaultEmptyCollectionImage: {
-        description: "الصورة المعروضة عندما تكون المجموعة فارغة.",
+        description: t("الصورة المعروضة عندما تكون المجموعة فارغة.", "Image shown when a collection is empty."),
         type: OptionType.STRING,
         default: "https://c.tenor.com/YEG33HsLEaIAAAAC/parksandrec-oops.gif",
     },
     collectionsSortType: {
-        description: "نوع الترتيب للمجموعات.",
+        description: t("نوع الترتيب للمجموعات.", "Sort type for collections."),
         type: OptionType.NUMBER,
         default: SortingOptions.NAME,
         hidden: true,
     },
     collectionsSortOrder: {
-        description: "ترتيب الفرز للمجموعات.",
+        description: t("ترتيب الفرز للمجموعات.", "Sort order for collections."),
         type: OptionType.STRING,
         default: "asc",
         hidden: true,
     },
     collectionsSort: {
         type: OptionType.COMPONENT,
-        description: "تحديد طريقة ترتيب المجموعات.",
+        description: t("تحديد طريقة ترتيب المجموعات.", "Choose how to sort collections."),
         component: SortSettingsComponent,
     },
     importGifs: {
         type: OptionType.COMPONENT,
-        description: "استيراد المجموعات.",
+        description: t("استيراد المجموعات.", "Import collections."),
         component: () =>
             <Button onClick={async () =>
                 (await getCollections()).length ? Alerts.show({
@@ -96,7 +97,7 @@ export const settings = definePluginSettings({
     },
     exportGifs: {
         type: OptionType.COMPONENT,
-        description: "تصدير المجموعات.",
+        description: t("تصدير المجموعات.", "Export collections."),
         component: () =>
             <Button onClick={downloadCollections}>
                 Export Collections
@@ -104,7 +105,7 @@ export const settings = definePluginSettings({
     },
     resetCollections: {
         type: OptionType.COMPONENT,
-        description: "إعادة تعيين المجموعات.",
+        description: t("إعادة تعيين المجموعات.", "Reset collections."),
         component: () =>
             <Button onClick={() =>
                 Alerts.show({

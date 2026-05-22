@@ -9,6 +9,7 @@ import "./style.css";
 import { definePluginSettings } from "@api/Settings";
 import { FFmpeg } from "@ffmpeg/ffmpeg";
 import { Devs, EquicordDevs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { Channel } from "@vencord/discord-types";
 import { React } from "@webpack/common";
@@ -21,19 +22,19 @@ import { cl, FFmpegStateContext, loadFFmpeg } from "./utils";
 export const settings = definePluginSettings({
     promptToUpload: {
         type: OptionType.BOOLEAN,
-        description: "يضع الستيكر في شريط الكتابة بدلاً من إرساله مباشرة",
+        description: t("يضع الستيكر في شريط الكتابة بدلاً من إرساله مباشرة", "Places the sticker in the text box instead of sending it directly"),
         default: false
     },
     packs: {
         type: OptionType.COMPONENT,
-        description: "حزم الملصقات",
+        description: t("حزم الملصقات", "Sticker packs"),
         component: Packs
     }
 });
 
 export default definePlugin({
     name: "MoreStickers",
-    description: "يضيف حزم ملصقات من منصات التواصل الاجتماعي الأخرى. (مثل LINE)",
+    get description() { return t("يضيف حزم ملصقات من منصات التواصل الاجتماعي الأخرى. (مثل LINE)", "Adds sticker packs from other social media platforms. (e.g. LINE)"); },
     tags: ["Chat", "Emotes", "Media"],
     authors: [EquicordDevs.Leko, Devs.Arjix],
     settings,
