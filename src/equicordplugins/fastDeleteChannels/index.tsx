@@ -74,7 +74,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "FastDeleteChannels",
-    get description() { return t("يضيف أيقونة سلة المهملات لحذف القنوات", "Adds a trash icon to quickly delete channels"); }
+    get description() { return t("يضيف أيقونة سلة المهملات لحذف القنوات", "Adds a trash icon to quickly delete channels"); },
     tags: ["Servers", "Utility"],
     authors: [Devs.thororen],
     settings,

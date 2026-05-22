@@ -89,7 +89,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "FindReply",
-    get description() { return t("ينتقل إلى أقدم رد على رسالة في قناة (يتيح لك متابعة المحادثات القديمة بسهولة).", "Jumps to the earliest reply to a message in a channel (lets you follow old conversations easily)."); }
+    get description() { return t("ينتقل إلى أقدم رد على رسالة في قناة (يتيح لك متابعة المحادثات القديمة بسهولة).", "Jumps to the earliest reply to a message in a channel (lets you follow old conversations easily)."); },
     dependencies: ["MessagePopoverAPI"],
     tags: ["Chat", "Shortcuts"],
     authors: [Devs.newwares],

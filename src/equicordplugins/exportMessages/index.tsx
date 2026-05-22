@@ -129,7 +129,7 @@ function getUsernames(contacts: ContactsList[], type: number): string[] {
 
 export default definePlugin({
     name: "ExportMessages",
-    get description() { return t("يتيح لك تصدير أي رسالة إلى ملف", "Allows you to export any message to a file"); }
+    get description() { return t("يتيح لك تصدير أي رسالة إلى ملف", "Allows you to export any message to a file"); },
     tags: ["Chat", "Utility"],
     authors: [EquicordDevs.veygax, EquicordDevs.dat_insanity],
     settings,

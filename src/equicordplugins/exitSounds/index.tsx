@@ -104,7 +104,7 @@ let original: typeof ChannelActions.selectVoiceChannel;
 
 export default definePlugin({
     name: "ExitSounds",
-    get description() { return t("يُشغّل أصوات لوحة الأصوات عند قطع الاتصال بالصوت.", "Plays soundboard sounds when disconnecting from voice."); }
+    get description() { return t("يُشغّل أصوات لوحة الأصوات عند قطع الاتصال بالصوت.", "Plays soundboard sounds when disconnecting from voice."); },
     tags: ["Fun", "Voice"],
     authors: [Devs.prism],
     dependencies: ["AudioPlayerAPI"],

@@ -250,7 +250,7 @@ const channelAttachMenuPatch: NavContextMenuPatchCallback = (children, props) =>
 
 export default definePlugin({
     name: "FileUpload",
-    get description() { return t("يرفع الصور والفيديوهات إلى خدمات استضافة الملفات مثل Zipline وNest", "Uploads images and videos to file hosting services like Zipline and Nest"); }
+    get description() { return t("يرفع الصور والفيديوهات إلى خدمات استضافة الملفات مثل Zipline وNest", "Uploads images and videos to file hosting services like Zipline and Nest"); },
     tags: ["Media"],
     authors: [EquicordDevs.creations, EquicordDevs.keircn, Devs.ScattrdBlade],
     settings,
