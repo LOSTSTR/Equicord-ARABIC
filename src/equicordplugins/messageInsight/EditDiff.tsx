@@ -49,11 +49,11 @@ export function wordDiff(before: string, after: string): DiffToken[] {
 function DiffView({ before, after }: { before: string; after: string; }) {
     const tokens = wordDiff(before, after);
     return (
-        <div className="mi-diff-view">
+        <div className="vc-messageinsight-diff-view">
             {tokens.map((token, i) => {
                 if (token.type === "same") return <span key={i}>{token.text}</span>;
-                if (token.type === "add") return <span key={i} className="mi-diff-add">{token.text}</span>;
-                return <span key={i} className="mi-diff-remove">{token.text}</span>;
+                if (token.type === "add") return <span key={i} className="vc-messageinsight-diff-add">{token.text}</span>;
+                return <span key={i} className="vc-messageinsight-diff-remove">{token.text}</span>;
             })}
         </div>
     );
@@ -66,15 +66,15 @@ export function EditDiffModal({ modalProps, history }: { modalProps: any; histor
             size="lg"
             title={t("سجل التعديلات", "Edit History")}
         >
-            <div style={{ padding: "16px 0" }}>
+            <div className="vc-messageinsight-modal-body">
                 {history.length < 2 ? (
-                    <p style={{ color: "var(--text-muted)" }}>
+                    <p className="vc-messageinsight-empty-text">
                         {t("لا يوجد سجل تعديلات.", "No edit history available.")}
                     </p>
                 ) : (
                     history.slice(0, -1).map((version, i) => (
-                        <div key={i} style={{ marginBottom: 16 }}>
-                            <div style={{ fontSize: 12, color: "var(--text-muted)", marginBottom: 4 }}>
+                        <div key={i} className="vc-messageinsight-edit-entry">
+                            <div className="vc-messageinsight-edit-label">
                                 {t(`التعديل ${i + 1}`, `Edit ${i + 1}`)}
                             </div>
                             <DiffView before={version} after={history[i + 1]} />

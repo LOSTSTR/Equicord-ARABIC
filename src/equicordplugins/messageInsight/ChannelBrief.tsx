@@ -27,8 +27,8 @@ export function ChannelBriefModal({ modalProps, newMessages, totalCount, elapsed
             size="sm"
             title={t("ملخص القناة", "Channel Brief")}
         >
-            <div style={{ padding: "8px 0 16px" }}>
-                <div style={{ fontSize: 13, color: "var(--text-muted)", marginBottom: 12 }}>
+            <div className="vc-messageinsight-brief-body">
+                <div className="vc-messageinsight-brief-header">
                     {hasMore
                         ? t(
                             `${totalCount} رسالة جديدة خلال ${elapsed} دقيقة — آخر ${showing}`,
@@ -45,36 +45,36 @@ export function ChannelBriefModal({ modalProps, newMessages, totalCount, elapsed
                     const time = formatTime(msg.timestamp);
 
                     return (
-                        <div key={msg.id} className="mi-brief-item">
-                            <div className="mi-reply-header">
+                        <div key={msg.id} className="vc-messageinsight-brief-item">
+                            <div className="vc-messageinsight-reply-header">
                                 {msg.author && (
                                     <img
-                                        className="mi-reply-avatar"
+                                        className="vc-messageinsight-reply-avatar"
                                         src={avatarUrl(msg.author)}
                                         alt=""
                                     />
                                 )}
-                                <span className="mi-reply-author">
+                                <span className="vc-messageinsight-reply-author">
                                     {msg.author?.username ?? "Unknown"}
                                 </span>
-                                {time && <span className="mi-reply-time">{time}</span>}
+                                {time && <span className="vc-messageinsight-reply-time">{time}</span>}
                                 {hasAttachments && (
                                     <span
-                                        className="mi-reply-attachment"
+                                        className="vc-messageinsight-reply-attachment"
                                         title={t("يحتوي على مرفقات", "Has attachments")}
                                     >
                                         📎
                                     </span>
                                 )}
                             </div>
-                            <div className="mi-brief-content-row">
-                                <span className="mi-reply-content">
+                            <div className="vc-messageinsight-brief-content-row">
+                                <span className="vc-messageinsight-reply-content">
                                     {sanitized
                                         ? sanitized.slice(0, 120) + (sanitized.length > 120 ? "…" : "")
                                         : t("مرفق", "Attachment")}
                                 </span>
                                 <button
-                                    className="mi-brief-jump"
+                                    className="vc-messageinsight-brief-jump"
                                     title={t("الانتقال إلى الرسالة", "Jump to message")}
                                     onClick={() => {
                                         modalProps.onClose();

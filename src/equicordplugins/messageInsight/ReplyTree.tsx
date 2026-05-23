@@ -25,15 +25,15 @@ export function ReplyTreeModal({ modalProps, message, replies }: {
             size="lg"
             title={t("الردود على الرسالة", "Message Replies")}
         >
-            <div style={{ padding: "16px 0" }}>
-                <div style={{ fontSize: 12, color: "var(--text-muted)", marginBottom: 12 }}>
+            <div className="vc-messageinsight-modal-body">
+                <div className="vc-messageinsight-meta-text">
                     {t(
                         `الرسالة: "${preview.slice(0, 80)}${preview.length > 80 ? "…" : ""}"`,
                         `Message: "${preview.slice(0, 80)}${preview.length > 80 ? "…" : ""}"`
                     )}
                 </div>
                 {replies.length === 0 ? (
-                    <p style={{ color: "var(--text-muted)" }}>
+                    <p className="vc-messageinsight-empty-text">
                         {t(
                             "لا توجد ردود محملة على هذه الرسالة في القناة الحالية.",
                             "No loaded replies found for this message in the current channel."
@@ -41,7 +41,7 @@ export function ReplyTreeModal({ modalProps, message, replies }: {
                     </p>
                 ) : (
                     <>
-                        <div style={{ fontSize: 12, color: "var(--text-muted)", marginBottom: 8 }}>
+                        <div className="vc-messageinsight-reply-count">
                             {t(`${replies.length} رد`, `${replies.length} repl${replies.length === 1 ? "y" : "ies"}`)}
                         </div>
                         {replies.map((reply: any) => {
@@ -50,9 +50,9 @@ export function ReplyTreeModal({ modalProps, message, replies }: {
                             const time = formatTime(reply.timestamp);
 
                             return (
-                                <div
+                                <button
                                     key={reply.id}
-                                    className="mi-reply-item"
+                                    className="vc-messageinsight-reply-item"
                                     onClick={() => {
                                         modalProps.onClose();
                                         jumper.jumpToMessage({
@@ -63,21 +63,21 @@ export function ReplyTreeModal({ modalProps, message, replies }: {
                                         });
                                     }}
                                 >
-                                    <div className="mi-reply-header">
+                                    <div className="vc-messageinsight-reply-header">
                                         {reply.author && (
                                             <img
-                                                className="mi-reply-avatar"
+                                                className="vc-messageinsight-reply-avatar"
                                                 src={avatarUrl(reply.author)}
                                                 alt=""
                                             />
                                         )}
-                                        <span className="mi-reply-author">
+                                        <span className="vc-messageinsight-reply-author">
                                             {reply.author?.username ?? "Unknown"}
                                         </span>
-                                        {time && <span className="mi-reply-time">{time}</span>}
+                                        {time && <span className="vc-messageinsight-reply-time">{time}</span>}
                                         {hasAttachments && (
                                             <span
-                                                className="mi-reply-attachment"
+                                                className="vc-messageinsight-reply-attachment"
                                                 title={t("يحتوي على مرفقات", "Has attachments")}
                                             >
                                                 📎
@@ -85,13 +85,13 @@ export function ReplyTreeModal({ modalProps, message, replies }: {
                                         )}
                                     </div>
                                     {(sanitized || hasAttachments) && (
-                                        <span className="mi-reply-content">
+                                        <span className="vc-messageinsight-reply-content">
                                             {sanitized
                                                 ? sanitized.slice(0, 140) + (sanitized.length > 140 ? "…" : "")
                                                 : t("مرفق", "Attachment")}
                                         </span>
                                     )}
-                                </div>
+                                </button>
                             );
                         })}
                     </>

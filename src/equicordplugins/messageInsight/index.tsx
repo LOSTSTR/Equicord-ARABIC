@@ -18,6 +18,8 @@ import { EditDiffModal } from "./EditDiff";
 import { ReplyTreeModal } from "./ReplyTree";
 import { settings } from "./settings";
 
+const MAX_CACHE_SIZE = 1000;
+
 // messageId -> [original, ...edits]
 const editHistory = new Map<string, string[]>();
 // messageId -> latest cached content (for capturing pre-edit state)
@@ -27,6 +29,9 @@ const channelVisitData = new Map<string, { time: number; count: number; }>();
 
 function onMessageCreate({ message }: any) {
     if (message?.id && message.content !== undefined) {
+        if (messageCache.size >= MAX_CACHE_SIZE) {
+            messageCache.delete(messageCache.keys().next().value!);
+        }
         messageCache.set(message.id, message.content);
     }
 }
@@ -39,6 +44,9 @@ function onMessageUpdate({ message }: any) {
     if (oldContent !== undefined && oldContent !== message.content) {
         const history = editHistory.get(message.id);
         if (!history) {
+            if (editHistory.size >= MAX_CACHE_SIZE) {
+                editHistory.delete(editHistory.keys().next().value!);
+            }
             editHistory.set(message.id, [oldContent, message.content]);
         } else {
             history.push(message.content);
@@ -51,15 +59,12 @@ function onChannelSelect({ channelId }: any) {
     if (!channelId || !settings.store.channelBrief) return;
 
     const prev = channelVisitData.get(channelId);
-    const msgsArray: any[] = (MessageStore.getMessages(channelId) as any)?._array ?? [];
+    const msgsArray = MessageStore.getMessages(channelId)?._array ?? [];
 
     if (prev) {
         const newMsgs = msgsArray.filter(m => {
-            try {
-                return new Date(m.timestamp.toString()).getTime() > prev.time;
-            } catch {
-                return false;
-            }
+            const ts = Number(new Date(m.timestamp.toString()));
+            return !isNaN(ts) && ts > prev.time;
         });
         const newCount = newMsgs.length;
         const elapsed = Math.floor((Date.now() - prev.time) / 60000);
@@ -129,7 +134,7 @@ function renderReplyTreeButton(message: any) {
         message,
         channel: ChannelStore.getChannel(message.channel_id),
         onClick: () => {
-            const replies = ((MessageStore.getMessages(message.channel_id) as any)?._array ?? []).filter(
+            const replies = (MessageStore.getMessages(message.channel_id)?._array ?? []).filter(
                 (m: any) => m.messageReference?.message_id === message.id
             );
             openModal(props => (

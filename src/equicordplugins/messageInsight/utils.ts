@@ -4,6 +4,8 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
+import { IconUtils, UserStore } from "@webpack/common";
+
 export function sanitizeContent(content: string): string {
     return content
         .replace(/<a?:(\w+):\d+>/g, ":$1:")
@@ -17,12 +19,9 @@ export function sanitizeContent(content: string): string {
 }
 
 export function avatarUrl(author: { id: string; avatar?: string | null; }): string {
-    if (!author?.avatar) {
-        const index = Number(BigInt(author.id) >> 22n) % 6;
-        return `https://cdn.discordapp.com/embed/avatars/${index}.png`;
-    }
-    const ext = author.avatar.startsWith("a_") ? "gif" : "png";
-    return `https://cdn.discordapp.com/avatars/${author.id}/${author.avatar}.${ext}?size=32`;
+    const user = UserStore.getUser(author.id);
+    if (user) return IconUtils.getUserAvatarURL(user, false, 32);
+    return IconUtils.getDefaultAvatarURL(author.id);
 }
 
 export function formatTime(timestamp: string | Date | undefined): string {
