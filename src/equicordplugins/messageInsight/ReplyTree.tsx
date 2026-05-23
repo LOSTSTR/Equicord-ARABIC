@@ -4,18 +4,21 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
+import { classNameFactory } from "@utils/css";
 import { t } from "@utils/esharqI18n";
+import { Message, RenderModalProps } from "@vencord/discord-types";
 import { findByPropsLazy } from "@webpack";
 import { Modal, React } from "@webpack/common";
 
 import { avatarUrl, formatTime, sanitizeContent } from "./utils";
 
+const cl = classNameFactory("vc-messageinsight-");
 const jumper = findByPropsLazy("jumpToMessage");
 
 export function ReplyTreeModal({ modalProps, message, replies }: {
-    modalProps: any;
-    message: any;
-    replies: any[];
+    modalProps: RenderModalProps;
+    message: Message;
+    replies: Message[];
 }) {
     const preview = sanitizeContent(message.content ?? "");
 
@@ -25,15 +28,15 @@ export function ReplyTreeModal({ modalProps, message, replies }: {
             size="lg"
             title={t("الردود على الرسالة", "Message Replies")}
         >
-            <div className="vc-messageinsight-modal-body">
-                <div className="vc-messageinsight-meta-text">
+            <div className={cl("modal-body")}>
+                <div className={cl("meta-text")}>
                     {t(
                         `الرسالة: "${preview.slice(0, 80)}${preview.length > 80 ? "…" : ""}"`,
                         `Message: "${preview.slice(0, 80)}${preview.length > 80 ? "…" : ""}"`
                     )}
                 </div>
                 {replies.length === 0 ? (
-                    <p className="vc-messageinsight-empty-text">
+                    <p className={cl("empty-text")}>
                         {t(
                             "لا توجد ردود محملة على هذه الرسالة في القناة الحالية.",
                             "No loaded replies found for this message in the current channel."
@@ -41,10 +44,10 @@ export function ReplyTreeModal({ modalProps, message, replies }: {
                     </p>
                 ) : (
                     <>
-                        <div className="vc-messageinsight-reply-count">
+                        <div className={cl("reply-count")}>
                             {t(`${replies.length} رد`, `${replies.length} repl${replies.length === 1 ? "y" : "ies"}`)}
                         </div>
-                        {replies.map((reply: any) => {
+                        {replies.map(reply => {
                             const sanitized = sanitizeContent(reply.content ?? "");
                             const hasAttachments = (reply.attachments?.length ?? 0) > 0;
                             const time = formatTime(reply.timestamp);
@@ -52,7 +55,7 @@ export function ReplyTreeModal({ modalProps, message, replies }: {
                             return (
                                 <button
                                     key={reply.id}
-                                    className="vc-messageinsight-reply-item"
+                                    className={cl("reply-item")}
                                     onClick={() => {
                                         modalProps.onClose();
                                         jumper.jumpToMessage({
@@ -63,21 +66,21 @@ export function ReplyTreeModal({ modalProps, message, replies }: {
                                         });
                                     }}
                                 >
-                                    <div className="vc-messageinsight-reply-header">
+                                    <div className={cl("reply-header")}>
                                         {reply.author && (
                                             <img
-                                                className="vc-messageinsight-reply-avatar"
+                                                className={cl("reply-avatar")}
                                                 src={avatarUrl(reply.author)}
                                                 alt=""
                                             />
                                         )}
-                                        <span className="vc-messageinsight-reply-author">
+                                        <span className={cl("reply-author")}>
                                             {reply.author?.username ?? "Unknown"}
                                         </span>
-                                        {time && <span className="vc-messageinsight-reply-time">{time}</span>}
+                                        {time && <span className={cl("reply-time")}>{time}</span>}
                                         {hasAttachments && (
                                             <span
-                                                className="vc-messageinsight-reply-attachment"
+                                                className={cl("reply-attachment")}
                                                 title={t("يحتوي على مرفقات", "Has attachments")}
                                             >
                                                 📎
@@ -85,7 +88,7 @@ export function ReplyTreeModal({ modalProps, message, replies }: {
                                         )}
                                     </div>
                                     {(sanitized || hasAttachments) && (
-                                        <span className="vc-messageinsight-reply-content">
+                                        <span className={cl("reply-content")}>
                                             {sanitized
                                                 ? sanitized.slice(0, 140) + (sanitized.length > 140 ? "…" : "")
                                                 : t("مرفق", "Attachment")}
