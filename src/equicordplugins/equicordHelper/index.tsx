@@ -15,6 +15,7 @@ import { ShieldIcon, WarningIcon } from "@components/Icons";
 import customRPC from "@plugins/customRPC";
 import { Devs, EquicordDevs, GUILD_ID, SUPPORT_CHANNEL_ID, SUPPORT_CHANNEL_IDS, VC_SUPPORT_CHANNEL_IDS } from "@utils/constants";
 import { t } from "@utils/esharqI18n";
+import { Logger } from "@utils/Logger";
 import { isAnyPluginDev } from "@utils/misc";
 import definePlugin, { OptionType } from "@utils/types";
 import { StandingState } from "@vencord/discord-types/enums";
@@ -32,6 +33,8 @@ migratePluginToSettings(true, "EquicordHelper", "GuildTagSettings", "disableAdop
 let clicked = false;
 
 const SafetyHubStore = findStoreLazy("SafetyHubStore");
+const logger = new Logger("EquicordHelper");
+
 const fetchSafetyHub: () => Promise<void> = findByCodeLazy("SAFETY_HUB_FETCH_START");
 
 const StandingConfig: Record<number, { label: string; hoverColor: string; Icon: ComponentType<any>; }> = {
@@ -370,7 +373,7 @@ export default definePlugin({
                     sendBotMessage(ctx.channel.id, { content: "Slash Commands refreshed successfully." });
                 }
                 catch (e) {
-                    console.error("[refreshSlashCommands] Failed to refresh commands:", e);
+                    logger.error("Failed to refresh commands:", e);
                     sendBotMessage(ctx.channel.id, { content: "Failed to refresh commands. Check console for details." });
                 }
             }

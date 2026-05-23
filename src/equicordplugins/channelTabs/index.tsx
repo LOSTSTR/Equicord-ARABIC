@@ -120,9 +120,9 @@ export default definePlugin({
 
     start() {
         // migrate old settings to new granular keybind settings
-        const store = settings.store as any;
+        const store = settings.store as Record<string, unknown>;
         if (store.enableHotkeys !== undefined) {
-            const oldValue = store.enableHotkeys;
+            const oldValue = store.enableHotkeys as boolean;
             settings.store.enableNumberKeySwitching = oldValue;
             settings.store.enableCloseTabShortcut = oldValue;
             settings.store.enableNewTabShortcut = oldValue;
@@ -130,7 +130,7 @@ export default definePlugin({
             delete store.enableHotkeys;
         }
         if (store.hotkeyCount !== undefined) {
-            settings.store.numberKeySwitchCount = store.hotkeyCount;
+            settings.store.numberKeySwitchCount = store.hotkeyCount as number;
             delete store.hotkeyCount;
         }
     },

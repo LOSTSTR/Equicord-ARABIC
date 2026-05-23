@@ -45,16 +45,18 @@ async function showNotification(message: Message, guildId: string | undefined): 
         const channelRegex = /<#(\d{19})>/g;
         const userRegex = /<@(\d{18})>/g;
 
-        message.content = message.content.replace(channelRegex, (match: any, channelId: string) => {
+        message.content = message.content.replace(channelRegex, (match: string, channelId: string) => {
             return `#${ChannelStore.getChannel(channelId)?.name}`;
         });
 
-        message.content = message.content.replace(userRegex, (match: any, userId: string) => {
-            return `@${(UserStore.getUser(userId) as any).globalName}`;
+        message.content = message.content.replace(userRegex, (match: string, userId: string) => {
+            const user = UserStore.getUser(userId);
+            return `@${user?.globalName ?? user?.username ?? userId}`;
         });
 
+        const authorName = message.author.globalName ?? message.author.username;
         await Notifications.showNotification({
-            title: `${(message.author as any).globalName} ${guildId ? `(#${channel?.name}, ${ChannelStore.getChannel(channel?.parent_id)?.name})` : ""}`,
+            title: `${authorName} ${guildId ? `(#${channel?.name}, ${ChannelStore.getChannel(channel?.parent_id)?.name})` : ""}`,
             body: message.content,
             icon: UserStore.getUser(message.author.id).getAvatarURL(undefined, undefined, false),
             onClick: function (): void {

@@ -97,7 +97,7 @@ function AnimationSettings(): JSX.Element {
                     maxVisibleItems={12}
                     clearable={true}
                     multi={true}
-                    value={currentValue as any}
+                    value={currentValue}
                     options={animationOptions}
                     onChange={handleChange}
                     closeOnSelect={false}

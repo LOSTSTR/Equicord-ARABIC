@@ -18,6 +18,7 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { CodeBlock } from "@components/CodeBlock";
+import { Logger } from "@utils/Logger";
 import ErrorBoundary from "@components/ErrorBoundary";
 import { Heading } from "@components/Heading";
 import { EquicordDevs } from "@utils/constants";
@@ -33,6 +34,8 @@ function DecodeIcon() {
         </svg>
     );
 }
+
+const logger = new Logger("DecodeBase64");
 
 function isValidUtf8String(str) {
     try {
@@ -55,7 +58,7 @@ function decodeBase64Strings(base64Strings) {
             const decoded = atob(base64);
             return isValidUtf8String(decoded) ? decoded : null;
         } catch (e) {
-            console.error("Failed to decode base64 content:", e);
+            logger.warn("Failed to decode base64 content:", e);
             return null;
         }
     }).filter(decoded => decoded !== null);
@@ -77,7 +80,7 @@ function openDecodedBase64Modal(decodedContent) {
                 <div style={{ padding: "16px 0" }}>
                     <Heading>Decoded Content</Heading>
                     {decodedContent.map((content, index) => (
-                        <CodeBlock key={index} content={content} lang="" />
+                        <CodeBlock key={content} content={content} lang="" />
                     ))}
                 </div>
             </Modal>

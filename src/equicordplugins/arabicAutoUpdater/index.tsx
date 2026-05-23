@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
+import * as DataStore from "@api/DataStore";
 import { Devs } from "@utils/constants";
 import { t } from "@utils/esharqI18n";
 import { Logger } from "@utils/Logger";
@@ -36,10 +37,17 @@ async function checkForUpdate() {
 
         if (!remoteHash || remoteHash === gitHash) return;
 
-        const lastSeen = localStorage.getItem(SEEN_KEY);
+        // Migrate old localStorage value to DataStore on first run
+        const legacyValue = localStorage.getItem(SEEN_KEY);
+        if (legacyValue) {
+            await DataStore.set(SEEN_KEY, legacyValue);
+            localStorage.removeItem(SEEN_KEY);
+        }
+
+        const lastSeen = await DataStore.get<string>(SEEN_KEY);
         if (lastSeen === remoteHash) return;
 
-        localStorage.setItem(SEEN_KEY, remoteHash);
+        await DataStore.set(SEEN_KEY, remoteHash);
 
         Alerts.show({
             title: t("تحديث جديد متاح!", "New update available!"),

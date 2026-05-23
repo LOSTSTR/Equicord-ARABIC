@@ -11,6 +11,7 @@ import { get } from "@api/DataStore";
 import { definePluginSettings, Settings } from "@api/Settings";
 import { EquicordDevs } from "@utils/constants";
 import { t } from "@utils/esharqI18n";
+import { Logger } from "@utils/Logger";
 import definePlugin, { OptionType } from "@utils/types";
 import { Channel, User } from "@vencord/discord-types";
 import { extractAndLoadChunksLazy } from "@webpack";
@@ -26,6 +27,8 @@ export let colors: Record<string, string> = {};
 })();
 
 // needed for color picker to be available without opening settings (ty pindms!!)
+const logger = new Logger("CustomUserColors");
+
 const requireSettingsMenu = extractAndLoadChunksLazy(['type:"USER_SETTINGS_MODAL_OPEN"']);
 const ColorIcon = () => {
     return (
@@ -172,7 +175,7 @@ export default definePlugin({
                 }
             };
         } catch (e) {
-            console.error("Failed to calculate message color strings:", e);
+            logger.error("Failed to calculate message color strings:", e);
             return colorProps;
         }
     },
