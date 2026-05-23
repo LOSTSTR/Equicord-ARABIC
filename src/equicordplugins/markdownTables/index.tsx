@@ -4,11 +4,13 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
+import { definePluginSettings } from "@api/Settings";
+import { CodeBlock } from "@components/CodeBlock";
 import ErrorBoundary from "@components/ErrorBoundary";
 import { EquicordDevs } from "@utils/constants";
 import { classNameFactory } from "@utils/css";
 import { t } from "@utils/esharqI18n";
-import definePlugin from "@utils/types";
+import definePlugin, { OptionType } from "@utils/types";
 import { waitFor } from "@webpack";
 import { Parser, useLayoutEffect, useRef, useState } from "@webpack/common";
 import type { ReactNode } from "react";
@@ -18,6 +20,16 @@ import managedStyle from "./styles.css?managed";
 
 const TABLE_RULE = "markdownTable";
 const cl = classNameFactory("vc-markdownTables-");
+
+const settings = definePluginSettings({
+    hideToggle: {
+        type: OptionType.BOOLEAN,
+        default: true,
+        description: "Hide the Table/Raw toggle and always show rendered tables.",
+    },
+});
+
+const TABLE_BLOCK_SETTING_KEYS: Array<"hideToggle"> = ["hideToggle"];
 
 type ScrollDirection = "left" | "right" | null;
 type ParsedCell = unknown[];
@@ -45,6 +57,12 @@ interface ScrollMaskState {
     left: boolean;
     right: boolean;
     direction: ScrollDirection;
+}
+
+interface TableViewProps {
+    output: ParserOutput;
+    outputState: ParserState;
+    table: MarkdownTableNode;
 }
 
 interface MarkdownTableRendererProps {
@@ -82,15 +100,27 @@ function TableBlock({
     output,
     outputState,
     table,
-}: {
-    output: ParserOutput;
-    outputState: ParserState;
-    table: MarkdownTableNode;
-}) {
-    const [showRaw, setShowRaw] = useState(false);
+}: TableViewProps) {
+    const { hideToggle } = settings.use(TABLE_BLOCK_SETTING_KEYS);
 
     return (
         <div className={cl("root")}>
+            {hideToggle
+                ? <TableScrollFrame output={output} outputState={outputState} table={table} />
+                : <ToggleableTableBlock output={output} outputState={outputState} table={table} />}
+        </div>
+    );
+}
+
+function ToggleableTableBlock({
+    output,
+    outputState,
+    table,
+}: TableViewProps) {
+    const [showRaw, setShowRaw] = useState(false);
+
+    return (
+        <>
             <div className={cl("toolbar")} role="group" aria-label="Markdown table view">
                 <button
                     aria-pressed={!showRaw}
@@ -119,12 +149,12 @@ function TableBlock({
             </div>
             {showRaw
                 ? (
-                    <pre className={cl("raw")}>
-                        <code>{table.raw}</code>
-                    </pre>
+                    <div className={cl("rawBlock")}>
+                        <CodeBlock content={table.raw} lang="markdown" />
+                    </div>
                 )
                 : <TableScrollFrame output={output} outputState={outputState} table={table} />}
-        </div>
+        </>
     );
 }
 
@@ -132,11 +162,7 @@ function TableScrollFrame({
     output,
     outputState,
     table,
-}: {
-    output: ParserOutput;
-    outputState: ParserState;
-    table: MarkdownTableNode;
-}) {
+}: TableViewProps) {
     const scrollRef = useRef<HTMLDivElement>(null);
     const lastScrollLeftRef = useRef(0);
     const frameRef = useRef(0);
@@ -150,10 +176,11 @@ function TableScrollFrame({
     useLayoutEffect(() => {
         const scrollElement = scrollRef.current;
         if (!scrollElement) return;
+        const observedElement: HTMLDivElement = scrollElement;
 
-        function updateMask(trackDirection = false) {
-            const maxScrollLeft = Math.max(0, scrollElement!.scrollWidth - scrollElement!.clientWidth);
-            const scrollLeft = Math.min(Math.max(scrollElement!.scrollLeft, 0), maxScrollLeft);
+        function updateMask(element: HTMLDivElement, trackDirection = false) {
+            const maxScrollLeft = Math.max(0, element.scrollWidth - element.clientWidth);
+            const scrollLeft = Math.min(Math.max(element.scrollLeft, 0), maxScrollLeft);
             let nextDirection: ScrollDirection = null;
 
             if (trackDirection && scrollLeft > lastScrollLeftRef.current) {
@@ -185,16 +212,18 @@ function TableScrollFrame({
             if (nextDirection) {
                 window.clearTimeout(directionResetRef.current);
                 directionResetRef.current = window.setTimeout(() => {
-                    setMaskState(previousState => previousState.direction
-                        ? { ...previousState, direction: null }
-                        : previousState);
+                    setMaskState(previousState => {
+                        if (!previousState.direction) return previousState;
+
+                        return { ...previousState, direction: null };
+                    });
                 }, 450);
             }
         }
 
         function scheduleMaskUpdate(trackDirection = false) {
             window.cancelAnimationFrame(frameRef.current);
-            frameRef.current = window.requestAnimationFrame(() => updateMask(trackDirection));
+            frameRef.current = window.requestAnimationFrame(() => updateMask(observedElement, trackDirection));
         }
 
         function handleScroll() {
@@ -206,16 +235,16 @@ function TableScrollFrame({
         }
 
         const resizeObserver = new ResizeObserver(() => scheduleMaskUpdate());
-        resizeObserver.observe(scrollElement);
-        if (scrollElement.firstElementChild) resizeObserver.observe(scrollElement.firstElementChild);
+        resizeObserver.observe(observedElement);
+        if (observedElement.firstElementChild) resizeObserver.observe(observedElement.firstElementChild);
 
-        updateMask();
-        scrollElement.addEventListener("scroll", handleScroll, { passive: true });
+        updateMask(observedElement);
+        observedElement.addEventListener("scroll", handleScroll, { passive: true });
         window.addEventListener("resize", handleResize);
 
         return () => {
             resizeObserver.disconnect();
-            scrollElement.removeEventListener("scroll", handleScroll);
+            observedElement.removeEventListener("scroll", handleScroll);
             window.removeEventListener("resize", handleResize);
             window.cancelAnimationFrame(frameRef.current);
             window.clearTimeout(directionResetRef.current);
@@ -336,6 +365,7 @@ export default definePlugin({
     tags: ["Chat", "Appearance"],
     authors: [EquicordDevs.yafyx],
     managedStyle,
+    settings,
     patches: [
         {
             find: "simple-markdown: Invalid order for rule",
@@ -352,7 +382,6 @@ export default definePlugin({
             },
         },
     ],
-
     start() {
         shouldInstallTableRule = true;
 

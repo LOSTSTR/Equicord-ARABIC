@@ -36,7 +36,14 @@ import { React, Select, TextInput, UserStore, useState } from "@webpack/common";
 
 const cl = classNameFactory("vc-textReplace-");
 
-type Rule = Record<"find" | "replace" | "onlyIfIncludes" | "scope" | "id", string>;
+interface Rule {
+    name?: string;
+    find: string;
+    replace: string;
+    onlyIfIncludes: string;
+    scope: string;
+    id: string;
+}
 
 interface TextReplaceProps {
     title: string;
@@ -45,7 +52,13 @@ interface TextReplaceProps {
     isRegex?: boolean;
 }
 
+interface RuleWithIndex {
+    rule: Rule;
+    index: number;
+}
+
 const makeEmptyRule: () => Rule = () => ({
+    name: "",
     find: "",
     replace: "",
     onlyIfIncludes: "",
@@ -152,7 +165,23 @@ function TextRow({ label, description, value, onChange }: { label: string; descr
 
 const isEmptyRule = (rule: Rule) => !rule.find;
 
+function matchesRuleSearch(rule: Rule, query: string) {
+    if (!query) return true;
+
+    const normalizedQuery = query.trim().toLowerCase();
+    return [rule.name ?? "", rule.find, rule.replace, rule.onlyIfIncludes]
+        .some(value => value.toLowerCase().includes(normalizedQuery));
+}
+
+function normalizeRule(rule: Rule) {
+    rule.name ??= "";
+    rule.scope ??= "myMessages";
+    rule.id ??= crypto.randomUUID();
+}
+
 function TextReplace({ title, description, rulesArray, isRegex = false }: TextReplaceProps) {
+    const [searchQuery, setSearchQuery] = useState("");
+
     function onClickRemove(index: number) {
         rulesArray.splice(index, 1);
     }
@@ -161,7 +190,7 @@ function TextReplace({ title, description, rulesArray, isRegex = false }: TextRe
         rulesArray[index][key] = e;
 
         // If a rule is empty after editing and is not the last rule, remove it
-        if (rulesArray[index].find === "" && rulesArray[index].replace === "" && rulesArray[index].onlyIfIncludes === "" && index !== rulesArray.length - 1) {
+        if (rulesArray[index].name === "" && rulesArray[index].find === "" && rulesArray[index].replace === "" && rulesArray[index].onlyIfIncludes === "" && index !== rulesArray.length - 1) {
             rulesArray.splice(index, 1);
         }
     }
@@ -172,19 +201,41 @@ function TextReplace({ title, description, rulesArray, isRegex = false }: TextRe
         { label: "Apply to all messages", value: "allMessages" }
     ];
 
+    const filteredRules = rulesArray.reduce((acc: RuleWithIndex[], rule, index) => {
+        if (matchesRuleSearch(rule, searchQuery)) {
+            acc.push({ rule, index });
+        }
+
+        return acc;
+    }, []);
+
     return (
         <>
             <div>
                 <HeadingSecondary>{title}</HeadingSecondary>
                 <Paragraph>{description}</Paragraph>
+                <TextInput
+                    placeholder="Search for a rule..."
+                    value={searchQuery}
+                    onChange={setSearchQuery}
+                />
             </div>
             <Flex flexDirection="column" style={{ gap: "0.5em", paddingBottom: "1.25em" }}>
-                {rulesArray.map((rule, index) =>
+                {!filteredRules.length && searchQuery && (
+                    <Paragraph>No rules match your search criteria.</Paragraph>
+                )}
+                {filteredRules.map(({ rule, index }) =>
                     <ExpandableSection
                         key={rule.id}
                         renderContent={() => (
                             <>
                                 <div className={cl("input-grid")}>
+                                    <TextRow
+                                        label="Name"
+                                        description="An optional name to help you identify this rule."
+                                        value={rule.name ?? ""}
+                                        onChange={e => onChange(e, index, "name")}
+                                    />
                                     <TextRow
                                         label="Find"
                                         description={isRegex ? "The regex pattern" : "The text to replace"}
@@ -199,7 +250,7 @@ function TextReplace({ title, description, rulesArray, isRegex = false }: TextRe
                                     />
                                     <TextRow
                                         label="Only if includes"
-                                        description="This rule will only be applied if the message includes this text. This is optional"
+                                        description="Optionally, only apply this rule if the message includes this text."
                                         value={rule.onlyIfIncludes}
                                         onChange={e => onChange(e, index, "onlyIfIncludes")}
                                     />
@@ -224,15 +275,20 @@ function TextReplace({ title, description, rulesArray, isRegex = false }: TextRe
                         )}
                     >
                         <Paragraph weight="medium" size="md">
-                            {isEmptyRule(rule)
-                                ? `Empty Rule ${index + 1}`
-                                : `Rule ${index + 1} - ${rule.find}`
+                            {rule.name
+                                ? rule.name
+                                : isEmptyRule(rule)
+                                    ? `Empty Rule ${index + 1}`
+                                    : `Rule ${index + 1} - ${rule.find}`
                             }
                         </Paragraph>
                     </ExpandableSection>
                 )}
                 <Button
-                    onClick={() => rulesArray.push(makeEmptyRule())}
+                    onClick={() => {
+                        setSearchQuery("");
+                        rulesArray.push(makeEmptyRule());
+                    }}
                     disabled={rulesArray.length > 0 && isEmptyRule(rulesArray[rulesArray.length - 1])}
                 >
                     Add Rule
@@ -307,7 +363,7 @@ export default definePlugin({
     get description() { return t("يستبدل النص تلقائياً أثناء الكتابة باستخدام قواعد مخصصة", "Automatically replaces text while typing using custom rules"); },
     dependencies: ["MessagePopoverAPI"],
     tags: ["Chat", "Customisation", "Utility"],
-    authors: [Devs.AutumnVN, Devs.TheKodeToad, EquicordDevs.Etorix],
+    authors: [Devs.AutumnVN, Devs.TheKodeToad, EquicordDevs.Etorix, EquicordDevs.Ape],
     isModified: true,
     settings,
     modifyIncomingMessage,
@@ -325,15 +381,8 @@ export default definePlugin({
     start() {
         const { stringRules, regexRules } = settings.store;
 
-        stringRules.forEach(rule => {
-            rule.scope ??= "myMessages";
-            rule.id ??= crypto.randomUUID();
-        });
-
-        regexRules.forEach(rule => {
-            rule.scope ??= "myMessages";
-            rule.id ??= crypto.randomUUID();
-        });
+        stringRules.forEach(normalizeRule);
+        regexRules.forEach(normalizeRule);
     },
 
     onBeforeMessageSend(channelId, msg) {
