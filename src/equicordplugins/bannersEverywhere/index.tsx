@@ -142,7 +142,7 @@ export default definePlugin({
         const userProfile = UserProfileStore.getUserProfile(userId);
         if (userProfile?.banner) {
             this.data[userId] = IconUtils.getUserBannerURL({ id: userId, banner: userProfile.banner, canAnimate: true, size: 512 });
-            DataStore.set(DATASTORE_KEY, this.data);
+            setTimeout(() => DataStore.set(DATASTORE_KEY, this.data), 0);
         }
         return this.data[userId];
     },

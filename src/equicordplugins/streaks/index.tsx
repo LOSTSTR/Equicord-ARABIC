@@ -20,6 +20,7 @@ import { useAuthorizationStore } from "./stores/AuthorizationStore";
 import { useStreaksStore } from "./stores/StreaksStore";
 
 const cl = classNameFactory("vc-streaks-");
+const pendingRefresh = new Set<string>();
 
 const STREAK_THRESHOLDS = {
     ELITE: 100,
@@ -103,8 +104,10 @@ export default definePlugin({
                     useStreaksStore.getState().update(recipientId);
                 }
             } else if (message.author.id === recipientId) {
-                if (!theirFlag) {
+                if (!theirFlag && !pendingRefresh.has(recipientId)) {
+                    pendingRefresh.add(recipientId);
                     setTimeout(async () => {
+                        pendingRefresh.delete(recipientId);
                         const before = useStreaksStore.getState().streaks[recipientId]?.count;
                         await useStreaksStore.getState().refresh(recipientId);
                         const after = useStreaksStore.getState().streaks[recipientId]?.count;

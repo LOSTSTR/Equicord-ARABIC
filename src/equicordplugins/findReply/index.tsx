@@ -46,19 +46,18 @@ function findReplies(message: Message) {
     }> = [...MessageStore.getMessages(message.channel_id)?._array ?? []].filter(m => !m.deleted).sort((a, b) => {
         return a.timestamp.toString().localeCompare(b.timestamp.toString());
     }); // Need to deep copy Message array when sorting
+    const messageMap = new Map(messages.map(m => [m.id, m]));
     const found: Message[] = [];
+    const { includePings, includeAuthor } = settings.store;
     for (const other of messages) {
         if (other.timestamp.toString().localeCompare(message.timestamp.toString()) <= 0) continue;
         if (other.messageReference?.message_id === message.id) {
             found.push(other);
-        }
-        if (settings.store.includePings) {
-            if (other.content?.includes(`<@${message.author.id}>`)) {
-                found.push(other);
-            }
-        }
-        if (settings.store.includeAuthor) {
-            if (messages.find(m => m.id === other.messageReference?.message_id)?.author.id === message.author.id) {
+        } else if (includePings && other.content?.includes(`<@${message.author.id}>`)) {
+            found.push(other);
+        } else if (includeAuthor) {
+            const refId = other.messageReference?.message_id;
+            if (refId && messageMap.get(refId)?.author.id === message.author.id) {
                 found.push(other);
             }
         }

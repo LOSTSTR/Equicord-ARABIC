@@ -50,10 +50,21 @@ const settings = definePluginSettings({
     }
 });
 
+const mentionRegexCache = new Map<string, RegExp>();
+
+function getMentionRegex(userId: string): RegExp {
+    let regex = mentionRegexCache.get(userId);
+    if (!regex) {
+        regex = new RegExp(`<@!?${userId}>`, "g");
+        mentionRegexCache.set(userId, regex);
+    }
+    return regex;
+}
+
 function formatContent(message) {
     let content = message.content || "";
     message.mentions?.forEach(user => {
-        content = content.replace(new RegExp(`<@!?${user.id}>`, "g"), `@${user.username}`);
+        content = content.replace(getMentionRegex(user.id), `@${user.username}`);
     });
     return content.slice(0, 200) + (content.length > 200 ? "..." : "");
 }

@@ -22,6 +22,7 @@ interface FetchTiming {
 
 let currentFetch: FetchTiming | null = null;
 let currentChannelId: string | null = null;
+const CHANNEL_TIMINGS_MAX = 200;
 const channelTimings: Map<string, { time: number; timestamp: Date; }> = new Map();
 
 const settings = definePluginSettings({
@@ -141,6 +142,10 @@ function handleMessageLoad(data: any) {
         time: duration,
         timestamp: new Date()
     });
+    if (channelTimings.size > CHANNEL_TIMINGS_MAX) {
+        const oldest = channelTimings.keys().next().value;
+        if (oldest !== undefined) channelTimings.delete(oldest);
+    }
 
     currentFetch = null;
 }

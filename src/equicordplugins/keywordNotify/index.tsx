@@ -53,12 +53,25 @@ async function removeKeywordEntry(idx: number, forceUpdate: () => void) {
     forceUpdate();
 }
 
-function safeMatchesRegex(str: string, regex: string, flags: string) {
+const compiledRegexCache = new Map<string, RegExp | null>();
+
+function getCompiledRegex(regex: string, flags: string): RegExp | null {
+    const key = `${flags}:${regex}`;
+    if (compiledRegexCache.has(key)) return compiledRegexCache.get(key)!;
     try {
-        return str.match(new RegExp(regex, flags));
+        const compiled = new RegExp(regex, flags);
+        compiledRegexCache.set(key, compiled);
+        return compiled;
     } catch {
-        return false;
+        compiledRegexCache.set(key, null);
+        return null;
     }
+}
+
+function safeMatchesRegex(str: string, regex: string, flags: string) {
+    const compiled = getCompiledRegex(regex, flags);
+    if (!compiled) return false;
+    return str.match(compiled);
 }
 
 enum ListType {

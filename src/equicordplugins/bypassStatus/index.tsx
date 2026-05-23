@@ -39,6 +39,23 @@ function processIds(value: string): string {
     return value.replace(/\s/g, "").split(",").filter(id => id.trim() !== "").join(", ");
 }
 
+let cachedGuilds = ""; let guildsSet = new Set<string>();
+let cachedChannels = ""; let channelsSet = new Set<string>();
+let cachedUsers = ""; let usersSet = new Set<string>();
+
+function parseIdSet(raw: string, cached: string, set: Set<string>): Set<string> {
+    if (raw === cached) return set;
+    return new Set(raw.split(", ").filter(Boolean));
+}
+
+function getBypassSets() {
+    const { guilds, channels, users } = settings.plain;
+    if (guilds !== cachedGuilds) { cachedGuilds = guilds; guildsSet = parseIdSet(guilds, "", guildsSet); }
+    if (channels !== cachedChannels) { cachedChannels = channels; channelsSet = parseIdSet(channels, "", channelsSet); }
+    if (users !== cachedUsers) { cachedUsers = users; usersSet = parseIdSet(users, "", usersSet); }
+    return { guildsSet, channelsSet, usersSet };
+}
+
 async function showNotification(message: Message, guildId: string | undefined): Promise<void> {
     try {
         const channel = ChannelStore.getChannel(message.channel_id);
@@ -174,9 +191,10 @@ export default definePlugin({
                 }
                 if (settings.store.respectSilentPings && (message.flags & SILENT_PING_FLAG)) { return; }
                 const mentioned = MessageStore.getMessage(channelId, message.id)?.mentioned;
-                if ((settings.store.guilds.split(", ").includes(guildId) || settings.store.channels.split(", ").includes(channelId)) && mentioned) {
+                const { guildsSet: gs, channelsSet: cs, usersSet: us } = getBypassSets();
+                if ((gs.has(guildId) || cs.has(channelId)) && mentioned) {
                     await showNotification(message, guildId);
-                } else if (settings.store.users.split(", ").includes(message.author.id)) {
+                } else if (us.has(message.author.id)) {
                     const userChannelId = await ChannelActionCreators.getOrEnsurePrivateChannel(message.author.id);
                     if (channelId === userChannelId || (mentioned && settings.store.allowOutsideOfDms === true)) {
                         await showNotification(message, guildId);

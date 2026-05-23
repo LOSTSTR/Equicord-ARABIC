@@ -19,10 +19,16 @@ const settings = definePluginSettings({
     },
 });
 
+let cachedMutedIds: Set<string> = new Set();
+let cachedMutedIdsRaw = "";
+
 function getMutedIds(): Set<string> {
-    const { mutedUserIds } = settings.store;
-    const ids = mutedUserIds.split(",").map(id => id.trim()).filter(Boolean);
-    return new Set(ids);
+    const raw = settings.plain.mutedUserIds;
+    if (raw !== cachedMutedIdsRaw) {
+        cachedMutedIdsRaw = raw;
+        cachedMutedIds = new Set(raw.split(",").map(id => id.trim()).filter(Boolean));
+    }
+    return cachedMutedIds;
 }
 
 function interceptor(event: any) {

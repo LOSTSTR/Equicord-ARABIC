@@ -30,6 +30,22 @@ const settings = definePluginSettings({
         default: "com.epicgames.launcher://apps/fn%3A4fe75bbc5a674f4f9b356b5c90567da5%3AFortnite?action=launch&silent=true"
     }
 });
+let cachedRegexPattern = "";
+let compiledRegex: RegExp | null = null;
+
+function getRegex(): RegExp | null {
+    const pattern = settings.plain.regex;
+    if (pattern !== cachedRegexPattern) {
+        cachedRegexPattern = pattern;
+        try {
+            compiledRegex = new RegExp(pattern, "i");
+        } catch {
+            compiledRegex = null;
+        }
+    }
+    return compiledRegex;
+}
+
 export default definePlugin({
     name: "HopOn",
     get description() { return t("اقفز! يفتح رابطاً قابلاً للإعداد عند تطابق رسالة مع تعبير منتظم مخصص في القناة الحالية.", "Hop on! Opens a configurable URL when a message matches a custom regex in the current channel."); },
@@ -42,9 +58,10 @@ export default definePlugin({
             if (message.state === "SENDING") return;
             if (RelationshipStore.isBlocked(message.author?.id)) return;
             if (channelId !== SelectedChannelStore.getChannelId()) return;
-            if (!message.content?.match(new RegExp(settings.store.regex, "i"))) return;
+            const regex = getRegex();
+            if (!regex || !message.content?.match(regex)) return;
 
-            VencordNative.native.openExternal(settings.store.url);
+            VencordNative.native.openExternal(settings.plain.url);
         }
     }
 });
