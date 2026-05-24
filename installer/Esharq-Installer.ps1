@@ -35,13 +35,15 @@ public class GradientLabel : Control {
         g.TextRenderingHint = TextRenderingHint.AntiAlias;
         int[] alphas  = { 8, 18, 30, 44, 58 };
         int[] offsets = { 4,  3,  2,  1,  1 };
-        var sf = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
+        var sf = new StringFormat();
+        sf.Alignment     = StringAlignment.Center;
+        sf.LineAlignment = StringAlignment.Center;
         for (int i = 0; i < alphas.Length; i++) {
             using (var b = new SolidBrush(Color.FromArgb(alphas[i], 0, 0, 0)))
                 g.DrawString(Text, Font, b, new RectangleF(offsets[i], offsets[i], Width, Height), sf);
         }
         var rect = new RectangleF(0, 0, Width, Height);
-        using (var gb = new LinearGradientBrush(new Rectangle(0,0,Width == 0?1:Width, Height == 0?1:Height), GradientStart, GradientEnd, LinearGradientMode.Horizontal))
+        using (var gb = new LinearGradientBrush(new Rectangle(0, 0, Width == 0 ? 1 : Width, Height == 0 ? 1 : Height), GradientStart, GradientEnd, LinearGradientMode.Horizontal))
             g.DrawString(Text, Font, gb, rect, sf);
     }
     protected override void OnResize(EventArgs e) { base.OnResize(e); Invalidate(); }
@@ -49,17 +51,19 @@ public class GradientLabel : Control {
 
 public class GlowButton : Button {
     private bool _h, _dn;
-    public Color HoverColor    { get; set; }
-    public Color GlowColor     { get; set; }
-    public Color FormColor     { get; set; }
-    public int   CornerRadius  { get; set; } = 8;
+    private int _cornerRadius;
+    public Color HoverColor  { get; set; }
+    public Color GlowColor   { get; set; }
+    public Color FormColor   { get; set; }
+    public int CornerRadius  { get { return _cornerRadius; } set { _cornerRadius = value; } }
     public GlowButton() {
+        _cornerRadius = 8;
         SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.DoubleBuffer, true);
         FlatStyle = FlatStyle.Flat;
         FlatAppearance.BorderSize = 0;
     }
     private GraphicsPath RndPath(Rectangle r) {
-        int d = Math.Min(CornerRadius * 2, Math.Min(r.Width, r.Height));
+        int d = Math.Min(_cornerRadius * 2, Math.Min(r.Width, r.Height));
         var gp = new GraphicsPath();
         gp.AddArc(r.Left, r.Top, d, d, 180, 90);
         gp.AddArc(r.Right - d, r.Top, d, d, 270, 90);
@@ -71,47 +75,47 @@ public class GlowButton : Button {
     protected override void OnPaint(PaintEventArgs pe) {
         var g = pe.Graphics;
         g.SmoothingMode = SmoothingMode.AntiAlias;
-        g.Clear(FormColor == Color.Empty ? Color.FromArgb(11,11,16) : FormColor);
+        g.Clear(FormColor == Color.Empty ? Color.FromArgb(11, 11, 16) : FormColor);
         var r = ClientRectangle;
-        var col = _dn ? Color.FromArgb(-20 + GlowColor.R, Math.Max(0,GlowColor.G-20), Math.Max(0,GlowColor.B-20))
-                      : _h  ? HoverColor : BackColor;
-        // Glow shadow
+        var col = _dn ? Color.FromArgb(Math.Max(0, GlowColor.R - 20), Math.Max(0, GlowColor.G - 20), Math.Max(0, GlowColor.B - 20))
+                      : _h ? HoverColor : BackColor;
         if (_h || _dn) {
-            int[] a = {8,22,42}; int[] pad = {3,2,1};
-            foreach (var (aa,pp) in new[]{(a[0],pad[0]),(a[1],pad[1]),(a[2],pad[2])}) {
-                using (var b = new SolidBrush(Color.FromArgb(aa, GlowColor)))
-                using (var p = RndPath(Rectangle.Inflate(r, pp, pp))) {
+            int[] a   = { 8, 22, 42 };
+            int[] pad = { 3,  2,  1 };
+            for (int i = 0; i < a.Length; i++) {
+                using (var b = new SolidBrush(Color.FromArgb(a[i], GlowColor)))
+                using (var p = RndPath(Rectangle.Inflate(r, pad[i], pad[i])))
                     g.FillPath(b, p);
-                }
             }
         }
-        using (var p = RndPath(r)) {
-            using (var b = new SolidBrush(col)) g.FillPath(b, p);
-        }
-        var sf = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
+        using (var p = RndPath(r))
+        using (var b = new SolidBrush(col))
+            g.FillPath(b, p);
+        var sf = new StringFormat();
+        sf.Alignment     = StringAlignment.Center;
+        sf.LineAlignment = StringAlignment.Center;
         using (var b = new SolidBrush(ForeColor))
             g.DrawString(Text, Font, b, r, sf);
     }
-    protected override void OnMouseEnter(EventArgs e) { _h=true;  Invalidate(); base.OnMouseEnter(e); }
-    protected override void OnMouseLeave(EventArgs e) { _h=false; Invalidate(); base.OnMouseLeave(e); }
-    protected override void OnMouseDown(MouseEventArgs e) { _dn=true;  Invalidate(); base.OnMouseDown(e); }
-    protected override void OnMouseUp(MouseEventArgs e)   { _dn=false; Invalidate(); base.OnMouseUp(e); }
+    protected override void OnMouseEnter(EventArgs e) { _h  = true;  Invalidate(); base.OnMouseEnter(e); }
+    protected override void OnMouseLeave(EventArgs e) { _h  = false; Invalidate(); base.OnMouseLeave(e); }
+    protected override void OnMouseDown(MouseEventArgs e) { _dn = true;  Invalidate(); base.OnMouseDown(e); }
+    protected override void OnMouseUp(MouseEventArgs e)   { _dn = false; Invalidate(); base.OnMouseUp(e); }
 }
 
 public class CapsuleProgress : Control {
     private int _val;
     public int Progress {
-        get => _val;
-        set { _val = Math.Max(0,Math.Min(100,value)); Invalidate(); }
+        get { return _val; }
+        set { _val = Math.Max(0, Math.Min(100, value)); Invalidate(); }
     }
     public Color TrackColor { get; set; }
     public Color FillStart  { get; set; }
     public Color FillEnd    { get; set; }
     public CapsuleProgress() {
-        SetStyle(ControlStyles.AllPaintingInWmPaint|ControlStyles.UserPaint|ControlStyles.DoubleBuffer, true);
+        SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.DoubleBuffer, true);
     }
     private GraphicsPath Capsule(RectangleF r) {
-        float rad = r.Height / 2f;
         var gp = new GraphicsPath();
         gp.AddArc(r.Left, r.Top, r.Height, r.Height, 90, 180);
         gp.AddArc(r.Right - r.Height, r.Top, r.Height, r.Height, 270, 180);
@@ -123,12 +127,15 @@ public class CapsuleProgress : Control {
         g.SmoothingMode = SmoothingMode.AntiAlias;
         var tr = new RectangleF(0, 0, Width, Height);
         using (var b = new SolidBrush(TrackColor))
-        using (var p = Capsule(tr)) g.FillPath(b, p);
+        using (var p = Capsule(tr))
+            g.FillPath(b, p);
         if (_val > 0) {
             float fw = Math.Max(Height, (Width - Height) * _val / 100f + Height);
             var fr = new RectangleF(0, 0, fw, Height);
-            using (var gb = new LinearGradientBrush(new Rectangle(0,0,(int)fw==0?1:(int)fw,Height), FillStart, FillEnd, LinearGradientMode.Horizontal))
-            using (var p = Capsule(fr)) g.FillPath(gb, p);
+            int ifw = (int)fw == 0 ? 1 : (int)fw;
+            using (var gb = new LinearGradientBrush(new Rectangle(0, 0, ifw, Height), FillStart, FillEnd, LinearGradientMode.Horizontal))
+            using (var p = Capsule(fr))
+                g.FillPath(gb, p);
         }
     }
 }
