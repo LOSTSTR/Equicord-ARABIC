@@ -228,9 +228,11 @@ function Show-Installer {
     $form.MaximizeBox     = $false
     $form.Font            = New-Object System.Drawing.Font("Segoe UI", 11)
 
-    $icoPath = Join-Path $PSScriptRoot "icon.ico"
-    if (Test-Path $icoPath) {
-        try { $form.Icon = New-Object System.Drawing.Icon($icoPath) } catch {}
+    if ($PSScriptRoot) {
+        $icoPath = Join-Path $PSScriptRoot "icon.ico"
+        if (Test-Path $icoPath) {
+            try { $form.Icon = New-Object System.Drawing.Icon($icoPath) } catch {}
+        }
     }
 
     # ── دالة مساعدة للتسميات ──────────────────────────────────────────
@@ -260,7 +262,7 @@ function Show-Installer {
     $infoY = 90
 
     # سطر المسار + زر Open Directory
-    $pathLbl = Lbl "سيتم تنزيل Esharq إلى: $AsarTarget" 48 $infoY $FG_WHITE 11
+    $pathLbl = Lbl "سيتم تنزيل Esharq إلى: $AsarTarget" 48 $infoY -C $FG_WHITE -FS 11
     $form.Controls.Add($pathLbl)
 
     $btnOpenDir = New-Object System.Windows.Forms.Button
@@ -279,16 +281,16 @@ function Show-Installer {
     })
     $form.Controls.Add($btnOpenDir)
 
-    $form.Controls.Add((Lbl "لتخصيص هذا المسار، قم بتعيين متغير البيئة 'EQUICORD_USER_DATA_DIR' ثم أعد تشغيل المثبت" 48 ($infoY+28) $FG_WHITE 11))
+    $form.Controls.Add((Lbl "لتخصيص هذا المسار، قم بتعيين متغير البيئة 'EQUICORD_USER_DATA_DIR' ثم أعد تشغيل المثبت" 48 ($infoY+28) -C $FG_WHITE -FS 11))
 
     # معلومات الإصدار (تُحدَّث لاحقاً)
-    $lblInstallerVer = Lbl "إصدار المثبت: v$INSTALLER_VER" 48 ($infoY+62) $FG_WHITE 11
+    $lblInstallerVer = Lbl "إصدار المثبت: v$INSTALLER_VER" 48 ($infoY+62) -C $FG_WHITE -FS 11
     $form.Controls.Add($lblInstallerVer)
 
-    $lblLocalVer = Lbl "الإصدار المثبت محلياً: جارٍ الفحص..." 48 ($infoY+90) $FG_WHITE 11
+    $lblLocalVer = Lbl "الإصدار المثبت محلياً: جارٍ الفحص..." 48 ($infoY+90) -C $FG_WHITE -FS 11
     $form.Controls.Add($lblLocalVer)
 
-    $lblLatestVer = Lbl "آخر إصدار متاح: جارٍ الجلب..." 48 ($infoY+118) $FG_WHITE 11
+    $lblLatestVer = Lbl "آخر إصدار متاح: جارٍ الجلب..." 48 ($infoY+118) -C $FG_WHITE -FS 11
     $form.Controls.Add($lblLatestVer)
 
     # ═══ صندوق التحذير (مطابق للأصفر في Equilotl) ══════════════════
@@ -310,7 +312,7 @@ function Show-Installer {
 
     # ═══ قسم الاختيار ═══════════════════════════════════════════════
     $selectY = 348
-    $form.Controls.Add((Lbl "الرجاء اختيار نسخة Discord للتعديل عليها" 48 $selectY $FG_WHITE 13 Bold))
+    $form.Controls.Add((Lbl "الرجاء اختيار نسخة Discord للتعديل عليها" 48 $selectY -C $FG_WHITE -FS 13 -FS2 Bold))
 
     # Radio buttons للنسخ المكتشفة
     $radios   = [System.Collections.Generic.List[System.Windows.Forms.RadioButton]]::new()
@@ -335,7 +337,7 @@ function Show-Installer {
     if ($radios.Count -gt 0) {
         $radios[0].Checked = $true
     } else {
-        $form.Controls.Add((Lbl "⚠  لم يُعثر على أي نسخة من Discord مثبتة على هذا الجهاز" 52 $radioY $FG_MUTED 10))
+        $form.Controls.Add((Lbl "⚠  لم يُعثر على أي نسخة من Discord مثبتة على هذا الجهاز" 52 $radioY -C $FG_MUTED -FS 10))
         $radioY += 28
     }
 
