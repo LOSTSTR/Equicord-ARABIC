@@ -7,11 +7,15 @@
 import * as DataStore from "@api/DataStore";
 import { classNameFactory } from "@utils/css";
 import { formatDurationMs } from "@utils/text";
-import { RenderModalProps } from "@vencord/discord-types";
+import type { RenderModalProps } from "@vencord/discord-types";
 import { ChannelStore, LocaleStore, Modal, Tooltip, useEffect, useState } from "@webpack/common";
 
 import { generateAndSave } from "./shareImage";
-import { AggregatedStats, DayStats, DB_KEY, emptyDay, getLast7DayKeys, shortDayLabel, StatsDB } from "./types";
+import {
+    type ActivityProfile, calcRecords, calcStreak, DB_KEY, emptyDay, getActivityProfile,
+    getLast7DayKeys, getLast84DayKeys, getPrev7DayKeys, pctChange, type Records,
+    shortDayLabel, type StatsDB,
+} from "./types";
 
 const cl = classNameFactory("vc-personalanalytics-");
 
@@ -30,6 +34,12 @@ const STRINGS = {
         saveAsImage: "📥 حفظ كصورة",
         close: "إغلاق",
         loading: "جاري تحميل إحصاءاتك...",
+        streak: "أيام متتالية",
+        records: "السجلات الشخصية",
+        bestDay: "أفضل يوم",
+        longestVoice: "أطول جلسة صوتية",
+        activityProfile: "نمط النشاط",
+        calendarTitle: "٨٤ يوماً الماضية",
     },
     en: {
         title: "Personal Analytics",
@@ -45,10 +55,16 @@ const STRINGS = {
         saveAsImage: "📥 Save as Image",
         close: "Close",
         loading: "Loading your stats…",
+        streak: "day streak",
+        records: "Personal Records",
+        bestDay: "Best day",
+        longestVoice: "Longest voice",
+        activityProfile: "Activity Profile",
+        calendarTitle: "Last 84 Days",
     },
 } as const;
 
-function aggregate(db: StatsDB, keys: string[]): AggregatedStats {
+function aggregate(db: StatsDB, keys: string[]) {
     let totalMessages = 0;
     let totalVoiceMs = 0;
     let totalReactionsGiven = 0;
@@ -59,7 +75,7 @@ function aggregate(db: StatsDB, keys: string[]): AggregatedStats {
     const dailyMessages: Array<{ date: string; count: number; }> = [];
 
     for (const key of keys) {
-        const day: DayStats = db[key] ?? emptyDay();
+        const day = db[key] ?? emptyDay();
         totalMessages += day.messages;
         totalVoiceMs += day.voiceMs;
         totalReactionsGiven += day.reactionsGiven;
@@ -82,12 +98,76 @@ function aggregate(db: StatsDB, keys: string[]): AggregatedStats {
     return { totalMessages, totalVoiceMs, totalReactionsGiven, totalReactionsReceived, activeDays, topChannels, dailyMessages, aggHours };
 }
 
-function StatCard({ icon, label, value, accent }: { icon: string; label: string; value: string; accent: string; }) {
+function ChangeChip({ change }: { change: number | null; }) {
+    if (change === null) return null;
+    const positive = change >= 0;
+    return (
+        <span className={cl("change-chip", positive ? "positive" : "negative")}>
+            {positive ? "▲" : "▼"} {Math.abs(change)}%
+        </span>
+    );
+}
+
+function StatCard({ icon, label, value, accent, change }: {
+    icon: string; label: string; value: string; accent: string; change?: number | null;
+}) {
     return (
         <div className={cl("stat-card")} style={{ "--card-accent": accent } as React.CSSProperties}>
             <span className={cl("stat-icon")}>{icon}</span>
             <span className={cl("stat-value")}>{value}</span>
-            <span className={cl("stat-label")}>{label}</span>
+            <div className={cl("stat-footer")}>
+                <span className={cl("stat-label")}>{label}</span>
+                {change !== undefined && <ChangeChip change={change} />}
+            </div>
+        </div>
+    );
+}
+
+function StreakBadge({ streak, label }: { streak: number; label: string; }) {
+    if (streak === 0) return null;
+    return (
+        <div className={cl("streak-badge")}>
+            <span>🔥</span>
+            <span className={cl("streak-count")}>{streak}</span>
+            <span className={cl("streak-label")}>{label}</span>
+        </div>
+    );
+}
+
+function ProfileChip({ profile, isAR }: { profile: ActivityProfile; isAR: boolean; }) {
+    return (
+        <div className={cl("profile-chip")}>
+            <span className={cl("profile-icon")}>{profile.icon}</span>
+            <span className={cl("profile-name")}>{isAR ? profile.ar : profile.en}</span>
+        </div>
+    );
+}
+
+function RecordsRow({ records, bestDayLabel, longestVoiceLabel }: {
+    records: Records;
+    bestDayLabel: string;
+    longestVoiceLabel: string;
+}) {
+    return (
+        <div className={cl("records-row")}>
+            <div className={cl("record-item")}>
+                <span className={cl("record-icon")}>🏆</span>
+                <div className={cl("record-info")}>
+                    <span className={cl("record-value")}>{records.bestDayCount}</span>
+                    <span className={cl("record-label")}>{bestDayLabel}</span>
+                    {records.bestDayDate && (
+                        <span className={cl("record-date")}>{records.bestDayDate}</span>
+                    )}
+                </div>
+            </div>
+            <div className={cl("record-divider")} />
+            <div className={cl("record-item")}>
+                <span className={cl("record-icon")}>⏱️</span>
+                <div className={cl("record-info")}>
+                    <span className={cl("record-value")}>{formatDurationMs(records.longestVoiceMs)}</span>
+                    <span className={cl("record-label")}>{longestVoiceLabel}</span>
+                </div>
+            </div>
         </div>
     );
 }
@@ -132,26 +212,63 @@ function HeatmapRow({ hours }: { hours: number[]; }) {
     );
 }
 
+function CalendarGrid({ db, keys }: { db: StatsDB; keys: string[]; }) {
+    const startDow = new Date(keys[0] + "T12:00:00").getDay();
+    const padded: Array<string | null> = [...(Array(startDow).fill(null) as null[]), ...keys];
+    const maxCount = Math.max(...keys.map(k => db[k]?.messages ?? 0), 1);
+
+    return (
+        <div className={cl("calendar-grid")}>
+            {padded.map((key, i) => {
+                if (!key) {
+                    return <div key={`p${i}`} className={cl("calendar-cell", "calendar-empty")} />;
+                }
+                const count = db[key]?.messages ?? 0;
+                return (
+                    <Tooltip key={key} text={`${key}: ${count} msg`}>
+                        {props => (
+                            <div
+                                {...props}
+                                className={cl("calendar-cell")}
+                                style={{ opacity: count > 0 ? 0.2 + (count / maxCount) * 0.8 : 0.07 }}
+                            />
+                        )}
+                    </Tooltip>
+                );
+            })}
+        </div>
+    );
+}
+
 export function AnalyticsDashboard({ modalProps }: { modalProps: RenderModalProps; }) {
-    const [stats, setStats] = useState<AggregatedStats | null>(null);
-    const keys = getLast7DayKeys();
-    const weekStart = new Date(keys[0] + "T12:00:00").toLocaleDateString(undefined, { month: "short", day: "numeric" });
+    const [db, setDb] = useState<StatsDB | null>(null);
+    const keys7 = getLast7DayKeys();
+    const prev7 = getPrev7DayKeys();
+    const keys84 = getLast84DayKeys();
+    const weekStart = new Date(keys7[0] + "T12:00:00").toLocaleDateString(undefined, { month: "short", day: "numeric" });
     const s = LocaleStore.locale?.startsWith("ar") ? STRINGS.ar : STRINGS.en;
     const isAR = s === STRINGS.ar;
 
     useEffect(() => {
-        void DataStore.get<StatsDB>(DB_KEY).then(db => {
-            setStats(aggregate(db ?? {}, keys));
-        });
+        void DataStore.get<StatsDB>(DB_KEY).then(data => setDb(data ?? {}));
     }, []);
 
-    if (!stats) {
+    if (!db) {
         return (
             <Modal {...modalProps} size="sm" title={`📊 ${s.title}`}>
                 <div className={cl("loading")}>{s.loading}</div>
             </Modal>
         );
     }
+
+    const stats = aggregate(db, keys7);
+    const prev = aggregate(db, prev7);
+    const streak = calcStreak(db);
+    const records = calcRecords(db);
+    const profile = getActivityProfile(stats.aggHours);
+    const msgChange = pctChange(stats.totalMessages, prev.totalMessages);
+    const voiceChange = pctChange(stats.totalVoiceMs, prev.totalVoiceMs);
+    const reactChange = pctChange(stats.totalReactionsGiven, prev.totalReactionsGiven);
 
     return (
         <Modal
@@ -173,12 +290,20 @@ export function AnalyticsDashboard({ modalProps }: { modalProps: RenderModalProp
             ]}
         >
             <div className={cl("content")} dir={isAR ? "rtl" : "ltr"}>
+                <div className={cl("top-row")}>
+                    <StreakBadge streak={streak} label={s.streak} />
+                    <ProfileChip profile={profile} isAR={isAR} />
+                </div>
+
                 <div className={cl("stat-grid")}>
-                    <StatCard icon="💬" label={s.messages} value={stats.totalMessages.toLocaleString()} accent="#5865f2" />
-                    <StatCard icon="🎙️" label={s.voiceTime} value={formatDurationMs(stats.totalVoiceMs)} accent="#3ba55c" />
-                    <StatCard icon="⭐" label={s.reactionsGiven} value={String(stats.totalReactionsGiven)} accent="#faa81a" />
+                    <StatCard icon="💬" label={s.messages} value={stats.totalMessages.toLocaleString()} accent="#5865f2" change={msgChange} />
+                    <StatCard icon="🎙️" label={s.voiceTime} value={formatDurationMs(stats.totalVoiceMs)} accent="#3ba55c" change={voiceChange} />
+                    <StatCard icon="⭐" label={s.reactionsGiven} value={String(stats.totalReactionsGiven)} accent="#faa81a" change={reactChange} />
                     <StatCard icon="📅" label={s.activeDays} value={s.activeDaysValue(stats.activeDays)} accent="#eb459e" />
                 </div>
+
+                <h3 className={cl("section-heading")}>{s.records}</h3>
+                <RecordsRow records={records} bestDayLabel={s.bestDay} longestVoiceLabel={s.longestVoice} />
 
                 <h3 className={cl("section-heading")}>{s.dailyActivity}</h3>
                 <BarChart data={stats.dailyMessages} />
@@ -215,6 +340,9 @@ export function AnalyticsDashboard({ modalProps }: { modalProps: RenderModalProp
                     ))}
                 </div>
                 <HeatmapRow hours={stats.aggHours} />
+
+                <h3 className={cl("section-heading")}>{s.calendarTitle}</h3>
+                <CalendarGrid db={db} keys={keys84} />
             </div>
         </Modal>
     );

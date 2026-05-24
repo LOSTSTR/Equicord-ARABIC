@@ -47,6 +47,59 @@
     font-size: 14px;
 }
 
+/* ── top row (streak + profile) ──────────────────────── */
+
+.vc-personalanalytics-top-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.vc-personalanalytics-streak-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: linear-gradient(135deg, rgb(250 100 0 / 15%), rgb(250 168 26 / 12%));
+    border: 1px solid rgb(250 168 26 / 30%);
+    border-radius: 99px;
+    padding: 5px 12px 5px 10px;
+    font-size: 13px;
+}
+
+.vc-personalanalytics-streak-count {
+    font-size: 15px;
+    font-weight: 700;
+    color: #faa81a;
+}
+
+.vc-personalanalytics-streak-label {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.vc-personalanalytics-profile-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--background-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: 99px;
+    padding: 5px 12px 5px 10px;
+    font-size: 13px;
+}
+
+.vc-personalanalytics-profile-icon {
+    font-size: 16px;
+    line-height: 1;
+}
+
+.vc-personalanalytics-profile-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--header-primary);
+}
+
 /* ── stat cards ───────────────────────────────────────── */
 
 .vc-personalanalytics-stat-grid {
@@ -263,6 +316,118 @@
 
 .vc-personalanalytics-share-btn:active {
     transform: translateY(0) !important;
+}
+
+/* ── stat card footer (label + change chip) ───────────── */
+
+.vc-personalanalytics-stat-footer {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+.vc-personalanalytics-change-chip {
+    font-size: 10px;
+    font-weight: 700;
+    border-radius: 99px;
+    padding: 1px 5px;
+}
+
+.vc-personalanalytics-positive {
+    color: #3ba55c;
+    background: rgb(59 165 92 / 12%);
+}
+
+.vc-personalanalytics-negative {
+    color: #ed4245;
+    background: rgb(237 66 69 / 12%);
+}
+
+/* ── personal records ─────────────────────────────────── */
+
+.vc-personalanalytics-records-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: var(--background-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 14px 16px;
+}
+
+.vc-personalanalytics-record-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+}
+
+.vc-personalanalytics-record-icon {
+    font-size: 22px;
+    line-height: 1;
+}
+
+.vc-personalanalytics-record-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.vc-personalanalytics-record-value {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--header-primary);
+    line-height: 1;
+}
+
+.vc-personalanalytics-record-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.vc-personalanalytics-record-date {
+    font-size: 10px;
+    color: var(--text-muted);
+    opacity: 0.7;
+}
+
+.vc-personalanalytics-record-divider {
+    width: 1px;
+    height: 36px;
+    background: var(--border-subtle);
+    flex-shrink: 0;
+}
+
+/* ── 84-day calendar grid ─────────────────────────────── */
+
+.vc-personalanalytics-calendar-grid {
+    display: grid;
+    grid-template-rows: repeat(7, 12px);
+    grid-auto-flow: column;
+    grid-auto-columns: 12px;
+    gap: 3px;
+    overflow-x: auto;
+}
+
+.vc-personalanalytics-calendar-cell {
+    width: 12px;
+    height: 12px;
+    background: var(--brand-experiment);
+    border-radius: 2px;
+    cursor: default;
+    transition: transform 0.1s ease;
+}
+
+.vc-personalanalytics-calendar-cell:hover {
+    transform: scale(1.3);
+}
+
+.vc-personalanalytics-calendar-empty {
+    background: transparent;
+    pointer-events: none;
 }
 
 /* ── settings open button ─────────────────────────────── */
