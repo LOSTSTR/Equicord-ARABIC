@@ -1,9 +1,9 @@
 #Requires -Version 5.1
 <#
 .SYNOPSIS
-    Esharq Installer — تصميم CrimsonNight
+    Esharq Installer — مطابق لتصميم Equilotl الرسمي
 .DESCRIPTION
-    مُثبِّت Esharq بواجهة CrimsonNight الداكنة
+    مُثبِّت Esharq مع واجهة مطابقة لـ Equilotl
     المستودع: https://github.com/LOSTSTR/Esharq
     Copyright (c) 2026 LOSTSTR — GPL-3.0
 #>
@@ -13,168 +13,36 @@ Add-Type -AssemblyName System.Drawing
 [System.Windows.Forms.Application]::EnableVisualStyles()
 [System.Windows.Forms.Application]::SetCompatibleTextRenderingDefault($false)
 
-# ── Custom Controls ─────────────────────────────────────────────────
-Add-Type @"
-using System;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Text;
-using System.Windows.Forms;
-
-public class GradientLabel : Control {
-    public Color GradientStart { get; set; }
-    public Color GradientEnd   { get; set; }
-    public GradientLabel() {
-        SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.DoubleBuffer | ControlStyles.SupportsTransparentBackColor, true);
-        BackColor = Color.Transparent;
-    }
-    protected override void OnPaint(PaintEventArgs e) {
-        if (string.IsNullOrEmpty(Text)) return;
-        var g = e.Graphics;
-        g.SmoothingMode     = SmoothingMode.AntiAlias;
-        g.TextRenderingHint = TextRenderingHint.AntiAlias;
-        int[] alphas  = { 8, 18, 30, 44, 58 };
-        int[] offsets = { 4,  3,  2,  1,  1 };
-        var sf = new StringFormat();
-        sf.Alignment     = StringAlignment.Center;
-        sf.LineAlignment = StringAlignment.Center;
-        for (int i = 0; i < alphas.Length; i++) {
-            using (var b = new SolidBrush(Color.FromArgb(alphas[i], 0, 0, 0)))
-                g.DrawString(Text, Font, b, new RectangleF(offsets[i], offsets[i], Width, Height), sf);
-        }
-        var rect = new RectangleF(0, 0, Width, Height);
-        using (var gb = new LinearGradientBrush(new Rectangle(0, 0, Width == 0 ? 1 : Width, Height == 0 ? 1 : Height), GradientStart, GradientEnd, LinearGradientMode.Horizontal))
-            g.DrawString(Text, Font, gb, rect, sf);
-    }
-    protected override void OnResize(EventArgs e) { base.OnResize(e); Invalidate(); }
-}
-
-public class GlowButton : Button {
-    private bool _h, _dn;
-    private int _cornerRadius;
-    public Color HoverColor  { get; set; }
-    public Color GlowColor   { get; set; }
-    public Color FormColor   { get; set; }
-    public int CornerRadius  { get { return _cornerRadius; } set { _cornerRadius = value; } }
-    public GlowButton() {
-        _cornerRadius = 8;
-        SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.DoubleBuffer, true);
-        FlatStyle = FlatStyle.Flat;
-        FlatAppearance.BorderSize = 0;
-    }
-    private GraphicsPath RndPath(Rectangle r) {
-        int d = Math.Min(_cornerRadius * 2, Math.Min(r.Width, r.Height));
-        var gp = new GraphicsPath();
-        gp.AddArc(r.Left, r.Top, d, d, 180, 90);
-        gp.AddArc(r.Right - d, r.Top, d, d, 270, 90);
-        gp.AddArc(r.Right - d, r.Bottom - d, d, d, 0, 90);
-        gp.AddArc(r.Left, r.Bottom - d, d, d, 90, 90);
-        gp.CloseFigure();
-        return gp;
-    }
-    protected override void OnPaint(PaintEventArgs pe) {
-        var g = pe.Graphics;
-        g.SmoothingMode = SmoothingMode.AntiAlias;
-        g.Clear(FormColor == Color.Empty ? Color.FromArgb(11, 11, 16) : FormColor);
-        var r = ClientRectangle;
-        var col = _dn ? Color.FromArgb(Math.Max(0, GlowColor.R - 20), Math.Max(0, GlowColor.G - 20), Math.Max(0, GlowColor.B - 20))
-                      : _h ? HoverColor : BackColor;
-        if (_h || _dn) {
-            int[] a   = { 8, 22, 42 };
-            int[] pad = { 3,  2,  1 };
-            for (int i = 0; i < a.Length; i++) {
-                using (var b = new SolidBrush(Color.FromArgb(a[i], GlowColor)))
-                using (var p = RndPath(Rectangle.Inflate(r, pad[i], pad[i])))
-                    g.FillPath(b, p);
-            }
-        }
-        using (var p = RndPath(r))
-        using (var b = new SolidBrush(col))
-            g.FillPath(b, p);
-        var sf = new StringFormat();
-        sf.Alignment     = StringAlignment.Center;
-        sf.LineAlignment = StringAlignment.Center;
-        using (var b = new SolidBrush(ForeColor))
-            g.DrawString(Text, Font, b, r, sf);
-    }
-    protected override void OnMouseEnter(EventArgs e) { _h  = true;  Invalidate(); base.OnMouseEnter(e); }
-    protected override void OnMouseLeave(EventArgs e) { _h  = false; Invalidate(); base.OnMouseLeave(e); }
-    protected override void OnMouseDown(MouseEventArgs e) { _dn = true;  Invalidate(); base.OnMouseDown(e); }
-    protected override void OnMouseUp(MouseEventArgs e)   { _dn = false; Invalidate(); base.OnMouseUp(e); }
-}
-
-public class CapsuleProgress : Control {
-    private int _val;
-    public int Progress {
-        get { return _val; }
-        set { _val = Math.Max(0, Math.Min(100, value)); Invalidate(); }
-    }
-    public Color TrackColor { get; set; }
-    public Color FillStart  { get; set; }
-    public Color FillEnd    { get; set; }
-    public CapsuleProgress() {
-        SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.DoubleBuffer, true);
-    }
-    private GraphicsPath Capsule(RectangleF r) {
-        var gp = new GraphicsPath();
-        gp.AddArc(r.Left, r.Top, r.Height, r.Height, 90, 180);
-        gp.AddArc(r.Right - r.Height, r.Top, r.Height, r.Height, 270, 180);
-        gp.CloseFigure();
-        return gp;
-    }
-    protected override void OnPaint(PaintEventArgs e) {
-        var g = e.Graphics;
-        g.SmoothingMode = SmoothingMode.AntiAlias;
-        var tr = new RectangleF(0, 0, Width, Height);
-        using (var b = new SolidBrush(TrackColor))
-        using (var p = Capsule(tr))
-            g.FillPath(b, p);
-        if (_val > 0) {
-            float fw = Math.Max(Height, (Width - Height) * _val / 100f + Height);
-            var fr = new RectangleF(0, 0, fw, Height);
-            int ifw = (int)fw == 0 ? 1 : (int)fw;
-            using (var gb = new LinearGradientBrush(new Rectangle(0, 0, ifw, Height), FillStart, FillEnd, LinearGradientMode.Horizontal))
-            using (var p = Capsule(fr))
-                g.FillPath(gb, p);
-        }
-    }
-}
-"@ -ReferencedAssemblies "System.Windows.Forms","System.Drawing"
-
 # ═══════════════════════════════════════════════════════════════════
 #  إعدادات ثابتة
 # ═══════════════════════════════════════════════════════════════════
-$REPO_OWNER    = "LOSTSTR"
-$REPO_NAME     = "Esharq"
-$INSTALLER_VER = "1.14.13.1"
-$ASAR_NAME     = "desktop.asar"
-$RELEASE_API   = "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/releases/latest"
-$USER_AGENT    = "Esharq-Installer/$INSTALLER_VER (+https://github.com/$REPO_OWNER/$REPO_NAME)"
-$SUPPORT_URL   = "https://discord.gg/QamdqDNEDa"
+$REPO_OWNER   = "LOSTSTR"
+$REPO_NAME    = "Esharq"
+$INSTALLER_VER = "1.14.13.0"
+$ASAR_NAME    = "desktop.asar"
+$RELEASE_API  = "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/releases/latest"
+$USER_AGENT   = "Esharq-Installer/$INSTALLER_VER (+https://github.com/$REPO_OWNER/$REPO_NAME)"
 
-$DataDir    = if ($env:EQUICORD_USER_DATA_DIR) { $env:EQUICORD_USER_DATA_DIR } else { Join-Path $env:APPDATA "Esharq" }
+# مسار بيانات Esharq (مثل Equilotl يستخدم EQUICORD_USER_DATA_DIR)
+$DataDir = if ($env:EQUICORD_USER_DATA_DIR) {
+    $env:EQUICORD_USER_DATA_DIR
+} else {
+    Join-Path $env:APPDATA "Esharq"
+}
 $AsarTarget = Join-Path $DataDir "equicord.asar"
 
-# ── CrimsonNight Palette ────────────────────────────────────────────
-$BG_DARK      = [System.Drawing.Color]::FromArgb( 11,  11,  16)
-$BG_PANEL     = [System.Drawing.Color]::FromArgb( 22,  22,  32)
-$BG_HEADER    = [System.Drawing.Color]::FromArgb( 15,   5,  10)
-$ACCENT       = [System.Drawing.Color]::FromArgb(224,  34,  68)
-$ACCENT2      = [System.Drawing.Color]::FromArgb(192,  38, 211)
-$ACCENT3      = [System.Drawing.Color]::FromArgb(235,  69, 158)
-$FG_WHITE     = [System.Drawing.Color]::FromArgb(220, 200, 205)
-$FG_MUTED     = [System.Drawing.Color]::FromArgb(120,  90,  98)
-$FG_DIM       = [System.Drawing.Color]::FromArgb( 60,  35,  42)
-$WARN_BG      = [System.Drawing.Color]::FromArgb( 28,   8,  12)
-$WARN_FG      = [System.Drawing.Color]::FromArgb(220, 100, 120)
-$WARN_BORDER  = [System.Drawing.Color]::FromArgb(100,  20,  35)
-$BTN_INSTALL  = [System.Drawing.Color]::FromArgb(224,  34,  68)
-$BTN_REPAIR   = [System.Drawing.Color]::FromArgb( 30,  30,  46)
-$BTN_REMOVE   = [System.Drawing.Color]::FromArgb( 30,  30,  46)
-$BTN_OPENSAR  = [System.Drawing.Color]::FromArgb( 30,  30,  46)
-$BTN_DISCORD  = [System.Drawing.Color]::FromArgb( 88, 101, 242)
-$SUCCESS_CLR  = [System.Drawing.Color]::FromArgb( 87, 242, 135)
-$ERROR_CLR    = [System.Drawing.Color]::FromArgb(237,  66,  69)
+# ألوان مطابقة لـ Equilotl
+$BG_DARK      = [System.Drawing.Color]::FromArgb(30,  31,  34)
+$BG_PANEL     = [System.Drawing.Color]::FromArgb(40,  41,  45)
+$FG_WHITE     = [System.Drawing.Color]::FromArgb(220, 221, 222)
+$FG_MUTED     = [System.Drawing.Color]::FromArgb(148, 155, 164)
+$WARN_BG      = [System.Drawing.Color]::FromArgb(250, 210,  50)
+$WARN_FG      = [System.Drawing.Color]::FromArgb(20,  20,  20)
+$BTN_INSTALL  = [System.Drawing.Color]::FromArgb( 67, 181,  73)
+$BTN_REPAIR   = [System.Drawing.Color]::FromArgb( 88, 101, 242)
+$BTN_REMOVE   = [System.Drawing.Color]::FromArgb(237,  66,  69)
+$BTN_OPENSAR  = [System.Drawing.Color]::FromArgb( 67, 181,  73)
+$LINK_COLOR   = [System.Drawing.Color]::FromArgb(100, 149, 237)
 
 # ═══════════════════════════════════════════════════════════════════
 #  اكتشاف نسخ Discord
@@ -188,7 +56,7 @@ function Get-DiscordInstalls {
     )
     $found = [System.Collections.Generic.List[hashtable]]::new()
     foreach ($v in $variants) {
-        $base  = Join-Path $env:LOCALAPPDATA $v.Dir
+        $base = Join-Path $env:LOCALAPPDATA $v.Dir
         if (-not (Test-Path $base)) { continue }
         $appDir = Get-ChildItem $base -Directory -Filter "app-*" -EA SilentlyContinue |
                   Sort-Object Name -Descending | Select-Object -First 1
@@ -197,7 +65,7 @@ function Get-DiscordInstalls {
         if (-not (Test-Path $res)) { continue }
         $patched = Test-Path (Join-Path $res $ASAR_NAME)
         $found.Add(@{
-            Label     = "$($v.Name) — $base$(if ($patched) { '  ✔ مُثبَّت' })"
+            Label     = "$($v.Name) — $base$(if ($patched) { ' [مُثبَّت]' })"
             Name      = $v.Name
             Resources = $res
             Patched   = $patched
@@ -206,24 +74,31 @@ function Get-DiscordInstalls {
     return $found
 }
 
+# ═══════════════════════════════════════════════════════════════════
+#  GitHub Release
+# ═══════════════════════════════════════════════════════════════════
 function Get-LatestTag {
-    try { return (Invoke-RestMethod $RELEASE_API -Headers @{"User-Agent"=$USER_AGENT} -EA Stop).tag_name }
-    catch { return "غير متاح" }
+    try {
+        $r = Invoke-RestMethod $RELEASE_API -Headers @{"User-Agent"=$USER_AGENT} -EA Stop
+        return $r.tag_name
+    } catch { return "غير متاح" }
 }
 
 function Get-LocalVersion([string]$ResourcesPath) {
     $p = Join-Path $ResourcesPath $ASAR_NAME
     if (-not (Test-Path $p)) { return "لا يوجد" }
-    try { return (Get-Item $p).LastWriteTime.ToString("yyyy-MM-dd") } catch { return "مثبَّت" }
+    try {
+        return (Get-Item $p).LastWriteTime.ToString("yyyy-MM-dd")
+    } catch { return "مثبَّت" }
 }
 
 # ═══════════════════════════════════════════════════════════════════
-#  تنزيل مع شريط تقدم
+#  تنزيل الملف مع شريط تقدم
 # ═══════════════════════════════════════════════════════════════════
 function Invoke-Download {
     param([string]$Url, [string]$Dest, [scriptblock]$OnProgress)
-    $req  = [System.Net.HttpWebRequest]::Create($Url)
-    $req.UserAgent       = $USER_AGENT
+    $req = [System.Net.HttpWebRequest]::Create($Url)
+    $req.UserAgent = $USER_AGENT
     $req.AllowAutoRedirect = $true
     $resp  = $req.GetResponse()
     $total = $resp.ContentLength
@@ -249,22 +124,28 @@ function Invoke-Download {
 # ═══════════════════════════════════════════════════════════════════
 function Install-Mod {
     param([string]$ResourcesPath, [scriptblock]$Status, [scriptblock]$Progress)
+
     & $Status "جارٍ جلب معلومات آخر إصدار..."
     & $Progress 5
+
     $release = Invoke-RestMethod $RELEASE_API -Headers @{"User-Agent"=$USER_AGENT} -EA Stop
     $asset   = $release.assets | Where-Object { $_.name -eq $ASAR_NAME } | Select-Object -First 1
     if (-not $asset) { throw "لم يُعثر على ملف $ASAR_NAME في الإصدار $($release.tag_name)" }
+
     $mb = [math]::Round($asset.size / 1MB, 1)
     & $Status "تحميل $ASAR_NAME — $($release.tag_name) ($mb MB)"
     & $Progress 10
+
     New-Item -ItemType Directory -Path $DataDir -Force | Out-Null
     $tmp = Join-Path $env:TEMP ("esharq_" + [guid]::NewGuid().ToString("N") + ".asar")
+
     Invoke-Download -Url $asset.browser_download_url -Dest $tmp -OnProgress {
         param($p,$dl,$tot)
         $mn=[math]::Round($dl/1MB,1); $mt=[math]::Round($tot/1MB,1)
         & $Status "تحميل: $mn/$mt MB  ($p%)"
         & $Progress ([int](10 + $p * 0.6))
     }
+
     & $Status "نسخ الملف إلى مجلد الموارد..."
     & $Progress 75
     Stop-DiscordFromResources $ResourcesPath
@@ -305,6 +186,9 @@ function Install-OpenAsar {
     & $Status "✔ تم تثبيت OpenAsar — أعد تشغيل Discord"
 }
 
+# ═══════════════════════════════════════════════════════════════════
+#  إدارة عمليات Discord
+# ═══════════════════════════════════════════════════════════════════
 function Stop-DiscordFromResources([string]$ResourcesPath) {
     $discordDir = Split-Path (Split-Path $ResourcesPath -Parent) -Parent
     $procName   = Split-Path $discordDir -Leaf
@@ -328,7 +212,7 @@ function Confirm-DiscordStopped([string]$ResourcesPath) {
 }
 
 # ═══════════════════════════════════════════════════════════════════
-#  بناء الواجهة — CrimsonNight
+#  بناء الواجهة
 # ═══════════════════════════════════════════════════════════════════
 function Show-Installer {
 
@@ -345,169 +229,90 @@ function Show-Installer {
     $form.Font            = New-Object System.Drawing.Font("Segoe UI", 11)
 
     $icoPath = Join-Path $PSScriptRoot "icon.ico"
-    if (Test-Path $icoPath) { try { $form.Icon = New-Object System.Drawing.Icon($icoPath) } catch {} }
-
-    # ── شريط التمييز العلوي (4px متدرج) ────────────────────────────
-    $accentBar = New-Object System.Windows.Forms.Panel
-    $accentBar.Location = New-Object System.Drawing.Point(0, 0)
-    $accentBar.Size     = New-Object System.Drawing.Size(1200, 4)
-    $accentBar.Add_Paint({
-        param($s, $e)
-        $r = $s.ClientRectangle
-        $grad = New-Object System.Drawing.Drawing2D.LinearGradientBrush(
-            $r, $ACCENT, $ACCENT3,
-            [System.Drawing.Drawing2D.LinearGradientMode]::Horizontal)
-        $e.Graphics.FillRectangle($grad, $r)
-        $grad.Dispose()
-    })
-    $form.Controls.Add($accentBar)
-
-    # ── هيدر ─────────────────────────────────────────────────────────
-    $header = New-Object System.Windows.Forms.Panel
-    $header.Location  = New-Object System.Drawing.Point(0, 4)
-    $header.Size      = New-Object System.Drawing.Size(1200, 86)
-    $header.BackColor = $BG_HEADER
-    $header.Add_Paint({
-        param($s,$e)
-        $g = $e.Graphics
-        # Crimson glow orb top-right
-        $glowBrush = New-Object System.Drawing.Drawing2D.PathGradientBrush(
-            [System.Drawing.PointF[]](
-                [System.Drawing.PointF]::new(1140, 0),
-                [System.Drawing.PointF]::new(1200, 0),
-                [System.Drawing.PointF]::new(1200, 86),
-                [System.Drawing.PointF]::new(1140, 86)
-            )
-        )
-        $glowBrush.CenterPoint    = [System.Drawing.PointF]::new(1200, 0)
-        $glowBrush.CenterColor    = [System.Drawing.Color]::FromArgb(40, 224, 34, 68)
-        $glowBrush.SurroundColors = @([System.Drawing.Color]::FromArgb(0, 224, 34, 68))
-        $g.FillRectangle($glowBrush, 1060, 0, 140, 86)
-        $glowBrush.Dispose()
-        # Bottom border line
-        $pen = New-Object System.Drawing.Pen([System.Drawing.Color]::FromArgb(60, 224, 34, 68), 1)
-        $g.DrawLine($pen, 0, 85, 1200, 85)
-        $pen.Dispose()
-    })
-    $form.Controls.Add($header)
-
-    # العنوان بالتدرج
-    $titleLbl = New-Object GradientLabel
-    $titleLbl.Text           = "Esharq"
-    $titleLbl.GradientStart  = $ACCENT
-    $titleLbl.GradientEnd    = $ACCENT2
-    $titleLbl.Location       = New-Object System.Drawing.Point(0, 0)
-    $titleLbl.Size           = New-Object System.Drawing.Size(400, 86)
-    $titleLbl.Font           = New-Object System.Drawing.Font("Segoe UI", 30, [System.Drawing.FontStyle]::Bold)
-    $titleLbl.BackColor      = [System.Drawing.Color]::Transparent
-    $header.Controls.Add($titleLbl)
-
-    # معلومات الإصدار (يمين)
-    function HdrLbl([string]$T, [int]$Y, [System.Drawing.Color]$C) {
-        $l = New-Object System.Windows.Forms.Label
-        $l.Text      = $T
-        $l.Location  = New-Object System.Drawing.Point(560, $Y)
-        $l.Size      = New-Object System.Drawing.Size(620, 22)
-        $l.ForeColor = $C
-        $l.BackColor = [System.Drawing.Color]::Transparent
-        $l.Font      = New-Object System.Drawing.Font("Segoe UI", 10)
-        $l.TextAlign = [System.Drawing.ContentAlignment]::MiddleRight
-        $header.Controls.Add($l)
+    if (Test-Path $icoPath) {
+        try { $form.Icon = New-Object System.Drawing.Icon($icoPath) } catch {}
     }
-    $lblLocalVerH  = HdrLbl "الإصدار المحلي: جارٍ الفحص..."    14 $FG_MUTED
-    $lblLatestVerH = HdrLbl "آخر إصدار: جارٍ الجلب..."         36 $FG_MUTED
-    $lblInstallerH = HdrLbl "إصدار المثبت: v$INSTALLER_VER"    58 $FG_DIM
 
-    # ── منطقة المحتوى الرئيسية ──────────────────────────────────────
-    $PAD  = 48
-    $BODY = 92  # Y بداية المحتوى
-
-    # دالة label مبسطة
-    function Lbl([string]$T, [int]$X, [int]$Y, [System.Drawing.Color]$C, [float]$FS=11, [System.Drawing.FontStyle]$ST=[System.Drawing.FontStyle]::Regular, [int]$W=0, [int]$H=26) {
+    # ── دالة مساعدة للتسميات ──────────────────────────────────────────
+    function Lbl {
+        param([string]$T, [int]$X, [int]$Y, [int]$W=0, [int]$H=0,
+              [System.Drawing.Color]$C, [float]$FS=11,
+              [System.Drawing.FontStyle]$FS2=[System.Drawing.FontStyle]::Regular)
+        if (-not $C) { $C = $FG_WHITE }
         $l = New-Object System.Windows.Forms.Label
         $l.Text      = $T
-        $l.Location  = New-Object System.Drawing.Point($X, $Y)
+        $l.Location  = New-Object System.Drawing.Point($X,$Y)
         $l.ForeColor = $C
         $l.BackColor = [System.Drawing.Color]::Transparent
-        $l.Font      = New-Object System.Drawing.Font("Segoe UI", $FS, $ST)
-        if ($W -gt 0) { $l.Size = New-Object System.Drawing.Size($W, $H); $l.AutoSize=$false } else { $l.AutoSize=$true }
-        $form.Controls.Add($l)
+        $l.Font      = New-Object System.Drawing.Font("Segoe UI",$FS,$FS2)
+        if ($W -gt 0) { $l.Size = New-Object System.Drawing.Size($W,$H); $l.AutoSize=$false }
+        else          { $l.AutoSize = $true }
         return $l
     }
 
-    # ── سطر المسار + زر فتح المجلد ──────────────────────────────────
-    $infoY = $BODY + 6
+    # ── العنوان ─────────────────────────────────────────────────────
+    $title = Lbl "Esharq" 0 24 1200 60 $FG_WHITE 28 Bold
+    $title.TextAlign = [System.Drawing.ContentAlignment]::MiddleCenter
+    $title.AutoSize  = $false
+    $form.Controls.Add($title)
 
-    $pathLbl = Lbl "📁  سيتم تنزيل Esharq إلى: $AsarTarget" $PAD $infoY $FG_MUTED 10
+    # ═══ قسم المعلومات ══════════════════════════════════════════════
+    $infoY = 90
 
-    $btnOpenDir = New-Object GlowButton
-    $btnOpenDir.Text       = "فتح المجلد"
-    $btnOpenDir.Location   = New-Object System.Drawing.Point(($pathLbl.Right + 12), ($infoY - 2))
-    $btnOpenDir.Size       = New-Object System.Drawing.Size(110, 28)
-    $btnOpenDir.BackColor  = [System.Drawing.Color]::FromArgb(40, 15, 22)
-    $btnOpenDir.HoverColor = [System.Drawing.Color]::FromArgb(60, 20, 30)
-    $btnOpenDir.GlowColor  = $ACCENT
-    $btnOpenDir.FormColor  = $BG_DARK
-    $btnOpenDir.ForeColor  = $ACCENT
-    $btnOpenDir.Font       = New-Object System.Drawing.Font("Segoe UI", 9)
-    $btnOpenDir.CornerRadius = 6
-    $btnOpenDir.Cursor     = [System.Windows.Forms.Cursors]::Hand
+    # سطر المسار + زر Open Directory
+    $pathLbl = Lbl "سيتم تنزيل Esharq إلى: $AsarTarget" 48 $infoY $FG_WHITE 11
+    $form.Controls.Add($pathLbl)
+
+    $btnOpenDir = New-Object System.Windows.Forms.Button
+    $btnOpenDir.Text      = "فتح المجلد"
+    $btnOpenDir.Location  = New-Object System.Drawing.Point(($pathLbl.Right + 12), ($infoY - 2))
+    $btnOpenDir.AutoSize  = $true
+    $btnOpenDir.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
+    $btnOpenDir.BackColor = $LINK_COLOR
+    $btnOpenDir.ForeColor = [System.Drawing.Color]::White
+    $btnOpenDir.FlatAppearance.BorderSize = 0
+    $btnOpenDir.Font      = New-Object System.Drawing.Font("Segoe UI", 9)
+    $btnOpenDir.Cursor    = [System.Windows.Forms.Cursors]::Hand
     $btnOpenDir.Add_Click({
         New-Item -ItemType Directory -Path $DataDir -Force | Out-Null
         Start-Process explorer.exe $DataDir
     })
     $form.Controls.Add($btnOpenDir)
 
-    Lbl "لتخصيص المسار: قم بتعيين متغير البيئة 'EQUICORD_USER_DATA_DIR' ثم أعد تشغيل المثبت" $PAD ($infoY + 30) $FG_DIM 10 | Out-Null
+    $form.Controls.Add((Lbl "لتخصيص هذا المسار، قم بتعيين متغير البيئة 'EQUICORD_USER_DATA_DIR' ثم أعد تشغيل المثبت" 48 ($infoY+28) $FG_WHITE 11))
 
-    # ── زر Discord ──────────────────────────────────────────────────
-    $btnDiscord = New-Object GlowButton
-    $btnDiscord.Text         = "🎮  انضم إلى سيرفر الدعم العربي على Discord"
-    $btnDiscord.Location     = New-Object System.Drawing.Point($PAD, ($infoY + 58))
-    $btnDiscord.Size         = New-Object System.Drawing.Size(500, 38)
-    $btnDiscord.BackColor    = $BTN_DISCORD
-    $btnDiscord.HoverColor   = [System.Drawing.Color]::FromArgb(110, 125, 255)
-    $btnDiscord.GlowColor    = $BTN_DISCORD
-    $btnDiscord.FormColor    = $BG_DARK
-    $btnDiscord.ForeColor    = [System.Drawing.Color]::White
-    $btnDiscord.Font         = New-Object System.Drawing.Font("Segoe UI", 11, [System.Drawing.FontStyle]::Bold)
-    $btnDiscord.CornerRadius = 10
-    $btnDiscord.Cursor       = [System.Windows.Forms.Cursors]::Hand
-    $btnDiscord.Add_Click({ Start-Process $SUPPORT_URL })
-    $form.Controls.Add($btnDiscord)
+    # معلومات الإصدار (تُحدَّث لاحقاً)
+    $lblInstallerVer = Lbl "إصدار المثبت: v$INSTALLER_VER" 48 ($infoY+62) $FG_WHITE 11
+    $form.Controls.Add($lblInstallerVer)
 
-    # ── صندوق التحذير (CrimsonNight — أحمر داكن) ────────────────────
-    $warnY = $BODY + 108
+    $lblLocalVer = Lbl "الإصدار المثبت محلياً: جارٍ الفحص..." 48 ($infoY+90) $FG_WHITE 11
+    $form.Controls.Add($lblLocalVer)
 
+    $lblLatestVer = Lbl "آخر إصدار متاح: جارٍ الجلب..." 48 ($infoY+118) $FG_WHITE 11
+    $form.Controls.Add($lblLatestVer)
+
+    # ═══ صندوق التحذير (مطابق للأصفر في Equilotl) ══════════════════
+    $warnY = 240
     $warnPanel = New-Object System.Windows.Forms.Panel
-    $warnPanel.Location  = New-Object System.Drawing.Point($PAD, $warnY)
-    $warnPanel.Size      = New-Object System.Drawing.Size(1104, 78)
+    $warnPanel.Location  = New-Object System.Drawing.Point(48, $warnY)
+    $warnPanel.Size      = New-Object System.Drawing.Size(1104, 90)
     $warnPanel.BackColor = $WARN_BG
-    $warnPanel.Add_Paint({
-        param($s, $e)
-        # إطار قرمزي
-        $pen = New-Object System.Drawing.Pen($WARN_BORDER, 1)
-        $e.Graphics.DrawRectangle($pen, 0, 0, ($s.Width-1), ($s.Height-1))
-        $pen.Dispose()
-        # شريط جانبي أحمر (RTL = يمين)
-        $e.Graphics.FillRectangle([System.Drawing.Brushes]::Firebrick, ($s.Width - 4), 0, 4, $s.Height)
-    })
     $form.Controls.Add($warnPanel)
 
     $warnText = New-Object System.Windows.Forms.Label
-    $warnText.Text      = "⚠  هام جداً  —  GitHub ومستودع LOSTSTR/Esharq هما المصدران الرسميان الوحيدان للحصول على Esharq.`r`nأي مصدر آخر يُعتبر ضاراً — احذف كل شيء وأجرِ فحصاً للبرامج الضارة وغيّر كلمة مرور Discord."
+    $warnText.Text = "GitHub ومستودع LOSTSTR/Esharq هما المصدران الرسميان الوحيدان للحصول على Esharq.`nأي مصدر آخر يدّعي توزيعه يُعتبر ضاراً. إذا قمت بتنزيله من مكان آخر، احذف كل شيء وأجرِ فحصاً للبرامج الضارة وغيّر كلمة مرور Discord."
     $warnText.Location  = New-Object System.Drawing.Point(14, 10)
-    $warnText.Size      = New-Object System.Drawing.Size(1076, 58)
+    $warnText.Size      = New-Object System.Drawing.Size(1076, 70)
     $warnText.ForeColor = $WARN_FG
     $warnText.BackColor = [System.Drawing.Color]::Transparent
     $warnText.Font      = New-Object System.Drawing.Font("Segoe UI", 11)
     $warnPanel.Controls.Add($warnText)
 
-    # ── اختيار نسخة Discord ─────────────────────────────────────────
-    $selectY = $warnY + 88
+    # ═══ قسم الاختيار ═══════════════════════════════════════════════
+    $selectY = 348
+    $form.Controls.Add((Lbl "الرجاء اختيار نسخة Discord للتعديل عليها" 48 $selectY $FG_WHITE 13 Bold))
 
-    Lbl "الرجاء اختيار نسخة Discord للتعديل عليها" $PAD $selectY $FG_WHITE 13 Bold | Out-Null
-
+    # Radio buttons للنسخ المكتشفة
     $radios   = [System.Collections.Generic.List[System.Windows.Forms.RadioButton]]::new()
     $installs = @(Get-DiscordInstalls)
     $radioY   = $selectY + 36
@@ -516,7 +321,7 @@ function Show-Installer {
         $rb = New-Object System.Windows.Forms.RadioButton
         $rb.Text      = $inst.Label
         $rb.Tag       = $inst
-        $rb.Location  = New-Object System.Drawing.Point(56, $radioY)
+        $rb.Location  = New-Object System.Drawing.Point(52, $radioY)
         $rb.AutoSize  = $true
         $rb.ForeColor = $FG_WHITE
         $rb.BackColor = [System.Drawing.Color]::Transparent
@@ -530,14 +335,14 @@ function Show-Installer {
     if ($radios.Count -gt 0) {
         $radios[0].Checked = $true
     } else {
-        Lbl "⚠  لم يُعثر على أي نسخة من Discord مثبتة" 56 $radioY $FG_MUTED 10 | Out-Null
+        $form.Controls.Add((Lbl "⚠  لم يُعثر على أي نسخة من Discord مثبتة على هذا الجهاز" 52 $radioY $FG_MUTED 10))
         $radioY += 28
     }
 
     # مسار مخصص
     $rbCustom = New-Object System.Windows.Forms.RadioButton
     $rbCustom.Text      = "مسار تثبيت مخصص"
-    $rbCustom.Location  = New-Object System.Drawing.Point(56, ($radioY + 8))
+    $rbCustom.Location  = New-Object System.Drawing.Point(52, ($radioY + 8))
     $rbCustom.AutoSize  = $true
     $rbCustom.ForeColor = $FG_WHITE
     $rbCustom.BackColor = [System.Drawing.Color]::Transparent
@@ -546,10 +351,10 @@ function Show-Installer {
     $form.Controls.Add($rbCustom)
 
     $txtCustom = New-Object System.Windows.Forms.TextBox
-    $txtCustom.Location    = New-Object System.Drawing.Point($PAD, ($radioY + 44))
+    $txtCustom.Location    = New-Object System.Drawing.Point(48, ($radioY + 44))
     $txtCustom.Size        = New-Object System.Drawing.Size(1104, 36)
     $txtCustom.BackColor   = $BG_PANEL
-    $txtCustom.ForeColor   = $FG_DIM
+    $txtCustom.ForeColor   = $FG_MUTED
     $txtCustom.BorderStyle = [System.Windows.Forms.BorderStyle]::FixedSingle
     $txtCustom.Font        = New-Object System.Drawing.Font("Segoe UI", 11)
     $txtCustom.Text        = "المسار المخصص (مجلد resources الخاص بـ Discord)"
@@ -558,112 +363,69 @@ function Show-Installer {
 
     $rbCustom.Add_CheckedChanged({
         $txtCustom.Enabled   = $rbCustom.Checked
-        $txtCustom.ForeColor = if ($rbCustom.Checked) { $FG_WHITE } else { $FG_DIM }
+        $txtCustom.ForeColor = if ($rbCustom.Checked) { $FG_WHITE } else { $FG_MUTED }
     })
 
-    # ── شريط الحالة والتقدم ─────────────────────────────────────────
+    # ═══ شريط الحالة والتقدم ════════════════════════════════════════
     $statusY = 572
 
     $lblStatus = New-Object System.Windows.Forms.Label
     $lblStatus.Text      = "اختر نسخة Discord ثم اضغط على أحد الأزرار"
-    $lblStatus.Location  = New-Object System.Drawing.Point($PAD, $statusY)
+    $lblStatus.Location  = New-Object System.Drawing.Point(48, $statusY)
     $lblStatus.Size      = New-Object System.Drawing.Size(1104, 26)
     $lblStatus.ForeColor = $FG_MUTED
     $lblStatus.BackColor = [System.Drawing.Color]::Transparent
     $lblStatus.Font      = New-Object System.Drawing.Font("Segoe UI", 10)
     $form.Controls.Add($lblStatus)
 
-    $progBar = New-Object CapsuleProgress
-    $progBar.Location   = New-Object System.Drawing.Point($PAD, ($statusY + 30))
-    $progBar.Size       = New-Object System.Drawing.Size(1104, 6)
-    $progBar.TrackColor = [System.Drawing.Color]::FromArgb(30, 10, 15)
-    $progBar.FillStart  = $ACCENT
-    $progBar.FillEnd    = $ACCENT2
+    $progBar = New-Object System.Windows.Forms.ProgressBar
+    $progBar.Location = New-Object System.Drawing.Point(48, ($statusY + 28))
+    $progBar.Size     = New-Object System.Drawing.Size(1104, 6)
+    $progBar.Minimum  = 0
+    $progBar.Maximum  = 100
+    $progBar.Value    = 0
+    $progBar.Style    = [System.Windows.Forms.ProgressBarStyle]::Continuous
     $form.Controls.Add($progBar)
 
-    # ── خط فاصل ─────────────────────────────────────────────────────
-    $sep = New-Object System.Windows.Forms.Panel
-    $sep.Location  = New-Object System.Drawing.Point($PAD, ($statusY + 42))
-    $sep.Size      = New-Object System.Drawing.Size(1104, 1)
-    $sep.BackColor = [System.Drawing.Color]::FromArgb(40, 15, 22)
-    $form.Controls.Add($sep)
+    # ═══ الأزرار الأربعة ════════════════════════════════════════════
+    $btnY  = 612
+    $btnW  = 264
+    $btnH  = 50
+    $gap   = 8
+    $startX = 48
 
-    # ── الأزرار الأربعة ─────────────────────────────────────────────
-    $btnY   = 614
-    $btnW   = 264
-    $btnH   = 50
-    $gap    = 8
-
-    function New-GBtn([string]$T, [System.Drawing.Color]$Bg, [System.Drawing.Color]$Glow, [System.Drawing.Color]$Fg, [int]$X) {
-        $b = New-Object GlowButton
-        $b.Text         = $T
-        $b.Location     = New-Object System.Drawing.Point($X, $btnY)
-        $b.Size         = New-Object System.Drawing.Size($btnW, $btnH)
-        $b.BackColor    = $Bg
-        $b.HoverColor   = [System.Drawing.Color]::FromArgb([Math]::Min(255,$Bg.R+20), [Math]::Min(255,$Bg.G+20), [Math]::Min(255,$Bg.B+20))
-        $b.GlowColor    = $Glow
-        $b.FormColor    = $BG_DARK
-        $b.ForeColor    = $Fg
-        $b.Font         = New-Object System.Drawing.Font("Segoe UI", 12, [System.Drawing.FontStyle]::Bold)
-        $b.CornerRadius = 10
-        $b.Cursor       = [System.Windows.Forms.Cursors]::Hand
+    function New-ActionBtn {
+        param([string]$T, [System.Drawing.Color]$Bg, [int]$X)
+        $b = New-Object System.Windows.Forms.Button
+        $b.Text      = $T
+        $b.Location  = New-Object System.Drawing.Point($X, $btnY)
+        $b.Size      = New-Object System.Drawing.Size($btnW, $btnH)
+        $b.BackColor = $Bg
+        $b.ForeColor = [System.Drawing.Color]::White
+        $b.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
+        $b.FlatAppearance.BorderSize = 0
+        $b.Font      = New-Object System.Drawing.Font("Segoe UI", 12, [System.Drawing.FontStyle]::Bold)
+        $b.Cursor    = [System.Windows.Forms.Cursors]::Hand
+        $b.UseVisualStyleBackColor = $false
         $form.Controls.Add($b)
         return $b
     }
 
-    $crimsonFg = [System.Drawing.Color]::White
-    $darkFg    = [System.Drawing.Color]::FromArgb(150, 120, 130)
+    $btnInstall  = New-ActionBtn "تثبيت"              $BTN_INSTALL ($startX)
+    $btnRepair   = New-ActionBtn "إعادة التثبيت / الإصلاح" $BTN_REPAIR  ($startX + $btnW + $gap)
+    $btnRemove   = New-ActionBtn "إزالة التثبيت"      $BTN_REMOVE  ($startX + ($btnW+$gap)*2)
+    $btnOpenSar  = New-ActionBtn "تثبيت OpenAsar"     $BTN_OPENSAR ($startX + ($btnW+$gap)*3)
 
-    $btnInstall  = New-GBtn "تثبيت"                    $BTN_INSTALL  $ACCENT   $crimsonFg ($PAD)
-    $btnRepair   = New-GBtn "إعادة التثبيت / الإصلاح"  $BTN_REPAIR   $ACCENT   $darkFg    ($PAD + $btnW + $gap)
-    $btnRemove   = New-GBtn "إزالة التثبيت"             $BTN_REMOVE   $ERROR_CLR $darkFg   ($PAD + ($btnW+$gap)*2)
-    $btnOpenSar  = New-GBtn "تثبيت OpenAsar"            $BTN_OPENSAR  $ACCENT   $darkFg    ($PAD + ($btnW+$gap)*3)
-
-    # ── فوتر ─────────────────────────────────────────────────────────
-    $footer = New-Object System.Windows.Forms.Panel
-    $footer.Location  = New-Object System.Drawing.Point(0, 668)
-    $footer.Size      = New-Object System.Drawing.Size(1200, 32)
-    $footer.BackColor = [System.Drawing.Color]::FromArgb(8, 5, 8)
-    $footer.Add_Paint({
-        param($s,$e)
-        $pen = New-Object System.Drawing.Pen([System.Drawing.Color]::FromArgb(40,15,22), 1)
-        $e.Graphics.DrawLine($pen, 0, 0, $s.Width, 0)
-        $pen.Dispose()
-    })
-    $form.Controls.Add($footer)
-
-    $footerLeft = New-Object System.Windows.Forms.Label
-    $footerLeft.Text      = "LOSTSTR • krym511 • 𝚁𝙰𝚈𝙼𝙾𝙽𝙳♞ • Abo Ahmed • S99 • iosiph • .fmo   —   Esharq 2026 • GPL-3.0"
-    $footerLeft.Location  = New-Object System.Drawing.Point(12, 0)
-    $footerLeft.Size      = New-Object System.Drawing.Size(800, 32)
-    $footerLeft.ForeColor = [System.Drawing.Color]::FromArgb(55, 30, 38)
-    $footerLeft.BackColor = [System.Drawing.Color]::Transparent
-    $footerLeft.Font      = New-Object System.Drawing.Font("Segoe UI", 9)
-    $footerLeft.TextAlign = [System.Drawing.ContentAlignment]::MiddleLeft
-    $footer.Controls.Add($footerLeft)
-
-    $footerRight = New-Object System.Windows.Forms.LinkLabel
-    $footerRight.Text      = "LOSTSTR/Esharq"
-    $footerRight.Location  = New-Object System.Drawing.Point(900, 0)
-    $footerRight.Size      = New-Object System.Drawing.Size(280, 32)
-    $footerRight.ForeColor = [System.Drawing.Color]::FromArgb(100, 30, 50)
-    $footerRight.BackColor = [System.Drawing.Color]::Transparent
-    $footerRight.Font      = New-Object System.Drawing.Font("Segoe UI", 9)
-    $footerRight.TextAlign = [System.Drawing.ContentAlignment]::MiddleRight
-    $footerRight.LinkColor = [System.Drawing.Color]::FromArgb(120, 40, 60)
-    $footerRight.ActiveLinkColor = $ACCENT
-    $footerRight.LinkBehavior = [System.Windows.Forms.LinkBehavior]::HoverUnderline
-    $footerRight.Add_LinkClicked({ Start-Process "https://github.com/$REPO_OWNER/$REPO_NAME" })
-    $footer.Controls.Add($footerRight)
-
-    # ═══ دوال مساعدة ════════════════════════════════════════════════
+    # ═══ دوال مساعدة للواجهة ════════════════════════════════════════
     function Get-Target {
         if ($rbCustom.Checked) {
             $p = $txtCustom.Text.Trim()
             if (-not $p -or -not (Test-Path $p)) { throw "المسار المخصص غير صحيح أو غير موجود" }
             return $p
         }
-        foreach ($rb in $radios) { if ($rb.Checked) { return $rb.Tag.Resources } }
+        foreach ($rb in $radios) {
+            if ($rb.Checked) { return $rb.Tag.Resources }
+        }
         throw "لم تختر أي نسخة من Discord"
     }
 
@@ -676,7 +438,7 @@ function Show-Installer {
     }
 
     function Set-Progress([int]$Val) {
-        $progBar.Progress = $Val
+        $progBar.Value = [Math]::Max(0, [Math]::Min(100, $Val))
         [System.Windows.Forms.Application]::DoEvents()
     }
 
@@ -692,35 +454,45 @@ function Show-Installer {
         $installs = @(Get-DiscordInstalls)
         $i = 0
         foreach ($rb in $radios) {
-            if ($i -lt $installs.Count) { $rb.Text = $installs[$i].Label; $rb.Tag = $installs[$i] }
+            if ($i -lt $installs.Count) {
+                $rb.Text = $installs[$i].Label
+                $rb.Tag  = $installs[$i]
+            }
             $i++
         }
     }
 
-    # ── تحميل معلومات الإصدار ─────────────────────────────────────
+    # ── تحميل معلومات الإصدار في الخلفية ──────────────────────────
     $form.Add_Shown({
+        # إصدار محلي
         $sel = $null
         foreach ($rb in $radios) { if ($rb.Checked) { $sel = $rb.Tag; break } }
-        $localTxt = if ($sel) { Get-LocalVersion $sel.Resources } else { "لا يوجد" }
-        if ($lblLocalVerH) { $lblLocalVerH.Text = "الإصدار المحلي: $localTxt" }
-        if ($lblLatestVerH) { $lblLatestVerH.Text = "آخر إصدار: جارٍ الجلب..." }
+        if ($sel) {
+            $lblLocalVer.Text = "الإصدار المثبت محلياً: $(Get-LocalVersion $sel.Resources)"
+        } else {
+            $lblLocalVer.Text = "الإصدار المثبت محلياً: لا يوجد"
+        }
+
+        $lblLatestVer.Text = "آخر إصدار متاح: جارٍ الجلب..."
         [System.Windows.Forms.Application]::DoEvents()
+
         $latest = Get-LatestTag
-        if ($lblLatestVerH) { $lblLatestVerH.Text = "آخر إصدار: $latest" }
+        $lblLatestVer.Text = "آخر إصدار متاح: $latest"
     })
 
-    # ═══ أحداث الأزرار ══════════════════════════════════════════════
+    # ═══ معالجات أحداث الأزرار ════════════════════════════════════════
     $btnInstall.Add_Click({
         try {
             $target = Get-Target
             if (-not (Confirm-DiscordStopped $target)) { return }
-            Set-Busy $true; Set-Progress 0
+            Set-Busy $true
+            Set-Progress 0
             Set-Status "جارٍ التثبيت..." $FG_WHITE
             Install-Mod $target { param($m) Set-Status $m $FG_WHITE } { param($p) Set-Progress $p }
-            Set-Status "✔ تم التثبيت — شغّل Discord مرة أخرى" $SUCCESS_CLR
+            Set-Status "✔ تم التثبيت — شغّل Discord مرة أخرى" ([System.Drawing.Color]::FromArgb(87,242,135))
             Refresh-UI
         } catch {
-            Set-Status "✖ خطأ: $_" $ERROR_CLR
+            Set-Status "✖ خطأ: $_" ([System.Drawing.Color]::FromArgb(237,66,69))
             Set-Progress 0
         } finally { Set-Busy $false }
     })
@@ -729,13 +501,14 @@ function Show-Installer {
         try {
             $target = Get-Target
             if (-not (Confirm-DiscordStopped $target)) { return }
-            Set-Busy $true; Set-Progress 0
+            Set-Busy $true
+            Set-Progress 0
             Set-Status "جارٍ إعادة التثبيت..." $FG_WHITE
             Install-Mod $target { param($m) Set-Status $m $FG_WHITE } { param($p) Set-Progress $p }
-            Set-Status "✔ تمت إعادة التثبيت — شغّل Discord مرة أخرى" $SUCCESS_CLR
+            Set-Status "✔ تمت إعادة التثبيت — شغّل Discord مرة أخرى" ([System.Drawing.Color]::FromArgb(87,242,135))
             Refresh-UI
         } catch {
-            Set-Status "✖ خطأ: $_" $ERROR_CLR
+            Set-Status "✖ خطأ: $_" ([System.Drawing.Color]::FromArgb(237,66,69))
             Set-Progress 0
         } finally { Set-Busy $false }
     })
@@ -750,13 +523,14 @@ function Show-Installer {
                 [System.Windows.Forms.MessageBoxIcon]::Question)
             if ($ans -ne [System.Windows.Forms.DialogResult]::Yes) { return }
             if (-not (Confirm-DiscordStopped $target)) { return }
-            Set-Busy $true; Set-Progress 0
+            Set-Busy $true
+            Set-Progress 0
             Set-Status "جارٍ الإزالة..." $FG_WHITE
             Uninstall-Mod $target { param($m) Set-Status $m $FG_WHITE } { param($p) Set-Progress $p }
-            Set-Status "✔ تمت الإزالة — شغّل Discord مرة أخرى" $SUCCESS_CLR
+            Set-Status "✔ تمت الإزالة — شغّل Discord مرة أخرى" ([System.Drawing.Color]::FromArgb(87,242,135))
             Refresh-UI
         } catch {
-            Set-Status "✖ خطأ: $_" $ERROR_CLR
+            Set-Status "✖ خطأ: $_" ([System.Drawing.Color]::FromArgb(237,66,69))
             Set-Progress 0
         } finally { Set-Busy $false }
     })
@@ -765,12 +539,13 @@ function Show-Installer {
         try {
             $target = Get-Target
             if (-not (Confirm-DiscordStopped $target)) { return }
-            Set-Busy $true; Set-Progress 0
+            Set-Busy $true
+            Set-Progress 0
             Set-Status "جارٍ تثبيت OpenAsar..." $FG_WHITE
             Install-OpenAsar $target { param($m) Set-Status $m $FG_WHITE } { param($p) Set-Progress $p }
-            Set-Status "✔ تم تثبيت OpenAsar — شغّل Discord مرة أخرى" $SUCCESS_CLR
+            Set-Status "✔ تم تثبيت OpenAsar — شغّل Discord مرة أخرى" ([System.Drawing.Color]::FromArgb(87,242,135))
         } catch {
-            Set-Status "✖ خطأ: $_" $ERROR_CLR
+            Set-Status "✖ خطأ: $_" ([System.Drawing.Color]::FromArgb(237,66,69))
             Set-Progress 0
         } finally { Set-Busy $false }
     })
