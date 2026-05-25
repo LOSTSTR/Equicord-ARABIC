@@ -171,13 +171,26 @@ export default definePlugin({
             },
             predicate: () => settings.store.removeAvatarDecoration && !isPluginEnabled(decor.name),
         },
+        // User Area
         {
             find: ".DISPLAY_NAME_STYLES_COACHMARK)",
-            replacement: {
-                match: /((\i)=\i\?\.avatarDecoration,\i=)\(0,\i\.\i\)\(\2\)/,
-                replace: "$1null"
-            },
-            predicate: () => settings.store.removeAvatarDecoration && !isPluginEnabled(decor.name),
+            replacement: [
+                {
+                    match: /((\i)=\i\?\.avatarDecoration,\i=)\(0,\i\.\i\)\(\2\)/,
+                    replace: "$1null",
+                    predicate: () => settings.store.removeAvatarDecoration && !isPluginEnabled(decor.name),
+                },
+                {
+                    match: /(iconForeground:null!=\i\?\i\.\i:void 0,nameplate:)\i/g,
+                    replace: "$1null",
+                    predicate: () => settings.store.removeNameplate,
+                },
+                {
+                    match: /let\{ref:\i,speaking:\i,voiceDb:/,
+                    replace: "arguments[0].nameplate=null;$&",
+                    predicate: () => settings.store.removeNameplate,
+                }
+            ],
         },
         {
             // Nameplate
