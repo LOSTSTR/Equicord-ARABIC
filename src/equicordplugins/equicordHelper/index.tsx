@@ -413,7 +413,10 @@ export default definePlugin({
     },
     hasUnmutedVoiceChannel(guildId: string) {
         const voiceStates = VoiceStateStore.getVoiceStates(guildId);
+        const currentUserVoiceState = VoiceStateStore.getVoiceStateForUser(UserStore.getCurrentUser()?.id);
+
         return Object.values(voiceStates ?? {}).some(voiceState =>
+            voiceState?.channelId === currentUserVoiceState?.channelId ||
             !UserGuildSettingsStore.isChannelMuted(guildId, voiceState?.channelId!)
         );
     }
