@@ -18,7 +18,7 @@ import { isAnyPluginDev } from "@utils/misc";
 import definePlugin, { OptionType } from "@utils/types";
 import { StandingState } from "@vencord/discord-types/enums";
 import { findByCodeLazy, findStoreLazy } from "@webpack";
-import { Alerts, ApplicationCommandIndexStore, NavigationRouter, React, SettingsRouter, UserStore, useStateFromStores } from "@webpack/common";
+import { Alerts, ApplicationCommandIndexStore, NavigationRouter, React, SettingsRouter, UserGuildSettingsStore, UserStore, useStateFromStores, VoiceStateStore } from "@webpack/common";
 import { ComponentType } from "react";
 
 import { PluginButtons } from "./pluginButtons";
@@ -114,6 +114,12 @@ const settings = definePluginSettings({
         restartNeeded: true,
         default: false
     },
+    noModalAnimation: {
+        type: OptionType.BOOLEAN,
+        description: "Remove the 300ms long animation when opening or closing modals",
+        restartNeeded: true,
+        default: false
+    },
     disableAdoptTagPrompt: {
         type: OptionType.BOOLEAN,
         description: "Disable the prompt to adopt tags",
@@ -123,6 +129,12 @@ const settings = definePluginSettings({
     jsonGateway: {
         type: OptionType.BOOLEAN,
         description: "Forces JSON on gateway reconnect",
+        restartNeeded: true,
+        default: false,
+    },
+    hideVoiceIndicatorForMutedChannels: {
+        type: OptionType.BOOLEAN,
+        description: "Hide voice indicator in server list when only active channels are muted",
         restartNeeded: true,
         default: false,
     }
@@ -310,6 +322,32 @@ export default definePlugin({
             ],
             predicate: () => Settings.winNativeTitleBar,
         },
+        {
+            find: "DirectMessage: getSpringConfigs()",
+            replacement: [
+                {
+                    match: /("data-drop-hovering".{0,100}selected:(?:\i|!0),upperBadge:)(\i)(?=,lowerBadge:\i)/g,
+                    replace: "$1$self.hasUnmutedVoiceChannel(arguments[0]?.guild?.id)?$2:null"
+                },
+                {
+                    match: /return (\i)\.type===\i\.\i\.GUILD_VOICE/,
+                    replace: "$&&&!$self.isChannelMuted($1?.guildId,$1?.id)"
+                },
+                {
+                    match: /\.afkChannelId\?\[\].{0,50}.filter\((\i)=>\i\.type===\i\.\i\.VOICE/,
+                    replace: "$&&&!$self.isChannelMuted($1?.guildId,$1?.channelId)"
+                },
+                {
+                    match: /\.getAllApplicationStreams\(\).filter\((\i)=>\i\.guildId===\i/,
+                    replace: "$&&&!$self.isChannelMuted($1?.guildId,$1?.channelId)"
+                },
+                {
+                    match: /\.getEmbeddedActivitiesForGuild\((\i)\)(?=.flatMap\(\i=>)/,
+                    replace: "$&.filter(e=>!$self.isChannelMuted($1?.guildId,e?.channelId))"
+                }
+            ],
+            predicate: () => settings.store.hideVoiceIndicatorForMutedChannels,
+        },
     ],
     renderMessageAccessory(props) {
         return (
@@ -369,6 +407,15 @@ export default definePlugin({
         if (settings.store.noBulletPoints) {
             removeMessagePreSendListener(listener);
         }
+    },
+    isChannelMuted(guildId: string, channelId: string) {
+        return UserGuildSettingsStore.isChannelMuted(guildId, channelId);
+    },
+    hasUnmutedVoiceChannel(guildId: string) {
+        const voiceStates = VoiceStateStore.getVoiceStates(guildId);
+        return Object.values(voiceStates ?? {}).some(voiceState =>
+            !UserGuildSettingsStore.isChannelMuted(guildId, voiceState?.channelId!)
+        );
     }
 });
 
