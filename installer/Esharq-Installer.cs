@@ -271,17 +271,25 @@ sealed class RoundButton : Button
 
     protected override void OnPaint(PaintEventArgs e)
     {
-        var g = e.Graphics;
-        g.SmoothingMode = SmoothingMode.AntiAlias;
-        g.Clear(Parent != null ? Parent.BackColor : BackColor);
+        var g    = e.Graphics;
         var rect = ClientRectangle;
-        int d = Math.Min(_r * 2, Math.Min(rect.Width, rect.Height));
+        if (rect.Width < 4 || rect.Height < 4) { base.OnPaint(e); return; }
+
+        g.SmoothingMode = SmoothingMode.AntiAlias;
+
+        // Erase corners using parent color — FillRectangle is safer than g.Clear()
+        Color parentBG = (Parent != null && Parent.BackColor != Color.Transparent)
+            ? Parent.BackColor : BackColor;
+        using (var b = new SolidBrush(parentBG))
+            g.FillRectangle(b, rect);
+
+        int d = Math.Max(2, Math.Min(_r * 2, Math.Min(rect.Width, rect.Height)));
         using (var gp = new GraphicsPath())
         {
-            gp.AddArc(rect.Left, rect.Top, d, d, 180, 90);
-            gp.AddArc(rect.Right - d, rect.Top, d, d, 270, 90);
-            gp.AddArc(rect.Right - d, rect.Bottom - d, d, d, 0, 90);
-            gp.AddArc(rect.Left, rect.Bottom - d, d, d, 90, 90);
+            gp.AddArc(rect.Left,          rect.Top,            d, d, 180, 90);
+            gp.AddArc(rect.Right  - d,    rect.Top,            d, d, 270, 90);
+            gp.AddArc(rect.Right  - d,    rect.Bottom - d,     d, d,   0, 90);
+            gp.AddArc(rect.Left,          rect.Bottom - d,     d, d,  90, 90);
             gp.CloseFigure();
             using (var b = new SolidBrush(BackColor)) g.FillPath(b, gp);
         }
@@ -320,9 +328,12 @@ sealed class ThinProgress : Control
 
     protected override void OnPaint(PaintEventArgs e)
     {
-        e.Graphics.Clear(BackColor);
+        if (Width <= 0 || Height <= 0) return;
+        using (var b = new SolidBrush(BackColor))
+            e.Graphics.FillRectangle(b, 0, 0, Width, Height);
         if (_val <= 0) return;
         float w = Width * _val / 100f;
+        if (w < 1f) return;
         using (var b = new SolidBrush(_fill))
             e.Graphics.FillRectangle(b, 0, 0, w, Height);
     }
@@ -359,10 +370,12 @@ sealed class DiscordCard : Panel
     protected override void OnPaint(PaintEventArgs e)
     {
         base.OnPaint(e);
+        if (Width < 20 || Height < 20) return;
         var g = e.Graphics;
         g.SmoothingMode = SmoothingMode.AntiAlias;
-        var r   = new Rectangle(0, 0, Width - 1, Height - 1);
-        int d   = 14;
+        var r   = new Rectangle(1, 1, Width - 2, Height - 2);
+        int d   = Math.Min(14, Math.Min(r.Width / 2, r.Height / 2));
+        if (d < 2) return;
         var col = !_available ? C_DISABLED : _selected ? C_SELECTED : C_NORMAL;
         using (var gp = new GraphicsPath())
         {
@@ -758,7 +771,7 @@ sealed class InstallerForm : Form
         {
             Location  = new Point(24, 410),
             Size      = new Size(812, 36),
-            BackColor = Color.Transparent,
+            BackColor = BG,
         };
         Controls.Add(strip);
 
@@ -780,14 +793,13 @@ sealed class InstallerForm : Form
             Text      = "خيارات متقدمة  ▾",
             Location  = new Point(626, 5),
             Size      = new Size(182, 26),
-            BackColor = Color.Transparent,
+            BackColor = BG,
             ForeColor = TEXT_MUTED,
             FlatStyle = FlatStyle.Flat,
             Font      = new Font("Segoe UI", 9f),
             Cursor    = Cursors.Hand,
         };
-        _btnToggleAdv.FlatAppearance.BorderSize  = 0;
-        _btnToggleAdv.FlatAppearance.BorderColor = Color.Transparent;
+        _btnToggleAdv.FlatAppearance.BorderSize = 0;
         _btnToggleAdv.Click += ToggleAdvanced;
         strip.Controls.Add(_btnToggleAdv);
     }
@@ -800,7 +812,7 @@ sealed class InstallerForm : Form
         {
             Location  = new Point(24, 452),
             Size      = new Size(812, 52),
-            BackColor = Color.Transparent,
+            BackColor = BG,
             Visible   = false,
         };
         Controls.Add(_pnlAdvanced);
@@ -841,15 +853,14 @@ sealed class InstallerForm : Form
             Text      = "إزالة التثبيت",
             Location  = new Point(588, 9),
             Size      = new Size(224, 28),
-            BackColor = Color.Transparent,
+            BackColor = BG,
             ForeColor = DANGER,
             FlatStyle = FlatStyle.Flat,
             Font      = new Font("Segoe UI", 9f),
             Cursor    = Cursors.Hand,
             TextAlign = ContentAlignment.MiddleRight,
         };
-        _btnRemove.FlatAppearance.BorderSize  = 0;
-        _btnRemove.FlatAppearance.BorderColor = Color.Transparent;
+        _btnRemove.FlatAppearance.BorderSize = 0;
         _btnRemove.Click += OnRemove;
         _pnlAdvanced.Controls.Add(_btnRemove);
     }
