@@ -2571,12 +2571,6 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
     MessageBookmarks: {
         description: "Save your favourite messages and jump to them with a single click.",
     },
-    "VirusTotal-Scanner": {
-        description: "Scan Discord attachments with the VirusTotal API — local SHA-256 fingerprinting, no data uploaded without your explicit request.",
-        options: {
-            apiKeyInput: "VirusTotal API v3 key.",
-        },
-    },
     CustomScreenSharePreview: {
         description: "Adds the ability to choose a custom image as your screen-share preview.",
     },

@@ -194,7 +194,7 @@ export default definePlugin({
 
         useEffect(() => {
             if (formatTemplate.includes("calendar") || formatTemplate.includes("relative")) {
-                const interval = setInterval(forceUpdater, 1000);
+                const interval = setInterval(forceUpdater, 10_000);
                 return () => clearInterval(interval);
             }
         }, []);
