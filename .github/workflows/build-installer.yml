@@ -65,15 +65,13 @@ jobs:
                   }
 
                   if (Test-Path $logoPath) {
-                      $src  = [System.Drawing.Image]::FromFile((Resolve-Path $logoPath))
-                      $side = [Math]::Min($src.Width, $src.Height)
-                      $crop = New-Object System.Drawing.Rectangle(
-                          ($src.Width - $side)/2, ($src.Height - $side)/2, $side, $side)
+                      $src  = [System.Drawing.Image]::FromFile((Resolve-Path $logoPath).ProviderPath)
+                      $side = [int][Math]::Min([int]$src.Width, [int]$src.Height)
                       $base = New-Object System.Drawing.Bitmap($side, $side,
                           [System.Drawing.Imaging.PixelFormat]::Format32bppArgb)
                       $g = [System.Drawing.Graphics]::FromImage($base)
-                      $g.DrawImage($src, [System.Drawing.Rectangle]::new(0,0,$side,$side),
-                          $crop, [System.Drawing.GraphicsUnit]::Pixel)
+                      $g.InterpolationMode = [System.Drawing.Drawing2D.InterpolationMode]::HighQualityBicubic
+                      $g.DrawImage($src, 0, 0, $side, $side)
                       $g.Dispose(); $src.Dispose()
                   } else {
                       Write-Host "logo.png not found - generating placeholder icon"
