@@ -254,52 +254,47 @@ static class Logic
 
 // ─────────────────────────────────────────────────────────────────────
 // RoundButton
+// Rounded corners via Region (set on size change) — no OnPaint override,
+// no GraphicsPath in the paint path → eliminates GDI crash risk entirely.
+// FlatStyle.Flat handles BackColor/ForeColor/text natively.
 // ─────────────────────────────────────────────────────────────────────
 
 sealed class RoundButton : Button
 {
     int _r;
-    public int Radius { get { return _r; } set { _r = value; Invalidate(); } }
+    public int Radius { get { return _r; } set { _r = value; ApplyRegion(); } }
 
     public RoundButton()
     {
-        _r = 6;
+        _r        = 6;
         FlatStyle = FlatStyle.Flat;
         FlatAppearance.BorderSize = 0;
-        Cursor = Cursors.Hand;
+        Cursor    = Cursors.Hand;
     }
 
-    protected override void OnPaint(PaintEventArgs e)
+    protected override void OnSizeChanged(EventArgs e)
     {
-        var g    = e.Graphics;
-        var rect = ClientRectangle;
-        if (rect.Width < 4 || rect.Height < 4) { base.OnPaint(e); return; }
+        base.OnSizeChanged(e);
+        ApplyRegion();
+    }
 
-        g.SmoothingMode = SmoothingMode.AntiAlias;
-
-        // Erase corners using parent color — FillRectangle is safer than g.Clear()
-        Color parentBG = (Parent != null && Parent.BackColor != Color.Transparent)
-            ? Parent.BackColor : BackColor;
-        using (var b = new SolidBrush(parentBG))
-            g.FillRectangle(b, rect);
-
-        int d = Math.Max(2, Math.Min(_r * 2, Math.Min(rect.Width, rect.Height)));
-        using (var gp = new GraphicsPath())
+    void ApplyRegion()
+    {
+        if (Width < 4 || Height < 4) return;
+        try
         {
-            gp.AddArc(rect.Left,          rect.Top,            d, d, 180, 90);
-            gp.AddArc(rect.Right  - d,    rect.Top,            d, d, 270, 90);
-            gp.AddArc(rect.Right  - d,    rect.Bottom - d,     d, d,   0, 90);
-            gp.AddArc(rect.Left,          rect.Bottom - d,     d, d,  90, 90);
-            gp.CloseFigure();
-            using (var b = new SolidBrush(BackColor)) g.FillPath(b, gp);
+            int d = Math.Max(2, Math.Min(_r * 2, Math.Min(Width, Height)));
+            using (var gp = new GraphicsPath())
+            {
+                gp.AddArc(0,           0,            d, d, 180, 90);
+                gp.AddArc(Width  - d,  0,            d, d, 270, 90);
+                gp.AddArc(Width  - d,  Height - d,   d, d,   0, 90);
+                gp.AddArc(0,           Height - d,   d, d,  90, 90);
+                gp.CloseFigure();
+                Region = new Region(gp);
+            }
         }
-        var sf = new StringFormat
-        {
-            Alignment     = StringAlignment.Center,
-            LineAlignment = StringAlignment.Center,
-        };
-        using (var b = new SolidBrush(ForeColor))
-            g.DrawString(Text, Font, b, (RectangleF)rect, sf);
+        catch { Region = null; }
     }
 }
 
@@ -364,29 +359,18 @@ sealed class DiscordCard : Panel
     {
         _available = available;
         _selected  = false;
-        DoubleBuffered = true;
     }
 
     protected override void OnPaint(PaintEventArgs e)
     {
         base.OnPaint(e);
-        if (Width < 20 || Height < 20) return;
-        var g = e.Graphics;
-        g.SmoothingMode = SmoothingMode.AntiAlias;
-        var r   = new Rectangle(1, 1, Width - 2, Height - 2);
-        int d   = Math.Min(14, Math.Min(r.Width / 2, r.Height / 2));
-        if (d < 2) return;
-        var col = !_available ? C_DISABLED : _selected ? C_SELECTED : C_NORMAL;
-        using (var gp = new GraphicsPath())
+        if (Width < 4 || Height < 4) return;
+        try
         {
-            gp.AddArc(r.Left,          r.Top,           d, d, 180, 90);
-            gp.AddArc(r.Right - d,     r.Top,           d, d, 270, 90);
-            gp.AddArc(r.Right - d,     r.Bottom - d,    d, d,   0, 90);
-            gp.AddArc(r.Left,          r.Bottom - d,    d, d,  90, 90);
-            gp.CloseFigure();
-            using (var pen = new Pen(col, _selected ? 1.5f : 1f))
-                g.DrawPath(pen, gp);
-        }
+        var col = !_available ? C_DISABLED : _selected ? C_SELECTED : C_NORMAL;
+        using (var pen = new Pen(col, 1f))
+            e.Graphics.DrawRectangle(pen, 0, 0, Width - 1, Height - 1);
+        } catch { }
     }
 }
 
@@ -1042,12 +1026,12 @@ sealed class InstallerForm : Form
 
     void Msg(string text)
     {
-        SafeInvoke(() => { _lblStatus.Text = text; Application.DoEvents(); });
+        SafeInvoke(() => _lblStatus.Text = text);
     }
 
     void Prog(int v)
     {
-        SafeInvoke(() => { _prog.Value = v; Application.DoEvents(); });
+        SafeInvoke(() => _prog.Value = v);
     }
 
     void Busy(bool on)
@@ -1133,6 +1117,20 @@ static class Program
     [STAThread]
     static void Main()
     {
+        Application.ThreadException += (s, ex) =>
+        {
+            try
+            {
+                File.WriteAllText(
+                    Path.Combine(Path.GetTempPath(), "esharq_crash.txt"),
+                    ex.Exception.ToString());
+            }
+            catch { }
+            MessageBox.Show("خطأ غير متوقع:\n" + ex.Exception.Message,
+                "Esharq — خطأ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        };
+        Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
+
         try { SetProcessDPIAware(); } catch { }
         Logic.InitNetwork();
         Application.EnableVisualStyles();
