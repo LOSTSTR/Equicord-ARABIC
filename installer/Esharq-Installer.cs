@@ -9,6 +9,7 @@ using System.Drawing;
 using System.IO;
 using System.Net;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
@@ -17,7 +18,7 @@ using System.Windows.Forms;
 [assembly: AssemblyDescription("Official installer for Esharq — the community Discord client mod")]
 [assembly: AssemblyCompany("Esharq Digital Branding")]
 [assembly: AssemblyProduct("Esharq")]
-[assembly: AssemblyCopyright("© 2026 LoSTSR / krym511. All rights reserved.")]
+[assembly: AssemblyCopyright("© 2026 LoSTSR / NRaymond. All rights reserved.")]
 [assembly: AssemblyVersion("1.14.13.0")]
 [assembly: AssemblyFileVersion("1.14.13.0")]
 [assembly: AssemblyTrademark("Esharq")]
@@ -50,8 +51,8 @@ static class Logic
         try
         {
             ServicePointManager.SecurityProtocol =
-                (SecurityProtocolType)3072 |   // TLS 1.2
-                (SecurityProtocolType)12288;   // TLS 1.3 (no-op on older .NET)
+                (SecurityProtocolType)3072 |
+                (SecurityProtocolType)12288;
             ServicePointManager.DefaultConnectionLimit = 4;
         }
         catch { }
@@ -76,13 +77,9 @@ static class Logic
 
     public static bool IsInstalled { get { return File.Exists(AsarTarget); } }
 
-    // ── Discord detection ────────────────────────────────────────────
-
     public static List<DiscordInstall> FindDiscord()
     {
         var result = new List<DiscordInstall>();
-
-        // Explicit null guard — elevated process may see different LOCALAPPDATA
         var local = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
         if (string.IsNullOrEmpty(local))
         {
@@ -102,16 +99,13 @@ static class Logic
             {
                 var baseDir = Path.Combine(local, folders[i]);
                 if (!Directory.Exists(baseDir)) continue;
-
                 string[] appDirs;
                 try { appDirs = Directory.GetDirectories(baseDir, "app-*"); }
                 catch { continue; }
                 if (appDirs == null || appDirs.Length == 0) continue;
-
                 Array.Sort(appDirs);
                 var res = Path.Combine(appDirs[appDirs.Length - 1], "resources");
                 if (!Directory.Exists(res)) continue;
-
                 result.Add(new DiscordInstall
                 {
                     Name          = names[i],
@@ -124,8 +118,6 @@ static class Logic
         }
         return result;
     }
-
-    // ── Version helpers ──────────────────────────────────────────────
 
     public static string LatestTag()
     {
@@ -147,8 +139,6 @@ static class Logic
         try { return File.GetLastWriteTime(AsarTarget).ToString("yyyy-MM-dd"); }
         catch { return "مثبَّت"; }
     }
-
-    // ── Download helpers ─────────────────────────────────────────────
 
     static string GetAsarUrl(out string tag, out long size)
     {
@@ -214,8 +204,6 @@ static class Logic
         catch { }
     }
 
-    // ── Install operations ───────────────────────────────────────────
-
     public static void Install(string res, Action<string> status, Action<int> progress)
     {
         status("جارٍ جلب معلومات آخر إصدار...");
@@ -227,25 +215,21 @@ static class Logic
 
         status(string.Format("تحميل {0}  ({1:F1} MB)...", tag, sz / 1048576.0));
         progress(10);
-
         Directory.CreateDirectory(DataDir);
         var tmp = Path.Combine(Path.GetTempPath(),
             "esharq_" + Guid.NewGuid().ToString("N") + ".asar");
-
         Download(url, tmp, (pct, dl, tot) =>
         {
             status(string.Format("تحميل: {0:F1}/{1:F1} MB  ({2}%)",
                 dl / 1048576.0, tot / 1048576.0, pct));
             progress(10 + (int)(pct * 0.65));
         });
-
         status("تطبيق التعديل على Discord...");
         progress(80);
         KillDiscord(res);
         File.Copy(tmp, Path.Combine(res, ASAR), true);
         File.Copy(tmp, AsarTarget, true);
         try { File.Delete(tmp); } catch { }
-
         progress(100);
         status("✓ تم التثبيت — أعد تشغيل Discord لتفعيل Esharq");
     }
@@ -291,64 +275,66 @@ static class Logic
 }
 
 // ─────────────────────────────────────────────────────────────────────
-// InstallerForm
+// InstallerForm — sidebar layout  1050 × 650  (borderless)
 //
-// Crash-safe design rules enforced throughout:
-//   • NO custom OnPaint overrides — zero GraphicsPath in any paint path
-//   • NO Color.Transparent on Panel or Button — GDI null-brush crash on LTSC
-//   • Card "borders" are nested panels (outer=border color, inner=surface)
-//   • Progress is a resizing Panel, not a custom control
-//   • All Label backgrounds use explicit solid colors
-//   • All threading through SafeInvoke — no Application.DoEvents inside Invoke
-//   • _suppressEvents flag prevents radio/custom-path event cascade
+// Crash-safe rules enforced throughout:
+//   • NO GraphicsPath inside any Paint/OnPaint — zero risk of GDI null-brush crash
+//   • NO Color.Transparent on Panel or Button — only safe on Label/LinkLabel
+//   • Card borders via nested panels (outer=border color, inner=surface)
+//   • Progress via resizing Panel, not custom control
+//   • All cross-thread updates through SafeInvoke — no Application.DoEvents
+//   • _suppressEvents guards card-click cascade
 //
-// Layout (ClientSize 860 × 580):
-//   y=  0  Header            h=56
-//   y= 56  Separator         h= 1
-//   y= 68  Picker label
-//   y= 92  Cards row         h=96
-//   y=200  Custom path row   h=30
-//   y=244  Path info (2 ln)  h=40
-//   y=294  Primary button    h=52
-//   y=354  Progress track    h= 4
-//   y=362  Status label      h=20
-//   y=392  Separator         h= 1
-//   y=398  Support strip     h=36
-//   y=440  Advanced panel    h=52  ← hidden by default
-//   y=540  Footer separator  h= 1
-//   y=541  Footer            h=39
+// Layout (ClientSize 1050 × 650):
+//   Sidebar  0,0   240 × 650
+//   Main   240,0   810 × 650
+//     Close btn  top-right of main
+//     HomeCanvas   y=40
+//     AboutCanvas  y=40
 // ─────────────────────────────────────────────────────────────────────
 
 sealed class InstallerForm : Form
 {
-    // ── macOS Dark palette ───────────────────────────────────────────
-    static readonly Color BG         = Color.FromArgb( 14,  15,  17);
-    static readonly Color SURFACE    = Color.FromArgb( 24,  25,  28);
-    static readonly Color SURFACE2   = Color.FromArgb( 34,  36,  42);
-    static readonly Color BORDER_N   = Color.FromArgb( 46,  48,  53);
-    static readonly Color ACCENT     = Color.FromArgb( 91, 110, 245);
-    static readonly Color SUCCESS    = Color.FromArgb( 48, 209,  88);
-    static readonly Color DANGER     = Color.FromArgb(255,  69,  58);
+    // ── Palette ───────────────────────────────────────────────────────
+    static readonly Color BG         = Color.FromArgb( 15,  19,  29);
+    static readonly Color SIDEBAR    = Color.FromArgb( 22,  25,  37);
+    static readonly Color CARD       = Color.FromArgb( 29,  35,  51);
+    static readonly Color CARD_B     = Color.FromArgb( 45,  52,  70);
+    static readonly Color ACCENT     = Color.FromArgb(109,  68, 246);
+    static readonly Color SUCCESS    = Color.FromArgb( 46, 164,  79);
+    static readonly Color BLUE       = Color.FromArgb( 88, 101, 242);
+    static readonly Color DANGER     = Color.FromArgb(215,  58,  73);
+    static readonly Color SLATE      = Color.FromArgb( 40,  45,  55);
+    static readonly Color BORDER_DIM = Color.FromArgb( 50,  55,  70);
     static readonly Color TEXT_PRI   = Color.FromArgb(245, 245, 247);
-    static readonly Color TEXT_SEC   = Color.FromArgb(142, 142, 147);
-    static readonly Color TEXT_MUTED = Color.FromArgb( 72,  73,  74);
+    static readonly Color TEXT_SEC   = Color.FromArgb(150, 160, 180);
+    static readonly Color TEXT_MUTED = Color.FromArgb(100, 110, 130);
+    static readonly Color WARN_BG    = Color.FromArgb( 33,  30,  24);
+    static readonly Color WARN_BDR   = Color.FromArgb(130, 100,  30);
+    static readonly Color WARN_TTL   = Color.FromArgb(255, 190,  40);
+    static readonly Color WARN_BODY  = Color.FromArgb(230, 210, 180);
 
     const string DISCORD_URL = "https://discord.gg/kDJYqWX3S3";
     const string GITHUB_URL  = "https://github.com/LOSTSTR/Esharq";
     const string VER         = "1.14.13.0";
 
+    // Borderless-window drag
+    [DllImport("user32.dll")] static extern int  SendMessage(IntPtr h, int m, int w, int l);
+    [DllImport("user32.dll")] static extern bool ReleaseCapture();
+    const int WM_NCLBUTTONDOWN = 0xA1;
+    const int HT_CAPTION       = 0x2;
+
     // Controls
-    Label      _lblStatus, _lblPath, _lblLocalVer, _lblLatestVer;
-    Panel      _progFill;
-    Button     _btnPrimary, _btnRepair, _btnOpenAsar, _btnRemove, _btnToggleAdv;
-    Panel      _pnlAdvanced;
-    bool       _advExpanded;
+    Button  _btnNavHome, _btnNavAbout;
+    Panel   _homeCanvas, _aboutCanvas;
+    Label   _lblFileStatus, _lblStatus;
+    Panel   _progFill;
+    Button  _btnInstall, _btnRepair, _btnRemove, _btnOpenAsar;
 
-    List<Panel>          _cardBorders = new List<Panel>();
-    List<RadioButton>    _radios      = new List<RadioButton>();
-    List<DiscordInstall> _installs    = new List<DiscordInstall>();
-
-    RadioButton _rbCustom;
+    // Discord picker
+    List<DiscordInstall> _installs = new List<DiscordInstall>();
+    Panel[]     _cardBorders = new Panel[2];
+    int         _selectedCard;
     TextBox     _txtCustom;
     Button      _btnBrowse;
     bool        _suppressEvents;
@@ -357,13 +343,8 @@ sealed class InstallerForm : Form
     {
         SuspendLayout();
         SetupWindow();
-        BuildHeader();
-        BuildDiscordPicker();
-        BuildPathRow();
-        BuildPrimaryAction();
-        BuildSupportStrip();
-        BuildAdvancedPanel();
-        BuildFooter();
+        BuildSidebar();
+        BuildMainArea();
         Shown += OnShown;
         ResumeLayout(true);
     }
@@ -373,11 +354,10 @@ sealed class InstallerForm : Form
     void SetupWindow()
     {
         Text            = "Esharq";
-        ClientSize      = new Size(860, 580);
+        ClientSize      = new Size(1050, 650);
         BackColor       = BG;
         StartPosition   = FormStartPosition.CenterScreen;
-        FormBorderStyle = FormBorderStyle.FixedSingle;
-        MaximizeBox     = false;
+        FormBorderStyle = FormBorderStyle.None;
         Font            = new Font("Segoe UI", 10f);
 
         try
@@ -388,187 +368,201 @@ sealed class InstallerForm : Form
         catch { }
     }
 
-    // ── Header (y=0..56) ─────────────────────────────────────────────
+    // ── Sidebar (0,0,240,650) ────────────────────────────────────────
 
-    void BuildHeader()
+    void BuildSidebar()
     {
-        var hdr = MakePanel(0, 0, 860, 56, SURFACE);
-        Controls.Add(hdr);
+        var sb = MakePanel(0, 0, 240, 650, SIDEBAR);
+        Controls.Add(sb);
+        sb.MouseDown += OnDrag;
 
-        hdr.Controls.Add(MakeLabel("✦", 22, 17, ACCENT, 14f, FontStyle.Bold, hdr));
-        hdr.Controls.Add(MakeLabel("Esharq", 44, 17, TEXT_PRI, 14f, FontStyle.Bold, hdr));
-        hdr.Controls.Add(MakeLabel("v" + VER, 118, 23, TEXT_MUTED, 9f, FontStyle.Regular, hdr));
+        // Logo
+        sb.Controls.Add(MakeLabel("Esharq", 22, 30, TEXT_PRI, 20f, FontStyle.Bold, sb));
 
-        // Ambient Discord support link (Variation A — header right)
-        var lnkDis = MakeLink("💬 دعم", 654, 19, 9f, hdr, DISCORD_URL);
-        hdr.Controls.Add(lnkDis);
-        hdr.Controls.Add(MakeLabel("·", 702, 19, TEXT_MUTED, 9f, FontStyle.Regular, hdr));
-        var lnkGit = MakeLink("GitHub", 714, 19, 9f, hdr, GITHUB_URL);
-        hdr.Controls.Add(lnkGit);
+        // Version badge
+        var ver = new Label
+        {
+            Text      = "v" + VER,
+            Location  = new Point(135, 43),
+            Size      = new Size(74, 20),
+            ForeColor = TEXT_MUTED,
+            BackColor = Color.FromArgb(35, 40, 55),
+            Font      = new Font("Segoe UI", 8f, FontStyle.Bold),
+            TextAlign = ContentAlignment.MiddleCenter,
+        };
+        sb.Controls.Add(ver);
 
-        // Bottom border
-        Controls.Add(MakePanel(0, 56, 860, 1, BORDER_N));
+        // Separator
+        sb.Controls.Add(MakePanel(20, 80, 200, 1, Color.FromArgb(35, 40, 55)));
+
+        // Nav buttons
+        _btnNavHome  = MakeSidebarBtn("🏠  الواجهة الرئيسية", 100, sb);
+        _btnNavAbout = MakeSidebarBtn("ℹ  حول التطبيق", 150, sb);
+        _btnNavHome.Click  += (s, e) => SwitchTab(true);
+        _btnNavAbout.Click += (s, e) => SwitchTab(false);
+        SetNavActive(_btnNavHome);
+
+        // Security card
+        var secOuter = MakePanel(20, 450, 200, 132, Color.FromArgb(38, 43, 60));
+        sb.Controls.Add(secOuter);
+        var secInner = MakePanel(1, 1, 198, 130, Color.FromArgb(28, 32, 48));
+        secOuter.Controls.Add(secInner);
+
+        secInner.Controls.Add(MakeLabel("🛡", 82, 10, ACCENT, 16f, FontStyle.Regular, secInner));
+        secInner.Controls.Add(MakeLabel("أمان وموثوقية",
+            10, 40, TEXT_PRI, 10f, FontStyle.Bold, secInner, 178, 22, ContentAlignment.MiddleCenter));
+        secInner.Controls.Add(MakeLabel("تم تصميم Esharq بأعلى معايير الأمان\nوالخصوصية لضمان تجربة آمنة ومستقرة.",
+            10, 66, TEXT_SEC, 8f, FontStyle.Regular, secInner, 178, 36, ContentAlignment.MiddleCenter));
+
+        var badge = new Label
+        {
+            Text      = "✔ التطبيق موثوق",
+            Location  = new Point(10, 106),
+            Size      = new Size(178, 20),
+            ForeColor = SUCCESS,
+            BackColor = Color.FromArgb(20, 40, 30),
+            Font      = new Font("Segoe UI", 8.5f, FontStyle.Bold),
+            TextAlign = ContentAlignment.MiddleCenter,
+        };
+        secInner.Controls.Add(badge);
+
+        // Bottom socials
+        sb.Controls.Add(MakePanel(20, 600, 200, 1, Color.FromArgb(35, 40, 55)));
+        sb.Controls.Add(MakeLink("GitHub", 30, 615, 8.5f, sb, GITHUB_URL));
+        sb.Controls.Add(MakeLabel("•", 82, 616, TEXT_MUTED, 8.5f, FontStyle.Regular, sb));
+        sb.Controls.Add(MakeLink("Discord", 94, 615, 8.5f, sb, DISCORD_URL));
+        sb.Controls.Add(MakeLabel("•", 152, 616, TEXT_MUTED, 8.5f, FontStyle.Regular, sb));
+        sb.Controls.Add(MakeLink("GitHub ↗", 164, 615, 8.5f, sb, GITHUB_URL));
     }
 
-    // ── Discord version picker (y=68..230) ───────────────────────────
-
-    void BuildDiscordPicker()
+    Button MakeSidebarBtn(string text, int y, Panel parent)
     {
-        Controls.Add(MakeLabel("اختر نسخة Discord للتعديل عليها",
-            24, 68, TEXT_SEC, 11f, FontStyle.Bold));
-
-        _installs = Logic.FindDiscord();
-        var display = new List<DiscordInstall>(_installs);
-        while (display.Count < 2) display.Add(null);
-
-        int[] xs = { 24, 436 };
-        int cardW = 400, cardH = 96, cardY = 92;
-        string[] fallbackNames = { "Discord Stable", "PTB / Canary" };
-
-        for (int i = 0; i < 2; i++)
+        var b = new Button
         {
-            DiscordInstall inst  = display[i];
-            bool           avail = inst != null;
-            int            xi    = xs[i];
-
-            // Outer panel = visible border (1px)
-            Color outerColor = avail ? BORDER_N : Color.FromArgb(35, 37, 42);
-            Panel outer = MakePanel(xi, cardY, cardW, cardH, outerColor);
-            Controls.Add(outer);
-            _cardBorders.Add(outer);
-
-            // Inner panel = card surface
-            Color innerColor = avail ? SURFACE : Color.FromArgb(20, 21, 24);
-            Panel inner = MakePanel(1, 1, cardW - 2, cardH - 2, innerColor);
-            outer.Controls.Add(inner);
-
-            // Radio
-            var rb = new RadioButton
-            {
-                Text                = avail ? inst.Name : fallbackNames[i],
-                Location            = new Point(12, 10),
-                AutoSize            = true,
-                ForeColor           = avail ? TEXT_PRI : TEXT_MUTED,
-                BackColor           = innerColor,
-                UseVisualStyleBackColor = false,
-                Font                = new Font("Segoe UI", 11f, FontStyle.Bold),
-                Enabled             = avail,
-                Tag                 = inst,
-            };
-            inner.Controls.Add(rb);
-            _radios.Add(rb);
-
-            if (avail)
-            {
-                string sp = inst.DisplayPath.Length > 50
-                    ? "..." + inst.DisplayPath.Substring(inst.DisplayPath.Length - 47)
-                    : inst.DisplayPath;
-                inner.Controls.Add(MakeLabel(sp, 34, 36, TEXT_MUTED, 9f,
-                    FontStyle.Regular, inner, cardW - 50, 18));
-                var statusCol  = inst.IsPatched ? SUCCESS : TEXT_MUTED;
-                var statusText = inst.IsPatched ? "✓ Esharq مُثبَّت" : "✓ متاح للتثبيت";
-                inner.Controls.Add(MakeLabel(statusText, 34, 58, statusCol, 9f,
-                    FontStyle.Regular, inner));
-            }
-            else
-            {
-                inner.Controls.Add(MakeLabel("غير مثبَّتة على هذا الجهاز",
-                    34, 36, TEXT_MUTED, 9f, FontStyle.Regular, inner));
-            }
-
-            // Click anywhere on card → select (captured index)
-            int ci = i;
-            EventHandler select = (s, e) =>
-            {
-                if (!avail || _suppressEvents) return;
-                _radios[ci].Checked = true;
-            };
-            outer.Click += select;
-            inner.Click += select;
-            foreach (Control c in inner.Controls) c.Click += select;
-
-            // CheckedChanged
-            int ii = i;
-            rb.CheckedChanged += (s, e) =>
-            {
-                if (_suppressEvents || !rb.Checked) return;
-                _suppressEvents = true;
-                try
-                {
-                    for (int k = 0; k < _cardBorders.Count; k++)
-                        _cardBorders[k].BackColor = (k == ii) ? ACCENT : BORDER_N;
-                    if (_rbCustom != null) _rbCustom.Checked = false;
-                    SetCustomPathEnabled(false);
-                }
-                finally { _suppressEvents = false; }
-                UpdatePrimaryButton();
-            };
-        }
-
-        // Auto-select first available without triggering event cascade
-        for (int i = 0; i < _radios.Count; i++)
-        {
-            if (_radios[i].Enabled)
-            {
-                _suppressEvents = true;
-                _radios[i].Checked     = true;
-                _cardBorders[i].BackColor = ACCENT;
-                _suppressEvents = false;
-                break;
-            }
-        }
-
-        // Custom path row (y=200)
-        int cy = cardY + cardH + 8;
-
-        _rbCustom = new RadioButton
-        {
-            Text                = "مسار تثبيت مخصص",
-            Location            = new Point(28, cy + 4),
-            AutoSize            = true,
-            ForeColor           = TEXT_SEC,
-            BackColor           = BG,
-            UseVisualStyleBackColor = false,
-            Font                = new Font("Segoe UI", 10f),
+            Text      = text,
+            Location  = new Point(10, y),
+            Size      = new Size(220, 40),
+            FlatStyle = FlatStyle.Flat,
+            ForeColor = TEXT_SEC,
+            BackColor = SIDEBAR,
+            Font      = new Font("Segoe UI", 10f),
+            TextAlign = ContentAlignment.MiddleRight,
+            RightToLeft = RightToLeft.Yes,
         };
-        Controls.Add(_rbCustom);
+        b.FlatAppearance.BorderSize             = 0;
+        b.FlatAppearance.MouseOverBackColor     = Color.FromArgb(35, 40, 55);
+        b.UseVisualStyleBackColor               = false;
+        parent.Controls.Add(b);
+        return b;
+    }
 
+    void SetNavActive(Button active)
+    {
+        var all = new[] { _btnNavHome, _btnNavAbout };
+        foreach (var b in all)
+        {
+            if (b == null) continue;
+            bool on = (b == active);
+            b.BackColor = on ? ACCENT : SIDEBAR;
+            b.ForeColor = on ? TEXT_PRI : TEXT_SEC;
+        }
+    }
+
+    // ── Main area (240,0,810,650) ────────────────────────────────────
+
+    void BuildMainArea()
+    {
+        var main = MakePanel(240, 0, 810, 650, BG);
+        Controls.Add(main);
+        main.MouseDown += OnDrag;
+
+        // Close button
+        var btnClose = MakeFlatBtn("✕", 770, 10, 32, 28, BG, TEXT_MUTED);
+        btnClose.FlatAppearance.MouseOverBackColor = DANGER;
+        btnClose.Click += (s, e) => Application.Exit();
+        main.Controls.Add(btnClose);
+
+        _homeCanvas  = BuildHomeCanvas();
+        _aboutCanvas = BuildAboutCanvas();
+        main.Controls.Add(_homeCanvas);
+        main.Controls.Add(_aboutCanvas);
+        _homeCanvas.Visible  = true;
+        _aboutCanvas.Visible = false;
+    }
+
+    // ── Home canvas (0,40,810,600) ───────────────────────────────────
+
+    Panel BuildHomeCanvas()
+    {
+        var c = MakePanel(0, 40, 810, 600, BG);
+        c.MouseDown += OnDrag;
+
+        // Title + subtitle
+        c.Controls.Add(MakeLabel("Esharq", 40, 14, TEXT_PRI, 26f, FontStyle.Bold, c));
+        c.Controls.Add(MakeLabel("أداة تثبيت متقدمة وسهلة لمشروع LOSTSTR/Esharq",
+            46, 60, TEXT_SEC, 11f, FontStyle.Regular, c));
+
+        // ── Path card (y=95) ──────────────────────────
+        var pathOuter = MakePanel(40, 95, 730, 90, CARD_B);
+        c.Controls.Add(pathOuter);
+        var pathInner = MakePanel(1, 1, 728, 88, CARD);
+        pathOuter.Controls.Add(pathInner);
+
+        pathInner.Controls.Add(MakeLabel("ملف التثبيت", 582, 12, TEXT_PRI, 10.5f, FontStyle.Bold, pathInner));
+        pathInner.Controls.Add(MakeLabel(ShortenPath(Logic.AsarTarget),
+            10, 38, Color.FromArgb(180, 190, 210), 9f, FontStyle.Regular, pathInner, 620, 20));
+
+        _lblFileStatus = MakeLabel("يتم التحقق...", 495, 64, TEXT_MUTED, 9f, FontStyle.Bold, pathInner);
+        pathInner.Controls.Add(_lblFileStatus);
+
+        var btnOpen = MakeFlatBtn("فتح المجلد  📂", 14, 22, 112, 38, ACCENT, TEXT_PRI);
+        btnOpen.Click += (s, e) =>
+        {
+            try { Directory.CreateDirectory(Logic.DataDir); Process.Start("explorer.exe", Logic.DataDir); }
+            catch { }
+        };
+        pathInner.Controls.Add(btnOpen);
+
+        // ── Warning banner (y=200) ────────────────────
+        var warnOuter = MakePanel(40, 200, 730, 112, WARN_BDR);
+        c.Controls.Add(warnOuter);
+        var warnInner = MakePanel(1, 1, 728, 110, WARN_BG);
+        warnOuter.Controls.Add(warnInner);
+
+        warnInner.Controls.Add(MakeLabel("⚠", 14, 10, WARN_TTL, 14f, FontStyle.Regular, warnInner));
+        warnInner.Controls.Add(MakeLabel("هام جداً", 622, 12, WARN_TTL, 11f, FontStyle.Bold, warnInner));
+        warnInner.Controls.Add(MakeLabel(
+            "مستودع LOSTSTR/Esharq على GitHub هو المصدر الرسمي الوحيد للحصول على حزمة Esharq بشكل آمن.\n" +
+            "أي مصدر آخر يُعدّ ضاراً. إذا قمت بتنزيله من مكان آخر، قم بإزالة التثبيت فوراً لحماية حسابك\n" +
+            "وكلمة مرور Discord.",
+            20, 40, WARN_BODY, 9.5f, FontStyle.Regular, warnInner, 696, 66));
+
+        // ── Section label (y=326) ─────────────────────
+        c.Controls.Add(MakeLabel("لتعديل عليها  Discord  الرجاء اختيار نسخة",
+            40, 326, TEXT_PRI, 10.5f, FontStyle.Bold, c));
+
+        // ── Discord cards (y=350) ─────────────────────
+        _installs = Logic.FindDiscord();
+        BuildDiscordCards(c);
+
+        // ── Custom path row (y=442) ───────────────────
         _txtCustom = new TextBox
         {
-            Location    = new Point(204, cy),
-            Size        = new Size(540, 28),
-            BackColor   = SURFACE2,
+            Location    = new Point(150, 442),
+            Size        = new Size(494, 26),
+            BackColor   = Color.FromArgb(35, 40, 55),
             ForeColor   = TEXT_MUTED,
             BorderStyle = BorderStyle.FixedSingle,
             Font        = new Font("Segoe UI", 9f),
-            Text        = "مجلد resources الخاص بـ Discord",
+            Text        = "اختر مسار مخصص...",
             Enabled     = false,
         };
-        Controls.Add(_txtCustom);
+        c.Controls.Add(_txtCustom);
 
-        _btnBrowse = MakeFlatBtn("استعراض", 752, cy, 84, 28, SURFACE2, TEXT_SEC);
-        _btnBrowse.FlatAppearance.BorderColor = BORDER_N;
+        _btnBrowse = MakeFlatBtn("استعراض", 40, 442, 100, 26, SLATE, TEXT_SEC);
+        _btnBrowse.FlatAppearance.BorderColor = BORDER_DIM;
         _btnBrowse.FlatAppearance.BorderSize  = 1;
         _btnBrowse.Enabled = false;
-        Controls.Add(_btnBrowse);
-
-        _rbCustom.CheckedChanged += (s, e) =>
-        {
-            if (_suppressEvents) return;
-            _suppressEvents = true;
-            try
-            {
-                if (_rbCustom.Checked)
-                {
-                    foreach (var r in _radios) r.Checked = false;
-                    foreach (var b in _cardBorders) b.BackColor = BORDER_N;
-                }
-                SetCustomPathEnabled(_rbCustom.Checked);
-            }
-            finally { _suppressEvents = false; }
-            UpdatePrimaryButton();
-        };
-
         _btnBrowse.Click += (s, e) =>
         {
             using (var dlg = new FolderBrowserDialog())
@@ -581,268 +575,316 @@ sealed class InstallerForm : Form
                 }
             }
         };
-    }
+        c.Controls.Add(_btnBrowse);
 
-    void SetCustomPathEnabled(bool on)
-    {
-        if (_txtCustom  == null) return;
-        _txtCustom.Enabled   = on;
-        _txtCustom.ForeColor = on ? TEXT_PRI : TEXT_MUTED;
-        if (_btnBrowse != null) _btnBrowse.Enabled = on;
-    }
+        // Info note
+        c.Controls.Add(MakeLabel("ℹ  اضغط على 'اختر نسخة' لتفعيل الزر أدناه",
+            40, 474, TEXT_MUTED, 8.5f, FontStyle.Regular, c));
 
-    // ── Inline path row (y=244..284) ─────────────────────────────────
-
-    void BuildPathRow()
-    {
-        Controls.Add(MakeLabel("📦", 24, 244, TEXT_MUTED, 9f));
-
-        _lblPath = MakeLabel("يُثبَّت في:  " + ShortenPath(Logic.AsarTarget),
-            44, 244, TEXT_MUTED, 9f);
-        Controls.Add(_lblPath);
-
-        var lnkOpen = MakeLink("فتح ↗", 754, 244, 9f, null, null);
-        lnkOpen.LinkClicked += (s, e) =>
-        {
-            try { Directory.CreateDirectory(Logic.DataDir); Process.Start("explorer.exe", Logic.DataDir); }
-            catch { }
-        };
-        Controls.Add(lnkOpen);
-
-        _lblLocalVer  = MakeLabel("الإصدار المحلي: —", 44, 266, TEXT_MUTED, 9f);
-        Controls.Add(_lblLocalVer);
-
-        _lblLatestVer = MakeLabel("·  آخر إصدار: جارٍ الجلب...", 204, 266, TEXT_MUTED, 9f);
-        Controls.Add(_lblLatestVer);
-    }
-
-    // ── Primary action + progress (y=294..382) ───────────────────────
-
-    void BuildPrimaryAction()
-    {
-        _btnPrimary = MakeFlatBtn("تثبيت Esharq", 24, 294, 812, 52, SUCCESS, Color.White);
-        _btnPrimary.Font = new Font("Segoe UI", 13f, FontStyle.Bold);
-        _btnPrimary.Click += OnPrimaryClick;
-        Controls.Add(_btnPrimary);
-
-        // Progress: track panel + resizing fill sub-panel (zero GDI, zero crash risk)
-        var progTrack = MakePanel(24, 354, 812, 4, SURFACE2);
-        Controls.Add(progTrack);
+        // ── Progress track (y=496) ────────────────────
+        var progTrack = MakePanel(40, 496, 730, 4, Color.FromArgb(34, 36, 42));
+        c.Controls.Add(progTrack);
         _progFill = MakePanel(0, 0, 0, 4, SUCCESS);
         progTrack.Controls.Add(_progFill);
 
+        // Status
         _lblStatus = new Label
         {
             Text      = "اختر نسخة Discord ثم اضغط تثبيت",
-            Location  = new Point(24, 362),
-            Size      = new Size(812, 20),
+            Location  = new Point(40, 504),
+            Size      = new Size(730, 20),
             ForeColor = TEXT_MUTED,
             BackColor = BG,
             Font      = new Font("Segoe UI", 9f),
         };
-        Controls.Add(_lblStatus);
-    }
+        c.Controls.Add(_lblStatus);
 
-    // ── Support strip (y=392..434) ────────────────────────────────────
+        // ── 4 action buttons (y=530) ──────────────────
+        _btnInstall  = MakeFlatBtn("تثبيت  ✓",                     40,  530, 170, 46, SUCCESS, Color.White);
+        _btnRepair   = MakeFlatBtn("إعادة التثبيت / الإصلاح  ↺",  220,  530, 195, 46, BLUE,    Color.White);
+        _btnRemove   = MakeFlatBtn("إزالة التثبيت  🗑",             425,  530, 170, 46, DANGER,  Color.White);
+        _btnOpenAsar = MakeFlatBtn("تثبيت OpenAsar  ⚙",             605,  530, 165, 46, SLATE,   Color.White);
 
-    void BuildSupportStrip()
-    {
-        Controls.Add(MakePanel(24, 392, 812, 1, BORDER_N));
+        foreach (var b in new[] { _btnInstall, _btnRepair, _btnRemove, _btnOpenAsar })
+            b.Font = new Font("Segoe UI", 9.5f, FontStyle.Bold);
 
-        // Container with explicit BG color (NOT transparent — avoids GDI null brush on LTSC)
-        var strip = MakePanel(24, 398, 812, 36, BG);
-        Controls.Add(strip);
-
-        // Left accent border (3px)
-        strip.Controls.Add(MakePanel(0, 0, 3, 36, ACCENT));
-
-        // Contextual support text (Variation B)
-        const string supportText =
-            "للجلب الفوري والدعم الفني، الرجاء الانضمام لخادم الديسكورد الرسمي";
-        var lnkSupport = MakeLink(supportText + "  ↗", 12, 9, 9f, strip, DISCORD_URL);
-        strip.Controls.Add(lnkSupport);
-
-        // Advanced toggle
-        _btnToggleAdv = MakeFlatBtn("خيارات متقدمة  ▾", 628, 5, 180, 26, BG, TEXT_MUTED);
-        _btnToggleAdv.FlatAppearance.BorderSize = 0;
-        _btnToggleAdv.Click += ToggleAdvanced;
-        strip.Controls.Add(_btnToggleAdv);
-    }
-
-    // ── Advanced panel (y=440, hidden) ────────────────────────────────
-
-    void BuildAdvancedPanel()
-    {
-        _pnlAdvanced = MakePanel(24, 440, 812, 52, BG);
-        _pnlAdvanced.Visible = false;
-        Controls.Add(_pnlAdvanced);
-
-        _btnRepair = MakeFlatBtn("↺  إصلاح / إعادة التثبيت",
-            0, 0, 264, 44, SURFACE2, TEXT_SEC);
-        _btnRepair.FlatAppearance.BorderColor = BORDER_N;
-        _btnRepair.FlatAppearance.BorderSize  = 1;
-        _btnRepair.Click += OnRepair;
-        _pnlAdvanced.Controls.Add(_btnRepair);
-
-        _btnOpenAsar = MakeFlatBtn("⚙  تثبيت OpenAsar",
-            276, 0, 264, 44, SURFACE2, TEXT_SEC);
-        _btnOpenAsar.FlatAppearance.BorderColor = BORDER_N;
-        _btnOpenAsar.FlatAppearance.BorderSize  = 1;
+        _btnInstall.Click  += OnInstall;
+        _btnRepair.Click   += OnRepair;
+        _btnRemove.Click   += OnRemove;
         _btnOpenAsar.Click += OnOpenAsar;
-        _pnlAdvanced.Controls.Add(_btnOpenAsar);
 
-        // Destructive — text only, no fill, no border
-        _btnRemove = MakeFlatBtn("إزالة التثبيت", 590, 13, 222, 26, BG, DANGER);
-        _btnRemove.FlatAppearance.BorderSize = 0;
-        _btnRemove.TextAlign = ContentAlignment.MiddleRight;
-        _btnRemove.Click += OnRemove;
-        _pnlAdvanced.Controls.Add(_btnRemove);
+        c.Controls.Add(_btnInstall);
+        c.Controls.Add(_btnRepair);
+        c.Controls.Add(_btnRemove);
+        c.Controls.Add(_btnOpenAsar);
+
+        // ── Footer strip ──────────────────────────────
+        var ftSep = MakePanel(0, 584, 810, 1, BORDER_DIM);
+        c.Controls.Add(ftSep);
+
+        var ft = MakePanel(0, 585, 810, 30, SIDEBAR);
+        c.Controls.Add(ft);
+
+        ft.Controls.Add(MakeLink("LOSTSTR/Esharq على GitHub  ↗", 14, 6, 8.5f, ft, GITHUB_URL));
+        ft.Controls.Add(MakeLabel("© 2026 Esharq الحقوق محفوظة", 560, 6, TEXT_MUTED, 8.5f, FontStyle.Regular, ft));
+
+        return c;
     }
 
-    // ── Footer (y=540..580) ───────────────────────────────────────────
-
-    void BuildFooter()
+    void BuildDiscordCards(Panel c)
     {
-        Controls.Add(MakePanel(0, 540, 860, 1, BORDER_N));
+        DiscordInstall detected = _installs.Count > 0 ? _installs[0] : null;
+        bool avail = detected != null;
 
-        var ft = MakePanel(0, 541, 860, 39, SURFACE);
-        Controls.Add(ft);
+        // Card 0 — auto-detected install (left)
+        var c0Outer = MakePanel(40, 350, 355, 82, ACCENT);
+        c.Controls.Add(c0Outer);
+        _cardBorders[0] = c0Outer;
 
-        ft.Controls.Add(MakeLabel(
-            "⚠ التحميل الرسمي فقط من LOSTSTR/Esharq على GitHub  ·  GPL-3.0",
-            20, 0, TEXT_MUTED, 8.5f, FontStyle.Regular, ft, 580, 39,
-            ContentAlignment.MiddleLeft));
+        var c0Inner = MakePanel(1, 1, 353, 80, CARD);
+        c0Outer.Controls.Add(c0Inner);
 
-        ft.Controls.Add(MakeLabel(
-            "© 2026 LoSTSR / NRaymond",
-            610, 0, TEXT_MUTED, 8.5f, FontStyle.Regular, ft, 230, 39,
-            ContentAlignment.MiddleRight));
+        string c0Name = avail
+            ? string.Format("نسخة {0}  (موصى بها)  🛡", detected.Name)
+            : "Discord Stable  🛡";
+        c0Inner.Controls.Add(MakeLabel(c0Name,
+            avail ? 180 : 200, 10, avail ? TEXT_PRI : TEXT_MUTED, 9.5f, FontStyle.Bold, c0Inner));
+
+        if (avail)
+        {
+            string dp = detected.DisplayPath.Length > 44
+                ? "..." + detected.DisplayPath.Substring(detected.DisplayPath.Length - 41)
+                : detected.DisplayPath;
+            c0Inner.Controls.Add(MakeLabel(dp, 10, 34, TEXT_MUTED, 8.5f, FontStyle.Regular, c0Inner, 335, 18));
+            var sc = detected.IsPatched ? SUCCESS : Color.FromArgb(100, 200, 130);
+            var st = detected.IsPatched ? "✔ Esharq مُثبَّت" : "✔ الأكثر استقراراً وأماناً";
+            c0Inner.Controls.Add(MakeLabel(st, 210, 56, sc, 8.5f, FontStyle.Bold, c0Inner));
+        }
+        else
+        {
+            c0Inner.Controls.Add(MakeLabel("غير مثبَّت على هذا الجهاز",
+                180, 34, TEXT_MUTED, 8.5f, FontStyle.Regular, c0Inner));
+        }
+
+        EventHandler sel0 = (s, e) => { if (avail) SelectCard(0); };
+        c0Outer.Click += sel0;
+        c0Inner.Click += sel0;
+        foreach (Control ctl in c0Inner.Controls) ctl.Click += sel0;
+
+        // Card 1 — custom path (right)
+        var c1Outer = MakePanel(405, 350, 365, 82, BORDER_DIM);
+        c.Controls.Add(c1Outer);
+        _cardBorders[1] = c1Outer;
+
+        var c1Inner = MakePanel(1, 1, 363, 80, CARD);
+        c1Outer.Controls.Add(c1Inner);
+
+        c1Inner.Controls.Add(MakeLabel("مسار تثبيت مخصص  📁",
+            185, 10, TEXT_SEC, 9.5f, FontStyle.Bold, c1Inner));
+        c1Inner.Controls.Add(MakeLabel("اختر مسار تثبيت Discord يدوياً من جهازك",
+            90, 34, TEXT_MUTED, 8.5f, FontStyle.Regular, c1Inner, 270, 18));
+
+        var folderIcon = new Label
+        {
+            Text      = "📁",
+            Location  = new Point(316, 18),
+            AutoSize  = true,
+            Font      = new Font("Segoe UI", 18f),
+            BackColor = CARD,
+            ForeColor = TEXT_MUTED,
+        };
+        c1Inner.Controls.Add(folderIcon);
+
+        EventHandler sel1 = (s, e) => SelectCard(1);
+        c1Outer.Click += sel1;
+        c1Inner.Click += sel1;
+        foreach (Control ctl in c1Inner.Controls) ctl.Click += sel1;
+
+        // Auto-select
+        _suppressEvents = true;
+        _selectedCard = avail ? 0 : 1;
+        _cardBorders[0].BackColor = (_selectedCard == 0) ? ACCENT : BORDER_DIM;
+        _cardBorders[1].BackColor = (_selectedCard == 1) ? ACCENT : BORDER_DIM;
+        _suppressEvents = false;
+    }
+
+    void SelectCard(int idx)
+    {
+        if (_suppressEvents) return;
+        _suppressEvents = true;
+        try
+        {
+            _selectedCard = idx;
+            _cardBorders[0].BackColor = (idx == 0) ? ACCENT : BORDER_DIM;
+            _cardBorders[1].BackColor = (idx == 1) ? ACCENT : BORDER_DIM;
+
+            bool custom = (idx == 1);
+            if (_txtCustom  != null) { _txtCustom.Enabled = custom; _txtCustom.ForeColor = custom ? TEXT_PRI : TEXT_MUTED; }
+            if (_btnBrowse  != null) _btnBrowse.Enabled = custom;
+        }
+        finally { _suppressEvents = false; }
+        UpdatePrimaryButton();
+    }
+
+    // ── About canvas ─────────────────────────────────────────────────
+
+    Panel BuildAboutCanvas()
+    {
+        var c = MakePanel(0, 40, 810, 600, BG);
+
+        c.Controls.Add(MakeLabel("حول التطبيق", 40, 14, TEXT_PRI, 24f, FontStyle.Bold, c));
+
+        // Info card
+        var infoO = MakePanel(40, 70, 730, 150, CARD_B);
+        c.Controls.Add(infoO);
+        var infoI = MakePanel(1, 1, 728, 148, CARD);
+        infoO.Controls.Add(infoI);
+
+        infoI.Controls.Add(MakeLabel("معلومات الحزمة والنسخة", 518, 14, ACCENT, 11f, FontStyle.Bold, infoI));
+        infoI.Controls.Add(MakeLabel(
+            "•  إصدار المثبت: v" + VER + "  (مايو 2026)\n" +
+            "•  النواة البرمجية: .NET Framework 4.0 — WinForms\n" +
+            "•  التوافقية: Windows 10/11 x64 بما فيها LTSC\n" +
+            "•  تصميم آمن: بدون GDI مخصص أو OnPaint overrides",
+            100, 46, TEXT_SEC, 9.5f, FontStyle.Regular, infoI, 620, 90));
+
+        // Team card
+        var teamO = MakePanel(40, 240, 730, 130, CARD_B);
+        c.Controls.Add(teamO);
+        var teamI = MakePanel(1, 1, 728, 128, CARD);
+        teamO.Controls.Add(teamI);
+
+        teamI.Controls.Add(MakeLabel("فريق التطوير", 572, 14, SUCCESS, 11f, FontStyle.Bold, teamI));
+        teamI.Controls.Add(MakeLabel(
+            "👨‍💻  المطور الرئيسي: LoSTSR — إدارة البنية وتعديل السورس كود\n" +
+            "⚔   شريك التطوير: NRaymond — التوثيق البرمجي والتأمين الهيكلي",
+            100, 48, TEXT_SEC, 9.5f, FontStyle.Regular, teamI, 620, 60));
+
+        teamI.Controls.Add(MakeLink("GitHub  ↗", 585, 98, 9f, teamI, GITHUB_URL));
+        teamI.Controls.Add(MakeLink("Discord  ↗", 500, 98, 9f, teamI, DISCORD_URL));
+
+        // License card
+        var licO = MakePanel(40, 390, 730, 54, CARD_B);
+        c.Controls.Add(licO);
+        var licI = MakePanel(1, 1, 728, 52, CARD);
+        licO.Controls.Add(licI);
+        licI.Controls.Add(MakeLabel("الرخصة: GPL-3.0  ·  المصدر الرسمي فقط: github.com/LOSTSTR/Esharq",
+            30, 16, TEXT_MUTED, 9f, FontStyle.Regular, licI));
+
+        return c;
+    }
+
+    // ── Tab switching ─────────────────────────────────────────────────
+
+    void SwitchTab(bool home)
+    {
+        _homeCanvas.Visible  = home;
+        _aboutCanvas.Visible = !home;
+        SetNavActive(home ? _btnNavHome : _btnNavAbout);
+    }
+
+    // ── Shown ─────────────────────────────────────────────────────────
+
+    void OnShown(object sender, EventArgs e)
+    {
+        UpdatePrimaryButton();
+
+        bool inst = Logic.IsInstalled;
+        if (_lblFileStatus != null)
+        {
+            _lblFileStatus.Text      = inst ? "✔ تم التحقق من الملف بنجاح" : "ℹ لم يُثبَّت بعد";
+            _lblFileStatus.ForeColor = inst ? SUCCESS : TEXT_MUTED;
+        }
     }
 
     // ── State-aware primary button ────────────────────────────────────
 
     void UpdatePrimaryButton()
     {
-        if (_btnPrimary == null) return;
+        if (_btnInstall == null) return;
         if (Logic.IsInstalled)
         {
-            _btnPrimary.Text      = "تحديث / إعادة تثبيت Esharq";
-            _btnPrimary.BackColor = ACCENT;
-            _btnPrimary.FlatAppearance.MouseOverBackColor =
-                Color.FromArgb(110, 128, 250);
+            _btnInstall.Text      = "تحديث Esharq  ↑";
+            _btnInstall.BackColor = BLUE;
+            _btnInstall.FlatAppearance.MouseOverBackColor = Color.FromArgb(110, 120, 250);
         }
         else
         {
-            _btnPrimary.Text      = "تثبيت Esharq";
-            _btnPrimary.BackColor = SUCCESS;
-            _btnPrimary.FlatAppearance.MouseOverBackColor =
-                Color.FromArgb(68, 225, 108);
+            _btnInstall.Text      = "تثبيت  ✓";
+            _btnInstall.BackColor = SUCCESS;
+            _btnInstall.FlatAppearance.MouseOverBackColor = Color.FromArgb(68, 185, 100);
         }
     }
 
-    // ── Advanced toggle ───────────────────────────────────────────────
-
-    void ToggleAdvanced(object sender, EventArgs e)
-    {
-        _advExpanded         = !_advExpanded;
-        _pnlAdvanced.Visible = _advExpanded;
-        _btnToggleAdv.Text   = _advExpanded ? "خيارات متقدمة  ▲" : "خيارات متقدمة  ▾";
-    }
-
-    // ── OnShown ───────────────────────────────────────────────────────
-
-    void OnShown(object sender, EventArgs e)
-    {
-        UpdatePrimaryButton();
-        _lblLocalVer.Text = "الإصدار المحلي: " + Logic.LocalVersion();
-
-        var t = new Thread(() =>
-        {
-            var tag = Logic.LatestTag();
-            SafeInvoke(() => _lblLatestVer.Text = "·  آخر إصدار: " + tag);
-        });
-        t.IsBackground = true;
-        t.Start();
-    }
-
-    // ── Button handlers ───────────────────────────────────────────────
-
-    void OnPrimaryClick(object sender, EventArgs e)
-    {
-        string target;
-        if (!TryGetTarget(out target) || !ConfirmKill(target)) return;
-        RunAsync(() => Logic.Install(target, s => Msg(s), v => Prog(v)));
-    }
-
-    void OnRepair(object sender, EventArgs e)
-    {
-        string target;
-        if (!TryGetTarget(out target) || !ConfirmKill(target)) return;
-        RunAsync(() => Logic.Install(target, s => Msg(s), v => Prog(v)));
-    }
-
-    void OnRemove(object sender, EventArgs e)
-    {
-        string target;
-        if (!TryGetTarget(out target)) return;
-        if (MessageBox.Show(this, "هل تريد إزالة Esharq بالكامل؟",
-                "تأكيد", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
-            != DialogResult.Yes) return;
-        if (!ConfirmKill(target)) return;
-        RunAsync(() => Logic.Uninstall(target, s => Msg(s), v => Prog(v)));
-    }
-
-    void OnOpenAsar(object sender, EventArgs e)
-    {
-        string target;
-        if (!TryGetTarget(out target) || !ConfirmKill(target)) return;
-        RunAsync(() => Logic.InstallOpenAsar(target, s => Msg(s), v => Prog(v)));
-    }
-
-    // ── Helpers ───────────────────────────────────────────────────────
-
-    DiscordInstall SelectedInstall()
-    {
-        for (int i = 0; i < _radios.Count; i++)
-            if (_radios[i].Checked) return _radios[i].Tag as DiscordInstall;
-        return null;
-    }
+    // ── Target resolution ─────────────────────────────────────────────
 
     bool TryGetTarget(out string path)
     {
         path = null;
         try
         {
-            if (_rbCustom != null && _rbCustom.Checked)
+            if (_selectedCard == 1)
             {
                 var p = (_txtCustom != null ? _txtCustom.Text : "").Trim();
                 if (string.IsNullOrEmpty(p) || !Directory.Exists(p))
                     throw new Exception("المسار المخصص غير صحيح أو غير موجود");
-                path = p; return true;
+                path = p;
+                return true;
             }
-            var inst = SelectedInstall();
-            if (inst == null) throw new Exception("الرجاء اختيار نسخة Discord أولاً");
-            path = inst.ResourcesPath; return true;
+            if (_installs.Count == 0)
+                throw new Exception("لم يُعثر على Discord — اختر مساراً مخصصاً");
+            path = _installs[0].ResourcesPath;
+            return true;
         }
         catch (Exception ex) { Msg("✖ " + ex.Message); return false; }
     }
 
-    bool ConfirmKill(string resourcesPath)
+    bool ConfirmKill(string res)
     {
         try
         {
-            var root = Path.GetDirectoryName(Path.GetDirectoryName(resourcesPath));
+            var root = Path.GetDirectoryName(Path.GetDirectoryName(res));
             if (string.IsNullOrEmpty(root)) return true;
             var name = Path.GetFileName(root);
             if (string.IsNullOrEmpty(name)) return true;
             if (Process.GetProcessesByName(name).Length == 0) return true;
             return MessageBox.Show(this,
                 "Discord يعمل حالياً وسيتم إغلاقه.\nهل تريد المتابعة؟",
-                "تنبيه", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
-                == DialogResult.Yes;
+                "تنبيه", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes;
         }
         catch { return true; }
     }
+
+    // ── Button handlers ───────────────────────────────────────────────
+
+    void OnInstall(object sender, EventArgs e)
+    {
+        string t; if (!TryGetTarget(out t) || !ConfirmKill(t)) return;
+        RunAsync(() => Logic.Install(t, s => Msg(s), v => Prog(v)));
+    }
+
+    void OnRepair(object sender, EventArgs e)
+    {
+        string t; if (!TryGetTarget(out t) || !ConfirmKill(t)) return;
+        RunAsync(() => Logic.Install(t, s => Msg(s), v => Prog(v)));
+    }
+
+    void OnRemove(object sender, EventArgs e)
+    {
+        string t; if (!TryGetTarget(out t)) return;
+        if (MessageBox.Show(this, "هل تريد إزالة Esharq بالكامل؟",
+                "تأكيد", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
+        if (!ConfirmKill(t)) return;
+        RunAsync(() => Logic.Uninstall(t, s => Msg(s), v => Prog(v)));
+    }
+
+    void OnOpenAsar(object sender, EventArgs e)
+    {
+        string t; if (!TryGetTarget(out t) || !ConfirmKill(t)) return;
+        RunAsync(() => Logic.InstallOpenAsar(t, s => Msg(s), v => Prog(v)));
+    }
+
+    // ── Async runner ──────────────────────────────────────────────────
 
     void RunAsync(Action op)
     {
@@ -857,7 +899,12 @@ sealed class InstallerForm : Form
                 {
                     SetBusy(false);
                     UpdatePrimaryButton();
-                    _lblLocalVer.Text = "الإصدار المحلي: " + Logic.LocalVersion();
+                    bool inst = Logic.IsInstalled;
+                    if (_lblFileStatus != null)
+                    {
+                        _lblFileStatus.Text      = inst ? "✔ تم التحقق من الملف بنجاح" : "ℹ لم يُثبَّت بعد";
+                        _lblFileStatus.ForeColor = inst ? SUCCESS : TEXT_MUTED;
+                    }
                 });
             }
         });
@@ -865,27 +912,27 @@ sealed class InstallerForm : Form
         t.Start();
     }
 
-    void Msg(string text)
-    {
-        SafeInvoke(() => _lblStatus.Text = text);
-    }
+    void Msg(string text)  { SafeInvoke(() => { if (_lblStatus != null) _lblStatus.Text = text; }); }
 
     void Prog(int v)
     {
         SafeInvoke(() =>
         {
-            int w = (int)(812 * Math.Max(0, Math.Min(100, v)) / 100.0);
+            int w = (int)(730 * Math.Max(0, Math.Min(100, v)) / 100.0);
             if (_progFill != null) _progFill.Width = w;
         });
     }
 
     void SetBusy(bool on)
     {
-        if (_btnPrimary  != null) _btnPrimary.Enabled  = !on;
-        if (_btnRepair   != null) _btnRepair.Enabled   = !on;
-        if (_btnOpenAsar != null) _btnOpenAsar.Enabled = !on;
-        if (_btnRemove   != null) _btnRemove.Enabled   = !on;
+        foreach (var b in new[] { _btnInstall, _btnRepair, _btnRemove, _btnOpenAsar })
+            if (b != null) b.Enabled = !on;
         UseWaitCursor = on;
+    }
+
+    void OnDrag(object sender, MouseEventArgs e)
+    {
+        if (e.Button == MouseButtons.Left) { ReleaseCapture(); SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0); }
     }
 
     void SafeInvoke(Action a)
@@ -905,7 +952,7 @@ sealed class InstallerForm : Form
                 return "Roaming" + path.Substring(roaming.Length);
         }
         catch { }
-        return path.Length > 60 ? "..." + path.Substring(path.Length - 57) : path;
+        return path.Length > 70 ? "..." + path.Substring(path.Length - 67) : path;
     }
 
     static void TryOpen(string url)
@@ -916,7 +963,8 @@ sealed class InstallerForm : Form
     }
 
     // ── Control factories ─────────────────────────────────────────────
-    // All use explicit solid BackColor — never Color.Transparent on panels or buttons
+    // Panel/Button: always explicit solid BackColor — NEVER Color.Transparent
+    // Label/LinkLabel: Color.Transparent is safe (they use parent BackColor via WM_ERASEBKGND)
 
     static Panel MakePanel(int x, int y, int w, int h, Color bg)
     {
@@ -933,7 +981,7 @@ sealed class InstallerForm : Form
             Text      = text,
             Location  = new Point(x, y),
             ForeColor = col,
-            BackColor = Color.Transparent,   // safe on Label — only unsafe on Panel/Button
+            BackColor = Color.Transparent,
             Font      = new Font("Segoe UI", fs, st),
             TextAlign = align,
         };
@@ -955,14 +1003,14 @@ sealed class InstallerForm : Form
             FlatStyle = FlatStyle.Flat,
             Font      = new Font("Segoe UI", 10f),
             Cursor    = Cursors.Hand,
+            UseVisualStyleBackColor = false,
         };
-        b.FlatAppearance.BorderSize = 0;
-        b.FlatAppearance.MouseOverBackColor = ControlPaint.Light(bg, 0.1f);
+        b.FlatAppearance.BorderSize             = 0;
+        b.FlatAppearance.MouseOverBackColor     = ControlPaint.Light(bg, 0.12f);
         return b;
     }
 
-    static LinkLabel MakeLink(string text, int x, int y, float fs,
-        Control parent, string url)
+    static LinkLabel MakeLink(string text, int x, int y, float fs, Control parent, string url)
     {
         var l = new LinkLabel
         {
@@ -970,10 +1018,10 @@ sealed class InstallerForm : Form
             Location        = new Point(x, y),
             AutoSize        = true,
             ForeColor       = Color.FromArgb(114, 118, 125),
-            BackColor       = Color.Transparent,   // safe on Label
+            BackColor       = Color.Transparent,
             Font            = new Font("Segoe UI", fs),
             LinkColor       = Color.FromArgb(114, 118, 125),
-            ActiveLinkColor = Color.FromArgb(91, 110, 245),
+            ActiveLinkColor = Color.FromArgb(109, 68, 246),
             LinkBehavior    = LinkBehavior.HoverUnderline,
         };
         if (!string.IsNullOrEmpty(url))
@@ -989,13 +1037,12 @@ sealed class InstallerForm : Form
 
 static class Program
 {
-    [System.Runtime.InteropServices.DllImport("user32.dll")]
+    [DllImport("user32.dll")]
     static extern bool SetProcessDPIAware();
 
     [STAThread]
     static void Main()
     {
-        // Catch any managed UI-thread exception and show it instead of crashing
         Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
         Application.ThreadException += (s, ex) =>
         {
