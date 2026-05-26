@@ -9,6 +9,7 @@ using System.Drawing;
 using System.IO;
 using System.Net;
 using System.Reflection;
+using System.Security.Cryptography;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -44,6 +45,7 @@ static class Logic
     const string RELEASE_API  = "https://api.github.com/repos/LOSTSTR/Esharq/releases/latest";
     const string UA           = "Esharq-Installer/1.14.13.0 (+https://github.com/LOSTSTR/Esharq)";
     const string ASAR         = "desktop.asar";
+    const string CHECKSUMS    = "checksums.txt";
     const string OPENASAR_URL = "https://github.com/GooseMod/OpenAsar/releases/download/nightly/app.asar";
 
     public static void InitNetwork()
@@ -140,9 +142,9 @@ static class Logic
         catch { return "مثبَّت"; }
     }
 
-    static string GetAsarUrl(out string tag, out long size)
+    static string GetAsarUrl(out string tag, out long size, out string checksumUrl)
     {
-        tag = ""; size = 0;
+        tag = ""; size = 0; checksumUrl = "";
         using (var wc = MakeClient())
         {
             var json = wc.DownloadString(RELEASE_API);
@@ -150,20 +152,27 @@ static class Logic
             if (tm.Success) tag = tm.Groups[1].Value;
             var am = Regex.Match(json, "\"assets\"\\s*:\\s*\\[([\\s\\S]+?)\\]");
             if (!am.Success) return null;
+            string asarUrl = null;
             foreach (Match bm in Regex.Matches(am.Groups[1].Value, "\\{[^{}]+\\}"))
             {
                 var nm = Regex.Match(bm.Value, "\"name\"\\s*:\\s*\"([^\"]+)\"");
-                if (!nm.Success || nm.Groups[1].Value != ASAR) continue;
+                if (!nm.Success) continue;
                 var um = Regex.Match(bm.Value, "\"browser_download_url\"\\s*:\\s*\"([^\"]+)\"");
-                var sm = Regex.Match(bm.Value, "\"size\"\\s*:\\s*(\\d+)");
-                if (um.Success)
+                if (!um.Success) continue;
+                var assetName = nm.Groups[1].Value;
+                if (assetName == ASAR)
                 {
+                    var sm = Regex.Match(bm.Value, "\"size\"\\s*:\\s*(\\d+)");
                     if (sm.Success) long.TryParse(sm.Groups[1].Value, out size);
-                    return um.Groups[1].Value;
+                    asarUrl = um.Groups[1].Value;
+                }
+                else if (assetName == CHECKSUMS)
+                {
+                    checksumUrl = um.Groups[1].Value;
                 }
             }
+            return asarUrl;
         }
-        return null;
     }
 
     static void Download(string url, string dest, Action<int, long, long> onProgress)
@@ -189,6 +198,53 @@ static class Logic
         }
     }
 
+    static void ValidateDownloadUrl(string url)
+    {
+        Uri uri;
+        if (!Uri.TryCreate(url, UriKind.Absolute, out uri))
+            throw new Exception("عنوان URL غير صالح");
+        if (uri.Scheme != "https")
+            throw new Exception("يُسمح فقط بروتوكول HTTPS");
+        if (!uri.Host.EndsWith("github.com", StringComparison.OrdinalIgnoreCase) &&
+            !uri.Host.EndsWith("objects.githubusercontent.com", StringComparison.OrdinalIgnoreCase))
+            throw new Exception("مصدر التنزيل غير موثوق: " + uri.Host);
+    }
+
+    static string ComputeSha256(string path)
+    {
+        using (var sha = SHA256.Create())
+        using (var fs  = File.OpenRead(path))
+        {
+            var hash = sha.ComputeHash(fs);
+            return BitConverter.ToString(hash).Replace("-", "").ToLower();
+        }
+    }
+
+    static string FetchExpectedHash(string checksumUrl, string filename)
+    {
+        if (string.IsNullOrEmpty(checksumUrl)) return null;
+        try
+        {
+            ValidateDownloadUrl(checksumUrl);
+            using (var wc = MakeClient())
+            {
+                var text = wc.DownloadString(checksumUrl);
+                foreach (var line in text.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    var parts = line.Trim().Split(new[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+                    if (parts.Length >= 2)
+                    {
+                        var name = parts[parts.Length - 1].TrimStart('*');
+                        if (string.Equals(name, filename, StringComparison.OrdinalIgnoreCase))
+                            return parts[0].ToLower();
+                    }
+                }
+            }
+        }
+        catch { }
+        return null;
+    }
+
     public static void KillDiscord(string resourcesPath)
     {
         try
@@ -208,10 +264,11 @@ static class Logic
     {
         status("جارٍ جلب معلومات آخر إصدار...");
         progress(5);
-        string tag; long sz;
-        var url = GetAsarUrl(out tag, out sz);
+        string tag, checksumUrl; long sz;
+        var url = GetAsarUrl(out tag, out sz, out checksumUrl);
         if (string.IsNullOrEmpty(url))
             throw new Exception("لم يُعثر على ملف " + ASAR + " في أحدث إصدار");
+        ValidateDownloadUrl(url);
 
         status(string.Format("تحميل {0}  ({1:F1} MB)...", tag, sz / 1048576.0));
         progress(10);
@@ -222,10 +279,24 @@ static class Logic
         {
             status(string.Format("تحميل: {0:F1}/{1:F1} MB  ({2}%)",
                 dl / 1048576.0, tot / 1048576.0, pct));
-            progress(10 + (int)(pct * 0.65));
+            progress(10 + (int)(pct * 0.60));
         });
+
+        status("جارٍ التحقق من سلامة الملف...");
+        progress(75);
+        var expectedHash = FetchExpectedHash(checksumUrl, ASAR);
+        if (!string.IsNullOrEmpty(expectedHash))
+        {
+            var actualHash = ComputeSha256(tmp);
+            if (!string.Equals(expectedHash, actualHash, StringComparison.OrdinalIgnoreCase))
+            {
+                try { File.Delete(tmp); } catch { }
+                throw new Exception("فشل التحقق من SHA-256 — الملف تالف أو تم التلاعب به");
+            }
+        }
+
         status("تطبيق التعديل على Discord...");
-        progress(80);
+        progress(82);
         KillDiscord(res);
         File.Copy(tmp, Path.Combine(res, ASAR), true);
         File.Copy(tmp, AsarTarget, true);
@@ -255,6 +326,7 @@ static class Logic
         KillDiscord(res);
         status("جارٍ تنزيل OpenAsar...");
         progress(10);
+        ValidateDownloadUrl(OPENASAR_URL);
         var tmp = Path.Combine(Path.GetTempPath(),
             "openasar_" + Guid.NewGuid().ToString("N") + ".asar");
         Download(OPENASAR_URL, tmp, (p, dl, tot) => progress(10 + (int)(p * 0.85)));
@@ -1081,7 +1153,10 @@ static class Program
             {
                 File.WriteAllText(
                     Path.Combine(Path.GetTempPath(), "esharq_crash.txt"),
-                    ex.Exception.ToString());
+                    string.Format("[{0}] {1}: {2}",
+                        DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+                        ex.Exception.GetType().Name,
+                        ex.Exception.Message));
             }
             catch { }
             MessageBox.Show("خطأ:\n" + ex.Exception.Message,

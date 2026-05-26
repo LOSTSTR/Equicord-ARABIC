@@ -83,28 +83,37 @@ fetch_json() {
     || die "تعذّر الوصول إلى GitHub API — تحقق من اتصال الإنترنت"
 }
 
-latest_tag() {
-  fetch_json | grep -o '"tag_name": *"[^"]*"' | head -1 \
-    | grep -o '"[^"]*"$' | tr -d '"' || echo "—"
-}
-
-latest_url() {
-  fetch_json \
-    | grep -o '"browser_download_url": *"[^"]*desktop\.asar[^"]*"' \
-    | head -1 | grep -o 'https://[^"]*' \
-    || die "لم يُعثر على ملف ${ASAR} في أحدث إصدار"
-}
-
-download_asar() {
+download_file() {
   local url="$1" dest="$2"
+  # URL validation: يُسمح فقط بـ github.com و objects.githubusercontent.com
+  local host
+  host=$(echo "$url" | sed -E 's|https?://([^/]+).*|\1|')
+  case "$host" in
+    github.com|*.github.com|objects.githubusercontent.com|*.githubusercontent.com) ;;
+    *) die "مصدر التنزيل غير موثوق: ${host}" ;;
+  esac
   curl -fSL --progress-bar \
     -H "User-Agent: Esharq-Installer/1.14 (Linux)" \
     -o "$dest" "$url"
 }
 
+verify_sha256() {
+  local file="$1" expected="$2"
+  if [ -z "$expected" ]; then
+    log "تحذير: لا يوجد checksums.txt في هذا الإصدار — تم تخطي التحقق من SHA-256"
+    return 0
+  fi
+  local actual
+  actual=$(sha256sum "$file" | awk '{print $1}')
+  if [ "$expected" != "$actual" ]; then
+    die "فشل التحقق من SHA-256 — الملف تالف أو تم التلاعب به\n  متوقع: ${expected}\n  فعلي:  ${actual}"
+  fi
+  ok "تم التحقق من سلامة الملف (SHA-256)"
+}
+
 kill_discord() {
-  pkill -x discord   2>/dev/null || true
-  pkill -x Discord   2>/dev/null || true
+  /usr/bin/pkill -x discord 2>/dev/null || true
+  /usr/bin/pkill -x Discord 2>/dev/null || true
   sleep 1
 }
 
@@ -126,18 +135,41 @@ cmd_install() {
   require_curl
 
   hdr "جارٍ جلب معلومات آخر إصدار..."
-  local tag url
-  tag=$(latest_tag)
-  url=$(latest_url)
+  local json tag url checksums_url expected_hash
+  json=$(fetch_json)
+  tag=$(echo "$json" | grep -o '"tag_name": *"[^"]*"' | head -1 | grep -o '"[^"]*"$' | tr -d '"' || echo "—")
+  url=$(echo "$json" | grep -o '"browser_download_url": *"[^"]*desktop\.asar[^"]*"' | head -1 | grep -o 'https://[^"]*')
+  checksums_url=$(echo "$json" | grep -o '"browser_download_url": *"[^"]*checksums\.txt[^"]*"' | head -1 | grep -o 'https://[^"]*' || true)
+  [ -n "$url" ] || die "لم يُعثر على ملف ${ASAR} في أحدث إصدار"
   log "الإصدار: ${tag}"
 
   mkdir -p "$DATA_DIR"
   local tmp
-  tmp=$(mktemp "/tmp/esharq_XXXXXX.asar")
+  tmp=$(mktemp "${DATA_DIR}/esharq_XXXXXX.asar")
+  chmod 600 "$tmp"
   trap 'rm -f "$tmp"' EXIT
 
   hdr "جارٍ تنزيل ${ASAR}..."
-  download_asar "$url" "$tmp"
+  download_file "$url" "$tmp"
+
+  hdr "جارٍ التحقق من سلامة الملف..."
+  expected_hash=""
+  if [ -n "$checksums_url" ]; then
+    local ck_host
+    ck_host=$(echo "$checksums_url" | sed -E 's|https?://([^/]+).*|\1|')
+    case "$ck_host" in
+      github.com|*.github.com|objects.githubusercontent.com|*.githubusercontent.com)
+        local ck_tmp
+        ck_tmp=$(mktemp "${DATA_DIR}/esharq_ck_XXXXXX.txt")
+        if curl -fsSL -H "User-Agent: Esharq-Installer/1.14 (Linux)" -o "$ck_tmp" "$checksums_url" 2>/dev/null; then
+          expected_hash=$(grep "desktop\.asar" "$ck_tmp" | awk '{print $1}' || true)
+        fi
+        rm -f "$ck_tmp"
+        ;;
+      *) log "تحذير: تم تجاهل checksums.txt من مصدر غير موثوق: ${ck_host}" ;;
+    esac
+  fi
+  verify_sha256 "$tmp" "$expected_hash"
 
   hdr "جارٍ تطبيق التعديل..."
   kill_discord

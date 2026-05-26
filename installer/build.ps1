@@ -1,5 +1,5 @@
 $csc = "C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe"
-$dir = "C:\Users\STR\Equicord\installer"
+$dir = $PSScriptRoot
 $result = & $csc /nologo /target:winexe /platform:anycpu /optimize+ /utf8output `
     "/win32manifest:$dir\Esharq.manifest" `
     "/win32icon:$dir\icon.ico" `
