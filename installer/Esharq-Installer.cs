@@ -506,20 +506,21 @@ sealed class InstallerForm : Form
         var pathInner = MakePanel(1, 1, 728, 88, CARD);
         pathOuter.Controls.Add(pathInner);
 
-        pathInner.Controls.Add(MakeLabel("ملف التثبيت", 582, 12, TEXT_PRI, 10.5f, FontStyle.Bold, pathInner));
-        pathInner.Controls.Add(MakeLabel(ShortenPath(Logic.AsarTarget),
-            10, 38, Color.FromArgb(180, 190, 210), 9f, FontStyle.Regular, pathInner, 620, 20));
-
-        _lblFileStatus = MakeLabel("يتم التحقق...", 495, 64, TEXT_MUTED, 9f, FontStyle.Bold, pathInner);
-        pathInner.Controls.Add(_lblFileStatus);
-
-        var btnOpen = MakeFlatBtn("فتح المجلد  📂", 12, 22, 130, 38, ACCENT, TEXT_PRI);
+        // Top row: title (right) + open-folder button (left) — no emoji in button (GDI can't render them)
+        pathInner.Controls.Add(MakeLabel("ملف التثبيت", 572, 12, TEXT_PRI, 10.5f, FontStyle.Bold, pathInner));
+        var btnOpen = MakeFlatBtn("فتح المجلد", 12, 10, 130, 34, ACCENT, TEXT_PRI);
         btnOpen.Click += (s, e) =>
         {
             try { Directory.CreateDirectory(Logic.DataDir); Process.Start("explorer.exe", Logic.DataDir); }
             catch { }
         };
         pathInner.Controls.Add(btnOpen);
+
+        // Bottom row: path (left) + status (right) — placed below button to avoid overlap
+        pathInner.Controls.Add(MakeLabel(ShortenPath(Logic.AsarTarget),
+            12, 52, Color.FromArgb(180, 190, 210), 9f, FontStyle.Regular, pathInner, 580, 18));
+        _lblFileStatus = MakeLabel("يتم التحقق...", 505, 68, TEXT_MUTED, 9f, FontStyle.Bold, pathInner);
+        pathInner.Controls.Add(_lblFileStatus);
 
         // ── Warning banner (y=200) ────────────────────
         var warnOuter = MakePanel(40, 200, 730, 112, WARN_BDR);
@@ -594,10 +595,11 @@ sealed class InstallerForm : Form
         c.Controls.Add(_lblStatus);
 
         // ── 4 action buttons (y=530) ──────────────────
-        _btnInstall  = MakeFlatBtn("تثبيت  ✓",                     40,  530, 170, 46, SUCCESS, Color.White);
-        _btnRepair   = MakeFlatBtn("إعادة التثبيت / الإصلاح  ↺",  220,  530, 195, 46, BLUE,    Color.White);
-        _btnRemove   = MakeFlatBtn("إزالة التثبيت  🗑",             425,  530, 170, 46, DANGER,  Color.White);
-        _btnOpenAsar = MakeFlatBtn("تثبيت OpenAsar  ⚙",             605,  530, 165, 46, SLATE,   Color.White);
+        // No emoji in buttons — GDI (.NET 4.0) cannot render supplementary-plane characters
+        _btnInstall  = MakeFlatBtn("تثبيت  ✓",                    40,  514, 170, 46, SUCCESS, Color.White);
+        _btnRepair   = MakeFlatBtn("إعادة التثبيت / الإصلاح  ↺", 220,  514, 195, 46, BLUE,    Color.White);
+        _btnRemove   = MakeFlatBtn("إزالة التثبيت",               425,  514, 170, 46, DANGER,  Color.White);
+        _btnOpenAsar = MakeFlatBtn("تثبيت OpenAsar",              605,  514, 165, 46, SLATE,   Color.White);
 
         foreach (var b in new[] { _btnInstall, _btnRepair, _btnRemove, _btnOpenAsar })
             b.Font = new Font("Segoe UI", 9.5f, FontStyle.Bold);
@@ -612,15 +614,15 @@ sealed class InstallerForm : Form
         c.Controls.Add(_btnRemove);
         c.Controls.Add(_btnOpenAsar);
 
-        // ── Footer strip ──────────────────────────────
-        var ftSep = MakePanel(0, 584, 810, 1, BORDER_DIM);
+        // ── Footer strip (must end at exactly y=600 — canvas height limit) ──
+        var ftSep = MakePanel(0, 577, 810, 1, BORDER_DIM);
         c.Controls.Add(ftSep);
 
-        var ft = MakePanel(0, 585, 810, 30, SIDEBAR);
+        var ft = MakePanel(0, 578, 810, 22, SIDEBAR);
         c.Controls.Add(ft);
 
-        ft.Controls.Add(MakeLink("LOSTSTR/Esharq على GitHub  ↗", 14, 6, 8.5f, ft, GITHUB_URL));
-        ft.Controls.Add(MakeLabel("© 2026 Esharq الحقوق محفوظة", 560, 6, TEXT_MUTED, 8.5f, FontStyle.Regular, ft));
+        ft.Controls.Add(MakeLink("LOSTSTR/Esharq على GitHub  ↗", 14, 3, 8.5f, ft, GITHUB_URL));
+        ft.Controls.Add(MakeLabel("© 2026 Esharq الحقوق محفوظة", 565, 3, TEXT_MUTED, 8.5f, FontStyle.Regular, ft));
 
         return c;
     }
@@ -742,28 +744,42 @@ sealed class InstallerForm : Form
             "•  تصميم آمن: بدون GDI مخصص أو OnPaint overrides",
             100, 46, TEXT_SEC, 9.5f, FontStyle.Regular, infoI, 620, 90));
 
-        // Team card
-        var teamO = MakePanel(40, 240, 730, 130, CARD_B);
+        // Team card — expanded to fit full roster
+        var teamO = MakePanel(40, 240, 730, 222, CARD_B);
         c.Controls.Add(teamO);
-        var teamI = MakePanel(1, 1, 728, 128, CARD);
+        var teamI = MakePanel(1, 1, 728, 220, CARD);
         teamO.Controls.Add(teamI);
 
         teamI.Controls.Add(MakeLabel("فريق التطوير", 572, 14, SUCCESS, 11f, FontStyle.Bold, teamI));
-        teamI.Controls.Add(MakeLabel(
-            "👨‍💻  المطور الرئيسي: LoSTSR — إدارة البنية وتعديل السورس كود\n" +
-            "⚔   شريك التطوير: NRaymond — التوثيق البرمجي والتأمين الهيكلي",
-            100, 48, TEXT_SEC, 9.5f, FontStyle.Regular, teamI, 620, 60));
 
-        teamI.Controls.Add(MakeLink("GitHub  ↗", 585, 98, 9f, teamI, GITHUB_URL));
-        teamI.Controls.Add(MakeLink("Discord  ↗", 500, 98, 9f, teamI, DISCORD_URL));
+        // Role badge helper: colored dot + name + separator + role
+        int rowY = 44;
+        Action<string, string, Color, string> addMember = (name, role, col, icon) =>
+        {
+            teamI.Controls.Add(MakeLabel(icon, 680, rowY, col, 9f, FontStyle.Bold, teamI));
+            teamI.Controls.Add(MakeLabel(name, 620, rowY, TEXT_PRI, 9f, FontStyle.Bold, teamI));
+            teamI.Controls.Add(MakeLabel("—  " + role, 10, rowY, TEXT_SEC, 9f, FontStyle.Regular, teamI, 600, 18));
+            rowY += 22;
+        };
+
+        addMember("LOSTSTR",     "مطور رئيسي — بناء المشروع وإدارته",            ACCENT,   "★");
+        addMember("krym511",     "داعم رئيسي — دعم ومساهمة في التطوير",           SUCCESS,  "◆");
+        addMember("iosiph",      "مساهم في التطوير",                               BLUE,     "●");
+        addMember("RAYMOND",     "مساهم في التطوير",                               BLUE,     "●");
+        addMember("Abo Ahmed",   "مساهم في التطوير",                               BLUE,     "●");
+        addMember("S99",         "مساهم في التطوير",                               BLUE,     "●");
+        addMember(".fmo",        "مساهم في التطوير",                               BLUE,     "●");
+
+        teamI.Controls.Add(MakeLink("GitHub  ↗", 580, 200, 9f, teamI, GITHUB_URL));
+        teamI.Controls.Add(MakeLink("Discord  ↗", 496, 200, 9f, teamI, DISCORD_URL));
 
         // License card
-        var licO = MakePanel(40, 390, 730, 54, CARD_B);
+        var licO = MakePanel(40, 480, 730, 50, CARD_B);
         c.Controls.Add(licO);
-        var licI = MakePanel(1, 1, 728, 52, CARD);
+        var licI = MakePanel(1, 1, 728, 48, CARD);
         licO.Controls.Add(licI);
         licI.Controls.Add(MakeLabel("الرخصة: GPL-3.0  ·  المصدر الرسمي فقط: github.com/LOSTSTR/Esharq",
-            30, 16, TEXT_MUTED, 9f, FontStyle.Regular, licI));
+            30, 14, TEXT_MUTED, 9f, FontStyle.Regular, licI));
 
         return c;
     }
