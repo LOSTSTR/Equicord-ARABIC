@@ -426,13 +426,11 @@ sealed class InstallerForm : Form
         };
         secInner.Controls.Add(badge);
 
-        // Bottom socials
+        // Bottom socials — GitHub • Discord (centered in 240px sidebar)
         sb.Controls.Add(MakePanel(20, 600, 200, 1, Color.FromArgb(35, 40, 55)));
-        sb.Controls.Add(MakeLink("GitHub", 30, 615, 8.5f, sb, GITHUB_URL));
-        sb.Controls.Add(MakeLabel("•", 82, 616, TEXT_MUTED, 8.5f, FontStyle.Regular, sb));
-        sb.Controls.Add(MakeLink("Discord", 94, 615, 8.5f, sb, DISCORD_URL));
-        sb.Controls.Add(MakeLabel("•", 152, 616, TEXT_MUTED, 8.5f, FontStyle.Regular, sb));
-        sb.Controls.Add(MakeLink("GitHub ↗", 164, 615, 8.5f, sb, GITHUB_URL));
+        sb.Controls.Add(MakeLink("GitHub", 60, 615, 8.5f, sb, GITHUB_URL));
+        sb.Controls.Add(MakeLabel("•", 108, 616, TEXT_MUTED, 8.5f, FontStyle.Regular, sb));
+        sb.Controls.Add(MakeLink("Discord", 120, 615, 8.5f, sb, DISCORD_URL));
     }
 
     Button MakeSidebarBtn(string text, int y, Panel parent)
@@ -515,7 +513,7 @@ sealed class InstallerForm : Form
         _lblFileStatus = MakeLabel("يتم التحقق...", 495, 64, TEXT_MUTED, 9f, FontStyle.Bold, pathInner);
         pathInner.Controls.Add(_lblFileStatus);
 
-        var btnOpen = MakeFlatBtn("فتح المجلد  📂", 14, 22, 112, 38, ACCENT, TEXT_PRI);
+        var btnOpen = MakeFlatBtn("فتح المجلد  📂", 12, 22, 130, 38, ACCENT, TEXT_PRI);
         btnOpen.Click += (s, e) =>
         {
             try { Directory.CreateDirectory(Logic.DataDir); Process.Start("explorer.exe", Logic.DataDir); }
@@ -577,12 +575,8 @@ sealed class InstallerForm : Form
         };
         c.Controls.Add(_btnBrowse);
 
-        // Info note
-        c.Controls.Add(MakeLabel("ℹ  اضغط على 'اختر نسخة' لتفعيل الزر أدناه",
-            40, 474, TEXT_MUTED, 8.5f, FontStyle.Regular, c));
-
-        // ── Progress track (y=496) ────────────────────
-        var progTrack = MakePanel(40, 496, 730, 4, Color.FromArgb(34, 36, 42));
+        // ── Progress track (y=476) ────────────────────
+        var progTrack = MakePanel(40, 476, 730, 4, Color.FromArgb(34, 36, 42));
         c.Controls.Add(progTrack);
         _progFill = MakePanel(0, 0, 0, 4, SUCCESS);
         progTrack.Controls.Add(_progFill);
@@ -590,8 +584,8 @@ sealed class InstallerForm : Form
         // Status
         _lblStatus = new Label
         {
-            Text      = "اختر نسخة Discord ثم اضغط تثبيت",
-            Location  = new Point(40, 504),
+            Text      = "جاهز — اختر نسخة Discord ثم اضغط تثبيت",
+            Location  = new Point(40, 484),
             Size      = new Size(730, 20),
             ForeColor = TEXT_MUTED,
             BackColor = BG,
