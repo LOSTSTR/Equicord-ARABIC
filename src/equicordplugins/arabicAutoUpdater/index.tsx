@@ -32,8 +32,7 @@ async function checkForUpdate() {
         if (!res.ok) return;
 
         const data = await res.json();
-        const releaseName: string = data.name ?? "";
-        const remoteHash = releaseName.slice(releaseName.lastIndexOf(" ") + 1);
+        const remoteHash: string = (data.tag_name ?? "").replace(/^v/, "");
 
         if (!remoteHash || remoteHash === gitHash) return;
 
@@ -55,7 +54,7 @@ async function checkForUpdate() {
                 <>
                     <p>{t("يتوفر إصدار جديد من", "A new version of")} <strong>Esharq</strong>{t(" متاح.", " is available.")}</p>
                     <p>{t("الإصدار الحالي:", "Current version:")} <code>{gitHash.slice(0, 7)}</code></p>
-                    <p>{t("الإصدار الجديد:", "New version:")} <code>{remoteHash.slice(0, 7)}</code></p>
+                    <p>{t("الإصدار الجديد:", "New version:")} <code>{remoteHash}</code></p>
                     <p>{t("هل تريد التحديث الآن؟", "Do you want to update now?")}</p>
                 </>
             ),
