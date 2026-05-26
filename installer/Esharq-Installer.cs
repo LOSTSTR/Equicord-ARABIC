@@ -351,6 +351,18 @@ sealed class InstallerForm : Form
 
     // ── Window ───────────────────────────────────────────────────────
 
+    // Forces taskbar button on borderless windows (WS_EX_APPWINDOW)
+    protected override CreateParams CreateParams
+    {
+        get
+        {
+            const int WS_EX_APPWINDOW = 0x00040000;
+            CreateParams cp = base.CreateParams;
+            cp.ExStyle |= WS_EX_APPWINDOW;
+            return cp;
+        }
+    }
+
     void SetupWindow()
     {
         Text            = "Esharq";
@@ -358,14 +370,23 @@ sealed class InstallerForm : Form
         BackColor       = BG;
         StartPosition   = FormStartPosition.CenterScreen;
         FormBorderStyle = FormBorderStyle.None;
+        ShowInTaskbar   = true;
         Font            = new Font("Segoe UI", 10f);
 
+        // Load icon from the EXE's own embedded Win32 resources (no external file needed)
         try
         {
-            var ico = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "icon.ico");
-            if (File.Exists(ico)) Icon = new Icon(ico);
+            Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
         }
-        catch { }
+        catch
+        {
+            try
+            {
+                var ico = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "icon.ico");
+                if (File.Exists(ico)) Icon = new Icon(ico);
+            }
+            catch { }
+        }
     }
 
     // ── Sidebar (0,0,240,650) ────────────────────────────────────────
