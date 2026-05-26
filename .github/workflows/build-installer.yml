@@ -162,10 +162,10 @@ jobs:
                   retention-days: 60
 
             - name: Upload to v1.0.0-stable release
-              if: github.event_name == 'push' || github.event_name == 'workflow_call'
+              if: github.event_name == 'push' || github.event_name == 'workflow_call' || github.event_name == 'workflow_dispatch'
               shell: bash
               env:
-                  GITHUB_TOKEN: ${{ secrets.ETOKEN }}
+                  GH_TOKEN: ${{ secrets.ETOKEN || github.token }}
               run: |
                   V="${{ steps.ver.outputs.version }}"
                   if gh release view v1.0.0-stable >/dev/null 2>&1; then
