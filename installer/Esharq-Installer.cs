@@ -1,12 +1,8 @@
-// Esharq Installer — Native .NET 4.8 WinForms
-// Copyright (c) 2026 LOSTSTR — GPL-3.0
-// Build: csc.exe /target:winexe /win32manifest:Esharq.manifest /win32icon:icon.ico
-//
-// WHY native C# instead of ps2exe:
-//   ps2exe embeds a known wrapper that AV vendors signature-match (convagent/msil).
-//   A directly compiled WinForms EXE has no such signature.
-//   requestedExecutionLevel=asInvoker avoids UAC-trigger heuristics.
-//   Discord installs to %LOCALAPPDATA% — admin is never needed.
+// Esharq Installer v2 — Native .NET 4 WinForms (860×580)
+// Build: csc /nologo /target:winexe /platform:x86 /optimize+
+//        /win32manifest:Esharq.manifest /win32icon:icon.ico
+//        /reference:System.Windows.Forms.dll /reference:System.Drawing.dll
+//        /out:EsharqSetup.exe Esharq-Installer.cs
 
 using System;
 using System.Collections.Generic;
@@ -20,7 +16,6 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 
-// Assembly metadata — important for SmartScreen reputation and AV trust scoring
 [assembly: AssemblyTitle("Esharq Installer")]
 [assembly: AssemblyDescription("Esharq Discord Mod Installer")]
 [assembly: AssemblyCompany("LOSTSTR")]
@@ -38,11 +33,11 @@ sealed class DiscordInstall
     public string Name;
     public string ResourcesPath;
     public bool   IsPatched;
-    public string Label;
+    public string DisplayPath;
 }
 
 // ─────────────────────────────────────────────────────────────────────
-// Installer logic  (pure static, no UI dependency)
+// Logic  (pure static, no UI dependency)
 // ─────────────────────────────────────────────────────────────────────
 
 static class Logic
@@ -52,12 +47,11 @@ static class Logic
     const string ASAR         = "desktop.asar";
     const string OPENASAR_URL = "https://github.com/GooseMod/OpenAsar/releases/download/nightly/app.asar";
 
-    // Called once at startup — sets TLS 1.2 globally
     public static void InitNetwork()
     {
         ServicePointManager.SecurityProtocol =
-            (SecurityProtocolType)3072 |   // TLS 1.2
-            (SecurityProtocolType)12288;   // TLS 1.3 (if available)
+            (SecurityProtocolType)3072 |
+            (SecurityProtocolType)12288;
         ServicePointManager.DefaultConnectionLimit = 4;
     }
 
@@ -75,7 +69,7 @@ static class Logic
 
     public static string AsarTarget { get { return Path.Combine(DataDir, "equicord.asar"); } }
 
-    // ── Discord detection ────────────────────────────────────────────
+    public static bool IsInstalled { get { return File.Exists(AsarTarget); } }
 
     public static List<DiscordInstall> FindDiscord()
     {
@@ -88,30 +82,23 @@ static class Logic
         {
             var baseDir = Path.Combine(local, folders[i]);
             if (!Directory.Exists(baseDir)) continue;
-
             string[] appDirs;
             try { appDirs = Directory.GetDirectories(baseDir, "app-*"); }
             catch { continue; }
             if (appDirs.Length == 0) continue;
-
             Array.Sort(appDirs);
             var res = Path.Combine(appDirs[appDirs.Length - 1], "resources");
             if (!Directory.Exists(res)) continue;
-
-            bool patched = File.Exists(Path.Combine(res, ASAR));
             result.Add(new DiscordInstall
             {
                 Name          = names[i],
                 ResourcesPath = res,
-                IsPatched     = patched,
-                Label         = string.Format("{0} — {1}{2}",
-                    names[i], baseDir, patched ? " [مُثبَّت]" : ""),
+                IsPatched     = File.Exists(Path.Combine(res, ASAR)),
+                DisplayPath   = baseDir,
             });
         }
         return result;
     }
-
-    // ── Version info ────────────────────────────────────────────────
 
     public static string LatestTag()
     {
@@ -121,21 +108,18 @@ static class Logic
             {
                 var json = wc.DownloadString(RELEASE_API);
                 var m    = Regex.Match(json, "\"tag_name\"\\s*:\\s*\"([^\"]+)\"");
-                return m.Success ? m.Groups[1].Value : "غير متاح";
+                return m.Success ? m.Groups[1].Value : "—";
             }
         }
-        catch { return "غير متاح"; }
+        catch { return "—"; }
     }
 
-    public static string LocalVersion(string resourcesPath)
+    public static string LocalVersion()
     {
-        var f = Path.Combine(resourcesPath, ASAR);
-        if (!File.Exists(f)) return "لا يوجد";
-        try { return File.GetLastWriteTime(f).ToString("yyyy-MM-dd"); }
+        if (!IsInstalled) return "—";
+        try { return File.GetLastWriteTime(AsarTarget).ToString("yyyy-MM-dd"); }
         catch { return "مثبَّت"; }
     }
-
-    // ── Download helpers ─────────────────────────────────────────────
 
     static string GetAsarUrl(out string tag, out long size)
     {
@@ -169,7 +153,6 @@ static class Logic
         req.UserAgent       = UA;
         req.AllowAutoRedirect = true;
         req.Timeout           = 30000;
-
         using (var resp = (HttpWebResponse)req.GetResponse())
         using (var rs   = resp.GetResponseStream())
         using (var fs   = File.Create(dest))
@@ -187,13 +170,10 @@ static class Logic
         }
     }
 
-    // ── Process management ───────────────────────────────────────────
-
     public static void KillDiscord(string resourcesPath)
     {
         try
         {
-            // Walk up: resources → app-x.x.x → Discord/DiscordPTB/...
             var discordRoot = Path.GetDirectoryName(Path.GetDirectoryName(resourcesPath));
             var procName    = Path.GetFileName(discordRoot);
             foreach (var p in Process.GetProcessesByName(procName))
@@ -203,58 +183,47 @@ static class Logic
         catch { }
     }
 
-    // ── Install operations ───────────────────────────────────────────
-
     public static void Install(string res, Action<string> status, Action<int> progress)
     {
         status("جارٍ جلب معلومات آخر إصدار...");
         progress(5);
-
         string tag; long sz;
         var url = GetAsarUrl(out tag, out sz);
         if (string.IsNullOrEmpty(url))
             throw new Exception("لم يُعثر على ملف " + ASAR + " في أحدث إصدار");
-
-        status(string.Format("تحميل {0} — {1} ({2:F1} MB)", ASAR, tag, sz / 1048576.0));
+        status(string.Format("تحميل {0}  ({1:F1} MB)...", tag, sz / 1048576.0));
         progress(10);
-
         Directory.CreateDirectory(DataDir);
         var tmp = Path.Combine(Path.GetTempPath(),
             "esharq_" + Guid.NewGuid().ToString("N") + ".asar");
-
         Download(url, tmp, (pct, dl, tot) =>
         {
             status(string.Format("تحميل: {0:F1}/{1:F1} MB  ({2}%)",
                 dl / 1048576.0, tot / 1048576.0, pct));
             progress(10 + (int)(pct * 0.65));
         });
-
-        status("نسخ الملف إلى مجلد الموارد...");
+        status("تطبيق التعديل على Discord...");
         progress(80);
-
         KillDiscord(res);
         File.Copy(tmp, Path.Combine(res, ASAR), true);
         File.Copy(tmp, AsarTarget, true);
         try { File.Delete(tmp); } catch { }
-
         progress(100);
-        status("✔ تم التثبيت — أعد تشغيل Discord لتفعيل Esharq");
+        status("✓ تم التثبيت — أعد تشغيل Discord لتفعيل Esharq");
     }
 
     public static void Uninstall(string res, Action<string> status, Action<int> progress)
     {
-        status("جارٍ الإزالة...");
-        progress(30);
-
+        status("جارٍ إزالة Esharq...");
+        progress(20);
         KillDiscord(res);
+        progress(50);
         var f = Path.Combine(res, ASAR);
         if (File.Exists(f)) File.Delete(f);
-
         progress(80);
         if (File.Exists(AsarTarget)) File.Delete(AsarTarget);
-
         progress(100);
-        status("✔ تمت الإزالة — أعد تشغيل Discord");
+        status("✓ تمت الإزالة — أعد تشغيل Discord");
     }
 
     public static void InstallOpenAsar(string res, Action<string> status, Action<int> progress)
@@ -262,21 +231,17 @@ static class Logic
         status("جارٍ إغلاق Discord...");
         progress(5);
         KillDiscord(res);
-
         status("جارٍ تنزيل OpenAsar...");
         progress(10);
-
         var tmp = Path.Combine(Path.GetTempPath(),
             "openasar_" + Guid.NewGuid().ToString("N") + ".asar");
         Download(OPENASAR_URL, tmp, (p, dl, tot) => progress(10 + (int)(p * 0.85)));
-
-        status("نسخ OpenAsar...");
+        status("تطبيق OpenAsar...");
         progress(97);
         File.Copy(tmp, Path.Combine(res, "app.asar"), true);
         try { File.Delete(tmp); } catch { }
-
         progress(100);
-        status("✔ تم تثبيت OpenAsar — أعد تشغيل Discord");
+        status("✓ تم تثبيت OpenAsar — أعد تشغيل Discord");
     }
 
     static WebClient MakeClient()
@@ -288,8 +253,7 @@ static class Logic
 }
 
 // ─────────────────────────────────────────────────────────────────────
-// RoundedButton — simple flat button with rounded corners
-// (no suspicious custom rendering patterns — just basic GDI+)
+// RoundButton
 // ─────────────────────────────────────────────────────────────────────
 
 sealed class RoundButton : Button
@@ -297,352 +261,691 @@ sealed class RoundButton : Button
     int _r;
     public int Radius { get { return _r; } set { _r = value; Invalidate(); } }
 
-    public RoundButton() { _r = 6; FlatStyle = FlatStyle.Flat; FlatAppearance.BorderSize = 0; }
+    public RoundButton()
+    {
+        _r = 6;
+        FlatStyle = FlatStyle.Flat;
+        FlatAppearance.BorderSize = 0;
+        Cursor = Cursors.Hand;
+    }
 
     protected override void OnPaint(PaintEventArgs e)
     {
         var g = e.Graphics;
         g.SmoothingMode = SmoothingMode.AntiAlias;
         g.Clear(Parent != null ? Parent.BackColor : BackColor);
-
-        var r  = ClientRectangle;
-        int d  = Math.Min(_r * 2, Math.Min(r.Width, r.Height));
-        var gp = new GraphicsPath();
-        gp.AddArc(r.Left, r.Top, d, d, 180, 90);
-        gp.AddArc(r.Right - d, r.Top, d, d, 270, 90);
-        gp.AddArc(r.Right - d, r.Bottom - d, d, d, 0, 90);
-        gp.AddArc(r.Left, r.Bottom - d, d, d, 90, 90);
-        gp.CloseFigure();
-
-        using (var b = new SolidBrush(BackColor))   g.FillPath(b, gp);
-        var sf = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
-        using (var b = new SolidBrush(ForeColor))   g.DrawString(Text, Font, b, r, sf);
-        gp.Dispose();
+        var rect = ClientRectangle;
+        int d = Math.Min(_r * 2, Math.Min(rect.Width, rect.Height));
+        using (var gp = new GraphicsPath())
+        {
+            gp.AddArc(rect.Left, rect.Top, d, d, 180, 90);
+            gp.AddArc(rect.Right - d, rect.Top, d, d, 270, 90);
+            gp.AddArc(rect.Right - d, rect.Bottom - d, d, d, 0, 90);
+            gp.AddArc(rect.Left, rect.Bottom - d, d, d, 90, 90);
+            gp.CloseFigure();
+            using (var b = new SolidBrush(BackColor)) g.FillPath(b, gp);
+        }
+        var sf = new StringFormat
+        {
+            Alignment     = StringAlignment.Center,
+            LineAlignment = StringAlignment.Center,
+        };
+        using (var b = new SolidBrush(ForeColor))
+            g.DrawString(Text, Font, b, (RectangleF)rect, sf);
     }
 }
 
 // ─────────────────────────────────────────────────────────────────────
-// Thin progress bar
+// ThinProgress
 // ─────────────────────────────────────────────────────────────────────
 
 sealed class ThinProgress : Control
 {
-    int _val;
+    int   _val;
+    Color _fill;
+
     public int Value
     {
         get { return _val; }
         set { _val = Math.Max(0, Math.Min(100, value)); Invalidate(); }
     }
-    public Color FillColor { get; set; }
 
-    public ThinProgress() { FillColor = Color.FromArgb(67, 181, 73); }
+    public Color FillColor
+    {
+        get { return _fill; }
+        set { _fill = value; Invalidate(); }
+    }
+
+    public ThinProgress() { _fill = Color.FromArgb(59, 165, 93); }
 
     protected override void OnPaint(PaintEventArgs e)
     {
         e.Graphics.Clear(BackColor);
         if (_val <= 0) return;
         float w = Width * _val / 100f;
-        using (var b = new SolidBrush(FillColor))
+        using (var b = new SolidBrush(_fill))
             e.Graphics.FillRectangle(b, 0, 0, w, Height);
     }
 }
 
 // ─────────────────────────────────────────────────────────────────────
-// Main installer form — Equilotl-style dark UI
+// DiscordCard  — panel with rounded border, highlights when selected
+// ─────────────────────────────────────────────────────────────────────
+
+sealed class DiscordCard : Panel
+{
+    static readonly Color C_NORMAL   = Color.FromArgb(37,  43,  59);
+    static readonly Color C_SELECTED = Color.FromArgb(88, 101, 242);
+    static readonly Color C_DISABLED = Color.FromArgb(28,  32,  44);
+
+    bool _selected;
+    bool _available;
+
+    public bool CardSelected
+    {
+        get { return _selected; }
+        set { _selected = value; Invalidate(); }
+    }
+
+    public bool Available { get { return _available; } }
+
+    public DiscordCard(bool available)
+    {
+        _available = available;
+        _selected  = false;
+        DoubleBuffered = true;
+    }
+
+    protected override void OnPaint(PaintEventArgs e)
+    {
+        base.OnPaint(e);
+        var g = e.Graphics;
+        g.SmoothingMode = SmoothingMode.AntiAlias;
+        var r   = new Rectangle(0, 0, Width - 1, Height - 1);
+        int d   = 14;
+        var col = !_available ? C_DISABLED : _selected ? C_SELECTED : C_NORMAL;
+        using (var gp = new GraphicsPath())
+        {
+            gp.AddArc(r.Left,          r.Top,           d, d, 180, 90);
+            gp.AddArc(r.Right - d,     r.Top,           d, d, 270, 90);
+            gp.AddArc(r.Right - d,     r.Bottom - d,    d, d,   0, 90);
+            gp.AddArc(r.Left,          r.Bottom - d,    d, d,  90, 90);
+            gp.CloseFigure();
+            using (var pen = new Pen(col, _selected ? 1.5f : 1f))
+                g.DrawPath(pen, gp);
+        }
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────────
+// InstallerForm  — main window
+//
+// Layout (ClientSize = 860×580):
+//   y=  0  Header panel         h=56
+//   y= 56  Separator            h= 1
+//   y= 72  Picker label
+//   y=104  Discord cards        h=96  (two side-by-side)
+//   y=216  Custom path row      h=28
+//   y=258  Inline path info     h=36  (two lines)
+//   y=304  Primary button       h=52
+//   y=364  Progress bar         h= 4
+//   y=372  Status label         h=20
+//   y=402  Separator            h= 1
+//   y=410  Support strip        h=36
+//   y=452  Advanced panel       h=52  (hidden by default)
+//   y=543  Footer separator     h= 1
+//   y=544  Footer               h=36
 // ─────────────────────────────────────────────────────────────────────
 
 sealed class InstallerForm : Form
 {
-    // Palette (matches original Equilotl design)
-    static readonly Color BG      = Color.FromArgb( 30,  31,  34);
-    static readonly Color PANEL   = Color.FromArgb( 40,  41,  45);
-    static readonly Color FG      = Color.FromArgb(220, 221, 222);
-    static readonly Color MUTED   = Color.FromArgb(148, 155, 164);
-    static readonly Color WARN_BG = Color.FromArgb(250, 210,  50);
-    static readonly Color WARN_FG = Color.FromArgb( 20,  20,  20);
-    static readonly Color GREEN   = Color.FromArgb( 67, 181,  73);
-    static readonly Color BLUE    = Color.FromArgb( 88, 101, 242);
-    static readonly Color RED     = Color.FromArgb(237,  66,  69);
-    static readonly Color LINK    = Color.FromArgb(100, 149, 237);
+    // Palette
+    static readonly Color BG          = Color.FromArgb( 15,  17,  23);
+    static readonly Color SURFACE     = Color.FromArgb( 23,  27,  36);
+    static readonly Color SURFACE2    = Color.FromArgb( 29,  34,  49);
+    static readonly Color BORDER      = Color.FromArgb( 37,  43,  59);
+    static readonly Color ACCENT      = Color.FromArgb( 88, 101, 242);
+    static readonly Color SUCCESS     = Color.FromArgb( 59, 165,  93);
+    static readonly Color DANGER      = Color.FromArgb(237,  66,  69);
+    static readonly Color TEXT_PRI    = Color.FromArgb(242, 243, 245);
+    static readonly Color TEXT_SEC    = Color.FromArgb(185, 187, 190);
+    static readonly Color TEXT_MUTED  = Color.FromArgb(114, 118, 125);
 
-    const string VER = "1.14.13.0";
+    const string DISCORD_URL = "https://discord.gg/QamdqDNEDa";
+    const string GITHUB_URL  = "https://github.com/LOSTSTR/Esharq";
+    const string VER         = "1.14.13.0";
 
-    Label         _lblLocal, _lblLatest, _lblStatus;
-    ThinProgress  _prog;
-    List<RadioButton>     _radios   = new List<RadioButton>();
-    List<DiscordInstall>  _installs = new List<DiscordInstall>();
-    RadioButton   _rbCustom;
-    TextBox       _txtCustom;
-    RoundButton   _btnInstall, _btnRepair, _btnRemove, _btnOpenAsar;
+    // State
+    Label                _lblStatus, _lblPath, _lblLocalVer, _lblLatestVer;
+    ThinProgress         _prog;
+    RoundButton          _btnPrimary, _btnRepair, _btnOpenAsar;
+    Button               _btnRemove, _btnToggleAdv;
+    Panel                _pnlAdvanced;
+    bool                 _advExpanded;
+    List<DiscordCard>    _cards    = new List<DiscordCard>();
+    List<RadioButton>    _radios   = new List<RadioButton>();
+    List<DiscordInstall> _installs = new List<DiscordInstall>();
+    RadioButton          _rbCustom;
+    TextBox              _txtCustom;
 
     public InstallerForm()
     {
         SuspendLayout();
-        Build();
+        SetupWindow();
+        BuildHeader();
+        BuildDiscordPicker();
+        BuildPathRow();
+        BuildPrimaryAction();
+        BuildSupportStrip();
+        BuildAdvancedPanel();
+        BuildFooter();
+        Shown += OnShown;
         ResumeLayout(true);
     }
 
-    // ── UI construction ──────────────────────────────────────────────
+    // ── Window ───────────────────────────────────────────────────────
 
-    void Build()
+    void SetupWindow()
     {
         Text            = "Esharq";
-        ClientSize      = new Size(1200, 700);
-        MinimumSize     = new Size(1200, 722);
-        MaximumSize     = new Size(1200, 722);
+        ClientSize      = new Size(860, 580);
         BackColor       = BG;
         StartPosition   = FormStartPosition.CenterScreen;
         FormBorderStyle = FormBorderStyle.FixedSingle;
         MaximizeBox     = false;
-        Font            = new Font("Segoe UI", 11f);
-
+        Font            = new Font("Segoe UI", 10f);
+        DoubleBuffered  = true;
         try
         {
             var ico = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "icon.ico");
             if (File.Exists(ico)) Icon = new Icon(ico);
         }
         catch { }
+    }
 
-        // ── Title ─────────────────────────────────────────────────
-        var title = new Label
+    // ── Header (y=0..56) ─────────────────────────────────────────────
+
+    void BuildHeader()
+    {
+        var hdr = new Panel
         {
-            Text      = "Esharq",
-            Location  = new Point(0, 24),
-            Size      = new Size(1200, 60),
-            ForeColor = FG,
-            BackColor = Color.Transparent,
-            Font      = new Font("Segoe UI", 28f, FontStyle.Bold),
-            TextAlign = ContentAlignment.MiddleCenter,
+            Location  = new Point(0, 0),
+            Size      = new Size(860, 56),
+            BackColor = SURFACE,
         };
-        Controls.Add(title);
+        Controls.Add(hdr);
 
-        // ── Info section ──────────────────────────────────────────
-        int infoY = 90;
+        // Logo glyph
+        hdr.Controls.Add(Lbl("✦", 22, 15, ACCENT, 14f, FontStyle.Bold, hdr));
 
-        var pathLbl = FL("📁  سيتم تنزيل Esharq إلى: " + Logic.AsarTarget, 48, infoY, MUTED, 10f);
+        // App name
+        hdr.Controls.Add(Lbl("Esharq", 44, 15, TEXT_PRI, 14f, FontStyle.Bold, hdr));
 
-        var btnDir = Btn("فتح المجلد", LINK, Color.White,
-            new Point(pathLbl.Right + 10, infoY - 2), new Size(100, 26), 5);
-        btnDir.Font = new Font("Segoe UI", 9f);
-        btnDir.Click += (s, e) =>
+        // Version
+        hdr.Controls.Add(Lbl("v" + VER, 116, 21, TEXT_MUTED, 9f, FontStyle.Regular, hdr));
+
+        // Discord support link (Variation A — ambient header link)
+        var lnkDis = MakeLink("💬 دعم", 654, 19, 9f, hdr);
+        lnkDis.LinkClicked += (s, e) => TryOpen(DISCORD_URL);
+        hdr.Controls.Add(lnkDis);
+
+        hdr.Controls.Add(Lbl("·", 700, 19, TEXT_MUTED, 9f, FontStyle.Regular, hdr));
+
+        var lnkGit = MakeLink("GitHub", 712, 19, 9f, hdr);
+        lnkGit.LinkClicked += (s, e) => TryOpen(GITHUB_URL);
+        hdr.Controls.Add(lnkGit);
+
+        // Separator
+        Controls.Add(new Panel
         {
-            Directory.CreateDirectory(Logic.DataDir);
-            Process.Start("explorer.exe", Logic.DataDir);
-        };
-
-        FL("لتخصيص المسار: قم بتعيين متغير البيئة 'EQUICORD_USER_DATA_DIR' ثم أعد تشغيل المثبت",
-            48, infoY + 28, MUTED, 10f);
-
-        FL("إصدار المثبت: v" + VER, 48, infoY + 62, MUTED, 10f);
-
-        _lblLocal  = FL("الإصدار المحلي: جارٍ الفحص...",   48, infoY + 90,  MUTED, 10f);
-        _lblLatest = FL("آخر إصدار: جارٍ الجلب...",        48, infoY + 118, MUTED, 10f);
-
-        // ── Warning box ───────────────────────────────────────────
-        int warnY = 240;
-        var warnPnl = new Panel
-        {
-            Location  = new Point(48, warnY),
-            Size      = new Size(1104, 90),
-            BackColor = WARN_BG,
-        };
-        Controls.Add(warnPnl);
-        warnPnl.Controls.Add(new Label
-        {
-            Text      = "⚠  هام جداً  —  GitHub ومستودع LOSTSTR/Esharq هما المصدران الرسميان الوحيدان للحصول على Esharq.\r\nأي مصدر آخر يُعتبر ضاراً — احذف كل شيء وأجرِ فحصاً للبرامج الضارة وغيّر كلمة مرور Discord.",
-            Location  = new Point(12, 10),
-            Size      = new Size(1080, 70),
-            ForeColor = WARN_FG,
-            BackColor = Color.Transparent,
-            Font      = new Font("Segoe UI", 11f),
+            Location  = new Point(0, 56),
+            Size      = new Size(860, 1),
+            BackColor = BORDER,
         });
+    }
 
-        // ── Discord version picker ────────────────────────────────
-        int selY = warnY + 102;
-        FL("الرجاء اختيار نسخة Discord للتعديل عليها", 48, selY, FG, 13f, FontStyle.Bold);
+    // ── Discord version picker (y=72..244) ───────────────────────────
+
+    void BuildDiscordPicker()
+    {
+        Controls.Add(Lbl("اختر نسخة Discord للتعديل عليها",
+            24, 72, TEXT_SEC, 11f, FontStyle.Bold));
 
         _installs = Logic.FindDiscord();
-        int ry = selY + 36;
 
-        foreach (var inst in _installs)
+        // Pad to 2 slots for card display
+        var display = new List<DiscordInstall>(_installs);
+        while (display.Count < 2) display.Add(null);
+
+        int cardW = 400, cardH = 96, cardY = 104;
+        int[] xs  = { 24, 436 };
+        var fallbackNames = new[] { "Discord Stable", "PTB / Canary" };
+
+        for (int i = 0; i < 2; i++)
         {
+            var   inst  = display[i];
+            bool  avail = inst != null;
+            int   xi    = xs[i];
+
+            var card = new DiscordCard(avail)
+            {
+                Location  = new Point(xi, cardY),
+                Size      = new Size(cardW, cardH),
+                BackColor = avail ? SURFACE : Color.FromArgb(19, 22, 31),
+                Cursor    = avail ? Cursors.Hand : Cursors.Default,
+            };
+
             var rb = new RadioButton
             {
-                Text      = inst.Label,
-                Tag       = inst,
-                Location  = new Point(56, ry),
+                Text      = avail ? inst.Name : fallbackNames[i],
+                Location  = new Point(14, 12),
                 AutoSize  = true,
-                ForeColor = FG,
+                ForeColor = avail ? TEXT_PRI   : TEXT_MUTED,
                 BackColor = Color.Transparent,
-                Font      = new Font("Segoe UI", 11f),
-                Cursor    = Cursors.Hand,
+                Font      = new Font("Segoe UI", 11f, FontStyle.Bold),
+                Enabled   = avail,
+                Tag       = inst,
             };
-            Controls.Add(rb);
+            card.Controls.Add(rb);
             _radios.Add(rb);
-            ry += 30;
+
+            if (avail)
+            {
+                var short_ = inst.DisplayPath.Length > 50
+                    ? "..." + inst.DisplayPath.Substring(inst.DisplayPath.Length - 47)
+                    : inst.DisplayPath;
+                card.Controls.Add(Lbl(short_, 36, 38, TEXT_MUTED, 9f,
+                    FontStyle.Regular, card, cardW - 52, 18));
+
+                var statusText = inst.IsPatched ? "✓ Esharq مُثبَّت" : "✓ الأكثر استقراراً";
+                var statusCol  = inst.IsPatched ? SUCCESS : TEXT_MUTED;
+                card.Controls.Add(Lbl(statusText, 36, 60, statusCol, 9f,
+                    FontStyle.Regular, card));
+            }
+            else
+            {
+                card.Controls.Add(Lbl("غير مثبَّتة على هذا الجهاز",
+                    36, 38, TEXT_MUTED, 9f, FontStyle.Regular, card));
+            }
+
+            // Clicking anywhere on the card selects the radio
+            int ci = i;
+            EventHandler selectCard = (s, e) =>
+            {
+                if (!_cards[ci].Available) return;
+                _radios[ci].Checked = true;
+            };
+            card.Click += selectCard;
+            foreach (Control c in card.Controls) c.Click += selectCard;
+
+            int ji = i;
+            rb.CheckedChanged += (s, e) =>
+            {
+                for (int k = 0; k < _cards.Count; k++)
+                    _cards[k].CardSelected = _radios[k].Checked;
+                if (rb.Checked && _rbCustom != null) _rbCustom.Checked = false;
+                UpdatePrimaryButton();
+            };
+
+            Controls.Add(card);
+            _cards.Add(card);
         }
-        if (_radios.Count > 0)
-            _radios[0].Checked = true;
-        else
+
+        // Select first available card
+        for (int i = 0; i < _radios.Count; i++)
         {
-            FL("⚠  لم يُعثر على أي نسخة من Discord مثبتة على هذا الجهاز", 56, ry, MUTED, 10f);
-            ry += 28;
+            if (_radios[i].Enabled)
+            {
+                _radios[i].Checked     = true;
+                _cards[i].CardSelected = true;
+                break;
+            }
         }
+
+        // Custom path row (y=216)
+        int customY = cardY + cardH + 16;
 
         _rbCustom = new RadioButton
         {
             Text      = "مسار تثبيت مخصص",
-            Location  = new Point(56, ry + 8),
+            Location  = new Point(28, customY + 4),
             AutoSize  = true,
-            ForeColor = FG,
+            ForeColor = TEXT_SEC,
             BackColor = Color.Transparent,
-            Font      = new Font("Segoe UI", 11f),
+            Font      = new Font("Segoe UI", 10f),
             Cursor    = Cursors.Hand,
         };
         Controls.Add(_rbCustom);
 
         _txtCustom = new TextBox
         {
-            Location    = new Point(48, ry + 44),
-            Size        = new Size(1104, 34),
-            BackColor   = PANEL,
-            ForeColor   = MUTED,
+            Location    = new Point(204, customY),
+            Size        = new Size(540, 28),
+            BackColor   = SURFACE,
+            ForeColor   = TEXT_MUTED,
             BorderStyle = BorderStyle.FixedSingle,
-            Font        = new Font("Segoe UI", 11f),
-            Text        = "المسار المخصص (مجلد resources الخاص بـ Discord)",
+            Font        = new Font("Segoe UI", 9f),
+            Text        = "مجلد resources الخاص بـ Discord",
             Enabled     = false,
         };
         Controls.Add(_txtCustom);
+
+        var btnBrowse = new Button
+        {
+            Text      = "استعراض",
+            Location  = new Point(752, customY),
+            Size      = new Size(84, 28),
+            BackColor = SURFACE2,
+            ForeColor = TEXT_SEC,
+            FlatStyle = FlatStyle.Flat,
+            Font      = new Font("Segoe UI", 9f),
+            Enabled   = false,
+            Cursor    = Cursors.Hand,
+        };
+        btnBrowse.FlatAppearance.BorderColor = BORDER;
+        Controls.Add(btnBrowse);
+
         _rbCustom.CheckedChanged += (s, e) =>
         {
-            _txtCustom.Enabled   = _rbCustom.Checked;
-            _txtCustom.ForeColor = _rbCustom.Checked ? FG : MUTED;
+            bool on = _rbCustom.Checked;
+            _txtCustom.Enabled   = on;
+            _txtCustom.ForeColor = on ? TEXT_PRI : TEXT_MUTED;
+            btnBrowse.Enabled    = on;
+            if (on)
+            {
+                for (int i = 0; i < _cards.Count; i++)
+                {
+                    _radios[i].Checked     = false;
+                    _cards[i].CardSelected = false;
+                }
+            }
+            UpdatePrimaryButton();
         };
 
-        // ── Status & progress bar ─────────────────────────────────
-        int stY = 572;
-        _lblStatus = new Label
+        btnBrowse.Click += (s, e) =>
         {
-            Text      = "اختر نسخة Discord ثم اضغط على أحد الأزرار",
-            Location  = new Point(48, stY),
-            Size      = new Size(1104, 26),
-            ForeColor = MUTED,
-            BackColor = Color.Transparent,
-            Font      = new Font("Segoe UI", 10f),
+            using (var dlg = new FolderBrowserDialog())
+            {
+                dlg.Description = "اختر مجلد resources الخاص بـ Discord";
+                if (dlg.ShowDialog(this) == DialogResult.OK)
+                {
+                    _txtCustom.Text      = dlg.SelectedPath;
+                    _txtCustom.ForeColor = TEXT_PRI;
+                }
+            }
         };
-        Controls.Add(_lblStatus);
+    }
+
+    // ── Inline path row (y=258..294) ─────────────────────────────────
+
+    void BuildPathRow()
+    {
+        const int y = 258;
+
+        Controls.Add(Lbl("📦", 24, y, TEXT_MUTED, 9f));
+
+        _lblPath = Lbl("يُثبَّت في: " + ShortenPath(Logic.AsarTarget),
+            44, y, TEXT_MUTED, 9f);
+        Controls.Add(_lblPath);
+
+        var lnkOpen = MakeLink("فتح ↗", 752, y, 9f);
+        lnkOpen.LinkClicked += (s, e) =>
+        {
+            Directory.CreateDirectory(Logic.DataDir);
+            Process.Start("explorer.exe", Logic.DataDir);
+        };
+        Controls.Add(lnkOpen);
+
+        _lblLocalVer = Lbl("الإصدار المحلي: —", 44, y + 20, TEXT_MUTED, 9f);
+        Controls.Add(_lblLocalVer);
+
+        _lblLatestVer = Lbl("·  آخر إصدار: جارٍ الجلب...", 200, y + 20, TEXT_MUTED, 9f);
+        Controls.Add(_lblLatestVer);
+    }
+
+    // ── Primary action + progress (y=304..392) ───────────────────────
+
+    void BuildPrimaryAction()
+    {
+        _btnPrimary = new RoundButton
+        {
+            Text      = "تثبيت Esharq",
+            Location  = new Point(24, 304),
+            Size      = new Size(812, 52),
+            BackColor = SUCCESS,
+            ForeColor = Color.White,
+            Radius    = 8,
+            Font      = new Font("Segoe UI", 13f, FontStyle.Bold),
+        };
+        _btnPrimary.Click += OnPrimaryClick;
+        Controls.Add(_btnPrimary);
 
         _prog = new ThinProgress
         {
-            Location  = new Point(48, stY + 30),
-            Size      = new Size(1104, 4),
-            BackColor = PANEL,
-            FillColor = GREEN,
+            Location  = new Point(24, 364),
+            Size      = new Size(812, 4),
+            BackColor = SURFACE,
+            FillColor = SUCCESS,
         };
         Controls.Add(_prog);
 
-        // separator
-        Controls.Add(new Panel { Location = new Point(48, stY + 40), Size = new Size(1104, 1), BackColor = PANEL });
-
-        // ── Action buttons ────────────────────────────────────────
-        int bY = 614, bW = 264, bH = 50, gap = 8;
-
-        _btnInstall = Btn("تثبيت", GREEN,  Color.White,              new Point(48, bY),                new Size(bW, bH), 8);
-        _btnRepair  = Btn("إعادة التثبيت / الإصلاح", BLUE, Color.White, new Point(48 + bW + gap, bY),   new Size(bW, bH), 8);
-        _btnRemove  = Btn("إزالة التثبيت",  RED,   Color.White,      new Point(48 + (bW+gap)*2, bY),  new Size(bW, bH), 8);
-        _btnOpenAsar= Btn("تثبيت OpenAsar", GREEN, Color.White,       new Point(48 + (bW+gap)*3, bY),  new Size(bW, bH), 8);
-
-        foreach (var b in new[] { _btnInstall, _btnRepair, _btnRemove, _btnOpenAsar })
-            b.Font = new Font("Segoe UI", 12f, FontStyle.Bold);
-
-        // ── Footer ────────────────────────────────────────────────
-        var ft = new Panel { Location = new Point(0, 668), Size = new Size(1200, 32), BackColor = PANEL };
-        Controls.Add(ft);
-        ft.Controls.Add(new Label
+        _lblStatus = new Label
         {
-            Text      = "LOSTSTR • krym511 • RAYMOND♮ • Abo Ahmed • S99 • iosiph • .fmo   —   Esharq 2026 • GPL-3.0",
-            Location  = new Point(12, 0),
-            Size      = new Size(680, 32),
-            ForeColor = MUTED,
+            Text      = "اختر نسخة Discord ثم اضغط تثبيت",
+            Location  = new Point(24, 372),
+            Size      = new Size(812, 20),
+            ForeColor = TEXT_MUTED,
             BackColor = Color.Transparent,
             Font      = new Font("Segoe UI", 9f),
-            TextAlign = ContentAlignment.MiddleLeft,
-        });
-        var discordLink = new LinkLabel
-        {
-            Text            = "⚠ هام — للدعم الفني انضم للديسكورد",
-            Location        = new Point(692, 0),
-            Size            = new Size(230, 32),
-            ForeColor       = WARN_BG,
-            BackColor       = Color.Transparent,
-            Font            = new Font("Segoe UI", 9f, FontStyle.Bold),
-            TextAlign       = ContentAlignment.MiddleCenter,
-            LinkColor       = WARN_BG,
-            ActiveLinkColor = Color.White,
-            LinkBehavior    = LinkBehavior.HoverUnderline,
         };
-        discordLink.LinkClicked += (s, e) => TryOpen("https://discord.gg/QamdqDNEDa");
-        ft.Controls.Add(discordLink);
-        var ftLink = new LinkLabel
-        {
-            Text            = "LOSTSTR/Esharq on GitHub",
-            Location        = new Point(924, 0),
-            Size            = new Size(264, 32),
-            ForeColor       = LINK,
-            BackColor       = Color.Transparent,
-            Font            = new Font("Segoe UI", 9f),
-            TextAlign       = ContentAlignment.MiddleRight,
-            LinkColor       = LINK,
-            ActiveLinkColor = Color.White,
-            LinkBehavior    = LinkBehavior.HoverUnderline,
-        };
-        ftLink.LinkClicked += (s, e) => TryOpen("https://github.com/LOSTSTR/Esharq");
-        ft.Controls.Add(ftLink);
-
-        // Events
-        _btnInstall.Click  += OnInstall;
-        _btnRepair.Click   += OnRepair;
-        _btnRemove.Click   += OnRemove;
-        _btnOpenAsar.Click += OnOpenAsar;
-        Shown += OnShown;
+        Controls.Add(_lblStatus);
     }
 
-    // ── Shown: async version fetch ───────────────────────────────────
+    // ── Support strip + advanced toggle (y=402..446) ─────────────────
+
+    void BuildSupportStrip()
+    {
+        // Horizontal divider
+        Controls.Add(new Panel
+        {
+            Location  = new Point(24, 402),
+            Size      = new Size(812, 1),
+            BackColor = BORDER,
+        });
+
+        // Strip container (Variation B — left-border contextual)
+        var strip = new Panel
+        {
+            Location  = new Point(24, 410),
+            Size      = new Size(812, 36),
+            BackColor = Color.Transparent,
+        };
+        Controls.Add(strip);
+
+        // 3px left accent border
+        strip.Controls.Add(new Panel
+        {
+            Location  = new Point(0, 0),
+            Size      = new Size(3, 36),
+            BackColor = ACCENT,
+        });
+
+        var lnkSupport = MakeLink("واجهت مشكلة؟  انضم للدعم على Discord  ↗", 12, 9, 9f, strip);
+        lnkSupport.LinkClicked += (s, e) => TryOpen(DISCORD_URL);
+        strip.Controls.Add(lnkSupport);
+
+        // Advanced toggle (right-aligned in strip)
+        _btnToggleAdv = new Button
+        {
+            Text      = "خيارات متقدمة  ▾",
+            Location  = new Point(626, 5),
+            Size      = new Size(182, 26),
+            BackColor = Color.Transparent,
+            ForeColor = TEXT_MUTED,
+            FlatStyle = FlatStyle.Flat,
+            Font      = new Font("Segoe UI", 9f),
+            Cursor    = Cursors.Hand,
+        };
+        _btnToggleAdv.FlatAppearance.BorderSize  = 0;
+        _btnToggleAdv.FlatAppearance.BorderColor = Color.Transparent;
+        _btnToggleAdv.Click += ToggleAdvanced;
+        strip.Controls.Add(_btnToggleAdv);
+    }
+
+    // ── Advanced panel (y=452, hidden by default) ─────────────────────
+
+    void BuildAdvancedPanel()
+    {
+        _pnlAdvanced = new Panel
+        {
+            Location  = new Point(24, 452),
+            Size      = new Size(812, 52),
+            BackColor = Color.Transparent,
+            Visible   = false,
+        };
+        Controls.Add(_pnlAdvanced);
+
+        _btnRepair = new RoundButton
+        {
+            Text      = "↺  إصلاح / إعادة التثبيت",
+            Location  = new Point(0, 0),
+            Size      = new Size(264, 44),
+            BackColor = SURFACE2,
+            ForeColor = TEXT_SEC,
+            Radius    = 6,
+            Font      = new Font("Segoe UI", 10f),
+        };
+        _btnRepair.FlatAppearance.BorderColor = BORDER;
+        _btnRepair.FlatAppearance.BorderSize  = 1;
+        _btnRepair.Click += OnRepair;
+        _pnlAdvanced.Controls.Add(_btnRepair);
+
+        _btnOpenAsar = new RoundButton
+        {
+            Text      = "⚙  تثبيت OpenAsar",
+            Location  = new Point(276, 0),
+            Size      = new Size(264, 44),
+            BackColor = SURFACE2,
+            ForeColor = TEXT_SEC,
+            Radius    = 6,
+            Font      = new Font("Segoe UI", 10f),
+        };
+        _btnOpenAsar.FlatAppearance.BorderColor = BORDER;
+        _btnOpenAsar.FlatAppearance.BorderSize  = 1;
+        _btnOpenAsar.Click += OnOpenAsar;
+        _pnlAdvanced.Controls.Add(_btnOpenAsar);
+
+        // Danger — text-only, no fill
+        _btnRemove = new Button
+        {
+            Text      = "إزالة التثبيت",
+            Location  = new Point(588, 9),
+            Size      = new Size(224, 28),
+            BackColor = Color.Transparent,
+            ForeColor = DANGER,
+            FlatStyle = FlatStyle.Flat,
+            Font      = new Font("Segoe UI", 9f),
+            Cursor    = Cursors.Hand,
+            TextAlign = ContentAlignment.MiddleRight,
+        };
+        _btnRemove.FlatAppearance.BorderSize  = 0;
+        _btnRemove.FlatAppearance.BorderColor = Color.Transparent;
+        _btnRemove.Click += OnRemove;
+        _pnlAdvanced.Controls.Add(_btnRemove);
+    }
+
+    // ── Footer (y=543..580) ───────────────────────────────────────────
+
+    void BuildFooter()
+    {
+        Controls.Add(new Panel
+        {
+            Location  = new Point(0, 543),
+            Size      = new Size(860, 1),
+            BackColor = BORDER,
+        });
+
+        var ft = new Panel
+        {
+            Location  = new Point(0, 544),
+            Size      = new Size(860, 36),
+            BackColor = SURFACE,
+        };
+        Controls.Add(ft);
+
+        ft.Controls.Add(Lbl(
+            "⚠ التحميل الرسمي فقط من LOSTSTR/Esharq على GitHub  ·  GPL-3.0",
+            20, 0, TEXT_MUTED, 8.5f, FontStyle.Regular, ft, 600, 36));
+
+        ft.Controls.Add(Lbl("Esharq 2026  ·  LOSTSTR",
+            636, 0, TEXT_MUTED, 8.5f, FontStyle.Regular, ft, 204, 36,
+            ContentAlignment.MiddleRight));
+    }
+
+    // ── State-aware button ────────────────────────────────────────────
+
+    void UpdatePrimaryButton()
+    {
+        if (Logic.IsInstalled)
+        {
+            _btnPrimary.Text      = "تحديث / إعادة تثبيت Esharq";
+            _btnPrimary.BackColor = ACCENT;
+        }
+        else
+        {
+            _btnPrimary.Text      = "تثبيت Esharq";
+            _btnPrimary.BackColor = SUCCESS;
+        }
+        _btnPrimary.Invalidate();
+    }
+
+    // ── Advanced toggle ───────────────────────────────────────────────
+
+    void ToggleAdvanced(object sender, EventArgs e)
+    {
+        _advExpanded           = !_advExpanded;
+        _pnlAdvanced.Visible   = _advExpanded;
+        _btnToggleAdv.Text     = _advExpanded ? "خيارات متقدمة  ▲" : "خيارات متقدمة  ▾";
+    }
+
+    // ── Shown ─────────────────────────────────────────────────────────
 
     void OnShown(object sender, EventArgs e)
     {
-        var sel = Selected();
-        _lblLocal.Text = "الإصدار المحلي: " +
-            (sel != null ? Logic.LocalVersion(sel.ResourcesPath) : "لا يوجد");
+        UpdatePrimaryButton();
+        _lblLocalVer.Text  = "الإصدار المحلي: " + Logic.LocalVersion();
 
         var t = new Thread(() =>
         {
             var tag = Logic.LatestTag();
-            SafeInvoke(() => _lblLatest.Text = "آخر إصدار: " + tag);
+            SafeInvoke(() => _lblLatestVer.Text = "·  آخر إصدار: " + tag);
         });
         t.IsBackground = true;
         t.Start();
     }
 
-    // ── Button handlers ──────────────────────────────────────────────
+    // ── Button handlers ───────────────────────────────────────────────
 
-    void OnInstall(object sender, EventArgs e)
+    void OnPrimaryClick(object sender, EventArgs e)
     {
-        string target; if (!TryGetTarget(out target)) return;
+        string target;
+        if (!TryGetTarget(out target)) return;
         if (!ConfirmKill(target)) return;
         RunAsync(() => Logic.Install(target, s => Msg(s), v => Prog(v)));
     }
 
     void OnRepair(object sender, EventArgs e)
     {
-        string target; if (!TryGetTarget(out target)) return;
+        string target;
+        if (!TryGetTarget(out target)) return;
         if (!ConfirmKill(target)) return;
         RunAsync(() => Logic.Install(target, s => Msg(s), v => Prog(v)));
     }
 
     void OnRemove(object sender, EventArgs e)
     {
-        string target; if (!TryGetTarget(out target)) return;
+        string target;
+        if (!TryGetTarget(out target)) return;
         var r = MessageBox.Show(this,
             "هل تريد إزالة Esharq بالكامل؟",
             "تأكيد الإزالة", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -653,16 +956,18 @@ sealed class InstallerForm : Form
 
     void OnOpenAsar(object sender, EventArgs e)
     {
-        string target; if (!TryGetTarget(out target)) return;
+        string target;
+        if (!TryGetTarget(out target)) return;
         if (!ConfirmKill(target)) return;
         RunAsync(() => Logic.InstallOpenAsar(target, s => Msg(s), v => Prog(v)));
     }
 
-    // ── Helpers ──────────────────────────────────────────────────────
+    // ── Helpers ───────────────────────────────────────────────────────
 
-    DiscordInstall Selected()
+    DiscordInstall SelectedInstall()
     {
-        foreach (var rb in _radios) if (rb.Checked) return rb.Tag as DiscordInstall;
+        for (int i = 0; i < _radios.Count; i++)
+            if (_radios[i].Checked) return _radios[i].Tag as DiscordInstall;
         return null;
     }
 
@@ -676,11 +981,14 @@ sealed class InstallerForm : Form
                 var p = _txtCustom.Text.Trim();
                 if (string.IsNullOrEmpty(p) || !Directory.Exists(p))
                     throw new Exception("المسار المخصص غير صحيح أو غير موجود");
-                path = p; return true;
+                path = p;
+                return true;
             }
-            var inst = Selected();
-            if (inst == null) throw new Exception("لم تختر أي نسخة من Discord");
-            path = inst.ResourcesPath; return true;
+            var inst = SelectedInstall();
+            if (inst == null)
+                throw new Exception("الرجاء اختيار نسخة Discord أولاً");
+            path = inst.ResourcesPath;
+            return true;
         }
         catch (Exception ex) { Msg("✖ " + ex.Message); return false; }
     }
@@ -693,7 +1001,7 @@ sealed class InstallerForm : Form
             var name = Path.GetFileName(root);
             if (Process.GetProcessesByName(name).Length == 0) return true;
             var r = MessageBox.Show(this,
-                "Discord يعمل حالياً وسيتم إغلاقه تلقائياً.\nهل تريد المتابعة؟",
+                "Discord يعمل حالياً وسيتم إغلاقه.\nهل تريد المتابعة؟",
                 "تنبيه", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             return r == DialogResult.Yes;
         }
@@ -712,7 +1020,8 @@ sealed class InstallerForm : Form
                 if (!IsDisposed) SafeInvoke(() =>
                 {
                     Busy(false);
-                    RefreshInstalls();
+                    UpdatePrimaryButton();
+                    _lblLocalVer.Text = "الإصدار المحلي: " + Logic.LocalVersion();
                 });
             }
         });
@@ -720,24 +1029,9 @@ sealed class InstallerForm : Form
         t.Start();
     }
 
-    void RefreshInstalls()
+    void Msg(string text)
     {
-        _installs = Logic.FindDiscord();
-        for (int i = 0; i < _radios.Count && i < _installs.Count; i++)
-        { _radios[i].Text = _installs[i].Label; _radios[i].Tag = _installs[i]; }
-        var sel = Selected();
-        _lblLocal.Text = "الإصدار المحلي: " +
-            (sel != null ? Logic.LocalVersion(sel.ResourcesPath) : "لا يوجد");
-    }
-
-    void Msg(string text, Color? col = null)
-    {
-        SafeInvoke(() =>
-        {
-            _lblStatus.ForeColor = col ?? FG;
-            _lblStatus.Text = text;
-            Application.DoEvents();
-        });
+        SafeInvoke(() => { _lblStatus.Text = text; Application.DoEvents(); });
     }
 
     void Prog(int v)
@@ -747,9 +1041,11 @@ sealed class InstallerForm : Form
 
     void Busy(bool on)
     {
-        _btnInstall.Enabled = _btnRepair.Enabled =
-        _btnRemove.Enabled  = _btnOpenAsar.Enabled = !on;
-        UseWaitCursor = on;
+        _btnPrimary.Enabled  = !on;
+        _btnRepair.Enabled   = !on;
+        _btnOpenAsar.Enabled = !on;
+        _btnRemove.Enabled   = !on;
+        UseWaitCursor        = on;
     }
 
     void SafeInvoke(Action a)
@@ -759,33 +1055,58 @@ sealed class InstallerForm : Form
         catch { }
     }
 
-    static void TryOpen(string url)
+    static string ShortenPath(string path)
     {
-        try { Process.Start(new ProcessStartInfo(url) { UseShellExecute = true }); } catch { }
+        var roaming = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        if (path.StartsWith(roaming, StringComparison.OrdinalIgnoreCase))
+            return "Roaming" + path.Substring(roaming.Length);
+        return path.Length > 60 ? "..." + path.Substring(path.Length - 57) : path;
     }
 
-    // ── Control factory helpers ──────────────────────────────────────
+    static void TryOpen(string url)
+    {
+        try { Process.Start(new ProcessStartInfo(url) { UseShellExecute = true }); }
+        catch { }
+    }
 
-    Label FL(string text, int x, int y, Color col, float fs = 11f, FontStyle st = FontStyle.Regular)
+    // ── Control factory helpers ───────────────────────────────────────
+
+    static Label Lbl(string text, int x, int y, Color col, float fs,
+        FontStyle st = FontStyle.Regular, Control parent = null,
+        int w = 0, int h = 0, ContentAlignment align = ContentAlignment.TopLeft)
     {
         var l = new Label
         {
-            Text = text, Location = new Point(x, y), ForeColor = col,
-            BackColor = Color.Transparent, Font = new Font("Segoe UI", fs, st), AutoSize = true,
+            Text      = text,
+            Location  = new Point(x, y),
+            ForeColor = col,
+            BackColor = Color.Transparent,
+            Font      = new Font("Segoe UI", fs, st),
+            TextAlign = align,
         };
-        Controls.Add(l);
+        if (w > 0 && h > 0) { l.Size = new Size(w, h); }
+        else                 { l.AutoSize = true; }
+        if (parent != null) parent.Controls.Add(l);
         return l;
     }
 
-    RoundButton Btn(string text, Color bg, Color fg, Point loc, Size sz, int r)
+    static LinkLabel MakeLink(string text, int x, int y, float fs,
+        Control parent = null)
     {
-        var b = new RoundButton
+        var l = new LinkLabel
         {
-            Text = text, Location = loc, Size = sz, BackColor = bg, ForeColor = fg,
-            Radius = r, Cursor = Cursors.Hand,
+            Text            = text,
+            Location        = new Point(x, y),
+            AutoSize        = true,
+            ForeColor       = Color.FromArgb(114, 118, 125),
+            BackColor       = Color.Transparent,
+            Font            = new Font("Segoe UI", fs),
+            LinkColor       = Color.FromArgb(114, 118, 125),
+            ActiveLinkColor = Color.FromArgb(88, 101, 242),
+            LinkBehavior    = LinkBehavior.HoverUnderline,
         };
-        Controls.Add(b);
-        return b;
+        if (parent != null) parent.Controls.Add(l);
+        return l;
     }
 }
 
