@@ -715,7 +715,7 @@ sealed class InstallerForm : Form
         c.Controls.Add(ft);
 
         ft.Controls.Add(MakeLink("LOSTSTR/Esharq على GitHub  ↗", 14, 3, 8.5f, ft, GITHUB_URL));
-        ft.Controls.Add(MakeLabel("© 2026 Esharq الحقوق محفوظة", 565, 3, TEXT_MUTED, 8.5f, FontStyle.Regular, ft));
+        ft.Controls.Add(MakeLabel("© 2026 Esharq. مرخص بموجب GPL-3.0", 545, 3, TEXT_MUTED, 8.5f, FontStyle.Regular, ft));
 
         return c;
     }
