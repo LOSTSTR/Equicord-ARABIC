@@ -390,6 +390,10 @@ sealed class InstallerForm : Form
     const string GITHUB_URL  = "https://github.com/LOSTSTR/Esharq";
     const string VER         = "1.14.13.0";
 
+    // ── Language ──────────────────────────────────────────────────────
+    static bool _arabic = true;
+    static string T(string ar, string en) { return _arabic ? ar : en; }
+
     // Borderless-window drag
     [DllImport("user32.dll")] static extern int  SendMessage(IntPtr h, int m, int w, int l);
     [DllImport("user32.dll")] static extern bool ReleaseCapture();
@@ -402,6 +406,8 @@ sealed class InstallerForm : Form
     Label   _lblFileStatus, _lblStatus;
     Panel   _progFill;
     Button  _btnInstall, _btnRepair, _btnRemove, _btnOpenAsar;
+    Button  _btnLangAR, _btnLangEN;
+    Panel   _sidebarPanel, _mainAreaPanel;
 
     // Discord picker
     List<DiscordInstall> _installs = new List<DiscordInstall>();
@@ -466,6 +472,7 @@ sealed class InstallerForm : Form
     void BuildSidebar()
     {
         var sb = MakePanel(0, 0, 240, 650, SIDEBAR);
+        _sidebarPanel = sb;
         Controls.Add(sb);
         sb.MouseDown += OnDrag;
 
@@ -489,8 +496,8 @@ sealed class InstallerForm : Form
         sb.Controls.Add(MakePanel(20, 80, 200, 1, Color.FromArgb(35, 40, 55)));
 
         // Nav buttons
-        _btnNavHome  = MakeSidebarBtn("🏠  الواجهة الرئيسية", 100, sb);
-        _btnNavAbout = MakeSidebarBtn("ℹ  حول التطبيق", 150, sb);
+        _btnNavHome  = MakeSidebarBtn(T("🏠  الواجهة الرئيسية", "🏠  Home"), 100, sb);
+        _btnNavAbout = MakeSidebarBtn(T("ℹ  حول التطبيق", "ℹ  About"), 150, sb);
         _btnNavHome.Click  += (s, e) => SwitchTab(true);
         _btnNavAbout.Click += (s, e) => SwitchTab(false);
         SetNavActive(_btnNavHome);
@@ -502,14 +509,16 @@ sealed class InstallerForm : Form
         secOuter.Controls.Add(secInner);
 
         secInner.Controls.Add(MakeLabel("🛡", 82, 10, ACCENT, 16f, FontStyle.Regular, secInner));
-        secInner.Controls.Add(MakeLabel("أمان وموثوقية",
+        secInner.Controls.Add(MakeLabel(T("أمان وموثوقية", "Security & Trust"),
             10, 40, TEXT_PRI, 10f, FontStyle.Bold, secInner, 178, 22, ContentAlignment.MiddleCenter));
-        secInner.Controls.Add(MakeLabel("تم تصميم Esharq بأعلى معايير الأمان\nوالخصوصية لضمان تجربة آمنة ومستقرة.",
+        secInner.Controls.Add(MakeLabel(
+            T("تم تصميم Esharq بأعلى معايير الأمان\nوالخصوصية لضمان تجربة آمنة ومستقرة.",
+              "Esharq is built with the highest security\nand privacy standards for a safe experience."),
             10, 66, TEXT_SEC, 8f, FontStyle.Regular, secInner, 178, 36, ContentAlignment.MiddleCenter));
 
         var badge = new Label
         {
-            Text      = "✔ التطبيق موثوق",
+            Text      = T("✔ التطبيق موثوق", "✔ App Verified"),
             Location  = new Point(10, 106),
             Size      = new Size(178, 20),
             ForeColor = SUCCESS,
@@ -564,10 +573,25 @@ sealed class InstallerForm : Form
     void BuildMainArea()
     {
         var main = MakePanel(240, 0, 810, 650, BG);
+        _mainAreaPanel = main;
         Controls.Add(main);
         main.MouseDown += OnDrag;
 
-        // Close button
+        // ── Language toggle buttons ───────────────────────
+        _btnLangAR = MakeFlatBtn("ع", 686, 10, 32, 28, _arabic ? ACCENT : SLATE, TEXT_PRI);
+        _btnLangEN = MakeFlatBtn("EN", 720, 10, 42, 28, _arabic ? SLATE : ACCENT, TEXT_PRI);
+        _btnLangAR.Font = new Font("Segoe UI", 10f, FontStyle.Bold);
+        _btnLangEN.Font = new Font("Segoe UI", 8.5f, FontStyle.Bold);
+        _btnLangAR.FlatAppearance.BorderSize = 1;
+        _btnLangEN.FlatAppearance.BorderSize = 1;
+        _btnLangAR.FlatAppearance.BorderColor = BORDER_DIM;
+        _btnLangEN.FlatAppearance.BorderColor = BORDER_DIM;
+        _btnLangAR.Click += (s, e) => SwitchLanguage(true);
+        _btnLangEN.Click += (s, e) => SwitchLanguage(false);
+        main.Controls.Add(_btnLangAR);
+        main.Controls.Add(_btnLangEN);
+
+        // ── Close button ──────────────────────────────────
         var btnClose = MakeFlatBtn("✕", 770, 10, 32, 28, BG, TEXT_MUTED);
         btnClose.FlatAppearance.MouseOverBackColor = DANGER;
         btnClose.Click += (s, e) => Application.Exit();
@@ -581,6 +605,44 @@ sealed class InstallerForm : Form
         _aboutCanvas.Visible = false;
     }
 
+    void SwitchLanguage(bool arabic)
+    {
+        if (_arabic == arabic) return;
+        _arabic = arabic;
+
+        // Update toggle button colors
+        if (_btnLangAR != null) _btnLangAR.BackColor = arabic ? ACCENT : SLATE;
+        if (_btnLangEN != null) _btnLangEN.BackColor = arabic ? SLATE : ACCENT;
+
+        bool wasHome = _homeCanvas != null && _homeCanvas.Visible;
+
+        SuspendLayout();
+
+        // Rebuild sidebar
+        if (_sidebarPanel != null) { Controls.Remove(_sidebarPanel); _sidebarPanel.Dispose(); _sidebarPanel = null; }
+        _btnNavHome = null; _btnNavAbout = null;
+        BuildSidebar();
+
+        // Rebuild canvases
+        if (_homeCanvas  != null) { _mainAreaPanel.Controls.Remove(_homeCanvas);  _homeCanvas.Dispose();  }
+        if (_aboutCanvas != null) { _mainAreaPanel.Controls.Remove(_aboutCanvas); _aboutCanvas.Dispose(); }
+        _lblFileStatus = null; _lblStatus = null; _progFill = null;
+        _btnInstall = null; _btnRepair = null; _btnRemove = null; _btnOpenAsar = null;
+        _cardBorders = new Panel[2]; _txtCustom = null; _btnBrowse = null;
+        _installs = Logic.FindDiscord();
+
+        _homeCanvas  = BuildHomeCanvas();
+        _aboutCanvas = BuildAboutCanvas();
+        _mainAreaPanel.Controls.Add(_homeCanvas);
+        _mainAreaPanel.Controls.Add(_aboutCanvas);
+        _homeCanvas.Visible  = wasHome;
+        _aboutCanvas.Visible = !wasHome;
+        SetNavActive(wasHome ? _btnNavHome : _btnNavAbout);
+
+        ResumeLayout(true);
+        OnShown(null, null);
+    }
+
     // ── Home canvas (0,40,810,600) ───────────────────────────────────
 
     Panel BuildHomeCanvas()
@@ -590,7 +652,8 @@ sealed class InstallerForm : Form
 
         // Title + subtitle
         c.Controls.Add(MakeLabel("Esharq", 40, 14, TEXT_PRI, 26f, FontStyle.Bold, c));
-        c.Controls.Add(MakeLabel("أداة تثبيت متقدمة وسهلة لمشروع LOSTSTR/Esharq",
+        c.Controls.Add(MakeLabel(T("أداة تثبيت متقدمة وسهلة لمشروع LOSTSTR/Esharq",
+                                   "Advanced and easy installer for LOSTSTR/Esharq"),
             46, 60, TEXT_SEC, 11f, FontStyle.Regular, c));
 
         // ── Path card (y=95) ──────────────────────────
@@ -600,8 +663,8 @@ sealed class InstallerForm : Form
         pathOuter.Controls.Add(pathInner);
 
         // Top row: title (right) + open-folder button (left) — no emoji in button (GDI can't render them)
-        pathInner.Controls.Add(MakeLabel("ملف التثبيت", 572, 12, TEXT_PRI, 10.5f, FontStyle.Bold, pathInner));
-        var btnOpen = MakeFlatBtn("فتح المجلد", 12, 10, 130, 34, ACCENT, TEXT_PRI);
+        pathInner.Controls.Add(MakeLabel(T("ملف التثبيت", "Install File"), 572, 12, TEXT_PRI, 10.5f, FontStyle.Bold, pathInner));
+        var btnOpen = MakeFlatBtn(T("فتح المجلد", "Open Folder"), 12, 10, 130, 34, ACCENT, TEXT_PRI);
         btnOpen.Click += (s, e) =>
         {
             try { Directory.CreateDirectory(Logic.DataDir); Process.Start("explorer.exe", Logic.DataDir); }
@@ -612,7 +675,7 @@ sealed class InstallerForm : Form
         // Bottom row: path (left) + status (right) — placed below button to avoid overlap
         pathInner.Controls.Add(MakeLabel(ShortenPath(Logic.AsarTarget),
             12, 52, Color.FromArgb(180, 190, 210), 9f, FontStyle.Regular, pathInner, 580, 18));
-        _lblFileStatus = MakeLabel("يتم التحقق...", 505, 68, TEXT_MUTED, 9f, FontStyle.Bold, pathInner);
+        _lblFileStatus = MakeLabel(T("يتم التحقق...", "Checking..."), 505, 68, TEXT_MUTED, 9f, FontStyle.Bold, pathInner);
         pathInner.Controls.Add(_lblFileStatus);
 
         // ── Warning banner (y=200) ────────────────────
@@ -622,15 +685,19 @@ sealed class InstallerForm : Form
         warnOuter.Controls.Add(warnInner);
 
         warnInner.Controls.Add(MakeLabel("⚠", 14, 10, WARN_TTL, 14f, FontStyle.Regular, warnInner));
-        warnInner.Controls.Add(MakeLabel("هام جداً", 622, 12, WARN_TTL, 11f, FontStyle.Bold, warnInner));
+        warnInner.Controls.Add(MakeLabel(T("هام جداً", "Important"), 622, 12, WARN_TTL, 11f, FontStyle.Bold, warnInner));
         warnInner.Controls.Add(MakeLabel(
-            "مستودع LOSTSTR/Esharq على GitHub هو المصدر الرسمي الوحيد للحصول على حزمة Esharq بشكل آمن.\n" +
-            "أي مصدر آخر يُعدّ ضاراً. إذا قمت بتنزيله من مكان آخر، قم بإزالة التثبيت فوراً لحماية حسابك\n" +
-            "وكلمة مرور Discord.",
+            T("مستودع LOSTSTR/Esharq على GitHub هو المصدر الرسمي الوحيد للحصول على حزمة Esharq بشكل آمن.\n" +
+              "أي مصدر آخر يُعدّ ضاراً. إذا قمت بتنزيله من مكان آخر، قم بإزالة التثبيت فوراً لحماية حسابك\n" +
+              "وكلمة مرور Discord.",
+              "The LOSTSTR/Esharq GitHub repository is the only official source for Esharq.\n" +
+              "Any other source is considered harmful. If you downloaded it from elsewhere,\n" +
+              "uninstall immediately to protect your Discord account and password."),
             20, 40, WARN_BODY, 9.5f, FontStyle.Regular, warnInner, 696, 66));
 
         // ── Section label (y=326) ─────────────────────
-        c.Controls.Add(MakeLabel("لتعديل عليها  Discord  الرجاء اختيار نسخة",
+        c.Controls.Add(MakeLabel(T("لتعديل عليها  Discord  الرجاء اختيار نسخة",
+                                   "Please select a Discord version to modify"),
             40, 326, TEXT_PRI, 10.5f, FontStyle.Bold, c));
 
         // ── Discord cards (y=350) ─────────────────────
@@ -646,12 +713,12 @@ sealed class InstallerForm : Form
             ForeColor   = TEXT_MUTED,
             BorderStyle = BorderStyle.FixedSingle,
             Font        = new Font("Segoe UI", 9f),
-            Text        = "اختر مسار مخصص...",
+            Text        = T("اختر مسار مخصص...", "Choose a custom path..."),
             Enabled     = false,
         };
         c.Controls.Add(_txtCustom);
 
-        _btnBrowse = MakeFlatBtn("استعراض", 40, 442, 100, 26, SLATE, TEXT_SEC);
+        _btnBrowse = MakeFlatBtn(T("استعراض", "Browse"), 40, 442, 100, 26, SLATE, TEXT_SEC);
         _btnBrowse.FlatAppearance.BorderColor = BORDER_DIM;
         _btnBrowse.FlatAppearance.BorderSize  = 1;
         _btnBrowse.Enabled = false;
@@ -659,7 +726,7 @@ sealed class InstallerForm : Form
         {
             using (var dlg = new FolderBrowserDialog())
             {
-                dlg.Description = "اختر مجلد resources الخاص بـ Discord";
+                dlg.Description = T("اختر مجلد resources الخاص بـ Discord", "Select the Discord resources folder");
                 if (dlg.ShowDialog(this) == DialogResult.OK)
                 {
                     _txtCustom.Text      = dlg.SelectedPath;
@@ -678,7 +745,7 @@ sealed class InstallerForm : Form
         // Status
         _lblStatus = new Label
         {
-            Text      = "جاهز — اختر نسخة Discord ثم اضغط تثبيت",
+            Text      = T("جاهز — اختر نسخة Discord ثم اضغط تثبيت", "Ready — select a Discord version then press Install"),
             Location  = new Point(40, 484),
             Size      = new Size(730, 20),
             ForeColor = TEXT_MUTED,
@@ -689,10 +756,10 @@ sealed class InstallerForm : Form
 
         // ── 4 action buttons (y=530) ──────────────────
         // No emoji in buttons — GDI (.NET 4.0) cannot render supplementary-plane characters
-        _btnInstall  = MakeFlatBtn("تثبيت  ✓",                    40,  514, 170, 46, SUCCESS, Color.White);
-        _btnRepair   = MakeFlatBtn("إعادة التثبيت / الإصلاح  ↺", 220,  514, 195, 46, BLUE,    Color.White);
-        _btnRemove   = MakeFlatBtn("إزالة التثبيت",               425,  514, 170, 46, DANGER,  Color.White);
-        _btnOpenAsar = MakeFlatBtn("تثبيت OpenAsar",              605,  514, 165, 46, SLATE,   Color.White);
+        _btnInstall  = MakeFlatBtn(T("تثبيت  ✓",                    "Install  ✓"),           40,  514, 170, 46, SUCCESS, Color.White);
+        _btnRepair   = MakeFlatBtn(T("إعادة التثبيت / الإصلاح  ↺", "Reinstall / Repair  ↺"), 220,  514, 195, 46, BLUE,    Color.White);
+        _btnRemove   = MakeFlatBtn(T("إزالة التثبيت",               "Uninstall"),             425,  514, 170, 46, DANGER,  Color.White);
+        _btnOpenAsar = MakeFlatBtn(T("تثبيت OpenAsar",              "Install OpenAsar"),      605,  514, 165, 46, SLATE,   Color.White);
 
         foreach (var b in new[] { _btnInstall, _btnRepair, _btnRemove, _btnOpenAsar })
             b.Font = new Font("Segoe UI", 9.5f, FontStyle.Bold);
@@ -714,7 +781,7 @@ sealed class InstallerForm : Form
         var ft = MakePanel(0, 578, 810, 22, SIDEBAR);
         c.Controls.Add(ft);
 
-        ft.Controls.Add(MakeLink("LOSTSTR/Esharq على GitHub  ↗", 14, 3, 8.5f, ft, GITHUB_URL));
+        ft.Controls.Add(MakeLink(T("LOSTSTR/Esharq على GitHub  ↗", "LOSTSTR/Esharq on GitHub  ↗"), 14, 3, 8.5f, ft, GITHUB_URL));
         ft.Controls.Add(MakeLabel("© 2026 Esharq. مرخص بموجب GPL-3.0", 545, 3, TEXT_MUTED, 8.5f, FontStyle.Regular, ft));
 
         return c;
@@ -734,7 +801,7 @@ sealed class InstallerForm : Form
         c0Outer.Controls.Add(c0Inner);
 
         string c0Name = avail
-            ? string.Format("نسخة {0}  (موصى بها)  🛡", detected.Name)
+            ? string.Format(T("نسخة {0}  (موصى بها)  🛡", "{0}  (Recommended)  🛡"), detected.Name)
             : "Discord Stable  🛡";
         c0Inner.Controls.Add(MakeLabel(c0Name,
             avail ? 180 : 200, 10, avail ? TEXT_PRI : TEXT_MUTED, 9.5f, FontStyle.Bold, c0Inner));
@@ -746,12 +813,14 @@ sealed class InstallerForm : Form
                 : detected.DisplayPath;
             c0Inner.Controls.Add(MakeLabel(dp, 10, 34, TEXT_MUTED, 8.5f, FontStyle.Regular, c0Inner, 335, 18));
             var sc = detected.IsPatched ? SUCCESS : Color.FromArgb(100, 200, 130);
-            var st = detected.IsPatched ? "✔ Esharq مُثبَّت" : "✔ الأكثر استقراراً وأماناً";
+            var st = detected.IsPatched
+                ? T("✔ Esharq مُثبَّت", "✔ Esharq Installed")
+                : T("✔ الأكثر استقراراً وأماناً", "✔ Most stable and secure");
             c0Inner.Controls.Add(MakeLabel(st, 210, 56, sc, 8.5f, FontStyle.Bold, c0Inner));
         }
         else
         {
-            c0Inner.Controls.Add(MakeLabel("غير مثبَّت على هذا الجهاز",
+            c0Inner.Controls.Add(MakeLabel(T("غير مثبَّت على هذا الجهاز", "Not installed on this device"),
                 180, 34, TEXT_MUTED, 8.5f, FontStyle.Regular, c0Inner));
         }
 
@@ -768,9 +837,10 @@ sealed class InstallerForm : Form
         var c1Inner = MakePanel(1, 1, 363, 80, CARD);
         c1Outer.Controls.Add(c1Inner);
 
-        c1Inner.Controls.Add(MakeLabel("مسار تثبيت مخصص  📁",
+        c1Inner.Controls.Add(MakeLabel(T("مسار تثبيت مخصص  📁", "Custom Install Path  📁"),
             185, 10, TEXT_SEC, 9.5f, FontStyle.Bold, c1Inner));
-        c1Inner.Controls.Add(MakeLabel("اختر مسار تثبيت Discord يدوياً من جهازك",
+        c1Inner.Controls.Add(MakeLabel(T("اختر مسار تثبيت Discord يدوياً من جهازك",
+                                         "Manually select your Discord install path"),
             90, 34, TEXT_MUTED, 8.5f, FontStyle.Regular, c1Inner, 270, 18));
 
         var folderIcon = new Label
@@ -821,7 +891,7 @@ sealed class InstallerForm : Form
     {
         var c = MakePanel(0, 40, 810, 600, BG);
 
-        c.Controls.Add(MakeLabel("حول التطبيق", 40, 14, TEXT_PRI, 24f, FontStyle.Bold, c));
+        c.Controls.Add(MakeLabel(T("حول التطبيق", "About"), 40, 14, TEXT_PRI, 24f, FontStyle.Bold, c));
 
         // Info card
         var infoO = MakePanel(40, 70, 730, 150, CARD_B);
@@ -829,12 +899,16 @@ sealed class InstallerForm : Form
         var infoI = MakePanel(1, 1, 728, 148, CARD);
         infoO.Controls.Add(infoI);
 
-        infoI.Controls.Add(MakeLabel("معلومات الحزمة والنسخة", 518, 14, ACCENT, 11f, FontStyle.Bold, infoI));
+        infoI.Controls.Add(MakeLabel(T("معلومات الحزمة والنسخة", "Package & Version Info"), 518, 14, ACCENT, 11f, FontStyle.Bold, infoI));
         infoI.Controls.Add(MakeLabel(
-            "•  إصدار المثبت: v" + VER + "  (مايو 2026)\n" +
-            "•  النواة البرمجية: .NET Framework 4.0 — WinForms\n" +
-            "•  التوافقية: Windows 10/11 x64 بما فيها LTSC\n" +
-            "•  تصميم آمن: بدون GDI مخصص أو OnPaint overrides",
+            T("•  إصدار المثبت: v" + VER + "  (مايو 2026)\n" +
+              "•  النواة البرمجية: .NET Framework 4.0 — WinForms\n" +
+              "•  التوافقية: Windows 10/11 x64 بما فيها LTSC\n" +
+              "•  تصميم آمن: بدون GDI مخصص أو OnPaint overrides",
+              "•  Installer version: v" + VER + "  (May 2026)\n" +
+              "•  Runtime: .NET Framework 4.0 — WinForms\n" +
+              "•  Compatibility: Windows 10/11 x64 including LTSC\n" +
+              "•  Secure design: no custom GDI or OnPaint overrides"),
             100, 46, TEXT_SEC, 9.5f, FontStyle.Regular, infoI, 620, 90));
 
         // Team card — expanded to fit full roster
@@ -843,7 +917,7 @@ sealed class InstallerForm : Form
         var teamI = MakePanel(1, 1, 728, 220, CARD);
         teamO.Controls.Add(teamI);
 
-        teamI.Controls.Add(MakeLabel("فريق التطوير", 572, 14, SUCCESS, 11f, FontStyle.Bold, teamI));
+        teamI.Controls.Add(MakeLabel(T("فريق التطوير", "Development Team"), 572, 14, SUCCESS, 11f, FontStyle.Bold, teamI));
 
         // Role badge helper: colored dot + name + separator + role
         int rowY = 44;
@@ -855,13 +929,13 @@ sealed class InstallerForm : Form
             rowY += 22;
         };
 
-        addMember("LOSTSTR",     "مطور رئيسي — بناء المشروع وإدارته",            ACCENT,   "★");
-        addMember("krym511",     "داعم رئيسي — دعم ومساهمة في التطوير",           SUCCESS,  "◆");
-        addMember("iosiph",      "مساهم في التطوير",                               BLUE,     "●");
-        addMember("RAYMOND",     "مساهم في التطوير",                               BLUE,     "●");
-        addMember("Abo Ahmed",   "مساهم في التطوير",                               BLUE,     "●");
-        addMember("S99",         "مساهم في التطوير",                               BLUE,     "●");
-        addMember(".fmo",        "مساهم في التطوير",                               BLUE,     "●");
+        addMember("LOSTSTR",     T("مطور رئيسي — بناء المشروع وإدارته",        "Lead developer — project build & management"), ACCENT,  "★");
+        addMember("krym511",     T("داعم رئيسي — دعم ومساهمة في التطوير",      "Main supporter — support & development"),      SUCCESS, "◆");
+        addMember("iosiph",      T("مساهم في التطوير",                           "Contributor"),                                  BLUE,    "●");
+        addMember("RAYMOND",     T("مساهم في التطوير",                           "Contributor"),                                  BLUE,    "●");
+        addMember("Abo Ahmed",   T("مساهم في التطوير",                           "Contributor"),                                  BLUE,    "●");
+        addMember("S99",         T("مساهم في التطوير",                           "Contributor"),                                  BLUE,    "●");
+        addMember(".fmo",        T("مساهم في التطوير",                           "Contributor"),                                  BLUE,    "●");
 
         teamI.Controls.Add(MakeLink("GitHub  ↗", 580, 200, 9f, teamI, GITHUB_URL));
         teamI.Controls.Add(MakeLink("Discord  ↗", 496, 200, 9f, teamI, DISCORD_URL));
@@ -871,7 +945,9 @@ sealed class InstallerForm : Form
         c.Controls.Add(licO);
         var licI = MakePanel(1, 1, 728, 48, CARD);
         licO.Controls.Add(licI);
-        licI.Controls.Add(MakeLabel("الرخصة: GPL-3.0  ·  المصدر الرسمي فقط: github.com/LOSTSTR/Esharq",
+        licI.Controls.Add(MakeLabel(
+            T("الرخصة: GPL-3.0  ·  المصدر الرسمي فقط: github.com/LOSTSTR/Esharq",
+              "License: GPL-3.0  ·  Official source only: github.com/LOSTSTR/Esharq"),
             30, 14, TEXT_MUTED, 9f, FontStyle.Regular, licI));
 
         return c;
@@ -895,7 +971,8 @@ sealed class InstallerForm : Form
         bool inst = Logic.IsInstalled;
         if (_lblFileStatus != null)
         {
-            _lblFileStatus.Text      = inst ? "✔ تم التحقق من الملف بنجاح" : "ℹ لم يُثبَّت بعد";
+            _lblFileStatus.Text      = inst ? T("✔ تم التحقق من الملف بنجاح", "✔ File verified successfully")
+                                             : T("ℹ لم يُثبَّت بعد", "ℹ Not installed yet");
             _lblFileStatus.ForeColor = inst ? SUCCESS : TEXT_MUTED;
         }
     }
@@ -907,13 +984,13 @@ sealed class InstallerForm : Form
         if (_btnInstall == null) return;
         if (Logic.IsInstalled)
         {
-            _btnInstall.Text      = "تحديث Esharq  ↑";
+            _btnInstall.Text      = T("تحديث Esharq  ↑", "Update Esharq  ↑");
             _btnInstall.BackColor = BLUE;
             _btnInstall.FlatAppearance.MouseOverBackColor = Color.FromArgb(110, 120, 250);
         }
         else
         {
-            _btnInstall.Text      = "تثبيت  ✓";
+            _btnInstall.Text      = T("تثبيت  ✓", "Install  ✓");
             _btnInstall.BackColor = SUCCESS;
             _btnInstall.FlatAppearance.MouseOverBackColor = Color.FromArgb(68, 185, 100);
         }
@@ -930,12 +1007,12 @@ sealed class InstallerForm : Form
             {
                 var p = (_txtCustom != null ? _txtCustom.Text : "").Trim();
                 if (string.IsNullOrEmpty(p) || !Directory.Exists(p))
-                    throw new Exception("المسار المخصص غير صحيح أو غير موجود");
+                    throw new Exception(T("المسار المخصص غير صحيح أو غير موجود", "Custom path is invalid or does not exist"));
                 path = p;
                 return true;
             }
             if (_installs.Count == 0)
-                throw new Exception("لم يُعثر على Discord — اختر مساراً مخصصاً");
+                throw new Exception(T("لم يُعثر على Discord — اختر مساراً مخصصاً", "Discord not found — choose a custom path"));
             path = _installs[0].ResourcesPath;
             return true;
         }
@@ -952,8 +1029,10 @@ sealed class InstallerForm : Form
             if (string.IsNullOrEmpty(name)) return true;
             if (Process.GetProcessesByName(name).Length == 0) return true;
             return MessageBox.Show(this,
-                "Discord يعمل حالياً وسيتم إغلاقه.\nهل تريد المتابعة؟",
-                "تنبيه", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes;
+                T("Discord يعمل حالياً وسيتم إغلاقه.\nهل تريد المتابعة؟",
+                  "Discord is running and will be closed.\nDo you want to continue?"),
+                T("تنبيه", "Warning"),
+                MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes;
         }
         catch { return true; }
     }
@@ -975,8 +1054,10 @@ sealed class InstallerForm : Form
     void OnRemove(object sender, EventArgs e)
     {
         string t; if (!TryGetTarget(out t)) return;
-        if (MessageBox.Show(this, "هل تريد إزالة Esharq بالكامل؟",
-                "تأكيد", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
+        if (MessageBox.Show(this,
+                T("هل تريد إزالة Esharq بالكامل؟", "Are you sure you want to completely uninstall Esharq?"),
+                T("تأكيد", "Confirm"),
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
         if (!ConfirmKill(t)) return;
         RunAsync(() => Logic.Uninstall(t, s => Msg(s), v => Prog(v)));
     }
@@ -995,7 +1076,7 @@ sealed class InstallerForm : Form
         var t = new Thread(() =>
         {
             try { op(); }
-            catch (Exception ex) { Msg("✖ خطأ: " + ex.Message); Prog(0); }
+            catch (Exception ex) { Msg(T("✖ خطأ: ", "✖ Error: ") + ex.Message); Prog(0); }
             finally
             {
                 if (!IsDisposed) SafeInvoke(() =>
@@ -1005,7 +1086,8 @@ sealed class InstallerForm : Form
                     bool inst = Logic.IsInstalled;
                     if (_lblFileStatus != null)
                     {
-                        _lblFileStatus.Text      = inst ? "✔ تم التحقق من الملف بنجاح" : "ℹ لم يُثبَّت بعد";
+                        _lblFileStatus.Text      = inst ? T("✔ تم التحقق من الملف بنجاح", "✔ File verified successfully")
+                                                        : T("ℹ لم يُثبَّت بعد", "ℹ Not installed yet");
                         _lblFileStatus.ForeColor = inst ? SUCCESS : TEXT_MUTED;
                     }
                 });
