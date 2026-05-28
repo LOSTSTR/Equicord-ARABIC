@@ -1,0 +1,659 @@
+/**
+ * @name        CrimsonNight
+ * @description Dark theme with crimson red accents — clean, modern, minimal
+ * @author      LOSTSTR
+ * @version     2.0.0
+ * @authorId    136630586
+ * @website     https://github.com/LOSTSTR/Esharq
+ * @source      https://github.com/LOSTSTR/Esharq/raw/main/CrimsonNight.theme.css
+ */
+
+/* ============================================================
+   LAYER 1 — PALETTE
+   ============================================================ */
+
+:root {
+    --cn-bg-4: #0b0b0e;
+    --cn-bg-3: #111116;
+    --cn-bg-2: #17171e;
+    --cn-bg-1: #1e1e27;
+    --cn-bg-0: #26262f;
+    --cn-surface-1: #1c1c25;
+    --cn-surface-2: #23232d;
+    --cn-surface-3: #2a2a35;
+    --cn-accent-1: #f35;
+    --cn-accent-2: #e02244;
+    --cn-accent-3: #c41535;
+    --cn-accent-glow: rgb(224 34 68 / 18%);
+    --cn-accent-glow-strong: rgb(224 34 68 / 32%);
+    --cn-text-1: #f0f0f8;
+    --cn-text-2: #c8c8d8;
+    --cn-text-3: #9494b0;
+    --cn-text-4: #5e5e7a;
+    --cn-text-5: #3a3a52;
+    --cn-hover: rgb(255 255 255 / 4%);
+    --cn-active: rgb(255 255 255 / 8%);
+    --cn-selected: rgb(224 34 68 / 15%);
+    --cn-msg-hover: rgb(255 255 255 / 3%);
+    --cn-mention-bg: linear-gradient(to right, rgb(224 34 68 / 12%) 40%, transparent);
+    --cn-mention-bg-hover: linear-gradient(to right, rgb(224 34 68 / 18%) 40%, transparent);
+    --cn-mention-left: #e02244;
+    --cn-border-faint: rgb(255 255 255 / 4%);
+    --cn-border-soft: rgb(255 255 255 / 8%);
+    --cn-border-normal: rgb(255 255 255 / 12%);
+    --cn-radius-sm: 4px;
+    --cn-radius-md: 8px;
+    --cn-radius-lg: 12px;
+}
+
+/* ============================================================
+   LAYER 2 — DISCORD VARIABLE MAPPING
+   ============================================================ */
+
+.theme-dark,
+.theme-light {
+    --background-primary: var(--cn-bg-2);
+    --background-secondary: var(--cn-bg-3);
+    --background-secondary-alt: var(--cn-bg-4);
+    --background-tertiary: var(--cn-bg-4);
+    --background-accent: var(--cn-bg-0);
+    --background-floating: var(--cn-bg-4);
+    --background-nested-floating: var(--cn-bg-3);
+    --background-base-lowest: var(--cn-bg-4);
+    --background-base-lower: var(--cn-bg-4);
+    --background-base-low: var(--cn-bg-3);
+    --background-base-high: var(--cn-bg-1);
+    --background-base-higher: var(--cn-bg-0);
+    --background-base-highest: var(--cn-bg-0);
+    --background-surface-high: var(--cn-bg-2);
+    --background-surface-higher: var(--cn-surface-1);
+    --background-surface-highest: var(--cn-surface-2);
+    --app-frame-background: var(--cn-bg-4);
+    --home-background: var(--cn-bg-2);
+    --chat-background: var(--cn-bg-2);
+    --card-background-default: var(--cn-bg-3);
+    --modal-background: var(--cn-surface-1);
+    --modal-footer-background: var(--cn-bg-3);
+    --bg-overlay-chat: transparent;
+    --bg-overlay-2: transparent;
+    --bg-overlay-4: transparent;
+    --header-primary: var(--cn-text-1);
+    --header-secondary: var(--cn-text-2);
+    --text-normal: var(--cn-text-2);
+    --text-muted: var(--cn-text-4);
+    --text-link: var(--cn-accent-1);
+    --text-positive: #3ba55c;
+    --text-warning: #faa81a;
+    --text-danger: var(--cn-accent-2);
+    --text-brand: var(--cn-accent-1);
+    --text-default: var(--cn-text-2);
+    --text-strong: var(--cn-text-1);
+    --interactive-normal: var(--cn-text-3);
+    --interactive-hover: var(--cn-text-1);
+    --interactive-active: var(--cn-text-1);
+    --interactive-muted: var(--cn-text-5);
+    --interactive-text-default: var(--cn-text-3);
+    --interactive-text-hover: var(--cn-text-2);
+    --interactive-background-hover: var(--cn-hover);
+    --interactive-background-active: var(--cn-active);
+    --interactive-background-selected: var(--cn-selected);
+    --brand-experiment: var(--cn-accent-2);
+    --brand-500: var(--cn-accent-2);
+    --brand-experiment-460: var(--cn-accent-2);
+    --brand-experiment-500: var(--cn-accent-3);
+    --logo-primary: var(--cn-accent-1);
+    --button-secondary-background: transparent;
+    --button-secondary-background-hover: var(--cn-hover);
+    --button-outline-brand-background: transparent;
+    --control-secondary-background-default: transparent;
+    --control-secondary-background-hover: var(--cn-hover);
+    --background-message-hover: var(--cn-msg-hover);
+    --message-background-hover: var(--cn-msg-hover);
+    --message-mentioned-background-default: var(--cn-mention-bg);
+    --message-mentioned-background-hover: var(--cn-mention-bg-hover);
+    --message-highlight-background-default: rgb(224 34 68 / 8%);
+    --message-highlight-background-hover: rgb(224 34 68 / 6%);
+    --background-modifier-hover: var(--cn-hover);
+    --background-modifier-active: var(--cn-active);
+    --background-modifier-selected: var(--cn-selected);
+    --background-modifier-accent: rgb(255 255 255 / 6%);
+    --mention-foreground: var(--cn-accent-1);
+    --mention-background: rgb(224 34 68 / 20%);
+    --border-subtle: var(--cn-border-faint);
+    --border-muted: var(--cn-border-soft);
+    --border-normal: var(--cn-border-normal);
+    --border-strong: rgb(255 255 255 / 20%);
+    --channels-default: var(--cn-text-4);
+    --channel-icon: var(--cn-text-4);
+    --channel-text-area-placeholder: var(--cn-text-5);
+    --channeltextarea-background: var(--cn-bg-1);
+    --scrollbar-thin-thumb: var(--cn-accent-3);
+    --scrollbar-thin-track: transparent;
+    --scrollbar-auto-thumb: var(--cn-accent-3);
+    --scrollbar-auto-track: transparent;
+    --input-background-default: var(--cn-bg-1);
+    --status-positive: #3ba55c;
+    --status-warning: #faa81a;
+    --status-danger: var(--cn-accent-2);
+    --spoiler-hidden-background: var(--cn-bg-0);
+    --spoiler-revealed-background: var(--cn-bg-1);
+}
+
+/* ============================================================
+   SCROLLBARS — must come before any [x] * child rules
+   ============================================================ */
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--cn-accent-3) transparent;
+}
+
+::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--cn-accent-3);
+    border-radius: 99px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--cn-accent-1);
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::selection {
+    background: var(--cn-accent-glow-strong);
+    color: var(--cn-text-1);
+}
+
+/* ============================================================
+   APP FOUNDATION
+   ============================================================ */
+
+html,
+body,
+#app-mount {
+    background: var(--cn-bg-4) !important;
+}
+
+[class^="bg_"],
+[class*=" bg_"],
+[class^="scroller_"],
+[class*=" scroller_"] {
+    background: transparent !important;
+}
+
+[class^="base_"],
+[class*=" base_"],
+[class^="app_"],
+[class*=" app_"] {
+    background: var(--cn-bg-4) !important;
+}
+
+/* ============================================================
+   SIDEBAR & GUILD LIST
+   ============================================================ */
+
+[class^="guilds_"],
+[class*=" guilds_"] {
+    background: var(--cn-bg-4) !important;
+}
+
+[class^="sidebar_"],
+[class*=" sidebar_"] {
+    background: var(--cn-bg-3) !important;
+}
+
+[class^="modeSelected_"],
+[class*=" modeSelected_"],
+[class^="selected_"],
+[class*=" selected_"] {
+    background: var(--cn-selected) !important;
+    border-radius: var(--cn-radius-sm);
+}
+
+[class^="modeSelected_"] *,
+[class*=" modeSelected_"] * {
+    color: var(--cn-accent-1) !important;
+}
+
+[class^="numberBadge_"],
+[class*=" numberBadge_"] {
+    background: var(--cn-accent-2) !important;
+}
+
+[class^="containerDefault_"],
+[class*=" containerDefault_"] {
+    color: var(--cn-text-4) !important;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+}
+
+/* ============================================================
+   MAIN CHAT AREA
+   ============================================================ */
+
+[class^="page_"],
+[class*=" page_"],
+[class^="chat_"],
+[class*=" chat_"],
+[class^="chatContent_"],
+[class*=" chatContent_"],
+[class^="messagesWrapper_"],
+[class*=" messagesWrapper_"] {
+    background: transparent !important;
+}
+
+[class^="wrapper_"]:is([class*="cozy_"], [class*="compact_"]) {
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+[class^="wrapper_"]:is([class*="cozy_"], [class*="compact_"]):hover {
+    background: var(--cn-msg-hover) !important;
+    border-radius: var(--cn-radius-sm);
+}
+
+[class^="mentioned_"],
+[class*=" mentioned_"] {
+    border-left: 2px solid var(--cn-mention-left) !important;
+}
+
+[class^="divider_"],
+[class*=" divider_"] {
+    border-color: var(--cn-border-faint) !important;
+}
+
+[class^="unreadBar_"],
+[class*=" unreadBar_"] {
+    color: var(--cn-accent-1) !important;
+    border-color: var(--cn-accent-3) !important;
+}
+
+[class^="isUnread_"],
+[class*=" isUnread_"] {
+    color: var(--cn-accent-1) !important;
+    font-weight: 600;
+}
+
+/* ============================================================
+   CHAT INPUT
+   ============================================================ */
+
+[class^="channelTextArea_"],
+[class*=" channelTextArea_"] {
+    background: var(--cn-bg-3) !important;
+    border-radius: var(--cn-radius-lg) !important;
+    border: 1px solid var(--cn-border-faint) !important;
+    margin: 0 16px 24px !important;
+    transition: border-color 0.2s ease;
+}
+
+:is([class^="channelTextArea_"], [class*=" channelTextArea_"]):focus-within {
+    border-color: var(--cn-accent-3) !important;
+    box-shadow: 0 0 0 1px var(--cn-accent-3), 0 0 20px var(--cn-accent-glow) !important;
+}
+
+[class^="textArea_"],
+[class*=" textArea_"] {
+    background: transparent !important;
+    color: var(--cn-text-2) !important;
+}
+
+[class^="autocomplete_"],
+[class*=" autocomplete_"] {
+    background: var(--cn-surface-2) !important;
+    border: 1px solid var(--cn-border-soft) !important;
+    border-radius: var(--cn-radius-md) !important;
+    box-shadow: 0 8px 32px rgb(0 0 0 / 50%) !important;
+}
+
+/* ============================================================
+   TOP BAR
+   ============================================================ */
+
+[class^="toolbar_"],
+[class*=" toolbar_"] {
+    background: var(--cn-bg-2) !important;
+    border-bottom: 1px solid var(--cn-border-faint) !important;
+}
+
+:is([class^="search_"], [class*=" search_"],
+    [class^="searchBar_"], [class*=" searchBar_"]) {
+    background: var(--cn-bg-3) !important;
+    border-radius: var(--cn-radius-sm) !important;
+}
+
+:is([class^="search_"], [class*=" search_"],
+    [class^="searchBar_"], [class*=" searchBar_"]):focus-within {
+    border-color: var(--cn-accent-2) !important;
+    box-shadow: 0 0 0 1px var(--cn-accent-3) !important;
+}
+
+/* ============================================================
+   MEMBERS LIST
+   ============================================================ */
+
+[class^="members_"],
+[class*=" members_"] {
+    background: var(--cn-bg-3) !important;
+    border-left: 1px solid var(--cn-border-faint) !important;
+}
+
+[class^="membersGroup_"],
+[class*=" membersGroup_"] {
+    color: var(--cn-text-5) !important;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+/* ============================================================
+   USER PANEL — FLOATING CARD
+   ============================================================ */
+
+[class^="panels_"],
+[class*=" panels_"] {
+    background: transparent !important;
+    border-top: none !important;
+    padding: 8px 8px 12px !important;
+}
+
+[class^="panels_"] > [class^="container_"] {
+    background: rgb(17 17 22 / 85%) !important;
+    backdrop-filter: blur(20px) !important;
+    border: 1px solid rgb(255 255 255 / 7%) !important;
+    border-radius: 16px !important;
+    box-shadow: 0 8px 32px rgb(0 0 0 / 50%), 0 0 0 0.5px rgb(255 255 255 / 4%) !important;
+    padding: 8px 10px !important;
+}
+
+[class^="nameTag_"],
+[class*=" nameTag_"] {
+    background: transparent !important;
+}
+
+/* ============================================================
+   ALL BUTTONS — base rules before hover rules
+   Ordering is critical: base → hover → special states
+   ============================================================ */
+
+/* Base: generic icon buttons (transparent) */
+[class^="panels_"] [class^="button_"],
+[class^="panels_"] button,
+[class^="toolbar_"] [class^="button_"],
+[class^="toolbar_"] button,
+[class*="actionButtons_"] [class^="button_"],
+[class*="actionButtons_"] button,
+[class^="button_"][class*="panel"],
+[class^="button_"][class*="toolbar"],
+[class^="button_"][class*="action"],
+[class^="button_"][class*="colorBrand"]:not([class*="lookFilled_"]),
+[class^="button_"][class*="colorGreen"],
+[class^="button_"][class*="colorRed"],
+[class^="iconWrapper_"],
+[class*=" iconWrapper_"] {
+    background: transparent !important;
+    border-radius: var(--cn-radius-sm) !important;
+    color: var(--cn-text-3) !important;
+    box-shadow: none !important;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+/* Base: panels buttons get pill style */
+[class^="panels_"] [class^="button_"],
+[class^="panels_"] button {
+    background: rgb(255 255 255 / 5%) !important;
+    border-radius: 10px !important;
+    border: 1px solid transparent !important;
+}
+
+/* Base: voice control buttons — circular Mac style */
+[class^="voiceControlsContainer_"] [class^="button_"],
+[class*="voiceControlsContainer_"] button,
+[class^="callContainer_"] button,
+[class*="callContainer_"] button {
+    background: rgb(255 255 255 / 6%) !important;
+    border-radius: 50% !important;
+    width: 44px !important;
+    height: 44px !important;
+    min-width: 44px !important;
+    min-height: 44px !important;
+    padding: 0 !important;
+    color: var(--cn-text-2) !important;
+    border: 1px solid rgb(255 255 255 / 8%) !important;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 30%) !important;
+    transition: background 0.2s ease, box-shadow 0.2s ease, color 0.2s ease, transform 0.15s ease !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+/* Base: voice danger button */
+[class^="voiceControlsContainer_"] [class*="colorRed"],
+[class*="voiceControlsContainer_"] [class*="colorRed"],
+[class*="callContainer_"] [class*="colorRed"] {
+    background: rgb(224 34 68 / 15%) !important;
+    color: var(--cn-accent-1) !important;
+    border-color: rgb(224 34 68 / 30%) !important;
+    box-shadow: 0 0 12px var(--cn-accent-glow) !important;
+}
+
+/* Base: voice active button */
+[class^="voiceControlsContainer_"] [class*="active_"],
+[class*="voiceControlsContainer_"] [class*="active_"] {
+    background: var(--cn-accent-glow-strong) !important;
+    color: var(--cn-accent-1) !important;
+    border-color: var(--cn-accent-3) !important;
+}
+
+/* Base: primary filled brand button */
+[class^="lookFilled_"][class*="colorBrand"] {
+    background: var(--cn-accent-2) !important;
+    border-radius: var(--cn-radius-sm) !important;
+}
+
+/* Base: muted mic in panel */
+[class^="panels_"] [class*="muted_"] {
+    color: var(--cn-accent-1) !important;
+    background: rgb(224 34 68 / 12%) !important;
+    border-color: rgb(224 34 68 / 20%) !important;
+}
+
+/* Hover: generic icon buttons */
+[class^="panels_"] [class^="button_"]:hover,
+[class^="panels_"] button:hover,
+[class^="toolbar_"] [class^="button_"]:hover,
+[class^="toolbar_"] button:hover,
+[class*="actionButtons_"] [class^="button_"]:hover,
+[class*="actionButtons_"] button:hover,
+[class^="button_"][class*="panel"]:hover,
+[class^="button_"][class*="toolbar"]:hover,
+[class^="button_"][class*="action"]:hover,
+[class^="button_"][class*="colorBrand"]:not([class*="lookFilled_"]):hover {
+    background: var(--cn-hover) !important;
+    color: var(--cn-text-1) !important;
+}
+
+/* Hover: panels buttons */
+[class^="panels_"] [class^="button_"]:hover,
+[class^="panels_"] button:hover {
+    background: rgb(255 255 255 / 10%) !important;
+    border-color: var(--cn-border-soft) !important;
+}
+
+/* Hover: voice control buttons */
+[class^="voiceControlsContainer_"] [class^="button_"]:hover,
+[class*="voiceControlsContainer_"] button:hover,
+[class^="callContainer_"] button:hover,
+[class*="callContainer_"] button:hover {
+    background: rgb(255 255 255 / 10%) !important;
+    color: var(--cn-text-1) !important;
+    box-shadow: 0 0 16px rgb(255 255 255 / 10%), 0 4px 12px rgb(0 0 0 / 40%) !important;
+    transform: scale(1.08) !important;
+}
+
+/* Hover: voice danger button */
+[class^="voiceControlsContainer_"] [class*="colorRed"]:hover,
+[class*="callContainer_"] [class*="colorRed"]:hover {
+    background: rgb(224 34 68 / 28%) !important;
+    box-shadow: 0 0 20px var(--cn-accent-glow-strong) !important;
+    transform: scale(1.08) !important;
+}
+
+/* Hover: primary filled brand button */
+[class^="lookFilled_"][class*="colorBrand"]:hover {
+    background: var(--cn-accent-1) !important;
+    box-shadow: 0 0 12px var(--cn-accent-glow-strong) !important;
+}
+
+[class^="lookLink_"],
+[class*=" lookLink_"] {
+    color: var(--cn-accent-1) !important;
+}
+
+/* ============================================================
+   MODALS & POPOUTS
+   ============================================================ */
+
+[class^="backdrop_"],
+[class*=" backdrop_"] {
+    background: rgb(0 0 0 / 75%) !important;
+    backdrop-filter: blur(4px) !important;
+}
+
+[class^="root_"][class*="modal"],
+[class^="modal_"],
+[class*=" modal_"] {
+    background: var(--cn-surface-1) !important;
+    border: 1px solid var(--cn-border-soft) !important;
+    border-radius: var(--cn-radius-lg) !important;
+    box-shadow: 0 16px 64px rgb(0 0 0 / 70%) !important;
+}
+
+[class^="contentRegion_"],
+[class^="contentRegionScroller_"] {
+    background: var(--cn-bg-2) !important;
+}
+
+[class^="item_"][aria-selected="true"],
+[class^="item_"][class*="selected"] {
+    background: var(--cn-selected) !important;
+    color: var(--cn-accent-1) !important;
+    border-radius: var(--cn-radius-sm);
+}
+
+[class^="menu_"],
+[class*=" menu_"],
+[role="menu"] {
+    background: var(--cn-surface-2) !important;
+    border: 1px solid var(--cn-border-soft) !important;
+    border-radius: var(--cn-radius-md) !important;
+    box-shadow: 0 8px 32px rgb(0 0 0 / 60%) !important;
+    padding: 4px !important;
+}
+
+[class^="item_"][role="menuitem"],
+[class^="item_"][role="menuitemcheckbox"],
+[class^="item_"][role="menuitemradio"] {
+    border-radius: var(--cn-radius-sm) !important;
+    color: var(--cn-text-2) !important;
+}
+
+[class^="item_"][role="menuitem"]:hover,
+[class^="item_"][role="menuitemcheckbox"]:hover,
+[class^="item_"][class*="colorDanger"]:hover {
+    background: var(--cn-accent-glow) !important;
+    color: var(--cn-accent-1) !important;
+}
+
+[class^="tooltip_"],
+[class*=" tooltip_"] {
+    background: var(--cn-surface-3) !important;
+    border: 1px solid var(--cn-border-soft) !important;
+    border-radius: var(--cn-radius-sm) !important;
+    color: var(--cn-text-2) !important;
+    box-shadow: 0 4px 16px rgb(0 0 0 / 50%) !important;
+}
+
+[class^="userPopoutOuter_"],
+[class*=" userPopoutOuter_"],
+[class*="profilePopout_"],
+[class*="popoutWrapper_"] {
+    background: var(--cn-surface-1) !important;
+    border: 1px solid var(--cn-border-soft) !important;
+    border-radius: var(--cn-radius-lg) !important;
+    box-shadow: 0 16px 48px rgb(0 0 0 / 70%) !important;
+}
+
+/* ============================================================
+   REACTIONS
+   ============================================================ */
+
+[class^="reaction_"],
+[class*=" reaction_"] {
+    background: var(--cn-bg-1) !important;
+    border: 1px solid var(--cn-border-faint) !important;
+    border-radius: 99px !important;
+}
+
+[class^="reaction_"]:hover,
+[class*=" reaction_"]:hover {
+    background: var(--cn-bg-0) !important;
+    border-color: var(--cn-accent-3) !important;
+}
+
+[class*="reactionSelected_"] {
+    background: var(--cn-accent-glow) !important;
+    border-color: var(--cn-accent-3) !important;
+}
+
+/* ============================================================
+   EMBEDS & VOICE
+   ============================================================ */
+
+[class^="embed_"],
+[class*=" embed_"] {
+    background: var(--cn-bg-1) !important;
+    border-radius: var(--cn-radius-md) !important;
+    border-left: 3px solid var(--cn-accent-3) !important;
+}
+
+[class*="speaking_"] {
+    box-shadow: inset 0 0 0 2px var(--cn-accent-1) !important;
+    border-radius: var(--cn-radius-sm) !important;
+}
+
+/* ============================================================
+   GUILD ICONS
+   ============================================================ */
+
+[class^="blob_"] {
+    transition: fill 0.15s ease;
+}
+
+/* ============================================================
+   DM / HOME PANEL
+   ============================================================ */
+
+[class^="privateChannels_"],
+[class*=" privateChannels_"] {
+    background: var(--cn-bg-3) !important;
+}
+
+[class*="privateChannel_"]:hover {
+    background: var(--cn-hover) !important;
+    border-radius: var(--cn-radius-sm);
+}
+
+[class*="privateChannel_"][class*="selected"],
+[class*="privateChannel_"][class*="active_"] {
+    background: var(--cn-selected) !important;
+    border-radius: var(--cn-radius-sm);
+}
