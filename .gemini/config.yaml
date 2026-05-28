@@ -9,6 +9,7 @@ code_review:
         include_drafts: false
 
 ignore_patterns:
+    - "pnpm-lock.yaml"
     - "pnpm-workspace.yaml"
     - "dist/**"
     - "browser/**"
