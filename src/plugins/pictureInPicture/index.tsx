@@ -9,12 +9,13 @@ import "./styles.css";
 import { definePluginSettings } from "@api/Settings";
 import ErrorBoundary from "@components/ErrorBoundary";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { Tooltip } from "@webpack/common";
 
 const settings = definePluginSettings({
     loop: {
-        description: "Whether to make the PiP video loop or not",
+        description: t("تشغيل فيديو PiP بشكل متكرر أم لا", "Whether to loop the PiP video or not"),
         type: OptionType.BOOLEAN,
         default: true,
         restartNeeded: false
@@ -23,7 +24,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "PictureInPicture",
-    description: "Adds picture in picture to videos (next to the Download button)",
+    get description() { return t("يُضيف دعم وضع Picture-in-Picture لمقاطع الفيديو", "Adds Picture-in-Picture mode support for videos"); },
     tags: ["Media", "Utility"],
     authors: [Devs.Lumap],
     settings,

@@ -5,11 +5,12 @@
  */
 
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "DisableCameras",
-    description: "Disables cameras in a call by default",
+    get description() { return t("يعطّل الكاميرا في المكالمات افتراضياً", "Disables cameras in calls by default"); },
     tags: ["Appearance", "Customisation", "Media", "Privacy"],
     authors: [Devs.Joona],
     patches: [

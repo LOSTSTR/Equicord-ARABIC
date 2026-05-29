@@ -31,13 +31,14 @@ import { SettingsTab } from "@components/settings";
 import { debounce } from "@shared/debounce";
 import { ChangeList } from "@utils/ChangeList";
 import { classNameFactory } from "@utils/css";
+import { t } from "@utils/esharqI18n";
 import { isTruthy } from "@utils/guards";
 import { Logger } from "@utils/Logger";
 import { Margins } from "@utils/margins";
 import { classes } from "@utils/misc";
 import { useAwaiter, useCleanupEffect, useIntersection } from "@utils/react";
 import { PluginTag, PluginTags } from "@utils/types";
-import { Alerts, ConfirmModal, lodash, openModal, Parser, React, SearchableSelect, Select, TextInput, Toasts, Tooltip, useCallback, useMemo, useRef, useState } from "@webpack/common";
+import { Alerts, lodash, Parser, React, SearchableSelect, Select, TextInput, Toasts, Tooltip, useCallback, useMemo, useRef, useState } from "@webpack/common";
 import { JSX } from "react";
 
 import Plugins, { ExcludedPlugins, PluginMeta } from "~plugins";
@@ -66,19 +67,28 @@ function ReloadRequiredCard({ required, enabledPlugins, openWarningModal, resetC
         <Card className={classes(cl("info-card"), required && "vc-warning-card")}>
             {required ? (
                 <>
-                    <HeadingTertiary>Restart required!</HeadingTertiary>
+                    <HeadingTertiary>{t("إعادة تشغيل مطلوبة!", "Restart Required!")}</HeadingTertiary>
                     <Paragraph className={cl("dep-text")}>
-                        Restart now to apply new plugins and their settings
+                        {t(
+                            "أعد التشغيل الآن لتطبيق الإضافات الجديدة وإعداداتها",
+                            "Restart now to apply the new plugins and their settings"
+                        )}
                     </Paragraph>
                     <Button variant="primary" className={cl("restart-button")} onClick={() => location.reload()}>
-                        Restart
+                        {t("إعادة التشغيل", "Restart")}
                     </Button>
                 </>
             ) : (
                 <>
-                    <HeadingTertiary>Plugin Management</HeadingTertiary>
-                    <Paragraph>Press the cog wheel or info icon to get more info on a plugin</Paragraph>
-                    <Paragraph>Plugins with a cog wheel have settings you can modify!</Paragraph>
+                    <HeadingTertiary>{t("إدارة الإضافات", "Manage Plugins")}</HeadingTertiary>
+                    <Paragraph>{t(
+                        "اضغط على أيقونة الإعدادات أو المعلومات للاطلاع على تفاصيل الإضافة",
+                        "Click the settings or info icon to see plugin details"
+                    )}</Paragraph>
+                    <Paragraph>{t(
+                        "الإضافات ذات أيقونة التروس تحتوي على إعدادات قابلة للتخصيص!",
+                        "Plugins with a gear icon have configurable settings!"
+                    )}</Paragraph>
                 </>
             )}
             {enabledPlugins.length > 0 && !required && (
@@ -90,7 +100,7 @@ function ReloadRequiredCard({ required, enabledPlugins, openWarningModal, resetC
                         return openWarningModal(null, undefined, false, enabledPlugins.length, resetCheckAndDo);
                     }}
                 >
-                    Disable All Plugins
+                    {t("تعطيل كل الإضافات", "Disable All Plugins")}
                 </Button>
             )}
         </Card>
@@ -109,12 +119,12 @@ const enum SearchStatus {
 }
 
 export const ExcludedReasons: Record<"web" | "discordDesktop" | "vesktop" | "equibop" | "desktop" | "dev", string> = {
-    desktop: "Discord Desktop app or Vesktop/Equibop",
-    discordDesktop: "Discord Desktop app",
-    vesktop: "Vesktop/Equibop apps",
-    equibop: "Vesktop/Equibop apps",
-    web: "Vesktop/Equibop apps & Discord web",
-    dev: "Developer version of Equicord"
+    desktop: t("تطبيق Discord Desktop أو Vesktop/Equibop", "Discord Desktop or Vesktop/Equibop"),
+    discordDesktop: t("تطبيق Discord Desktop", "Discord Desktop"),
+    vesktop: t("تطبيقات Vesktop/Equibop", "Vesktop/Equibop"),
+    equibop: t("تطبيقات Vesktop/Equibop", "Vesktop/Equibop"),
+    web: t("تطبيقات Vesktop/Equibop ومتصفح Discord", "Vesktop/Equibop and Discord web"),
+    dev: t("إصدار المطورين من Esharq", "Esharq dev build")
 };
 
 function ExcludedPluginsList({ search }: { search: string; }) {
@@ -127,16 +137,16 @@ function ExcludedPluginsList({ search }: { search: string; }) {
         <Paragraph className={Margins.top16}>
             {matchingExcludedPlugins.length
                 ? <>
-                    <Paragraph>Are you looking for:</Paragraph>
+                    <Paragraph>{t("هل تبحث عن:", "Are you looking for:")}</Paragraph>
                     <ul>
                         {matchingExcludedPlugins.map(([name, reason]) => (
                             <li key={name}>
-                                <b>{name}</b>: Only available on the {ExcludedReasons[reason]}
+                                <b>{name}</b>: {t("متاحة فقط على", "only available on")} {ExcludedReasons[reason]}
                             </li>
                         ))}
                     </ul>
                 </>
-                : "No plugins meet the search criteria."
+                : t("لا توجد إضافات تطابق معايير البحث.", "No plugins match your search criteria.")
             }
         </Paragraph>
     );
@@ -144,6 +154,8 @@ function ExcludedPluginsList({ search }: { search: string; }) {
 
 export default function PluginSettings() {
     const settings = useSettings();
+    useSettings(["plugins.Settings.arabicMode"]);
+
     const changeRef = useRef<ChangeList<string>>(null);
     const changes = changeRef.current ??= new ChangeList<string>();
 
@@ -157,29 +169,23 @@ export default function PluginSettings() {
             const displayed = pluginNames.slice(0, maxDisplay);
             const remainingCount = pluginNames.length - displayed.length;
 
-            openModal(props => (
-                <ConfirmModal
-                    {...props}
-                    title="Restart required"
-                    confirmText="Restart now"
-                    cancelText="Later!"
-                    variant="primary"
-                    onConfirm={() => location.reload()}
-                >
-                    <>
-                        <p>The following plugins require a restart:</p>
-                        <div>
-                            {displayed.map((s, i) => (
-                                <span key={i}>
-                                    {i > 0 && ", "}
-                                    {Parser.parse("`" + s + "`")}
-                                </span>
-                            ))}
-                            {remainingCount > 0 && <span> and {remainingCount} more</span>}
-                        </div>
-                    </>
-                </ConfirmModal>
-            ));
+            Alerts.show({
+                title: t("إعادة تشغيل مطلوبة", "Restart Required"),
+                body: (
+                    <div>
+                        {displayed.map((s, i) => (
+                            <span key={i}>
+                                {i > 0 && "، "}
+                                {Parser.parse("`" + s + "`")}
+                            </span>
+                        ))}
+                        {remainingCount > 0 && <span> {t(`و${remainingCount} أخرى`, `and ${remainingCount} more`)}</span>}
+                    </div>
+                ),
+                confirmText: t("إعادة التشغيل الآن", "Restart Now"),
+                cancelText: t("لاحقاً!", "Later!"),
+                onConfirm: () => location.reload()
+            });
         };
     }, []);
 
@@ -240,7 +246,7 @@ export default function PluginSettings() {
 
         return (
             plugin.name.toLowerCase().includes(search.replace(/\s+/g, "")) ||
-            plugin.name.match(/[A-Z]/g)?.join("").toLowerCase().includes(search) || // acronyms like BF for BetterFolders
+            plugin.name.match(/[A-Z]/g)?.join("").toLowerCase().includes(search) ||
             plugin.description.toLowerCase().includes(search) ||
             plugin.searchTerms?.some(t => t.toLowerCase().includes(search))
         );
@@ -280,7 +286,7 @@ export default function PluginSettings() {
 
             if (isRequired) {
                 const tooltipText = p.required || !depMap[p.name]
-                    ? "This plugin is required for Equicord to function."
+                    ? t("هذه الإضافة ضرورية لعمل Esharq.", "This plugin is required for Esharq to function.")
                     : <PluginDependencyList deps={depMap[p.name]?.filter(d => settings.plugins[d].enabled)} />;
 
                 requiredPlugins.push(
@@ -337,21 +343,20 @@ export default function PluginSettings() {
 
         if (restartNeeded) {
             Alerts.show({
-                title: "Restart Required",
+                title: t("إعادة تشغيل مطلوبة", "Restart Required"),
                 body: (
                     <>
-                        <p style={{ textAlign: "center" }}>Some plugins require a restart to fully disable.</p>
-                        <p style={{ textAlign: "center" }}>Would you like to restart now?</p>
+                        <p style={{ textAlign: "center" }}>{t("بعض الإضافات تستلزم إعادة تشغيل لتعطيلها كلياً.", "Some plugins require a restart to be fully disabled.")}</p>
+                        <p style={{ textAlign: "center" }}>{t("هل تريد إعادة التشغيل الآن؟", "Do you want to restart now?")}</p>
                     </>
                 ),
-                confirmText: "Restart Now",
-                cancelText: "Later",
+                confirmText: t("إعادة التشغيل الآن", "Restart Now"),
+                cancelText: t("لاحقاً", "Later"),
                 onConfirm: () => location.reload()
             });
         }
     }
 
-    // Code directly taken from supportHelper.tsx
     const { totalStockPlugins, totalUserPlugins, enabledStockPlugins, enabledUserPlugins, enabledPlugins } = useMemo(() => {
         const isApiPlugin = (plugin: string) => plugin.endsWith("API") || Plugins[plugin].required;
 
@@ -364,6 +369,7 @@ export default function PluginSettings() {
         const enabledUserPlugins = enabledPlugins.filter(p => PluginMeta[p].userPlugin).length;
         return { totalStockPlugins, totalUserPlugins, enabledStockPlugins, enabledUserPlugins, enabledPlugins };
     }, [settings.plugins]);
+
     const pluginsToLoad = Math.min(36, plugins.length);
     const [visibleCount, setVisibleCount] = React.useState(pluginsToLoad);
     const loadMore = React.useCallback(() => {
@@ -401,13 +407,13 @@ export default function PluginSettings() {
             </div>
 
             <HeadingTertiary className={classes(Margins.top20, Margins.bottom8)}>
-                Filters
+                {t("الفلاتر", "Filters")}
             </HeadingTertiary>
 
             <ErrorBoundary noop>
                 <TextInput
                     inputClassName={cl("filter-control")}
-                    placeholder="Search for a plugin..."
+                    placeholder={t("ابحث عن إضافة...", "Search for a plugin...")}
                     value={searchValue.value}
                     onChange={onSearch}
                     autoFocus
@@ -418,33 +424,33 @@ export default function PluginSettings() {
                 <div className={classes(Margins.bottom20, Margins.top8, cl("filter-controls"))}>
                     <Select
                         options={[
-                            { label: "Show All", value: SearchStatus.ALL, default: true },
-                            { label: "Show Enabled", value: SearchStatus.ENABLED },
-                            { label: "Show Disabled", value: SearchStatus.DISABLED },
-                            { label: "Show Equicord", value: SearchStatus.EQUICORD },
-                            { label: "Show Vencord", value: SearchStatus.VENCORD },
-                            { label: "Show New", value: SearchStatus.NEW },
-                            hasUserPlugins && { label: "Show UserPlugins", value: SearchStatus.USER_PLUGINS },
-                            { label: "Show API Plugins", value: SearchStatus.API_PLUGINS },
+                            { label: t("عرض الكل", "Show All"), value: SearchStatus.ALL, default: true },
+                            { label: t("عرض المفعَّلة", "Show Enabled"), value: SearchStatus.ENABLED },
+                            { label: t("عرض المعطَّلة", "Show Disabled"), value: SearchStatus.DISABLED },
+                            { label: t("عرض Esharq", "Show Esharq"), value: SearchStatus.EQUICORD },
+                            { label: t("عرض Vencord", "Show Vencord"), value: SearchStatus.VENCORD },
+                            { label: t("عرض الجديدة", "Show New"), value: SearchStatus.NEW },
+                            hasUserPlugins && { label: t("عرض الإضافات الشخصية", "Show User Plugins"), value: SearchStatus.USER_PLUGINS },
+                            { label: t("عرض إضافات API", "Show API Plugins"), value: SearchStatus.API_PLUGINS },
                         ].filter(isTruthy)}
                         serialize={String}
                         select={status => setSearchValue(prev => ({ ...prev, status }))}
                         isSelected={v => v === searchValue.status}
                         closeOnSelect={true}
-                        placeholder="Filter by Type"
+                        placeholder={t("تصفية حسب النوع", "Filter by type")}
                     />
                     <SearchableSelect
                         options={PluginTags.map(tag => ({ label: tag, value: tag }))}
                         value={searchValue.tags}
                         onChange={tags => setSearchValue(prev => ({ ...prev, tags }))}
                         closeOnSelect={false}
-                        placeholder="Filter by Tags"
+                        placeholder={t("تصفية حسب الوسوم", "Filter by tags")}
                         multi
                     />
                 </div>
             </ErrorBoundary>
 
-            <HeadingTertiary className={Margins.top20}>Plugins</HeadingTertiary>
+            <HeadingTertiary className={Margins.top20}>{t("الإضافات", "Plugins")}</HeadingTertiary>
 
             {plugins.length || requiredPlugins.length
                 ? (
@@ -452,7 +458,7 @@ export default function PluginSettings() {
                         <div className={cl("grid")}>
                             {visiblePlugins.length
                                 ? visiblePlugins
-                                : <Paragraph>No plugins meet the search criteria.</Paragraph>
+                                : <Paragraph>{t("لا توجد إضافات تطابق معايير البحث.", "No plugins match your search criteria.")}</Paragraph>
                             }
                         </div>
                         {visibleCount < plugins.length && (
@@ -466,13 +472,13 @@ export default function PluginSettings() {
             <Divider className={Margins.top20} />
 
             <HeadingTertiary className={classes(Margins.top20, Margins.bottom8)}>
-                Required Plugins
+                {t("الإضافات المطلوبة", "Required Plugins")}
             </HeadingTertiary>
 
             <div className={cl("grid")}>
                 {requiredPlugins.length
                     ? requiredPlugins
-                    : <Paragraph>No plugins meet the search criteria.</Paragraph>
+                    : <Paragraph>{t("لا توجد إضافات تطابق معايير البحث.", "No plugins match your search criteria.")}</Paragraph>
                 }
             </div>
         </SettingsTab >
@@ -482,7 +488,7 @@ export default function PluginSettings() {
 export function PluginDependencyList({ deps }: { deps: string[]; }) {
     return (
         <>
-            <Paragraph>This plugin is required by:</Paragraph>
+            <Paragraph>{t("هذه الإضافة مطلوبة من قِبَل:", "This plugin is required by:")}</Paragraph>
             {deps.map((dep: string) => <Paragraph key={dep} className={cl("dep-text")}>{dep}</Paragraph>)}
         </>
     );

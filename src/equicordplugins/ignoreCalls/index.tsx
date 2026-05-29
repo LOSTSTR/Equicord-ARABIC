@@ -12,6 +12,7 @@ import { Button } from "@components/Button";
 import ErrorBoundary from "@components/ErrorBoundary";
 import { Devs, EquicordDevs } from "@utils/constants";
 import { classNameFactory } from "@utils/css";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { Channel } from "@vencord/discord-types";
 import { findComponentByCodeLazy } from "@webpack";
@@ -83,7 +84,7 @@ const ContextMenuPatch: NavContextMenuPatchCallback = (children, { channel }: { 
 const settings = definePluginSettings({
     permanentlyIgnoredUsers: {
         type: OptionType.STRING,
-        description: "User IDs (comma + space) who should be permanetly ignored",
+        description: t("معرّفات المستخدمين (مفصولة بفاصلة ومسافة) الذين سيتم تجاهلهم دائماً", "User IDs (comma and space separated) that will always be ignored"),
         restartNeeded: true,
         default: "",
     },
@@ -91,7 +92,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "IgnoreCalls",
-    description: "Allows you to ignore calls from specific users or dm groups.",
+    get description() { return t("يتيح لك تجاهل المكالمات من مستخدمين محددين أو مجموعات الرسائل المباشرة.", "Allows you to ignore calls from specific users or group DMs."); },
     tags: ["Voice"],
     authors: [EquicordDevs.TheArmagan, Devs.thororen],
     settings,

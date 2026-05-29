@@ -11,6 +11,7 @@ import { Heading } from "@components/Heading";
 import { DeleteIcon, PlusIcon } from "@components/Icons";
 import { Devs, EquicordDevs } from "@utils/constants";
 import { classNameFactory } from "@utils/css";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { Button, Select, TextInput, useState } from "@webpack/common";
 
@@ -94,20 +95,20 @@ function ReasonsComponent() {
 
 const settings = definePluginSettings({
     reasons: {
-        description: "Your custom reasons",
+        description: t("أسباب الحظر المخصصة الخاصة بك", "Your custom ban reasons"),
         type: OptionType.COMPONENT,
         default: [] as BanReason[],
         component: ReasonsComponent,
     },
     isTextInputDefault: {
         type: OptionType.BOOLEAN,
-        description: 'Shows a text input instead of a select menu by default. (Equivalent to clicking the "Other" option)'
+        description: t('يعرض حقل نص بدلاً من قائمة الاختيار افتراضياً (مكافئ للنقر على "أخرى")', 'Show text input instead of dropdown by default (equivalent to clicking "Other")')
     }
 });
 
 export default definePlugin({
     name: "BetterBanReasons",
-    description: "Create custom reasons to use in the Discord ban modal, and/or show a text input by default instead of the options.",
+    get description() { return t("أنشئ أسباباً مخصصة لاستخدامها في نافذة الحظر، أو اعرض حقل نص افتراضياً بدلاً من الخيارات", "Create custom reasons for the ban dialog, or show a text input by default instead of the dropdown"); },
     tags: ["Appearance", "Customisation"],
     authors: [Devs.Inbestigator, EquicordDevs.yonn2222],
 

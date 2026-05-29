@@ -9,6 +9,7 @@ import { getUserSettingLazy } from "@api/UserSettings";
 import { ImageIcon } from "@components/Icons";
 import { copyToClipboard } from "@utils/clipboard";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import { getCurrentChannel, getCurrentGuild, openImageModal } from "@utils/discord";
 import { isTruthy } from "@utils/guards";
 import { classes } from "@utils/misc";
@@ -70,7 +71,7 @@ function RoleMembersIcon() {
 const settings = definePluginSettings({
     roleIconFileFormat: {
         type: OptionType.SELECT,
-        description: "File format to use when viewing role icons",
+        description: t("صيغة الملف عند عرض أيقونات الرتب", "File format when viewing role icons"),
         options: [
             {
                 label: "png",
@@ -186,7 +187,7 @@ export function buildExtraRoleContextMenuItems(role: Role, guild: Guild, popoutR
 
 export default definePlugin({
     name: "BetterRoleContext",
-    description: "Adds options to copy role color / edit role / view role icon when right clicking roles in the user profile",
+    get description() { return t("يُضيف خيارات إضافية لقوائم سياق الأدوار", "Adds extra options to role context menus"); },
     tags: ["Roles", "Appearance"],
     authors: [Devs.Ven, Devs.goodbee],
     dependencies: ["UserSettingsAPI"],

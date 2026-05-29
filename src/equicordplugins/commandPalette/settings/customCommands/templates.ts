@@ -4,6 +4,8 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
+import { t } from "@utils/esharqI18n";
+
 import type { CustomCommandDefinition } from "../../registry";
 import type { CommandTemplateId } from "./types";
 
@@ -18,7 +20,7 @@ export const TEMPLATE_CONFIGS: TemplateConfig[] = [
     {
         id: "command",
         label: "Alias",
-        description: "Run another palette command.",
+        description: t("تشغيل أمر آخر من لوحة الأوامر.", "Run another command from the command palette."),
         apply: command => ({
             ...command,
             action: { type: "command", commandId: "" }
@@ -27,7 +29,7 @@ export const TEMPLATE_CONFIGS: TemplateConfig[] = [
     {
         id: "settings",
         label: "Open Settings Page",
-        description: "Jump directly to a Discord settings page.",
+        description: t("الانتقال مباشرةً إلى صفحة إعدادات ديسكورد.", "Navigate directly to a Discord settings page."),
         apply: command => ({
             ...command,
             action: { type: "settings", route: "My Account" }
@@ -36,7 +38,7 @@ export const TEMPLATE_CONFIGS: TemplateConfig[] = [
     {
         id: "url",
         label: "Quicklink",
-        description: "Open a link in Discord or externally.",
+        description: t("فتح رابط في ديسكورد أو خارجياً.", "Open a link in Discord or externally."),
         apply: command => ({
             ...command,
             action: { type: "url", url: "https://", openExternal: true }
@@ -45,7 +47,7 @@ export const TEMPLATE_CONFIGS: TemplateConfig[] = [
     {
         id: "macro",
         label: "Sequence",
-        description: "Run multiple commands in order.",
+        description: t("تشغيل أوامر متعددة بالترتيب.", "Run multiple commands in sequence."),
         apply: command => ({
             ...command,
             action: { type: "macro", steps: [] }

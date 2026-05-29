@@ -17,12 +17,13 @@
 */
 
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "ServerListAPI",
     authors: [Devs.kemo],
-    description: "Api required for plugins that modify the server list",
+    get description() { return t("واجهة برمجية مطلوبة للإضافات التي تعدّل قائمة السيرفرات", "API required for plugins that modify the server list"); },
     patches: [
         {
             find: "#{intl::DISCODO_DISABLED}",

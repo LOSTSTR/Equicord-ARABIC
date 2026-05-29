@@ -23,7 +23,7 @@ export default definePlugin({
     name: "BetterGifAltText",
     authors: [Devs.Ven],
     description:
-        "Change GIF alt text from simply being 'GIF' to containing the gif tags / filename",
+        "يغيّر النص البديل للـ GIF من 'GIF' فقط إلى النص الذي يحتوي على وسوم الـ GIF أو اسم الملف",
     tags: ["Media", "Accessibility", "Customisation"],
     patches: [
         {

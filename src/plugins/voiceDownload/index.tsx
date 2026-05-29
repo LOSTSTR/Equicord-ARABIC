@@ -7,11 +7,12 @@
 import "./style.css";
 
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "VoiceDownload",
-    description: "Adds a download to voice messages. (Opens a new browser tab)",
+    get description() { return t("يضيف زر تحميل للرسائل الصوتية. (يفتح تبويب متصفح جديد)", "Adds a download button for voice messages. (Opens a new browser tab)"); },
     tags: ["Voice", "Media"],
     authors: [Devs.puv],
     patches: [

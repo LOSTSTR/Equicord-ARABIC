@@ -7,6 +7,7 @@
 import { addContextMenuPatch, removeContextMenuPatch } from "@api/ContextMenu";
 import { ScreenshareIcon } from "@components/Icons";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 import { Menu, UploadHandler } from "@webpack/common";
 
@@ -14,7 +15,7 @@ let recoder: MediaRecorder;
 
 export default definePlugin({
     name: "ScreenRecorder",
-    description: "Adds an option to record your screen and upload the recording to the channel",
+    get description() { return t("يضيف خياراً لتسجيل شاشتك ورفع التسجيل إلى القناة", "Adds an option to record your screen and upload the recording to the channel."); },
     tags: ["Chat"],
     authors: [Devs.AutumnVN],
     contextMenus: {

@@ -26,6 +26,7 @@ import { Heading, HeadingSecondary } from "@components/Heading";
 import { Link } from "@components/Link";
 import { Paragraph } from "@components/Paragraph";
 import { SettingsTab, wrapTab } from "@components/settings/tabs/BaseTab";
+import { t } from "@utils/esharqI18n";
 import { Margins } from "@utils/margins";
 import { useAwaiter } from "@utils/react";
 import { getRepo, isNewer, UpdateLogger } from "@utils/updater";
@@ -69,7 +70,7 @@ function EquibopSection() {
 }
 
 function Updater() {
-    const settings = useSettings(["autoUpdate", "autoUpdateNotification"]);
+    const settings = useSettings(["autoUpdate", "autoUpdateNotification", "plugins.Settings.arabicMode"]);
 
     const [repo, err, repoPending] = useAwaiter(getRepo, { fallbackValue: "Loading..." });
 
@@ -86,14 +87,14 @@ function Updater() {
     return (
         <SettingsTab>
             <EquibopSection />
-            <Heading className={Margins.top16}>Update Preferences</Heading>
+            <Heading className={Margins.top16}>{t("تفضيلات التحديث", "Update Preferences")}</Heading>
             <Paragraph className={Margins.bottom20}>
-                Control how Equicord keeps itself up to date. You can choose to update automatically in the background or be notified when new updates are available.
+                {t("تحكم في كيفية تحديث Esharq تلقائياً.", "Control how Esharq updates automatically.")}
             </Paragraph>
 
             <FormSwitch
-                title="Automatically update"
-                description="When enabled, Equicord will automatically download and install updates in the background without asking for confirmation. You'll need to restart Discord to apply the changes."
+                title={t("تحديث تلقائي", "Auto Update")}
+                description={t("عند التفعيل، يقوم Esharq بتنزيل التحديثات وتثبيتها في الخلفية دون طلب تأكيد. ستحتاج إلى إعادة تشغيل ديسكورد لتطبيق التغييرات.", "When enabled, Esharq will download and install updates in the background without prompting. A Discord restart is required to apply changes.")}
                 value={settings.autoUpdate}
                 onChange={(v: boolean) => settings.autoUpdate = v}
                 hideBorder
@@ -101,17 +102,17 @@ function Updater() {
             <FormSwitch
                 value={settings.autoUpdateNotification}
                 onChange={(v: boolean) => settings.autoUpdateNotification = v}
-                title="Get notified when an automatic update completes"
-                description="Receive a notification when Equicord finishes downloading an update in the background, so you know when to restart Discord."
+                title={t("إشعار عند اكتمال التحديث التلقائي", "Notify on Auto-Update Completion")}
+                description={t("تلقّ إشعاراً عندما ينتهي Esharq من تنزيل تحديث في الخلفية", "Receive a notification when Esharq finishes downloading an update in the background")}
                 disabled={!settings.autoUpdate}
                 hideBorder
             />
 
             <Divider className={Margins.top20} />
 
-            <Heading className={Margins.top20}>Repository</Heading>
+            <Heading className={Margins.top20}>{t("المستودع", "Repository")}</Heading>
             <Paragraph className={Margins.bottom8}>
-                This is the GitHub repository where Equicord fetches updates from.
+                {t("هذا هو مستودع GitHub الذي يسحب Esharq منه التحديثات.", "This is the GitHub repository Esharq pulls updates from.")}
             </Paragraph>
             <Paragraph color="text-subtle">
                 {repoPending

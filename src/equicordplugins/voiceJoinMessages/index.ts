@@ -6,6 +6,7 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import { humanFriendlyJoin } from "@utils/text";
 import definePlugin, { OptionType } from "@utils/types";
 import { Message, User } from "@vencord/discord-types";
@@ -17,42 +18,42 @@ const createBotMessage = findByCodeLazy('username:"Clyde"');
 const settings = definePluginSettings({
     friendDirectMessages: {
         type: OptionType.BOOLEAN,
-        description: "Recieve notifications in your friends' DMs when they join a voice channel",
+        description: t("استقبال إشعارات في رسائل أصدقائك عند انضمامهم لقناة صوتية", "Receive notifications in your friends' DMs when they join a voice channel"),
         default: true
     },
     friendDirectMessagesShowMembers: {
         type: OptionType.BOOLEAN,
-        description: "Show a list of other members in the voice channel when recieving a DM notification of your friend joining a voice channel",
+        description: t("إظهار قائمة الأعضاء الآخرين في القناة الصوتية عند تلقي إشعار رسالة مباشرة بانضمام صديق", "Show the list of other members in the voice channel when receiving a friend join DM notification"),
         default: true
     },
     friendDirectMessagesShowMemberCount: {
         type: OptionType.BOOLEAN,
-        description: "Show the count of other members in the voice channel when recieving a DM notification of your friend joining a voice channel",
+        description: t("إظهار عدد الأعضاء الآخرين في القناة الصوتية عند تلقي إشعار انضمام صديق", "Show the count of other members in the voice channel when receiving a friend join notification"),
         default: false
     },
     friendDirectMessagesSelf: {
         type: OptionType.BOOLEAN,
-        description: "Recieve notifications in your friends' DMs even if you are in the same voice channel as them",
+        description: t("استقبال الإشعارات في رسائل أصدقائك حتى لو كنت في نفس القناة الصوتية معهم", "Receive notifications in your friends' DMs even if you're in the same voice channel"),
         default: false
     },
     friendDirectMessagesSilent: {
         type: OptionType.BOOLEAN,
-        description: "Join messages in your friends DMs will be silent",
+        description: t("رسائل الانضمام في رسائل أصدقائك المباشرة ستكون صامتة", "Join messages in your friends' DMs will be silent"),
         default: false
     },
     allowedFriends: {
         type: OptionType.STRING,
-        description: "Comma or space separated list of friends' user IDs you want to recieve join messages from",
+        description: t("قائمة معرفات أصدقائك الذين تريد استقبال رسائل انضمامهم (مفصولة بفاصلة أو مسافة)", "List of friend IDs you want to receive join messages from (comma or space separated)"),
         default: ""
     },
     ignoredFriends: {
         type: OptionType.STRING,
-        description: "Comma or space separated list of friends' user IDs you do NOT want to recieve join messages from",
+        description: t("قائمة معرفات أصدقائك الذين لا تريد استقبال رسائل انضمامهم (مفصولة بفاصلة أو مسافة)", "List of friend IDs you don't want to receive join messages from (comma or space separated)"),
         default: ""
     },
     ignoreBlockedUsers: {
         type: OptionType.BOOLEAN,
-        description: "Do not send messages about blocked users joining/leaving/moving voice channels",
+        description: t("عدم إرسال رسائل عن انضمام/مغادرة/انتقال المستخدمين المحظورين للقنوات الصوتية", "Don't send messages about blocked users joining/leaving/moving voice channels"),
         default: true
     },
 });
@@ -110,7 +111,7 @@ let clientOldChannelId: string | undefined;
 
 export default definePlugin({
     name: "VoiceJoinMessages",
-    description: "Recieve client-side ephemeral messages when your friends join voice channels",
+    get description() { return t("استقبال رسائل مؤقتة من جانب العميل عندما ينضم أصدقاؤك للقنوات الصوتية", "Receive client-side temporary messages when your friends join voice channels"); },
     tags: ["Servers", "Utility", "Voice"],
     authors: [Devs.Sqaaakoi, Devs.thororen],
     settings,

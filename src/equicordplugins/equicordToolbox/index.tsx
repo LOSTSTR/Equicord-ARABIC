@@ -21,6 +21,7 @@ import "./styles.css";
 import { HeaderBarButton } from "@api/HeaderBar";
 import { definePluginSettings, migratePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { Popout, useRef, useState } from "@webpack/common";
 
@@ -30,7 +31,7 @@ export const settings = definePluginSettings({
     showPluginMenu: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Show the plugins menu in the toolbox",
+        get description() { return t("عرض قائمة الإضافات في صندوق الأدوات", "Show the plugin menu in the toolbox"); },
     }
 });
 
@@ -76,7 +77,7 @@ function VencordPopoutButton() {
 migratePluginSettings("EquicordToolbox", "VencordToolbox");
 export default definePlugin({
     name: "EquicordToolbox",
-    description: "Adds a button next to the inbox button in the channel header that houses Equicord quick actions",
+    get description() { return t("يضيف زراً بجانب زر البريد الوارد في رأس القناة يحتوي على إجراءات Equicord السريعة", "Adds a button next to the inbox button in the channel header with quick Equicord actions"); },
     tags: ["Voice", "Accessibility"],
     authors: [Devs.Ven, Devs.AutumnVN],
     dependencies: ["HeaderBarAPI"],

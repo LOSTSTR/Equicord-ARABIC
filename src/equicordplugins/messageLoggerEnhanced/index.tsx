@@ -11,6 +11,7 @@ import "./styles.css";
 import { LogsIcon } from "@components/Icons";
 import { Devs, EquicordDevs } from "@utils/constants";
 import { classNameFactory } from "@utils/css";
+import { t } from "@utils/esharqI18n";
 import { Logger } from "@utils/Logger";
 import definePlugin from "@utils/types";
 import { findByPropsLazy } from "@webpack";
@@ -48,7 +49,12 @@ export async function clearLogs(showToast = true) {
 
 let oldGetMessage: typeof MessageStore.getMessage;
 
-const handledMessageIds = new Set();
+const handledMessageIds = new Set<string>();
+// Defensive ceiling: entries are always deleted in `finally`, but if something
+// goes wrong (e.g. an unhandled rejection escaping the try block in a future
+// refactor), this prevents unbounded heap growth.
+const HANDLED_IDS_MAX = 500;
+
 async function messageDeleteHandler(payload: MessageDeletePayload & { isBulk: boolean; }) {
     if (payload.mlDeleted) {
         if (settings.store.permanentlyRemoveLogByDefault)
@@ -59,6 +65,10 @@ async function messageDeleteHandler(payload: MessageDeletePayload & { isBulk: bo
 
     if (handledMessageIds.has(payload.id)) {
         return;
+    }
+
+    if (handledMessageIds.size >= HANDLED_IDS_MAX) {
+        handledMessageIds.clear();
     }
 
     try {
@@ -258,7 +268,7 @@ async function processMessageFetch(response: FetchMessagesResponse) {
 export default definePlugin({
     name: "MessageLoggerEnhanced",
     authors: [Devs.Aria, EquicordDevs.keircn],
-    description: "Improves MessageLogger with edited message history, ghost ping detection and more",
+    get description() { return t("يُحسّن MessageLogger بإضافة سجل تعديلات الرسائل وكشف الـ Ghost Ping والمزيد", "Enhances MessageLogger by adding a message edit log, ghost ping detection, and more"); },
     tags: ["Chat", "Servers"],
     dependencies: ["MessageLogger", "HeaderBarAPI"],
 

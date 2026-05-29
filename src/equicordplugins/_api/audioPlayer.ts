@@ -6,11 +6,12 @@
 
 import { AudioPlayerInternal, AudioPlayerOptions, audioProcessorFunctions, AudioType, identifyAudioType, playAudio } from "@api/AudioPlayer";
 import { EquicordDevs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "AudioPlayerAPI",
-    description: "API to play internal Discord audio files or external audio links.",
+    get description() { return t("واجهة برمجية لتشغيل ملفات صوت Discord الداخلية أو روابط صوتية خارجية.", "An API for playing internal Discord audio files or external audio links."); },
     authors: [EquicordDevs.Etorix],
     AudioType,
     playAudio,

@@ -63,10 +63,12 @@ export default {
         set: (css: string) => invoke<void>(IpcEvents.SET_QUICK_CSS, css),
 
         addChangeListener(cb: (newCss: string) => void) {
+            ipcRenderer.removeAllListeners(IpcEvents.QUICK_CSS_UPDATE);
             ipcRenderer.on(IpcEvents.QUICK_CSS_UPDATE, (_, css) => cb(css));
         },
 
         addThemeChangeListener(cb: () => void) {
+            ipcRenderer.removeAllListeners(IpcEvents.THEME_UPDATE);
             ipcRenderer.on(IpcEvents.THEME_UPDATE, () => cb());
         },
 
@@ -83,6 +85,7 @@ export default {
         onRendererCssUpdate: (cb: (newCss: string) => void) => {
             if (!IS_DEV) return;
 
+            ipcRenderer.removeAllListeners(IpcEvents.RENDERER_CSS_UPDATE);
             ipcRenderer.on(IpcEvents.RENDERER_CSS_UPDATE, (_e, newCss: string) => cb(newCss));
         }
     },
@@ -101,8 +104,14 @@ export default {
 
     tray: {
         setUpdateState: (available: boolean) => ipcRenderer.send(IpcEvents.SET_TRAY_UPDATE_STATE, available),
-        onCheckUpdates: (cb: () => void) => { ipcRenderer.on(IpcEvents.TRAY_CHECK_UPDATES, cb); },
-        onRepair: (cb: () => void) => { ipcRenderer.on(IpcEvents.TRAY_REPAIR, cb); },
+        onCheckUpdates: (cb: () => void) => {
+            ipcRenderer.removeAllListeners(IpcEvents.TRAY_CHECK_UPDATES);
+            ipcRenderer.on(IpcEvents.TRAY_CHECK_UPDATES, cb);
+        },
+        onRepair: (cb: () => void) => {
+            ipcRenderer.removeAllListeners(IpcEvents.TRAY_REPAIR);
+            ipcRenderer.on(IpcEvents.TRAY_REPAIR, cb);
+        },
     },
 
     pluginHelpers: PluginHelpers

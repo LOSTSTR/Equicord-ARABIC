@@ -5,11 +5,12 @@
  */
 
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "AltKrispSwitch",
-    description: "Makes the Noise Suppression Popout switch between None and Krisp instead of Krisp and Standard",
+    get description() { return t("يجعل نافذة إلغاء الضوضاء تتبدّل بين None وKrisp بدلاً من Krisp وStandard", "Makes the noise cancellation window toggle between None and Krisp instead of Krisp and Standard"); },
     tags: ["Customisation", "Voice"],
     authors: [Devs.newwares],
     patches: [

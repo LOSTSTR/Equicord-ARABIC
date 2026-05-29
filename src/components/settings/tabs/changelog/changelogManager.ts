@@ -440,6 +440,49 @@ export async function getUpdatedPlugins(): Promise<string[]> {
     return [];
 }
 
+export async function fetchRecentCommits(
+    repoUrl: string,
+    count = 15,
+): Promise<ChangelogEntry[]> {
+    const repoSlug = normalizeRepoUrl(repoUrl);
+    if (!repoSlug || typeof fetch !== "function") return [];
+    try {
+        const res = await fetch(
+            `${GITHUB_COMPARE_ENDPOINT}/${repoSlug}/commits?per_page=${count}`,
+            {
+                headers: {
+                    Accept: "application/vnd.github+json",
+                    "Cache-Control": "no-cache",
+                },
+            },
+        );
+        if (!res.ok) return [];
+        const data = await res.json();
+        if (!Array.isArray(data)) return [];
+
+        return data.map((commit: any) => {
+            const message: string = commit?.commit?.message ?? "";
+            const summary = message.split("\n")[0] || "No message";
+            const authorName =
+                commit?.commit?.author?.name ||
+                commit?.author?.login ||
+                "Unknown";
+            const timestamp = commit?.commit?.author?.date
+                ? Date.parse(commit.commit.author.date)
+                : undefined;
+            return {
+                hash: commit?.sha || "",
+                author: authorName,
+                message: summary,
+                timestamp: Number.isNaN(timestamp) ? undefined : timestamp,
+            } as ChangelogEntry;
+        });
+    } catch (err) {
+        console.warn("Failed to fetch recent commits", err);
+        return [];
+    }
+}
+
 export async function clearChangelogHistory(): Promise<void> {
     await DataStore.del(CHANGELOG_HISTORY_KEY);
     await DataStore.del(LAST_SEEN_HASH_KEY);

@@ -17,37 +17,38 @@
 */
 
 import { definePluginSettings } from "@api/Settings";
+import { t } from "@utils/esharqI18n";
 import { OptionType } from "@utils/types";
 
 export default definePluginSettings({
     notices: {
         type: OptionType.BOOLEAN,
-        description: "Also show a notice at the top of your screen when removed (use this if you don't want to miss any notifications).",
+        description: t("اعرض إشعاراً في أعلى الشاشة عند الإزالة (مفيد لعدم تفويت أي تنبيه).", "Show a notice at the top of the screen when removed (useful for not missing any notifications)."),
         default: false
     },
     offlineRemovals: {
         type: OptionType.BOOLEAN,
-        description: "Notify you when starting discord if you were removed while offline.",
+        description: t("إشعارك عند بدء Discord إذا تمت إزالتك أثناء عدم الاتصال.", "Notify you on Discord startup if you were removed while offline."),
         default: true
     },
     friends: {
         type: OptionType.BOOLEAN,
-        description: "Notify when a friend removes you",
+        description: t("إشعارك عند إزالتك من قائمة أصدقاء شخص ما", "Notify you when you are removed from someone's friend list"),
         default: true
     },
     friendRequestCancels: {
         type: OptionType.BOOLEAN,
-        description: "Notify when a friend request is cancelled",
+        description: t("إشعارك عند إلغاء طلب صداقة", "Notify you when a friend request is cancelled"),
         default: true
     },
     servers: {
         type: OptionType.BOOLEAN,
-        description: "Notify when removed from a server",
+        description: t("إشعارك عند إزالتك من سيرفر", "Notify you when you are removed from a server"),
         default: true
     },
     groups: {
         type: OptionType.BOOLEAN,
-        description: "Notify when removed from a group chat",
+        description: t("إشعارك عند إزالتك من مجموعة محادثة", "Notify you when you are removed from a group conversation"),
         default: true
     }
 });

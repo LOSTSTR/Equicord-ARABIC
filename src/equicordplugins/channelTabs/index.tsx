@@ -9,6 +9,7 @@ import "./style.css";
 import { findGroupChildrenByChildId, NavContextMenuPatchCallback } from "@api/ContextMenu";
 import ErrorBoundary from "@components/ErrorBoundary";
 import { Devs, EquicordDevs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 import { Channel, Message } from "@vencord/discord-types";
 import { ChannelStore, Menu } from "@webpack/common";
@@ -46,7 +47,7 @@ const contextMenuPatch: NavContextMenuPatchCallback = (children, props: { channe
 
 export default definePlugin({
     name: "ChannelTabs",
-    description: "Group your commonly visited channels in tabs, like a browser",
+    get description() { return t("يتيح تصفح القنوات الأكثر زيارة في تبويبات كالمتصفح", "Allows browsing your most visited channels in browser-like tabs"); },
     tags: ["Appearance", "Customisation", "Organisation", "Servers"],
     authors: [Devs.TheSun, Devs.TheKodeToad, EquicordDevs.keifufu, Devs.Nickyux, EquicordDevs.DiabeloDEV, EquicordDevs.justjxke, EquicordDevs.keircn],
     dependencies: ["ContextMenuAPI", "ConcatenatedModules"],
@@ -119,9 +120,9 @@ export default definePlugin({
 
     start() {
         // migrate old settings to new granular keybind settings
-        const store = settings.store as any;
+        const store = settings.store as Record<string, unknown>;
         if (store.enableHotkeys !== undefined) {
-            const oldValue = store.enableHotkeys;
+            const oldValue = store.enableHotkeys as boolean;
             settings.store.enableNumberKeySwitching = oldValue;
             settings.store.enableCloseTabShortcut = oldValue;
             settings.store.enableNewTabShortcut = oldValue;
@@ -129,7 +130,7 @@ export default definePlugin({
             delete store.enableHotkeys;
         }
         if (store.hotkeyCount !== undefined) {
-            settings.store.numberKeySwitchCount = store.hotkeyCount;
+            settings.store.numberKeySwitchCount = store.hotkeyCount as number;
             delete store.hotkeyCount;
         }
     },

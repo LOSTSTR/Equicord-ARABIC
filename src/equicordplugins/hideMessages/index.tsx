@@ -15,6 +15,7 @@ import pinDms from "@plugins/pinDms";
 import { isPinned } from "@plugins/pinDms/data";
 import { EquicordDevs } from "@utils/constants";
 import { classNameFactory } from "@utils/css";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { Channel, Message } from "@vencord/discord-types";
 import { ChannelStore, Clickable, FluxDispatcher, Menu, Tooltip } from "@webpack/common";
@@ -92,14 +93,14 @@ const userCtxPatch: NavContextMenuPatchCallback = (children, { channel }: UserCo
 const settings = definePluginSettings({
     hidePopoverButton: {
         type: OptionType.BOOLEAN,
-        description: "Hide the hide button in the message popover.",
+        description: t("إخفاء زر الإخفاء في قائمة الرسائل", "Hide the hide button in the message popover."),
         default: false
     }
 });
 
 export default definePlugin({
     name: "HideMessages",
-    description: "Temporarily hide messages and DMs until you restart.",
+    get description() { return t("إخفاء الرسائل والرسائل الخاصة مؤقتاً حتى إعادة التشغيل.", "Temporarily hide messages and DMs until you restart."); },
     dependencies: ["MessagePopoverAPI"],
     tags: ["Chat", "Utility"],
     authors: [EquicordDevs.yash],

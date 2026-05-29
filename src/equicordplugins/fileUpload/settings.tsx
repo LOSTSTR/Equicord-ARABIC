@@ -5,6 +5,7 @@
  */
 
 import { definePluginSettings } from "@api/Settings";
+import { t } from "@utils/esharqI18n";
 import { Button } from "@components/Button";
 import { SettingsSection } from "@components/settings/tabs/plugins/components/Common";
 import { Switch } from "@components/Switch";
@@ -53,224 +54,224 @@ const embedProxyOptions = [
 export const settings = definePluginSettings({
     serviceType: {
         type: OptionType.SELECT,
-        description: "Selected uploader service",
+        get description() { return t("خدمة الرفع المحددة", "Selected upload service"); },
         options: serviceOptions,
         hidden: true
     },
     serviceUrl: {
         type: OptionType.STRING,
-        description: "Zipline service URL",
+        get description() { return t("رابط خدمة Zipline", "Zipline service URL"); },
         default: "",
         hidden: true
     },
     ziplineToken: {
         type: OptionType.STRING,
-        description: "Zipline auth token",
+        get description() { return t("رمز مصادقة Zipline", "Zipline authentication token"); },
         default: "",
         hidden: true
     },
     folderId: {
         type: OptionType.STRING,
-        description: "Optional Zipline folder ID",
+        get description() { return t("معرّف مجلد Zipline الاختياري", "Optional Zipline folder ID"); },
         default: "",
         hidden: true
     },
     ezHostKey: {
         type: OptionType.STRING,
-        description: "E-Z Host API key",
+        get description() { return t("مفتاح API لـ E-Z Host", "E-Z Host API key"); },
         default: "",
         hidden: true
     },
     nestToken: {
         type: OptionType.STRING,
-        description: "Nest API token",
+        get description() { return t("رمز API لـ Nest", "Nest API token"); },
         default: "",
         hidden: true
     },
     s3Endpoint: {
         type: OptionType.STRING,
-        description: "S3-compatible endpoint URL",
+        get description() { return t("رابط نقطة النهاية المتوافقة مع S3", "S3-compatible endpoint URL"); },
         default: "",
         hidden: true
     },
     s3Bucket: {
         type: OptionType.STRING,
-        description: "S3 bucket name",
+        get description() { return t("اسم حاوية S3", "S3 bucket name"); },
         default: "",
         hidden: true
     },
     s3Region: {
         type: OptionType.STRING,
-        description: "S3 region (use auto for R2)",
+        get description() { return t("منطقة S3 (استخدم auto لـ R2)", "S3 region (use auto for R2)"); },
         default: "auto",
         hidden: true
     },
     s3AccessKeyId: {
         type: OptionType.STRING,
-        description: "S3 access key ID",
+        get description() { return t("معرّف مفتاح الوصول لـ S3", "S3 access key ID"); },
         default: "",
         hidden: true
     },
     s3SecretAccessKey: {
         type: OptionType.STRING,
-        description: "S3 secret access key",
+        get description() { return t("مفتاح الوصول السري لـ S3", "S3 secret access key"); },
         default: "",
         hidden: true
     },
     s3SessionToken: {
         type: OptionType.STRING,
-        description: "Optional S3 session token",
+        get description() { return t("رمز جلسة S3 الاختياري", "Optional S3 session token"); },
         default: "",
         hidden: true
     },
     s3PublicUrl: {
         type: OptionType.STRING,
-        description: "Optional public base URL",
+        get description() { return t("رابط القاعدة العامة الاختياري", "Optional public base URL"); },
         default: "",
         hidden: true
     },
     s3Prefix: {
         type: OptionType.STRING,
-        description: "Optional S3 object key prefix",
+        get description() { return t("بادئة مفتاح كائن S3 الاختيارية", "Optional S3 object key prefix"); },
         default: "",
         hidden: true
     },
     s3ForcePathStyle: {
         type: OptionType.BOOLEAN,
-        description: "Use path-style S3 URLs",
+        get description() { return t("استخدام روابط S3 بأسلوب المسار", "Use S3 path-style URLs"); },
         default: true,
         hidden: true
     },
     litterboxExpiry: {
         type: OptionType.SELECT,
-        description: "Litterbox retention window",
+        get description() { return t("مدة الاحتفاظ في Litterbox", "Litterbox retention duration"); },
         options: litterboxOptions,
         default: "24h",
         hidden: true
     },
     catboxUserhash: {
         type: OptionType.STRING,
-        description: "Catbox userhash for account binding",
+        get description() { return t("رمز مستخدم Catbox لربط الحساب", "Catbox userhash for account binding"); },
         default: "",
         hidden: true
     },
     sharexConfig: {
         type: OptionType.STRING,
-        description: "ShareX custom uploader JSON",
+        get description() { return t("ملف JSON لرافع ShareX المخصص", "JSON config for ShareX custom uploader"); },
         default: "",
         hidden: true
     },
     disableFallbacks: {
         type: OptionType.BOOLEAN,
-        description: "Disable fallback upload services",
+        get description() { return t("تعطيل خدمات الرفع الاحتياطية", "Disable fallback upload services"); },
         default: false,
         hidden: true
     },
     autoSend: {
         type: OptionType.BOOLEAN,
-        description: "Insert uploaded URL in chat input",
+        get description() { return t("إدراج رابط الملف المرفوع في مربع الدردشة", "Insert uploaded file link into the chat input"); },
         default: false,
         hidden: true
     },
     autoFormat: {
         type: OptionType.BOOLEAN,
-        description: "Wrap inserted URL in angle brackets",
+        get description() { return t("تغليف الرابط المدرج بأقواس زاوية", "Wrap inserted link in angle brackets"); },
         default: false,
         hidden: true
     },
     bypassDiscordUpload: {
         type: OptionType.BOOLEAN,
-        description: "Bypass Discord uploads and use FileUpload instead.",
+        get description() { return t("تجاوز رفع Discord واستخدام FileUpload عوضاً عنه.", "Bypass Discord upload and use FileUpload instead."); },
         default: true,
         hidden: true
     },
     bypassDiscordUploadOnlyOverLimit: {
         type: OptionType.BOOLEAN,
-        description: "Only use FileUpload if the file(s) exceed the file size limit.",
+        get description() { return t("استخدام FileUpload فقط إذا تجاوزت الملفات حد الحجم المسموح.", "Use FileUpload only if files exceed the allowed size limit."); },
         default: true,
         hidden: true
     },
     gofileToken: {
         type: OptionType.STRING,
-        description: "Optional GoFile API token",
+        get description() { return t("رمز API لـ GoFile الاختياري", "Optional GoFile API token"); },
         default: "",
         hidden: true
     },
     fallbackOrder: {
         type: OptionType.STRING,
-        description: "Fallback uploader order",
+        get description() { return t("ترتيب الرافعين الاحتياطيين", "Order of fallback uploaders"); },
         default: defaultFallbackOrder,
         hidden: true
     },
     pixelVaultKey: {
         type: OptionType.STRING,
-        description: "PixelVault upload key",
+        get description() { return t("مفتاح رفع PixelVault", "PixelVault upload key"); },
         default: "",
         hidden: true
     },
     pixelDrainKey: {
         type: OptionType.STRING,
-        description: "Optional PixelDrain API key",
+        get description() { return t("مفتاح API لـ PixelDrain الاختياري", "Optional PixelDrain API key"); },
         default: "",
         hidden: true
     },
     uploadTimeoutMs: {
         type: OptionType.NUMBER,
-        description: "Upload timeout in milliseconds",
+        get description() { return t("مهلة الرفع بالمللي ثانية", "Upload timeout in milliseconds"); },
         default: 300000,
         hidden: true
     },
     stripQueryParams: {
         type: OptionType.BOOLEAN,
-        description: "Strip query params from uploaded URLs",
+        get description() { return t("إزالة معاملات الاستعلام من روابط الملفات المرفوعة", "Strip query parameters from uploaded file links"); },
         default: false,
         hidden: true
     },
     embedProxyEnabled: {
         type: OptionType.BOOLEAN,
-        description: "Proxy uploaded video links through an embed helper service.",
+        get description() { return t("توجيه روابط الفيديو المرفوعة عبر خدمة مساعدة للتضمين.", "Route uploaded video links through an embed helper service."); },
         default: false,
         hidden: true
     },
     embedProxyService: {
         type: OptionType.SELECT,
-        description: "Embed helper service to wrap uploaded video links.",
+        get description() { return t("خدمة مساعدة التضمين لتغليف روابط الفيديو المرفوعة.", "Embed helper service for wrapping uploaded video links."); },
         options: embedProxyOptions,
         default: "cors",
         hidden: true
     },
     corsProxyUrl: {
         type: OptionType.STRING,
-        description: "CORS proxy URL used for browser uploads",
+        get description() { return t("رابط وكيل CORS المستخدم لرفع المتصفح", "CORS proxy URL used for browser uploads"); },
         default: CORS_PROXY,
         hidden: true
     },
     apngToGif: {
         type: OptionType.BOOLEAN,
-        description: "Convert APNG uploads to GIF",
+        get description() { return t("تحويل ملفات APNG المرفوعة إلى GIF", "Convert uploaded APNG files to GIF"); },
         default: false,
         hidden: true
     },
     preserveOriginalFilename: {
         type: OptionType.BOOLEAN,
-        description: "Preserve the original filename when uploading.",
+        get description() { return t("الحفاظ على اسم الملف الأصلي عند الرفع.", "Preserve the original filename when uploading."); },
         default: true,
         hidden: true
     },
     autoCopy: {
         type: OptionType.BOOLEAN,
-        description: "Auto copy upload URL",
+        get description() { return t("نسخ رابط الرفع تلقائياً", "Automatically copy the upload link"); },
         default: true,
         hidden: true
     },
     autoUploadPastedFiles: {
         type: OptionType.BOOLEAN,
-        description: "Automatically upload files from clipboard to image host when pasting in chat input.",
+        get description() { return t("رفع الملفات تلقائياً من الحافظة إلى خدمة الصور عند اللصق في مربع الدردشة.", "Automatically upload files from clipboard to the image service when pasting in the chat input."); },
         default: false
     },
     settingsComponent: {
         type: OptionType.COMPONENT,
-        description: "Settings",
+        get description() { return t("الإعدادات", "Settings"); },
         component: SettingsComponent
     }
 });

@@ -18,6 +18,7 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { disableStyle, enableStyle } from "@api/Styles";
+import { t } from "@utils/esharqI18n";
 import { parseUrl } from "@utils/misc";
 import { wordsFromPascal, wordsToTitle } from "@utils/text";
 import { OptionType } from "@utils/types";
@@ -33,7 +34,7 @@ export type ShikiSettings = typeof settings.store;
 export const settings = definePluginSettings({
     theme: {
         type: OptionType.SELECT,
-        description: "Default themes",
+        description: t("الثيمات الافتراضية", "Default themes"),
         options: themeNames.map(themeName => ({
             label: wordsToTitle(wordsFromPascal(themeName)),
             value: themes[themeName],
@@ -43,7 +44,7 @@ export const settings = definePluginSettings({
     },
     customTheme: {
         type: OptionType.STRING,
-        description: "A link to a custom vscode theme",
+        description: t("رابط لثيم vscode مخصص", "URL to a custom vscode theme"),
         placeholder: themes.MaterialCandy,
         onChange: value => {
             shiki.setTheme(value || settings.store.theme);
@@ -51,7 +52,7 @@ export const settings = definePluginSettings({
     },
     tryHljs: {
         type: OptionType.SELECT,
-        description: "Use the more lightweight default Discord highlighter and theme.",
+        description: t("استخدام مُمَيِّز Discord الافتراضي الأخف وزناً والثيم المرافق له.", "Use Discord's lighter default highlighter and its accompanying theme."),
         options: [
             {
                 label: "Never",
@@ -74,7 +75,7 @@ export const settings = definePluginSettings({
     },
     useDevIcon: {
         type: OptionType.SELECT,
-        description: "How to show language icons on codeblocks",
+        description: t("كيفية عرض أيقونات اللغة على كتل الكود", "How to display language icons on code blocks"),
         options: [
             {
                 label: "Disabled",
@@ -97,7 +98,7 @@ export const settings = definePluginSettings({
     },
     bgOpacity: {
         type: OptionType.SLIDER,
-        description: "Background opacity",
+        description: t("شفافية الخلفية", "Background opacity"),
         markers: [0, 20, 40, 60, 80, 100],
         default: 100,
         stickToMarkers: false,

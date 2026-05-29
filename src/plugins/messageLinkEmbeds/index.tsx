@@ -22,6 +22,7 @@ import { definePluginSettings } from "@api/Settings";
 import { getUserSettingLazy } from "@api/UserSettings";
 import { BaseText } from "@components/BaseText";
 import { Devs } from "@utils/constants.js";
+import { t } from "@utils/esharqI18n";
 import { classes } from "@utils/misc";
 import { Queue } from "@utils/Queue";
 import definePlugin, { OptionType } from "@utils/types";
@@ -75,11 +76,11 @@ const messageFetchQueue = new Queue();
 
 const settings = definePluginSettings({
     messageBackgroundColor: {
-        description: "Background color for messages in rich embeds",
+        description: t("لون خلفية الرسائل في الـ Embeds المتقدمة", "Background color of messages in rich embeds"),
         type: OptionType.BOOLEAN
     },
     automodEmbeds: {
-        description: "Use automod embeds instead of rich embeds (smaller but less info)",
+        description: t("استخدام تضمينات الـ automod بدلاً من التضمينات الغنية (أصغر حجماً لكن بمعلومات أقل)", "Use automod embeds instead of rich embeds (smaller but with less information)"),
         type: OptionType.SELECT,
         options: [
             {
@@ -98,7 +99,7 @@ const settings = definePluginSettings({
         ]
     },
     listMode: {
-        description: "Whether to use ID list as blacklist or whitelist",
+        description: t("استخدام قائمة المعرّفات كقائمة سوداء أو بيضاء", "Use the ID list as a blacklist or whitelist"),
         type: OptionType.SELECT,
         options: [
             {
@@ -113,7 +114,7 @@ const settings = definePluginSettings({
         ]
     },
     idList: {
-        description: "Guild/channel/user IDs to blacklist or whitelist (separate with comma)",
+        description: t("معرّفات السيرفر/القناة/المستخدم لإدراجها في القائمة السوداء أو البيضاء (مفصولة بفواصل)", "Server/channel/user IDs to include in the blacklist or whitelist (comma-separated)"),
         type: OptionType.STRING,
         default: "",
         multiline: true,
@@ -363,7 +364,7 @@ function AutomodEmbedAccessory(props: MessageEmbedProps): JSX.Element | null {
 
 export default definePlugin({
     name: "MessageLinkEmbeds",
-    description: "Adds a preview to messages that link another message",
+    get description() { return t("يُضيف معاينة لروابط الرسائل المحاطة بـ <>", "Adds a preview for message links wrapped in <>"); },
     tags: ["Chat", "Appearance"],
     authors: [Devs.TheSun, Devs.Ven, Devs.RyanCaoDev],
     dependencies: ["MessageAccessoriesAPI", "MessageUpdaterAPI", "UserSettingsAPI"],

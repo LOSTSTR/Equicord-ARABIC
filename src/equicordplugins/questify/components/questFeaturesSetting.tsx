@@ -4,6 +4,8 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
+import { useSettings } from "@api/Settings";
+import { t } from "@utils/esharqI18n";
 import { QuestTaskType } from "@vencord/discord-types/enums";
 import type { JSX } from "react";
 
@@ -32,64 +34,33 @@ interface QuestDisableOption {
     label: string;
 }
 
-const disableFeatureOptions = [
-    {
-        key: "disableSponsoredBanner",
-        label: "Sponsored Banner",
-    },
-    {
-        key: "disableRelocationNotices",
-        label: "Relocation Notices",
-    },
-    {
-        key: "disableFriendsListPromo",
-        label: "Friends List Promo",
-    },
-    {
-        key: "disableMembersListPromo",
-        label: "Members List Promo",
-    },
-    {
-        key: "disableAccountPanelPromo",
-        label: "Account Panel Promo",
-    },
-    {
-        key: "disableAccountPanelQuestProgress",
-        label: "Account Panel Progress",
-    },
-    {
-        key: "disableOrbsAndQuestsBadges",
-        label: "Quest & Orbs Badges",
-    },
-] as const satisfies readonly QuestDisableOption[];
+function getDisableFeatureOptions(): readonly QuestDisableOption[] {
+    return [
+        { key: "disableSponsoredBanner", label: t("البانر الممول", "Sponsored Banner") },
+        { key: "disableRelocationNotices", label: t("إشعارات نقل المهام", "Quest Relocation Notices") },
+        { key: "disableFriendsListPromo", label: t("عروض قائمة الأصدقاء", "Friends List Promotions") },
+        { key: "disableMembersListPromo", label: t("عروض قائمة الأعضاء", "Members List Promotions") },
+        { key: "disableAccountPanelPromo", label: t("عرض لوحة الحساب", "Account Panel Promo") },
+        { key: "disableAccountPanelQuestProgress", label: t("تقدّم لوحة الحساب", "Account Panel Quest Progress") },
+        { key: "disableOrbsAndQuestsBadges", label: t("شارات المهام والكرات", "Quest and Coin Badges") },
+    ];
+}
 
-const disableManaOptions: ManaSelectOption[] = disableFeatureOptions.map(({ key, label }) => ({
-    id: key,
-    label,
-    value: key,
-}));
-
-const autoCompleteQuestTypeLabels = {
-    [QuestTaskType.WATCH_VIDEO]: "Watch Video",
-    [QuestTaskType.WATCH_VIDEO_ON_MOBILE]: "Watch Video on Mobile",
-    [QuestTaskType.ACHIEVEMENT_IN_ACTIVITY]: "Achievement in Activity",
-    [QuestTaskType.PLAY_ACTIVITY]: "Play Activity",
-    [QuestTaskType.PLAY_ON_DESKTOP]: "Play on Desktop",
-    [QuestTaskType.PLAY_ON_PLAYSTATION]: "Play on PlayStation",
-    [QuestTaskType.PLAY_ON_XBOX]: "Play on Xbox",
-} as const satisfies Record<typeof autoCompleteQuestTaskTypes[number], string>;
-
-const autoCompleteQuestTypeOptions = autoCompleteQuestTaskTypes.map(questType => ({
-    label: autoCompleteQuestTypeLabels[questType],
-    value: questType,
-})) satisfies { label: string; value: QuestTaskType; }[];
-
-const autoCompleteQuestTypeManaOptions: ManaSelectOption[] = autoCompleteQuestTypeOptions.map(({ label, value }) => ({
-    id: String(value),
-    label,
-    value: String(value),
-    disabled: !isDesktopCompatible(value),
-}));
+function getAutoCompleteQuestTypeOptions(): { label: string; value: QuestTaskType; }[] {
+    const labels: Record<typeof autoCompleteQuestTaskTypes[number], string> = {
+        [QuestTaskType.WATCH_VIDEO]: t("مشاهدة فيديو", "Watch Video"),
+        [QuestTaskType.WATCH_VIDEO_ON_MOBILE]: t("مشاهدة فيديو على الجوال", "Watch Video on Mobile"),
+        [QuestTaskType.ACHIEVEMENT_IN_ACTIVITY]: t("إنجاز في نشاط", "Achievement in Activity"),
+        [QuestTaskType.PLAY_ACTIVITY]: t("تشغيل نشاط", "Play Activity"),
+        [QuestTaskType.PLAY_ON_DESKTOP]: t("اللعب على سطح المكتب", "Play on Desktop"),
+        [QuestTaskType.PLAY_ON_PLAYSTATION]: t("اللعب على PlayStation", "Play on PlayStation"),
+        [QuestTaskType.PLAY_ON_XBOX]: t("اللعب على Xbox", "Play on Xbox"),
+    };
+    return autoCompleteQuestTaskTypes.map(questType => ({
+        label: labels[questType],
+        value: questType,
+    }));
+}
 
 interface SettingsAllowDangerousButtonProps {
     allowed: boolean;
@@ -106,8 +77,8 @@ function SettingsAllowDangerousButton({
         <div className={q("settings-button", "allow-dangerous-button")}>
             <ManaButton
                 text={allowed
-                    ? "Reset and disallow changing dangerous settings..."
-                    : "Allow changing dangerous settings..."}
+                    ? t("إعادة الضبط وحظر تغيير الإعدادات الخطرة...", "Reset and Lock Dangerous Settings...")
+                    : t("السماح بتغيير الإعدادات الخطرة...", "Allow Changing Dangerous Settings...")}
                 variant={allowed ? "critical-secondary" : "critical-primary"}
                 fullWidth={true}
                 disabled={disabled}
@@ -119,6 +90,8 @@ function SettingsAllowDangerousButton({
 }
 
 export function QuestFeaturesSetting(): JSX.Element {
+    useSettings(["plugins.Settings.arabicMode"]);
+
     const questFeatures = useQuestifySettings([
         "disableQuestsEverything",
         "disableSponsoredBanner",
@@ -135,6 +108,20 @@ export function QuestFeaturesSetting(): JSX.Element {
         "autoCompleteQuestTypes",
         "completeVideoQuestsQuicker",
     ]);
+
+    const disableFeatureOptions = getDisableFeatureOptions();
+    const autoCompleteQuestTypeOptions = getAutoCompleteQuestTypeOptions();
+    const disableManaOptions: ManaSelectOption[] = disableFeatureOptions.map(({ key, label }) => ({
+        id: key,
+        label,
+        value: key,
+    }));
+    const autoCompleteQuestTypeManaOptions: ManaSelectOption[] = autoCompleteQuestTypeOptions.map(({ label, value }) => ({
+        id: String(value),
+        label,
+        value: String(value),
+        disabled: !isDesktopCompatible(value),
+    }));
 
     const selectedDisableValues = disableFeatureOptions
         .filter(({ key }) => questFeatures[key])
@@ -154,11 +141,11 @@ export function QuestFeaturesSetting(): JSX.Element {
 
     function confirmDangerousSettingChange(body: string, onConfirm: () => void) {
         Alerts.show({
-            title: "Are you sure?",
+            title: t("هل أنت متأكد؟", "Are you sure?"),
             body,
-            confirmText: "Continue",
+            confirmText: t("متابعة", "Continue"),
             confirmVariant: "critical-primary",
-            cancelText: "Cancel",
+            cancelText: t("إلغاء", "Cancel"),
             onConfirm,
         });
     }
@@ -184,7 +171,7 @@ export function QuestFeaturesSetting(): JSX.Element {
 
         if (checked) {
             confirmDangerousSettingChange(
-                "This will completely disable Quest functionality.",
+                t("سيؤدي هذا إلى تعطيل وظائف المهام بالكامل.", "This will disable all quest functionality."),
                 () => {
                     resetDangerousSettings();
                     setDisableEverything();
@@ -213,7 +200,7 @@ export function QuestFeaturesSetting(): JSX.Element {
 
         if (checked) {
             confirmDangerousSettingChange(
-                "This will allow changing dangerous settings.",
+                t("سيسمح هذا بتغيير الإعدادات الخطرة.", "This will allow changing dangerous settings."),
                 setDangerousAccess
             );
         } else {
@@ -228,21 +215,24 @@ export function QuestFeaturesSetting(): JSX.Element {
 
     return (
         <SettingsCard>
-            <SettingsHeader> Quest Features </SettingsHeader>
-            <SettingsDescription> Modify how Quests behave to enhance or remove functionality. </SettingsDescription>
-            <SettingsSubheader> Disable Features </SettingsSubheader>
+            <SettingsHeader>{t("ميزات المهام", "Quest Features")}</SettingsHeader>
+            <SettingsDescription>{t("عدّل سلوك المهام لتحسين الوظائف أو إزالتها.", "Modify quest behavior to enhance or remove functionality.")}</SettingsDescription>
+            <SettingsSubheader>{t("تعطيل الميزات", "Disable Features")}</SettingsSubheader>
             <SettingsSubtleSwitch
                 checked={questFeatures.disableQuestsEverything}
-                label="Completely disable Quest functionality:"
+                label={t("تعطيل وظائف المهام بالكامل:", "Disable all quest functionality:")}
                 onChange={updateDisableEverything}
                 bottomSpacing="10"
                 tooltip={{
                     position: "top",
-                    text: "This will disable all plugin enhancements, hide the Quests page and Quest elements across Discord, and prevent Discord from fetching Quest data. This will not affect the shop as Orbs are too intrinsically tied to it as a secondary currency."
+                    text: t(
+                        "سيؤدي هذا إلى تعطيل جميع تحسينات الإضافة، وإخفاء صفحة المهام وعناصرها في Discord، ومنع Discord من جلب بيانات المهام. لن يؤثر هذا على المتجر لأن الكرات مرتبطة به بشكل أساسي كعملة ثانوية.",
+                        "This will disable all plugin enhancements, hide the quests page and its elements in Discord, and prevent Discord from fetching quest data. This will not affect the shop since coins are primarily tied to it as a secondary currency."
+                    )
                 }}
             />
             <SettingsSelect
-                label="Disable specific features:"
+                label={t("تعطيل ميزات محددة:", "Disable specific features:")}
                 wrapTags={true}
                 options={disableManaOptions}
                 value={selectedDisableValues}
@@ -253,31 +243,52 @@ export function QuestFeaturesSetting(): JSX.Element {
                 onSelectionChange={updateDisableValue}
                 tooltip={{
                     position: "top",
-                    text: "Sponsored Banner is a paid-for Quest banner at the top of the Quests page."
-                        + "\n\nRelocation Notices are indicators such as in the Discovery page about Quests moving to DMs."
-                        + "\n\nFriends List Promo is a card that displays on the \"Active Now\" section of your Friends List while a user you share a server with is playing a game with an active Quest."
-                        + "\n\nMembers List Promo is an icon that displays on members in a server's Members List while they are playing a game with an active Quest."
-                        + "\n\nAccount Panel Promo is a paid-for Quest promotion that appears above your user account panel."
-                        + "\n\nAccount Panel Progress is the active or completed Quest progress shown above your user account panel."
-                        + "\n\nQuest & Orbs Badges are badges on user profiles for when someone has completed at least one Quest or bought the Orbs badge respectively."
+                    text: t(
+                        "البانر الممول هو بانر مهام مدفوع يظهر في أعلى صفحة المهام."
+                            + "\n\nإشعارات نقل المهام هي مؤشرات في صفحة الاستكشاف تشير إلى نقل المهام إلى الرسائل المباشرة."
+                            + "\n\nعروض قائمة الأصدقاء هي بطاقة تظهر في قسم \"نشط الآن\" بينما يلعب أحد أصدقائك لعبة بها مهمة نشطة."
+                            + "\n\nعروض قائمة الأعضاء هي أيقونة تظهر على الأعضاء في قائمة الخادم بينما يلعبون لعبة بها مهمة نشطة."
+                            + "\n\nعرض لوحة الحساب هو ترويج مدفوع للمهام يظهر فوق لوحة حسابك."
+                            + "\n\nتقدّم لوحة الحساب هو عرض تقدّم المهمة النشطة أو المكتملة فوق لوحة حسابك."
+                            + "\n\nشارات المهام والكرات هي شارات على ملفات المستخدمين لمن أتمّ مهمة واحدة على الأقل أو اشترى شارة الكرات.",
+                        "Sponsored Banner is a paid quest banner shown at the top of the quests page."
+                            + "\n\nQuest Relocation Notices are indicators in the explore page pointing to quests being moved to direct messages."
+                            + "\n\nFriends List Promotions is a card shown in the \"Active Now\" section while a friend plays a game with an active quest."
+                            + "\n\nMembers List Promotions is an icon shown on members in the server list while they play a game with an active quest."
+                            + "\n\nAccount Panel Promo is a paid quest promotion shown above your account panel."
+                            + "\n\nAccount Panel Quest Progress is the display of active or completed quest progress above your account panel."
+                            + "\n\nQuest and Coin Badges are badges on user profiles for those who completed at least one quest or bought a coin badge."
+                    )
                 }}
             />
-            <SettingsSubheader> Modify Features </SettingsSubheader>
+            <SettingsSubheader>{t("تعديل الميزات", "Modify Features")}</SettingsSubheader>
             <SettingsNotice className={["notice-card-red", questFeatures.disableQuestsEverything ? "dimmed-settings-item" : undefined, questFeatures.allowChangingDangerousSettings ? undefined : "notice-card-solo", "no-bottom-margin"].filter(c => c !== undefined)}>
                 <SettingsParagraph>
-                    Discord has began issuing warnings to users of scripts or plugins that modify how Quests are completed, which is against their <a href="https://discord.com/safety/platform-manipulation-policy-explainer" target="_blank" rel="noreferrer">Terms of Service</a>.
+                    {t(
+                        "بدأ Discord بإصدار تحذيرات للمستخدمين الذين يستخدمون سكريبتات أو إضافات تعدّل طريقة إكمال المهام، وهو ما يتعارض مع ",
+                        "Discord has started issuing warnings to users who use scripts or plugins that modify how quests are completed, which conflicts with the "
+                    )}<a href="https://discord.com/safety/platform-manipulation-policy-explainer" target="_blank" rel="noreferrer">{t("شروط الخدمة", "Terms of Service")}</a>{t(".", ".")}
                 </SettingsParagraph>
                 <br />
                 <SettingsParagraph>
-                    The warnings appear limited to threat of loss of access to Quests or their rewards, but Discord may escalate at any time.
+                    {t(
+                        "تبدو التحذيرات مقتصرة على التهديد بفقدان الوصول إلى المهام أو مكافآتها، لكن Discord قد يتخذ إجراءات أشد في أي وقت.",
+                        "The warnings appear to be limited to threatening loss of access to quests or their rewards, but Discord may take harsher action at any time."
+                    )}
                 </SettingsParagraph>
                 <br />
                 <SettingsParagraph>
-                    Due to the various methods Discord uses to track users, there's no way to realistically evade detection. If you proceed, understand that Discord likely will detect it at some point.
+                    {t(
+                        "نظراً للأساليب المتعددة التي يستخدمها Discord لتتبع المستخدمين، لا توجد طريقة واقعية لتجنب الاكتشاف. إذا تابعت، فافهم أن Discord على الأرجح سيكتشف ذلك في مرحلة ما.",
+                        "Due to Discord's multiple tracking methods, there is no practical way to avoid detection. If you proceed, understand that Discord will likely detect it at some point."
+                    )}
                 </SettingsParagraph>
                 <br />
                 <SettingsParagraph>
-                    Use the following toggle to access potentially dangerous settings at your own risk.
+                    {t(
+                        "استخدم التبديل التالي للوصول إلى الإعدادات الخطرة على مسؤوليتك الخاصة.",
+                        "Use the toggle below to access dangerous settings at your own risk."
+                    )}
                 </SettingsParagraph>
                 <SettingsAllowDangerousButton
                     allowed={questFeatures.allowChangingDangerousSettings}
@@ -288,56 +299,74 @@ export function QuestFeaturesSetting(): JSX.Element {
                     <SettingsSubtleSwitch
                         disabled={questFeatures.disableQuestsEverything || !questFeatures.allowChangingDangerousSettings}
                         checked={questFeatures.completeVideoQuestsQuicker}
-                        label="Accelerate Video Quest auto-completion:"
+                        label={t("تسريع الإكمال التلقائي لمهام الفيديو:", "Speed up auto-completion of video quests:")}
                         onChange={checked => updateModifyValue("completeVideoQuestsQuicker", checked)}
                         topSpacing="10"
                         bottomSpacing="5"
                         tooltip={{
                             position: "top",
-                            text: "Discord allows Video Quests to be completed once 24 seconds less than the duration of the video has passed since you enrolled into the Quest."
-                                + "\n\nThis means that if a Video Quest is 24 seconds or less, or if you enroll in a Video Quest and return later to complete it, it can be completed immediately."
-                                + "\n\nThis setting will only apply to auto-completing Video Quests and relies on the auto-complete setting below. Manually completing Video Quests will still require waiting the full duration and is not dependent on enrollment time."
+                            text: t(
+                                "يسمح Discord بإكمال مهام الفيديو بعد مرور 24 ثانية أقل من مدة الفيديو منذ تسجيلك في المهمة."
+                                    + "\n\nهذا يعني أنه إذا كانت مهمة الفيديو 24 ثانية أو أقل، أو إذا سجّلت في مهمة فيديو وعدت لاحقاً لإكمالها، يمكن إكمالها فوراً."
+                                    + "\n\nينطبق هذا الإعداد فقط على الإكمال التلقائي لمهام الفيديو ويعتمد على إعداد الإكمال التلقائي أدناه. إكمال مهام الفيديو يدوياً سيظل يتطلب الانتظار المدة الكاملة.",
+                                "Discord allows completing video quests 24 seconds before the video duration has elapsed since you enrolled in the quest."
+                                    + "\n\nThis means that if a video quest is 24 seconds or shorter, or if you enrolled in a video quest and return later to complete it, it can be completed instantly."
+                                    + "\n\nThis setting only applies to auto-completing video quests and depends on the auto-complete setting below. Manually completing video quests will still require waiting the full duration."
+                            )
                         }}
                     />
                     <SettingsSubtleSwitch
                         disabled={questFeatures.disableQuestsEverything || !questFeatures.allowChangingDangerousSettings}
                         checked={questFeatures.makeMobileVideoQuestsDesktopCompatible}
-                        label="Make some mobile-only Video Quests completable on desktop:"
+                        label={t("جعل بعض مهام الفيديو للجوال قابلة للإكمال على سطح المكتب:", "Make some mobile video quests completable on desktop:")}
                         onChange={checked => updateModifyValue("makeMobileVideoQuestsDesktopCompatible", checked)}
                         bottomSpacing="5"
                         tooltip={{
                             position: "top",
-                            text: "Some mobile-only Video Quests can be enrolled in on desktop, but still must be completed on mobile. This setting will allow those to be completed on desktop."
-                                + "\n\nSome mobile-only Video Quests are only enrollable on mobile. For this setting to affect those, you must enroll in those Quests on your mobile device before returning to desktop and refreshing your Quests."
-                                + "\n\nThis setting, when enabled independently, applies only to manually completing Video Quests. Auto-completing mobile Video Quests from desktop relies on the auto-complete setting below, and will implicitly enable this setting as well."
+                            text: t(
+                                "بعض مهام الفيديو للجوال يمكن التسجيل فيها على سطح المكتب، لكن يجب إكمالها على الجوال. سيتيح هذا الإعداد إكمالها على سطح المكتب."
+                                    + "\n\nبعض مهام الفيديو للجوال تقتصر على التسجيل عبر الجوال. للتأثير عليها بهذا الإعداد، يجب التسجيل فيها أولاً على جهازك المحمول."
+                                    + "\n\nعند تمكينه بشكل مستقل، ينطبق هذا الإعداد فقط على إكمال مهام الفيديو يدوياً.",
+                                "Some mobile video quests can be enrolled in on desktop, but must be completed on mobile. This setting will allow completing them on desktop."
+                                    + "\n\nSome mobile video quests are restricted to enrolling via mobile. To affect them with this setting, you must first enroll in them on your mobile device."
+                                    + "\n\nWhen enabled independently, this setting only applies to manually completing video quests."
+                            )
                         }}
                     />
                     <SettingsSubtleSwitch
                         disabled={questFeatures.disableQuestsEverything || !questFeatures.allowChangingDangerousSettings}
                         checked={questFeatures.autoCompleteQuestsSimultaneously}
-                        label="Auto-complete Quests simultaneously rather than sequentially:"
+                        label={t("إكمال المهام تلقائياً في آنٍ واحد بدلاً من الترتيب:", "Auto-complete quests simultaneously instead of sequentially:")}
                         onChange={checked => updateModifyValue("autoCompleteQuestsSimultaneously", checked)}
                         bottomSpacing="5"
                         tooltip={{
                             position: "top",
-                            text: "By default, attempting to auto-complete multiple Quests will queue them to be completed in order."
-                                + "\n\nThis setting will alternatively allow all auto-complete Quests to run at the same time."
-                                + "\n\nThis setting will only apply to auto-completing Quests and relies on the auto-complete setting below."
+                            text: t(
+                                "افتراضياً، محاولة الإكمال التلقائي لعدة مهام ستضعها في طابور للإكمال بالترتيب."
+                                    + "\n\nسيتيح هذا الإعداد تشغيل جميع مهام الإكمال التلقائي في نفس الوقت."
+                                    + "\n\nينطبق هذا الإعداد فقط على الإكمال التلقائي للمهام.",
+                                "By default, attempting to auto-complete multiple quests will queue them for completion sequentially."
+                                    + "\n\nThis setting will allow all auto-complete quests to run at the same time."
+                                    + "\n\nThis setting only applies to auto-completing quests."
+                            )
                         }}
                     />
                     <SettingsSubtleSwitch
                         disabled={questFeatures.disableQuestsEverything || !questFeatures.allowChangingDangerousSettings}
                         checked={questFeatures.resumeInterruptedQuests}
-                        label="Resume interrupted auto-completions after a reload or restart:"
+                        label={t("استئناف الإكمال التلقائي المنقطع بعد إعادة التحميل أو التشغيل:", "Resume interrupted auto-completion after reload or restart:")}
                         onChange={checked => updateModifyValue("resumeInterruptedQuests", checked)}
                         bottomSpacing="5"
                         tooltip={{
                             position: "top",
-                            text: "This setting will automatically resume any interrupted auto-completions caused by reloads or restarts, including requeuing Quests which had yet to start auto-completing but had been queued."
+                            text: t(
+                                "سيستأنف هذا الإعداد تلقائياً أي إكمال تلقائي منقطع بسبب إعادة التحميل أو إعادة التشغيل، بما في ذلك إعادة وضع المهام في الطابور.",
+                                "This setting will automatically resume any auto-completion interrupted by a reload or restart, including re-queuing quests."
+                            )
                         }}
                     />
                     <SettingsSelect
-                        label="Auto-complete specific Quest types:"
+                        label={t("الإكمال التلقائي لأنواع مهام محددة:", "Auto-complete specific quest types:")}
                         labelClassName="margin-top-9"
                         wrapTags={true}
                         options={autoCompleteQuestTypeManaOptions}
@@ -350,13 +379,20 @@ export function QuestFeaturesSetting(): JSX.Element {
                         tooltip={{
                             position: "top",
                             wider: true,
-                            text: "Watch Video on Mobile Quests will only work on mobile Quests which are enrollable on desktop. If a Quest is locked to enrollment on mobile, you must first enroll in it on your mobile device before returning to desktop and refreshing your Quests."
-                                + "\n\nAll video related Quests usually send a stack trace with the progress reports. This means Discord would know exactly which functions were called, and can therefore verify that their own functions initiated the progress. Questify erases this stack trace, but the absence of it will be just as telling as its presence."
-                                + "\n\nPlay on Desktop, Play on PlayStation, Play on Xbox, and Play Activity Quests are only available on official desktop clients due to a limitation imposed by Discord. 3rd party clients such as web extensions, Vesktop, Equibop, and others, do not support auto-completing these Quest types."
-                                + "\n\nAll game related Quests usually send a game fingerprint with the heartbeat reports. This means Discord can use data from tens of thousands of users to determine whether other users are likely using a real game or are emulating the executable. There is no reasonable method to spoof this value, so Questify leaves it blank, but the absence of it will be just as telling as poorly spoofing the value."
-                                + "\n\nAchievement in Activity Quests can only be auto-completed by completing them immediately. This method may be patched at any time."
-                                + "\n\nAuto-completing Quests is done by clicking their respective buttons on the Quests page. Quests will be auto-completed in the order they were queued, unless the simultaneous completion setting is enabled above."
-                                + "\n\nAuto-completing Quests is the riskiest dangerous setting available. Enable it at your own risk."
+                            text: t(
+                                "مهام مشاهدة الفيديو على الجوال تعمل فقط مع المهام القابلة للتسجيل على سطح المكتب. إذا كانت المهمة مقيدة بالتسجيل عبر الجوال، يجب التسجيل فيها أولاً على جهازك المحمول."
+                                    + "\n\nجميع مهام الفيديو ترسل عادةً stack trace مع تقارير التقدم. تمحو Questify هذا الـ stack trace، لكن غيابه سيكون دليلاً مثل وجوده."
+                                    + "\n\nمهام اللعب على سطح المكتب وPlayStation وXbox والأنشطة متاحة فقط على العملاء الرسميين. العملاء الخارجيون كـ Vesktop وEquibop لا يدعمون الإكمال التلقائي لهذه الأنواع."
+                                    + "\n\nمهام الإنجاز في النشاط يمكن إكمالها تلقائياً فوراً فقط. قد تُعطَّل هذه الطريقة في أي وقت."
+                                    + "\n\nالإكمال التلقائي يتم بالنقر على أزرار المهام في صفحة المهام. ستُكمَل بالترتيب ما لم يُفعَّل إعداد الإكمال المتزامن."
+                                    + "\n\nالإكمال التلقائي للمهام هو الإعداد الخطر الأكثر خطورة. فعّله على مسؤوليتك الخاصة.",
+                                "Watch Video on Mobile quests only work with quests that can be enrolled in on desktop. If the quest is restricted to enrolling via mobile, you must first enroll in it on your mobile device."
+                                    + "\n\nAll video quests normally send a stack trace with progress reports. Questify removes this stack trace, but its absence will be as much evidence as its presence."
+                                    + "\n\nPlay on Desktop, PlayStation, Xbox, and activity quests are only available on official clients. Third-party clients like Vesktop and Equibop do not support auto-completing these types."
+                                    + "\n\nAchievement in Activity quests can only be auto-completed instantly. This method may be disabled at any time."
+                                    + "\n\nAuto-completion works by clicking quest buttons on the quests page. They will be completed sequentially unless the simultaneous completion setting is enabled."
+                                    + "\n\nAuto-completing quests is the most dangerous dangerous setting. Enable it at your own risk."
+                            )
                         }}
                     />
                 </>}

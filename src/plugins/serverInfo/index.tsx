@@ -7,6 +7,7 @@
 import { findGroupChildrenByChildId, NavContextMenuPatchCallback } from "@api/ContextMenu";
 import { definePluginSettings } from "@api/Settings";
 import { Devs, EquicordDevs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { Guild } from "@vencord/discord-types";
 import { Menu } from "@webpack/common";
@@ -28,7 +29,7 @@ const Patch: NavContextMenuPatchCallback = (children, { guild }: { guild: Guild;
 export const settings = definePluginSettings({
     sorting: {
         type: OptionType.SELECT,
-        description: "Username or if applicable Display Name",
+        description: t("اسم المستخدم أو الاسم المعروض إن وُجد", "Username or display name if available"),
         options: [
             {
                 label: "Username",
@@ -49,7 +50,7 @@ export const settings = definePluginSettings({
 
 export default definePlugin({
     name: "ServerInfo",
-    description: "Allows you to view info about a server",
+    get description() { return t("يعرض معلومات تفصيلية عن الخادم", "Shows detailed information about the server"); },
     tags: ["Servers", "Utility"],
     authors: [Devs.Ven, Devs.Nuckyz, EquicordDevs.Z1xus],
     dependencies: ["DynamicImageModalAPI"],

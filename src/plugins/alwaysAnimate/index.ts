@@ -18,39 +18,40 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 
 const settings = definePluginSettings({
     icons: {
         type: OptionType.BOOLEAN,
-        description: "Always animate server icons, avatars, decor and more",
+        description: t("تشغيل صور السيرفرات والصور الشخصية والزخارف دائماً", "Always animate guild icons, avatars and decorations"),
         default: true,
     },
     statusEmojis: {
         type: OptionType.BOOLEAN,
-        description: "Always animate status emojis",
+        description: t("تشغيل إيموجي الحالة المتحركة دائماً", "Always animate status emojis"),
         default: true,
     },
     serverBanners: {
         type: OptionType.BOOLEAN,
-        description: "Always animate server banners",
+        description: t("تشغيل بانرات السيرفر المتحركة دائماً", "Always animate server banners"),
         default: true,
     },
     nameplates: {
         type: OptionType.BOOLEAN,
-        description: "Always animate nameplates",
+        description: t("تشغيل لوحات الأسماء المتحركة دائماً", "Always animate nameplates"),
         default: true,
     },
     roleGradients: {
         type: OptionType.BOOLEAN,
-        description: "Always animate role gradients",
+        description: t("تشغيل تدرجات الرتب المتحركة دائماً", "Always animate role gradients"),
         default: true,
     }
 });
 
 export default definePlugin({
     name: "AlwaysAnimate",
-    description: "Animates anything that can be animated",
+    get description() { return t("يحرّك الأفاتار والإيموجي المتحركة دائماً حتى لو لم تكن تستخدم Nitro", "Always animates avatars and animated emojis even without Nitro"); },
     tags: ["Appearance", "Fun"],
     authors: [Devs.FieryFlames],
     settings,

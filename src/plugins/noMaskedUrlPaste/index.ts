@@ -5,12 +5,13 @@
  */
 
 import { Devs } from "@utils/constants.js";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "NoMaskedUrlPaste",
     authors: [Devs.CatNoir],
-    description: "Pasting a link while having text selected will not paste as masked URL",
+    get description() { return t("لصق رابط مع نص محدد لن يحوّله إلى رابط مخفي", "Pasting a link with selected text will not convert it into a masked URL"); },
     tags: ["Chat", "Utility"],
     patches: [
         {

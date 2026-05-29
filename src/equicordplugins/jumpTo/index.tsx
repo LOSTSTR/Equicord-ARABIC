@@ -6,6 +6,7 @@
 
 import { NavContextMenuPatchCallback } from "@api/ContextMenu";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 import { Channel, Message, User } from "@vencord/discord-types";
 import { ChannelStore, Constants, Menu, NavigationRouter, RestAPI, SelectedChannelStore, SelectedGuildStore, Toasts } from "@webpack/common";
@@ -120,7 +121,7 @@ const MessageMenuPatch: NavContextMenuPatchCallback = (children, { message }: { 
 
 export default definePlugin({
     name: "JumpTo",
-    description: "Adds context menu options to jump to the start or bottom of a channel/DM.",
+    get description() { return t("يضيف خيارات لقائمة السياق للانتقال إلى أول أو آخر رسالة في قناة أو رسالة مباشرة", "Adds context menu options to jump to the first or last message in a channel or DM"); },
     tags: ["Chat", "Utility"],
     authors: [Devs.Samwich, Devs.thororen],
     contextMenus: {

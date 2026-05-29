@@ -15,6 +15,7 @@ import { Heading } from "@components/Heading";
 import { DeleteIcon } from "@components/Icons";
 import { EquicordDevs } from "@utils/constants";
 import { classNameFactory } from "@utils/css";
+import { t } from "@utils/esharqI18n";
 import { Margins } from "@utils/margins";
 import { classes } from "@utils/misc";
 import { useForceUpdater } from "@utils/react";
@@ -52,12 +53,25 @@ async function removeKeywordEntry(idx: number, forceUpdate: () => void) {
     forceUpdate();
 }
 
-function safeMatchesRegex(str: string, regex: string, flags: string) {
+const compiledRegexCache = new Map<string, RegExp | null>();
+
+function getCompiledRegex(regex: string, flags: string): RegExp | null {
+    const key = `${flags}:${regex}`;
+    if (compiledRegexCache.has(key)) return compiledRegexCache.get(key)!;
     try {
-        return str.match(new RegExp(regex, flags));
+        const compiled = new RegExp(regex, flags);
+        compiledRegexCache.set(key, compiled);
+        return compiled;
     } catch {
-        return false;
+        compiledRegexCache.set(key, null);
+        return null;
     }
+}
+
+function safeMatchesRegex(str: string, regex: string, flags: string) {
+    const compiled = getCompiledRegex(regex, flags);
+    if (!compiled) return false;
+    return str.match(compiled);
 }
 
 enum ListType {
@@ -299,17 +313,17 @@ function DoubleCheckmarkIcon(props: IconProps) {
 const settings = definePluginSettings({
     ignoreBots: {
         type: OptionType.BOOLEAN,
-        description: "Ignore messages from bots",
+        description: t("تجاهل رسائل البوتات", "Ignore bot messages"),
         default: true
     },
     amountToKeep: {
         type: OptionType.NUMBER,
-        description: "Amount of messages to keep in the log",
+        description: t("عدد الرسائل التي يجب الاحتفاظ بها في السجل", "Number of messages to keep in the log"),
         default: 50
     },
     keywords: {
         type: OptionType.COMPONENT,
-        description: "Manage keywords",
+        description: t("إدارة الكلمات المفتاحية", "Manage keywords"),
         component: () => <KeywordEntries />
     }
 });
@@ -317,7 +331,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "KeywordNotify",
     authors: [EquicordDevs.camila314, EquicordDevs.x3rt],
-    description: "Sends a notification if a given message matches certain keywords or regexes",
+    get description() { return t("يرسل إشعاراً إذا تطابقت رسالة ما مع كلمات مفتاحية أو تعابير نمطية محددة", "Sends a notification if a message matches specified keywords or regex patterns"); },
     tags: ["Chat", "Notifications"],
     settings,
     patches: [

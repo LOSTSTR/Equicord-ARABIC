@@ -41,6 +41,7 @@ declare global {
     export var IS_REPORTER: boolean;
     export var IS_COMPANION_TEST: boolean;
     export var IS_ANTI_CRASH_TEST: boolean;
+    export var IS_EQUICORD_ARABIC: boolean;
     export var IS_DISCORD_DESKTOP: boolean;
     export var IS_VESKTOP: boolean;
     export var IS_EQUIBOP: boolean;

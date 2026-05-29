@@ -19,11 +19,12 @@
 import "./style.css";
 
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "PlainFolderIcon",
-    description: "Dont show the small guild icons in folders",
+    get description() { return t("يخفي أيقونات السيرفرات الصغيرة داخل المجلدات", "Hides the small server icons inside folders"); },
     tags: ["Appearance", "Customisation"],
     authors: [Devs.botato],
 

@@ -6,6 +6,7 @@
 
 import { definePluginSettings, Settings } from "@api/Settings";
 import { EquicordDevs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { MediaEngineStore } from "@webpack/common";
 
@@ -27,27 +28,27 @@ const originalCodecStatuses: Codecs = {
 
 const settings = definePluginSettings({
     disableAv1Codec: {
-        description: "Make Discord not consider using AV1 for streaming.",
+        description: t("يمنع Discord من استخدام AV1 في البث.", "Prevents Discord from using AV1 for streaming."),
         type: OptionType.BOOLEAN,
         default: false
     },
     disableH265Codec: {
-        description: "Make Discord not consider using H265 for streaming.",
+        description: t("منع Discord من استخدام H265 في البث.", "Prevents Discord from using H265 for streaming."),
         type: OptionType.BOOLEAN,
         default: false
     },
     disableH264Codec: {
-        description: "Make Discord not consider using H264 for streaming.",
+        description: t("منع Discord من استخدام H264 في البث.", "Prevents Discord from using H264 for streaming."),
         type: OptionType.BOOLEAN,
         default: false
     },
     disableVP8Codec: {
-        description: "Make Discord not consider using VP8 for streaming.",
+        description: t("منع Discord من استخدام VP8 في البث.", "Prevents Discord from using VP8 for streaming."),
         type: OptionType.BOOLEAN,
         default: false
     },
     disableVP9Codec: {
-        description: "Make Discord not consider using VP9 for streaming.",
+        description: t("منع Discord من استخدام VP9 في البث.", "Prevents Discord from using VP9 for streaming."),
         type: OptionType.BOOLEAN,
         default: false
     },
@@ -55,7 +56,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "StreamingCodecDisabler",
-    description: "Disable codecs for streaming of your choice",
+    get description() { return t("تعطيل برامج ترميز البث التي تختارها", "Disable the streaming codecs of your choice"); },
     tags: ["Utility", "Voice"],
     authors: [EquicordDevs.davidkra230],
     settings,

@@ -7,6 +7,7 @@
 import { ChatBarButton, ChatBarButtonFactory } from "@api/ChatButtons";
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { openModal } from "@webpack/common";
 
@@ -16,7 +17,7 @@ import { kanadeSvg } from "./kanade.svg";
 const settings = definePluginSettings({
     AutoCloseModal: {
         type: OptionType.BOOLEAN,
-        description: "Auto close modal when done",
+        description: t("يغلق النافذة تلقائياً بعد الانتهاء", "Automatically close the modal after finishing"),
         default: true
     }
 });
@@ -32,7 +33,7 @@ const SekaiStickerChatButton: ChatBarButtonFactory = () => {
 let IS_FONTS_LOADED = false;
 export default definePlugin({
     name: "SekaiStickers",
-    description: "Sekai Stickers built in discord originally from github.com/TheOriginalAyaka",
+    get description() { return t("ملصقات Sekai مدمجة في Discord، مصدرها الأصلي github.com/TheOriginalAyaka", "Sekai stickers integrated into Discord, originally sourced from github.com/TheOriginalAyaka"); },
     dependencies: ["ChatInputButtonAPI"],
     tags: ["Chat", "Emotes"],
     authors: [Devs.MaiKokain],

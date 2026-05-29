@@ -20,6 +20,7 @@ import { ChatBarButton, ChatBarButtonFactory } from "@api/ChatButtons";
 import { addMessagePreSendListener, MessageSendListener, removeMessagePreSendListener } from "@api/MessageEvents";
 import { definePluginSettings } from "@api/Settings";
 import { Devs, EquicordDevs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { IconComponent, OptionType } from "@utils/types";
 import { React, useEffect, useState } from "@webpack/common";
 
@@ -30,7 +31,7 @@ export { lastState };
 const settings = definePluginSettings({
     persistState: {
         type: OptionType.SELECT,
-        description: "How to persist the silent message toggle state",
+        description: t("كيفية الاحتفاظ بحالة تبديل الرسائل الصامتة", "How to persist the silent message toggle state"),
         options: [
             { label: "Don't persist (reset on channel change)", value: "none", default: true },
             { label: "Persist between channels", value: "channels" },
@@ -42,7 +43,7 @@ const settings = definePluginSettings({
     },
     autoDisable: {
         type: OptionType.BOOLEAN,
-        description: "Automatically disable the silent message toggle again after sending one",
+        description: t("تعطيل تبديل الرسائل الصامتة تلقائياً بعد إرسال رسالة صامتة", "Automatically disable the silent message toggle after sending a silent message"),
         default: true
     }
 });
@@ -109,7 +110,7 @@ const SilentMessageToggle: ChatBarButtonFactory = ({ isMainChat }) => {
 export default definePlugin({
     name: "SilentMessageToggle",
     authors: [Devs.Nuckyz, Devs.CatNoir, EquicordDevs.Z1xus],
-    description: "Adds a button to the chat bar to toggle sending a silent message.",
+    get description() { return t("يُضيف زراً لتفعيل/تعطيل الرسائل الصامتة", "Adds a button to enable/disable silent messages"); },
     dependencies: ["ChatInputButtonAPI"],
     tags: ["Chat", "Utility"],
     settings,

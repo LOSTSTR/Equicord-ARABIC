@@ -5,11 +5,12 @@
  */
 
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "ProfileSectionsAPI",
-    description: "API to add sections near the 'Member Since' area of user profile panels.",
+    get description() { return t("واجهة برمجية لإضافة أقسام بالقرب من منطقة 'عضو منذ' في لوحات ملف المستخدم.", "An API for adding sections near the 'Member since' area in user profile panels."); },
     authors: [Devs.thororen],
     patches: [
         // dm user sidebar

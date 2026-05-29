@@ -1,0 +1,23 @@
+name: Release Linux Installer
+
+on:
+    workflow_dispatch:
+    workflow_call:
+
+env:
+    GITHUB_TOKEN: ${{ secrets.ETOKEN }}
+
+permissions:
+    contents: write
+
+jobs:
+    Upload:
+        name: Upload Linux Installer Script
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v6
+
+            - name: Upload install-linux.sh to release
+              run: |
+                  gh release upload v1.0.0-stable --clobber installer/install-linux.sh

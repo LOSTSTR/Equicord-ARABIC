@@ -9,11 +9,11 @@ import "./styles.css";
 import { definePluginSettings } from "@api/Settings";
 import { EquicordDevs } from "@utils/constants";
 import { classNameFactory } from "@utils/css";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { ColorUtils, React, showToast, Toasts } from "@webpack/common";
 
 const cl = classNameFactory("vc-better-audio-player-");
-const CORS_PROXY = "https://cors.keiran0.workers.dev?url=";
 const MAX_FILE_SIZE = 12e6;
 
 interface PlayerInstance {
@@ -103,7 +103,9 @@ async function fetchAudioBlob(src: string): Promise<string | null> {
     const url = new URL(src);
     url.searchParams.set("t", Date.now().toString());
 
-    const response = await fetch(CORS_PROXY + encodeURIComponent(url.href));
+    const proxyBase = settings.store.corsProxy.trim();
+    const fetchUrl = proxyBase ? proxyBase + encodeURIComponent(url.href) : url.href;
+    const response = await fetch(fetchUrl);
     const contentLength = response.headers.get("content-length");
     if (contentLength && Number(contentLength) > MAX_FILE_SIZE) return null;
 
@@ -239,41 +241,46 @@ function Visualizer({ playerRef, src }: { playerRef: React.RefObject<HTMLAudioEl
 const settings = definePluginSettings({
     oscilloscope: {
         type: OptionType.BOOLEAN,
-        description: "Enable oscilloscope visualizer.",
+        description: t("تفعيل عارض الأوسيلوسكوب.", "Enable the oscilloscope visualizer."),
         default: true,
     },
     spectrograph: {
         type: OptionType.BOOLEAN,
-        description: "Enable spectrograph visualizer.",
+        description: t("تفعيل عارض الطيف الصوتي (Spectrograph).", "Enable the spectrograph visualizer."),
         default: true,
     },
     oscilloscopeSolidColor: {
         type: OptionType.BOOLEAN,
-        description: "Use a solid color for the oscilloscope.",
+        description: t("استخدام لون ثابت للأوسيلوسكوب.", "Use a solid color for the oscilloscope."),
         default: false,
     },
     oscilloscopeColor: {
         type: OptionType.STRING,
-        description: "Color for the oscilloscope (R, G, B or #hex).",
+        description: t("لون الأوسيلوسكوب (R, G, B أو #hex).", "Oscilloscope color (R, G, B or #hex)."),
         default: "255, 255, 255",
         onChange: value => validateColor(value, "oscilloscopeColor", "255, 255, 255"),
     },
     spectrographSolidColor: {
         type: OptionType.BOOLEAN,
-        description: "Use a solid color for the spectrograph.",
+        description: t("استخدام لون ثابت لعارض الطيف الصوتي.", "Use a solid color for the spectrograph visualizer."),
         default: false,
     },
     spectrographColor: {
         type: OptionType.STRING,
-        description: "Color for the spectrograph (R, G, B or #hex).",
+        description: t("لون عارض الطيف الصوتي (R, G, B أو #hex).", "Spectrograph visualizer color (R, G, B or #hex)."),
         default: "33, 150, 243",
         onChange: value => validateColor(value, "spectrographColor", "33, 150, 243"),
+    },
+    corsProxy: {
+        type: OptionType.STRING,
+        description: t("عنوان CORS proxy لتشغيل الصوت. اتركه فارغاً لتعطيل الـ proxy.", "CORS proxy URL for audio playback. Leave empty to disable the proxy."),
+        default: "https://cors.keiran0.workers.dev?url=",
     },
 });
 
 export default definePlugin({
     name: "BetterAudioPlayer",
-    description: "Adds a spectrograph and oscilloscope visualizer to audio attachment players.",
+    get description() { return t("يضيف مرئي طيف صوتي وأوسيلوسكوب لمشغّلات الصوت في المرفقات", "Adds a spectrograph and oscilloscope visualizer to audio players in attachments"); },
     tags: ["Appearance", "Media", "Voice"],
     authors: [EquicordDevs.creations],
     settings,

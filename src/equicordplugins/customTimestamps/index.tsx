@@ -12,6 +12,7 @@ import { Heading, HeadingPrimary } from "@components/Heading";
 import { Link } from "@components/Link";
 import { Paragraph } from "@components/Paragraph";
 import { Devs, EquicordDevs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import { Margins } from "@utils/margins";
 import { useForceUpdater } from "@utils/react";
 import definePlugin, { OptionType } from "@utils/types";
@@ -74,7 +75,7 @@ const TimeRow = (props: TimeRowProps) => {
 const settings = definePluginSettings({
     formats: {
         type: OptionType.COMPONENT,
-        description: "Customize the timestamp formats",
+        description: t("تخصيص تنسيقات التوقيت", "Customize timestamp formats"),
         component: componentProps => {
             const [settingsState, setSettingsState] = useState(useSettings().plugins?.CustomTimestamps?.formats ?? {});
 
@@ -124,7 +125,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "CustomTimestamps",
-    description: "Custom timestamps on messages and tooltips",
+    get description() { return t("تنسيقات وقت مخصصة للرسائل والتلميحات", "Custom time formats for messages and tooltips"); },
     tags: ["Appearance", "Customisation"],
     authors: [Devs.Rini, EquicordDevs.nvhhr, EquicordDevs.Suffocate, Devs.Obsidian],
     settings,
@@ -193,7 +194,7 @@ export default definePlugin({
 
         useEffect(() => {
             if (formatTemplate.includes("calendar") || formatTemplate.includes("relative")) {
-                const interval = setInterval(forceUpdater, 1000);
+                const interval = setInterval(forceUpdater, 10_000);
                 return () => clearInterval(interval);
             }
         }, []);

@@ -5,6 +5,7 @@
  */
 
 import { definePluginSettings } from "@api/Settings";
+import { t } from "@utils/esharqI18n";
 import { OptionType } from "@utils/types";
 
 export const enum RenderType {
@@ -22,7 +23,7 @@ export const enum BlockDisplayType {
 export const settings = definePluginSettings({
     renderType: {
         type: OptionType.SELECT,
-        description: "How to render colors",
+        description: t("طريقة عرض الألوان", "Color display method"),
         options: [
             {
                 label: "Text color",
@@ -41,7 +42,7 @@ export const settings = definePluginSettings({
     },
     enableShortHexCodes: {
         type: OptionType.BOOLEAN,
-        description: "Enable 3 char hex-code like #39f",
+        description: t("تفعيل أكواد hex المكونة من 3 أحرف مثل #39f", "Enable 3-character hex codes like #39f"),
         default: true,
         // Regex are created on the start, so without restart nothing would change
         restartNeeded: true
@@ -49,7 +50,7 @@ export const settings = definePluginSettings({
     blockView: {
         type: OptionType.SELECT,
         disabled: () => settings.store.renderType !== RenderType.BLOCK,
-        description: "Where to display colored block",
+        description: t("مكان عرض الكتلة الملونة", "Where to display the color block"),
         options: [
             {
                 label: "Right side",

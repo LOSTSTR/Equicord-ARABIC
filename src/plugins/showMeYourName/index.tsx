@@ -16,6 +16,7 @@ import { Heading } from "@components/Heading";
 import ircColors from "@plugins/ircColors";
 import mentionAvatars from "@plugins/mentionAvatars";
 import { Devs, EquicordDevs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import { classNameFactory } from "@utils/index";
 import definePlugin, { OptionType } from "@utils/types";
 import { GuildMember, Message, RenderModalProps, User } from "@vencord/discord-types";
@@ -931,137 +932,137 @@ const settings = definePluginSettings({
     messages: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Display custom name format in messages.",
+        description: t("اعرض تنسيق الاسم المخصص في الرسائل.", "Show custom name format in messages."),
     },
     replies: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Display custom name format in replies.",
+        description: t("عرض تنسيق الاسم المخصص في الردود.", "Show custom name format in replies."),
     },
     mentions: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Display custom name format in mentions.",
+        description: t("عرض تنسيق الاسم المخصص في الإشارات.", "Show custom name format in mentions."),
     },
     typingIndicator: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Display the first available name listed in your custom name format in the typing indicator.",
+        description: t("عرض أول اسم متاح في تنسيق الاسم المخصص في مؤشر الكتابة.", "Show the first available name in the custom name format in the typing indicator."),
     },
     memberList: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Display the first available name listed in your custom name format in the members list, DMs list, and friends list.",
+        description: t("عرض أول اسم متاح في تنسيق الاسم المخصص في قائمة الأعضاء وقائمة الرسائل المباشرة وقائمة الأصدقاء.", "Show the first available name in the member list, DM list, and friends list."),
     },
     profilePopout: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Display the first available name listed in your custom name format in profile popouts.",
+        description: t("عرض أول اسم متاح في تنسيق الاسم المخصص في نوافذ الملف الشخصي المنبثقة.", "Show the first available name in profile popouts."),
     },
     voiceChannels: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Display the first available name listed in your custom name format in voice channels.",
+        description: t("عرض أول اسم متاح في تنسيق الاسم المخصص في القنوات الصوتية.", "Show the first available name in voice channels."),
     },
     reactions: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Display the first available name listed in your custom name format in reaction tooltips, and the full name in reaction popouts.",
+        description: t("عرض أول اسم متاح في تنسيق الاسم المخصص في تلميحات ردود الفعل والاسم الكامل في نوافذ ردود الفعل المنبثقة.", "Show the first available name in reaction tooltips and the full name in reaction popouts."),
     },
     discriminators: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Append discriminators to usernames for bots. Discriminators were deprecated for users, but are still used for bots. By default, a bot's username is equivalent to a user's global name, therefore multiple bots can have the same username. Appending discriminators makes them unique again.",
+        description: t("إلحاق المُعرِّفات بأسماء مستخدمي البوتات. لم تعد المُعرِّفات مستخدمة للمستخدمين، لكنها لا تزال مستخدمة للبوتات. بشكل افتراضي، يساوي اسم مستخدم البوت الاسم العالمي للمستخدم، لذا يمكن لعدة بوتات أن تتشارك الاسم ذاته. إلحاق المُعرِّفات يجعلها فريدة من جديد.", "Append discriminators to bot usernames. Discriminators are no longer used for users but are still used for bots. By default, a bot's username equals its global name, so multiple bots can share the same name. Appending discriminators makes them unique again."),
     },
     hideDefaultAtSign: {
         type: OptionType.BOOLEAN,
         default: false,
-        description: "Hide the default \"@\" symbol before the name in mentions and replies. Only applied if either feature is enabled.",
+        description: t("إخفاء رمز \"@\" الافتراضي قبل الاسم في الإشارات والردود. يُطبَّق فقط إذا كانت إحدى الميزتين مفعّلة.", "Hide the default \"@\" sign before the name in mentions and replies. Only applies if one of these features is enabled."),
     },
     truncateAllNamesWithStreamerMode: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Truncate all names, not just usernames, while in Streamer Mode.",
+        description: t("اقتصاص جميع الأسماء وليس أسماء المستخدمين فقط في وضع البث.", "Truncate all names and not just usernames in streamer mode."),
     },
     removeDuplicates: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "If any of the names are equivalent, remove them, leaving only the unique names.",
+        description: t("إذا كانت أي أسماء متطابقة، فتُحذف تاركةً فقط الأسماء الفريدة.", "If any names are duplicates, remove them leaving only unique names."),
     },
     ignoreFonts: {
         type: OptionType.BOOLEAN,
         default: false,
-        description: "For the non-primary names, use Discord's default fonts regardless of the user's custom nitro font.",
+        description: t("استخدام الخطوط الافتراضية لـ Discord للأسماء غير الأساسية بصرف النظر عن خط النيترو المخصص للمستخدم.", "Use Discord default fonts for non-primary names regardless of the user's custom Nitro font."),
     },
     ignoreGradients: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "For the non-primary names, if the role has a gradient and the color below is set to \"Role+-#\", use the primary color instead of the whole gradient, and if it has a nitro effect, ignore it entirely."
+        description: t("للأسماء غير الأساسية، إذا كان للدور تدرج لوني والإعداد أدناه مضبوطاً على \"Role+-#\"، يُستخدم اللون الأساسي بدلاً من التدرج الكامل، وإذا كان له تأثير نيترو فيُتجاهل كلياً.", "For non-primary names, if the role has a gradient and the setting below is set to \"Role+-#\", use the primary color instead of the full gradient; if it has a Nitro effect it is ignored entirely.")
     },
     animateGradients: {
         type: OptionType.BOOLEAN,
         default: false,
-        description: "For the non-primary names, if the role has a gradient or nitro effect, animate it. This is disabled by \"Ignore Gradients\" and reduced motion.",
+        description: t("للأسماء غير الأساسية، إذا كان للدور تدرج لوني أو تأثير نيترو فيُحرَّك. يُعطَّل هذا بواسطة \"تجاهل التدرجات\" والحركة المخففة.", "For non-primary names, animate if the role has a gradient or Nitro effect. Disabled by \"Ignore Gradients\" and reduced motion."),
     },
     nameSeparator: {
         type: OptionType.STRING,
-        description: "The separator to use between names. The default is a single space.",
+        description: t("الفاصل المستخدم بين الأسماء. الافتراضي هو مسافة واحدة.", "The separator used between names. Default is a single space."),
         default: " ",
     },
     friendNameOnlyInDirectMessages: {
         type: OptionType.BOOLEAN,
         default: false,
-        description: "Only display friend names when in DMs, and not in servers.",
+        description: t("عرض أسماء الأصدقاء فقط في الرسائل المباشرة وليس في الخوادم.", "Show friend names only in DMs and not in servers."),
     },
     customNameOnlyInDirectMessages: {
         type: OptionType.BOOLEAN,
         default: false,
-        description: "Only display custom names when in DMs, and not in servers.",
+        description: t("عرض الأسماء المخصصة فقط في الرسائل المباشرة وليس في الخوادم.", "Show custom names only in DMs and not in servers."),
     },
     alwaysShowEffects: {
         type: OptionType.BOOLEAN,
         default: false,
-        description: "Always show effects as if you were hovering.",
+        description: t("إظهار التأثيرات دائماً كما لو كنت تحوم بالمؤشر.", "Always show effects as if you are hovering."),
     },
     includedNames: {
         type: OptionType.STRING,
-        description: "The order to display usernames, display names, nicknames, friend names, and custom names. Use the following placeholders: {user}, {display}, {nick}, {friend}, {custom}. You can provide multiple name options to use as fallbacks if one is unavailable by separating them with commas as such: {custom, friend, nick}. You can have up to three prefixes and three suffixes per name.",
+        description: t("ترتيب عرض أسماء المستخدمين وأسماء العرض والألقاب وأسماء الأصدقاء والأسماء المخصصة. استخدم العناصر النائبة التالية: {user}، {display}، {nick}، {friend}، {custom}. يمكنك تقديم خيارات أسماء متعددة كبدائل إذا لم يكن أحدها متاحاً بفصلها بفواصل هكذا: {custom, friend, nick}. يمكن أن يكون لكل اسم ما يصل إلى ثلاثة بادئات وثلاثة لاحقات.", "The display order for usernames, display names, nicknames, friend names, and custom names. Use these placeholders: {user}, {display}, {nick}, {friend}, {custom}. Provide multiple name options as fallbacks if one isn't available by separating with commas: {custom, friend, nick}. Each name can have up to three prefixes and three suffixes."),
         default: "{custom, friend, nick} [{display}] (@{user})",
         isValid: validTemplate,
     },
     customNameColor: {
         type: OptionType.STRING,
-        description: "The color to use for the custom name you assigned a user if it's not the first displayed. Accepts any valid CSS input. Use \"Role\" to follow the user's top role colors, nitro effect colors, or IRCColors color if enabled. Use \"Role+-#\" to adjust the brightness by that percentage (ex: \"Role+15\")",
+        description: t("اللون المستخدم للاسم المخصص الذي عيّنته للمستخدم إذا لم يكن أول اسم معروض. يقبل أي مدخل CSS صالح. استخدم \"Role\" لمتابعة ألوان أعلى دور للمستخدم أو ألوان تأثير نيترو أو لون IRCColors إذا كان مفعّلاً. استخدم \"Role+-#\" لضبط السطوع بهذه النسبة (مثال: \"Role+15\")", "The color used for the custom name you set for the user if it isn't the first name shown. Accepts any valid CSS input. Use \"Role\" to follow the user's highest role colors, Nitro effect colors, or IRCColors color if enabled. Use \"Role+-#\" to adjust brightness by that amount (e.g. \"Role+15\")."),
         default: "Role-25",
         isValid: validColor,
     },
     friendNameColor: {
         type: OptionType.STRING,
-        description: "The color to use for a friend's nickname if it's not the first displayed. Accepts any valid CSS input. Use \"Role\" to follow the user's top role colors, nitro effect colors, or IRCColors color if enabled. Use \"Role+-#\" to adjust the brightness by that percentage (ex: \"Role+15\")",
+        description: t("اللون المستخدم للقب اسم الصديق إذا لم يكن أول اسم معروض. يقبل أي مدخل CSS صالح. استخدم \"Role\" لمتابعة ألوان أعلى دور للمستخدم أو ألوان تأثير نيترو أو لون IRCColors إذا كان مفعّلاً. استخدم \"Role+-#\" لضبط السطوع بهذه النسبة (مثال: \"Role+15\")", "The color used for the friend name if it isn't the first name shown. Accepts any valid CSS input. Use \"Role\" to follow the user's highest role colors, Nitro effect colors, or IRCColors color if enabled. Use \"Role+-#\" to adjust brightness by that amount (e.g. \"Role+15\")."),
         default: "Role-25",
         isValid: validColor,
     },
     nicknameColor: {
         type: OptionType.STRING,
-        description: "The color to use for the nickname if it's not the first displayed. Accepts any valid CSS input. Use \"Role\" to follow the user's top role colors, nitro effect colors, or IRCColors color if enabled. Use \"Role+-#\" to adjust the brightness by that percentage (ex: \"Role+15\")",
+        description: t("اللون المستخدم للقب إذا لم يكن أول اسم معروض. يقبل أي مدخل CSS صالح. استخدم \"Role\" لمتابعة ألوان أعلى دور للمستخدم أو ألوان تأثير نيترو أو لون IRCColors إذا كان مفعّلاً. استخدم \"Role+-#\" لضبط السطوع بهذه النسبة (مثال: \"Role+15\")", "The color used for the nickname if it isn't the first name shown. Accepts any valid CSS input. Use \"Role\" to follow the user's highest role colors, Nitro effect colors, or IRCColors color if enabled. Use \"Role+-#\" to adjust brightness by that amount (e.g. \"Role+15\")."),
         default: "Role-25",
         isValid: validColor,
     },
     displayNameColor: {
         type: OptionType.STRING,
-        description: "The color to use for the display name if it's not the first displayed. Accepts any valid CSS input. Use \"Role\" to follow the user's top role colors, nitro effect colors, or IRCColors color if enabled. Use \"Role+-#\" to adjust the brightness by that percentage (ex: \"Role+15\")",
+        description: t("اللون المستخدم لاسم العرض إذا لم يكن أول اسم معروض. يقبل أي مدخل CSS صالح. استخدم \"Role\" لمتابعة ألوان أعلى دور للمستخدم أو ألوان تأثير نيترو أو لون IRCColors إذا كان مفعّلاً. استخدم \"Role+-#\" لضبط السطوع بهذه النسبة (مثال: \"Role+15\")", "The color used for the display name if it isn't the first name shown. Accepts any valid CSS input. Use \"Role\" to follow the user's highest role colors, Nitro effect colors, or IRCColors color if enabled. Use \"Role+-#\" to adjust brightness by that amount (e.g. \"Role+15\")."),
         default: "Role-25",
         isValid: validColor,
     },
     usernameColor: {
         type: OptionType.STRING,
-        description: "The color to use for the username if it's not the first displayed. Accepts any valid CSS input. Use \"Role\" to follow the user's top role colors, nitro effect colors, or IRCColors color if enabled. Use \"Role+-#\" to adjust the brightness by that percentage (ex: \"Role+15\")",
+        description: t("اللون المستخدم لاسم المستخدم إذا لم يكن أول اسم معروض. يقبل أي مدخل CSS صالح. استخدم \"Role\" لمتابعة ألوان أعلى دور للمستخدم أو ألوان تأثير نيترو أو لون IRCColors إذا كان مفعّلاً. استخدم \"Role+-#\" لضبط السطوع بهذه النسبة (مثال: \"Role+15\")", "The color used for the username if it isn't the first name shown. Accepts any valid CSS input. Use \"Role\" to follow the user's highest role colors, Nitro effect colors, or IRCColors color if enabled. Use \"Role+-#\" to adjust brightness by that amount (e.g. \"Role+15\")."),
         default: "Role-25",
         isValid: validColor,
     },
     triggerNameRerender: {
         type: OptionType.BOOLEAN,
-        description: "Trigger a name rerender by toggling this setting.",
+        description: t("تشغيل إعادة رسم الأسماء عبر تبديل هذا الإعداد.", "Trigger name re-render by toggling this setting."),
         default: false,
         hidden: true
     },
@@ -1069,7 +1070,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "ShowMeYourName",
-    description: "Display any permutation of custom nicknames, friend nicknames, server nicknames, display names, and usernames in chat.",
+    get description() { return t("يعرض اسم المستخدم الأصلي بجانب اللقب", "Shows the original username next to the nickname"); },
     authors: [EquicordDevs.Etorix, Devs.Rini, Devs.TheKodeToad, Devs.sadan, Devs.prism],
     tags: ["Appearance", "Customisation"],
     searchTerms: ["SMYN", "Nicknames", "Custom Nicknames"],

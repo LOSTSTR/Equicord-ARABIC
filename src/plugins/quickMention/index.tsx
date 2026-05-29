@@ -18,6 +18,7 @@
 
 import { Devs } from "@utils/constants";
 import { insertTextIntoChatInputBox } from "@utils/discord";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 import { ChannelStore, PermissionsBits, PermissionStore } from "@webpack/common";
 
@@ -40,7 +41,7 @@ function Icon({ height = 24, width = 24, className = "icon" }: { height?: number
 export default definePlugin({
     name: "QuickMention",
     authors: [Devs.kemo],
-    description: "Adds a quick mention button to the message actions bar",
+    get description() { return t("يضيف زر إشارة سريعة إلى شريط إجراءات الرسالة", "Adds a quick mention button to the message action bar"); },
     dependencies: ["MessagePopoverAPI"],
     tags: ["Chat", "Shortcuts"],
 

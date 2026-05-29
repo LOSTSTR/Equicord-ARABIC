@@ -5,11 +5,12 @@
  */
 
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "StickerPaste",
-    description: "Makes picking a sticker in the sticker picker insert it into the chatbox instead of instantly sending",
+    get description() { return t("يجعل اختيار ستيكر في منتقي الستيكرات يُدرجه في صندوق الدردشة بدلاً من إرساله فوراً", "Makes selecting a sticker in the sticker picker insert it into the chat box instead of sending it immediately"); },
     tags: ["Emotes", "Chat"],
     authors: [Devs.ImBanana],
 

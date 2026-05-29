@@ -12,6 +12,7 @@ import {
     Settings,
 } from "@api/Settings";
 import { Devs, EquicordDevs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { makeRange, OptionType } from "@utils/types";
 
 const presendObject: MessageSendListener = (channelId, msg) => {
@@ -21,40 +22,40 @@ const presendObject: MessageSendListener = (channelId, msg) => {
 const settings = definePluginSettings({
     quickDisable: {
         type: OptionType.BOOLEAN,
-        description: "Quick disable. Turns off message modifying without requiring a client reload.",
+        description: t("تعطيل سريع. يوقف تعديل الرسائل دون الحاجة لإعادة تشغيل العميل.", "Quick disable. Stops message editing without needing to restart the client."),
         default: false,
     },
 
     blockedWords: {
         type: OptionType.STRING,
-        description: "Words that will not be capitalized (comma separated).",
+        description: t("الكلمات التي لن يتم تكبيرها (مفصولة بفاصلة).", "Words that will not be capitalized (comma-separated)."),
         default: "",
     },
     // fixApostrophes is the only one that defaults to enabled because in the version before this one,
     //   the other features did not exist / had a bug making them not work.
     fixApostrophes: {
         type: OptionType.BOOLEAN,
-        description: "Ensure contractions contain apostrophes.",
+        description: t("ضمان احتواء الاختصارات على الفواصل العليا.", "Ensure contractions contain apostrophes."),
         default: true,
     },
     expandContractions: {
         type: OptionType.BOOLEAN,
-        description: "Expand contractions.",
+        description: t("توسيع الاختصارات.", "Expand contractions."),
         default: false,
     },
     fixCapitalization: {
         type: OptionType.BOOLEAN,
-        description: "Capitalize sentences.",
+        description: t("تكبير بداية الجمل.", "Capitalize the beginning of sentences."),
         default: false,
     },
     fixPunctuation: {
         type: OptionType.BOOLEAN,
-        description: "Punctate sentences.",
+        description: t("إضافة علامات الترقيم للجمل.", "Add punctuation to sentences."),
         default: false,
     },
     fixPunctuationFrequency: {
         type: OptionType.SLIDER,
-        description: "Percent period frequency (this majorly annoys some people).",
+        description: t("تكرار وضع النقطة بالنسبة المئوية (قد يزعج بعض الناس كثيراً).", "Dot frequency percentage (may annoy some people)."),
         markers: makeRange(0, 100, 10),
         stickToMarkers: false,
         default: 100,
@@ -63,7 +64,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "PolishWording",
-    description: "Tweaks your messages to make them look nicer and have better grammar. See settings",
+    get description() { return t("يُعدّل رسائلك لجعلها أجمل وأفضل نحوياً. راجع الإعدادات", "Modifies your messages to make them prettier and better written. Check the settings"); },
     dependencies: ["MessageEventsAPI"],
     tags: ["Chat"],
     authors: [Devs.Samwich, EquicordDevs.WKoA],

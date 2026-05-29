@@ -21,6 +21,7 @@ import ErrorBoundary from "@components/ErrorBoundary";
 import { getCustomColorString } from "@equicordplugins/customUserColors";
 import { Devs, EquicordDevs } from "@utils/constants";
 import { openUserProfile } from "@utils/discord";
+import { t } from "@utils/esharqI18n";
 import { isNonNullish } from "@utils/guards";
 import { Logger } from "@utils/Logger";
 import definePlugin, { OptionType } from "@utils/types";
@@ -34,23 +35,23 @@ const settings = definePluginSettings({
     showAvatars: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Show avatars in the typing indicator"
+        description: t("عرض الصور الرمزية في مؤشر الكتابة", "Show avatars in the typing indicator")
     },
     showRoleColors: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Show role colors in the typing indicator"
+        description: t("عرض ألوان الأدوار في مؤشر الكتابة", "Show role colors in the typing indicator")
     },
     alternativeFormatting: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Show a more useful message when several users are typing"
+        description: t("عرض رسالة أكثر فائدة عندما يكتب عدة مستخدمين", "Show a more informative message when several users are typing")
     },
     amITyping: {
         type: OptionType.BOOLEAN,
         default: false,
         restartNeeded: true,
-        description: "Shows you if other people can see you typing"
+        description: t("يُظهر لك ما إذا كان الآخرون يرون أنك تكتب", "Shows you if others can see you are typing")
     }
 });
 
@@ -113,7 +114,7 @@ const TypingUser = ErrorBoundary.wrap(function TypingUser({ user, guildId }: Typ
 migratePluginToSettings(true, "TypingTweaks", "AmITyping", "amITyping");
 export default definePlugin({
     name: "TypingTweaks",
-    description: "Show avatars and role colours in the typing indicator",
+    get description() { return t("يُحسّن مؤشر الكتابة بالأفاتار والأسماء", "Enhances the typing indicator with avatars and names"); },
     tags: ["Appearance", "Customisation"],
     authors: [Devs.zt, Devs.sadan, EquicordDevs.MrDiamond],
     settings,

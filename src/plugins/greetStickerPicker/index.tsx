@@ -18,6 +18,7 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { Channel, Message } from "@vencord/discord-types";
 import { ContextMenuApi, FluxDispatcher, Menu, MessageActions } from "@webpack/common";
@@ -34,7 +35,7 @@ const settings = definePluginSettings({
             { label: "Greet (you can only greet 3 times)", value: GreetMode.Greet, default: true },
             { label: "Normal Message (you can greet spam)", value: GreetMode.NormalMessage }
         ],
-        description: "Choose the greet mode"
+        description: t("اختر وضع الترحيب", "Choose the greeting mode")
     }
 }).withPrivateSettings<{
     multiGreetChoices?: string[];
@@ -150,7 +151,7 @@ function GreetMenu({ channel, message }: { message: Message, channel: Channel; }
 
 export default definePlugin({
     name: "GreetStickerPicker",
-    description: "Allows you to use any greet sticker instead of only the random one by right-clicking the 'Wave to say hi!' button",
+    get description() { return t("يُحسّن محدد ستيكرات الترحيب", "Improves the greet sticker picker"); },
     tags: ["Emotes", "Customisation"],
     authors: [Devs.Ven],
 

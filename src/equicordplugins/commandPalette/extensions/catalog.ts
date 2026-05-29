@@ -4,6 +4,8 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
+import { t } from "@utils/esharqI18n";
+
 import { TAG_PLUGINS, TAG_UTILITY } from "../metadata/tags";
 import type { ExtensionDefinition } from "../registry";
 import type { ExtensionKeybindMap } from "./types";
@@ -48,11 +50,11 @@ export const EXTENSIONS_CATALOG: ExtensionDefinition[] = [
     {
         id: SILENT_TYPING_EXTENSION_ID,
         label: "SilentTyping",
-        description: "Control the SilentTyping plugin from the command palette.",
+        description: t("التحكم في إضافة SilentTyping من لوحة الأوامر.", "Control the SilentTyping plugin from the command palette."),
         detailCategoryId: SILENT_TYPING_EXTENSION_DETAIL_CATEGORY_ID,
         commandId: "extension-silent-typing-toggle",
         commandLabel: "Toggle SilentTyping",
-        commandDescription: "Run the extension command from this detail page.",
+        commandDescription: t("تشغيل أمر الإضافة من هذه الصفحة التفصيلية.", "Run the plugin command from this detail page."),
         sourcePath: "src/plugins/silentTyping",
         tags: [TAG_PLUGINS, TAG_UTILITY],
         keywords: ["extension", "plugin", "silent", "typing", "toggle", "keyboard"]
@@ -60,11 +62,11 @@ export const EXTENSIONS_CATALOG: ExtensionDefinition[] = [
     {
         id: RANDOM_VOICE_EXTENSION_ID,
         label: "RandomVoice",
-        description: "Control the RandomVoice plugin from the command palette.",
+        description: t("التحكم في إضافة RandomVoice من لوحة الأوامر.", "Control the RandomVoice plugin from the command palette."),
         detailCategoryId: RANDOM_VOICE_EXTENSION_DETAIL_CATEGORY_ID,
         commandId: "extension-random-voice-join",
         commandLabel: "Join Random Voice",
-        commandDescription: "Run the extension command from this detail page.",
+        commandDescription: t("تشغيل أمر الإضافة من هذه الصفحة التفصيلية.", "Run the plugin command from this detail page."),
         sourcePath: "src/equicordplugins/randomVoice",
         tags: [TAG_PLUGINS, TAG_UTILITY],
         keywords: ["extension", "plugin", "random", "voice", "join", "channel", "vc"]
@@ -72,11 +74,11 @@ export const EXTENSIONS_CATALOG: ExtensionDefinition[] = [
     {
         id: SILENT_MESSAGE_TOGGLE_EXTENSION_ID,
         label: "SilentMessageToggle",
-        description: "Control SilentMessageToggle from the command palette.",
+        description: t("التحكم في إضافة SilentMessageToggle من لوحة الأوامر.", "Control the SilentMessageToggle plugin from the command palette."),
         detailCategoryId: SILENT_MESSAGE_TOGGLE_EXTENSION_DETAIL_CATEGORY_ID,
         commandId: "extension-silent-message-toggle-plugin",
         commandLabel: "Toggle SilentMessageToggle",
-        commandDescription: "Toggle the SilentMessageToggle plugin.",
+        commandDescription: t("تبديل حالة إضافة SilentMessageToggle.", "Toggle the state of the SilentMessageToggle plugin."),
         sourcePath: "src/plugins/silentMessageToggle",
         tags: [TAG_PLUGINS, TAG_UTILITY],
         keywords: ["extension", "plugin", "silent", "message", "toggle", "auto disable"]
@@ -84,11 +86,11 @@ export const EXTENSIONS_CATALOG: ExtensionDefinition[] = [
     {
         id: SCHEDULED_MESSAGES_EXTENSION_ID,
         label: "ScheduledMessages",
-        description: "Control ScheduledMessages from the command palette.",
+        description: t("التحكم في إضافة ScheduledMessages من لوحة الأوامر.", "Control the ScheduledMessages plugin from the command palette."),
         detailCategoryId: SCHEDULED_MESSAGES_EXTENSION_DETAIL_CATEGORY_ID,
         commandId: "extension-scheduled-messages-open",
         commandLabel: "Open Scheduled Messages",
-        commandDescription: "Open the ScheduledMessages modal.",
+        commandDescription: t("فتح نافذة الرسائل المجدولة.", "Open the scheduled messages window."),
         sourcePath: "src/equicordplugins/scheduledMessages",
         tags: [TAG_PLUGINS, TAG_UTILITY],
         keywords: ["extension", "plugin", "schedule", "message", "queue", "remind", "delay"]
@@ -96,11 +98,11 @@ export const EXTENSIONS_CATALOG: ExtensionDefinition[] = [
     {
         id: THEME_LIBRARY_EXTENSION_ID,
         label: "ThemeLibrary",
-        description: "Control ThemeLibrary from the command palette.",
+        description: t("التحكم في إضافة ThemeLibrary من لوحة الأوامر.", "Control the ThemeLibrary plugin from the command palette."),
         detailCategoryId: THEME_LIBRARY_EXTENSION_DETAIL_CATEGORY_ID,
         commandId: "extension-theme-library-open",
         commandLabel: "Open Theme Library",
-        commandDescription: "Open the ThemeLibrary settings page.",
+        commandDescription: t("فتح صفحة إعدادات مكتبة القوالب.", "Open the theme library settings page."),
         sourcePath: "src/equicordplugins/themeLibrary",
         tags: [TAG_PLUGINS, TAG_UTILITY],
         keywords: ["extension", "plugin", "theme", "library", "themes", "settings"]

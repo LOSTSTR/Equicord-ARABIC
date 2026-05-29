@@ -9,6 +9,7 @@ import "./styles.css";
 import { addServerListElement, removeServerListElement, ServerListRenderPosition } from "@api/ServerList";
 import ErrorBoundary from "@components/ErrorBoundary";
 import { EquicordDevs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 import { FluxDispatcher, Tooltip } from "@webpack/common";
 
@@ -27,7 +28,7 @@ function SearchIcon() {
 export default definePlugin({
     name: "ServerSearch",
     authors: [EquicordDevs.camila314],
-    description: "Navigate your servers better with a quick search button",
+    get description() { return t("يتيح التنقل بين السيرفرات بسرعة عبر زر البحث السريع", "Enables quickly navigating between servers via a quick search button."); },
     tags: ["Shortcuts", "Servers"],
 
     renderButton() {

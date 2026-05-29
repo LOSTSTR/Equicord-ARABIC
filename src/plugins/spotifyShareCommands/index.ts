@@ -19,6 +19,7 @@
 import { ApplicationCommandInputType, findOption, OptionalMessageOption, sendBotMessage } from "@api/Commands";
 import { Devs } from "@utils/constants";
 import { sendMessage } from "@utils/discord";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 import { Command } from "@vencord/discord-types";
 import { findByPropsLazy } from "@webpack";
@@ -97,7 +98,7 @@ function makeCommand(name: string, formatUrl: (track: Track) => string): Command
 
 export default definePlugin({
     name: "SpotifyShareCommands",
-    description: "Share your current Spotify track, album or artist via slash command (/track, /album, /artist)",
+    get description() { return t("شارك أغنيتك أو ألبومك أو فنانك الحالي على Spotify عبر أوامر (/track، /album، /artist)", "Share your current Spotify track, album, or artist via commands (/track, /album, /artist)"); },
     dependencies: ["CommandsAPI"],
     tags: ["Media", "Commands"],
     authors: [Devs.katlyn],

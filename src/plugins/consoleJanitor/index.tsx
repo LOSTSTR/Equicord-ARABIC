@@ -9,6 +9,7 @@ import { BaseText } from "@components/BaseText";
 import ErrorBoundary from "@components/ErrorBoundary";
 import { SettingsSection } from "@components/settings/tabs/plugins/components/Common";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { defineDefault, OptionType, StartAt } from "@utils/types";
 import { Checkbox } from "@webpack/common";
 
@@ -71,19 +72,19 @@ const AllowLevelSettings = ErrorBoundary.wrap(() => {
 const settings = definePluginSettings({
     disableLoggers: {
         type: OptionType.BOOLEAN,
-        description: "Disables Discords loggers",
+        description: t("يعطّل نظام تسجيل الرسائل في Discord", "Disables Discord's message logging system"),
         default: false,
         restartNeeded: true
     },
     disableSpotifyLogger: {
         type: OptionType.BOOLEAN,
-        description: "Disable the Spotify logger, which leaks account information and access token",
+        description: t("تعطيل مسجل Spotify الذي يُسرّب معلومات الحساب ورمز الوصول", "Disable the Spotify logger that leaks account info and access tokens"),
         default: true,
         restartNeeded: true
     },
     whitelistedLoggers: {
         type: OptionType.STRING,
-        description: "Semicolon (;) separated list of loggers to allow even if others are hidden",
+        description: t("قائمة مسجلات مفصولة بفاصلة منقوطة (;) للسماح بها حتى لو كانت الأخرى مخفية", "Semicolon (;) separated list of loggers to allow even if others are suppressed"),
         default: "GatewaySocket; Routing/Utils",
         multiline: true,
         onChange(newVal: string) {
@@ -107,7 +108,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "ConsoleJanitor",
-    description: "Disables annoying console messages/errors",
+    get description() { return t("يُخفي رسائل السجل غير المفيدة من الكونسول", "Hides useless log messages from the console"); },
     authors: [Devs.Nuckyz, Devs.sadan],
     tags: ["Developers", "Console", "Utility"],
     settings,

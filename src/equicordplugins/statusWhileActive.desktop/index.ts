@@ -7,6 +7,7 @@
 import { definePluginSettings } from "@api/Settings";
 import { getUserSettingLazy } from "@api/UserSettings";
 import { EquicordDevs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { VoiceState } from "@vencord/discord-types";
 import { UserStore, VoiceStateStore } from "@webpack/common";
@@ -18,7 +19,7 @@ const StatusSettings = getUserSettingLazy<string>("status", "status")!;
 const settings = definePluginSettings({
     statusToSet: {
         type: OptionType.SELECT,
-        description: "Status to set while in a voice channel.",
+        description: t("الحالة التي تُعيّن عند الانضمام إلى قناة صوتية.", "The status set when joining a voice channel."),
         options: [
             {
                 label: "Online",
@@ -55,7 +56,7 @@ function setStatus(preq, status) {
 
 export default definePlugin({
     name: "StatusWhileActive",
-    description: "Automatically updates your online status when in a voice channel.",
+    get description() { return t("يحدّث حالتك الإلكترونية تلقائياً عند الانضمام لقناة صوتية.", "Automatically updates your online status when joining a voice channel."); },
     tags: ["Activity", "Customisation", "Voice"],
     authors: [EquicordDevs.smuki],
     settings,

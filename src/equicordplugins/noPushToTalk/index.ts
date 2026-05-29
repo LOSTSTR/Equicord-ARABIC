@@ -5,11 +5,12 @@
  */
 
 import { EquicordDevs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "NoPushToTalk",
-    description: "Bypasses the push-to-talk requirement for voice activity in channels that enforce it.",
+    get description() { return t("يتجاوز اشتراط الضغط للتحدث في القنوات الصوتية التي تفرضه.", "Bypasses the push-to-talk requirement in voice channels that enforce it."); },
     tags: ["Servers", "Voice"],
     authors: [EquicordDevs.omaw],
     patches: [

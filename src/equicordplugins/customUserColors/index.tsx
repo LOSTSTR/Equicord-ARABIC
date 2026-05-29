@@ -10,6 +10,8 @@ import { NavContextMenuPatchCallback } from "@api/ContextMenu";
 import { get } from "@api/DataStore";
 import { definePluginSettings, Settings } from "@api/Settings";
 import { EquicordDevs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
+import { Logger } from "@utils/Logger";
 import definePlugin, { OptionType } from "@utils/types";
 import { Channel, User } from "@vencord/discord-types";
 import { extractAndLoadChunksLazy } from "@webpack";
@@ -25,6 +27,8 @@ export let colors: Record<string, string> = {};
 })();
 
 // needed for color picker to be available without opening settings (ty pindms!!)
+const logger = new Logger("CustomUserColors");
+
 const requireSettingsMenu = extractAndLoadChunksLazy(['type:"USER_SETTINGS_MODAL_OPEN"']);
 const ColorIcon = () => {
     return (
@@ -86,19 +90,19 @@ export function getCustomColorString(id: string | undefined, withHash?: boolean)
 const settings = definePluginSettings({
     dmList: {
         type: OptionType.BOOLEAN,
-        description: "Users with custom colors defined will have their name in the dm list colored",
+        description: t("تلوين اسم المستخدمين ذوي الألوان المخصصة في قائمة الرسائل المباشرة", "Color the names of users with custom colors in the DM list"),
         default: true,
     },
     colorInServers: {
         type: OptionType.BOOLEAN,
-        description: "If name colors should be changed within servers",
+        description: t("تغيير ألوان الأسماء داخل السيرفرات", "Change name colors inside servers"),
         default: true,
     }
 });
 
 export default definePlugin({
     name: "CustomUserColors",
-    description: "Lets you add a custom color to any user, anywhere! Highly recommend to use with typingTweaks and roleColorEverywhere",
+    get description() { return t("يتيح لك إضافة لون مخصص لأي مستخدم في أي مكان! يُنصح باستخدامه مع typingTweaks و roleColorEverywhere", "Lets you assign a custom color to any user anywhere! Recommended to use with typingTweaks and roleColorEverywhere"); },
     tags: ["Appearance", "Customisation", "Chat"],
     authors: [EquicordDevs.mochienya],
     contextMenus: {
@@ -171,7 +175,7 @@ export default definePlugin({
                 }
             };
         } catch (e) {
-            console.error("Failed to calculate message color strings:", e);
+            logger.error("Failed to calculate message color strings:", e);
             return colorProps;
         }
     },

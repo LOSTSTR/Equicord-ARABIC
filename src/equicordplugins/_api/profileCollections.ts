@@ -5,11 +5,12 @@
  */
 
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "ProfileCollectionsAPI",
-    description: "API to add collections to the user profile panel like discords game collection.",
+    get description() { return t("واجهة برمجية لإضافة مجموعات إلى لوحة ملف المستخدم كمجموعة الألعاب في Discord.", "An API for adding collections to the user profile panel like the games collection in Discord."); },
     authors: [Devs.thororen],
     patches: [
         // message and member list popouts

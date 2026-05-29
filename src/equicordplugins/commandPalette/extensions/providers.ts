@@ -5,6 +5,7 @@
  */
 
 import { SettingsStore } from "@api/Settings";
+import { t } from "@utils/esharqI18n";
 import { Toasts } from "@webpack/common";
 
 import { TAG_DEVELOPER, TAG_NAVIGATION, TAG_PLUGINS, TAG_UTILITY } from "../metadata/tags";
@@ -135,7 +136,7 @@ function createExtensionDetailCommands(deps: ExtensionsProviderDeps): CommandEnt
             commands.push({
                 id: `extension-detail-${extension.id}-source`,
                 label: "View Source Code",
-                description: "Open extension source code.",
+                description: t("فتح الكود المصدري للإضافة.", "Open the plugin source code."),
                 keywords: ["source", "code", "github", "extension"],
                 categoryId: extension.detailCategoryId,
                 hiddenInSearch: true,

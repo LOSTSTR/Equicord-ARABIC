@@ -20,7 +20,7 @@ import "./PluginModal.css";
 
 import { generateId } from "@api/Commands";
 import { hasAnyVisibleSettings, isSettingHidden } from "@api/PluginManager";
-import { useSettings } from "@api/Settings";
+import { Settings, useSettings } from "@api/Settings";
 import { BaseText } from "@components/BaseText";
 import { Button } from "@components/Button";
 import ErrorBoundary from "@components/ErrorBoundary";
@@ -29,13 +29,15 @@ import { Paragraph } from "@components/Paragraph";
 import { debounce } from "@shared/debounce";
 import { gitRemote } from "@shared/vencordUserAgent";
 import { classNameFactory } from "@utils/css";
+import { t } from "@utils/esharqI18n";
 import { proxyLazy } from "@utils/lazy";
 import { Margins } from "@utils/margins";
 import { classes, isObjectEmpty } from "@utils/misc";
+import { PLUGIN_TRANSLATIONS } from "@utils/pluginTranslations";
 import { OptionType, Plugin, PluginTag } from "@utils/types";
 import { RenderModalProps, User } from "@vencord/discord-types";
 import { findComponentByCodeLazy, findCssClassesLazy } from "@webpack";
-import { Clickable, FluxDispatcher, Modal, openModal, React, Text, Toasts, Tooltip, useEffect, useMemo, UserStore, UserSummaryItem, UserUtils, useState } from "@webpack/common";
+import { Clickable, FluxDispatcher, Modal, openModal, React, Toasts, Tooltip, useEffect, useMemo, UserStore, UserSummaryItem, UserUtils, useState } from "@webpack/common";
 import { Constructor } from "type-fest";
 
 import { PluginMeta } from "~plugins";
@@ -85,8 +87,10 @@ function PluginTags({ tags }: { tags: PluginTag[]; }) {
 }
 
 export default function PluginModal({ plugin, onRestartNeeded, onClose, transitionState }: PluginModalProps) {
-    const pluginSettings = useSettings([`plugins.${plugin.name}.*`]).plugins[plugin.name];
+    const pluginSettings = useSettings([`plugins.${plugin.name}.*`, "plugins.Settings.arabicMode"]).plugins[plugin.name];
+    const arabicMode = (Settings.plugins as any)?.Settings?.arabicMode ?? false;
     const hasSettings = hasAnyVisibleSettings(plugin);
+    const displayDescription = (!arabicMode && PLUGIN_TRANSLATIONS[plugin.name]?.description) || plugin.description;
 
     // avoid layout shift by showing dummy users while loading users
     const fallbackAuthors = useMemo(() => [makeDummyUser({ username: "Loading...", id: "-1465912127305809920" })], []);
@@ -116,7 +120,7 @@ export default function PluginModal({ plugin, onRestartNeeded, onClose, transiti
     function renderSettings() {
         const { settings } = plugin;
         if (!hasSettings || !settings)
-            return <Paragraph>There are no settings for this plugin.</Paragraph>;
+            return <Paragraph>{t("لا توجد إعدادات لهذه الإضافة.", "There are no settings for this plugin.")}</Paragraph>;
 
         const options = Object.entries(settings.def).map(([key, setting]) => {
             if (setting.type === OptionType.CUSTOM) return null;
@@ -133,11 +137,13 @@ export default function PluginModal({ plugin, onRestartNeeded, onClose, transiti
             }
 
             const Component = OptionComponentMap[setting.type];
+            const enOptionDesc = !arabicMode && PLUGIN_TRANSLATIONS[plugin.name]?.options?.[key];
+            const resolvedSetting = enOptionDesc ? { ...setting, description: enOptionDesc } : setting;
             return (
                 <ErrorBoundary noop key={key}>
                     <Component
                         id={key}
-                        setting={setting}
+                        setting={resolvedSetting}
                         onChange={debounce(onChange)}
                         pluginSettings={pluginSettings}
                         definedSettings={settings}
@@ -188,7 +194,7 @@ export default function PluginModal({ plugin, onRestartNeeded, onClose, transiti
             subtitle={
                 <div className={cl("info")}>
                     <div>
-                        <Paragraph size="md">{plugin.description}</Paragraph>
+                        <Paragraph size="md">{displayDescription}</Paragraph>
                         {!!plugin.tags?.length && <PluginTags tags={plugin.tags} />}
                     </div>
                 </div>
@@ -205,7 +211,7 @@ export default function PluginModal({ plugin, onRestartNeeded, onClose, transiti
             )}
             <div className={"vc-settings-modal-content"}>
                 <section>
-                    <Text variant="heading-lg/semibold" className={classes(Margins.top8, Margins.bottom8)}>Authors</Text>
+                    <BaseText size="lg" weight="semibold" color="text-strong" className={Margins.bottom8}>{t("المؤلفون", "Authors")}</BaseText>
                     <div style={{ width: "fit-content" }}>
                         <ErrorBoundary noop>
                             <UserSummaryItem
@@ -233,7 +239,7 @@ export default function PluginModal({ plugin, onRestartNeeded, onClose, transiti
                 </section>
 
                 <section>
-                    <BaseText size="lg" weight="semibold" color="text-strong" className={classes(Margins.top16, Margins.bottom8)}>Settings</BaseText>
+                    <BaseText size="lg" weight="semibold" color="text-strong" className={classes(Margins.top16, Margins.bottom8)}>{t("الإعدادات", "Settings")}</BaseText>
                     {renderSettings()}
                 </section>
             </div>
@@ -241,7 +247,7 @@ export default function PluginModal({ plugin, onRestartNeeded, onClose, transiti
                 <Flex flexDirection="column" style={{ width: "100%" }}>
                     <Flex style={{ justifyContent: "space-between", alignItems: "center" }}>
                         {hasSettings ? (
-                            <Tooltip text="Reset to default settings" shouldShow={!isObjectEmpty(pluginSettings)}>
+                            <Tooltip text={t("إعادة تعيين الإعدادات الافتراضية", "Reset to default settings")} shouldShow={!isObjectEmpty(pluginSettings)}>
                                 {({ onMouseEnter, onMouseLeave }) => (
                                     <Button
                                         className={cl("disable-warning")}
@@ -259,11 +265,11 @@ export default function PluginModal({ plugin, onRestartNeeded, onClose, transiti
                         {!pluginMeta.userPlugin && (
                             <div className={cl("links")}>
                                 <WebsiteButton
-                                    text="Website"
+                                    text={t("الموقع", "Website")}
                                     href={isEquicordPlugin ? `https://equicord.org/plugins/${plugin.name}` : `https://vencord.dev/plugins/${plugin.name}`}
                                 />
                                 <GithubButton
-                                    text="Source Code"
+                                    text={t("الكود المصدري", "Source Code")}
                                     href={`https://github.com/${gitRemote}/tree/main/${pluginMeta.folderName}`}
                                 />
                             </div>
@@ -321,7 +327,7 @@ function resetSettings(plugin: Plugin, onRestartNeeded?: (pluginName: string) =>
     }
 
     Toasts.show({
-        message: `Settings for ${pluginName} have been reset.`,
+        message: t(`تمت إعادة تعيين إعدادات ${pluginName}.`, `Settings for ${pluginName} have been reset.`),
         id: Toasts.genId(),
         type: Toasts.Type.SUCCESS,
         options: {
@@ -335,9 +341,9 @@ export function openWarningModal(plugin?: Plugin | null, onRestartNeeded?: (plug
         <ConfirmModal
             {...props}
             className={cl("confirm")}
-            header={isPlugin ? "Reset Settings" : "Disable Plugins"}
-            confirmText={isPlugin ? "Reset" : "Disable All"}
-            cancelText="Cancel"
+            header={isPlugin ? t("إعادة تعيين الإعدادات", "Reset Settings") : t("تعطيل الإضافات", "Disable Plugins")}
+            confirmText={isPlugin ? t("إعادة تعيين", "Reset") : t("تعطيل الكل", "Disable All")}
+            cancelText={t("إلغاء", "Cancel")}
             onConfirm={() => {
                 if (isPlugin && plugin) {
                     resetSettings(plugin, onRestartNeeded);
@@ -349,13 +355,13 @@ export function openWarningModal(plugin?: Plugin | null, onRestartNeeded?: (plug
         >
             <Paragraph>
                 {isPlugin
-                    ? <>Are you sure you want to reset all settings for <strong>{plugin?.name}</strong> to their default values?</>
-                    : `Are you sure you want to disable ${enabledPlugins} plugins?`
+                    ? <>{t("هل أنت متأكد أنك تريد إعادة تعيين جميع الإعدادات لـ", "Are you sure you want to reset all settings for")} <strong>{plugin?.name}</strong>{t(" إلى قيمها الافتراضية؟", " to their default values?")}</>
+                    : t(`هل أنت متأكد أنك تريد تعطيل ${enabledPlugins} إضافة؟`, `Are you sure you want to disable ${enabledPlugins} plugins?`)
                 }
             </Paragraph>
             <div className={classes(Margins.top16, cl("warning"))}>
                 <WarningIcon color="var(--text-feedback-critical)" />
-                <span>This action cannot be undone.</span>
+                <span>{t("لا يمكن التراجع عن هذا الإجراء.", "This action cannot be undone.")}</span>
             </div>
         </ConfirmModal>
     ));

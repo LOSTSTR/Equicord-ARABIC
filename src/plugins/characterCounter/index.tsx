@@ -10,6 +10,7 @@ import { definePluginSettings } from "@api/Settings";
 import ErrorBoundary from "@components/ErrorBoundary";
 import { Devs, EquicordDevs } from "@utils/constants";
 import { classNameFactory } from "@utils/css";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { findByPropsLazy } from "@webpack";
 import { useEffect, UserStore, useState } from "@webpack/common";
@@ -20,7 +21,7 @@ const SlateUtils = findByPropsLazy("getSelectedText");
 const settings = definePluginSettings({
     colorEffects: {
         type: OptionType.BOOLEAN,
-        description: "Enable yellow/red colouring as you get closer to the character limit",
+        description: t("يفعّل التلوين الأصفر/الأحمر كلما اقتربت من حد الأحرف", "Enables yellow/red coloring as you approach the character limit"),
         default: true,
     }
 });
@@ -35,7 +36,7 @@ function getCounterColor(percentage: number) {
 
 export default definePlugin({
     name: "CharacterCounter",
-    description: "Adds a character counter to the chat input",
+    get description() { return t("يُضيف عداداً للأحرف في صندوق الكتابة", "Adds a character counter to the chat input box"); },
     authors: [Devs.thororen, EquicordDevs.creations],
     tags: ["Utility"],
     settings,

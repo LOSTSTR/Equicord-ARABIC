@@ -5,12 +5,13 @@
  */
 
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "DynamicImageModalAPI",
     authors: [Devs.sadan, Devs.Nuckyz],
-    description: "Allows you to omit either width or height when opening an image modal",
+    get description() { return t("يتيح لك تجاهل العرض أو الارتفاع عند فتح نافذة الصورة", "Allows you to ignore the width or height when opening an image modal"); },
     patches: [
         {
             find: ".renderLinkComponent",

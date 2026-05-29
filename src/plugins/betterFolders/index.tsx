@@ -21,6 +21,7 @@ import "./style.css";
 import { definePluginSettings } from "@api/Settings";
 import { Devs, EquicordDevs } from "@utils/constants";
 import { getIntlMessage } from "@utils/discord";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import type { GuildFolder } from "@vencord/discord-types";
 import { findByPropsLazy, findComponentByCodeLazy, findStoreLazy } from "@webpack";
@@ -248,55 +249,55 @@ function areNestedRelated(firstId: string, secondId: string): boolean {
 export const settings = definePluginSettings({
     sidebar: {
         type: OptionType.BOOLEAN,
-        description: "Display servers from folder on dedicated sidebar",
+        description: t("عرض السيرفرات من المجلد في شريط جانبي مخصص", "Show folder servers in a dedicated sidebar"),
         restartNeeded: true,
         default: true
     },
     sidebarAnim: {
         type: OptionType.BOOLEAN,
-        description: "Animate opening the folder sidebar",
+        description: t("تحريك فتح الشريط الجانبي للمجلد", "Animate the folder sidebar opening"),
         default: true
     },
     closeAllFolders: {
         type: OptionType.BOOLEAN,
-        description: "Close all folders when selecting a server not in a folder",
+        description: t("إغلاق جميع المجلدات عند اختيار سيرفر لا ينتمي إلى أي مجلد", "Close all folders when selecting a server not in any folder"),
         default: false
     },
     closeAllHomeButton: {
         type: OptionType.BOOLEAN,
-        description: "Close all folders when clicking on the home button",
+        description: t("إغلاق جميع المجلدات عند الضغط على زر الرئيسية", "Close all folders when pressing the home button"),
         restartNeeded: true,
         default: false
     },
     closeOthers: {
         type: OptionType.BOOLEAN,
-        description: "Close other folders when opening a folder",
+        description: t("إغلاق المجلدات الأخرى عند فتح مجلد", "Close other folders when opening a folder"),
         default: false
     },
     closeServerFolder: {
         type: OptionType.BOOLEAN,
-        description: "Close folder when selecting a server in that folder",
+        description: t("إغلاق المجلد عند اختيار سيرفر داخله", "Close the folder when selecting a server inside it"),
         default: false,
     },
     forceOpen: {
         type: OptionType.BOOLEAN,
-        description: "Force a folder to open when switching to a server of that folder",
+        description: t("إجبار المجلد على الفتح عند الانتقال إلى سيرفر داخله", "Force the folder to open when navigating to a server inside it"),
         default: false
     },
     enableNestedFolders: {
         type: OptionType.BOOLEAN,
-        description: "Allow nesting folders inside other folders by dragging.",
+        description: t("السماح بتداخل المجلدات داخل بعضها عبر السحب والإفلات.", "Allow nesting folders inside each other via drag and drop."),
         default: true
     },
     keepIcons: {
         type: OptionType.BOOLEAN,
-        description: "Keep showing guild icons in the primary guild bar folder when it's open in the BetterFolders sidebar",
+        description: t("الاستمرار في عرض أيقونات السيرفرات في شريط السيرفرات الرئيسي عند فتح الشريط الجانبي لـ BetterFolders", "Keep showing server icons in the main server list when the BetterFolders sidebar is open"),
         restartNeeded: true,
         default: false
     },
     showFolderIcon: {
         type: OptionType.SELECT,
-        description: "Show the folder icon above the folder guilds in the BetterFolders sidebar",
+        description: t("إظهار أيقونة المجلد فوق سيرفرات المجلد في الشريط الجانبي لـ BetterFolders", "Show the folder icon above folder servers in the BetterFolders sidebar"),
         options: [
             { label: "Never", value: FolderIconDisplay.Never },
             { label: "Always", value: FolderIconDisplay.Always, default: true },
@@ -314,7 +315,7 @@ const GRID_STYLE_NAME = "vc-betterFolders-sidebar-grid";
 
 export default definePlugin({
     name: "BetterFolders",
-    description: "Shows server folders on dedicated sidebar and adds folder related improvements",
+    get description() { return t("يضيف تحسينات على مجلدات الخوادم", "Adds enhancements to server folders"); },
     tags: ["Organisation", "Servers", "Appearance"],
     authors: [Devs.juby, Devs.AutumnVN, Devs.Nuckyz, EquicordDevs.justjxke],
     isModified: true,

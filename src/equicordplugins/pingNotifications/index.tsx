@@ -7,6 +7,7 @@
 import { showNotification } from "@api/Notifications";
 import { definePluginSettings } from "@api/Settings";
 import { EquicordDevs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { findStoreLazy } from "@webpack";
 import {
@@ -25,34 +26,45 @@ const settings = definePluginSettings({
     friends: {
         type: OptionType.BOOLEAN,
         default: false,
-        description: "Notify when friends send messages in servers"
+        description: t("يُنبّهك عندما يرسل أصدقاؤك رسائل في السيرفرات", "Notify you when your friends send messages in servers")
     },
     mentions: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Notify when someone @mentions you directly"
+        description: t("إشعار عند ذكرك مباشرةً بعلامة @", "Notify when you are directly mentioned with @")
     },
     dms: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Notify for direct messages (DMs)"
+        description: t("إشعار عند استقبال رسائل مباشرة (DMs)", "Notify when you receive direct messages (DMs)")
     },
     showInActive: {
         type: OptionType.BOOLEAN,
         default: false,
-        description: "Show notifications even for currently active channel"
+        description: t("إظهار الإشعارات حتى للقناة النشطة حالياً", "Show notifications even for the currently active channel")
     },
     ignoreMuted: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Skip notifications from muted servers, channels, or users"
+        description: t("تجاهل الإشعارات من السيرفرات والقنوات والمستخدمين المكتومين", "Ignore notifications from muted servers, channels, and users")
     }
 });
+
+const mentionRegexCache = new Map<string, RegExp>();
+
+function getMentionRegex(userId: string): RegExp {
+    let regex = mentionRegexCache.get(userId);
+    if (!regex) {
+        regex = new RegExp(`<@!?${userId}>`, "g");
+        mentionRegexCache.set(userId, regex);
+    }
+    return regex;
+}
 
 function formatContent(message) {
     let content = message.content || "";
     message.mentions?.forEach(user => {
-        content = content.replace(new RegExp(`<@!?${user.id}>`, "g"), `@${user.username}`);
+        content = content.replace(getMentionRegex(user.id), `@${user.username}`);
     });
     return content.slice(0, 200) + (content.length > 200 ? "..." : "");
 }
@@ -91,7 +103,7 @@ function isUserBlocked(userId) {
 
 export default definePlugin({
     name: "PingNotifications",
-    description: "Customizable notifications with improved mention formatting",
+    get description() { return t("إشعارات قابلة للتخصيص مع تنسيق محسّن للإشارات", "Customizable notifications with improved mention formatting"); },
     tags: ["Chat", "Friends", "Notifications", "Servers"],
     authors: [EquicordDevs.smuki],
     settings,

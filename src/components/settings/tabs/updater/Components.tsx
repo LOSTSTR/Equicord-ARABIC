@@ -11,6 +11,7 @@ import { Flex } from "@components/Flex";
 import { Link } from "@components/Link";
 import { Paragraph } from "@components/Paragraph";
 import { Span } from "@components/Span";
+import { t } from "@utils/esharqI18n";
 import { Margins } from "@utils/margins";
 import { relaunch } from "@utils/native";
 import { changes, checkForUpdates, update, updateError } from "@utils/updater";
@@ -101,7 +102,7 @@ export function Updatable(props: CommonProps) {
                         }
                     })}
                 >
-                    Check for Updates
+                    {t("تحقق من التحديثات", "Check for Updates")}
                 </Button>
                 {isOutdated && (
                     <Button
@@ -109,17 +110,18 @@ export function Updatable(props: CommonProps) {
                         variant="primary"
                         disabled={isUpdating || isChecking}
                         onClick={runWithDispatch(setIsUpdating, async () => {
-                            if (await update()) {
+                            const didUpdate = await update();
+                            if (didUpdate) {
                                 setUpdates([]);
 
                                 await new Promise<void>(r => {
                                     openModal(props => (
                                         <ConfirmModal
                                             {...props}
-                                            title="Update Success!"
-                                            subtitle="Successfully updated. Restart now to apply the changes?"
-                                            confirmText="Restart"
-                                            cancelText="Not now!"
+                                            title={t("تم التحديث بنجاح!", "Update Successful!")}
+                                            subtitle={t("تم التحديث بنجاح. هل تريد إعادة التشغيل الآن لتطبيق التغييرات؟", "Successfully updated. Restart now to apply the changes?")}
+                                            confirmText={t("إعادة تشغيل", "Restart")}
+                                            cancelText={t("ليس الآن", "Not now!")}
                                             variant="primary"
                                             onConfirm={() => {
                                                 relaunch();
@@ -128,6 +130,13 @@ export function Updatable(props: CommonProps) {
                                             onCancel={r}
                                         />
                                     ));
+                                });
+                            } else {
+                                Toasts.show({
+                                    message: t("فشل التحديث. تحقق من اتصالك وحاول مجدداً.", "Update failed. Check your connection and try again."),
+                                    id: Toasts.genId(),
+                                    type: Toasts.Type.FAILURE,
+                                    options: { position: Toasts.Position.BOTTOM }
                                 });
                             }
                         })}
@@ -152,7 +161,7 @@ export function Updatable(props: CommonProps) {
                 </>
             ) : (
                 <Paragraph>
-                    You're running the latest version of Equicord.
+                    {t("أنت تستخدم أحدث إصدار من Esharq", "You are running the latest version of Esharq")}
                 </Paragraph>
             )}
         </>

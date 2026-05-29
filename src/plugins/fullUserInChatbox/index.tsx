@@ -6,6 +6,7 @@
 
 import ErrorBoundary from "@components/ErrorBoundary";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 import { findComponentByCodeLazy } from "@webpack";
 import { UserStore, useStateFromStores } from "@webpack/common";
@@ -22,7 +23,7 @@ interface UserMentionComponentProps {
 
 export default definePlugin({
     name: "FullUserInChatbox",
-    description: "Makes the user mention in the chatbox have more functionalities, like left/right clicking",
+    get description() { return t("يضيف وظائف إضافية لذكر المستخدم في صندوق الكتابة كالنقر الأيمن والأيسر", "Adds extra functionality to user mentions in the chatbox such as right and left click"); },
     tags: ["Shortcuts", "Utility"],
     authors: [Devs.sadan],
 

@@ -9,6 +9,7 @@ import { addServerListElement, removeServerListElement, ServerListRenderPosition
 import { PlainSettings, Settings } from "@api/Settings";
 import { ErrorBoundary } from "@components/index";
 import { EquicordDevs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { StartAt } from "@utils/types";
 import type { Quest, QuestUserStatus } from "@vencord/discord-types";
 import { findComponentByCodeLazy, onceReady } from "@webpack";
@@ -97,7 +98,7 @@ function enrolledIncompleteButton(args: { quest: Quest, size: string; }): JSX.El
 
 export default definePlugin({
     name: "Questify",
-    description: "Enhance specific Quest features, disable annoyances, or completely remove Quests.",
+    get description() { return t("يُحسّن ميزات المهام، يُزيل المزعجات، أو يُخفي المهام كلياً.", "Enhances quest features, removes annoyances, or hides quests entirely."); },
     tags: ["Appearance", "Customisation", "Privacy", "Utility"],
     authors: [EquicordDevs.Etorix],
     dependencies: ["AudioPlayerAPI", "ServerListAPI"],
@@ -535,11 +536,30 @@ export default definePlugin({
             QL.log("QUESTS_FETCH_CURRENT_QUESTS_SUCCESS", data);
             validateIgnoredQuests(data.quests);
             resumeAutoCompletesIfReady();
+
+            if (!getQuestifySettings().disableQuestsEverything && hasEnabledAutoCompleteQuestTypes()) {
+                for (const quest of data.quests) {
+                    if (quest.userStatus?.enrolledAt && !quest.userStatus?.completedAt) {
+                        processQuestForAutoComplete(quest, { force: false, source: "auto" });
+                    }
+                }
+            }
         },
 
         QUESTS_ENROLL_SUCCESS(data: any): void {
             QL.log("QUESTS_ENROLL_SUCCESS", data);
             validateIgnoredQuests();
+
+            if (!getQuestifySettings().disableQuestsEverything && hasEnabledAutoCompleteQuestTypes()) {
+                const questId = data?.questId ?? data?.quest_id;
+                if (questId) {
+                    const quest = QuestStore.getQuest(questId);
+                    if (quest) {
+                        processQuestForAutoComplete(quest, { force: false, source: "auto" });
+                        rerenderQuests();
+                    }
+                }
+            }
         },
 
         QUESTS_CLAIM_REWARD_SUCCESS(data: any): void {
@@ -570,6 +590,17 @@ export default definePlugin({
                         getQuestifySettings().questCompletedAlertSound,
                         { volume: Math.max(0, Math.min(100, getQuestifySettings().questCompletedAlertVolume)) }
                     );
+                }
+            }
+
+            if (!getQuestifySettings().disableQuestsEverything && hasEnabledAutoCompleteQuestTypes()) {
+                const isNewEnrollment = userStatus?.enrolledAt && !userStatus?.completedAt && !claimedAt;
+                if (isNewEnrollment && userStatus?.questId) {
+                    const quest = QuestStore.getQuest(userStatus.questId);
+                    if (quest) {
+                        processQuestForAutoComplete(quest, { force: false, source: "auto" });
+                        rerenderQuests();
+                    }
                 }
             }
         },

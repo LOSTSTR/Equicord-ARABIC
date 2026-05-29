@@ -14,6 +14,7 @@ import { Switch } from "@components/Switch";
 import { debounce } from "@shared/debounce";
 import { Devs, EquicordDevs, IS_MAC } from "@utils/constants";
 import { classNameFactory } from "@utils/css";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { makeRange, OptionType } from "@utils/types";
 import type { Channel, VoiceState } from "@vencord/discord-types";
 import { findByCodeLazy, findByPropsLazy } from "@webpack";
@@ -244,7 +245,7 @@ const settings = definePluginSettings({
         hidden: true,
     },
     UserAmountOperation: {
-        description: "Select an operation for the amounts of users",
+        description: t("اختر عملية لعدد المستخدمين", "Select an operation for user count"),
         type: OptionType.SELECT,
         options: [
             { label: "More than", value: "<", default: true },
@@ -253,14 +254,14 @@ const settings = definePluginSettings({
         ],
     },
     UserAmount: {
-        description: "Select amount of users",
+        description: t("اختر عدد المستخدمين", "Select user count"),
         type: OptionType.SLIDER,
         markers: makeRange(0, 15, 1),
         default: 3,
         stickToMarkers: true,
     },
     spacesLeftOperation: {
-        description: "Select an operation for the maximum amounts of users",
+        description: t("اختر عملية للحد الأقصى من عدد المستخدمين", "Select an operation for max user count"),
         type: OptionType.SELECT,
         options: [
             { label: "More than", value: "<", default: true },
@@ -269,14 +270,14 @@ const settings = definePluginSettings({
         ],
     },
     spacesLeft: {
-        description: "Select amount of max users",
+        description: t("اختر الحد الأقصى لعدد المستخدمين", "Select max user count"),
         type: OptionType.SLIDER,
         markers: makeRange(0, 15, 1),
         default: 3,
         stickToMarkers: true,
     },
     vcLimitOperation: {
-        description: "Select an operation for the voice-channel.",
+        description: t("اختر عملية للقناة الصوتية.", "Select an operation for the voice channel."),
         type: OptionType.SELECT,
         options: [
             { label: "More than", value: "<", default: true },
@@ -285,90 +286,90 @@ const settings = definePluginSettings({
         ],
     },
     vcLimit: {
-        description: "Select a voice-channel limit",
+        description: t("اختر حد للقناة الصوتية", "Select a limit for the voice channel"),
         type: OptionType.SLIDER,
         markers: makeRange(1, 15, 1),
         default: 5,
         stickToMarkers: true,
     },
     Servers: {
-        description: "Servers that are included",
+        description: t("السيرفرات المضمّنة", "Included servers"),
         type: OptionType.STRING,
         default: "",
     },
     autoNavigate: {
         type: OptionType.BOOLEAN,
-        description: "Automatically navigates to the voice-channel.",
+        description: t("الانتقال تلقائياً إلى القناة الصوتية.", "Automatically navigate to the voice channel."),
         default: false,
     },
     autoCamera: {
         type: OptionType.BOOLEAN,
-        description: "Automatically turns on camera",
+        description: t("تشغيل الكاميرا تلقائياً", "Automatically enable camera"),
         default: false,
     },
     autoStream: {
         type: OptionType.BOOLEAN,
-        description: "Automatically turns on stream",
+        description: t("تشغيل البث تلقائياً", "Automatically start streaming"),
         default: false,
     },
     selfMute: {
         type: OptionType.BOOLEAN,
-        description: "Automatically mutes your mic when joining voice-channel.",
+        description: t("كتم الميكروفون تلقائياً عند الانضمام للقناة الصوتية.", "Automatically mute microphone when joining a voice channel."),
         default: false,
     },
     selfDeafen: {
         type: OptionType.BOOLEAN,
-        description: "Automatically deafems your mic when joining voice-channel.",
+        description: t("تعطيم الصوت تلقائياً عند الانضمام للقناة الصوتية.", "Automatically deafen when joining a voice channel."),
         default: false,
     },
     leaveEmpty: {
         type: OptionType.BOOLEAN,
-        description: "Finds a random-call, when the voice chat is empty.",
+        description: t("البحث عن مكالمة عشوائية عندما تكون القناة الصوتية فارغة.", "Find a random call when the voice channel is empty."),
         default: false,
     },
     prioritizeFriends: {
         type: OptionType.BOOLEAN,
-        description: "Prefer channels with your friends in them when possible.",
+        description: t("تفضيل القنوات التي يتواجد فيها أصدقاؤك عند الإمكان.", "Prefer channels where your friends are when possible."),
         default: false,
     },
     avoidStages: {
         type: OptionType.BOOLEAN,
-        description: "Avoids joining stage voice-channels.",
+        description: t("تجنب الانضمام إلى قنوات المسرح الصوتي.", "Avoid joining stage voice channels."),
         default: false,
     },
     avoidAfk: {
         type: OptionType.BOOLEAN,
-        description: "Avoids joining AFK voice-channels.",
+        description: t("تجنب الانضمام إلى قنوات AFK الصوتية.", "Avoid joining AFK voice channels."),
         default: false,
     },
     video: {
         type: OptionType.BOOLEAN,
-        description: "Searches for users with their video on",
+        description: t("البحث عن مستخدمين لديهم الكاميرا مفتوحة", "Find users with camera on"),
         default: false,
     },
     stream: {
         type: OptionType.BOOLEAN,
-        description: "Searches for users who are streaming",
+        description: t("البحث عن مستخدمين يقومون بالبث", "Find users who are streaming"),
         default: false,
     },
     mute: {
         type: OptionType.BOOLEAN,
-        description: "Searches for users who are muted",
+        description: t("البحث عن مستخدمين مكتوم صوتهم", "Find users who are muted"),
         default: false,
     },
     deafen: {
         type: OptionType.BOOLEAN,
-        description: "Searches for users who are deafened",
+        description: t("البحث عن مستخدمين معطّم صوتهم", "Find users who are deafened"),
         default: false,
     },
     includeStates: {
         type: OptionType.BOOLEAN,
-        description: "Option to include states",
+        description: t("خيار تضمين الحالات", "Option to include states"),
         default: false,
     },
     avoidStates: {
         type: OptionType.BOOLEAN,
-        description: "Option to avoid states",
+        description: t("خيار تجنب الحالات", "Option to avoid states"),
         default: false,
     },
 });
@@ -853,7 +854,7 @@ function renderOperationGroup({
 
 export default definePlugin({
     name: "RandomVoice",
-    description: "Adds a button near mute to join a random voice channel.",
+    get description() { return t("يضيف زراً بجانب زر الكتم للانضمام إلى قناة صوتية عشوائية.", "Adds a button next to the mute button to join a random voice channel."); },
     dependencies: ["UserAreaAPI"],
     tags: ["Fun", "Voice"],
     authors: [EquicordDevs.xijexo, EquicordDevs.omaw, Devs.thororen],

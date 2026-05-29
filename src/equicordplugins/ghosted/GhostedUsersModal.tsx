@@ -7,7 +7,7 @@
 import { classNameFactory } from "@utils/css";
 import { Channel, RenderModalProps } from "@vencord/discord-types";
 import { findByPropsLazy, findComponentByCodeLazy } from "@webpack";
-import { Avatar, Button, ChannelStore, MessageStore, Modal,React, Text, UserStore } from "@webpack/common";
+import { Avatar, Button, ChannelStore, IconUtils, MessageStore, Modal, React, Text, UserStore } from "@webpack/common";
 
 const cl = classNameFactory("vc-boo-");
 
@@ -24,7 +24,7 @@ const SelectedChannelActionCreators = findByPropsLazy("selectPrivateChannel");
 
 function GroupDmsIcon({ channel }: { channel: Channel; }) {
     return channel.icon ? <Avatar
-        src={`https://cdn.discordapp.com/channel-icons/${channel.id}/${channel.icon}.png`}
+        src={IconUtils.getChannelIconURL({ id: channel.id, icon: channel.icon })}
         size="SIZE_40"
         aria-label={channel?.name || "Unnamed Group"}
     /> : <GroupDmsRecipientsIcon

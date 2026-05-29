@@ -22,6 +22,7 @@ import { definePluginSettings } from "@api/Settings";
 import { getUserSettingLazy } from "@api/UserSettings";
 import ErrorBoundary from "@components/ErrorBoundary";
 import { EquicordDevs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import { proxyLazy } from "@utils/lazy";
 import { useForceUpdater } from "@utils/react";
 import definePlugin, { OptionType, StartAt } from "@utils/types";
@@ -113,7 +114,7 @@ const StatusSubMenuComponent = () => {
 const settings = definePluginSettings({
     StatusPresets: {
         type: OptionType.COMPONENT,
-        description: "Status Presets",
+        description: t("الإعدادات المسبقة للحالة", "Status presets"),
         component: () => <></>,
         default: {}
     }
@@ -121,7 +122,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "StatusPresets",
-    description: "Allows you to remember your statuses and set them later",
+    get description() { return t("يتيح لك حفظ حالاتك وتطبيقها لاحقاً", "Allows you to save and apply your statuses later"); },
     tags: ["Activity", "Utility"],
     authors: [EquicordDevs.iamme],
     settings,

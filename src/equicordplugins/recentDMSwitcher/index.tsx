@@ -10,6 +10,7 @@ import * as DataStore from "@api/DataStore";
 import { definePluginSettings } from "@api/Settings";
 import { EquicordDevs, IS_MAC } from "@utils/constants";
 import { classNameFactory } from "@utils/css";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { makeRange, OptionType } from "@utils/types";
 import { Button, ChannelRouter, ChannelStore, closeModal, IconUtils, openModal,React, RelationshipStore, SelectedChannelStore, Toasts, UserStore } from "@webpack/common";
 
@@ -26,7 +27,7 @@ const cl = classNameFactory("vc-rdms-");
 const settings = definePluginSettings({
     visualStyle: {
         type: OptionType.SELECT,
-        description: "Visual indicator style while cycling",
+        description: t("نمط المؤشر البصري أثناء التنقل", "Visual indicator style while switching"),
         options: [
             { label: "Overlay (Alt+Tab style)", value: "overlay", default: true },
             { label: "Toast (status message)", value: "toast" },
@@ -35,7 +36,7 @@ const settings = definePluginSettings({
     },
     overlayMode: {
         type: OptionType.SELECT,
-        description: "Overlay content",
+        description: t("محتوى التراكب", "Overlay content"),
         options: [
             { label: "Row of recent", value: "row", default: true },
             { label: "Current only", value: "current" }
@@ -43,31 +44,31 @@ const settings = definePluginSettings({
     },
     amountOfUsers: {
         type: OptionType.SLIDER,
-        description: "Number of users to show in overlay",
+        description: t("عدد المستخدمين المعروضين في التراكب", "Number of users shown in the overlay"),
         markers: makeRange(10, 50, 10),
         stickToMarkers: true,
         default: 20,
     },
     overlayRowLength: {
         type: OptionType.SLIDER,
-        description: "Number of recent DMs to show in row",
+        description: t("عدد الرسائل المباشرة الأخيرة المعروضة في الصف", "Number of recent DMs shown in the row"),
         markers: [3, 4, 5, 6, 7],
         default: 5
     },
     overlayShowAvatars: {
         type: OptionType.BOOLEAN,
-        description: "Show avatars in overlay",
+        description: t("إظهار الصور الشخصية في التراكب", "Show avatars in the overlay"),
         default: true
     },
     toastDurationMs: {
         type: OptionType.SLIDER,
-        description: "Toast hide delay (ms)",
+        description: t("مدة إخفاء الإشعار المنبثق (بالميلي ثانية)", "Toast notification hide duration (in milliseconds)"),
         markers: [300, 500, 600, 800, 1000, 1500, 2000],
         default: 600
     },
     clearRdms: {
         type: OptionType.COMPONENT,
-        description: "Testing utility: Clear RDMS list",
+        description: t("أداة اختبار: مسح قائمة RDMS", "Test tool: clear RDMS history"),
         component: () => (
             <Button
                 color={Button.Colors.RED}
@@ -330,7 +331,7 @@ function showCycleToast() {
 
 export default definePlugin({
     name: "RecentDMSwitcher",
-    description: "Ctrl+Tab between most recently used DMs (Ctrl+Shift+Tab reverse)",
+    get description() { return t("التنقل بين الرسائل المباشرة الأكثر استخداماً باستخدام Ctrl+Tab (Ctrl+Shift+Tab للعكس)", "Switch between most used DMs using Ctrl+Tab (Ctrl+Shift+Tab to reverse)"); },
     tags: ["Chat", "Utility"],
     authors: [EquicordDevs.mmeta],
     settings,

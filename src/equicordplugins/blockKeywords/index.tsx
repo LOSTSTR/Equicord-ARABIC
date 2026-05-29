@@ -13,6 +13,7 @@ import { ErrorBoundary } from "@components/index";
 import { Margins } from "@components/margins";
 import { EquicordDevs } from "@utils/constants";
 import { classNameFactory } from "@utils/css";
+import { t } from "@utils/esharqI18n";
 import { classes } from "@utils/misc";
 import definePlugin, { OptionType } from "@utils/types";
 import { Message } from "@vencord/discord-types";
@@ -84,29 +85,29 @@ function RegexHelper() {
 const settings = definePluginSettings({
     blockedWords: {
         type: OptionType.STRING,
-        description: "Comma-separated list of words to block",
+        description: t("قائمة كلمات محظورة مفصولة بفواصل", "Comma-separated list of words to block"),
         default: "",
         restartNeeded: true
     },
     useRegex: {
         type: OptionType.BOOLEAN,
-        description: "Use each value as a regular expression when checking message content (advanced)",
+        description: t("استخدام تعبيرات منتظمة للتحقق من محتوى الرسالة (متقدم)", "Use each value as a regular expression when checking message content (advanced)"),
         default: false,
         restartNeeded: true
     },
     regexHelper: {
         type: OptionType.COMPONENT,
-        description: "Test your regular expressions against a sample input",
+        description: t("اختبر تعبيراتك المنتظمة على نص تجريبي", "Test your regular expressions against a sample input"),
         component: () => <ErrorBoundary noop><RegexHelper /></ErrorBoundary>,
     },
     caseSensitive: {
         type: OptionType.BOOLEAN,
-        description: "Whether to use a case sensitive search or not",
+        description: t("تفعيل التمييز بين الأحرف الكبيرة والصغيرة", "Whether to use a case sensitive search or not"),
         default: false,
         restartNeeded: true
     },
     ignoreBlockedMessages: {
-        description: "Completely ignores (recent) new messages bar",
+        description: t("تجاهل شريط الرسائل الجديدة بالكامل", "Completely ignores (recent) new messages bar"),
         type: OptionType.BOOLEAN,
         default: true,
         restartNeeded: true,
@@ -130,7 +131,7 @@ export function containsBlockedKeywords(message: Message) {
 
 export default definePlugin({
     name: "BlockKeywords",
-    description: "Blocks messages containing specific user-defined keywords, as if the user sending them was blocked.",
+    get description() { return t("يحجب الرسائل التي تحتوي على كلمات مفتاحية محددة، كما لو كان المُرسِل محظوراً.", "Blocks messages containing specific user-defined keywords, as if the user sending them was blocked."); },
     tags: ["Appearance", "Customisation", "Privacy"],
     authors: [EquicordDevs.catcraft, EquicordDevs.secp192k1],
     patches: [

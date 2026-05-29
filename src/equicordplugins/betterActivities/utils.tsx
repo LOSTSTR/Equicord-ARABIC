@@ -5,8 +5,10 @@
  */
 
 import { classNameFactory } from "@utils/css";
+import { Logger } from "@utils/Logger";
 import { Activity, Application } from "@vencord/discord-types";
 import { findByPropsLazy, findComponentByCodeLazy, findStoreLazy } from "@webpack";
+import { IconUtils } from "@webpack/common";
 
 import { settings } from "./settings";
 import { ActivityViewProps, ApplicationIcon } from "./types";
@@ -19,6 +21,7 @@ const { fetchApplication }: {
     fetchApplication: (id: string) => Promise<Application | null>;
 } = findByPropsLazy("fetchApplication");
 
+const logger = new Logger("BetterActivities");
 const fetchedApplications = new Map<string, Application | null>();
 
 const xboxUrl = "https://discord.com/assets/9a15d086141be29d9fcd.png"; // TODO: replace with "renderXboxImage"?
@@ -97,13 +100,13 @@ export function getApplicationIcons(activities: Activity[], preferSmall = false)
                     fetchedApplications.set(application_id, null);
                     fetchApplication(application_id).then(app => {
                         fetchedApplications.set(application_id, app);
-                    }).catch(console.error);
+                    }).catch(e => logger.error("Failed to fetch application:", e));
                 }
             }
 
             if (application) {
                 if (application.icon) {
-                    const src = `https://cdn.discordapp.com/app-icons/${application.id}/${application.icon}.png`;
+                    const src = IconUtils.getApplicationIconURL({ id: application.id, icon: application.icon });
                     applicationIcons.push({
                         image: { src, alt: application.name },
                         activity,

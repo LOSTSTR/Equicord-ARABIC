@@ -5,6 +5,7 @@
  */
 
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 import { Channel } from "@vencord/discord-types";
 import { ChannelStore } from "@webpack/common";
@@ -33,7 +34,7 @@ function computeClean(name: string, type: number): string {
 export default definePlugin({
     name: "CleanChannelName",
     authors: [Devs.AutumnVN],
-    description: "Remove emoji and decoration from channel names. Reverts to the original while you're editing the channel.",
+    get description() { return t("يزيل الإيموجي والزخارف من أسماء القنوات، ويعرض الاسم الأصلي عند التحرير.", "Removes emojis and decorations from channel names, and shows the original name when editing."); },
     tags: ["Appearance", "Customisation", "Chat", "Emotes", "Servers"],
     patches: [
         {

@@ -7,6 +7,7 @@
 import { definePluginSettings, migratePluginSettings } from "@api/Settings";
 import { getUserSettingLazy } from "@api/UserSettings";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 
 let savedStatus: string | null;
@@ -16,7 +17,7 @@ const StatusSettings = getUserSettingLazy<string>("status", "status")!;
 const settings = definePluginSettings({
     statusToSet: {
         type: OptionType.SELECT,
-        description: "Status to set while playing a game",
+        description: t("الحالة التي تُضبط أثناء تشغيل لعبة", "The status to set while playing a game"),
         options: [
             {
                 label: "Online",
@@ -39,7 +40,7 @@ const settings = definePluginSettings({
     },
     excludeInvisible: {
         type: OptionType.BOOLEAN,
-        description: "Prevent automatic status changes while your status is set to invisible",
+        description: t("منع تغييرات الحالة التلقائية عندما تكون حالتك مضبوطة على غير مرئي", "Prevent automatic status changes when your status is set to invisible"),
         default: false
     },
 });
@@ -47,7 +48,7 @@ const settings = definePluginSettings({
 migratePluginSettings("AutoDNDWhilePlaying", "StatusWhilePlaying");
 export default definePlugin({
     name: "AutoDNDWhilePlaying",
-    description: "Automatically updates your online status (online, idle, dnd) when launching games",
+    get description() { return t("يضبط حالتك تلقائياً على لا تزعج أثناء تشغيل لعبة", "Automatically sets your status to Do Not Disturb while playing a game"); },
     tags: ["Activity", "Utility"],
     authors: [Devs.thororen],
     isModified: true,

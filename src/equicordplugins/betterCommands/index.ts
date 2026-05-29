@@ -7,17 +7,18 @@
 import { ApplicationCommandInputType, ApplicationCommandOptionType, findOption, sendBotMessage } from "@api/Commands";
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { FluxDispatcher, UserStore } from "@webpack/common";
 
 const settings = definePluginSettings({
     autoFillArguments: {
-        description: "Automatically fill command with all arguements instead of just required ones",
+        description: t("ملء الأمر تلقائياً بجميع المعطيات بدلاً من المطلوبة فقط", "Auto-fill command with all arguments instead of only required ones"),
         type: OptionType.BOOLEAN,
         default: true,
     },
     allowNewlinesInCommands: {
-        description: "Allow newlines in command inputs (CTRL + Shift + Enter)",
+        description: t("السماح بالأسطر الجديدة في مدخلات الأوامر (CTRL + Shift + Enter)", "Allow newlines in command inputs (CTRL + Shift + Enter)"),
         type: OptionType.BOOLEAN,
         default: true,
     }
@@ -32,7 +33,7 @@ function fetchIndex(target: object) {
 
 export default definePlugin({
     name: "BetterCommands",
-    description: "Enhances the command system with miscellaneous improvements.",
+    get description() { return t("يُحسّن نظام الأوامر بتحسينات متعددة", "Enhances the commands system with multiple improvements"); },
     dependencies: ["CommandsAPI"],
     tags: ["Appearance", "Commands", "Shortcuts"],
     authors: [Devs.thororen],
@@ -72,11 +73,11 @@ export default definePlugin({
     commands: [
         {
             name: "refresh",
-            description: "Refreshes the specified applications commands locally",
+            description: t("يحدّث أوامر التطبيق المحددة محلياً", "Locally refreshes the specified application commands"),
             options: [
                 {
                     name: "user",
-                    description: "specific user to try and refresh",
+                    description: t("مستخدم محدد لمحاولة التحديث", "A specific user to attempt the refresh for"),
                     type: ApplicationCommandOptionType.USER,
                 }
             ],

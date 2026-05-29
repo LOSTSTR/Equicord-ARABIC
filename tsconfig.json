@@ -36,7 +36,11 @@
                 "./src/utils/*"
             ],
             "@plugins/*": [
-                "./src/plugins/*"
+                "./src/plugins/*",
+                "./src/userplugins/*"
+            ],
+            "@userplugins/*": [
+                "./src/userplugins/*"
             ],
             "@shared/*": [
                 "./src/shared/*"
@@ -64,7 +68,6 @@
             ]
         },
         "plugins": [
-            // Transform paths in output .d.ts files (Include this line if you output declarations files)
             {
                 "transform": "typescript-transform-paths",
                 "afterDeclarations": true
@@ -78,4 +81,7 @@
         "scripts/**/*",
         "eslint.config.mjs"
     ],
+    "exclude": [
+        "src/userplugins"
+    ]
 }

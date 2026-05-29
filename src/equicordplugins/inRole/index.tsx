@@ -12,6 +12,7 @@ import { InfoIcon } from "@components/Icons";
 import { Paragraph } from "@components/Paragraph";
 import { Devs } from "@utils/constants";
 import { getCurrentChannel, getCurrentGuild } from "@utils/discord";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 import { GuildMember } from "@vencord/discord-types";
 import { GuildMemberStore, GuildRoleStore, Menu, Parser } from "@webpack/common";
@@ -33,7 +34,7 @@ function getMembersInRole(roleId: string, guildId: string) {
 
 export default definePlugin({
     name: "InRole",
-    description: "Know who is in a role with the role context menu or /inrole command (read plugin info!)",
+    get description() { return t("اعرف من يملك رتبة معينة عبر قائمة السياق أو أمر /inrole (اقرأ معلومات الإضافة!)", "See who has a specific role via the context menu or the /inrole command (read plugin info!)"); },
     tags: ["Commands", "Roles"],
     authors: [Devs.nin0dev],
     dependencies: ["UserSettingsAPI", "CommandsAPI"],
@@ -56,12 +57,12 @@ export default definePlugin({
     commands: [
         {
             name: "inrole",
-            description: "Know who is in a role",
+            description: t("اعرف من يملك رتبة معينة", "See who has a specific role"),
             inputType: ApplicationCommandInputType.BUILT_IN,
             options: [
                 {
                     name: "role",
-                    description: "The role",
+                    description: t("الرتبة", "Role"),
                     type: ApplicationCommandOptionType.ROLE,
                     required: true
                 },

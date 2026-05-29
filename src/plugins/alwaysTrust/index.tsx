@@ -18,6 +18,7 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { findByPropsLazy } from "@webpack";
 import { Alerts, Button, GuildStore } from "@webpack/common";
@@ -35,31 +36,31 @@ const settings = definePluginSettings({
     domain: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Remove the untrusted domain popup when opening links",
+        description: t("إزالة نافذة التحذير عند فتح روابط من نطاقات غير موثوقة", "Remove the warning popup when opening links from untrusted domains"),
         restartNeeded: true
     },
     file: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Remove the 'Potentially Dangerous Download' popup when opening links",
+        description: t("إزالة نافذة 'التحميل الخطير المحتمل' عند فتح الروابط", "Remove the 'Potentially Dangerous Download' popup when opening links"),
         restartNeeded: true
     },
     noDeleteSafety: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Removes the enter server name requirement when deleting a server",
+        description: t("إزالة شرط إدخال اسم السيرفر عند حذفه", "Remove the requirement to type the server name when deleting it"),
         restartNeeded: true
     },
     confirmModal: {
         type: OptionType.BOOLEAN,
-        description: "Should a \"are you sure you want to delete\" modal be shown?",
+        description: t("هل يجب إظهار نافذة تأكيد 'هل أنت متأكد من الحذف'؟", "Whether to show an 'Are you sure?' confirmation modal before deleting"),
         default: true
     },
 });
 
 export default definePlugin({
     name: "AlwaysTrust",
-    description: "Removes the annoying untrusted domain and suspicious file popup",
+    get description() { return t("يُزيل رسائل التحقق ونوافذ التحذير عند فتح روابط خارجية أو تحميل ملفات", "Removes verification messages and warning popups when opening external links or downloading files"); },
     tags: ["Utility"],
     authors: [Devs.zt, Devs.Trwy],
     isModified: true,

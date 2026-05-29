@@ -17,6 +17,7 @@
 */
 
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 import { ChannelRouter, ChannelStore, SelectedChannelStore } from "@webpack/common";
 
@@ -27,7 +28,7 @@ const timers = {} as Record<string, {
 
 export default definePlugin({
     name: "VoiceChatDoubleClick",
-    description: "Join voice chats via double click instead of single click",
+    get description() { return t("الانضمام إلى القنوات الصوتية بنقر مزدوج بدلاً من نقرة واحدة", "Join voice channels with a double click instead of a single click"); },
     tags: ["Voice"],
     authors: [Devs.Ven, Devs.D3SOX, Devs.sadan],
     patches: [

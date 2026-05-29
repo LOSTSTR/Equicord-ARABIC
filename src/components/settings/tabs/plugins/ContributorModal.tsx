@@ -13,6 +13,7 @@ import { Paragraph } from "@components/Paragraph";
 import { EquicordDevsById, VencordDevsById } from "@utils/constants";
 import { classNameFactory } from "@utils/css";
 import { fetchUserProfile } from "@utils/discord";
+import { t } from "@utils/esharqI18n";
 import { pluralise } from "@utils/misc";
 import { RenderModalProps, User } from "@vencord/discord-types";
 import { Modal, openModal, showToast, useEffect, useMemo, UserProfileStore, useStateFromStores } from "@webpack/common";
@@ -55,7 +56,7 @@ function ContributorModal({ user, modalProps }: { user: User; modalProps: Render
             .sort((a, b) => Number(a.required ?? false) - Number(b.required ?? false));
     }, [user.id, user.username]);
 
-    const ContributedHyperLink = <Link href="https://github.com/Equicord/Equicord">contributed</Link>;
+    const ContributedHyperLink = <Link href="https://github.com/Equicord/Equicord">{t("ساهم", "contributed")}</Link>;
 
     const hasLinks = website || githubName;
 
@@ -76,12 +77,12 @@ function ContributorModal({ user, modalProps }: { user: User; modalProps: Render
                 plugins.length
                     ? (
                         <Paragraph>
-                            {user.username} has {ContributedHyperLink} to {pluralise(plugins.length, "plugin")}!
+                            {user.username} {t("قد", "has")} {ContributedHyperLink} {t(`في ${pluralise(plugins.length, "إضافة")}!`, `to ${pluralise(plugins.length, "plugin")}!`)}
                         </Paragraph>
                     )
                     : (
                         <Paragraph>
-                            {user.username} has not made any plugins. They likely {ContributedHyperLink} in other ways!
+                            {user.username} {t("لم يصنع أي إضافات. ربما", "has not made any plugins. They likely")} {ContributedHyperLink} {t("بطرق أخرى!", "in other ways!")}
                         </Paragraph>
                     )
             }
@@ -115,7 +116,7 @@ function ContributorModal({ user, modalProps }: { user: User; modalProps: Render
                                 key={p.name}
                                 plugin={p}
                                 disabled={p.required ?? false}
-                                onRestartNeeded={() => showToast("Restart to apply changes!")}
+                                onRestartNeeded={() => showToast(t("أعد التشغيل لتطبيق التغييرات!", "Restart to apply changes!"))}
                             />
                         )}
                     </div>

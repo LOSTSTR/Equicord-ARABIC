@@ -6,6 +6,7 @@
 
 import { CloudDownloadIcon } from "@components/Icons";
 import { EquicordDevs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import { Logger } from "@utils/Logger";
 import { pluralise } from "@utils/misc";
 import definePlugin from "@utils/types";
@@ -81,7 +82,7 @@ async function downloadAll(attachments: MessageAttachment[]) {
 
 export default definePlugin({
     name: "DownloadAllAttachments",
-    description: "Adds a popover button to download all attachments in a message at once.",
+    get description() { return t("يضيف زر تنزيل جميع المرفقات في رسالة واحدة بضغطة واحدة", "Adds a popover button to download all attachments in a message at once."); },
     tags: ["Utility", "Chat"],
     authors: [EquicordDevs.dhopcs],
     dependencies: ["MessagePopoverAPI"],
@@ -90,7 +91,7 @@ export default definePlugin({
         render(message: Message) {
             if (!message.attachments.length) return null;
             return {
-                label: "Download All Attachments",
+                label: t("تنزيل جميع المرفقات", "Download All Attachments"),
                 icon: CloudDownloadIcon,
                 message,
                 channel: ChannelStore.getChannel(message.channel_id),

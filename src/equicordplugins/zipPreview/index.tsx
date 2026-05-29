@@ -5,6 +5,7 @@
  */
 
 import { EquicordDevs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import { classes } from "@utils/misc";
 import definePlugin from "@utils/types";
 
@@ -14,7 +15,7 @@ import { clearZipPreviewCache, getAttachmentFileName, isZipFile, ZipPreviewAttac
 
 export default definePlugin({
     name: "ZipPreview",
-    description: "Previews ZIP contents inside file attachments.",
+    get description() { return t("يعرض محتويات ملفات ZIP مباشرةً داخل مرفقات الرسائل", "Displays the contents of ZIP files directly inside message attachments."); },
     tags: ["Chat", "Utility"],
     authors: [EquicordDevs.justjxke],
     managedStyle,

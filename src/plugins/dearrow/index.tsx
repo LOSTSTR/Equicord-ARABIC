@@ -9,6 +9,7 @@ import "./styles.css";
 import { definePluginSettings } from "@api/Settings";
 import ErrorBoundary from "@components/ErrorBoundary";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import { Logger } from "@utils/Logger";
 import definePlugin, { OptionType } from "@utils/types";
 import { Tooltip } from "@webpack/common";
@@ -144,13 +145,13 @@ function DearrowButton({ component }: { component: Component<Props>; }) {
 
 const settings = definePluginSettings({
     hideButton: {
-        description: "Hides the Dearrow button from YouTube embeds",
+        description: t("يخفي زر Dearrow من مقاطع YouTube المضمّنة", "Hide the Dearrow button from YouTube embeds"),
         type: OptionType.BOOLEAN,
         default: false,
         restartNeeded: true
     },
     replaceElements: {
-        description: "Choose which elements of the embed will be replaced",
+        description: t("اختر العناصر التي سيتم استبدالها في التضمين", "Choose which elements to replace in the embed"),
         type: OptionType.SELECT,
         restartNeeded: true,
         options: [
@@ -160,7 +161,7 @@ const settings = definePluginSettings({
         ],
     },
     dearrowByDefault: {
-        description: "Dearrow videos automatically",
+        description: t("تطبيق DeArrow على الفيديوهات تلقائياً", "Apply DeArrow to videos automatically"),
         type: OptionType.BOOLEAN,
         default: true,
         restartNeeded: false
@@ -169,7 +170,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "Dearrow",
-    description: "Makes YouTube embed titles and thumbnails less sensationalist, powered by Dearrow",
+    get description() { return t("يُحسّن عناوين ومصغرات يوتيوب باستخدام DeArrow", "Improves YouTube titles and thumbnails using DeArrow"); },
     tags: ["Media", "Utility"],
     authors: [Devs.Ven],
     settings,

@@ -12,6 +12,7 @@ import { ErrorCard } from "@components/ErrorCard";
 import { HeadingPrimary, HeadingSecondary } from "@components/Heading";
 import { Paragraph } from "@components/Paragraph";
 import { Devs, IS_MAC } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import { Margins } from "@utils/margins";
 import definePlugin, { OptionType } from "@utils/types";
 import { findByPropsLazy } from "@webpack";
@@ -26,7 +27,7 @@ const altKey = IS_MAC ? "opt" : "alt";
 const settings = definePluginSettings({
     toolbarDevMenu: {
         type: OptionType.BOOLEAN,
-        description: "Change the Help (?) toolbar button (top right in chat) to Discord's developer menu",
+        description: t("يحوّل زر المساعدة (?) في شريط الأدوات إلى قائمة المطورين", "Turns the help (?) button in the toolbar into the developer menu"),
         default: false,
         restartNeeded: true
     }
@@ -34,7 +35,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "Experiments",
-    description: "Enable Access to Experiments & other dev-only features in Discord!",
+    get description() { return t("يتيح الوصول إلى ميزات المطورين التجريبية في ديسكورد", "Enables access to experimental developer features in Discord"); },
     tags: ["Developers", "Utility"],
     authors: [
         Devs.Megu,

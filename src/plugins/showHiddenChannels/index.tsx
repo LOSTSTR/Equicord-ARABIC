@@ -22,6 +22,7 @@ import { definePluginSettings } from "@api/Settings";
 import ErrorBoundary from "@components/ErrorBoundary";
 import { Devs, EquicordDevs } from "@utils/constants";
 import { classNameFactory } from "@utils/css";
+import { t } from "@utils/esharqI18n";
 import { classes } from "@utils/misc";
 import definePlugin, { OptionType } from "@utils/types";
 import type { Channel, Role } from "@vencord/discord-types";
@@ -48,7 +49,7 @@ const CONNECT = 1n << 20n;
 
 export const settings = definePluginSettings({
     channelStyle: {
-        description: "The style used to display hidden channels.",
+        description: t("أسلوب عرض القنوات المخفية.", "The display style for hidden channels."),
         type: OptionType.SELECT,
         options: [
             { label: "Classic", value: ChannelStyle.Classic, default: true },
@@ -59,7 +60,7 @@ export const settings = definePluginSettings({
         restartNeeded: true
     },
     showMode: {
-        description: "The mode used to display hidden channels.",
+        description: t("الوضع المستخدم لعرض القنوات المخفية.", "The mode used to display hidden channels."),
         type: OptionType.SELECT,
         options: [
             { label: "Lock Icon replacing channel icon", value: ShowMode.LockIcon, default: true },
@@ -69,7 +70,7 @@ export const settings = definePluginSettings({
         restartNeeded: true
     },
     defaultAllowedUsersAndRolesDropdownState: {
-        description: "Whether the allowed users and roles dropdown on hidden channels should be open by default",
+        description: t("ما إذا كانت القائمة المنسدلة للمستخدمين والأدوار المسموح لهم في القنوات المخفية مفتوحة افتراضياً", "Whether the allowed users and roles dropdown for hidden channels is open by default"),
         type: OptionType.BOOLEAN,
         default: true
     }
@@ -81,7 +82,7 @@ function isUncategorized(objChannel: { channel: Channel; comparator: number; }) 
 
 export default definePlugin({
     name: "ShowHiddenChannels",
-    description: "Show channels that you do not have access to view.",
+    get description() { return t("يُظهر القنوات المخفية مع الإشارة إلى عدم إمكانية الوصول", "Shows hidden channels while indicating they are inaccessible"); },
     tags: ["Servers", "Utility"],
     authors: [Devs.BigDuck, Devs.AverageReactEnjoyer, Devs.D3SOX, Devs.Ven, Devs.Nuckyz, Devs.Nickyux, Devs.dzshn, EquicordDevs.Oggetto],
     isModified: true,

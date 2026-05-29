@@ -12,6 +12,7 @@ import { definePluginSettings } from "@api/Settings";
 import { BaseText } from "@components/BaseText";
 import { Divider } from "@components/Divider";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import { useForceUpdater } from "@utils/react";
 import definePlugin, { OptionType } from "@utils/types";
 import { Button, ChannelStore, Menu, RelationshipStore, TextInput, useEffect, UserStore, useState } from "@webpack/common";
@@ -164,7 +165,7 @@ function TagConfigurationComponent() {
 const settings = definePluginSettings({
     tagConfiguration: {
         type: OptionType.COMPONENT,
-        description: "The tag configuration component",
+        description: t("مكوّن إعداد الوسوم", "Tag configuration component"),
         component: () => {
             return (
                 <TagConfigurationComponent />
@@ -208,7 +209,7 @@ const userPatch: NavContextMenuPatchCallback = (children, { user }) => {
 
 export default definePlugin({
     name: "FriendTags",
-    description: "Allows you to filter by custom tags in the quick switcher by starting a search with &",
+    get description() { return t("يتيح لك التصفية بوسوم مخصصة في المبدّل السريع بدء البحث بـ &", "Allows filtering by custom tags in the quick switcher by starting the search with &"); },
     tags: ["Shortcuts"],
     authors: [Devs.Samwich],
     settings,

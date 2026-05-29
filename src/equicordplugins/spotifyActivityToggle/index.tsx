@@ -9,6 +9,7 @@ import { definePluginSettings } from "@api/Settings";
 import { UserAreaButton, UserAreaRenderProps } from "@api/UserArea";
 import equicordToolbox from "@equicordplugins/equicordToolbox";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { Constants, Menu, RestAPI, useEffect, useState } from "@webpack/common";
 
@@ -74,7 +75,7 @@ function SpotifyActivityToggleButton({ iconForeground, hideTooltips, nameplate }
 const settings = definePluginSettings({
     location: {
         type: OptionType.SELECT,
-        description: "Where to show the Spotify toggle button.",
+        description: t("مكان عرض زر تبديل Spotify.", "Location to display the Spotify toggle button."),
         options: [
             { label: "Next to Mute/Deafen", value: "PANEL", default: true },
             { label: "Equicord Toolbox", value: "TOOLBOX" }
@@ -87,7 +88,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "SpotifyActivityToggle",
-    description: "Adds a toggle button for Spotify activity visibility.",
+    get description() { return t("يضيف زر تبديل لإظهار/إخفاء نشاط Spotify.", "Adds a toggle button to show/hide Spotify activity."); },
     dependencies: ["UserAreaAPI"],
     tags: ["Activity", "Utility"],
     authors: [Devs.thororen],

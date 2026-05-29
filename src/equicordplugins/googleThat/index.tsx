@@ -7,6 +7,7 @@
 import { ApplicationCommandOptionType, findOption } from "@api/Commands";
 import { definePluginSettings } from "@api/Settings";
 import { Devs, EquicordDevs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 
 function getMessage(opts) {
@@ -48,17 +49,17 @@ const searchEngines = {
 const settings = definePluginSettings({
     hyperlink: {
         type: OptionType.BOOLEAN,
-        description: "If the sent link should hyperlink with the query as the label",
+        description: t("يجعل الرابط المرسل نصاً مشار إليه باستخدام الاستعلام كعنوان", "Makes the sent link hyperlinked text using the query as title"),
         default: false
     },
     embed: {
         type: OptionType.BOOLEAN,
-        description: "If the sent link should render an embed",
+        description: t("ما إذا كان الرابط المرسل يجب أن يُظهر معاينة", "Whether the sent link should show a preview"),
         default: true
     },
     defaultEngine: {
         type: OptionType.SELECT,
-        description: "The search engine to use",
+        description: t("محرك البحث المستخدم", "Search engine to use"),
         options: Object.keys(searchEngines).map((key, index) => ({
             label: key,
             value: key,
@@ -66,7 +67,7 @@ const settings = definePluginSettings({
         }))
     },
     customEngineURL: {
-        description: "The URL of the Engine you wish to use",
+        description: t("رابط محرك البحث الذي تريد استخدامه", "URL of the search engine you want to use"),
         type: OptionType.STRING,
         placeholder: ""
     }
@@ -74,7 +75,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "GoogleThat",
-    description: "Adds a command to send a internet search link",
+    get description() { return t("يضيف أمراً لإرسال رابط بحث على الإنترنت", "Adds a command to send a web search link"); },
     dependencies: ["CommandsAPI"],
     tags: ["Commands", "Utility"],
     authors: [Devs.Samwich, EquicordDevs.KrystalSkull],
@@ -83,11 +84,11 @@ export default definePlugin({
     commands: [
         {
             name: "googlethat",
-            description: "send a search engine link",
+            description: t("إرسال رابط محرك بحث", "Send a search engine link"),
             options: [
                 {
                     name: "input",
-                    description: "The search query",
+                    description: t("استعلام البحث", "Search query"),
                     type: ApplicationCommandOptionType.STRING,
                     required: true,
                 }

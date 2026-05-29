@@ -8,6 +8,7 @@ import "./styles.css";
 
 import { migratePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 import { patchActivityList } from "./patch-helpers/activityList";
@@ -18,7 +19,7 @@ migratePluginSettings("BetterActivities", "MemberListActivities");
 
 export default definePlugin({
     name: "BetterActivities",
-    description: "Shows activity icons in the member list and allows showing all activities",
+    get description() { return t("يعرض أيقونات النشاط في قائمة الأعضاء ويتيح عرض جميع الأنشطة", "Shows activity icons in the member list and allows viewing all activities"); },
     authors: [Devs.D3SOX, Devs.Arjix, Devs.AutumnVN, Devs.thororen],
     tags: ["Activity"],
     settings,

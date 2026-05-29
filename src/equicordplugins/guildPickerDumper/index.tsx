@@ -6,6 +6,7 @@
 
 import { findGroupChildrenByChildId, NavContextMenuPatchCallback } from "@api/ContextMenu";
 import { Devs, EquicordDevs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 import type { Guild } from "@vencord/discord-types";
 import { EmojiStore, Menu, StickersStore } from "@webpack/common";
@@ -94,7 +95,7 @@ async function zipGuildAssets(guild: Guild, type: "emojis" | "stickers") {
 
 export default definePlugin({
     name: "GuildPickerDumper",
-    description: "Context menu to dump and download a server's emojis and stickers.",
+    get description() { return t("يضيف خياراً في القائمة السياقية لتنزيل الإيموجيات والستيكرات من أي سيرفر", "Adds a context menu option to download emojis and stickers from any server"); },
     tags: ["Emotes", "Servers", "Utility"],
     authors: [EquicordDevs.Cortex, Devs.Samwich, EquicordDevs.Synth, Devs.thororen],
     contextMenus: {

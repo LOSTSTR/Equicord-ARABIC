@@ -10,9 +10,10 @@ import { definePluginSettings } from "@api/Settings";
 import { disableStyle, enableStyle } from "@api/Styles";
 import usrbg from "@plugins/usrbg";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { User } from "@vencord/discord-types";
-import { UserProfileStore } from "@webpack/common";
+import { IconUtils, UserProfileStore } from "@webpack/common";
 
 import style from "./style.css?managed";
 
@@ -28,12 +29,12 @@ interface Nameplate {
 
 const settings = definePluginSettings({
     animate: {
-        description: "Animate banners",
+        description: t("تحريك البانرات المتحركة", "Animate animated banners"),
         type: OptionType.BOOLEAN,
         default: false
     },
     preferNameplate: {
-        description: "prefer nameplate over banner",
+        description: t("تفضيل لوحة الاسم على البانر", "Prefer nameplate over banner"),
         type: OptionType.BOOLEAN,
         default: false
     },
@@ -43,7 +44,7 @@ const DATASTORE_KEY = "bannersEverywhere";
 
 export default definePlugin({
     name: "BannersEverywhere",
-    description: "Displays banners in the member list ",
+    get description() { return t("يعرض البانرات في قائمة الأعضاء", "Displays banners in the member list"); },
     tags: ["Appearance", "Customisation"],
     authors: [Devs.ImLvna, Devs.AutumnVN],
     settings,
@@ -140,8 +141,8 @@ export default definePlugin({
         }
         const userProfile = UserProfileStore.getUserProfile(userId);
         if (userProfile?.banner) {
-            this.data[userId] = `https://cdn.discordapp.com/banners/${userId}/${userProfile.banner}.${userProfile.banner.startsWith("a_") ? "gif" : "png"}`;
-            DataStore.set(DATASTORE_KEY, this.data);
+            this.data[userId] = IconUtils.getUserBannerURL({ id: userId, banner: userProfile.banner, canAnimate: true, size: 512 });
+            setTimeout(() => DataStore.set(DATASTORE_KEY, this.data), 0);
         }
         return this.data[userId];
     },

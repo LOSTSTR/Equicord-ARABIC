@@ -278,6 +278,9 @@
     height: 22px;
     margin-top: 2px;
     margin-right: 8px;
+    border-radius: 50%;
+    object-fit: cover;
+    mix-blend-mode: screen;
 }
 
 .vc-plugins-stats-container {

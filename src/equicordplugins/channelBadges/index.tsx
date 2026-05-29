@@ -7,6 +7,7 @@
 import "./style.css";
 
 import { Devs, EquicordDevs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 import { Channel } from "@vencord/discord-types";
 import { GuildStore, React, SelectedGuildStore } from "@webpack/common";
@@ -31,7 +32,7 @@ function renderBadge(id: number, title: string) {
 
 export default definePlugin({
     name: "ChannelBadges",
-    description: "Adds badges to channels based on their type",
+    get description() { return t("يضيف شارات للقنوات بناءً على نوعها", "Adds badges to channels based on their type"); },
     tags: ["Appearance", "Customisation", "Servers"],
     authors: [EquicordDevs.creations, Devs.thororen],
     settings,

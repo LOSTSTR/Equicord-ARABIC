@@ -11,6 +11,7 @@ import { BaseText } from "@components/BaseText";
 import { Heading } from "@components/Heading";
 import { Link } from "@components/Link";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import { identity } from "@utils/misc";
 import definePlugin, { OptionType } from "@utils/types";
 import { findByPropsLazy } from "@webpack";
@@ -26,7 +27,7 @@ const settings = definePluginSettings({
     uncollapseSettingsByDefault: {
         type: OptionType.BOOLEAN,
         default: false,
-        description: "Automatically uncollapse voice settings by default"
+        description: t("توسيع إعدادات الصوت تلقائياً بشكل افتراضي", "Expand voice settings automatically by default")
     },
     title2: {
         type: OptionType.COMPONENT,
@@ -36,27 +37,27 @@ const settings = definePluginSettings({
     outputVolume: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Show an output volume slider"
+        description: t("إظهار شريط تمرير مستوى صوت الإخراج", "Show output volume slider")
     },
     inputVolume: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Show an input volume slider"
+        description: t("إظهار شريط تمرير مستوى صوت الإدخال", "Show input volume slider")
     },
     outputDevice: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Show an output device selector"
+        description: t("إظهار منتقي جهاز الإخراج", "Show output device picker")
     },
     inputDevice: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Show an input device selector"
+        description: t("إظهار منتقي جهاز الإدخال", "Show input device picker")
     },
     camera: {
         type: OptionType.BOOLEAN,
         default: false,
-        description: "Show a camera selector"
+        description: t("إظهار منتقي الكاميرا", "Show camera picker")
     },
     title3: {
         type: OptionType.COMPONENT,
@@ -66,27 +67,27 @@ const settings = definePluginSettings({
     showOutputVolumeHeader: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Show header above output volume slider"
+        description: t("إظهار عنوان فوق شريط تمرير مستوى صوت الإخراج", "Show a header above the output volume slider")
     },
     showInputVolumeHeader: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Show header above input volume slider"
+        description: t("إظهار عنوان فوق شريط تمرير مستوى صوت الإدخال", "Show a header above the input volume slider")
     },
     showOutputDeviceHeader: {
         type: OptionType.BOOLEAN,
         default: false,
-        description: "Show header above output device selector"
+        description: t("إظهار عنوان فوق منتقي جهاز الإخراج", "Show a header above the output device picker")
     },
     showInputDeviceHeader: {
         type: OptionType.BOOLEAN,
         default: false,
-        description: "Show header above input device selector"
+        description: t("إظهار عنوان فوق منتقي جهاز الإدخال", "Show a header above the input device picker")
     },
     showVideoDeviceHeader: {
         type: OptionType.BOOLEAN,
         default: false,
-        description: "Show header above camera selector"
+        description: t("إظهار عنوان فوق منتقي الكاميرا", "Show a header above the camera picker")
     },
 });
 
@@ -96,7 +97,8 @@ function OutputVolumeComponent() {
     useEffect(() => {
         const listener = () => setOutputVolume(configModule.getOutputVolume());
         FluxDispatcher.subscribe("AUDIO_SET_OUTPUT_VOLUME", listener);
-    });
+        return () => FluxDispatcher.unsubscribe("AUDIO_SET_OUTPUT_VOLUME", listener);
+    }, []);
 
     return (
         <>
@@ -117,7 +119,8 @@ function InputVolumeComponent() {
     useEffect(() => {
         const listener = () => setInputVolume(configModule.getInputVolume());
         FluxDispatcher.subscribe("AUDIO_SET_INPUT_VOLUME", listener);
-    });
+        return () => FluxDispatcher.unsubscribe("AUDIO_SET_INPUT_VOLUME", listener);
+    }, []);
 
     return (
         <>
@@ -138,7 +141,8 @@ function OutputDeviceComponent() {
     useEffect(() => {
         const listener = () => setOutputDevice(configModule.getOutputDeviceId());
         FluxDispatcher.subscribe("AUDIO_SET_OUTPUT_DEVICE", listener);
-    });
+        return () => FluxDispatcher.unsubscribe("AUDIO_SET_OUTPUT_DEVICE", listener);
+    }, []);
 
     return (
         <>
@@ -166,7 +170,8 @@ function InputDeviceComponent() {
     useEffect(() => {
         const listener = () => setInputDevice(configModule.getInputDeviceId());
         FluxDispatcher.subscribe("AUDIO_SET_INPUT_DEVICE", listener);
-    });
+        return () => FluxDispatcher.unsubscribe("AUDIO_SET_INPUT_DEVICE", listener);
+    }, []);
 
     return (
         <div style={{ marginTop: "10px" }}>
@@ -194,7 +199,8 @@ function VideoDeviceComponent() {
     useEffect(() => {
         const listener = () => setVideoDevice(configModule.getVideoDeviceId());
         FluxDispatcher.subscribe("MEDIA_ENGINE_SET_VIDEO_DEVICE", listener);
-    });
+        return () => FluxDispatcher.unsubscribe("MEDIA_ENGINE_SET_VIDEO_DEVICE", listener);
+    }, []);
 
     return (
         <div style={{ marginTop: "10px" }}>
@@ -237,7 +243,7 @@ function VoiceSettings() {
 
 export default definePlugin({
     name: "VCPanelSettings",
-    description: "Control voice settings right from the voice panel",
+    get description() { return t("التحكم في إعدادات الصوت مباشرةً من لوحة الصوت", "Control voice settings directly from the voice panel"); },
     tags: ["Utility", "Voice"],
     authors: [Devs.nin0dev],
     settings,

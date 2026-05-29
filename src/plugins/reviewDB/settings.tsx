@@ -19,6 +19,7 @@
 import { definePluginSettings } from "@api/Settings";
 import { Button } from "@components/Button";
 import { openInviteModal } from "@utils/discord";
+import { t } from "@utils/esharqI18n";
 import { OptionType } from "@utils/types";
 
 import { authorize, getToken } from "./auth";
@@ -36,22 +37,22 @@ export const settings = definePluginSettings({
     },
     notifyReviews: {
         type: OptionType.BOOLEAN,
-        description: "Notify about new reviews on startup",
+        description: t("أشعرني بالتقييمات الجديدة عند تشغيل Discord", "Notify me about new reviews when Discord starts"),
         default: true,
     },
     showWarning: {
         type: OptionType.BOOLEAN,
-        description: "Display warning to be respectful at the top of the reviews list",
+        description: t("عرض تحذير لاحترام الآخرين في أعلى قائمة التقييمات", "Show a warning to respect others at the top of the reviews list"),
         default: true,
     },
     hideTimestamps: {
         type: OptionType.BOOLEAN,
-        description: "Hide timestamps on reviews",
+        description: t("إخفاء الطوابع الزمنية في التقييمات", "Hide timestamps in reviews"),
         default: false,
     },
     hideBlockedUsers: {
         type: OptionType.BOOLEAN,
-        description: "Hide reviews from blocked users",
+        description: t("إخفاء تقييمات المستخدمين المحجوبين", "Hide reviews from blocked users"),
         default: true,
     },
     buttons: {

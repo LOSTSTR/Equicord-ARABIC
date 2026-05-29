@@ -5,11 +5,12 @@
  */
 
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "BlockKrisp",
-    description: "Prevent Krisp from loading",
+    get description() { return t("يمنع تحميل Krisp لإلغاء الضوضاء", "Prevents Krisp noise cancellation from loading"); },
     tags: ["Privacy", "Utility", "Voice"],
     authors: [Devs.D3SOX],
     patches: [

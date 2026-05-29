@@ -5,11 +5,12 @@
  */
 
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "NoRPC",
-    description: "Disables Discord's RPC server.",
+    get description() { return t("يعطّل خادم RPC الخاص بـ Discord.", "Disables Discord's RPC server."); },
     tags: ["Privacy", "Servers"],
     authors: [Devs.Cyn],
     patches: [

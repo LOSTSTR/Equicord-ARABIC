@@ -16,6 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+import { useSettings } from "@api/Settings";
 import { downloadSettingsBackup, uploadSettingsBackup } from "@api/SettingsSync/offline";
 import { Button } from "@components/Button";
 import { Divider } from "@components/Divider";
@@ -24,33 +25,36 @@ import { Heading } from "@components/Heading";
 import { Notice } from "@components/Notice";
 import { Paragraph } from "@components/Paragraph";
 import { SettingsTab, wrapTab } from "@components/settings/tabs/BaseTab";
+import { t } from "@utils/esharqI18n";
 import { Margins } from "@utils/margins";
 
 function BackupAndRestoreTab() {
+    useSettings(["plugins.Settings.arabicMode"]);
+
     return (
         <SettingsTab>
-            <Heading className={Margins.top16}>Backup & Restore</Heading>
+            <Heading className={Margins.top16}>{t("النسخ الاحتياطي والاستعادة", "Backup & Restore")}</Heading>
             <Paragraph className={Margins.bottom20}>
-                Import and export your Equicord settings as a JSON file. This allows you to easily transfer your settings to another device, or recover them after reinstalling Equicord or Discord.
+                {t("استيراد وتصدير إعدادات Esharq كملف JSON.", "Import and export your Esharq settings as a JSON file.")}
             </Paragraph>
 
             <Notice.Warning className={Margins.bottom20}>
-                Importing a settings file will overwrite your current settings. Make sure to export a backup first if you want to keep your current configuration.
+                {t("استيراد ملف الإعدادات سيُستبدل إعداداتك الحالية. تأكد من تصدير نسخة احتياطية أولاً", "Importing a settings file will replace your current settings. Make sure to export a backup first.")}
             </Notice.Warning>
 
-            <Heading>What's included in a backup</Heading>
+            <Heading>{t("ما يتضمنه النسخ الاحتياطي", "What's included in the backup")}</Heading>
             <Paragraph className={Margins.bottom20}>
-                • Custom QuickCSS<br />
-                • Theme Links<br />
-                • Plugin Settings<br />
-                • DataStore Data
+                • {t("CSS مخصص", "Custom CSS")}<br />
+                • {t("روابط القوالب", "Theme links")}<br />
+                • {t("إعدادات الإضافات", "Plugin settings")}<br />
+                • {t("بيانات المخزن", "Datastore data")}
             </Paragraph>
 
             <Divider className={Margins.bottom20} />
 
-            <Heading>Import Settings</Heading>
+            <Heading>{t("استيراد الإعدادات", "Import Settings")}</Heading>
             <Paragraph className={Margins.bottom16}>
-                Select a previously exported settings file to restore your configuration. This will replace all your current settings with the ones from the backup.
+                {t("اختر ملف إعدادات مُصدَّر مسبقاً لاستعادة إعداداتك.", "Choose a previously exported settings file to restore your settings.")}
             </Paragraph>
 
             <Flex gap="8px" className={Margins.bottom20} style={{ flexWrap: "wrap" }}>
@@ -59,33 +63,33 @@ function BackupAndRestoreTab() {
                     size="small"
                     variant="secondary"
                 >
-                    Import All Settings
+                    {t("استيراد كل الإعدادات", "Import All Settings")}
                 </Button>
                 <Button
                     onClick={() => uploadSettingsBackup("plugins")}
                     size="small"
                 >
-                    Import Plugins
+                    {t("استيراد الإضافات", "Import Plugins")}
                 </Button>
                 <Button
                     onClick={() => uploadSettingsBackup("css")}
                     size="small"
                 >
-                    Import QuickCSS
+                    {t("استيراد QuickCSS", "Import QuickCSS")}
                 </Button>
                 <Button
                     onClick={() => uploadSettingsBackup("datastore")}
                     size="small"
                 >
-                    Import DataStore
+                    {t("استيراد المخزن", "Import Datastore")}
                 </Button>
             </Flex>
 
             <Divider className={Margins.bottom20} />
 
-            <Heading>Export Settings</Heading>
+            <Heading>{t("تصدير الإعدادات", "Export Settings")}</Heading>
             <Paragraph className={Margins.bottom16}>
-                Download your current settings as a backup file. You can export everything at once, or choose to export only specific parts of your configuration.
+                {t("نزّل إعداداتك الحالية كملف نسخ احتياطية. يمكنك تصدير كل شيء دفعةً واحدة، أو اختيار تصدير أجزاء معينة فقط من إعداداتك.", "Download your current settings as a backup file. You can export everything at once or choose to export only specific parts of your settings.")}
             </Paragraph>
 
             <Flex gap="8px" style={{ flexWrap: "wrap" }}>
@@ -94,25 +98,25 @@ function BackupAndRestoreTab() {
                     size="small"
                     variant="secondary"
                 >
-                    Export All Settings
+                    {t("تصدير كل الإعدادات", "Export All Settings")}
                 </Button>
                 <Button
                     onClick={() => downloadSettingsBackup("plugins")}
                     size="small"
                 >
-                    Export Plugins
+                    {t("تصدير الإضافات", "Export Plugins")}
                 </Button>
                 <Button
                     onClick={() => downloadSettingsBackup("css")}
                     size="small"
                 >
-                    Export QuickCSS
+                    {t("تصدير QuickCSS", "Export QuickCSS")}
                 </Button>
                 <Button
                     onClick={() => downloadSettingsBackup("datastore")}
                     size="small"
                 >
-                    Export DataStore
+                    {t("تصدير المخزن", "Export Datastore")}
                 </Button>
             </Flex>
         </SettingsTab>

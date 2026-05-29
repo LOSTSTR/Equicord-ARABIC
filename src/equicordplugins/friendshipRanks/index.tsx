@@ -13,6 +13,7 @@ import { Flex } from "@components/Flex";
 import { Paragraph } from "@components/Paragraph";
 import { Devs } from "@utils/constants";
 import { classNameFactory } from "@utils/css";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 import { RenderModalProps } from "@vencord/discord-types";
 import { Forms, Modal,openModal, RelationshipStore } from "@webpack/common";
@@ -41,43 +42,43 @@ const ranks: rankInfo[] =
     [
         {
             title: "Sprout",
-            description: "Your friendship is just starting",
+            description: t("صداقتكما في بدايتها", "Your friendship is just beginning"),
             requirement: 0,
             iconSrc: "https://equicord.org/assets/plugins/friendshipRanks/sprout.png"
         },
         {
             title: "Blooming",
-            description: "Your friendship is getting there! (1 Month)",
+            description: t("صداقتكما في تقدم! (شهر واحد)", "Your friendship is progressing! (one month)"),
             requirement: 30,
             iconSrc: "https://equicord.org/assets/plugins/friendshipRanks/blooming.png"
         },
         {
             title: "Burning",
-            description: "Your friendship has reached terminal velocity (3 Months)",
+            description: t("وصلت صداقتكما إلى سرعة قصوى (3 أشهر)", "Your friendship has reached full speed (3 months)"),
             requirement: 90,
             iconSrc: "https://equicord.org/assets/plugins/friendshipRanks/burning.png"
         },
         {
             title: "Fighter",
-            description: "Your friendship is strong (6 Months)",
+            description: t("صداقتكما قوية (6 أشهر)", "Your friendship is strong (6 months)"),
             requirement: 182.5,
             iconSrc: "https://equicord.org/assets/plugins/friendshipRanks/fighter.png"
         },
         {
             title: "Star",
-            description: "Your friendship has been going on for a WHILE (1 Year)",
+            description: t("استمرت صداقتكما لفترة طويلة (سنة كاملة)", "Your friendship has lasted a long time (a full year)"),
             requirement: 365,
             iconSrc: "https://equicord.org/assets/plugins/friendshipRanks/star.png"
         },
         {
             title: "Royal",
-            description: "Your friendship has gone through thick and thin- a whole 2 years!",
+            description: t("مرّت صداقتكما بالسرّاء والضرّاء - سنتان كاملتان!", "Your friendship has been through thick and thin - two full years!"),
             requirement: 730,
             iconSrc: "https://equicord.org/assets/plugins/friendshipRanks/royal.png"
         },
         {
             title: "Besties",
-            description: "How do you even manage this??? (5 Years)",
+            description: t("كيف تمكنتما من ذلك؟! (5 سنوات)", "How did you manage that?! (5 years)"),
             requirement: 1826.25,
             iconSrc: "https://equicord.org/assets/plugins/friendshipRanks/besties.png"
         }
@@ -142,7 +143,7 @@ function getBadgesToApply() {
 
 export default definePlugin({
     name: "FriendshipRanks",
-    description: "Adds badges showcasing how long you have been friends with a user for",
+    get description() { return t("يضيف شارات تُظهر مدة صداقتك مع المستخدم", "Adds badges that show how long you have been friends with a user"); },
     tags: ["Friends"],
     authors: [Devs.Samwich],
     start() {

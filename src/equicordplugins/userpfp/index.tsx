@@ -17,6 +17,7 @@ import { Notice } from "@components/Notice";
 import { Devs, EquicordDevs } from "@utils/constants";
 import { classNameFactory } from "@utils/css";
 import { openInviteModal } from "@utils/discord";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { User } from "@vencord/discord-types";
 import { extractAndLoadChunksLazy } from "@webpack";
@@ -35,11 +36,11 @@ export const data = { avatars: {} as Record<string, string> };
 const settings = definePluginSettings({
     overrideServerAvatars: {
         type: OptionType.BOOLEAN,
-        description: "Override server avatars with custom avatars or the default user avatar if no custom avatar is set.",
+        description: t("استبدال صور الملف الشخصي للسيرفر بالصور المخصصة أو الافتراضية إذا لم تُضبط صورة مخصصة", "Replace server profile pictures with custom or default ones if no custom picture is set"),
         default: true
     },
     preferNitro: {
-        description: "Which avatar to use if both default animated (Nitro) pfp and UserPFP avatars are present",
+        description: t("أي صورة شخصية تستخدم إذا كانت صورة نيترو المتحركة وصورة UserPFP موجودتين معاً", "Which avatar to use if both an animated Nitro avatar and a UserPFP are set"),
         type: OptionType.SELECT,
         options: [
             { label: "UserPFP", value: false },
@@ -47,7 +48,7 @@ const settings = definePluginSettings({
         ],
     },
     databaseSource: {
-        description: "URL to load database from",
+        description: t("رابط URL لتحميل قاعدة البيانات منه", "URL to load the database from"),
         type: OptionType.STRING,
         default: "https://userpfp.github.io/UserPFP/source/data.json",
         hidden: !IS_DEV,
@@ -63,7 +64,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "UserPFP",
-    description: "Allows you to use an animated avatar without Nitro",
+    get description() { return t("يتيح لك استخدام صورة شخصية متحركة بدون نيترو", "Lets you use an animated profile picture without Nitro"); },
     tags: ["Appearance", "Customisation", "Servers"],
     authors: [EquicordDevs.nexpid, Devs.thororen, EquicordDevs.soapphia, EquicordDevs.sketchmyname],
     settings,

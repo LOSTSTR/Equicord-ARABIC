@@ -6,6 +6,7 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { Message } from "@vencord/discord-types";
 import { RelationshipStore, SelectedChannelStore } from "@webpack/common";
@@ -20,18 +21,34 @@ interface IMessageCreate {
 const settings = definePluginSettings({
     regex: {
         type: OptionType.STRING,
-        description: "Regex to trigger on",
+        description: t("نمط Regex الذي يُشغّل الأداة عند تطابقه", "Regex pattern that triggers the plugin when matched"),
         default: "hop on (?:fortnite|fn)"
     },
     url: {
         type: OptionType.STRING,
-        description: "URL to open",
+        description: t("الرابط الذي يُفتح", "The URL that gets opened"),
         default: "com.epicgames.launcher://apps/fn%3A4fe75bbc5a674f4f9b356b5c90567da5%3AFortnite?action=launch&silent=true"
     }
 });
+let cachedRegexPattern = "";
+let compiledRegex: RegExp | null = null;
+
+function getRegex(): RegExp | null {
+    const pattern = settings.plain.regex;
+    if (pattern !== cachedRegexPattern) {
+        cachedRegexPattern = pattern;
+        try {
+            compiledRegex = new RegExp(pattern, "i");
+        } catch {
+            compiledRegex = null;
+        }
+    }
+    return compiledRegex;
+}
+
 export default definePlugin({
     name: "HopOn",
-    description: "Hop on! Opens a configurable URL when a message matches a custom regex in the current channel.",
+    get description() { return t("اقفز! يفتح رابطاً قابلاً للإعداد عند تطابق رسالة مع تعبير منتظم مخصص في القناة الحالية.", "Hop on! Opens a configurable URL when a message matches a custom regex in the current channel."); },
     tags: ["Fun"],
     authors: [Devs.ImLvna],
     settings,
@@ -41,9 +58,10 @@ export default definePlugin({
             if (message.state === "SENDING") return;
             if (RelationshipStore.isBlocked(message.author?.id)) return;
             if (channelId !== SelectedChannelStore.getChannelId()) return;
-            if (!message.content?.match(new RegExp(settings.store.regex, "i"))) return;
+            const regex = getRegex();
+            if (!regex || !message.content?.match(regex)) return;
 
-            VencordNative.native.openExternal(settings.store.url);
+            VencordNative.native.openExternal(settings.plain.url);
         }
     }
 });

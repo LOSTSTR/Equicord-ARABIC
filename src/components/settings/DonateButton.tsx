@@ -28,7 +28,7 @@ export function DonateButton({
     className,
     ...props
 }: Partial<ButtonProps> & { equicord?: boolean; }) {
-    const link = equicord ? "https://github.com/sponsors/thororen1234" : "https://github.com/sponsors/Vendicated";
+    const link = equicord ? "https://ko-fi.com/loststr" : "https://github.com/sponsors/Vendicated";
     return (
         <Button
             {...props}
@@ -56,7 +56,7 @@ export function InviteButton({
             type="button"
             onClick={async e => {
                 e.preventDefault();
-                openInviteModal("wKgT9j2xfN").catch(() =>
+                openInviteModal("QamdqDNEDa").catch(() =>
                     showToast("Invalid or expired invite"),
                 );
             }}

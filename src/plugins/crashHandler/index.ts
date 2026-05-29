@@ -20,6 +20,7 @@ import { DataStore } from "@api/index";
 import { showNotification } from "@api/Notifications";
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import { Logger } from "@utils/Logger";
 import definePlugin, { OptionType } from "@utils/types";
 import { maybePromptToUpdate } from "@utils/updater";
@@ -43,12 +44,12 @@ const { ModalStack, DraftManager } = proxyLazyWebpack(() => {
 const settings = definePluginSettings({
     attemptToPreventCrashes: {
         type: OptionType.BOOLEAN,
-        description: "Whether to attempt to prevent Discord crashes.",
+        description: t("محاولة منع انهيار Discord تلقائيًا.", "Attempt to prevent Discord from crashing automatically."),
         default: true
     },
     attemptToNavigateToHome: {
         type: OptionType.BOOLEAN,
-        description: "Whether to attempt to navigate to the home when preventing Discord crashes.",
+        description: t("محاولة الانتقال إلى الصفحة الرئيسية عند منع أعطال Discord.", "Attempt to navigate to the home page when preventing Discord crashes."),
         default: false
     }
 });
@@ -59,7 +60,7 @@ let shouldAttemptRecover = true;
 
 export default definePlugin({
     name: "CrashHandler",
-    description: "Utility plugin for handling and possibly recovering from crashes without a restart",
+    get description() { return t("يتعامل مع أعطال ديسكورد ويُتيح التعافي منها", "Handles Discord crashes and enables recovery"); },
     authors: [Devs.Nuckyz],
     tags: ["Utility", "Developers"],
     enabledByDefault: true,

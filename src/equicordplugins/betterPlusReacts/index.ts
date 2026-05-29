@@ -5,13 +5,14 @@
  */
 
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 import { MessageStore } from "@webpack/common";
 
 export default definePlugin({
     name: "BetterPlusReacts",
     authors: [Devs.Joona],
-    description: "The amount of plus before :emoji: is the message to add it to",
+    get description() { return t("عدد علامات + قبل :إيموجي: يحدد الرسالة التي ستُضاف إليها التفاعل", "The number of + signs before :emoji: determines which message the reaction will be added to"); },
     tags: ["Chat", "Emotes"],
     patches: [
         {

@@ -18,6 +18,7 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { Button } from "@components/Button";
+import { t } from "@utils/esharqI18n";
 import { OptionType } from "@utils/types";
 
 import { openTranslateModal } from "./TranslateModal";
@@ -25,31 +26,31 @@ import { openTranslateModal } from "./TranslateModal";
 export const settings = definePluginSettings({
     receivedInput: {
         type: OptionType.STRING,
-        description: "Language incoming messages are translated from",
+        description: t("اللغة التي تُترجم منها الرسائل الواردة", "The language to translate received messages from"),
         default: "auto",
         hidden: true
     },
     receivedOutput: {
         type: OptionType.STRING,
-        description: "Language incoming messages are translated to",
+        description: t("اللغة التي تُترجم إليها الرسائل الواردة", "The language to translate received messages to"),
         default: "en",
         hidden: true
     },
     sentInput: {
         type: OptionType.STRING,
-        description: "Language your messages are translated from",
+        description: t("اللغة التي تُترجم منها رسائلك", "The language to translate your messages from"),
         default: "auto",
         hidden: true
     },
     sentOutput: {
         type: OptionType.STRING,
-        description: "Language your messages are translated to",
+        description: t("اللغة التي تُترجم إليها رسائلك", "The language to translate your messages to"),
         default: "en",
         hidden: true
     },
     service: {
         type: OptionType.SELECT,
-        description: IS_WEB ? "Translation provider (not available on web)" : "Translation provider",
+        description: IS_WEB ? t("مزود الترجمة (غير متاح على الويب)", "Translation provider (not available on web)") : t("مزود الترجمة", "Translation provider"),
         hidden: IS_WEB,
         options: [
             { label: "Google Translate", value: "google", default: true },
@@ -61,22 +62,22 @@ export const settings = definePluginSettings({
     },
     deeplApiKey: {
         type: OptionType.STRING,
-        description: "Your DeepL API key (from deepl.com/your-account)",
+        description: t("مفتاح DeepL API الخاص بك (من deepl.com/your-account)", "Your DeepL API key (from deepl.com/your-account)"),
         default: ""
     },
     kagiSession: {
         type: OptionType.STRING,
-        description: "Your Kagi session token (from kagi.com/settings?p=user_details)",
+        description: t("رمز جلسة Kagi الخاص بك (من kagi.com/settings?p=user_details)", "Your Kagi session token (from kagi.com/settings?p=user_details)"),
         default: ""
     },
     autoTranslate: {
         type: OptionType.BOOLEAN,
-        description: "Automatically translate your messages before sending. You can also Shift+click or right-click the translate button to toggle this",
+        description: t("ترجمة رسائلك تلقائياً قبل الإرسال. يمكنك أيضاً الضغط مع Shift أو النقر بالزر الأيمن على زر الترجمة لتبديل هذا الخيار", "Automatically translate your messages before sending. You can also Shift-click or right-click the translate button to toggle this option"),
         default: false
     },
     showAutoTranslateTooltip: {
         type: OptionType.BOOLEAN,
-        description: "Show a tooltip on the chat bar button when a message is auto-translated",
+        description: t("إظهار تلميح على زر شريط الدردشة عند ترجمة رسالة تلقائياً", "Show a tooltip on the chat bar button when a message is auto-translated"),
         default: true
     },
     manageTranslateSettings: {

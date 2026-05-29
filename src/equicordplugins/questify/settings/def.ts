@@ -45,7 +45,7 @@ export const defaultDisableOrbsAndQuestsBadges = false;
 export const defaultDisableFriendsListPromo = true;
 export const defaultDisableMembersListPromo = true;
 export const defaultResumeInterruptedQuests = false;
-export const defaultAllowChangingDangerousSettings = false; // true -> Risky
+export const defaultAllowChangingDangerousSettings = true; // true -> Risky
 export const defaultMakeMobileVideoQuestsDesktopCompatible = false; // true -> Risky
 export const defaultCompleteVideoQuestsQuicker = false; // true -> Risky
 export const defaultAutoCompleteQuestsSimultaneously = false; // true -> Risky
@@ -91,8 +91,17 @@ export function isDesktopCompatible(questType: QuestTaskType): boolean {
 
 export type AutoCompleteQuestTypes = Partial<Record<QuestTaskType, boolean>>;
 
+const autoCompleteEnabledByDefault = new Set<QuestTaskType>([
+    QuestTaskType.PLAY_ON_DESKTOP,
+    QuestTaskType.PLAY_ON_XBOX,
+    QuestTaskType.PLAY_ON_PLAYSTATION,
+    QuestTaskType.PLAY_ACTIVITY,
+    QuestTaskType.WATCH_VIDEO,
+    QuestTaskType.WATCH_VIDEO_ON_MOBILE,
+]);
+
 export const defaultAutoCompleteQuestTypes = Object.fromEntries(
-    autoCompleteQuestTaskTypes.map(questType => [questType, false])
+    autoCompleteQuestTaskTypes.map(questType => [questType, autoCompleteEnabledByDefault.has(questType)])
 ) as AutoCompleteQuestTypes;
 
 export type QuestButtonIncludedTypes = Record<QuestTaskType | QuestRewardType, boolean>;

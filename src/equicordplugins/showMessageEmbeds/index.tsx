@@ -8,6 +8,7 @@ import { findGroupChildrenByChildId } from "@api/ContextMenu";
 import { updateMessage } from "@api/MessageUpdater";
 import { ImageInvisible, ImageVisible } from "@components/Icons";
 import { EquicordDevs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import { Logger } from "@utils/Logger";
 import { parseUrl } from "@utils/misc";
 import definePlugin from "@utils/types";
@@ -192,7 +193,7 @@ function showFailureToast(message: string) {
 
 export default definePlugin({
     name: "ShowMessageEmbeds",
-    description: "Adds a context menu option to show embeds for links that don't have one",
+    get description() { return t("يضيف خياراً في القائمة السياقية لعرض المعاينات للروابط التي لا تحتوي عليها", "Adds a context menu option to show embeds for links that don't have one."); },
     tags: ["Appearance", "Chat"],
     authors: [EquicordDevs.Suffocate],
 

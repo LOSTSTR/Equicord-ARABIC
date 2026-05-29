@@ -14,6 +14,7 @@ import { Notice } from "@components/Notice";
 import decor from "@plugins/decor";
 import { classNameFactory } from "@utils/css";
 import { Devs, EquicordDevs } from "@utils/index";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { Alerts } from "@webpack/common";
 
@@ -29,32 +30,32 @@ export const settings = definePluginSettings({
     },
     removeAvatarDecoration: {
         type: OptionType.BOOLEAN,
-        description: "Remove avatar decorations.",
+        description: t("إزالة زخارف الصورة الرمزية.", "Remove avatar decorations."),
         default: false,
         disabled: () => isPluginEnabled("Decor"),
         restartNeeded: true,
     },
     removeNameplate: {
         type: OptionType.BOOLEAN,
-        description: "Remove nameplates.",
+        description: t("إزالة لوحات الاسم.", "Remove nameplates."),
         default: true,
         restartNeeded: true,
     },
     removeProfileEffect: {
         type: OptionType.BOOLEAN,
-        description: "Remove profile animation effects on open.",
+        description: t("إزالة تأثيرات الحركة من الملف الشخصي عند فتحه.", "Remove profile animation effects when opened."),
         default: true,
         restartNeeded: true,
     },
     removeClanTag: {
         type: OptionType.BOOLEAN,
-        description: "Remove clan tags.",
+        description: t("إزالة شارات الفصيلة.", "Remove clan badges."),
         default: true,
         restartNeeded: true,
     },
     alwaysShowUsername: {
         type: OptionType.BOOLEAN,
-        description: "Always show username instead of status.",
+        description: t("عرض اسم المستخدم دائماً بدلاً من الحالة.", "Always show username instead of status."),
         default: true,
         restartNeeded: true
     },
@@ -72,13 +73,13 @@ export const settings = definePluginSettings({
     },
     removeShopAboveDms: {
         type: OptionType.BOOLEAN,
-        description: "Remove shops above DMs list.",
+        description: t("إزالة المتاجر فوق قائمة الرسائل المباشرة.", "Remove the shop above the DM list."),
         default: false,
         restartNeeded: true,
     },
     removeQuestsAboveDms: {
         type: OptionType.BOOLEAN,
-        description: "Remove quests above DMs list.",
+        description: t("إزالة المهام فوق قائمة الرسائل المباشرة.", "Remove quests above the DM list."),
         default: false,
         restartNeeded: true,
     },
@@ -88,37 +89,37 @@ export const settings = definePluginSettings({
     },
     removeServerBoostInfo: {
         type: OptionType.BOOLEAN,
-        description: "Remove server boost info above channel list.",
+        description: t("إزالة معلومات دعم السيرفر فوق قائمة القنوات.", "Remove server boost info above the channel list."),
         default: true,
         restartNeeded: true,
     },
     removeBillingSettings: {
         type: OptionType.BOOLEAN,
-        description: "Remove billing settings.",
+        description: t("إزالة إعدادات الفواتير.", "Remove billing settings."),
         default: true,
         restartNeeded: true,
     },
     removeGiftButton: {
         type: OptionType.BOOLEAN,
-        description: "Remove gift button.",
+        description: t("إزالة زر الهدية.", "Remove the gift button."),
         default: true,
         restartNeeded: true,
     },
     removeUnavailableEmojiPicker: {
         type: OptionType.BOOLEAN,
-        description: "Remove unavailable categories from the emoji picker.",
+        description: t("إزالة الفئات غير المتاحة من منتقي الإيموجي.", "Remove unavailable categories from the emoji picker."),
         default: true,
         restartNeeded: true,
     },
     removeAudioMenus: {
         type: OptionType.BOOLEAN,
-        description: "Remove menus next to mute and deafen buttons.",
+        description: t("إزالة القوائم المجاورة لأزرار كتم الصوت وإلغاء تشغيل الصوت.", "Remove the menus next to the mute and deafen buttons."),
         default: true,
         restartNeeded: true
     },
     removeButtonTooltips: {
         type: OptionType.BOOLEAN,
-        description: "Remove button tooltips.",
+        description: t("إزالة تلميحات الأزرار.", "Remove button tooltips."),
         default: false,
         restartNeeded: true
     },
@@ -137,7 +138,7 @@ function SectionSeparator(title: string) {
 
 export default definePlugin({
     name: "Declutter",
-    description: "Cleans up Discord by removing non-essential UI elements like profile effects, shop tabs, boosts, and more.",
+    get description() { return t("يُرتّب ديسكورد بإزالة عناصر واجهة المستخدم غير الأساسية كتأثيرات الملف الشخصي وتبويبات المتجر والدعم والمزيد.", "Tidies up Discord by removing non-essential UI elements like profile effects, shop tabs, boost info, and more."); },
     tags: ["Appearance", "Customisation"],
     authors: [EquicordDevs.Leon135, Devs.prism, Devs.Kyuuhachi],
     start() {

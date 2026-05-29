@@ -10,6 +10,7 @@ import { Flex } from "@components/Flex";
 import { FormSwitch } from "@components/FormSwitch";
 import { Heading } from "@components/Heading";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import { makeLazy } from "@utils/lazy";
 import definePlugin, { OptionType } from "@utils/types";
 import { RenderModalProps } from "@vencord/discord-types";
@@ -23,14 +24,14 @@ export const settings = definePluginSettings({
     patched: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Include patched modules",
+        description: t("تضمين الوحدات المُعدَّلة في الأرشيف", "Include patched modules in the archive"),
         restartNeeded: true,
     },
 });
 
 export default definePlugin({
     name: "WebpackTarball",
-    description: "Converts Discord's webpack sources into a tarball.",
+    get description() { return t("يحوّل مصادر webpack الخاصة بـ Discord إلى ملف tarball.", "Converts Discord's webpack sources into a tarball."); },
     tags: ["Developers", "Utility"],
     authors: [Devs.Kyuuhachi],
     settings,

@@ -5,50 +5,51 @@
  */
 
 import { definePluginSettings } from "@api/Settings";
+import { t } from "@utils/esharqI18n";
 import { OptionType } from "@utils/types";
 
 export const settings = definePluginSettings({
     showChatButton: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Whether you want to display the chat button",
+        description: t("عرض زر الدردشة في لوحة الصوت", "Show the chat button in the voice panel"),
         restartNeeded: true,
     },
     showMuteButton: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Whether you want to display the mute button",
+        description: t("هل تريد إظهار زر كتم الصوت", "Whether to show the mute button"),
         restartNeeded: true,
     },
     showDeafenButton: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Whether you want to display the deafen button",
+        description: t("هل تريد إظهار زر إخراس الصوت", "Whether to show the deafen button"),
         restartNeeded: true,
     },
     muteSoundboard: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Toggles their soundboard upon clicking deafen button.",
+        description: t("تبديل لوحة الأصوات عند النقر على زر الإخراس.", "Toggle soundboard when clicking the deafen button."),
     },
     disableVideo: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: "Toggles their video upon clicking deafen button.",
+        description: t("تعطيل الفيديو عند النقر على زر الإخراس.", "Disable video when clicking the deafen button."),
     },
     useServer: {
         type: OptionType.BOOLEAN,
-        description: "Use server mute/deafen instead of local when you have permission.",
+        description: t("استخدام كتم/إخراس السيرفر بدلاً من المحلي عند توفر الصلاحية.", "Use server mute/deafen instead of local when you have the permission."),
         default: false,
     },
     serverSelf: {
         type: OptionType.BOOLEAN,
-        description: "Deafen / Mute yourself on the server when using mute/deafen.",
+        description: t("إخراس/كتم نفسك في السيرفر عند استخدام أزرار الكتم/الإخراس.", "Server deafen/mute yourself when using the mute/deafen buttons."),
         default: false,
     },
     showButtonsSelf: {
         type: OptionType.SELECT,
-        description: "Whether you want to display buttons for your own user. Same functionality as other button(s) except it'll open DMs panel and mute/deafen for yourself upon clicking button(s).",
+        description: t("هل تريد إظهار الأزرار لمستخدمك الخاص. نفس وظيفة الأزرار الأخرى لكنها ستفتح لوحة الرسائل المباشرة وتكتم/تخرس نفسك.", "Whether to show buttons for your own user. Same functionality as other buttons but will open the DM panel and mute/deafen yourself."),
         restartNeeded: true,
         options: [
             { label: "Display", value: "display", default: true },
@@ -58,7 +59,7 @@ export const settings = definePluginSettings({
     },
     whichNameToShow: {
         type: OptionType.SELECT,
-        description: "Choose whether to show nickname or username in tooltip.",
+        description: t("اختر إظهار الاسم المستعار أو اسم المستخدم في التلميح.", "Choose to show the nickname or username in the tooltip."),
         options: [
             { label: "Both", value: "both", default: true },
             { label: "Global Name", value: "global" },
@@ -67,7 +68,7 @@ export const settings = definePluginSettings({
     },
     buttonPosition: {
         type: OptionType.SELECT,
-        description: "Choose where to place voice buttons in the voice user row.",
+        description: t("اختر مكان وضع أزرار الصوت في صف مستخدم الصوت.", "Choose where to place voice buttons in the voice user row."),
         options: [
             { label: "Left", value: "left", default: true },
             { label: "Right", value: "right" },

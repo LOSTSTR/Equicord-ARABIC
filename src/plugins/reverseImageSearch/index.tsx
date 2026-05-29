@@ -20,6 +20,7 @@ import { findGroupChildrenByChildId, NavContextMenuPatchCallback } from "@api/Co
 import { Flex } from "@components/Flex";
 import { OpenExternalIcon } from "@components/Icons";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 import { Menu } from "@webpack/common";
 
@@ -101,7 +102,7 @@ const imageContextMenuPatch: NavContextMenuPatchCallback = (children, props) => 
 
 export default definePlugin({
     name: "ReverseImageSearch",
-    description: "Adds ImageSearch to image context menus",
+    get description() { return t("يضيف خيار البحث العكسي عن الصور في قائمة السياق", "Adds a reverse image search option to the context menu"); },
     tags: ["Media", "Utility"],
     authors: [Devs.Ven, Devs.Nuckyz],
     searchTerms: ["ImageUtilities"],

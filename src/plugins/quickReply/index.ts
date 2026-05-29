@@ -21,6 +21,7 @@ import { definePluginSettings } from "@api/Settings";
 import NoBlockedMessagesPlugin from "@plugins/noBlockedMessages";
 import NoReplyMentionPlugin from "@plugins/noReplyMention";
 import { Devs, IS_MAC } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { Message } from "@vencord/discord-types";
 import { MessageFlags } from "@vencord/discord-types/enums";
@@ -38,7 +39,7 @@ const enum MentionOptions {
 const settings = definePluginSettings({
     shouldMention: {
         type: OptionType.SELECT,
-        description: "Ping reply by default",
+        description: t("الإشارة (@) في الرد بشكل افتراضي", "Whether to mention (@) by default when replying"),
         options: [
             {
                 label: "Follow NoReplyMention plugin (if enabled)",
@@ -51,7 +52,7 @@ const settings = definePluginSettings({
     },
     ignoreBlockedAndIgnored: {
         type: OptionType.BOOLEAN,
-        description: "Ignore messages by blocked/ignored users when navigating",
+        description: t("تجاهل رسائل المستخدمين المحجوبين/المتجاهلين عند التنقل", "Ignore blocked/ignored users' messages when navigating"),
         default: true
     }
 });
@@ -59,7 +60,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "QuickReply",
     authors: [Devs.fawn, Devs.Ven, Devs.pylix],
-    description: "Reply to (ctrl + up/down) and edit (ctrl + shift + up/down) messages via keybinds",
+    get description() { return t("يُتيح الرد السريع بالضغط على R دون فتح قائمة", "Enables quick reply by pressing R without opening a menu"); },
     tags: ["Chat", "Shortcuts"],
     settings,
 

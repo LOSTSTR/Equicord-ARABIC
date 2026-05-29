@@ -5,11 +5,12 @@
  */
 
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "BypassPinPrompt",
-    description: "Bypass the pin prompt when using the pin functions",
+    get description() { return t("يتجاوز تأكيد التثبيت وفك التثبيت عند استخدام وظائف التثبيت", "Bypasses the pin and unpin confirmation when using pin functions"); },
     tags: ["Shortcuts"],
     authors: [Devs.thororen],
     patches: [

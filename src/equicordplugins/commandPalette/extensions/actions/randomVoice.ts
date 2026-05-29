@@ -7,6 +7,7 @@
 import { isPluginEnabled, plugins } from "@api/PluginManager";
 import { openPluginModal } from "@components/settings/tabs";
 import { toggleEnabled } from "@equicordplugins/equicordHelper/utils";
+import { t } from "@utils/esharqI18n";
 import { ChannelActions, ChannelRouter, ChannelStore, MediaEngineStore, PermissionsBits, PermissionStore, SelectedChannelStore, Toasts, UserStore, VoiceActions, VoiceStateStore } from "@webpack/common";
 
 import { DEFAULT_CATEGORY_ID } from "../../metadata/categories";
@@ -187,7 +188,7 @@ export function createRandomVoiceExtensionCommand(extensionKeybinds: Map<string,
     return {
         id: "extension-random-voice-join",
         label: "Join Random Voice",
-        description: "Joins a random voice channel using RandomVoice filters.",
+        description: t("ينضم إلى قناة صوتية عشوائية باستخدام فلاتر RandomVoice.", "Joins a random voice channel using RandomVoice filters."),
         keywords: ["randomvoice", "random voice", "join", "voice", "channel", "plugin", "extension", "auto navigate", "settings"],
         categoryId: DEFAULT_CATEGORY_ID,
         tags: [TAG_PLUGINS, TAG_UTILITY],

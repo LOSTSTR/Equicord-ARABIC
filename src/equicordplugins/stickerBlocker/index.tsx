@@ -9,6 +9,7 @@ import { DataStore } from "@api/index";
 import { definePluginSettings } from "@api/Settings";
 import ErrorBoundary from "@components/ErrorBoundary";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import { classes } from "@utils/misc";
 import definePlugin, { OptionType } from "@utils/types";
 import { findCssClassesLazy } from "@webpack";
@@ -21,25 +22,25 @@ const MessageContentClasses = findCssClassesLazy("messageContent", "messageConte
 const settings = definePluginSettings({
     showGif: {
         type: OptionType.BOOLEAN,
-        description: "Whether to show a snazzy cat gif",
+        description: t("يعرض صورة GIF قطة ظريفة", "Shows a cute cat GIF"),
         default: true,
         restartNeeded: true
     },
     showMessage: {
         type: OptionType.BOOLEAN,
-        description: "Whether to show a message detailing which id was blocked",
+        description: t("ما إذا كان يجب عرض رسالة تفصّل معرّف الملصق المحظور", "Whether to show a message detailing the blocked sticker's ID"),
         default: false,
         restartNeeded: true
     },
     showButton: {
         type: OptionType.BOOLEAN,
-        description: "Whether to show a button to unblock the gif",
+        description: t("ما إذا كان يجب عرض زر لإلغاء حظر الملصق", "Whether to show a button to unblock the sticker"),
         default: true,
         restartNeeded: true
     },
     blockedStickers: {
         type: OptionType.STRING,
-        description: "The list of blocked sticker IDs (don't edit unless you know what you're doing)",
+        description: t("قائمة معرّفات الملصقات المحظورة (لا تعدّلها إلا إذا كنت تعرف ما تفعله)", "List of blocked sticker IDs (don't edit unless you know what you're doing)"),
         default: ""
     }
 });
@@ -129,7 +130,7 @@ function isStickerBlocked(name) {
 
 export default definePlugin({
     name: "StickerBlocker",
-    description: "Allows you to block stickers from being displayed.",
+    get description() { return t("يتيح لك حظر الملصقات من العرض.", "Allows you to block stickers from being displayed."); },
     tags: ["Chat", "Emotes", "Utility"],
     authors: [Devs.Samwich],
     patches: [

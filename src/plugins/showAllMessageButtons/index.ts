@@ -6,25 +6,26 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { MessageActions, PinActions } from "@webpack/common";
 
 const settings = definePluginSettings({
     noShiftDelete: {
         type: OptionType.BOOLEAN,
-        description: "Remove requirement to hold shift for deleting a message.",
+        description: t("إزالة اشتراط الضغط على Shift لحذف رسالة.", "Remove the requirement to hold Shift to delete a message."),
         default: true,
     },
     noShiftPin: {
         type: OptionType.BOOLEAN,
-        description: "Remove requirement to hold shift for pinning a message.",
+        description: t("إزالة اشتراط الضغط على Shift لتثبيت رسالة.", "Remove the requirement to hold Shift to pin a message."),
         default: true,
     },
 });
 
 export default definePlugin({
     name: "ShowAllMessageButtons",
-    description: "Always show all message buttons no matter if you are holding the shift key or not.",
+    get description() { return t("يعرض جميع أزرار الرسالة دائماً بدون تحويم", "Always shows all message buttons without hovering"); },
     tags: ["Chat", "Utility"],
     authors: [Devs.Nuckyz],
     settings,

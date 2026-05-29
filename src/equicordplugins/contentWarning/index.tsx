@@ -13,6 +13,7 @@ import { HeadingTertiary } from "@components/Heading";
 import { DeleteIcon } from "@components/Icons";
 import { EquicordDevs } from "@utils/constants";
 import { classNameFactory } from "@utils/css";
+import { t } from "@utils/esharqI18n";
 import { useForceUpdater } from "@utils/react";
 import definePlugin, { OptionType } from "@utils/types";
 import { Button, TextInput, useState } from "@webpack/common";
@@ -143,7 +144,7 @@ const settings = definePluginSettings({
     },
     onClick: {
         type: OptionType.BOOLEAN,
-        description: "Only show trigger content on click instead of hover",
+        description: t("إظهار المحتوى المطموس عند النقر بدلاً من التمرير", "Show blurred content on click instead of hover"),
         default: false,
     }
 });
@@ -151,7 +152,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "ContentWarning",
     authors: [EquicordDevs.camila314],
-    description: "Allows you to specify certain trigger words that will be blurred by default. Hovering/Clicking on the blurred content will reveal it.",
+    get description() { return t("يتيح لك تحديد كلمات تُطمَس تلقائياً. التمرير فوق المحتوى المطموس أو النقر عليه يكشفه.", "Lets you specify words that get automatically blurred. Hovering over blurred content or clicking it reveals it."); },
     tags: ["Appearance", "Utility"],
     settings,
     patches: [

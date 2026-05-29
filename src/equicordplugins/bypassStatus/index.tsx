@@ -9,6 +9,7 @@ import { type NavContextMenuPatchCallback } from "@api/ContextMenu";
 import { Notifications } from "@api/index";
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import { getCurrentChannel } from "@utils/discord";
 import { Logger } from "@utils/Logger";
 import definePlugin, { OptionType } from "@utils/types";
@@ -38,22 +39,41 @@ function processIds(value: string): string {
     return value.replace(/\s/g, "").split(",").filter(id => id.trim() !== "").join(", ");
 }
 
+let cachedGuilds = ""; let guildsSet = new Set<string>();
+let cachedChannels = ""; let channelsSet = new Set<string>();
+let cachedUsers = ""; let usersSet = new Set<string>();
+
+function parseIdSet(raw: string, cached: string, set: Set<string>): Set<string> {
+    if (raw === cached) return set;
+    return new Set(raw.split(", ").filter(Boolean));
+}
+
+function getBypassSets() {
+    const { guilds, channels, users } = settings.plain;
+    if (guilds !== cachedGuilds) { cachedGuilds = guilds; guildsSet = parseIdSet(guilds, "", guildsSet); }
+    if (channels !== cachedChannels) { cachedChannels = channels; channelsSet = parseIdSet(channels, "", channelsSet); }
+    if (users !== cachedUsers) { cachedUsers = users; usersSet = parseIdSet(users, "", usersSet); }
+    return { guildsSet, channelsSet, usersSet };
+}
+
 async function showNotification(message: Message, guildId: string | undefined): Promise<void> {
     try {
         const channel = ChannelStore.getChannel(message.channel_id);
         const channelRegex = /<#(\d{19})>/g;
         const userRegex = /<@(\d{18})>/g;
 
-        message.content = message.content.replace(channelRegex, (match: any, channelId: string) => {
+        message.content = message.content.replace(channelRegex, (match: string, channelId: string) => {
             return `#${ChannelStore.getChannel(channelId)?.name}`;
         });
 
-        message.content = message.content.replace(userRegex, (match: any, userId: string) => {
-            return `@${(UserStore.getUser(userId) as any).globalName}`;
+        message.content = message.content.replace(userRegex, (match: string, userId: string) => {
+            const user = UserStore.getUser(userId);
+            return `@${user?.globalName ?? user?.username ?? userId}`;
         });
 
+        const authorName = message.author.globalName ?? message.author.username;
         await Notifications.showNotification({
-            title: `${(message.author as any).globalName} ${guildId ? `(#${channel?.name}, ${ChannelStore.getChannel(channel?.parent_id)?.name})` : ""}`,
+            title: `${authorName} ${guildId ? `(#${channel?.name}, ${ChannelStore.getChannel(channel?.parent_id)?.name})` : ""}`,
             body: message.content,
             icon: UserStore.getUser(message.author.id).getAvatarURL(undefined, undefined, false),
             onClick: function (): void {
@@ -96,58 +116,58 @@ function ContextCallback(name: "guild" | "user" | "channel"): NavContextMenuPatc
 const settings = definePluginSettings({
     guilds: {
         type: OptionType.STRING,
-        description: "Guilds to let bypass (notified when pinged anywhere in guild)",
+        description: t("السيرفرات المسموح لها بالتجاوز (تُشعَر عند الإشارة إليك في أي مكان بالسيرفر)", "Servers allowed to bypass (notified when mentioned anywhere in the server)"),
         default: "",
         placeholder: "Separate with commas",
         onChange: value => settings.store.guilds = processIds(value)
     },
     channels: {
         type: OptionType.STRING,
-        description: "Channels to let bypass (notified when pinged in that channel)",
+        description: t("القنوات المسموح لها بالتجاوز (تُشعَر عند الإشارة إليك في تلك القناة)", "Channels allowed to bypass (notified when mentioned in that channel)"),
         default: "",
         placeholder: "Separate with commas",
         onChange: value => settings.store.channels = processIds(value)
     },
     users: {
         type: OptionType.STRING,
-        description: "Users to let bypass (notified for all messages sent in DMs)",
+        description: t("المستخدمون المسموح لهم بالتجاوز (تُشعَر بجميع رسائلهم المباشرة)", "Users allowed to bypass (notified of all their direct messages)"),
         default: "",
         placeholder: "Separate with commas",
         onChange: value => settings.store.users = processIds(value)
     },
     allowOutsideOfDms: {
         type: OptionType.BOOLEAN,
-        description: "Allow selected users to bypass status outside of DMs too (acts like a channel/guild bypass, but it's for all messages sent by the selected users)"
+        description: t("السماح للمستخدمين المختارين بالتجاوز خارج الرسائل المباشرة أيضاً (يعمل كتجاوز للقناة/السيرفر لجميع رسائل المستخدمين المختارين)", "Allow selected users to bypass outside of DMs too (acts as a channel/server bypass for all messages from selected users)")
     },
     notificationSound: {
         type: OptionType.BOOLEAN,
-        description: "Whether the notification sound should be played",
+        description: t("ما إذا كان صوت الإشعار سيُشغَّل", "Whether the notification sound will play"),
         default: true,
     },
     respectSilentPings: {
         type: OptionType.BOOLEAN,
-        description: "Respect silent pings (@silent / suppress notifications)",
+        description: t("احترام الإشارات الصامتة (@silent / كتم الإشعارات)", "Respect silent pings (@silent / suppressed notifications)"),
         default: true
     },
     statusToUse: {
         type: OptionType.SELECT,
-        description: "Status to use for whitelist",
+        description: t("الحالة المستخدمة لتفعيل القائمة البيضاء", "The status used to activate the whitelist"),
         options: [
             {
-                label: "Online",
+                label: t("متصل", "Online"),
                 value: "online",
             },
             {
-                label: "Idle",
+                label: t("بعيد", "Idle"),
                 value: "idle",
             },
             {
-                label: "Do Not Disturb",
+                label: t("لا تزعجني", "Do Not Disturb"),
                 value: "dnd",
                 default: true
             },
             {
-                label: "Invisible",
+                label: t("غير مرئي", "Invisible"),
                 value: "invisible",
             }
         ]
@@ -156,7 +176,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "BypassStatus",
-    description: "Still get notifications from specific sources when in do not disturb mode. Right-click on users/channels/guilds to set them to bypass do not disturb mode.",
+    get description() { return t("استمر في تلقي إشعارات من مصادر محددة حتى في وضع عدم الإزعاج. انقر بزر الماوس الأيمن على المستخدمين/القنوات/السيرفرات لإعدادها لتجاوز وضع عدم الإزعاج.", "Continue receiving notifications from specific sources even in Do Not Disturb. Right-click users/channels/servers to configure them to bypass DND."); },
     tags: ["Activity", "Customisation", "Notifications", "Servers"],
     authors: [Devs.Inbestigator],
     dependencies: ["AudioPlayerAPI"],
@@ -171,9 +191,10 @@ export default definePlugin({
                 }
                 if (settings.store.respectSilentPings && (message.flags & SILENT_PING_FLAG)) { return; }
                 const mentioned = MessageStore.getMessage(channelId, message.id)?.mentioned;
-                if ((settings.store.guilds.split(", ").includes(guildId) || settings.store.channels.split(", ").includes(channelId)) && mentioned) {
+                const { guildsSet: gs, channelsSet: cs, usersSet: us } = getBypassSets();
+                if ((gs.has(guildId) || cs.has(channelId)) && mentioned) {
                     await showNotification(message, guildId);
-                } else if (settings.store.users.split(", ").includes(message.author.id)) {
+                } else if (us.has(message.author.id)) {
                     const userChannelId = await ChannelActionCreators.getOrEnsurePrivateChannel(message.author.id);
                     if (channelId === userChannelId || (mentioned && settings.store.allowOutsideOfDms === true)) {
                         await showNotification(message, guildId);

@@ -6,6 +6,7 @@
 
 import { disableStyle, enableStyle } from "@api/Styles";
 import { EquicordDevs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 import { ChannelRTCStore, ChannelStore, UserStore, VoiceStateStore } from "@webpack/common";
 
@@ -13,7 +14,7 @@ import style from "./style.css?managed";
 
 export default definePlugin({
     name: "FullVCPFP",
-    description: "Makes avatars take up the entire vc tile",
+    get description() { return t("يجعل الصورة الشخصية تملأ بلاطة المستخدم كاملةً في القناة الصوتية", "Makes the profile picture fill the entire user tile in voice channels"); },
     tags: ["Appearance", "Voice"],
     authors: [EquicordDevs.mochienya],
     patches: [

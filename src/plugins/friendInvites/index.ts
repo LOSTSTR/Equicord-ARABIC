@@ -18,6 +18,7 @@
 
 import { ApplicationCommandInputType, sendBotMessage } from "@api/Commands";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 import { findByPropsLazy } from "@webpack";
 
@@ -25,14 +26,14 @@ const FriendInvites = findByPropsLazy("createFriendInvite");
 
 export default definePlugin({
     name: "FriendInvites",
-    description: "Create and manage friend invite links via slash commands (/create friend invite, /view friend invites, /revoke friend invites).",
+    get description() { return t("إنشاء وإدارة روابط دعوة الأصدقاء عبر أوامر الشرطة المائلة.", "Create and manage friend invite links via slash commands."); },
     dependencies: ["CommandsAPI"],
     tags: ["Friends", "Commands"],
     authors: [Devs.afn, Devs.Dziurwa],
     commands: [
         {
             name: "create friend invite",
-            description: "Generates a friend invite link.",
+            description: t("ينشئ رابط دعوة صداقة.", "Creates a friend invite link."),
             inputType: ApplicationCommandInputType.BUILT_IN,
 
             execute: async (args, ctx) => {
@@ -49,7 +50,7 @@ export default definePlugin({
         },
         {
             name: "view friend invites",
-            description: "View a list of all generated friend invites.",
+            description: t("عرض قائمة بجميع دعوات الصداقة المنشأة.", "View a list of all created friend invites."),
             inputType: ApplicationCommandInputType.BUILT_IN,
             execute: async (_, ctx) => {
                 const invites = await FriendInvites.getAllFriendInvites();
@@ -68,7 +69,7 @@ export default definePlugin({
         },
         {
             name: "revoke friend invites",
-            description: "Revokes all generated friend invites.",
+            description: t("إلغاء جميع دعوات الصداقة المنشأة.", "Revoke all created friend invites."),
             inputType: ApplicationCommandInputType.BUILT_IN,
             execute: async (_, ctx) => {
                 await FriendInvites.revokeFriendInvites();

@@ -24,8 +24,14 @@ function isShavian(text: string) {
     return shavianRegex.test(text);
 }
 
+let shavianDictionary: Record<string, string> | null = null;
+let sitelenDictionary: Record<string, string> | null = null;
+
 async function translateShavian(message: string) {
-    const dictionary = await (await fetch("https://raw.githubusercontent.com/ForkPrince/TranslatePlus/322199d5fdb1a9506591c9f4a2826338b5d67e38/shavian.json")).json();
+    if (!shavianDictionary) {
+        shavianDictionary = await (await fetch("https://raw.githubusercontent.com/ForkPrince/TranslatePlus/322199d5fdb1a9506591c9f4a2826338b5d67e38/shavian.json")).json();
+    }
+    const dictionary = shavianDictionary!;
 
     const punctuationMap = {
         '"': "\"",
@@ -72,7 +78,10 @@ async function translateShavian(message: string) {
 async function translateSitelen(message: string) {
     message = Array.from(message).join(" ");
 
-    const dictionary = await (await fetch("https://raw.githubusercontent.com/ForkPrince/TranslatePlus/5ca152b134ea11433971f21b2ef8d556d4306717/sitelen-pona.json")).json();
+    if (!sitelenDictionary) {
+        sitelenDictionary = await (await fetch("https://raw.githubusercontent.com/ForkPrince/TranslatePlus/5ca152b134ea11433971f21b2ef8d556d4306717/sitelen-pona.json")).json();
+    }
+    const dictionary = sitelenDictionary!;
 
     const sorted = Object.keys(dictionary).sort((a, b) => b.length - a.length);
 
@@ -108,8 +117,6 @@ export async function translate(text: string): Promise<any> {
     if ((isTokiPona(text) || isSitelen(text)) && (toki || sitelen)) {
         if (isSitelen(text) && sitelen) text = await translateSitelen(text);
 
-        console.log(text);
-
         const translate = await (await fetch("https://aiapi.serversmp.xyz/toki", {
             method: "POST",
             headers: {
@@ -122,8 +129,6 @@ export async function translate(text: string): Promise<any> {
                 target: "en"
             })
         })).json();
-
-        console.log(translate);
 
         output.src = "tp";
         output.text = target === "en" ? translate.translation[0] : (await google(target, translate.translation[0])).text;

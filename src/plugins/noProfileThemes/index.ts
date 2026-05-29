@@ -17,12 +17,13 @@
 */
 
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 import { UserStore } from "@webpack/common";
 
 export default definePlugin({
     name: "NoProfileThemes",
-    description: "Completely removes Nitro profile themes from everyone but yourself",
+    get description() { return t("يزيل ثيمات نيترو من ملفات الآخرين الشخصية مع الاحتفاظ بها لنفسك", "Removes Nitro profile themes from other users' profiles while keeping your own"); },
     tags: ["Appearance"],
     authors: [Devs.TheKodeToad],
     patches: [

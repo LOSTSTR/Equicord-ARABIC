@@ -12,6 +12,8 @@ import { definePluginSettings } from "@api/Settings";
 import { Heading } from "@components/Heading";
 import { Devs } from "@utils/constants";
 import { classNameFactory } from "@utils/css";
+import { Logger } from "@utils/Logger";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType, StartAt } from "@utils/types";
 import { Button, React, showToast, TextInput } from "@webpack/common";
 
@@ -20,12 +22,21 @@ import { SoundOverrideComponent } from "./SoundOverrideComponent";
 import { makeEmptyOverride, seasonalSounds, SoundOverride, soundTypes } from "./types";
 
 const cl = classNameFactory("vc-custom-sounds-");
+const logger = new Logger("CustomSounds");
 
 const allSoundTypes = soundTypes || [];
 
 const AUDIO_STORE_KEY = "ScattrdCustomSounds";
 
+const DATA_URI_CACHE_MAX = 20;
 const dataUriCache = new Map<string, string>();
+
+function evictDataUriCache() {
+    if (dataUriCache.size > DATA_URI_CACHE_MAX) {
+        const oldest = dataUriCache.keys().next().value;
+        if (oldest !== undefined) dataUriCache.delete(oldest);
+    }
+}
 
 function getOverride(id: string): SoundOverride {
     const stored = settings.store[id];
@@ -103,11 +114,11 @@ export async function ensureDataURICached(fileId: string): Promise<string | null
         const dataUri = await getAudioDataURI(fileId);
         if (dataUri) {
             dataUriCache.set(fileId, dataUri);
-            console.log(`[CustomSounds] Cached data URI for file ${fileId}`);
+            evictDataUriCache();
             return dataUri;
         }
     } catch (error) {
-        console.error(`[CustomSounds] Error generating data URI for ${fileId}:`, error);
+        logger.error(`Error generating data URI for ${fileId}:`, error);
     }
 
     return null;
@@ -116,36 +127,26 @@ export async function ensureDataURICached(fileId: string): Promise<string | null
 export async function refreshDataURI(id: string): Promise<void> {
     const override = getOverride(id);
     if (!override?.selectedFileId) {
-        console.log(`[CustomSounds] refreshDataURI called for ${id} but no selectedFileId`);
         return;
     }
 
-    console.log(`[CustomSounds] Refreshing data URI for ${id} with file ID ${override.selectedFileId}`);
-
     const dataUri = await ensureDataURICached(override.selectedFileId);
-    if (dataUri) {
-        console.log(`[CustomSounds] Successfully cached data URI for ${id} (length: ${dataUri.length})`);
-    } else {
-        console.error(`[CustomSounds] Failed to cache data URI for ${id}`);
+    if (!dataUri) {
+        logger.error(`Failed to cache data URI for ${id}`);
     }
 }
 
 async function preloadDataURIs() {
-    console.log("[CustomSounds] Preloading data URIs into memory cache...");
-
     for (const soundType of allSoundTypes) {
         const override = getOverride(soundType.id);
         if (override?.enabled && override.selectedSound === "custom" && override.selectedFileId) {
             try {
                 await ensureDataURICached(override.selectedFileId);
-                console.log(`[CustomSounds] Preloaded data URI for ${soundType.id}`);
             } catch (error) {
-                console.error(`[CustomSounds] Failed to preload data URI for ${soundType.id}:`, error);
+                logger.error(`Failed to preload data URI for ${soundType.id}:`, error);
             }
         }
     }
-
-    console.log(`[CustomSounds] Memory cache contains ${dataUriCache.size} data URIs`);
 }
 
 export async function debugCustomSounds() {
@@ -392,7 +393,7 @@ export function findOverride(id: string): SoundOverride | null {
 
 export default definePlugin({
     name: "CustomSounds",
-    description: "Customize Discord's sounds.",
+    get description() { return t("تخصيص أصوات ديسكورد", "Customize Discord sounds"); },
     dependencies: ["AudioPlayerAPI"],
     tags: ["Customisation", "Notifications", "Voice"],
     authors: [Devs.ScattrdBlade, Devs.TheKodeToad],

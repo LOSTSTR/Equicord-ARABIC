@@ -8,6 +8,7 @@ import "./ui/styles.css";
 
 import ErrorBoundary from "@components/ErrorBoundary";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 import { UserStore } from "@webpack/common";
 
@@ -26,7 +27,7 @@ export interface AvatarDecoration {
 
 export default definePlugin({
     name: "Decor",
-    description: "Create and use your own custom avatar decorations, or pick your favorite from the presets.",
+    get description() { return t("أنشئ واستخدم زخارف أفاتار مخصصة خاصة بك، أو اختر من بين القوالب الجاهزة.", "Create and use your own custom avatar decorations, or choose from ready-made templates."); },
     tags: ["Appearance", "Customisation"],
     authors: [Devs.FieryFlames],
     patches: [

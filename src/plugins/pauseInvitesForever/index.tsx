@@ -19,6 +19,7 @@
 import ErrorBoundary from "@components/ErrorBoundary";
 import { Devs } from "@utils/constants";
 import { getIntlMessage, hasGuildFeature } from "@utils/discord";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 import { Constants, GuildStore, PermissionStore, RestAPI } from "@webpack/common";
 
@@ -44,7 +45,7 @@ function disableInvites(guildId: string) {
 export default definePlugin({
     name: "PauseInvitesForever",
     searchTerms: ["DisableInvitesForever"],
-    description: "Brings back the option to pause invites indefinitely that stupit Discord removed.",
+    get description() { return t("يعيد خيار إيقاف الدعوات إلى الأبد الذي أزاله Discord.", "Restores the option to pause invites forever that Discord removed."); },
     tags: ["Servers"],
     authors: [Devs.Dolfies, Devs.amia],
 

@@ -32,6 +32,7 @@ export class Data {
     declare usersCollection: Record<string, GroupData>;
     declare _storageAutoSaveProtocol_interval;
     declare _onMessagePreSend_preSend;
+    private _dirty = false;
 
     withStart() {
         return this;
@@ -85,6 +86,7 @@ export class Data {
             if (user.bot) {
                 continue;
             }
+            this._dirty = true;
 
             const groupKey = source?.id ?? "dm";
             const group = (target[groupKey] ||= {
@@ -111,6 +113,8 @@ export class Data {
     }
 
     async updateStorage() {
+        if (!this._dirty) return;
+        this._dirty = false;
         await DataStore.set("irememberyou.data", this.usersCollection);
     }
 

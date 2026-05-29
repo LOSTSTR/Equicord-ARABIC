@@ -7,6 +7,7 @@
 import { DataStore } from "@api/index";
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import { useForceUpdater } from "@utils/react";
 import definePlugin, { OptionType } from "@utils/types";
 import { Activity } from "@vencord/discord-types";
@@ -72,7 +73,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "RPCEditor",
-    description: "Edit the type and content of any Rich Presence",
+    get description() { return t("تعديل نوع ومحتوى أي Rich Presence", "Modify the type and content of any Rich Presence"); },
     tags: ["Customisation"],
     authors: [Devs.Nyako, Devs.nin0dev],
     patches: [

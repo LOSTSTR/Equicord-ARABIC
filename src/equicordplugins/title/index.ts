@@ -6,6 +6,7 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { findByCodeLazy } from "@webpack";
 
@@ -16,7 +17,7 @@ export const settings = definePluginSettings({
     title: {
         type: OptionType.STRING,
         default: "Equicord",
-        description: "Window title prefix",
+        description: t("بادئة عنوان النافذة", "Window title prefix"),
         onChange: setTitle,
     },
 });
@@ -28,7 +29,7 @@ function setTitle(v: string) {
 
 export default definePlugin({
     name: "Title",
-    description: "Replaces the window title prefix",
+    get description() { return t("يستبدل بادئة عنوان النافذة", "Replaces the window title prefix"); },
     tags: ["Customisation"],
     authors: [Devs.Kyuuhachi],
     settings,

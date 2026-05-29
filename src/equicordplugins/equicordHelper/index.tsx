@@ -14,6 +14,8 @@ import { definePluginSettings, migratePluginToSettings, Settings } from "@api/Se
 import { ShieldIcon, WarningIcon } from "@components/Icons";
 import customRPC from "@plugins/customRPC";
 import { Devs, EquicordDevs, GUILD_ID, SUPPORT_CHANNEL_ID, SUPPORT_CHANNEL_IDS, VC_SUPPORT_CHANNEL_IDS } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
+import { Logger } from "@utils/Logger";
 import { isAnyPluginDev } from "@utils/misc";
 import definePlugin, { OptionType } from "@utils/types";
 import { StandingState } from "@vencord/discord-types/enums";
@@ -31,6 +33,8 @@ migratePluginToSettings(true, "EquicordHelper", "GuildTagSettings", "disableAdop
 let clicked = false;
 
 const SafetyHubStore = findStoreLazy("SafetyHubStore");
+const logger = new Logger("EquicordHelper");
+
 const fetchSafetyHub: () => Promise<void> = findByCodeLazy("SAFETY_HUB_FETCH_START");
 
 const StandingConfig: Record<number, { label: string; hoverColor: string; Icon: ComponentType<any>; }> = {
@@ -69,66 +73,66 @@ const listener = async (channelId, msg) => {
 const settings = definePluginSettings({
     noMirroredCamera: {
         type: OptionType.BOOLEAN,
-        description: "Prevents the camera from being mirrored on your screen",
+        description: t("يمنع عكس صورة الكاميرا على شاشتك", "Prevents your camera from being mirrored on your screen"),
         restartNeeded: true,
         default: false,
     },
     removeActivitySection: {
         type: OptionType.BOOLEAN,
-        description: "Removes the activity section above member list",
+        description: t("إزالة قسم النشاط فوق قائمة الأعضاء", "Remove the activity section above the member list"),
         restartNeeded: true,
         default: false,
     },
     showYourOwnActivityButtons: {
         type: OptionType.BOOLEAN,
-        description: "Discord hides your own activity buttons for some reason",
+        description: t("يُظهر أزرار نشاطك الخاصة التي يخفيها ديسكورد لأسباب غير معروفة", "Shows your own activity buttons that Discord hides for unknown reasons"),
         restartNeeded: true,
         default: false,
     },
     refreshSlashCommands: {
         type: OptionType.BOOLEAN,
-        description: "Refreshes Slash Commands to show newly added commands without restarting your client.",
+        description: t("تحديث أوامر Slash لإظهار الأوامر المضافة حديثاً دون إعادة تشغيل العميل.", "Refresh slash commands to show newly added ones without restarting the client."),
         default: false,
     },
     forceRoleIcon: {
         type: OptionType.BOOLEAN,
-        description: "Forces role icons to display next to messages in compact mode",
+        description: t("إجبار عرض أيقونات الرتب بجانب الرسائل في الوضع المضغوط", "Force display of role icons next to messages in compact mode"),
         restartNeeded: true,
         default: false
     },
     accountStandingButton: {
         type: OptionType.BOOLEAN,
-        description: "Show an account standing button in the header bar",
+        description: t("إظهار زر حالة الحساب في شريط الرأس", "Show account standing button in the header bar"),
         restartNeeded: true,
         default: false,
     },
     restoreFileDownloadButton: {
         type: OptionType.BOOLEAN,
-        description: "Adds back the Download button at the top right corner of files",
+        description: t("استعادة زر التنزيل في الركن العلوي الأيمن من الملفات", "Restore the download button in the top right corner of files"),
         restartNeeded: true,
         default: false
     },
     noBulletPoints: {
         type: OptionType.BOOLEAN,
-        description: "Stops you from typing markdown bullet points (stinky)",
+        description: t("منع كتابة نقاط القوائم بصيغة Markdown", "Prevent Markdown bullet points from being typed"),
         restartNeeded: true,
         default: false
     },
     noModalAnimation: {
         type: OptionType.BOOLEAN,
-        description: "Remove the 300ms long animation when opening or closing modals",
+        description: t("إزالة الحركة التي تستغرق 300 مللي ثانية عند فتح أو إغلاق النوافذ المنبثقة", "Remove the 300ms animation when opening or closing modals"),
         restartNeeded: true,
         default: false
     },
     disableAdoptTagPrompt: {
         type: OptionType.BOOLEAN,
-        description: "Disable the prompt to adopt tags",
+        description: t("تعطيل مطالبة تبني الشارات", "Disable the adopt tag prompt"),
         restartNeeded: true,
         default: false,
     },
     jsonGateway: {
         type: OptionType.BOOLEAN,
-        description: "Forces JSON on gateway reconnect",
+        description: t("إجبار استخدام JSON عند إعادة الاتصال بالبوابة", "Force JSON usage when reconnecting to the gateway"),
         restartNeeded: true,
         default: false,
     },
@@ -142,7 +146,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "EquicordHelper",
-    description: "Used to provide support, fix discord caused crashes, and other misc features.",
+    get description() { return t("يُستخدم لتقديم الدعم وإصلاح الأعطال الناجمة عن ديسكورد وميزات متنوعة أخرى.", "Used for providing support and fixing bugs caused by Discord and various other features."); },
     tags: ["Appearance", "Commands", "Utility"],
     dependencies: ["CommandsAPI", "HeaderBarAPI", "MessageAccessoriesAPI"],
     authors: [
@@ -383,7 +387,7 @@ export default definePlugin({
     commands: [
         {
             name: "refresh-commands",
-            description: "Refresh Slash Commands",
+            description: t("تحديث أوامر Slash", "Refresh Slash commands"),
             inputType: ApplicationCommandInputType.BUILT_IN,
             predicate: () => settings.store.refreshSlashCommands,
             execute: async (opts, ctx) => {
@@ -392,7 +396,7 @@ export default definePlugin({
                     sendBotMessage(ctx.channel.id, { content: "Slash Commands refreshed successfully." });
                 }
                 catch (e) {
-                    console.error("[refreshSlashCommands] Failed to refresh commands:", e);
+                    logger.error("Failed to refresh commands:", e);
                     sendBotMessage(ctx.channel.id, { content: "Failed to refresh commands. Check console for details." });
                 }
             }

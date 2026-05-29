@@ -17,11 +17,12 @@
 */
 
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "NoUnblockToJump",
-    description: "Allows you to jump to messages of blocked or ignored users and likely spammers without unblocking them",
+    get description() { return t("يتيح الانتقال إلى رسائل المحظورين والمتجاهلين دون الحاجة لإلغاء الحظر", "Allows jumping to messages from blocked and ignored users without needing to unblock them"); },
     tags: ["Utility"],
     authors: [Devs.dzshn],
     patches: [

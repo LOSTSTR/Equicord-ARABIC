@@ -5,11 +5,12 @@
  */
 
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "FixCodeblockGap",
-    description: "Removes the gap between codeblocks and text below it",
+    get description() { return t("يزيل الفراغ الزائد بين صناديق الكود والنص أسفلها", "Removes the extra gap between code blocks and the text below them"); },
     tags: ["Appearance"],
     authors: [Devs.Grzesiek11],
     patches: [

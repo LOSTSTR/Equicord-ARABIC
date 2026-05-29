@@ -5,6 +5,7 @@
  */
 
 import { definePluginSettings } from "@api/Settings";
+import { t } from "@utils/esharqI18n";
 import { OptionType } from "@utils/types";
 import { Button, useStateFromStores } from "@webpack/common";
 
@@ -15,7 +16,7 @@ import { HiddenServersStore } from "./HiddenServersStore";
 export default definePluginSettings({
     showIndicator: {
         type: OptionType.BOOLEAN,
-        description: "Show menu to unhide servers at the bottom of the list",
+        description: t("يعرض قائمة لإظهار السيرفرات المخفية في أسفل القائمة", "Show a button to display hidden servers at the bottom of the list"),
         default: true,
         onChange: val => {
             if (val) {
@@ -27,7 +28,7 @@ export default definePluginSettings({
     },
     guildsList: {
         type: OptionType.COMPONENT,
-        description: "Remove hidden servers",
+        description: t("إزالة السيرفرات المخفية", "Remove hidden servers"),
         component: () => {
             const detail = useStateFromStores([HiddenServersStore], () => HiddenServersStore.hiddenGuildsDetail());
             return <HiddenServersMenu guilds={detail} />;
@@ -35,7 +36,7 @@ export default definePluginSettings({
     },
     resetHidden: {
         type: OptionType.COMPONENT,
-        description: "Remove all hidden guilds from the list",
+        description: t("إزالة جميع السيرفرات المخفية من القائمة", "Remove all hidden servers from the list"),
         component: () => (
             <div>
                 <Button

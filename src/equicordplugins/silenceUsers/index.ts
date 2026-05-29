@@ -6,22 +6,29 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { EquicordDevs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { FluxDispatcher } from "@webpack/common";
 
 const settings = definePluginSettings({
     mutedUserIds: {
         type: OptionType.STRING,
-        description: "Comma-separated Discord user IDs to silence pings and server badges.",
+        description: t("معرّفات مستخدمي Discord مفصولة بفواصل لكتم إشعاراتهم وشاراتهم.", "Comma-separated Discord user IDs to silence their notifications and badges."),
         default: "",
         restartNeeded: false,
     },
 });
 
+let cachedMutedIds: Set<string> = new Set();
+let cachedMutedIdsRaw = "";
+
 function getMutedIds(): Set<string> {
-    const { mutedUserIds } = settings.store;
-    const ids = mutedUserIds.split(",").map(id => id.trim()).filter(Boolean);
-    return new Set(ids);
+    const raw = settings.plain.mutedUserIds;
+    if (raw !== cachedMutedIdsRaw) {
+        cachedMutedIdsRaw = raw;
+        cachedMutedIds = new Set(raw.split(",").map(id => id.trim()).filter(Boolean));
+    }
+    return cachedMutedIds;
 }
 
 function interceptor(event: any) {
@@ -55,7 +62,7 @@ function interceptor(event: any) {
 
 export default definePlugin({
     name: "SilenceUsers",
-    description: "Silences @mention pings and server badge counts from specific users. Regular messages and DMs are untouched.",
+    get description() { return t("يكتم تنبيهات @mention وعدادات شارات السيرفر من مستخدمين محددين. لا تتأثر الرسائل العادية والرسائل المباشرة.", "Silences @mention notifications and server badge counts from specific users. Regular messages and DMs are unaffected."); },
     authors: [EquicordDevs.dka],
     settings,
     start() {

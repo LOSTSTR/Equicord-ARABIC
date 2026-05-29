@@ -18,10 +18,12 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { CodeBlock } from "@components/CodeBlock";
+import { Logger } from "@utils/Logger";
 import ErrorBoundary from "@components/ErrorBoundary";
 import { Heading } from "@components/Heading";
 import { EquicordDevs } from "@utils/constants";
 import { copyWithToast } from "@utils/discord";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { ChannelStore, Modal, openModal } from "@webpack/common";
 
@@ -32,6 +34,8 @@ function DecodeIcon() {
         </svg>
     );
 }
+
+const logger = new Logger("DecodeBase64");
 
 function isValidUtf8String(str) {
     try {
@@ -54,7 +58,7 @@ function decodeBase64Strings(base64Strings) {
             const decoded = atob(base64);
             return isValidUtf8String(decoded) ? decoded : null;
         } catch (e) {
-            console.error("Failed to decode base64 content:", e);
+            logger.warn("Failed to decode base64 content:", e);
             return null;
         }
     }).filter(decoded => decoded !== null);
@@ -76,7 +80,7 @@ function openDecodedBase64Modal(decodedContent) {
                 <div style={{ padding: "16px 0" }}>
                     <Heading>Decoded Content</Heading>
                     {decodedContent.map((content, index) => (
-                        <CodeBlock key={index} content={content} lang="" />
+                        <CodeBlock key={content} content={content} lang="" />
                     ))}
                 </div>
             </Modal>
@@ -86,7 +90,7 @@ function openDecodedBase64Modal(decodedContent) {
 
 const settings = definePluginSettings({
     clickMethod: {
-        description: "Change the button to decode base64 content of any message.",
+        description: t("تغيير زر فك تشفير محتوى Base64 في أي رسالة.", "Change the button for decoding Base64 content in any message."),
         type: OptionType.SELECT,
         options: [
             { label: "Left Click to decode the base64 content.", value: "Left", default: true },
@@ -97,7 +101,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "DecodeBase64",
-    description: "Decode base64 content of any message and copy the decoded content.",
+    get description() { return t("فك تشفير محتوى Base64 في أي رسالة ونسخ المحتوى المفكوك", "Decode Base64 content in any message and copy the decoded content"); },
     dependencies: ["MessagePopoverAPI"],
     tags: ["Appearance", "Customisation", "Chat"],
     authors: [EquicordDevs.ThePirateStoner],

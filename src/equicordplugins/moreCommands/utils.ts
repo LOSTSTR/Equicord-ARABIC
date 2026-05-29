@@ -5,6 +5,7 @@
  */
 
 import { definePluginSettings } from "@api/Settings";
+import { t } from "@utils/esharqI18n";
 import { OptionType } from "@utils/types";
 import { CommandArgument, CommandContext } from "@vencord/discord-types";
 import { DraftType, UploadAttachmentStore, UploadManager, UserSettingsActionCreators } from "@webpack/common";
@@ -12,17 +13,17 @@ import { DraftType, UploadAttachmentStore, UploadManager, UserSettingsActionCrea
 export const settings = definePluginSettings({
     addFreakyEnding: {
         type: OptionType.BOOLEAN,
-        description: "Add 👅 or ❤️ at the end",
+        description: t("إضافة 👅 أو ❤️ في نهاية الرسالة", "Add 👅 or ❤️ at the end of the message"),
         default: false
     },
     uwuEveryMessage: {
-        description: "Make every single message uwuified",
+        description: t("تحويل كل رسالة إلى أسلوب uwu", "Convert every message to uwu style"),
         type: OptionType.BOOLEAN,
         default: false,
         restartNeeded: false
     },
     uwuEverything: {
-        description: "Makes *all* text uwuified - really bad idea",
+        description: t("تحويل *جميع* النصوص إلى أسلوب uwu - فكرة سيئة جداً", "Convert *all* text to uwu style - very bad idea"),
         type: OptionType.BOOLEAN,
         default: false,
         restartNeeded: true

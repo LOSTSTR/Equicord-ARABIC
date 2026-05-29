@@ -357,7 +357,7 @@ export function ChannelTabsPreview(p: { setValue: (v: TabSet) => void; }) {
     const { setValue } = p;
     const { tabSet }: { tabSet: TabSet; } = settings.use(["tabSet"]);
 
-    const placeholder = [{ guildId: "@me", channelId: undefined as any }];
+    const placeholder = [{ guildId: "@me", channelId: undefined }];
     const [currentTabs, setCurrentTabs] = useState(tabSet?.[id] ?? placeholder);
 
     return (

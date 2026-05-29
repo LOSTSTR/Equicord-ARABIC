@@ -19,6 +19,7 @@
 import { ApplicationCommandInputType, ApplicationCommandOptionType, findOption, sendBotMessage } from "@api/Commands";
 import { migratePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import { makeLazy } from "@utils/lazy";
 import definePlugin from "@utils/types";
 import { CommandArgument, CommandContext } from "@vencord/discord-types";
@@ -109,7 +110,7 @@ function applyPaletteTransparent(data: Uint8Array | Uint8ClampedArray, palette: 
 migratePluginSettings("PetPet", "petpet");
 export default definePlugin({
     name: "PetPet",
-    description: "Adds a /petpet slash command to create headpet gifs from any image",
+    get description() { return t("يضيف أمر /petpet لإنشاء صور GIF متحركة من أي صورة", "Adds a /petpet command to create animated GIFs from any image"); },
     dependencies: ["CommandsAPI"],
     tags: ["Fun", "Commands"],
     authors: [Devs.Ven, Devs.u32],
@@ -117,36 +118,36 @@ export default definePlugin({
         {
             inputType: ApplicationCommandInputType.BUILT_IN,
             name: "petpet",
-            description: "Create a petpet gif. You can only specify one of the image options",
+            description: t("إنشاء GIF petpet. يمكنك تحديد خيار صورة واحد فقط", "Create a petpet GIF. You can only specify one image option"),
             options: [
                 {
                     name: "delay",
-                    description: "The delay between each frame in ms. Rounded to nearest 10ms. Defaults to the minimum value of 20.",
+                    description: t("التأخير بين كل إطار بالمللي ثانية. يُقرَّب إلى أقرب 10 مللي ثانية. الافتراضي هو الحد الأدنى 20.", "Delay between each frame in milliseconds. Rounded to the nearest 10ms. Default is the minimum of 20."),
                     type: ApplicationCommandOptionType.INTEGER
                 },
                 {
                     name: "resolution",
-                    description: "Resolution for the gif. Defaults to 120. If you enter an insane number and it freezes Discord that's your fault.",
+                    description: t("دقة الـ GIF. الافتراضي 120. إذا أدخلت رقماً كبيراً جداً وتجمّد ديسكورد فأنت المسؤول.", "GIF resolution. Default is 120. If you enter a very large number and Discord freezes, that's on you."),
                     type: ApplicationCommandOptionType.INTEGER
                 },
                 {
                     name: "image",
-                    description: "Image attachment to use",
+                    description: t("مرفق الصورة للاستخدام", "Image attachment to use"),
                     type: ApplicationCommandOptionType.ATTACHMENT
                 },
                 {
                     name: "url",
-                    description: "URL to fetch image from",
+                    description: t("رابط لجلب الصورة منه", "URL to fetch the image from"),
                     type: ApplicationCommandOptionType.STRING
                 },
                 {
                     name: "user",
-                    description: "User whose avatar to use as image",
+                    description: t("مستخدم لاستخدام صورته الرمزية", "A user whose avatar to use"),
                     type: ApplicationCommandOptionType.USER
                 },
                 {
                     name: "no-server-pfp",
-                    description: "Use the normal avatar instead of the server specific one when using the 'user' option",
+                    description: t("استخدام الصورة الرمزية العادية بدلاً من صورة السيرفر عند استخدام خيار المستخدم", "Use the global avatar instead of the server avatar when using the user option"),
                     type: ApplicationCommandOptionType.BOOLEAN
                 }
             ],

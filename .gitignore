@@ -1,9 +1,31 @@
 dist
 node_modules
+.claude
+installer/*.exe
+installer/*.ico
+# الملف المُولَّد تلقائياً من القالب أثناء البناء — لا يُتتبَّع
+installer/EquicordArabic-Installer.ps1
 .VSCodeCounter
 .vars
 .secrets
 .input
+
+# MCP server config — may contain tokens or sensitive tool config
+.mcp.json
+
+# Environment & secrets — never commit these
+.env
+.env.*
+.env.local
+.env.production
+.env.development
+*.pem
+*.key
+*.p12
+*.pfx
+credentials.json
+secrets.json
+*.secret
 
 *.exe
 vencord_installer
@@ -25,7 +47,7 @@ lerna-debug.log*
 *.tsbuildinfo
 
 .modules/
-src/userplugins
+# src/userplugins is included intentionally for Esharq
 
 ExtensionCache/
 /settings
@@ -35,3 +57,6 @@ ExtensionCache/
 
 # wakatime related stuff
 .wakatime-project
+
+*.tmp
+_claude_memory/

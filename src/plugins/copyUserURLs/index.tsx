@@ -20,6 +20,7 @@ import { NavContextMenuPatchCallback } from "@api/ContextMenu";
 import { LinkIcon } from "@components/Icons";
 import { copyToClipboard } from "@utils/clipboard";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 import type { Channel, User } from "@vencord/discord-types";
 import { Menu } from "@webpack/common";
@@ -46,7 +47,7 @@ const UserContextMenuPatch: NavContextMenuPatchCallback = (children, { user }: U
 export default definePlugin({
     name: "CopyUserURLs",
     authors: [Devs.castdrian],
-    description: "Adds a 'Copy User URL' option to the user context menu.",
+    get description() { return t("يضيف خيار 'نسخ رابط المستخدم' في قائمة السياق للمستخدم.", "Adds a 'Copy User URL' option to the user context menu."); },
     tags: ["Utility", "Friends"],
     contextMenus: {
         "user-context": UserContextMenuPatch

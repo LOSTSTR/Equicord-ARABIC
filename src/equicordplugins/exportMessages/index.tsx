@@ -11,6 +11,7 @@ import { definePluginSettings } from "@api/Settings";
 import ErrorBoundary from "@components/ErrorBoundary";
 import { copyToClipboard } from "@utils/clipboard";
 import { EquicordDevs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import { showItemInFolder } from "@utils/native";
 import definePlugin, { OptionType } from "@utils/types";
 import { saveFile } from "@utils/web";
@@ -22,12 +23,12 @@ import { ContactsList } from "./types";
 const settings = definePluginSettings({
     openFileAfterExport: {
         type: OptionType.BOOLEAN,
-        description: "Open the exported file in the default file handler after export",
+        get description() { return t("فتح الملف المُصدَّر بالتطبيق الافتراضي بعد التصدير", "Open the exported file in the default application after export"); },
         default: true
     },
     exportContacts: {
         type: OptionType.BOOLEAN,
-        description: "Export a list of friends to your clipboard. Adds a new button to the menu bar for the friends tab.",
+        get description() { return t("تصدير قائمة الأصدقاء إلى الحافظة. يضيف زراً جديداً في شريط القائمة لتبويب الأصدقاء.", "Export the friends list to clipboard. Adds a new button in the menu bar for the Friends tab."); },
         default: false
     }
 });
@@ -128,7 +129,7 @@ function getUsernames(contacts: ContactsList[], type: number): string[] {
 
 export default definePlugin({
     name: "ExportMessages",
-    description: "Allows you to export any message to a file",
+    get description() { return t("يتيح لك تصدير أي رسالة إلى ملف", "Allows you to export any message to a file"); },
     tags: ["Chat", "Utility"],
     authors: [EquicordDevs.veygax, EquicordDevs.dat_insanity],
     settings,
@@ -166,7 +167,7 @@ export default definePlugin({
     },
     addExportButton() {
         return <ErrorBoundary noop key=".2">
-            <button className="export-contacts-button" onClick={() => { this.copyContactToClipboard(); console.log("clicked"); }}>Export</button>
+            <button className="export-contacts-button" onClick={() => this.copyContactToClipboard()}>Export</button>
         </ErrorBoundary>;
     },
     copyContactToClipboard() {

@@ -107,7 +107,7 @@ export function useLyrics({ scroll = true }: { scroll?: boolean; } = {}) {
         if (!isPlaying) return;
 
         setPosition(SpotifyStore.position);
-        const interval = setInterval(() => setPosition(p => p + 1000), 1000);
+        const interval = setInterval(() => { if (!document.hidden) setPosition(p => p + 1000); }, 1000);
 
         return () => clearInterval(interval);
     }, [storePosition, isPlaying]);

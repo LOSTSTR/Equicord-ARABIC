@@ -25,6 +25,7 @@ import { Paragraph } from "@components/Paragraph";
 import { Devs } from "@utils/constants";
 import { classNameFactory } from "@utils/css";
 import { getTheme, insertTextIntoChatInputBox, Theme } from "@utils/discord";
+import { t } from "@utils/esharqI18n";
 import { Margins } from "@utils/margins";
 import definePlugin, { IconComponent, OptionType } from "@utils/types";
 import { RenderModalProps } from "@vencord/discord-types";
@@ -32,7 +33,7 @@ import { Modal, openModal, Parser, Select, useMemo, useState } from "@webpack/co
 
 const settings = definePluginSettings({
     replaceMessageContents: {
-        description: "Replace timestamps in message contents",
+        description: t("استبدل الطوابع الزمنية في محتوى الرسائل", "Replace timestamps in message content"),
         type: OptionType.BOOLEAN,
         default: true,
     },
@@ -154,7 +155,7 @@ const SendTimestampButton: ChatBarButtonFactory = ({ isAnyChat }) => {
 
 export default definePlugin({
     name: "SendTimestamps",
-    description: "Send timestamps easily via chat box button & text shortcuts. Read the extended description!",
+    get description() { return t("يُضيف أمر لإرسال طابع زمني منسّق", "Adds a command to send a formatted timestamp"); },
     dependencies: ["ChatInputButtonAPI", "MessagePopoverAPI"],
     tags: ["Chat", "Commands"],
     authors: [Devs.Ven, Devs.Tyler, Devs.Grzesiek11],

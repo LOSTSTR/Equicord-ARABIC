@@ -6,6 +6,7 @@
 
 import { isPluginEnabled, plugins } from "@api/PluginManager";
 import { toggleEnabled } from "@equicordplugins/equicordHelper/utils";
+import { t } from "@utils/esharqI18n";
 import { SettingsRouter, Toasts } from "@webpack/common";
 
 import { DEFAULT_CATEGORY_ID } from "../../metadata/categories";
@@ -50,7 +51,7 @@ export function createThemeLibraryExtensionCommand(): CommandEntry {
     return {
         id: "extension-theme-library-open",
         label: "Open Theme Library",
-        description: "Open the ThemeLibrary settings page.",
+        description: t("فتح صفحة إعدادات ThemeLibrary.", "Open the ThemeLibrary settings page."),
         keywords: ["theme", "library", "themes", "settings", "plugin", "extension"],
         categoryId: DEFAULT_CATEGORY_ID,
         tags: [TAG_PLUGINS, TAG_UTILITY, TAG_NAVIGATION],

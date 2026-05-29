@@ -18,6 +18,7 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import { sleep } from "@utils/misc";
 import definePlugin, { makeRange, OptionType } from "@utils/types";
 import { Message, ReactionEmoji } from "@vencord/discord-types";
@@ -56,14 +57,14 @@ const MOYAI_URL_HD = "https://github.com/Equicord/Equibored/raw/main/sounds/moya
 
 const settings = definePluginSettings({
     volume: {
-        description: "Volume of the 🗿🗿🗿",
+        description: t("مستوى صوت 🗿🗿🗿", "Volume of 🗿🗿🗿"),
         type: OptionType.SLIDER,
         markers: makeRange(0, 1, 0.1),
         default: 0.5,
         stickToMarkers: false
     },
     quality: {
-        description: "Quality of the 🗿🗿🗿",
+        description: t("جودة صوت 🗿🗿🗿", "Quality of 🗿🗿🗿"),
         type: OptionType.SELECT,
         options: [
             { label: "Normal", value: "Normal", default: true },
@@ -71,17 +72,17 @@ const settings = definePluginSettings({
         ],
     },
     triggerWhenUnfocused: {
-        description: "Trigger the 🗿 even when the window is unfocused",
+        description: t("تشغيل 🗿 حتى عندما تكون النافذة غير مُركّزة", "Trigger 🗿 even when the window is unfocused"),
         type: OptionType.BOOLEAN,
         default: true
     },
     ignoreBots: {
-        description: "Ignore bots",
+        description: t("تجاهل البوتات", "Ignore bots"),
         type: OptionType.BOOLEAN,
         default: true
     },
     ignoreBlocked: {
-        description: "Ignore blocked users",
+        description: t("تجاهل المستخدمين المحظورين", "Ignore blocked users"),
         type: OptionType.BOOLEAN,
         default: true
     }
@@ -90,7 +91,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "Moyai",
     authors: [Devs.Megu, Devs.Nuckyz],
-    description: "Plays a 🗿 sound effect whenever a moyai emoji is sent, reacted, or used as a voice effect in your current channel.",
+    get description() { return t("يُشغّل مؤثراً صوتياً 🗿 عند إرسال إيموجي moyai أو التفاعل به أو استخدامه كتأثير صوتي في قناتك الحالية.", "Plays a 🗿 sound effect when a moyai emoji is sent, reacted with, or used as a voice effect in your current channel."); },
     tags: ["Fun"],
     settings,
 

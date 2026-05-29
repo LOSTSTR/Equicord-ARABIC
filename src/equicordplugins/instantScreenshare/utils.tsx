@@ -8,6 +8,7 @@ import { definePluginSettings } from "@api/Settings";
 import { Heading } from "@components/Heading";
 import { Margins } from "@components/margins";
 import { Paragraph } from "@components/Paragraph";
+import { t } from "@utils/esharqI18n";
 import { Logger } from "@utils/Logger";
 import { OptionType } from "@utils/types";
 import { findByCodeLazy, findByPropsLazy } from "@webpack";
@@ -29,38 +30,38 @@ export const settings = definePluginSettings({
     },
     includeVideoDevices: {
         type: OptionType.BOOLEAN,
-        description: "Include video input devices (cameras, capture cards) in the source list",
+        description: t("تضمين أجهزة إدخال الفيديو (الكاميرات وكروت الالتقاط) في قائمة المصادر", "Include video input devices (cameras and capture cards) in the sources list"),
         default: false,
     },
     autoMute: {
         type: OptionType.BOOLEAN,
-        description: "Automatically mute your microphone when joining a voice channel",
+        description: t("كتم الميكروفون تلقائياً عند الانضمام إلى قناة صوتية", "Automatically mute microphone when joining a voice channel"),
         default: false,
     },
     autoDeafen: {
         type: OptionType.BOOLEAN,
-        description: "Automatically deafen when joining a voice channel (also mutes you)",
+        description: t("تعطيل السماعات تلقائياً عند الانضمام إلى قناة صوتية (يكتم الميكروفون أيضاً)", "Automatically deafen when joining a voice channel (also mutes microphone)"),
         default: false,
     },
     instantScreenshare: {
         type: OptionType.BOOLEAN,
-        description: "Enables automatic screenshare feature",
+        description: t("تفعيل ميزة مشاركة الشاشة التلقائية", "Enable automatic screensharing"),
         default: true,
     },
     keybindScreenshare: {
         type: OptionType.BOOLEAN,
-        description: "Screenshare by keybind in discord keybind settings",
+        description: t("مشاركة الشاشة عبر اختصار لوحة المفاتيح في إعدادات Discord", "Screenshare via keyboard shortcut in Discord settings"),
         restartNeeded: true,
         default: false,
     },
     focusDiscord: {
         type: OptionType.BOOLEAN,
-        description: "Only start screenshare with keybind when Discord is focused",
+        description: t("بدء مشاركة الشاشة بالاختصار فقط عندما تكون نافذة Discord في المقدمة", "Only start screensharing via shortcut when Discord window is in focus"),
         default: true,
     },
     toolboxManagement: {
         type: OptionType.BOOLEAN,
-        description: "Enable/Disable Instant Screenshare",
+        description: t("تفعيل/تعطيل مشاركة الشاشة الفورية", "Enable/disable instant screensharing"),
         default: true,
         hidden: true,
     },

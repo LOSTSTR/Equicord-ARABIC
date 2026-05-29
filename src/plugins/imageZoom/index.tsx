@@ -20,6 +20,7 @@ import { NavContextMenuPatchCallback } from "@api/ContextMenu";
 import { definePluginSettings } from "@api/Settings";
 import { debounce } from "@shared/debounce";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import { Logger } from "@utils/Logger";
 import definePlugin, { OptionType } from "@utils/types";
 import { createRoot, Menu } from "@webpack/common";
@@ -33,37 +34,37 @@ import managedStyle from "./styles.css?managed";
 export const settings = definePluginSettings({
     saveZoomValues: {
         type: OptionType.BOOLEAN,
-        description: "Whether to save zoom and lens size values",
+        description: t("حفظ قيم التكبير وحجم العدسة", "Save zoom values and lens size"),
         default: true,
     },
 
     invertScroll: {
         type: OptionType.BOOLEAN,
-        description: "Invert scroll",
+        description: t("عكس اتجاه التمرير", "Invert the scroll direction"),
         default: true,
     },
 
     nearestNeighbour: {
         type: OptionType.BOOLEAN,
-        description: "Use Nearest Neighbour Interpolation when scaling images",
+        description: t("استخدام تقنية الاستيفاء بأقرب جار عند تحجيم الصور", "Use nearest neighbour interpolation when scaling images"),
         default: false,
     },
 
     square: {
         type: OptionType.BOOLEAN,
-        description: "Make the lens square",
+        description: t("جعل العدسة مربعة الشكل", "Make the lens square shaped"),
         default: false,
     },
 
     zoom: {
-        description: "Zoom of the lens",
+        description: t("مستوى تكبير العدسة", "Zoom level of the lens"),
         type: OptionType.SLIDER,
         markers: [1, 5, 10, 20, 30, 40, 50],
         default: 2,
         stickToMarkers: false,
     },
     size: {
-        description: "Radius / Size of the lens",
+        description: t("نصف القطر / حجم العدسة", "Radius / size of the lens"),
         type: OptionType.SLIDER,
         markers: [50, 100, 250, 500, 750, 1000],
         default: 100,
@@ -71,7 +72,7 @@ export const settings = definePluginSettings({
     },
 
     zoomSpeed: {
-        description: "How fast the zoom / lens size changes",
+        description: t("سرعة تغيير مستوى التكبير / حجم العدسة", "Speed of changing the zoom level / lens size"),
         type: OptionType.SLIDER,
         markers: [0.1, 0.5, 1, 2, 3, 4, 5],
         default: 0.5,
@@ -154,7 +155,7 @@ const imageContextMenuPatch: NavContextMenuPatchCallback = (children, props) => 
 
 export default definePlugin({
     name: "ImageZoom",
-    description: "Lets you zoom in to images and gifs. Use scroll wheel to zoom in and shift + scroll wheel to increase lens radius / size",
+    get description() { return t("يُتيح تكبير الصور بالسحب والتحريك", "Allows zooming images by dragging and panning"); },
     tags: ["Media", "Utility"],
     authors: [Devs.Aria],
     searchTerms: ["ImageUtilities"],

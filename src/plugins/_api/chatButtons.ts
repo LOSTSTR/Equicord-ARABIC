@@ -5,11 +5,12 @@
  */
 
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "ChatInputButtonAPI",
-    description: "API to add buttons to the chat input",
+    get description() { return t("واجهة برمجية لإضافة أزرار إلى مربع الدردشة", "API to add buttons to the chat box"); },
     authors: [Devs.Ven],
 
     patches: [

@@ -18,6 +18,7 @@ import {
 } from "@components/settings";
 import { gitHashShort } from "@shared/vencordUserAgent";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import { isTruthy } from "@utils/guards";
 import definePlugin, { IconProps, OptionType } from "@utils/types";
 import { waitFor } from "@webpack";
@@ -96,9 +97,15 @@ interface SettingsLayoutBuilder {
 }
 
 const settings = definePluginSettings({
+    arabicMode: {
+        type: OptionType.BOOLEAN,
+        description: "Arabic Mode / وضع اللغة العربية — Show plugin names and descriptions in Arabic. Disable to switch to English.",
+        default: false,
+        restartNeeded: false,
+    },
     settingsLocation: {
         type: OptionType.SELECT,
-        description: "Where to put the Equicord settings section",
+        description: t("مكان عرض قسم إعدادات Equicord في الإعدادات", "Where to display the Equicord settings section"),
         options: [
             { label: "At the very top", value: "top" },
             { label: "Above the Nitro section", value: "aboveNitro", default: true },
@@ -110,14 +117,14 @@ const settings = definePluginSettings({
     },
     includeVencordInfoWhenCopying: {
         type: OptionType.BOOLEAN,
-        description: "Also copy Vencord info (Vencord, Electron, Chromium) when clicking the version info in the bottom left area of the Settings page",
+        description: t("نسخ معلومات Vencord (Vencord، Electron، Chromium) أيضاً عند النقر على معلومات الإصدار في صفحة الإعدادات", "Also copy Vencord info when clicking the version info in settings"),
         default: true
     }
 });
 
 export default definePlugin({
     name: "Settings",
-    description: "Adds Settings UI and debug info",
+    get description() { return t("يضيف واجهة الإعدادات ومعلومات التشخيص", "Adds the settings UI and debug info"); },
     authors: [Devs.Ven, Devs.Megu],
     required: true,
 
@@ -192,8 +199,8 @@ export default definePlugin({
         const equicordEntries: SettingsLayoutNode[] = [
             buildEntry({
                 key: "equicord_main",
-                title: "Equicord",
-                panelTitle: "Equicord Settings",
+                title: "Esharq",
+                panelTitle: "Esharq",
                 Component: VencordTab,
                 Icon: MainSettingsIcon
             }),
@@ -212,7 +219,7 @@ export default definePlugin({
             !IS_UPDATER_DISABLED && UpdaterTab && buildEntry({
                 key: "equicord_updater",
                 title: "Updater",
-                panelTitle: "Equicord Updater",
+                panelTitle: "Esharq Updater",
                 Component: UpdaterTab,
                 Icon: UpdaterIcon
             }),
@@ -225,7 +232,7 @@ export default definePlugin({
             buildEntry({
                 key: "equicord_cloud",
                 title: "Cloud",
-                panelTitle: "Equicord Cloud",
+                panelTitle: "Esharq Cloud",
                 Component: CloudTab,
                 Icon: CloudIcon
             }),
@@ -247,7 +254,7 @@ export default definePlugin({
         const equicordSection: SettingsLayoutNode = {
             key: "equicord_section",
             type: LayoutTypes.SECTION,
-            useTitle: () => "Equicord Settings",
+            useTitle: () => "Esharq",
             buildLayout: () => equicordEntries
         };
 

@@ -6,27 +6,28 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { EquicordDevs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 
 const settings = definePluginSettings({
     inviteDuration: {
         type: OptionType.SELECT,
-        description: "Invite Duration",
+        description: t("مدة الدعوة", "Invite duration"),
         options: [
-            { label: "30 minutes", value: 1800 },
-            { label: "1 hour", value: 3600 },
-            { label: "6 hours", value: 21600 },
-            { label: "12 hours", value: 43200 },
-            { label: "1 day", value: 86400 },
-            { label: "7 days", value: 604800 },
-            { label: "Forever", value: 0, default: true },
+            { label: t("٣٠ دقيقة", "30 minutes"), value: 1800 },
+            { label: t("ساعة واحدة", "1 hour"), value: 3600 },
+            { label: t("٦ ساعات", "6 hours"), value: 21600 },
+            { label: t("١٢ ساعة", "12 hours"), value: 43200 },
+            { label: t("يوم واحد", "1 day"), value: 86400 },
+            { label: t("٧ أيام", "7 days"), value: 604800 },
+            { label: t("للأبد", "Forever"), value: 0, default: true },
         ],
     },
     maxUses: {
         type: OptionType.SELECT,
-        description: "Invite Use Count",
+        description: t("عدد استخدامات الدعوة", "Invite max uses"),
         options: [
-            { label: "Infinite", value: 0, default: true },
+            { label: t("لا نهاية", "Infinite"), value: 0, default: true },
             { label: "1", value: 1 },
             { label: "5", value: 5 },
             { label: "10", value: 10 },
@@ -38,13 +39,13 @@ const settings = definePluginSettings({
     temporaryMembership: {
         type: OptionType.BOOLEAN,
         default: false,
-        description: "Temporary Membership",
+        description: t("عضوية مؤقتة", "Temporary membership"),
     },
 });
 
 export default definePlugin({
     name: "InviteDefaults",
-    description: "Allows you to edit the default values when creating server invites.",
+    get description() { return t("يتيح لك تعديل القيم الافتراضية عند إنشاء دعوات السيرفر.", "Allows you to customize default values when creating server invites."); },
     tags: ["Servers"],
     authors: [EquicordDevs.VillainsRule],
     settings,

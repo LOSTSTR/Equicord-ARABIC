@@ -12,6 +12,7 @@ import { Button } from "@components/Button";
 import { Notice } from "@components/Notice";
 import plSettings from "@plugins/_core/settings";
 import { Devs } from "@utils/constants";
+import { t } from "@utils/esharqI18n";
 import { relaunch } from "@utils/native";
 import definePlugin, { OptionType, PluginNative } from "@utils/types";
 import { findByPropsLazy, findComponentByCodeLazy } from "@webpack";
@@ -29,16 +30,16 @@ const AppsIcon = findComponentByCodeLazy("2.95H20a2 2 0");
 export const settings = definePluginSettings({
     allowlistedChannels: {
         type: OptionType.STRING,
-        description: "Comma separated list of channels where the Install Plugin button should be displayed. It is always displayed in the Vencord Userplugin channels"
+        description: t("قائمة معرّفات القنوات مفصولة بفواصل لعرض زر تثبيت الإضافة فيها", "Comma-separated list of channel IDs to show the plugin install button in")
     },
     notifyIfUpdate: {
         type: OptionType.BOOLEAN,
-        description: "Show a Vencord notification if UserPlugins need to be updated",
+        description: t("إظهار إشعار Vencord إذا احتاجت الإضافات المستخدم إلى تحديث", "Show a Vencord notification if user plugins need an update"),
         default: true
     },
     neverNotifyForPlugins: {
         type: OptionType.STRING,
-        description: "Never show update notifications for these plugins (you can still update them from the UserPlugins tab)",
+        description: t("لا تعرض إشعارات التحديث لهذه الإضافات (لا يزال بإمكانك تحديثها من تبويب UserPlugins)", "Don't show update notifications for these plugins (you can still update them from the UserPlugins tab)"),
         default: ""
     },
     setGitPath: {
@@ -53,7 +54,7 @@ export const settings = definePluginSettings({
 
 export default definePlugin({
     name: "UserpluginInstaller",
-    description: "Install userplugins with a simple button click",
+    get description() { return t("تثبيت الإضافات المستخدم بنقرة زر بسيطة", "Install user plugins with a single button click."); },
     settingsAboutComponent: () => (
         <Notice.Warning>
             Equicord does not moderate userplugins and takes no responsibility for anything that may result from installing them.
