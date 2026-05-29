@@ -66,7 +66,6 @@
 | **BetterAudioPlayer** | Enhanced audio engine — enables true stereo quality with a built-in control panel and advanced frequency processing. |
 | **MessageLoggerEnhanced** | Advanced message logger — tracks deleted and edited messages and attachments with smart memory management to prevent slowdowns during long sessions. |
 | **BigFileUploadEnhanced** | Unlimited external upload — bypass Discord's upload limit via multiple hosting options (Catbox, Litterbox, and more), fully localized, works on both browser and desktop. |
-| **MessageInsight** | Three-in-one message analysis toolkit: **EditDiff** shows a word-level diff of every edit a message went through; **ReplyTree** lists all loaded replies to any message with one-click jump navigation; **ChannelBrief** notifies you how many new messages arrived while you were away from a channel. |
 | **MessageBookmarks** | Private message bookmarks — save any message to a personal list (unlike server Pins, only you can see these), categorize them as General / Important / Later, search across all saved messages, and jump back with one click. Stored locally. |
 
 ---

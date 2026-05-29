@@ -2585,16 +2585,6 @@ export const PLUGIN_TRANSLATIONS: Record<string, PluginI18n> = {
     PhilsPluginLibrary: {
         description: "A library for Phil's plugins.",
     },
-    MessageInsight: {
-        description: "أدوات متقدمة للرسائل: عرض الفروقات بين التعديلات، شجرة الردود لاستكشاف المحادثات، وملخص القناة عند العودة إليها بعد غياب.",
-        options: {
-            editDiff: "إظهار زر مقارنة التعديلات على الرسائل المعدّلة.",
-            replyTree: "إظهار زر شجرة الردود لعرض جميع الردود على رسالة.",
-            channelBrief: "عرض ملخص للرسائل الفائتة عند العودة إلى قناة.",
-            briefThresholdMinutes: "الحد الأدنى بالدقائق للغياب قبل عرض ملخص القناة.",
-            briefPreviewCount: "عدد الرسائل التي تظهر في معاينة الملخص.",
-        },
-    },
     PersonalAnalytics: {
         description: "يتتبع نشاطك الشخصي على Discord محلياً ويعرض لوحة إحصاءات جميلة تشمل النشاط اليومي وأكثر القنوات نشاطاً وخريطة النشاط بالساعة. يمكنك مشاركة إحصاءاتك كصورة غير قابلة للتعديل.",
     },
