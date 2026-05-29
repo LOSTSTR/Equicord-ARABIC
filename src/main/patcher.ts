@@ -133,12 +133,12 @@ if (!IS_VANILLA) {
                 this.setMinimumSize = (_width: number, _height: number) => { };
             }
 
-            if (isMainWindow) {
-                // Discord registers enter-html-full-screen / leave-html-full-screen listeners
-                // that call setFullScreen(true/false), causing the OS window to go fullscreen
-                // whenever an HTML5 video (YouTube embed, Twitch clip, etc.) requests fullscreen.
-                // This intercepts and drops those specific registrations so HTML5 fullscreen stays
-                // contained inside the webview rather than taking over the entire OS window.
+            if (isMainWindow && settings.htmlFullscreenFix !== false) {
+                // When an HTML5 video (YouTube embed, Twitch clip, etc.) requests fullscreen,
+                // Discord calls setFullScreen(true) on the OS window, hijacking the entire screen.
+                // We intercept those specific event registrations so HTML5 fullscreen stays inside
+                // the webview. Note: OS-level fullscreen (F11 / maximize) is unaffected because
+                // those paths don't go through enter-html-full-screen.
                 const _on = this.on.bind(this) as (...args: any[]) => this;
                 (this as any).on = function (event: string, ...args: any[]) {
                     if (event === "enter-html-full-screen" || event === "leave-html-full-screen") return this;
@@ -191,14 +191,19 @@ if (!IS_VANILLA) {
     app.commandLine.appendSwitch("disable-background-timer-throttling");
     app.commandLine.appendSwitch("disable-backgrounding-occluded-windows");
 
-    // Hardware video acceleration for smoother video calls, screen sharing, and embeds.
-    // AcceleratedVideoDecoder: GPU-decoded H.264/VP9/AV1 instead of CPU.
-    // AcceleratedVideoEncoder: GPU-encoded outbound streams (screen share, camera).
-    // VaapiVideoDecoder: VA-API path on Linux/Intel for the same benefit.
-    app.commandLine.appendSwitch("enable-features", "AcceleratedVideoDecoder,AcceleratedVideoEncoder,VaapiVideoDecoder");
-    app.commandLine.appendSwitch("enable-accelerated-video-decode");
-    app.commandLine.appendSwitch("enable-gpu-rasterization");
-    app.commandLine.appendSwitch("enable-zero-copy");
+    if (settings.hardwareVideoAcceleration !== false) {
+        // GPU-accelerated video decode/encode for smoother video calls, screen sharing, and embeds.
+        // Decode: offloads H.264/VP9/AV1 from CPU to GPU decoder unit (DXVA2/D3D11VA on Windows, VAAPI on Linux).
+        // Encode: offloads outbound screen-share and camera streams to GPU encoder (NVENC/Quick Sync/AMF).
+        // Zero-copy: transfers decoded frames directly to the compositor without a CPU round-trip.
+        // Platform-specific: VaapiVideoDecoder is a no-op on Windows/macOS, harmless to include.
+        const features = ["AcceleratedVideoDecoder", "AcceleratedVideoEncoder"];
+        if (process.platform === "linux") features.push("VaapiVideoDecoder", "VaapiVideoEncoder");
+        app.commandLine.appendSwitch("enable-features", features.join(","));
+        app.commandLine.appendSwitch("enable-accelerated-video-decode");
+        app.commandLine.appendSwitch("enable-gpu-rasterization");
+        app.commandLine.appendSwitch("enable-zero-copy");
+    }
 } else {
     console.log("[Equicord] Running in vanilla mode. Not loading Equicord");
 }

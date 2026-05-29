@@ -148,6 +148,24 @@ function EquicordSettings() {
             ),
             restartRequired: true,
         },
+        !IS_WEB && {
+            key: "hardwareVideoAcceleration",
+            title: t("تسريع الفيديو بالمعالج الرسومي", "Hardware Video Acceleration"),
+            description: t(
+                "يُفعّل فك وترميز الفيديو عبر GPU بدلاً من CPU، مما يُقلل استهلاك المعالج أثناء مكالمات الفيديو ومشاركة الشاشة وتشغيل مقاطع الفيديو المضمّنة. عطّله إذا واجهت مشاكل مع بطاقة رسومية قديمة.",
+                "Offloads video decoding and encoding to the GPU instead of the CPU, reducing CPU usage during video calls, screen sharing, and embedded video playback. Disable if you experience issues with an older GPU."
+            ),
+            restartRequired: true,
+        },
+        !IS_WEB && {
+            key: "htmlFullscreenFix",
+            title: t("إصلاح الشاشة الكاملة لمقاطع HTML5", "HTML5 Fullscreen Fix"),
+            description: t(
+                "يمنع مقاطع فيديو HTML5 المضمّنة (كـ YouTube وTwitch) من جعل نافذة ديسكورد بأكملها تدخل وضع الشاشة الكاملة. بعد التفعيل يبقى الفيديو داخل نافذة ديسكورد فقط.",
+                "Prevents embedded HTML5 videos (e.g. YouTube, Twitch clips) from forcing the entire Discord window into OS-level fullscreen. The video stays inside the Discord window instead."
+            ),
+            restartRequired: true,
+        },
     ] satisfies Array<false | {
         key: KeysOfType<typeof settings, boolean>;
         title: string;
