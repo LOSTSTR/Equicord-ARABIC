@@ -132,6 +132,19 @@ if (!IS_VANILLA) {
                 // Disable the Electron call entirely so that Discord can't dynamically change the size
                 this.setMinimumSize = (_width: number, _height: number) => { };
             }
+
+            if (isMainWindow) {
+                // Discord registers enter-html-full-screen / leave-html-full-screen listeners
+                // that call setFullScreen(true/false), causing the OS window to go fullscreen
+                // whenever an HTML5 video (YouTube embed, Twitch clip, etc.) requests fullscreen.
+                // This intercepts and drops those specific registrations so HTML5 fullscreen stays
+                // contained inside the webview rather than taking over the entire OS window.
+                const _on = this.on.bind(this) as (...args: any[]) => this;
+                (this as any).on = function (event: string, ...args: any[]) {
+                    if (event === "enter-html-full-screen" || event === "leave-html-full-screen") return this;
+                    return _on(event, ...args);
+                };
+            }
         }
     }
     Object.assign(BrowserWindow, electron.BrowserWindow);
@@ -177,6 +190,15 @@ if (!IS_VANILLA) {
     app.commandLine.appendSwitch("disable-renderer-backgrounding");
     app.commandLine.appendSwitch("disable-background-timer-throttling");
     app.commandLine.appendSwitch("disable-backgrounding-occluded-windows");
+
+    // Hardware video acceleration for smoother video calls, screen sharing, and embeds.
+    // AcceleratedVideoDecoder: GPU-decoded H.264/VP9/AV1 instead of CPU.
+    // AcceleratedVideoEncoder: GPU-encoded outbound streams (screen share, camera).
+    // VaapiVideoDecoder: VA-API path on Linux/Intel for the same benefit.
+    app.commandLine.appendSwitch("enable-features", "AcceleratedVideoDecoder,AcceleratedVideoEncoder,VaapiVideoDecoder");
+    app.commandLine.appendSwitch("enable-accelerated-video-decode");
+    app.commandLine.appendSwitch("enable-gpu-rasterization");
+    app.commandLine.appendSwitch("enable-zero-copy");
 } else {
     console.log("[Equicord] Running in vanilla mode. Not loading Equicord");
 }
