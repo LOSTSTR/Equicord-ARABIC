@@ -133,17 +133,15 @@ if (!IS_VANILLA) {
                 this.setMinimumSize = (_width: number, _height: number) => { };
             }
 
-            if (isMainWindow && settings.htmlFullscreenFix !== false) {
-                // When an HTML5 video (YouTube embed, Twitch clip, etc.) requests fullscreen,
-                // Discord calls setFullScreen(true) on the OS window, hijacking the entire screen.
-                // We intercept those specific event registrations so HTML5 fullscreen stays inside
-                // the webview. Note: OS-level fullscreen (F11 / maximize) is unaffected because
-                // those paths don't go through enter-html-full-screen.
-                const _on = this.on.bind(this) as (...args: any[]) => this;
-                (this as any).on = function (event: string, ...args: any[]) {
-                    if (event === "enter-html-full-screen" || event === "leave-html-full-screen") return this;
-                    return _on(event, ...args);
-                };
+            if (isMainWindow && settings.htmlFullscreenFix) {
+                // When an HTML5 video (e.g. a YouTube embed) requests fullscreen, Discord calls
+                // setFullScreen(true) on the OS window, hijacking the entire display. Removing
+                // these listeners keeps the video inside the Discord window.
+                // OS-level fullscreen (F11 / window maximize) is unaffected.
+                this.once("ready-to-show", () => {
+                    this.removeAllListeners("enter-html-full-screen");
+                    this.removeAllListeners("leave-html-full-screen");
+                });
             }
         }
     }
@@ -191,7 +189,7 @@ if (!IS_VANILLA) {
     app.commandLine.appendSwitch("disable-background-timer-throttling");
     app.commandLine.appendSwitch("disable-backgrounding-occluded-windows");
 
-    if (settings.hardwareVideoAcceleration !== false) {
+    if (settings.hardwareVideoAcceleration) {
         // GPU-accelerated video decode/encode for smoother video calls, screen sharing, and embeds.
         // Decode: offloads H.264/VP9/AV1 from CPU to GPU decoder unit (DXVA2/D3D11VA on Windows, VAAPI on Linux).
         // Encode: offloads outbound screen-share and camera streams to GPU encoder (NVENC/Quick Sync/AMF).
