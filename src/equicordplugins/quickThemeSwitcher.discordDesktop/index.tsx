@@ -9,7 +9,6 @@ import { HeadingSecondary } from "@components/Heading";
 import { Paragraph } from "@components/Paragraph";
 import { debounce } from "@shared/debounce";
 import { Devs, IS_MAC } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType, StartAt } from "@utils/types";
 import { showToast, Toasts } from "@webpack/common";
 
@@ -61,19 +60,19 @@ const debouncedRefresh = debounce(() => refreshThemeList(), 500);
 const settings = definePluginSettings({
     includeLocal: {
         type: OptionType.BOOLEAN,
-        description: t("تضمين الثيمات المحلية", "Include local themes"),
+        description: "Include local themes",
         default: true,
         onChange: refreshThemeList,
     },
     includeOnline: {
         type: OptionType.BOOLEAN,
-        description: t("تضمين الثيمات الإلكترونية", "Include online themes"),
+        description: "Include online themes",
         default: true,
         onChange: refreshThemeList,
     },
     sortOrder: {
         type: OptionType.SELECT,
-        description: t("طريقة الترتيب", "Sort order"),
+        description: "Sort order",
         options: [
             { label: "A-Z", value: "alphabetical", default: true },
             { label: "Z-A", value: "reverse" },
@@ -83,12 +82,12 @@ const settings = definePluginSettings({
     },
     autoRefresh: {
         type: OptionType.BOOLEAN,
-        description: t("تحديث قائمة الثيمات تلقائياً عند اكتشاف تغييرات", "Automatically refresh the theme list when changes are detected"),
+        description: "Automatically refresh the theme list when changes are detected",
         default: true,
     },
     showNotifications: {
         type: OptionType.BOOLEAN,
-        description: t("إظهار الإشعارات عند إضافة أو إزالة الثيمات", "Show notifications when themes are added or removed"),
+        description: "Show notifications when themes are added or removed",
         default: true,
     },
 });
@@ -244,7 +243,7 @@ const handleThemeNamesChange = () => settings.store.autoRefresh && debouncedRefr
 
 export default definePlugin({
     name: "QuickThemeSwitcher",
-    get description() { return t("التبديل السريع بين الثيمات باستخدام اختصارات لوحة المفاتيح.", "Quickly switch between themes using keyboard shortcuts."); },
+    description: "Quickly switch between themes using keyboard shortcuts.",
     tags: ["Appearance", "Utility"],
     authors: [Devs.prism],
     settings,

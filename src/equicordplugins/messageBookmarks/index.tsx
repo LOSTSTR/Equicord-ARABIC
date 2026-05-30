@@ -134,12 +134,7 @@ const messageContextMenuPatch: NavContextMenuPatchCallback = (children, props) =
 
 export default definePlugin({
     name: "MessageBookmarks",
-    get description() {
-        return t(
-            "احفظ الرسائل كإشارات مرجعية خاصة وصنّفها ضمن لوحة أنيقة مع بحث سريع",
-            "Save messages as private bookmarks and organize them in a beautiful panel with search"
-        );
-    },
+    description: "Save messages as private bookmarks and organize them in a beautiful panel with search",
     tags: ["Chat", "Utility"],
     authors: [EquicordDevs.LOSTSTR, EquicordDevs.NRaymond],
     dependencies: ["MessagePopoverAPI", "HeaderBarAPI"],

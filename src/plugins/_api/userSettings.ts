@@ -17,12 +17,11 @@
 */
 
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "UserSettingsAPI",
-    get description() { return t("يعدّل إعدادات المستخدم في Discord لكشف المجموعة والاسم", "Patches Discord's user settings to expose the account group and name"); },
+    description: "Patches Discord's user settings to expose the account group and name",
     authors: [Devs.Nuckyz],
 
     patches: [

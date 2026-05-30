@@ -17,12 +17,11 @@
 */
 
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "F8Break",
-    get description() { return t("يوقف التطبيق مؤقتاً عند الضغط على F8 وأدوات المطور مفتوحة.", "Pauses the application when pressing F8 while DevTools are open."); },
+    description: "Pauses the application when pressing F8 while DevTools are open.",
     tags: ["Developers", "Shortcuts"],
     authors: [Devs.lewisakura],
 

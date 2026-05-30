@@ -9,8 +9,8 @@ import { type NavContextMenuPatchCallback } from "@api/ContextMenu";
 import { Notifications } from "@api/index";
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import { getCurrentChannel } from "@utils/discord";
+import { t } from "@utils/esharqI18n";
 import { Logger } from "@utils/Logger";
 import definePlugin, { OptionType } from "@utils/types";
 import type { Message } from "@vencord/discord-types";
@@ -116,42 +116,42 @@ function ContextCallback(name: "guild" | "user" | "channel"): NavContextMenuPatc
 const settings = definePluginSettings({
     guilds: {
         type: OptionType.STRING,
-        description: t("السيرفرات المسموح لها بالتجاوز (تُشعَر عند الإشارة إليك في أي مكان بالسيرفر)", "Servers allowed to bypass (notified when mentioned anywhere in the server)"),
+        description: "Servers allowed to bypass (notified when mentioned anywhere in the server)",
         default: "",
         placeholder: "Separate with commas",
         onChange: value => settings.store.guilds = processIds(value)
     },
     channels: {
         type: OptionType.STRING,
-        description: t("القنوات المسموح لها بالتجاوز (تُشعَر عند الإشارة إليك في تلك القناة)", "Channels allowed to bypass (notified when mentioned in that channel)"),
+        description: "Channels allowed to bypass (notified when mentioned in that channel)",
         default: "",
         placeholder: "Separate with commas",
         onChange: value => settings.store.channels = processIds(value)
     },
     users: {
         type: OptionType.STRING,
-        description: t("المستخدمون المسموح لهم بالتجاوز (تُشعَر بجميع رسائلهم المباشرة)", "Users allowed to bypass (notified of all their direct messages)"),
+        description: "Users allowed to bypass (notified of all their direct messages)",
         default: "",
         placeholder: "Separate with commas",
         onChange: value => settings.store.users = processIds(value)
     },
     allowOutsideOfDms: {
         type: OptionType.BOOLEAN,
-        description: t("السماح للمستخدمين المختارين بالتجاوز خارج الرسائل المباشرة أيضاً (يعمل كتجاوز للقناة/السيرفر لجميع رسائل المستخدمين المختارين)", "Allow selected users to bypass outside of DMs too (acts as a channel/server bypass for all messages from selected users)")
+        description: "Allow selected users to bypass outside of DMs too (acts as a channel/server bypass for all messages from selected users)"
     },
     notificationSound: {
         type: OptionType.BOOLEAN,
-        description: t("ما إذا كان صوت الإشعار سيُشغَّل", "Whether the notification sound will play"),
+        description: "Whether the notification sound will play",
         default: true,
     },
     respectSilentPings: {
         type: OptionType.BOOLEAN,
-        description: t("احترام الإشارات الصامتة (@silent / كتم الإشعارات)", "Respect silent pings (@silent / suppressed notifications)"),
+        description: "Respect silent pings (@silent / suppressed notifications)",
         default: true
     },
     statusToUse: {
         type: OptionType.SELECT,
-        description: t("الحالة المستخدمة لتفعيل القائمة البيضاء", "The status used to activate the whitelist"),
+        description: "The status used to activate the whitelist",
         options: [
             {
                 label: t("متصل", "Online"),
@@ -176,7 +176,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "BypassStatus",
-    get description() { return t("استمر في تلقي إشعارات من مصادر محددة حتى في وضع عدم الإزعاج. انقر بزر الماوس الأيمن على المستخدمين/القنوات/السيرفرات لإعدادها لتجاوز وضع عدم الإزعاج.", "Continue receiving notifications from specific sources even in Do Not Disturb. Right-click users/channels/servers to configure them to bypass DND."); },
+    description: "Continue receiving notifications from specific sources even in Do Not Disturb. Right-click users/channels/servers to configure them to bypass DND.",
     tags: ["Activity", "Customisation", "Notifications", "Servers"],
     authors: [Devs.Inbestigator],
     dependencies: ["AudioPlayerAPI"],

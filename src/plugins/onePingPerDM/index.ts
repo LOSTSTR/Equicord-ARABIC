@@ -6,7 +6,6 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { MessageJSON } from "@vencord/discord-types";
 import { ChannelType } from "@vencord/discord-types/enums";
@@ -15,7 +14,7 @@ import { ChannelStore, ReadStateStore, UserStore } from "@webpack/common";
 const settings = definePluginSettings({
     channelToAffect: {
         type: OptionType.SELECT,
-        description: t("اختر نوع المحادثة الخاصة التي تؤثر عليها الإضافة", "Choose which type of private conversation the plugin affects"),
+        description: "Choose which type of private conversation the plugin affects",
         options: [
             { label: "Both", value: "both_dms", default: true },
             { label: "User DMs", value: "user_dm" },
@@ -24,23 +23,23 @@ const settings = definePluginSettings({
     },
     allowMentions: {
         type: OptionType.BOOLEAN,
-        description: t("تلقّي إشعارات صوتية عند @الإشارة", "Receive sound notifications when @mentioned"),
+        description: "Receive sound notifications when @mentioned",
         default: false,
     },
     allowEveryone: {
         type: OptionType.BOOLEAN,
-        description: t("تلقّي إشعارات صوتية عند @everyone و @here في المجموعات", "Receive sound notifications for @everyone and @here in group DMs"),
+        description: "Receive sound notifications for @everyone and @here in group DMs",
         default: false,
     },
     ignoreUsers: {
         type: OptionType.STRING,
-        description: t("معرّفات المستخدمين (مفصولة بفاصلة ومسافة) الذين يجب ألا تُحدَّ إشعاراتهم أبداً", "User IDs (comma and space separated) whose notifications should never be limited"),
+        description: "User IDs (comma and space separated) whose notifications should never be limited",
         restartNeeded: true,
         default: ""
     },
     alwaysPlaySound: {
         type: OptionType.BOOLEAN,
-        description: t("تشغيل صوت إشعار الرسائل حتى عند تعطيله", "Play the message notification sound even when disabled"),
+        description: "Play the message notification sound even when disabled",
         restartNeeded: true,
         default: false
     }
@@ -48,7 +47,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "OnePingPerDM",
-    get description() { return t("يُرسل إشعاراً واحداً فقط لكل محادثة خاصة", "Sends only one notification per DM conversation"); },
+    description: "Sends only one notification per DM conversation",
     tags: ["Notifications", "Customisation"],
     authors: [Devs.ProffDea],
     isModified: true,

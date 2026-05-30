@@ -7,7 +7,6 @@
 import { findGroupChildrenByChildId, NavContextMenuPatchCallback } from "@api/ContextMenu";
 import { RobotIcon } from "@components/Icons";
 import { EquicordDevs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 import { Message } from "@vencord/discord-types";
 import { ChannelStore, Menu } from "@webpack/common";
@@ -37,7 +36,7 @@ const messageCtxPatch: NavContextMenuPatchCallback = (children, { message }: { m
 
 export default definePlugin({
     name: "TriviaAI",
-    get description() { return t("إضافة تساعدك على الإجابة على أسئلة المسابقات باستخدام الذكاء الاصطناعي.", "A plugin that helps you answer trivia questions using AI."); },
+    description: "A plugin that helps you answer trivia questions using AI.",
     dependencies: ["MessagePopoverAPI"],
     tags: ["Appearance", "Customisation", "Fun"],
     authors: [EquicordDevs.yash],

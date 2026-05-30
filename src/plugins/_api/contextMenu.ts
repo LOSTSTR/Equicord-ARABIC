@@ -17,7 +17,6 @@
 */
 
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import { canonicalizeMatch } from "@utils/patches";
 import definePlugin from "@utils/types";
 import { Menu } from "@webpack/common";
@@ -38,7 +37,7 @@ const nameMap = {
 
 export default definePlugin({
     name: "ContextMenuAPI",
-    get description() { return t("واجهة برمجية لإضافة وإزالة عناصر من القوائم السياقية", "API to add and remove items from context menus"); },
+    description: "API to add and remove items from context menus",
     authors: [Devs.Nuckyz, Devs.Ven, Devs.Kyuuhachi],
     required: true,
 

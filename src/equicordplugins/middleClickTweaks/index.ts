@@ -5,8 +5,8 @@
  */
 
 import { definePluginSettings } from "@api/Settings";
-import { EquicordDevs } from "@utils/index";
 import { t } from "@utils/esharqI18n";
+import { EquicordDevs } from "@utils/index";
 import definePlugin, { OptionType } from "@utils/types";
 
 const MIDDLE_CLICK = 1;
@@ -51,7 +51,7 @@ function handleMouseUp(event: MouseEvent) {
 const settings = definePluginSettings({
     openScope: {
         type: OptionType.SELECT,
-        description: t("منع النقر الأوسط على هذه الأنواع من المحتوى.", "Prevent middle clicking on these content types from opening them."),
+        description: "Prevent middle clicking on these content types from opening them.",
         options: [
             { label: t("روابط", "Links"), value: "links" },
             { label: t("وسائط", "Media"), value: "media" },
@@ -62,7 +62,7 @@ const settings = definePluginSettings({
     },
     pasteScope: {
         type: OptionType.SELECT,
-        description: t("منع اللصق عبر النقر الأوسط في هذه الحالات.", "Prevent middle click from pasting during these situations."),
+        description: "Prevent middle click from pasting during these situations.",
         options: [
             { label: t("منع اللصق دائمًا", "Always Prevent Middle Click Pasting"), value: "always", default: true },
             { label: t("منع فقط عند عدم التركيز على حقل النص", "Only Prevent When Text Area Not Focused"), value: "focus" },
@@ -70,7 +70,7 @@ const settings = definePluginSettings({
     },
     pasteThreshold: {
         type: OptionType.NUMBER,
-        description: t("المدة بالمللي ثانية قبل إعادة تفعيل اللصق بعد النقر الأوسط.", "Milliseconds until pasting is enabled again after a middle click."),
+        description: "Milliseconds until pasting is enabled again after a middle click.",
         default: 100,
         onChange(newValue) { if (newValue < 1) { settings.store.pasteThreshold = 1; } }
     }
@@ -78,7 +78,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "MiddleClickTweaks",
-    get description() { return t("تعديلات متعددة للنقر الأوسط، مثل اللصق وفتح الروابط.", "Various middle click tweaks, such as with pasting and link opening."); },
+    description: "Various middle click tweaks, such as with pasting and link opening.",
     authors: [EquicordDevs.Etorix, EquicordDevs.korzi],
     settings,
 

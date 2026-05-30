@@ -34,7 +34,7 @@ function getMembersInRole(roleId: string, guildId: string) {
 
 export default definePlugin({
     name: "InRole",
-    get description() { return t("اعرف من يملك رتبة معينة عبر قائمة السياق أو أمر /inrole (اقرأ معلومات الإضافة!)", "See who has a specific role via the context menu or the /inrole command (read plugin info!)"); },
+    description: "See who has a specific role via the context menu or the /inrole command (read plugin info!)",
     tags: ["Commands", "Roles"],
     authors: [Devs.nin0dev],
     dependencies: ["UserSettingsAPI", "CommandsAPI"],

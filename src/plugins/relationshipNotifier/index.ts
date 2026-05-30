@@ -17,7 +17,6 @@
 */
 
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 import { onChannelDelete, onGuildDelete, onRelationshipRemove, removeFriend, removeGroup, removeGuild } from "./functions";
@@ -26,7 +25,7 @@ import { syncAndRunChecks, syncFriends, syncGroups, syncGuilds } from "./utils";
 
 export default definePlugin({
     name: "RelationshipNotifier",
-    get description() { return t("يُنبّهك عند إزالتك من قائمة الأصدقاء أو المحادثة الجماعية أو السيرفر.", "Notifies you when you are removed from a friend list, group chat, or server."); },
+    description: "Notifies you when you are removed from a friend list, group chat, or server.",
     tags: ["Friends", "Notifications"],
     authors: [Devs.nick],
     settings,

@@ -17,13 +17,12 @@
 */
 
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "CommandsAPI",
     authors: [Devs.Arjix],
-    get description() { return t("واجهة برمجية مطلوبة لكل ما يستخدم الأوامر", "API required for anything using commands"); },
+    description: "API required for anything using commands",
     patches: [
         // obtain BUILT_IN_COMMANDS instance
         {

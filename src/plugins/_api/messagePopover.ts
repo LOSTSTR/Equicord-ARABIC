@@ -17,12 +17,11 @@
 */
 
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "MessagePopoverAPI",
-    get description() { return t("واجهة برمجية لإضافة أزرار إلى قوائم الرسائل المنبثقة", "API to add buttons to message popovers"); },
+    description: "API to add buttons to message popovers",
     authors: [Devs.KingFish, Devs.Ven, Devs.Nuckyz],
     patches: [
         {

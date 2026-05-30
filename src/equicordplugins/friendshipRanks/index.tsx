@@ -143,7 +143,7 @@ function getBadgesToApply() {
 
 export default definePlugin({
     name: "FriendshipRanks",
-    get description() { return t("يضيف شارات تُظهر مدة صداقتك مع المستخدم", "Adds badges that show how long you have been friends with a user"); },
+    description: "Adds badges that show how long you have been friends with a user",
     tags: ["Friends"],
     authors: [Devs.Samwich],
     start() {

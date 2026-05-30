@@ -74,7 +74,7 @@ const UserContextMenuPatch: NavContextMenuPatchCallback = (children, { channel, 
 
 export default definePlugin({
     name: "FollowVoiceUser",
-    get description() { return t("تابع صديقاً في الدردشة الصوتية.", "Follow a friend into voice chat."); },
+    description: "Follow a friend into voice chat.",
     tags: ["Voice"],
     authors: [EquicordDevs.TheArmagan],
     settings,

@@ -9,7 +9,6 @@ import "./style.css";
 import { InfoIcon } from "@components/Icons";
 import { Devs, EquicordDevs } from "@utils/constants";
 import { openUserProfile } from "@utils/discord";
-import { t } from "@utils/esharqI18n";
 import { classes } from "@utils/misc";
 import definePlugin, { StartAt } from "@utils/types";
 import { Guild } from "@vencord/discord-types";
@@ -34,7 +33,7 @@ function lurk(id: string) {
 
 export default definePlugin({
     name: "BetterInvites",
-    get description() { return t("يعرض تاريخ انتهاء الدعوات ويتيح عرض ملف المدعو وتصفح السيرفر قبل الانضمام بالنقر على الاسم", "Shows invite expiry dates and allows viewing the inviter's profile and browsing the server before joining by clicking the name"); },
+    description: "Shows invite expiry dates and allows viewing the inviter's profile and browsing the server before joining by clicking the name",
     tags: ["Appearance", "Customisation", "Chat", "Servers"],
     authors: [EquicordDevs.iamme, Devs.thororen],
     patches: [

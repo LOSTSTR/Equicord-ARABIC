@@ -5,7 +5,6 @@
  */
 
 import { Devs, IS_LINUX } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 function preventMiddleClick(e: MouseEvent) {
@@ -16,7 +15,7 @@ function preventMiddleClick(e: MouseEvent) {
 
 export default definePlugin({
     name: "NoMiddleClickPaste",
-    get description() { return t("يعطّل اللصق بزر الفأرة الأوسط في Linux - لنظام Linux فقط", "Disables middle-click paste on Linux - Linux only"); },
+    description: "Disables middle-click paste on Linux - Linux only",
     authors: [Devs.Darxoon],
     hidden: !IS_LINUX,
 

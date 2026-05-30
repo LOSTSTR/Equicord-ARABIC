@@ -41,7 +41,7 @@ function settingsComponent() {
 
 export default definePlugin({
     name: "SearchFix",
-    description: 'يُصلح خطأ "أسقطنا المكبّر!" المزعج.',
+    description: "Fixes the annoying \"We dropped the magnifying glass!\" error.",
     tags: ["Utility"],
     settingsAboutComponent: () => settingsComponent(),
     authors: [EquicordDevs.Jaxx],

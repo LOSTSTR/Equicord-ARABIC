@@ -7,14 +7,13 @@
 import { definePluginSettings } from "@api/Settings";
 import { Notice } from "@components/Notice";
 import { EquicordDevs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { UserStore } from "@webpack/common";
 
 const settings = definePluginSettings({
     platform: {
         type: OptionType.SELECT,
-        description: t("المنصة التي ستظهر عليها", "The platform that will be shown"),
+        description: "The platform that will be shown",
         restartNeeded: true,
         options: [
             {
@@ -52,7 +51,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "PlatformSpoofer",
-    get description() { return t("تزوير المنصة أو الجهاز الذي تستخدمه", "Spoof the platform or device you are using"); },
+    description: "Spoof the platform or device you are using",
     tags: ["Utility"],
     authors: [EquicordDevs.Drag, EquicordDevs.neoarz],
     settingsAboutComponent: () => (

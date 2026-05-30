@@ -17,12 +17,11 @@
 */
 
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "MessageEventsAPI",
-    get description() { return t("واجهة برمجية مطلوبة لكل ما يستخدم أحداث الرسائل", "API required for anything using message events"); },
+    description: "API required for anything using message events",
     authors: [Devs.Arjix, Devs.hunt, Devs.Ven],
     patches: [
         {

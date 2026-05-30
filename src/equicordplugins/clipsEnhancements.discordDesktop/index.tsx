@@ -19,7 +19,7 @@ const extraFramerates = [45, 90, 120, 144, 165, 240];
 const settings = definePluginSettings({
     richPresenceTagging: {
         type: OptionType.SELECT,
-        description: t("متى يجب وسم المقاطع بـ Rich Presence الحالية؟", "When should clips be tagged with the current Rich Presence?"),
+        description: "When should clips be tagged with the current Rich Presence?",
         options: [
             { label: t("دائمًا", "Always"), value: "always" },
             { label: t("عند تطابق اسم النشاط فقط", "Only when beginning or end of activity name matches"), value: "whenMatched", default: true },
@@ -48,7 +48,7 @@ const settings = definePluginSettings({
 migratePluginSettings("ClipsEnhancements", "TimelessClips");
 export default definePlugin({
     name: "ClipsEnhancements",
-    get description() { return t("يضيف خيارات FPS ومدة تسجيل إضافية، وطول مقطع مخصص، ووسم RPC والمزيد", "Add more Clip FPS and duration options, custom clip length, RPC tagging and more"); },
+    description: "Add more Clip FPS and duration options, custom clip length, RPC tagging and more",
     tags: ["Activity", "Media", "Utility"],
     authors: [Devs.niko, Devs.Joona, EquicordDevs.keircn],
     settings,

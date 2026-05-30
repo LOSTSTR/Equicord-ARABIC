@@ -13,7 +13,6 @@ import { Heading, HeadingSecondary } from "@components/Heading";
 import { Paragraph } from "@components/Paragraph";
 import { Devs, EquicordDevs } from "@utils/constants";
 import { classNameFactory } from "@utils/css";
-import { t } from "@utils/esharqI18n";
 import { getIntlMessage, openUserProfile } from "@utils/discord";
 import { Margins } from "@utils/margins";
 import { classes, getUserAvatarUrl } from "@utils/misc";
@@ -73,7 +72,7 @@ function Watching({ userIds, guildId }: WatchingProps): JSX.Element {
 
 const settings = definePluginSettings({
     showPanel: {
-        description: t("عرض المشاهدين أسفل لوحة مشاركة الشاشة", "Show viewers below the screen share panel"),
+        description: "Show viewers below the screen share panel",
         type: OptionType.BOOLEAN,
         default: true,
         restartNeeded: true
@@ -82,7 +81,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "WhosWatching",
-    get description() { return t("مرر المؤشر فوق أيقونة مشاركة الشاشة لعرض المستخدمين الذين يشاهدون بثك", "Hover over the screenshare icon to see users watching your stream"); },
+    description: "Hover over the screenshare icon to see users watching your stream",
     tags: ["Activity"],
     authors: [EquicordDevs.Fres, Devs.thororen],
     settings,

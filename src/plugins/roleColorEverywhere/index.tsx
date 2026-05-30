@@ -20,7 +20,6 @@ import { definePluginSettings, Settings } from "@api/Settings";
 import ErrorBoundary from "@components/ErrorBoundary";
 import { getCustomColorString } from "@equicordplugins/customUserColors";
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import { Logger } from "@utils/Logger";
 import definePlugin, { makeRange, OptionType } from "@utils/types";
 import { findByCodeLazy } from "@webpack";
@@ -32,42 +31,42 @@ const settings = definePluginSettings({
     chatMentions: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: t("اعرض ألوان الرتب في الإشارات بالمحادثة (بما فيها صندوق الرسائل)", "Show role colors in chat mentions (including the message box)"),
+        description: "Show role colors in chat mentions (including the message box)",
         restartNeeded: true
     },
     memberList: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: t("عرض ألوان الأدوار في رؤوس أقسام الأدوار في قائمة الأعضاء", "Show role colors in role section headers in the member list"),
+        description: "Show role colors in role section headers in the member list",
         restartNeeded: true
     },
     voiceUsers: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: t("عرض ألوان الأدوار في قائمة مستخدمي الدردشة الصوتية", "Show role colors in the voice chat user list"),
+        description: "Show role colors in the voice chat user list",
         restartNeeded: true
     },
     reactorsList: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: t("عرض ألوان الأدوار في قائمة المتفاعلين", "Show role colors in the reactors list"),
+        description: "Show role colors in the reactors list",
         restartNeeded: true
     },
     pollResults: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: t("عرض ألوان الأدوار في نتائج الاستطلاعات", "Show role colors in poll results"),
+        description: "Show role colors in poll results",
         restartNeeded: true
     },
     colorChatMessages: {
         type: OptionType.BOOLEAN,
         default: false,
-        description: t("تلوين رسائل الدردشة بناءً على لون دور المؤلف", "Color chat messages based on the author's role color"),
+        description: "Color chat messages based on the author's role color",
         restartNeeded: true,
     },
     messageSaturation: {
         type: OptionType.SLIDER,
-        description: t("شدة تلوين الرسائل.", "Intensity of message coloring."),
+        description: "Intensity of message coloring.",
         markers: makeRange(0, 100, 10),
         default: 30
     }
@@ -76,7 +75,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "RoleColorEverywhere",
     authors: [Devs.KingFish, Devs.lewisakura, Devs.AutumnVN, Devs.Kyuuhachi, Devs.jamesbt365],
-    get description() { return t("يُطبّق لون الدور على الأسماء في جميع أماكن ديسكورد", "Applies role colors to names everywhere in Discord"); },
+    description: "Applies role colors to names everywhere in Discord",
     tags: ["Roles", "Appearance"],
     settings,
 

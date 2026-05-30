@@ -7,7 +7,6 @@
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
 import { classNameFactory } from "@utils/css";
-import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { closeAllModals,SettingsRouter, useState } from "@webpack/common";
 
@@ -19,7 +18,7 @@ let isRecordingGlobal: boolean = false;
 
 export const settings = definePluginSettings({
     hotkey: {
-        description: t("اختصار لوحة المفاتيح لفتح لوحة الأوامر", "Keyboard shortcut to open the command palette"),
+        description: "Keyboard shortcut to open the command palette",
         type: OptionType.COMPONENT,
         default: ["Control", "Shift", "P"],
         component: () => {
@@ -78,7 +77,7 @@ export const settings = definePluginSettings({
         }
     },
     allowMouseControl: {
-        description: t("السماح بالتحكم في لوحة الأوامر بالماوس.", "Allow mouse control of the command palette."),
+        description: "Allow mouse control of the command palette.",
         type: OptionType.BOOLEAN,
         default: true
     }
@@ -86,7 +85,7 @@ export const settings = definePluginSettings({
 
 export default definePlugin({
     name: "KeyboardNavigation",
-    get description() { return t("يتيح لك التنقل في واجهة المستخدم باستخدام لوحة المفاتيح.", "Allows you to navigate the UI using your keyboard."); },
+    description: "Allows you to navigate the UI using your keyboard.",
     tags: ["Accessibility", "Shortcuts"],
     authors: [Devs.Ethan],
     settings,

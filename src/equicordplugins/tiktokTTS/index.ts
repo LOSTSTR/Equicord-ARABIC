@@ -8,7 +8,6 @@ import { playAudio } from "@api/AudioPlayer";
 import { NavContextMenuPatchCallback } from "@api/ContextMenu";
 import { definePluginSettings } from "@api/Settings";
 import { EquicordDevs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { Menu, React } from "@webpack/common";
 
@@ -23,7 +22,7 @@ const encoder = new TextEncoder();
 const settings = definePluginSettings({
     volume: {
         type: OptionType.SLIDER,
-        description: t("مستوى صوت التشغيل", "Playback volume"),
+        description: "Playback volume",
         default: 50,
         markers: [0, 25, 50, 75, 100],
         stickToMarkers: false,
@@ -211,7 +210,7 @@ async function processQueue() {
 
 export default definePlugin({
     name: "TiktokTTS",
-    get description() { return t("يضيف خيار قائمة سياق لقراءة رسائل الدردشة بصوت TTS من TikTok :sob:", "Adds a context menu option to read chat messages with TikTok TTS :sob:"); },
+    description: "Adds a context menu option to read chat messages with TikTok TTS :sob:",
     tags: ["Accessibility", "Chat", "Voice"],
     authors: [EquicordDevs.VillainsRule, EquicordDevs.examplegit],
     dependencies: ["AudioPlayerAPI"],

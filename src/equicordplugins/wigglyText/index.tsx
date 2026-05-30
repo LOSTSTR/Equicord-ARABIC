@@ -7,7 +7,6 @@
 import { definePluginSettings } from "@api/Settings";
 import { BaseText } from "@components/BaseText";
 import { EquicordDevs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin, { makeRange, OptionType } from "@utils/types";
 import { ReactNode } from "react";
 
@@ -16,7 +15,7 @@ import ExampleWiggle from "./ui/components/ExampleWiggle";
 const settings = definePluginSettings({
     intensity: {
         type: OptionType.SLIDER,
-        description: t("شدة الحركة بالبكسل", "Movement intensity in pixels"),
+        description: "Movement intensity in pixels",
         markers: makeRange(1, 10, 1),
         default: 4,
         stickToMarkers: true,
@@ -112,7 +111,7 @@ const updateStyles = () => {
 
 export default definePlugin({
     name: "WigglyText",
-    get description() { return t("يضيف تنسيق ماركداون جديداً يجعل النص يتمايل.", "Adds a new markdown format that makes text wiggle."); },
+    description: "Adds a new markdown format that makes text wiggle.",
     tags: ["Appearance", "Customisation", "Fun"],
     authors: [EquicordDevs.nexpid],
     settings,

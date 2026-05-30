@@ -9,7 +9,6 @@ import { addServerListElement, removeServerListElement, ServerListRenderPosition
 import { PlainSettings, Settings } from "@api/Settings";
 import { ErrorBoundary } from "@components/index";
 import { EquicordDevs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin, { StartAt } from "@utils/types";
 import type { Quest, QuestUserStatus } from "@vencord/discord-types";
 import { findComponentByCodeLazy, onceReady } from "@webpack";
@@ -98,7 +97,7 @@ function enrolledIncompleteButton(args: { quest: Quest, size: string; }): JSX.El
 
 export default definePlugin({
     name: "Questify",
-    get description() { return t("يُحسّن ميزات المهام، يُزيل المزعجات، أو يُخفي المهام كلياً.", "Enhances quest features, removes annoyances, or hides quests entirely."); },
+    description: "Enhances quest features, removes annoyances, or hides quests entirely.",
     tags: ["Appearance", "Customisation", "Privacy", "Utility"],
     authors: [EquicordDevs.Etorix],
     dependencies: ["AudioPlayerAPI", "ServerListAPI"],

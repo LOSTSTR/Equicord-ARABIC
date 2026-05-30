@@ -10,7 +10,6 @@ import ErrorBoundary from "@components/ErrorBoundary";
 import { CopyIcon, NoEntrySignIcon } from "@components/Icons";
 import { Devs } from "@utils/constants";
 import { copyWithToast } from "@utils/discord";
-import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 import { Tooltip, useState } from "@webpack/common";
 
@@ -22,7 +21,7 @@ const CheckMarkIcon = () => {
 
 export default definePlugin({
     name: "CopyFileContents",
-    get description() { return t("يضيف زرًا على مرفقات الملفات النصية لنسخ محتواها", "Adds a button to text file attachments to copy their contents"); },
+    description: "Adds a button to text file attachments to copy their contents",
     tags: ["Utility"],
     authors: [Devs.Obsidian, Devs.Nuckyz],
     patches: [

@@ -6,7 +6,6 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import { canonicalizeMatch } from "@utils/patches";
 import definePlugin, { OptionType } from "@utils/types";
 
@@ -14,20 +13,20 @@ const settings = definePluginSettings({
     lockout: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: t('تجاوز حماية الإقفال من الصلاحيات ("متأكد أنك لا تريد فعل هذا")', 'Bypass the permission lockout protection ("Are you sure you want to do this")'),
+        description: "Bypass the permission lockout protection (\"Are you sure you want to do this\")",
         restartNeeded: true
     },
     onboarding: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: t('تجاوز متطلبات الإعداد الأولي ("هذا التغيير سيجعل سيرفرك غير متوافق [...]")', 'Bypass onboarding requirements ("This change will make your server non-compliant [...]")'),
+        description: "Bypass onboarding requirements (\"This change will make your server non-compliant [...]\")",
         restartNeeded: true
     }
 });
 
 export default definePlugin({
     name: "PermissionFreeWill",
-    get description() { return t("يعطّل القيود من جهة العميل عند إدارة صلاحيات القنوات.", "Disables client-side restrictions when managing channel permissions."); },
+    description: "Disables client-side restrictions when managing channel permissions.",
     tags: ["Servers", "Roles"],
     authors: [Devs.lewisakura],
 

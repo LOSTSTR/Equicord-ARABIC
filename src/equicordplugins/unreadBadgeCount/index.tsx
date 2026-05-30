@@ -7,7 +7,6 @@
 import { definePluginSettings } from "@api/Settings";
 import ErrorBoundary from "@components/ErrorBoundary";
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { Channel } from "@vencord/discord-types";
 import { findComponentByCodeLazy, findStoreLazy } from "@webpack";
@@ -19,12 +18,12 @@ const NumberBadge = findComponentByCodeLazy("BADGE_NOTIFICATION_BACKGROUND", "le
 
 const settings = definePluginSettings({
     showOnMutedChannels: {
-        description: t("عرض عدد الرسائل غير المقروءة في القنوات المكتومة", "Show unread message count on muted channels"),
+        description: "Show unread message count on muted channels",
         type: OptionType.BOOLEAN,
         default: false,
     },
     notificationCountLimit: {
-        description: t("عرض +99 بدلاً من العدد الحقيقي", "Show +99 instead of the real count"),
+        description: "Show +99 instead of the real count",
         type: OptionType.BOOLEAN,
         default: false,
     },
@@ -33,7 +32,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "UnreadCountBadge",
     authors: [Devs.Joona],
-    get description() { return t("يعرض شارات عدد الرسائل غير المقروءة على القنوات في قائمة القنوات", "Shows unread message count badges on channels in the channel list"); },
+    description: "Shows unread message count badges on channels in the channel list",
     tags: ["Appearance", "Customisation", "Servers"],
     settings,
 

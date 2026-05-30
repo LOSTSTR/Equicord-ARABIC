@@ -110,7 +110,7 @@ function applyPaletteTransparent(data: Uint8Array | Uint8ClampedArray, palette: 
 migratePluginSettings("PetPet", "petpet");
 export default definePlugin({
     name: "PetPet",
-    get description() { return t("يضيف أمر /petpet لإنشاء صور GIF متحركة من أي صورة", "Adds a /petpet command to create animated GIFs from any image"); },
+    description: "Adds a /petpet command to create animated GIFs from any image",
     dependencies: ["CommandsAPI"],
     tags: ["Fun", "Commands"],
     authors: [Devs.Ven, Devs.u32],

@@ -17,7 +17,6 @@
 */
 
 import { Devs, IS_MAC } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 import { findCssClassesLazy } from "@webpack";
 
@@ -26,7 +25,7 @@ const MessagesClasses = findCssClassesLazy("messagesWrapper", "navigationDescrip
 
 export default definePlugin({
     name: "RevealAllSpoilers",
-    get description() { return t("اكشف جميع السبويلرات بالنقر Ctrl+Click على سبويلر، أو في المحادثة بـ Ctrl+Shift+Click", "Reveal all spoilers by Ctrl+Click on a spoiler, or in the chat with Ctrl+Shift+Click"); },
+    description: "Reveal all spoilers by Ctrl+Click on a spoiler, or in the chat with Ctrl+Shift+Click",
     authors: [Devs.whqwert],
     tags: ["Accessibility", "Chat", "Shortcuts", "Utility"],
     patches: [

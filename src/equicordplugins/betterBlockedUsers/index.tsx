@@ -8,7 +8,6 @@ import "./styles.css";
 
 import { EquicordDevs } from "@utils/constants";
 import { getIntlMessage, openUserProfile } from "@utils/discord";
-import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 import { Button, React, RelationshipStore, TextInput, UserStore } from "@webpack/common";
 
@@ -17,7 +16,7 @@ let updateFunc = (v: any) => { };
 
 export default definePlugin({
     name: "BetterBlockedUsers",
-    get description() { return t("يتيح البحث في قائمة المستخدمين المحظورين ويجعل الأسماء قابلة للنسخ في الإعدادات.", "Enables searching the blocked users list and makes names copyable in settings."); },
+    description: "Enables searching the blocked users list and makes names copyable in settings.",
     tags: ["Appearance", "Shortcuts"],
     authors: [EquicordDevs.TheArmagan],
     patches: [

@@ -5,11 +5,11 @@
  */
 
 import { definePluginSettings } from "@api/Settings";
-import { t } from "@utils/esharqI18n";
 import { Button } from "@components/Button";
 import { SettingsSection } from "@components/settings/tabs/plugins/components/Common";
 import { Switch } from "@components/Switch";
 import { classNameFactory } from "@utils/css";
+import { t } from "@utils/esharqI18n";
 import { useForceUpdater } from "@utils/react";
 import { OptionType } from "@utils/types";
 import { React, Select, showToast, TextArea, TextInput, Toasts } from "@webpack/common";

@@ -12,7 +12,6 @@ import { HeadingSecondary } from "@components/Heading";
 import { Paragraph } from "@components/Paragraph";
 import CustomRpcPlugin from "@plugins/customRPC";
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import { Margins } from "@utils/margins";
 import definePlugin, { OptionType } from "@utils/types";
 import { Button, RunningGameStore, showToast, TextArea, Toasts, Tooltip, useEffect, useState } from "@webpack/common";
@@ -152,7 +151,7 @@ const settings = definePluginSettings({
     },
     listMode: {
         type: OptionType.SELECT,
-        description: t("تغيير وضع قائمة الفلتر", "Change the filter list mode"),
+        description: "Change the filter list mode",
         options: [
             {
                 label: "Whitelist",
@@ -178,31 +177,31 @@ const settings = definePluginSettings({
     },
     ignorePlaying: {
         type: OptionType.BOOLEAN,
-        description: t("تجاهل جميع أنشطة اللعب (وهي عادةً أنشطة الألعاب وRPC)", "Ignore all playing activities (usually game activities and RPC)"),
+        description: "Ignore all playing activities (usually game activities and RPC)",
         default: false,
         onChange: recalculateActivities
     },
     ignoreStreaming: {
         type: OptionType.BOOLEAN,
-        description: t("تجاهل جميع أنشطة البث", "Ignore all streaming activities"),
+        description: "Ignore all streaming activities",
         default: false,
         onChange: recalculateActivities
     },
     ignoreListening: {
         type: OptionType.BOOLEAN,
-        description: t("تجاهل جميع أنشطة الاستماع (وهي عادةً أنشطة Spotify)", "Ignore all listening activities (usually Spotify activities)"),
+        description: "Ignore all listening activities (usually Spotify activities)",
         default: false,
         onChange: recalculateActivities
     },
     ignoreWatching: {
         type: OptionType.BOOLEAN,
-        description: t("تجاهل جميع أنشطة المشاهدة", "Ignore all watching activities"),
+        description: "Ignore all watching activities",
         default: false,
         onChange: recalculateActivities
     },
     ignoreCompeting: {
         type: OptionType.BOOLEAN,
-        description: t("تجاهل جميع أنشطة التنافس (وهي عادةً أنشطة ألعاب خاصة)", "Ignore all competing activities (usually private game activities)"),
+        description: "Ignore all competing activities (usually private game activities)",
         default: false,
         onChange: recalculateActivities
     },
@@ -233,7 +232,7 @@ function isActivityTypeIgnored(type: number, id?: string) {
 export default definePlugin({
     name: "IgnoreActivities",
     authors: [Devs.Nuckyz, Devs.Kylie],
-    get description() { return t("يُتيح تجاهل أنشطة معينة من ظهورها في حالتك", "Allows ignoring specific activities from appearing in your status"); },
+    description: "Allows ignoring specific activities from appearing in your status",
     tags: ["Activity", "Privacy", "Customisation"],
     dependencies: ["UserSettingsAPI"],
 

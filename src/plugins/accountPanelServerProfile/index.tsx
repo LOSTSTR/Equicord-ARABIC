@@ -9,7 +9,6 @@ import { definePluginSettings } from "@api/Settings";
 import ErrorBoundary from "@components/ErrorBoundary";
 import alwaysExpandProfiles from "@equicordplugins/alwaysExpandProfiles";
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import { fetchUserProfile, getCurrentChannel, openUserProfile } from "@utils/discord";
 import definePlugin, { OptionType } from "@utils/types";
 import { User } from "@vencord/discord-types";
@@ -62,14 +61,14 @@ const AccountPanelContextMenu = ErrorBoundary.wrap(() => {
 const settings = definePluginSettings({
     prioritizeServerProfile: {
         type: OptionType.BOOLEAN,
-        description: t("إعطاء الأولوية لملف سيرفر عند النقر بزر الفأرة الأيسر على لوحة حسابك", "Prioritize server profile when left-clicking your account panel"),
+        description: "Prioritize server profile when left-clicking your account panel",
         default: false
     }
 });
 
 export default definePlugin({
     name: "AccountPanelServerProfile",
-    get description() { return t("يعرض ملف تعريف الخادم بدلاً من الملف الشخصي العام عند النقر على لوحة الحساب", "Shows the server profile instead of the global profile when clicking your account panel"); },
+    description: "Shows the server profile instead of the global profile when clicking your account panel",
     tags: ["Appearance", "Servers"],
     authors: [Devs.Nuckyz, Devs.relitrix],
     settings,

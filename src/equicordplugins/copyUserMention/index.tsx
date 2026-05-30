@@ -7,7 +7,6 @@
 import { NavContextMenuPatchCallback } from "@api/ContextMenu";
 import { copyToClipboard } from "@utils/clipboard";
 import { Devs, EquicordDevs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 import type { Channel, User } from "@vencord/discord-types";
 import { Menu } from "@webpack/common";
@@ -48,7 +47,7 @@ const UserContextMenuPatch: NavContextMenuPatchCallback = (children, { user }: U
 export default definePlugin({
     name: "CopyUserMention",
     authors: [EquicordDevs.Cortex, Devs.castdrian],
-    get description() { return t("يضيف زراً لنسخ الإشارة للمستخدم من قائمة السياق، يعمل بشكل أفضل مع ValidUser.", "Adds a button to copy a user mention from the context menu, works best with ValidUser."); },
+    description: "Adds a button to copy a user mention from the context menu, works best with ValidUser.",
     tags: ["Chat", "Utility"],
     contextMenus: {
         "user-context": UserContextMenuPatch

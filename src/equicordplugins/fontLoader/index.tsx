@@ -199,7 +199,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "FontLoader",
-    get description() { return t("يحمّل أي خط من Google Fonts", "Loads any font from Google Fonts"); },
+    description: "Loads any font from Google Fonts",
     tags: ["Appearance", "Customisation"],
     authors: [EquicordDevs.vmohammad],
     settings,

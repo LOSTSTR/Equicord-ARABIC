@@ -6,8 +6,8 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import { sendMessage } from "@utils/discord";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { Channel, Message } from "@vencord/discord-types";
 
@@ -25,7 +25,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "ForwardAnywhere",
-    get description() { return t("إذا فشل التوجيه، يُرسله كرسالة عادية، ويسمح أيضاً بتوجيه المحتوى الصريح (NSFW)", "If forwarding fails, sends it as a regular message, and also allows forwarding explicit (NSFW) content"); },
+    description: "If forwarding fails, sends it as a regular message, and also allows forwarding explicit (NSFW) content",
     tags: ["Chat", "Utility"],
     authors: [Devs.thororen],
     settings,

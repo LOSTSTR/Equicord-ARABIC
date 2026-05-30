@@ -10,7 +10,6 @@ import { get, set } from "@api/DataStore";
 import { BaseText } from "@components/BaseText";
 import ErrorBoundary from "@components/ErrorBoundary";
 import { EquicordDevs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import { useTimer } from "@utils/react";
 import definePlugin from "@utils/types";
 import { VoiceState } from "@vencord/discord-types";
@@ -137,7 +136,7 @@ const VoiceStatsSection = ErrorBoundary.wrap(({ userId, isSideBar }: { userId: s
 
 export default definePlugin({
     name: "VoiceStats",
-    get description() { return t("يعرض مدة قضائك في القنوات الصوتية مع كل مستخدم في ملفه الشخصي", "Shows how long you've spent in voice channels with each user on their profile."); },
+    description: "Shows how long you've spent in voice channels with each user on their profile.",
     tags: ["Voice", "Friends"],
     authors: [EquicordDevs.Moowi],
     dependencies: ["ProfileSectionsAPI"],

@@ -18,14 +18,13 @@
 
 import ErrorBoundary from "@components/ErrorBoundary";
 import { EquicordDevs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 import { findComponentByCodeLazy } from "@webpack";
 
 const PinIcon = findComponentByCodeLazy("1-.06-.63L6.16");
 export default definePlugin({
     name: "PinIcon",
-    get description() { return t("يضيف أيقونة دبوس على الرسائل المثبّتة", "Adds a pin icon on pinned messages"); },
+    description: "Adds a pin icon on pinned messages",
     tags: ["Appearance", "Chat"],
     authors: [EquicordDevs.iamme],
     patches: [

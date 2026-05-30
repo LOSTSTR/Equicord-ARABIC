@@ -19,28 +19,28 @@ const settings = definePluginSettings(
     {
         name: {
             type: OptionType.STRING,
-            description: t("التوقيع الذي سيُضاف في نهاية رسائلك", "The signature that will be added to the end of your messages"),
+            description: "The signature that will be added to the end of your messages",
             default: "a chronic discord user"
         },
         textHeader: {
-            description: t("العنوان الذي يُضاف قبل النص", "The header added before the text"),
+            description: "The header added before the text",
             type: OptionType.STRING,
             default: ">",
         },
         showIcon: {
             type: OptionType.BOOLEAN,
             default: true,
-            description: t("عرض أيقونة لتبديل تفعيل الإضافة في شريط الدردشة", "Show an icon to toggle the plugin in the chat bar"),
+            description: "Show an icon to toggle the plugin in the chat bar",
             restartNeeded: true,
         },
         contextMenu: {
             type: OptionType.BOOLEAN,
-            description: t("إضافة خيار لتبديل الوظيفة في قائمة السياق لمدخل الدردشة", "Add an option to toggle the feature in the chat input context menu"),
+            description: "Add an option to toggle the feature in the chat input context menu",
             default: true
         },
         isEnabled: {
             type: OptionType.BOOLEAN,
-            description: t("تبديل تفعيل الوظيفة", "Toggle feature activation"),
+            description: "Toggle feature activation",
             default: true,
         },
     });
@@ -100,7 +100,7 @@ const ChatBarContextCheckbox: NavContextMenuPatchCallback = children => {
 
 export default definePlugin({
     name: "Signature",
-    get description() { return t("نص توقيع/ختام تلقائي", "Automatic signature/sign-off text"); },
+    description: "Automatic signature/sign-off text",
     dependencies: ["CommandsAPI", "ChatInputButtonAPI", "MessagePopoverAPI"],
     tags: ["Appearance", "Chat"],
     authors: [Devs.Ven, Devs.Rini, Devs.ImBanana, EquicordDevs.KrystalSkull],

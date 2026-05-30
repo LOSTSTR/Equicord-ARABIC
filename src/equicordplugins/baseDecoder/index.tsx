@@ -18,12 +18,11 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { CodeBlock } from "@components/CodeBlock";
-import { Logger } from "@utils/Logger";
 import ErrorBoundary from "@components/ErrorBoundary";
 import { Heading } from "@components/Heading";
 import { EquicordDevs } from "@utils/constants";
 import { copyWithToast } from "@utils/discord";
-import { t } from "@utils/esharqI18n";
+import { Logger } from "@utils/Logger";
 import definePlugin, { OptionType } from "@utils/types";
 import { ChannelStore, Modal, openModal } from "@webpack/common";
 
@@ -90,7 +89,7 @@ function openDecodedBase64Modal(decodedContent) {
 
 const settings = definePluginSettings({
     clickMethod: {
-        description: t("تغيير زر فك تشفير محتوى Base64 في أي رسالة.", "Change the button for decoding Base64 content in any message."),
+        description: "Change the button for decoding Base64 content in any message.",
         type: OptionType.SELECT,
         options: [
             { label: "Left Click to decode the base64 content.", value: "Left", default: true },
@@ -101,7 +100,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "DecodeBase64",
-    get description() { return t("فك تشفير محتوى Base64 في أي رسالة ونسخ المحتوى المفكوك", "Decode Base64 content in any message and copy the decoded content"); },
+    description: "Decode Base64 content in any message and copy the decoded content",
     dependencies: ["MessagePopoverAPI"],
     tags: ["Appearance", "Customisation", "Chat"],
     authors: [EquicordDevs.ThePirateStoner],

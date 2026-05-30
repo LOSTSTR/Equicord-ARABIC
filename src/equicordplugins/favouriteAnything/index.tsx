@@ -6,7 +6,6 @@
 
 import { Devs, EquicordDevs } from "@utils/constants";
 import { getIntlMessage } from "@utils/discord";
-import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 import { Embed } from "@vencord/discord-types";
 import { proxyLazyWebpack } from "@webpack";
@@ -25,7 +24,7 @@ export const AttachmentContext = proxyLazyWebpack(() => React.createContext<null
 
 export default definePlugin({
     name: "FavouriteAnything",
-    get description() { return t("يتيح إضافة أي صورة أو فيديو أو مرفق للمفضلة", "Allows adding any image, video, or attachment to favourites"); },
+    description: "Allows adding any image, video, or attachment to favourites",
     tags: ["Chat", "Media"],
     authors: [Devs.nin0dev, EquicordDevs.davri],
     searchTerms: ["favorite"],

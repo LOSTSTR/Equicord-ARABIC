@@ -7,7 +7,6 @@
 import { definePluginSettings } from "@api/Settings";
 import { Button } from "@components/Button";
 import { EquicordDevs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin, { makeRange, OptionType } from "@utils/types";
 import { Channel, Message } from "@vencord/discord-types";
 import { findByPropsLazy, findStore } from "@webpack";
@@ -33,7 +32,7 @@ enum NotificationLevel {
 export const settings = definePluginSettings({
     position: {
         type: OptionType.SELECT,
-        description: t("موضع الإشعار المنبثق.", "Toast notification position."),
+        description: "Toast notification position.",
         options: [
             {
                 label: "Bottom Left",
@@ -57,71 +56,71 @@ export const settings = definePluginSettings({
     },
     timeout: {
         type: OptionType.SLIDER,
-        description: t("مدة عرض الإشعارات بالثواني.", "Notification display duration in seconds."),
+        description: "Notification display duration in seconds.",
         default: 5,
         markers: makeRange(1, 15, 1)
     },
     opacity: {
         type: OptionType.SLIDER,
-        description: t("شفافية الإشعار المرئي.", "Visual notification opacity."),
+        description: "Visual notification opacity.",
         default: 100,
         markers: makeRange(10, 100, 10)
     },
     maxNotifications: {
         type: OptionType.SLIDER,
-        description: t("الحد الأقصى لعدد الإشعارات المعروضة في وقت واحد.", "Maximum number of notifications shown at once."),
+        description: "Maximum number of notifications shown at once.",
         default: 3,
         markers: makeRange(1, 5, 1)
     },
     disableInStreamerMode: {
         type: OptionType.BOOLEAN,
-        description: t("لا تعرض الإشعارات عند تفعيل وضع البث.", "Don't show notifications when streamer mode is active."),
+        description: "Don't show notifications when streamer mode is active.",
         default: true
     },
     respectDoNotDisturb: {
         type: OptionType.BOOLEAN,
-        description: t("لا تعرض الإشعارات عندما تكون حالتك 'عدم الإزعاج'.", "Don't show notifications when your status is 'Do Not Disturb'."),
+        description: "Don't show notifications when your status is 'Do Not Disturb'.",
         default: false
     },
     directMessages: {
         type: OptionType.BOOLEAN,
-        description: t("عرض إشعارات للرسائل المباشرة.", "Show notifications for direct messages."),
+        description: "Show notifications for direct messages.",
         default: true
     },
     groupMessages: {
         type: OptionType.BOOLEAN,
-        description: t("عرض إشعارات لرسائل المجموعات.", "Show notifications for group messages."),
+        description: "Show notifications for group messages.",
         default: true
     },
     friendServerNotifications: {
         type: OptionType.BOOLEAN,
-        description: t("عرض إشعارات عندما يرسل الأصدقاء رسائل في سيرفرات مشتركة معك.", "Show notifications when friends send messages in mutual servers."),
+        description: "Show notifications when friends send messages in mutual servers.",
         default: true
     },
     ignoreUsers: {
         type: OptionType.STRING,
-        description: t("قائمة معرّفات المستخدمين (مفصولة بفواصل) لتجاهل الإشعارات الخاصة بهم.", "Comma-separated list of user IDs to ignore notifications from."),
+        description: "Comma-separated list of user IDs to ignore notifications from.",
         onChange: () => { ignoredUsers = parseIdList(settings.store.ignoreUsers); },
         default: "",
         placeholder: "000000000000000000,111111111111111111,222222222222222222"
     },
     notifyFor: {
         type: OptionType.STRING,
-        description: t("قائمة معرّفات القنوات (مفصولة بفواصل) لتلقي الإشعارات منها دائماً.", "Comma-separated list of channel IDs to always receive notifications from."),
+        description: "Comma-separated list of channel IDs to always receive notifications from.",
         onChange: () => { notifyFor = parseIdList(settings.store.notifyFor); },
         default: "",
         placeholder: "000000000000000000,111111111111111111,222222222222222222"
     },
     exampleButton: {
         type: OptionType.COMPONENT,
-        description: t("عرض مثال على إشعار منبثق.", "Show an example toast notification."),
+        description: "Show an example toast notification.",
         component: () => <Button onClick={showExampleNotification}>Show Example Notification</Button>
     }
 });
 
 export default definePlugin({
     name: "ToastNotifications",
-    get description() { return t("يعرض إشعارات منبثقة، قابلة للتهيئة للرسائل المباشرة والمجموعات والأصدقاء وقنوات السيرفر.", "Shows toast notifications, configurable for DMs, groups, friends, and server channels."); },
+    description: "Shows toast notifications, configurable for DMs, groups, friends, and server channels.",
     tags: ["Appearance", "Customisation", "Notifications"],
     authors: [EquicordDevs.Skully, EquicordDevs.Ethan, EquicordDevs.Buzzy],
     settings,

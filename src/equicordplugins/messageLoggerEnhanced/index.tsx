@@ -11,7 +11,6 @@ import "./styles.css";
 import { LogsIcon } from "@components/Icons";
 import { Devs, EquicordDevs } from "@utils/constants";
 import { classNameFactory } from "@utils/css";
-import { t } from "@utils/esharqI18n";
 import { Logger } from "@utils/Logger";
 import definePlugin from "@utils/types";
 import { findByPropsLazy } from "@webpack";
@@ -268,7 +267,7 @@ async function processMessageFetch(response: FetchMessagesResponse) {
 export default definePlugin({
     name: "MessageLoggerEnhanced",
     authors: [Devs.Aria, EquicordDevs.keircn],
-    get description() { return t("يُحسّن MessageLogger بإضافة سجل تعديلات الرسائل وكشف الـ Ghost Ping والمزيد", "Enhances MessageLogger by adding a message edit log, ghost ping detection, and more"); },
+    description: "Enhances MessageLogger by adding a message edit log, ghost ping detection, and more",
     tags: ["Chat", "Servers"],
     dependencies: ["MessageLogger", "HeaderBarAPI"],
 

@@ -7,7 +7,6 @@
 import { definePluginSettings } from "@api/Settings";
 import { Notice } from "@components/Notice";
 import { EquicordDevs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { User } from "@vencord/discord-types";
 import { ChannelStore, UserStore } from "@webpack/common";
@@ -15,13 +14,13 @@ import { ChannelStore, UserStore } from "@webpack/common";
 const settings = definePluginSettings({
     globalMention: {
         type: OptionType.BOOLEAN,
-        description: t("منشن المستخدمين من أي سيرفر وليس السيرفر الحالي فقط", "Mention users from any server, not just the current one"),
+        description: "Mention users from any server, not just the current one",
         default: false,
         restartNeeded: true
     },
     onlyDMUsers: {
         type: OptionType.BOOLEAN,
-        description: t("إظهار المستخدمين الذين تبادلت معهم رسائل مباشرة فقط", "Only show users you have DMs with"),
+        description: "Only show users you have DMs with",
         default: false,
         restartNeeded: true
     }
@@ -39,7 +38,7 @@ function getCachedUsers(): User[] {
 export default definePlugin({
     name: "UniversalMention",
     authors: [EquicordDevs.justjxke],
-    get description() { return t("إشارة إلى أي مستخدم بغض النظر عن صلاحيات الوصول للقناة.", "Mention any user regardless of channel access permissions."); },
+    description: "Mention any user regardless of channel access permissions.",
     tags: ["Chat", "Servers", "Utility"],
     settings,
     settingsAboutComponent: () => (

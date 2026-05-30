@@ -7,7 +7,6 @@
 import "./style.css";
 
 import { EquicordDevs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 import { FluxDispatcher } from "@webpack/common";
 
@@ -26,7 +25,7 @@ let oldTrendingCat: Category[] | null = null;
 
 export default definePlugin({
     name: "GifCollections",
-    get description() { return t("يتيح إنشاء مجموعات مخصصة من صور GIF وتنظيمها", "Allows creating and organizing custom GIF collections"); },
+    description: "Allows creating and organizing custom GIF collections",
     tags: ["Chat", "Emotes"],
     authors: [EquicordDevs.creations],
     settings,

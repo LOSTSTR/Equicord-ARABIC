@@ -23,7 +23,6 @@ import {
 import { definePluginSettings } from "@api/Settings";
 import { CogWheel } from "@components/Icons";
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { Guild } from "@vencord/discord-types";
 import { findByCodeLazy, findByPropsLazy, findStoreLazy, mapMangledModuleLazy } from "@webpack";
@@ -42,12 +41,12 @@ const collapsedChannels = findByPropsLazy("toggleCollapseGuild");
 
 const settings = definePluginSettings({
     guild: {
-        description: t("يكتم السيرفر تلقائياً", "Automatically mute the server"),
+        description: "Automatically mute the server",
         type: OptionType.BOOLEAN,
         default: true
     },
     messages: {
-        description: t("إعدادات إشعارات السيرفر", "Server notification settings"),
+        description: "Server notification settings",
         type: OptionType.SELECT,
         options: [
             { label: "All messages", value: 0 },
@@ -57,37 +56,37 @@ const settings = definePluginSettings({
         ],
     },
     everyone: {
-        description: t("كتم @everyone و @here", "Mute @everyone and @here"),
+        description: "Mute @everyone and @here",
         type: OptionType.BOOLEAN,
         default: true
     },
     role: {
-        description: t("كتم جميع إشارات @الرتب", "Mute all @role mentions"),
+        description: "Mute all @role mentions",
         type: OptionType.BOOLEAN,
         default: true
     },
     highlights: {
-        description: t("كتم التمييزات تلقائياً", "Automatically mute highlights"),
+        description: "Automatically mute highlights",
         type: OptionType.BOOLEAN,
         default: true
     },
     events: {
-        description: t("كتم الفعاليات الجديدة تلقائياً", "Automatically mute new events"),
+        description: "Automatically mute new events",
         type: OptionType.BOOLEAN,
         default: true
     },
     showAllChannels: {
-        description: t("إظهار جميع القنوات تلقائياً", "Automatically show all channels"),
+        description: "Automatically show all channels",
         type: OptionType.BOOLEAN,
         default: true
     },
     mobilePush: {
-        description: t("كتم إشعارات الدفع للجوال تلقائياً", "Automatically mute mobile push notifications"),
+        description: "Automatically mute mobile push notifications",
         type: OptionType.BOOLEAN,
         default: true
     },
     voiceChannels: {
-        description: t("إخفاء الأسماء في قنوات الصوت تلقائياً", "Automatically collapse voice channel names"),
+        description: "Automatically collapse voice channel names",
         type: OptionType.BOOLEAN,
         default: false
     }
@@ -151,7 +150,7 @@ function applyDefaultSettings(guildId: string | null) {
 
 export default definePlugin({
     name: "NewGuildSettings",
-    get description() { return t("يُتيح ضبط الإعدادات الافتراضية لكل خادم تنضم إليه", "Allows setting default settings for every server you join"); },
+    description: "Allows setting default settings for every server you join",
     tags: ["Servers", "Customisation"],
     searchTerms: ["MuteNewGuild", "mute", "server"],
     authors: [Devs.Glitch, Devs.Nuckyz, Devs.carince, Devs.Mopi, Devs.GabiRP],

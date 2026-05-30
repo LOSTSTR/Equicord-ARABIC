@@ -18,14 +18,13 @@
 
 import { definePluginSettings, migratePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 
 const settings = definePluginSettings({
     hideArrow: {
         type: OptionType.BOOLEAN,
         default: false,
-        description: t("إخفاء السهم", "Hide the arrow"),
+        description: "Hide the arrow",
         restartNeeded: true
     },
 });
@@ -33,7 +32,7 @@ const settings = definePluginSettings({
 migratePluginSettings("AlwaysExpandRoles", "ShowAllRoles");
 export default definePlugin({
     name: "AlwaysExpandRoles",
-    get description() { return t("يوسّع قائمة الأدوار في الملف الشخصي تلقائياً", "Automatically expands the roles list in profiles"); },
+    description: "Automatically expands the roles list in profiles",
     tags: ["Appearance", "Roles"],
     authors: [Devs.surgedevs],
     isModified: true,

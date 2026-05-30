@@ -84,7 +84,7 @@ const Native = VencordNative.pluginHelpers.OpenInApp as PluginNative<typeof impo
 
 export default definePlugin({
     name: "OpenInApp",
-    get description() { return t("يفتح روابط تطبيقات خارجية مباشرة في تطبيقاتها", "Opens external application links directly in their native apps"); },
+    description: "Opens external application links directly in their native apps",
     tags: ["Utility"],
     authors: [Devs.Ven, Devs.surgedevs],
     settings: pluginSettings,

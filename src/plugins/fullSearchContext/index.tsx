@@ -20,7 +20,6 @@ import { findGroupChildrenByChildId, NavContextMenuPatchCallback } from "@api/Co
 import { migratePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
 import { getIntlMessage } from "@utils/discord";
-import { t } from "@utils/esharqI18n";
 import { NoopComponent } from "@utils/react";
 import definePlugin from "@utils/types";
 import { Message } from "@vencord/discord-types";
@@ -81,7 +80,7 @@ const contextMenuPatch: NavContextMenuPatchCallback = (children, props: MessageA
 migratePluginSettings("FullSearchContext", "SearchReply");
 export default definePlugin({
     name: "FullSearchContext",
-    get description() { return t("يضيف جميع خيارات القائمة السياقية للرسائل في نتائج البحث", "Adds all message context menu options in search results"); },
+    description: "Adds all message context menu options in search results",
     tags: ["Utility"],
     authors: [Devs.Ven, Devs.Aria],
 

@@ -24,7 +24,6 @@ import ErrorBoundary from "@components/ErrorBoundary";
 import TypingTweaksPlugin, { buildSeveralUsers } from "@plugins/typingTweaks";
 import { Devs } from "@utils/constants";
 import { getIntlMessage } from "@utils/discord";
-import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { findComponentByCodeLazy } from "@webpack";
 import { GuildMemberStore, RelationshipStore, SelectedChannelStore, Tooltip, TypingStore, UserGuildSettingsStore, UserStore, UserSummaryItem, useStateFromStores } from "@webpack/common";
@@ -136,27 +135,27 @@ function TypingIndicator({ channelId, guildId }: { channelId: string; guildId: s
 const settings = definePluginSettings({
     includeCurrentChannel: {
         type: OptionType.BOOLEAN,
-        description: t("عرض مؤشر الكتابة للقناة المحددة حالياً", "Show the typing indicator for the currently selected channel"),
+        description: "Show the typing indicator for the currently selected channel",
         default: true
     },
     includeMutedChannels: {
         type: OptionType.BOOLEAN,
-        description: t("ما إذا كان يجب عرض مؤشر الكتابة للقنوات المكتومة.", "Whether to show the typing indicator for muted channels."),
+        description: "Whether to show the typing indicator for muted channels.",
         default: false
     },
     includeIgnoredUsers: {
         type: OptionType.BOOLEAN,
-        description: t("ما إذا كان يجب عرض مؤشر الكتابة للمستخدمين المتجاهَلين.", "Whether to show the typing indicator for ignored users."),
+        description: "Whether to show the typing indicator for ignored users.",
         default: false
     },
     includeBlockedUsers: {
         type: OptionType.BOOLEAN,
-        description: t("ما إذا كان يجب عرض مؤشر الكتابة للمستخدمين المحجوبين.", "Whether to show the typing indicator for blocked users."),
+        description: "Whether to show the typing indicator for blocked users.",
         default: false
     },
     indicatorMode: {
         type: OptionType.SELECT,
-        description: t("كيف يجب عرض المؤشر؟", "How should the indicator be displayed?"),
+        description: "How should the indicator be displayed?",
         options: [
             { label: "Avatars and animated dots", value: IndicatorMode.Dots | IndicatorMode.Avatars, default: true },
             { label: "Animated dots", value: IndicatorMode.Dots },
@@ -167,7 +166,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "TypingIndicator",
-    get description() { return t("يعرض من يكتب في القنوات الأخرى", "Shows who is typing in other channels"); },
+    description: "Shows who is typing in other channels",
     tags: ["Notifications", "Appearance", "Servers"],
     authors: [Devs.Nuckyz, Devs.fawn, Devs.Sqaaakoi],
     isModified: true,

@@ -6,13 +6,12 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 
 const settings = definePluginSettings({
     onlySnow: {
         type: OptionType.BOOLEAN,
-        description: t("شغّل موضوع Snow Halation فقط", "Only play the Snow Halation theme"),
+        description: "Only play the Snow Halation theme",
         default: false,
         restartNeeded: true
     }
@@ -20,7 +19,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "SecretRingToneEnabler",
-    get description() { return t("يُغيّر نغمة رنين المكالمات", "Changes the call ringtone"); },
+    description: "Changes the call ringtone",
     tags: ["Notifications", "Fun"],
     authors: [Devs.AndrewDLO, Devs.FieryFlames, Devs.RamziAH],
     settings,

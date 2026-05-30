@@ -10,7 +10,6 @@ import { addMessagePreSendListener, removeMessagePreSendListener } from "@api/Me
 import { EyeIcon } from "@components/Icons";
 import SettingsPlugin from "@plugins/_core/settings";
 import { EquicordDevs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import { removeFromArray } from "@utils/misc";
 import definePlugin from "@utils/types";
 
@@ -19,7 +18,7 @@ import DataUI from "./components/ui";
 
 export default definePlugin({
     name: "IRememberYou",
-    get description() { return t("يحفظ محلياً جميع من تواصلت معهم (بما في ذلك السيرفرات) احتياطاً في حال الفقدان", "Locally saves everyone you've interacted with (including servers) as a backup in case of loss"); },
+    description: "Locally saves everyone you've interacted with (including servers) as a backup in case of loss",
     tags: ["Chat", "Servers"],
     authors: [EquicordDevs.zoodogood, EquicordDevs.keircn],
     dependencies: ["MessageEventsAPI"],

@@ -40,27 +40,27 @@ function triggerChatToggleRerender() {
 const settings = definePluginSettings({
     enabledGlobally: {
         type: OptionType.BOOLEAN,
-        description: t("تبديل إخفاء مؤشر الكتابة الخاص بك بشكل عام.", "Toggle hiding your typing indicator globally."),
+        description: "Toggle hiding your typing indicator globally.",
         default: true,
     },
     hideChatBoxTypingIndicators: {
         type: OptionType.BOOLEAN,
-        description: t("إخفاء مؤشرات كتابة المستخدمين الآخرين من أعلى شريط الدردشة.", "Hide other users' typing indicators from above the chat bar."),
+        description: "Hide other users' typing indicators from above the chat bar.",
         default: false,
     },
     hideMembersListTypingIndicators: {
         type: OptionType.BOOLEAN,
-        description: t("إخفاء مؤشرات كتابة المستخدمين الآخرين من قائمة الأعضاء.", "Hide other users' typing indicators from the member list."),
+        description: "Hide other users' typing indicators from the member list.",
         default: false,
     },
     chatIcon: {
         type: OptionType.BOOLEAN,
-        description: t("إظهار أيقونة في شريط الدردشة لتعديل الإضافة أثناء الاستخدام.", "Show an icon in the chat bar to toggle the plugin on the fly."),
+        description: "Show an icon in the chat bar to toggle the plugin on the fly.",
         default: true,
     },
     chatIconLeftClickAction: {
         type: OptionType.SELECT,
-        description: t("ما يحدث عند النقر بالزر الأيسر على أيقونة الدردشة.", "What happens when left-clicking the chat icon."),
+        description: "What happens when left-clicking the chat icon.",
         options: [
             { label: "Toggle Typing Globally", value: "global" },
             { label: "Toggle Typing in Channel", value: "channel", default: true },
@@ -70,7 +70,7 @@ const settings = definePluginSettings({
     },
     chatIconMiddleClickAction: {
         type: OptionType.SELECT,
-        description: t("ما يحدث عند النقر بزر الفأرة الأوسط على أيقونة الدردشة.", "What happens when middle-clicking the chat icon."),
+        description: "What happens when middle-clicking the chat icon.",
         options: [
             { label: "Toggle Typing Globally", value: "global" },
             { label: "Toggle Typing in Channel", value: "channel" },
@@ -80,7 +80,7 @@ const settings = definePluginSettings({
     },
     chatIconRightClickAction: {
         type: OptionType.SELECT,
-        description: t("ما يحدث عند النقر بالزر الأيمن على أيقونة الدردشة.", "What happens when right-clicking the chat icon."),
+        description: "What happens when right-clicking the chat icon.",
         options: [
             { label: "Toggle Typing Globally", value: "global", default: true },
             { label: "Toggle Typing in Channel", value: "channel" },
@@ -90,37 +90,37 @@ const settings = definePluginSettings({
     },
     chatContextMenu: {
         type: OptionType.BOOLEAN,
-        description: t("إظهار قائمة منسدلة في قائمة سياق الدردشة لتعديل إعدادات الإضافة أثناء الاستخدام.", "Show a submenu in the chat context menu to toggle plugin settings on the fly."),
+        description: "Show a submenu in the chat context menu to toggle plugin settings on the fly.",
         default: true
     },
     defaultHidden: {
         type: OptionType.BOOLEAN,
-        description: t("إذا كان مفعّلاً، ستخفي الإضافة مؤشر كتابتك عن الآخرين في أي رسائل مباشرة/قنوات/خوادم غير مدرجة في \"المواقع المعطّلة\" أدناه. وإذا كان معطّلاً، ستُظهر الإضافة مؤشر كتابتك للآخرين في أي رسائل مباشرة/قنوات/خوادم غير مدرجة في \"المواقع المفعّلة\" أدناه.", "If enabled, the plugin will hide your typing indicator from others in any DMs/channels/servers not listed under \"Disabled locations\" below. If disabled, the plugin will show your typing indicator in any DMs/channels/servers not listed under \"Enabled locations\" below."),
+        description: "If enabled, the plugin will hide your typing indicator from others in any DMs/channels/servers not listed under \"Disabled locations\" below. If disabled, the plugin will show your typing indicator in any DMs/channels/servers not listed under \"Enabled locations\" below.",
         default: true,
     },
     alwaysEnableInActiveVoiceChat: {
         type: OptionType.BOOLEAN,
-        description: t("السماح دائماً بإظهار مؤشر الكتابة عند الكتابة في قناة صوتية أنت متصل بها.", "Always allow your typing indicator to show when typing in a voice channel you are connected to."),
+        description: "Always allow your typing indicator to show when typing in a voice channel you are connected to.",
         default: false
     },
     temporaryEnableThresholdServers: {
         type: OptionType.NUMBER,
-        description: t("السماح مؤقتاً بإظهار مؤشر الكتابة لهذا العدد من الثواني بعد إرسال رسالة في قناة خادم. إذا كان مؤشر الكتابة ظاهراً بالفعل في القناة، فلن يكون لهذا الإعداد أي أثر.", "Temporarily allow your typing indicator to show for this many seconds after sending a message in a server channel. If the typing indicator is already visible in the channel, this setting will have no effect."),
+        description: "Temporarily allow your typing indicator to show for this many seconds after sending a message in a server channel. If the typing indicator is already visible in the channel, this setting will have no effect.",
         default: 0,
     },
     temporaryEnableThresholdDirectMessages: {
         type: OptionType.NUMBER,
-        description: t("السماح مؤقتاً بإظهار مؤشر الكتابة لهذا العدد من الثواني بعد إرسال رسالة في رسالة مباشرة أو مجموعة. إذا كان مؤشر الكتابة ظاهراً بالفعل في القناة، فلن يكون لهذا الإعداد أي أثر.", "Temporarily allow your typing indicator to show for this many seconds after sending a message in a DM or Group DM. If the typing indicator is already visible in the channel, this setting will have no effect."),
+        description: "Temporarily allow your typing indicator to show for this many seconds after sending a message in a DM or Group DM. If the typing indicator is already visible in the channel, this setting will have no effect.",
         default: 0,
     },
     enabledLocations: {
         type: OptionType.STRING,
-        description: t("تفعيل الوظيفة لهذه المعرّفات. يقبل قائمة مفصولة بفواصل من معرّفات الرسائل المباشرة والقنوات والخوادم. يُستخدم فقط إذا كان \"مخفي افتراضياً\" معطّلاً.", "Enable the feature for these IDs. Accepts a comma-separated list of DM, channel, and server IDs. Only used if \"Default Hidden\" is disabled."),
+        description: "Enable the feature for these IDs. Accepts a comma-separated list of DM, channel, and server IDs. Only used if \"Default Hidden\" is disabled.",
         default: "",
     },
     disabledLocations: {
         type: OptionType.STRING,
-        description: t("تعطيل الوظيفة لهذه المعرّفات. يقبل قائمة مفصولة بفواصل من معرّفات الرسائل المباشرة والقنوات والخوادم. يُستخدم فقط إذا كان \"مخفي افتراضياً\" مفعّلاً.", "Disable the feature for these IDs. Accepts a comma-separated list of DM, channel, and server IDs. Only used if \"Default Hidden\" is enabled."),
+        description: "Disable the feature for these IDs. Accepts a comma-separated list of DM, channel, and server IDs. Only used if \"Default Hidden\" is enabled.",
         default: "",
     },
 });
@@ -373,7 +373,7 @@ function shouldHideMembersListTypingIndicators(): boolean {
 export default definePlugin({
     name: "SilentTyping",
     authors: [Devs.Ven, Devs.Rini, Devs.ImBanana, EquicordDevs.Etorix],
-    get description() { return t("يمنع ظهور مؤشر الكتابة للآخرين", "Prevents your typing indicator from showing to others"); },
+    description: "Prevents your typing indicator from showing to others",
     dependencies: ["CommandsAPI", "ChatInputButtonAPI"],
     tags: ["Chat", "Privacy"],
     isModified: true,

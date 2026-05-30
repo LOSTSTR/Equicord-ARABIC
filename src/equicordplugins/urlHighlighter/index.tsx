@@ -12,7 +12,6 @@ import ErrorBoundary from "@components/ErrorBoundary";
 import { Heading } from "@components/Heading";
 import { Devs } from "@utils/constants";
 import { classNameFactory } from "@utils/css";
-import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { findComponentByCodeLazy } from "@webpack";
 import { ColorPicker, TextInput } from "@webpack/common";
@@ -86,18 +85,18 @@ const PatternsComponent = ErrorBoundary.wrap(() => {
 const settings = definePluginSettings({
     patterns: {
         type: OptionType.COMPONENT,
-        description: t("أنماط URL لتمييزها باستخدام نمط glob", "URL patterns to highlight using glob pattern"),
+        description: "URL patterns to highlight using glob pattern",
         default: [] as PatternEntry[],
         component: PatternsComponent
     },
     boldUrls: {
         type: OptionType.BOOLEAN,
-        description: t("جعل الروابط المميزة عريضة.", "Make highlighted URLs bold."),
+        description: "Make highlighted URLs bold.",
         default: false
     },
     highlightEmbeds: {
         type: OptionType.BOOLEAN,
-        description: t("تمييز الروابط أيضاً في محتوى المعاينات المضمنة.", "Also highlight URLs in embed content."),
+        description: "Also highlight URLs in embed content.",
         default: false
     }
 });
@@ -121,7 +120,7 @@ function getMatchingPattern(url: string): PatternEntry | null {
 
 export default definePlugin({
     name: "UrlHighlighter",
-    get description() { return t("يميّز الروابط في الرسائل التي تطابق أنماطك المخصصة.", "Highlights URLs in messages that match your custom patterns."); },
+    description: "Highlights URLs in messages that match your custom patterns.",
     tags: ["Appearance", "Customisation"],
     authors: [Devs.prism],
     settings,

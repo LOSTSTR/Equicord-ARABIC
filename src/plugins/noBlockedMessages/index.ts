@@ -19,7 +19,6 @@
 import { definePluginSettings, migratePluginSetting, Settings } from "@api/Settings";
 import { containsBlockedKeywords } from "@equicordplugins/blockKeywords";
 import { Devs, EquicordDevs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import { Logger } from "@utils/Logger";
 import definePlugin, { OptionType } from "@utils/types";
 import { Message, User } from "@vencord/discord-types";
@@ -50,38 +49,38 @@ migratePluginSetting("NoBlockedMessages", "alsoHideIgnoredUsers", "applyToIgnore
 
 const settings = definePluginSettings({
     alsoHideIgnoredUsers: {
-        description: t("إخفاء رسائل المستخدمين المتجاهلين أيضاً.", "Also hide messages from ignored users."),
+        description: "Also hide messages from ignored users.",
         type: OptionType.BOOLEAN,
         default: true,
         restartNeeded: false
     },
     disableNotifications: {
-        description: t("إخفاء إشعارات الرسائل الجديدة من المستخدمين المحجوبين. يكون دائماً مفعلاً إذا كان 'إخفاء المستخدمين افتراضياً' مفعلاً وكان المستخدم غير مستثنى في 'المستخدمون المستثنون'.", "Hide new message notifications from blocked users. Always active if 'Hide users by default' is enabled and the user is not in the 'Override Users' list."),
+        description: "Hide new message notifications from blocked users. Always active if 'Hide users by default' is enabled and the user is not in the 'Override Users' list.",
         type: OptionType.BOOLEAN,
         default: false,
         restartNeeded: false
     },
     allowAutoModMessages: {
-        description: t("السماح للرسائل المرسلة بواسطة AutoMod بتجاوز الفلتر.", "Allow messages sent by AutoMod to bypass the filter."),
+        description: "Allow messages sent by AutoMod to bypass the filter.",
         type: OptionType.BOOLEAN,
         default: true,
         restartNeeded: false,
     },
     hideBlockedUserReplies: {
-        description: t("إخفاء الردود على المستخدمين المحجوبين.", "Hide replies to blocked users."),
+        description: "Hide replies to blocked users.",
         type: OptionType.BOOLEAN,
         default: false,
         restartNeeded: false,
     },
     defaultHideUsers: {
         type: OptionType.BOOLEAN,
-        description: t("إذا كان مفعلاً، ستُخفى رسائل المستخدمين المحجوبين بالكامل وستُطوى رسائل معرّفات المستخدمين في قائمة الاستثناءات (السلوك الافتراضي لـ Discord). إذا كان معطلاً، ستُطوى رسائل المستخدمين المحجوبين وستُخفى رسائل معرّفات المستخدمين في القائمة بالكامل.", "If enabled, blocked users' messages are fully hidden and override list user IDs are collapsed (Discord default). If disabled, blocked users' messages are collapsed and override list user IDs are fully hidden."),
+        description: "If enabled, blocked users' messages are fully hidden and override list user IDs are collapsed (Discord default). If disabled, blocked users' messages are collapsed and override list user IDs are fully hidden.",
         default: true,
         restartNeeded: false,
     },
     overrideUsers: {
         type: OptionType.STRING,
-        description: t("قائمة معرّفات المستخدمين المفصولة بفواصل التي ستُخفى أو تُطوى بدلاً من السلوك الافتراضي المحدد أعلاه.", "Comma-separated list of user IDs that will be hidden or collapsed instead of the default behavior defined above."),
+        description: "Comma-separated list of user IDs that will be hidden or collapsed instead of the default behavior defined above.",
         restartNeeded: false,
         default: ""
     },
@@ -89,7 +88,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "NoBlockedMessages",
-    get description() { return t("يُخفي رسائل المستخدمين المحجوبين كلياً", "Completely hides messages from blocked users"); },
+    description: "Completely hides messages from blocked users",
     authors: [Devs.rushii, Devs.Samu, Devs.jamesbt365, Devs.Elvyra, EquicordDevs.Etorix],
     tags: ["Accessibility", "Chat"],
     isModified: true,

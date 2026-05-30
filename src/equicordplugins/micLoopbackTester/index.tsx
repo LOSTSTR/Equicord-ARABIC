@@ -6,7 +6,6 @@
 
 import { UserAreaButton, UserAreaButtonFactory, UserAreaRenderProps } from "@api/UserArea";
 import { EquicordDevs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 import { MediaEngineStore, React, UserStore, VoiceActions, VoiceStateStore } from "@webpack/common";
 
@@ -115,7 +114,7 @@ const MicLoopbackUserAreaButton: UserAreaButtonFactory = props => <MicLoopbackBu
 
 export default definePlugin({
     name: "MicLoopbackTester",
-    get description() { return t("يضيف أيقونة اختبار صدى الميكروفون إلى لوحة المستخدم", "Adds a microphone loopback test icon to the user panel"); },
+    description: "Adds a microphone loopback test icon to the user panel",
     tags: ["Utility", "Voice"],
     authors: [EquicordDevs.benjii],
     dependencies: ["UserSettingsAPI", "UserAreaAPI"],

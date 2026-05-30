@@ -22,7 +22,6 @@ import { definePluginSettings } from "@api/Settings";
 import { Button } from "@components/Button";
 import { Devs } from "@utils/constants";
 import { classNameFactory } from "@utils/css";
-import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 
 const cl = classNameFactory("vc-usrbg-");
@@ -37,7 +36,7 @@ interface UsrbgApiReturn {
 
 const settings = definePluginSettings({
     nitroFirst: {
-        description: t("البانر المستخدم عند توفّر بانر نيترو وبانر USRBG معاً", "Which banner to use when both a Nitro banner and a USRBG banner are available"),
+        description: "Which banner to use when both a Nitro banner and a USRBG banner are available",
         type: OptionType.SELECT,
         options: [
             { label: "Nitro banner", value: true, default: true },
@@ -45,7 +44,7 @@ const settings = definePluginSettings({
         ]
     },
     voiceBackground: {
-        description: t("استخدام بانرات USRBG كخلفيات للدردشة الصوتية", "Use USRBG banners as voice chat backgrounds"),
+        description: "Use USRBG banners as voice chat backgrounds",
         type: OptionType.BOOLEAN,
         default: true,
         restartNeeded: true
@@ -54,7 +53,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "USRBG",
-    get description() { return t("يُضيف صورة خلفية مخصصة للملف الشخصي عبر USRBG", "Adds a custom profile background via USRBG"); },
+    description: "Adds a custom profile background via USRBG",
     tags: ["Appearance", "Customisation"],
     authors: [Devs.AutumnVN, Devs.katlyn, Devs.pylix, Devs.TheKodeToad],
     settings,

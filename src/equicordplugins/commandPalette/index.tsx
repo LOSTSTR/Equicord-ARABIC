@@ -9,7 +9,6 @@ import { BaseText } from "@components/BaseText";
 import { Button } from "@components/Button";
 import { EquicordDevs, IS_MAC } from "@utils/constants";
 import { classNameFactory } from "@utils/css";
-import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { useEffect, useState } from "@webpack/common";
 
@@ -119,13 +118,13 @@ export const settings = definePluginSettings({
         component: KeybindRecorder
     },
     customCommands: {
-        description: t("إدارة إدخالات لوحة الأوامر المخصصة", "Manage custom command palette entries"),
+        description: "Manage custom command palette entries",
         type: OptionType.COMPONENT,
         component: CommandPaletteSettingsPanel
     },
 
     closeAfterExecute: {
-        description: t("إغلاق لوحة الأوامر بعد تنفيذ أمر.", "Close the command palette after executing a command."),
+        description: "Close the command palette after executing a command.",
         type: OptionType.BOOLEAN,
         default: true
     }
@@ -197,7 +196,7 @@ function hotkeyUsesModifiers() {
 
 export default definePlugin({
     name: "CommandPalette",
-    get description() { return t("تشغيل الإجراءات بسرعة عبر لوحة أوامر قابلة للبحث", "Quickly run actions through a searchable command palette"); },
+    description: "Quickly run actions through a searchable command palette",
     tags: ["Appearance", "Customisation", "Commands", "Shortcuts"],
     authors: [EquicordDevs.justjxke],
     dependencies: ["ChatInputButtonAPI"],

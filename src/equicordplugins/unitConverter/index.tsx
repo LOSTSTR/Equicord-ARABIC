@@ -21,7 +21,6 @@ import "./style.css";
 import { addMessageAccessory } from "@api/MessageAccessories";
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { ChannelStore } from "@webpack/common";
 
@@ -31,7 +30,7 @@ import { conversions, ConverterAccessory, ConvertIcon } from "./ConverterAccesso
 export const settings = definePluginSettings({
     myUnits: {
         type: OptionType.SELECT,
-        description: t("الوحدات التي تستخدمها وتريد التحويل إليها. الافتراضي: النظام الإمبراطوري", "The units you use and want to convert to. Default: Imperial"),
+        description: "The units you use and want to convert to. Default: Imperial",
         options: [
             {
                 default: true,
@@ -48,7 +47,7 @@ export const settings = definePluginSettings({
 
 export default definePlugin({
     name: "UnitConverter",
-    get description() { return t("يحوّل الوحدات المترية إلى الوحدات الإمبراطورية والعكس", "Converts metric units to imperial and vice versa"); },
+    description: "Converts metric units to imperial and vice versa",
     dependencies: ["MessagePopoverAPI"],
     tags: ["Utility"],
     authors: [Devs.sadan],

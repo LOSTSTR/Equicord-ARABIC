@@ -11,7 +11,6 @@ import { BaseText } from "@components/BaseText";
 import { Heading } from "@components/Heading";
 import { Link } from "@components/Link";
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import { identity } from "@utils/misc";
 import definePlugin, { OptionType } from "@utils/types";
 import { findByPropsLazy } from "@webpack";
@@ -27,7 +26,7 @@ const settings = definePluginSettings({
     uncollapseSettingsByDefault: {
         type: OptionType.BOOLEAN,
         default: false,
-        description: t("توسيع إعدادات الصوت تلقائياً بشكل افتراضي", "Expand voice settings automatically by default")
+        description: "Expand voice settings automatically by default"
     },
     title2: {
         type: OptionType.COMPONENT,
@@ -37,27 +36,27 @@ const settings = definePluginSettings({
     outputVolume: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: t("إظهار شريط تمرير مستوى صوت الإخراج", "Show output volume slider")
+        description: "Show output volume slider"
     },
     inputVolume: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: t("إظهار شريط تمرير مستوى صوت الإدخال", "Show input volume slider")
+        description: "Show input volume slider"
     },
     outputDevice: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: t("إظهار منتقي جهاز الإخراج", "Show output device picker")
+        description: "Show output device picker"
     },
     inputDevice: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: t("إظهار منتقي جهاز الإدخال", "Show input device picker")
+        description: "Show input device picker"
     },
     camera: {
         type: OptionType.BOOLEAN,
         default: false,
-        description: t("إظهار منتقي الكاميرا", "Show camera picker")
+        description: "Show camera picker"
     },
     title3: {
         type: OptionType.COMPONENT,
@@ -67,27 +66,27 @@ const settings = definePluginSettings({
     showOutputVolumeHeader: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: t("إظهار عنوان فوق شريط تمرير مستوى صوت الإخراج", "Show a header above the output volume slider")
+        description: "Show a header above the output volume slider"
     },
     showInputVolumeHeader: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: t("إظهار عنوان فوق شريط تمرير مستوى صوت الإدخال", "Show a header above the input volume slider")
+        description: "Show a header above the input volume slider"
     },
     showOutputDeviceHeader: {
         type: OptionType.BOOLEAN,
         default: false,
-        description: t("إظهار عنوان فوق منتقي جهاز الإخراج", "Show a header above the output device picker")
+        description: "Show a header above the output device picker"
     },
     showInputDeviceHeader: {
         type: OptionType.BOOLEAN,
         default: false,
-        description: t("إظهار عنوان فوق منتقي جهاز الإدخال", "Show a header above the input device picker")
+        description: "Show a header above the input device picker"
     },
     showVideoDeviceHeader: {
         type: OptionType.BOOLEAN,
         default: false,
-        description: t("إظهار عنوان فوق منتقي الكاميرا", "Show a header above the camera picker")
+        description: "Show a header above the camera picker"
     },
 });
 
@@ -243,7 +242,7 @@ function VoiceSettings() {
 
 export default definePlugin({
     name: "VCPanelSettings",
-    get description() { return t("التحكم في إعدادات الصوت مباشرةً من لوحة الصوت", "Control voice settings directly from the voice panel"); },
+    description: "Control voice settings directly from the voice panel",
     tags: ["Utility", "Voice"],
     authors: [Devs.nin0dev],
     settings,

@@ -177,7 +177,7 @@ function MentionWrapper({ data, UserMention, RoleMention, parse, props }: Mentio
 
 export default definePlugin({
     name: "ValidUser",
-    get description() { return t("يُضيف تحقق من صحة ذكر المستخدم", "Adds proper validation to user mentions"); },
+    description: "Adds proper validation to user mentions",
     tags: ["Chat", "Utility"],
     authors: [Devs.Ven, Devs.Dolfies],
     searchTerms: ["MentionCacheFix"],

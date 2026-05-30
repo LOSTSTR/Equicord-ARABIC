@@ -82,7 +82,7 @@ const EXT_TO_MIME: Record<string, string> = {
 const settings = definePluginSettings({
     uploader: {
         type: OptionType.SELECT,
-        description: t("خدمة الرفع", "Upload service"),
+        description: "Upload service",
         hidden: true,
         options: [
             { label: "Catbox (حد أقصى 200 ميغابايت)", value: "Catbox", default: true },
@@ -94,37 +94,37 @@ const settings = definePluginSettings({
     },
     autoSend: {
         type: OptionType.BOOLEAN,
-        description: t("إرسال الرابط تلقائياً (أو نسخه وإدراجه في صندوق الدردشة)", "Auto-send the link (or copy and insert it into the chat box)"),
+        description: "Auto-send the link (or copy and insert it into the chat box)",
         hidden: true,
         default: false
     },
     confirmBeforeUpload: {
         type: OptionType.BOOLEAN,
-        description: t("طلب تأكيد قبل الرفع", "Request confirmation before uploading"),
+        description: "Request confirmation before uploading",
         hidden: true,
         default: true
     },
     showDestinationPreview: {
         type: OptionType.BOOLEAN,
-        description: t("عرض خادم الوجهة والرابط في حوار التأكيد", "Show destination host and URL in the confirmation dialog"),
+        description: "Show destination host and URL in the confirmation dialog",
         hidden: true,
         default: true
     },
     wrapVideoEmbeds: {
         type: OptionType.BOOLEAN,
-        description: t("اختياري: تغليف روابط الفيديو الكبيرة بـ embeds.video لتشغيل أفضل (يضيف إعادة توجيه من طرف ثالث)", "Optional: wrap large video links with embeds.video for better playback (adds a third-party redirect)"),
+        description: "Optional: wrap large video links with embeds.video for better playback (adds a third-party redirect)",
         hidden: true,
         default: false
     },
     renderImagePreviews: {
         type: OptionType.BOOLEAN,
-        description: t("عرض معاينات الصور المضمّنة لروابط Catbox/Litter/GoFile حتى لو لم يضمّنها Discord", "Show inline image previews for Catbox/Litter/GoFile links even if Discord does not embed them"),
+        description: "Show inline image previews for Catbox/Litter/GoFile links even if Discord does not embed them",
         hidden: true,
         default: true
     },
     litterboxTime: {
         type: OptionType.SELECT,
-        description: t("مدة الاحتفاظ في Litterbox", "Retention duration in Litterbox"),
+        description: "Retention duration in Litterbox",
         hidden: true,
         options: [
             { label: "ساعة واحدة", value: "1h", default: true },
@@ -136,25 +136,25 @@ const settings = definePluginSettings({
 
     customName: {
         type: OptionType.STRING,
-        description: t("اسم الرافع المخصص (للعرض فقط)", "Custom uploader name (display only)"),
+        description: "Custom uploader name (display only)",
         hidden: true,
         default: ""
     },
     customRequestUrl: {
         type: OptionType.STRING,
-        description: t("رابط طلب الرافع المخصص (ShareX: RequestURL)", "Custom uploader request URL (ShareX: RequestURL)"),
+        description: "Custom uploader request URL (ShareX: RequestURL)",
         hidden: true,
         default: ""
     },
     customFileFormName: {
         type: OptionType.STRING,
-        description: t("اسم نموذج ملف الرافع المخصص (ShareX: FileFormName)", "Custom uploader file form name (ShareX: FileFormName)"),
+        description: "Custom uploader file form name (ShareX: FileFormName)",
         hidden: true,
         default: "file"
     },
     customResponseType: {
         type: OptionType.SELECT,
-        description: t("نوع استجابة الرافع المخصص (ShareX: ResponseType)", "Custom uploader response type (ShareX: ResponseType)"),
+        description: "Custom uploader response type (ShareX: ResponseType)",
         hidden: true,
         options: [
             { label: "نص", value: "Text", default: true },
@@ -163,14 +163,14 @@ const settings = definePluginSettings({
     },
     customUrlPath: {
         type: OptionType.STRING,
-        description: t("مسار رابط الرافع المخصص (ShareX: URL). للـ JSON استخدم نقطة مثل data.url؛ للنص يُتجاهل.", "Custom uploader URL path (ShareX: URL). For JSON use dot notation like data.url; ignored for Text."),
+        description: "Custom uploader URL path (ShareX: URL). For JSON use dot notation like data.url; ignored for Text.",
         hidden: true,
         default: ""
     },
 
     config: {
         type: OptionType.COMPONENT,
-        description: t("إعدادات الرافع", "Uploader settings"),
+        description: "Uploader settings",
         component: SettingsComponent
     }
 }).withPrivateSettings<{
@@ -953,7 +953,7 @@ function SettingsComponent() {
 
 export default definePlugin({
     name: "BigFileUploadEnhanced",
-    get description() { return t("تجاوز حد رفع Discord برفع الملفات إلى خادم خارجي وإرسال الرابط في الدردشة، هذه النسخة أسرع ولا تستخدم تعديل DOM", "Bypass Discord's upload limit by uploading files to an external server and sharing the link in chat — this version is faster and does not use DOM manipulation."); },
+    description: "Bypass Discord's upload limit by uploading files to an external server and sharing the link in chat — this version is faster and does not use DOM manipulation.",
     tags: ["Utility", "Chat"],
     authors: [EquicordDevs.benjii, { name: "x2b", id: 0n }],
     settings,

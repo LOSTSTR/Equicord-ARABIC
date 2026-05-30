@@ -7,7 +7,6 @@
 import { DataStore } from "@api/index";
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType, PluginNative } from "@utils/types";
 import { Message } from "@vencord/discord-types";
 import { ApplicationAssetUtils, FluxDispatcher, UserStore } from "@webpack/common";
@@ -27,21 +26,21 @@ const settings = definePluginSettings(
     {
         assetURL: {
             type: OptionType.STRING,
-            description: t("الصورة المستخدمة في RPC. يُستخدم صورة ملفك الشخصي إذا تُركت فارغة", "Image used in RPC. Uses your profile picture if left empty"),
+            description: "Image used in RPC. Uses your profile picture if left empty",
             default: "",
             restartNeeded: false,
             onChange: () => { updateData(); }
         },
         RPCTitle: {
             type: OptionType.STRING,
-            description: t("عنوان RPC", "RPC title"),
+            description: "RPC title",
             default: "RPCStats",
             restartNeeded: false,
             onChange: () => { updateData(); }
         },
         statDisplay: {
             type: OptionType.SELECT,
-            description: t("ما الذي يجب أن يعرضه RPC؟ (يمكنك عرض سطر واحد فقط)", "What should the RPC display? (You can only display one line)"),
+            description: "What should the RPC display? (You can only display one line)",
             options: [
                 { value: StatsDisplay.messagesSentToday, label: "The amount of messages sent today", default: true },
                 { value: StatsDisplay.messagesSentAllTime, label: "The amount of messages sent all time" },
@@ -52,28 +51,28 @@ const settings = definePluginSettings(
         },
         lastFMApiKey: {
             type: OptionType.STRING,
-            description: t("مفتاح API الخاص بـ last.fm", "Your last.fm API key"),
+            description: "Your last.fm API key",
             default: "",
             restartNeeded: false,
             onChange: () => { updateData(); }
         },
         lastFMUsername: {
             type: OptionType.STRING,
-            description: t("اسم المستخدم الخاص بـ last.fm", "Your last.fm username"),
+            description: "Your last.fm username",
             default: "",
             restartNeeded: false,
             onChange: () => { updateData(); }
         },
         albumCoverImage: {
             type: OptionType.BOOLEAN,
-            description: t("هل تريد استخدام غلاف الألبوم كصورة RPC؟ (إذا كنت قد اخترت عرض last.fm)", "Use album cover as RPC image? (if you chose to display last.fm)"),
+            description: "Use album cover as RPC image? (if you chose to display last.fm)",
             default: true,
             restartNeeded: false,
             onChange: () => { updateData(); }
         },
         lastFMStatFormat: {
             type: OptionType.STRING,
-            description: t("كيف يجب تنسيق إحصائية last.fm؟ يُستبدل $album باسم الألبوم، و$artist باسم الفنان", "How should the last.fm stat be formatted? $album is replaced with album name, $artist with artist name"),
+            description: "How should the last.fm stat be formatted? $album is replaced with album name, $artist with artist name",
             default: "Top album this week: \"$album - $artist\"",
             restartNeeded: false,
             onChange: () => { updateData(); }
@@ -173,7 +172,7 @@ let rpcStatsInterval: ReturnType<typeof setInterval> | null = null;
 
 export default definePlugin({
     name: "RPCStats",
-    get description() { return t("يعرض إحصائيات نشاطك كـ RPC", "Displays your activity stats as RPC"); },
+    description: "Displays your activity stats as RPC",
     tags: ["Utility"],
     authors: [Devs.Samwich],
     async start() {

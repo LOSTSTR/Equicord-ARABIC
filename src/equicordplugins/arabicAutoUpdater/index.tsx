@@ -71,7 +71,7 @@ async function checkForUpdate() {
 
 export default definePlugin({
     name: "ArabicAutoUpdater",
-    get description() { return t("يتحقق تلقائياً من توفر تحديثات لـ Esharq ويُعلمك عند توفر إصدار جديد", "Automatically checks for Esharq updates and notifies you when a new version is available"); },
+    description: "Automatically checks for Esharq updates and notifies you when a new version is available",
     authors: [Devs.thororen],
     tags: ["Utility"],
 

@@ -12,7 +12,7 @@ import definePlugin, { OptionType } from "@utils/types";
 const settings = definePluginSettings({
     inviteDuration: {
         type: OptionType.SELECT,
-        description: t("مدة الدعوة", "Invite duration"),
+        description: "Invite duration",
         options: [
             { label: t("٣٠ دقيقة", "30 minutes"), value: 1800 },
             { label: t("ساعة واحدة", "1 hour"), value: 3600 },
@@ -25,7 +25,7 @@ const settings = definePluginSettings({
     },
     maxUses: {
         type: OptionType.SELECT,
-        description: t("عدد استخدامات الدعوة", "Invite max uses"),
+        description: "Invite max uses",
         options: [
             { label: t("لا نهاية", "Infinite"), value: 0, default: true },
             { label: "1", value: 1 },
@@ -39,13 +39,13 @@ const settings = definePluginSettings({
     temporaryMembership: {
         type: OptionType.BOOLEAN,
         default: false,
-        description: t("عضوية مؤقتة", "Temporary membership"),
+        description: "Temporary membership",
     },
 });
 
 export default definePlugin({
     name: "InviteDefaults",
-    get description() { return t("يتيح لك تعديل القيم الافتراضية عند إنشاء دعوات السيرفر.", "Allows you to customize default values when creating server invites."); },
+    description: "Allows you to customize default values when creating server invites.",
     tags: ["Servers"],
     authors: [EquicordDevs.VillainsRule],
     settings,

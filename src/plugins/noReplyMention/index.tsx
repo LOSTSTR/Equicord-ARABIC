@@ -18,7 +18,6 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import type { Message } from "@vencord/discord-types";
 import { ChannelStore, GuildMemberStore } from "@webpack/common";
@@ -26,20 +25,20 @@ import { ChannelStore, GuildMemberStore } from "@webpack/common";
 const settings = definePluginSettings({
     userList: {
         description:
-            t("قائمة معرّفات المستخدمين المسموح لهم أو المستثنين من المنشن (مفصولة بفواصل أو مسافات)", "List of user IDs allowed or exempted from mentions (comma or space separated)"),
+            "List of user IDs allowed or exempted from mentions (comma or space separated)",
         type: OptionType.STRING,
         default: "1234567890123445,1234567890123445",
         multiline: true
     },
     roleList: {
         description:
-            t("قائمة معرّفات الرتب المسموح لها أو المستثناة من الإشارات (مفصولة بفواصل أو مسافات)", "List of role IDs allowed or exempted from mentions (comma or space separated)"),
+            "List of role IDs allowed or exempted from mentions (comma or space separated)",
         type: OptionType.STRING,
         default: "1234567890123445,1234567890123445",
         multiline: true
     },
     shouldPingListed: {
-        description: t("السلوك", "Behavior"),
+        description: "Behavior",
         type: OptionType.SELECT,
         options: [
             {
@@ -54,7 +53,7 @@ const settings = definePluginSettings({
         ],
     },
     inverseShiftReply: {
-        description: t("عكس سلوك الرد مع Shift في Discord (فعّله لجعل الرد بـ Shift يُشير إلى المستخدم)", "Invert Discord's shift-reply behavior (enable to make shift-reply ping the user)"),
+        description: "Invert Discord's shift-reply behavior (enable to make shift-reply ping the user)",
         type: OptionType.BOOLEAN,
         default: false,
     }
@@ -62,7 +61,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "NoReplyMention",
-    get description() { return t("يُزيل إشعار الذكر من الردود تلقائياً", "Automatically removes the mention notification from replies"); },
+    description: "Automatically removes the mention notification from replies",
     tags: ["Chat", "Notifications"],
     authors: [Devs.DustyAngel47, Devs.rae, Devs.pylix, Devs.outfoxxed],
     settings,

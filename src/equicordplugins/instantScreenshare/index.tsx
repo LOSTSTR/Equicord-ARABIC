@@ -8,7 +8,6 @@ import { getUserSettingLazy } from "@api/UserSettings";
 import { HeadingSecondary } from "@components/Heading";
 import { Paragraph } from "@components/Paragraph";
 import { Devs, EquicordDevs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 import { VoiceState } from "@vencord/discord-types";
 import { findByCodeLazy, findStoreLazy } from "@webpack";
@@ -62,7 +61,7 @@ async function autoStartStream(instant = true) {
 
 export default definePlugin({
     name: "InstantScreenshare",
-    get description() { return t("يبدأ مشاركة الشاشة فوراً عند الانضمام لقناة صوتية، مع دعم سطح المكتب والنوافذ وكاميرات الفيديو وكروت التقاط الفيديو", "Instantly starts screensharing when joining a voice channel, with support for desktop, windows, video cameras, and capture cards"); },
+    description: "Instantly starts screensharing when joining a voice channel, with support for desktop, windows, video cameras, and capture cards",
     tags: ["Media", "Voice"],
     authors: [Devs.HAHALOSAH, Devs.thororen, EquicordDevs.mart],
     dependencies: ["EquicordToolbox"],

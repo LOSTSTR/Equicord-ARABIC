@@ -8,7 +8,6 @@ import "./styles.css";
 
 import { EquicordDevs } from "@utils/constants";
 import { classNameFactory } from "@utils/css";
-import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 import { ChannelStore, FluxDispatcher, MessageStore, UserStore } from "@webpack/common";
 
@@ -51,7 +50,7 @@ function triggerReRender(message: MessageWithContent) {
 
 export default definePlugin({
     name: "MessageTranslate",
-    get description() { return t("يترجم الرسائل تلقائياً إلى لغتك مع دعم التخزين المؤقت وتبديل القناة والمزيد من الخيارات", "Automatically translates messages to your language with caching, channel switching, and more options"); },
+    description: "Automatically translates messages to your language with caching, channel switching, and more options",
     tags: ["Chat", "Utility"],
     authors: [EquicordDevs.creations],
     settings,

@@ -5,7 +5,6 @@
  */
 
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import { Logger } from "@utils/Logger";
 import definePlugin from "@utils/types";
 import { Message } from "@vencord/discord-types";
@@ -13,7 +12,7 @@ import { UserStore } from "@webpack/common";
 
 export default definePlugin({
     name: "ThemeAttributes",
-    get description() { return t("يضيف سمات بيانات لعناصر متعددة لأغراض تخصيص الثيمات", "Adds data attributes to various elements for theme customization purposes"); },
+    description: "Adds data attributes to various elements for theme customization purposes",
     tags: ["Appearance", "Customisation"],
     authors: [Devs.Ven, Devs.Board],
 

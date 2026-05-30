@@ -8,7 +8,6 @@ import { definePluginSettings } from "@api/Settings";
 import { Heading } from "@components/Heading";
 import { Paragraph } from "@components/Paragraph";
 import { EquicordDevs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { createRoot, React } from "@webpack/common";
 import type { Root } from "react-dom/client";
@@ -99,7 +98,7 @@ const SNOWFLAKE_SVGS = [
 
 const settings = definePluginSettings({
     typeOfSnow: {
-        description: t("يغيّر نوع الثلج المعروض (يؤثر على الأداء).", "Changes the type of snow displayed (affects performance)."),
+        description: "Changes the type of snow displayed (affects performance).",
         type: OptionType.SELECT,
         options: [
             { label: "Solid (Highest Performance)", value: "solid" },
@@ -108,19 +107,19 @@ const settings = definePluginSettings({
         ],
     },
     maxSize: {
-        description: t("الحد الأقصى لحجم رقاقة الثلج", "Maximum snowflake size"),
+        description: "Maximum snowflake size",
         type: OptionType.SLIDER,
         default: 30,
         markers: [10, 20, 30, 40, 50]
     },
     speed: {
-        description: t("السرعة للثلج المتساقط (أعلى = سقوط أسرع)", "Speed of falling snow (higher = faster fall)"),
+        description: "Speed of falling snow (higher = faster fall)",
         type: OptionType.SLIDER,
         default: 50,
         markers: [50, 100, 200, 300, 400, 500]
     },
     flakesPerSecond: {
-        description: t("رقاقات الثلج في الثانية (أعلى = تساقط أكثف)", "Snowflakes per second (higher = denser snowfall)"),
+        description: "Snowflakes per second (higher = denser snowfall)",
         type: OptionType.SLIDER,
         default: 5,
         markers: [1, 5, 10, 20, 40, 60],
@@ -451,7 +450,7 @@ let container: HTMLDivElement | null = null;
 
 export default definePlugin({
     name: "Snowfall",
-    get description() { return t("تتساقط الثلوج على Discord", "It snows on Discord"); },
+    description: "It snows on Discord",
     tags: ["Appearance"],
     authors: [EquicordDevs.ZcraftElite, EquicordDevs.square],
 

@@ -6,13 +6,12 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin, { makeRange, OptionType } from "@utils/types";
 
 const settings = definePluginSettings({
     zoomMultiplier: {
         type: OptionType.SLIDER,
-        description: t("مضاعف التكبير", "Zoom multiplier"),
+        description: "Zoom multiplier",
         markers: makeRange(2, 16),
         default: 4,
     },
@@ -20,7 +19,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "UnlockedAvatarZoom",
-    get description() { return t("يُتيح تكبير الأفاتار أكثر من الحد المعتاد", "Allows zooming avatars beyond the usual limit"); },
+    description: "Allows zooming avatars beyond the usual limit",
     tags: ["Media", "Utility"],
     authors: [Devs.nakoyasha],
     settings,

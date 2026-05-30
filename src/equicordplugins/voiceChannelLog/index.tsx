@@ -6,7 +6,6 @@
 
 import { NavContextMenuPatchCallback } from "@api/ContextMenu";
 import { Devs, EquicordDevs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 import { ChannelType } from "@vencord/discord-types/enums";
 import { findByPropsLazy } from "@webpack";
@@ -54,7 +53,7 @@ const patchChannelContextMenu: NavContextMenuPatchCallback = (children, { channe
 
 export default definePlugin({
     name: "VoiceChannelLog",
-    get description() { return t("يسجّل نشاط القناة الصوتية بما فيه الدخول والخروج والسبورد والكتم والكاميرا والبث وغيرها", "Logs voice channel activity including joins, leaves, soundboard, mutes, camera, streams, and more"); },
+    description: "Logs voice channel activity including joins, leaves, soundboard, mutes, camera, streams, and more",
     tags: ["Servers", "Utility", "Voice"],
     authors: [Devs.Sqaaakoi, Devs.thororen, EquicordDevs.nyx, Devs.Moxxie, EquicordDevs.Fres, Devs.amy],
     dependencies: ["AudioPlayerAPI", "HeaderBarAPI"],

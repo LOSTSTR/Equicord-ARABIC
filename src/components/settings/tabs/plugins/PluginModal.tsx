@@ -20,7 +20,7 @@ import "./PluginModal.css";
 
 import { generateId } from "@api/Commands";
 import { hasAnyVisibleSettings, isSettingHidden } from "@api/PluginManager";
-import { Settings, useSettings } from "@api/Settings";
+import { useSettings } from "@api/Settings";
 import { BaseText } from "@components/BaseText";
 import { Button } from "@components/Button";
 import ErrorBoundary from "@components/ErrorBoundary";
@@ -30,11 +30,10 @@ import { debounce } from "@shared/debounce";
 import { gitRemote } from "@shared/vencordUserAgent";
 import { classNameFactory } from "@utils/css";
 import { t } from "@utils/esharqI18n";
+import { resolvePluginDescription, resolvePluginOption } from "@utils/i18n";
 import { proxyLazy } from "@utils/lazy";
 import { Margins } from "@utils/margins";
 import { classes, isObjectEmpty } from "@utils/misc";
-import { resolvePluginDescription, resolvePluginOption } from "@utils/i18n";
-import { PLUGIN_TRANSLATIONS } from "@utils/pluginTranslations";
 import { OptionType, Plugin, PluginTag } from "@utils/types";
 import { RenderModalProps, User } from "@vencord/discord-types";
 import { findComponentByCodeLazy, findCssClassesLazy } from "@webpack";
@@ -89,10 +88,8 @@ function PluginTags({ tags }: { tags: PluginTag[]; }) {
 
 export default function PluginModal({ plugin, onRestartNeeded, onClose, transitionState }: PluginModalProps) {
     const pluginSettings = useSettings([`plugins.${plugin.name}.*`, "plugins.Settings.arabicMode"]).plugins[plugin.name];
-    const arabicMode = (Settings.plugins as any)?.Settings?.arabicMode ?? false;
     const hasSettings = hasAnyVisibleSettings(plugin);
-    const fallbackDescription = (!arabicMode && PLUGIN_TRANSLATIONS[plugin.name]?.description) || plugin.description;
-    const displayDescription = resolvePluginDescription(plugin.name, fallbackDescription);
+    const displayDescription = resolvePluginDescription(plugin.name, plugin.description);
 
     // avoid layout shift by showing dummy users while loading users
     const fallbackAuthors = useMemo(() => [makeDummyUser({ username: "Loading...", id: "-1465912127305809920" })], []);
@@ -142,9 +139,7 @@ export default function PluginModal({ plugin, onRestartNeeded, onClose, transiti
             // Component settings have no description field; only resolve where one exists.
             let resolvedSetting = setting;
             if ("description" in setting) {
-                const enOptionDesc = !arabicMode && PLUGIN_TRANSLATIONS[plugin.name]?.options?.[key];
-                const baseOptionDesc = (enOptionDesc || setting.description) as string;
-                const resolvedOptionDesc = resolvePluginOption(plugin.name, key, baseOptionDesc);
+                const resolvedOptionDesc = resolvePluginOption(plugin.name, key, setting.description as string);
                 if (resolvedOptionDesc !== setting.description)
                     resolvedSetting = { ...setting, description: resolvedOptionDesc };
             }

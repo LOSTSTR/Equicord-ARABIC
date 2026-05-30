@@ -4,10 +4,10 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
+import { t } from "@utils/esharqI18n";
 import { Channel, Guild, Message, RC, User } from "@vencord/discord-types";
 import { findByCodeLazy, findLazy } from "@webpack";
 import { GuildStore } from "@webpack/common";
-import { t } from "@utils/esharqI18n";
 
 import { settings } from "./settings";
 import type { ITag } from "./types";

@@ -10,7 +10,6 @@ import { definePluginSettings } from "@api/Settings";
 import ErrorBoundary from "@components/ErrorBoundary";
 import { EquicordDevs } from "@utils/constants";
 import { classNameFactory } from "@utils/css";
-import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { User } from "@vencord/discord-types";
 import { findByCodeLazy } from "@webpack";
@@ -26,19 +25,19 @@ export const cl = classNameFactory("vc-github-repos-");
 export const settings = definePluginSettings({
     showStars: {
         type: OptionType.BOOLEAN,
-        description: t("يعرض عدد نجوم المستودع", "Show repository star count"),
+        description: "Show repository star count",
         default: true
     },
     showLanguage: {
         type: OptionType.BOOLEAN,
-        description: t("إظهار لغة المستودع", "Show repository language"),
+        description: "Show repository language",
         default: true
     },
 });
 
 export default definePlugin({
     name: "GitHubRepos",
-    get description() { return t("يعرض مستودعات GitHub العامة للمستخدم في ملفه الشخصي", "Displays a user's public GitHub repositories in their profile"); },
+    description: "Displays a user's public GitHub repositories in their profile",
     dependencies: ["ProfileCollectionsAPI"],
     tags: ["Appearance"],
     authors: [EquicordDevs.talhakf, EquicordDevs.Panniku, EquicordDevs.benjii],

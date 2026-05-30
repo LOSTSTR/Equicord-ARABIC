@@ -7,7 +7,6 @@
 import { ChatBarButton } from "@api/ChatButtons";
 import { definePluginSettings, migratePluginSetting } from "@api/Settings";
 import { EquicordDevs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType, StartAt } from "@utils/types";
 import { useEffect, useState } from "@webpack/common";
 import type { MouseEventHandler, ReactNode } from "react";
@@ -17,12 +16,12 @@ let hidechatbuttonsopen: boolean | undefined;
 const settings = definePluginSettings({
     color: {
         type: OptionType.BOOLEAN,
-        description: t("يلوّن الزر باللون الأحمر عند فتح القائمة", "Color the button red when the menu is open"), // something extra
+        description: "Color the button red when the menu is open", // something extra
         default: false,
     },
     open: {
         type: OptionType.BOOLEAN,
-        description: t("مفتوح افتراضياً", "Open by default"),
+        description: "Open by default",
         default: false,
         onChange: (store: { open: boolean; }) => {
             hidechatbuttonsopen = store.open;
@@ -83,7 +82,7 @@ migratePluginSetting("HideChatButtons", "open", "Open");
 migratePluginSetting("HideChatButtons", "color", "Color");
 export default definePlugin({
     name: "HideChatButtons",
-    get description() { return t("يتيح إخفاء أزرار الدردشة", "Allows hiding chat buttons"); },
+    description: "Allows hiding chat buttons",
     tags: ["Chat", "Utility"],
     authors: [EquicordDevs.iamme],
     dependencies: ["ChatInputButtonAPI"],

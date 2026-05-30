@@ -19,7 +19,6 @@
 import { ChatBarButton, ChatBarButtonFactory } from "@api/ChatButtons";
 import { generateId, sendBotMessage } from "@api/Commands";
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin, { IconComponent, StartAt } from "@utils/types";
 import { CloudUpload, MessageAttachment } from "@vencord/discord-types";
 import { DraftStore, DraftType, UploadAttachmentStore, UserStore, useStateFromStores } from "@webpack/common";
@@ -120,7 +119,7 @@ const PreviewButton: ChatBarButtonFactory = ({ isAnyChat, isEmpty, type: { attac
 
 export default definePlugin({
     name: "PreviewMessage",
-    get description() { return t("يتيح معاينة رسالتك قبل إرسالها.", "Allows you to preview your message before sending it."); },
+    description: "Allows you to preview your message before sending it.",
     dependencies: ["ChatInputButtonAPI"],
     tags: ["Chat", "Utility"],
     authors: [Devs.Aria],

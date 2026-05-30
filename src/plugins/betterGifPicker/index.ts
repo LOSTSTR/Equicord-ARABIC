@@ -6,13 +6,12 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { Devs, EquicordDevs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 
 let closeSuppressCount = 0;
 const settings = definePluginSettings({
     keepOpen: {
-        description: t("إبقاء منتقي الـ GIF مفتوحاً بعد الاختيار", "Keep the GIF picker open after selecting a GIF"),
+        description: "Keep the GIF picker open after selecting a GIF",
         type: OptionType.BOOLEAN,
         default: false
     },
@@ -20,7 +19,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "BetterGifPicker",
-    get description() { return t("يُحسّن محدد GIF ويُضيف تصفية حسب الفئة", "Improves the GIF picker and adds category filtering"); },
+    description: "Improves the GIF picker and adds category filtering",
     tags: ["Emotes", "Customisation"],
     authors: [Devs.Samwich, EquicordDevs.justjxke],
     isModified: true,

@@ -8,7 +8,6 @@ import { findGroupChildrenByChildId, NavContextMenuPatchCallback } from "@api/Co
 import { definePluginSettings, migratePluginSettings } from "@api/Settings";
 import { Flex } from "@components/Flex";
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { Menu } from "@webpack/common";
 
@@ -32,17 +31,17 @@ const enum ReplacementEngineValue {
 
 const settings = definePluginSettings({
     customEngineName: {
-        description: t("اسم محرك البحث المخصص", "Custom search engine name"),
+        description: "Custom search engine name",
         type: OptionType.STRING,
         placeholder: "Google"
     },
     customEngineURL: {
-        description: t("رابط محرك البحث الخاص بك", "Your custom search engine URL"),
+        description: "Your custom search engine URL",
         type: OptionType.STRING,
         placeholder: "https://google.com/search?q="
     },
     replacementEngine: {
-        description: t("الاستبدال بمحرك بحث محدد بدلاً من إضافة قائمة", "Replace with a specific search engine instead of adding a list"),
+        description: "Replace with a specific search engine instead of adding a list",
         type: OptionType.SELECT,
         options: [
             { label: "Off", value: ReplacementEngineValue.OFF, default: true },
@@ -131,7 +130,7 @@ const messageContextMenuPatch: NavContextMenuPatchCallback = (children, _props) 
 migratePluginSettings("ReplaceGoogleSearch", "Search");
 export default definePlugin({
     name: "ReplaceGoogleSearch",
-    get description() { return t("يستبدل محرك بحث جوجل بمحرك من اختيارك", "Replaces the Google search engine with one of your choice"); },
+    description: "Replaces the Google search engine with one of your choice",
     tags: ["Utility", "Customisation"],
     authors: [Devs.Moxxie, Devs.Ethan],
 

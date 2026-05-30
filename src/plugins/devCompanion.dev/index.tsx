@@ -18,7 +18,6 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import { Logger } from "@utils/Logger";
 import definePlugin, { OptionType, ReporterTestable } from "@utils/types";
 
@@ -30,17 +29,17 @@ export const logger = new Logger("DevCompanion");
 
 export const settings = definePluginSettings({
     notifyOnAutoConnect: {
-        description: t("إشعار عند اتصال Dev Companion تلقائيًا.", "Notify when Dev Companion connects automatically."),
+        description: "Notify when Dev Companion connects automatically.",
         type: OptionType.BOOLEAN,
         default: true
     },
     usePatchedModule: {
-        description: t("عند طلبات الاستخراج، الرد بالوحدة المُرقّعة الحالية (إن كانت مُرقّعة) بدلاً من الأصلية.", "On extract requests, respond with the current patched module (if patched) instead of the original."),
+        description: "On extract requests, respond with the current patched module (if patched) instead of the original.",
         default: true,
         type: OptionType.BOOLEAN,
     },
     reloadAfterToggle: {
-        description: t("إعادة التحميل عند استلام أمر تعطيل/تفعيل الإضافة.", "Reload after receiving a plugin disable/enable command."),
+        description: "Reload after receiving a plugin disable/enable command.",
         default: true,
         type: OptionType.BOOLEAN
     }
@@ -48,7 +47,7 @@ export const settings = definePluginSettings({
 
 export default definePlugin({
     name: "DevCompanion",
-    get description() { return t("أداة مطوري Vencord لتصحيح الأخطاء", "Vencord developer tool for debugging"); },
+    description: "Vencord developer tool for debugging",
     tags: ["Developers", "Utility"],
     authors: [Devs.Ven, Devs.sadan],
     reporterTestable: ReporterTestable.None,

@@ -9,7 +9,6 @@ import { migratePluginSettings } from "@api/Settings";
 import { Devs, EquicordDevs } from "@utils/constants";
 import { classNameFactory } from "@utils/css";
 import { sendMessage } from "@utils/discord";
-import { t } from "@utils/esharqI18n";
 import { useForceUpdater } from "@utils/react";
 import definePlugin from "@utils/types";
 import { Message } from "@vencord/discord-types";
@@ -132,7 +131,7 @@ const keydownListener = (event: KeyboardEvent) => {
 migratePluginSettings("RepeatMessages", "RepeatMessage");
 export default definePlugin({
     name: "RepeatMessages",
-    get description() { return t("يتيح تكرار الرسائل بسرعة. إذا ضغطت Shift أثناء النقر على خيار التكرار، سيردّ على الرسالة.", "Allows quickly repeating messages. Holding Shift while clicking repeat will reply to the message."); },
+    description: "Allows quickly repeating messages. Holding Shift while clicking repeat will reply to the message.",
     dependencies: ["MessagePopoverAPI"],
     tags: ["Chat"],
     authors: [EquicordDevs.Tolgchu, Devs.thororen],

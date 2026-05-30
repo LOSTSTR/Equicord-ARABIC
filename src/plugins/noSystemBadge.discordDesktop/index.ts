@@ -17,12 +17,11 @@
 */
 
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "NoSystemBadge",
-    get description() { return t("يعطّل شارة عدد الرسائل غير المقروءة في شريط المهام وصينية النظام.", "Disables the unread message count badge in the taskbar and system tray."); },
+    description: "Disables the unread message count badge in the taskbar and system tray.",
     tags: ["Notifications", "Appearance"],
     authors: [Devs.rushii],
     patches: [

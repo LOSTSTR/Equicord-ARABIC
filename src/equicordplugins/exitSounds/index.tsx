@@ -11,8 +11,8 @@ import { NavContextMenuPatchCallback } from "@api/ContextMenu";
 import { definePluginSettings } from "@api/Settings";
 import { Button } from "@components/Button";
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import { classNameFactory } from "@utils/css";
+import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { findComponentByCodeLazy } from "@webpack";
 import { ChannelActions, Constants, GuildStore, IconUtils, MediaEngineStore, Menu, RestAPI, SearchableSelect, SelectedChannelStore, TextInput, Toasts } from "@webpack/common";
@@ -104,7 +104,7 @@ let original: typeof ChannelActions.selectVoiceChannel;
 
 export default definePlugin({
     name: "ExitSounds",
-    get description() { return t("يُشغّل أصوات لوحة الأصوات عند قطع الاتصال بالصوت.", "Plays soundboard sounds when disconnecting from voice."); },
+    description: "Plays soundboard sounds when disconnecting from voice.",
     tags: ["Fun", "Voice"],
     authors: [Devs.prism],
     dependencies: ["AudioPlayerAPI"],

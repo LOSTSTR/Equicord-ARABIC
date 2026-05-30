@@ -17,12 +17,11 @@
 */
 
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "MessageAccessoriesAPI",
-    get description() { return t("واجهة برمجية لإضافة ملحقات للرسائل", "API to add accessories to messages"); },
+    description: "API to add accessories to messages",
     authors: [Devs.Cyn],
     patches: [
         {

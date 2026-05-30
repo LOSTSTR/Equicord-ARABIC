@@ -6,12 +6,11 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 
 const settings = definePluginSettings({
     inlineVideo: {
-        description: t("تشغيل الفيديوهات بدون نافذة العرض المنبثقة", "Play videos without the lightbox popup window"),
+        description: "Play videos without the lightbox popup window",
         type: OptionType.BOOLEAN,
         default: true,
         restartNeeded: true
@@ -21,7 +20,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "NoMosaic",
     authors: [Devs.AutumnVN],
-    get description() { return t("يُزيل تخطيط الموزاييك للصور المتعددة", "Removes the mosaic layout for multiple images"); },
+    description: "Removes the mosaic layout for multiple images",
     tags: ["Media", "Appearance", "Chat"],
     searchTerms: ["image", "mosaic", "media"],
 

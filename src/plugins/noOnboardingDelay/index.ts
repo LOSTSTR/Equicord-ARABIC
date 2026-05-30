@@ -17,12 +17,11 @@
 */
 
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "NoOnboardingDelay",
-    get description() { return t("يتخطى تأخير الإعداد الأولي البطيء والمزعج", "Skips the slow and annoying onboarding delay"); },
+    description: "Skips the slow and annoying onboarding delay",
     tags: ["Utility", "Servers"],
     authors: [Devs.nekohaxx],
     patches: [

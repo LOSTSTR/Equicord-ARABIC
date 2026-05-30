@@ -8,7 +8,6 @@ import { findGroupChildrenByChildId, NavContextMenuPatchCallback } from "@api/Co
 import { disableStyle, enableStyle } from "@api/Styles";
 import { PaintbrushIcon } from "@components/Icons";
 import { EquicordDevs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 import { extractAndLoadChunksLazy } from "@webpack";
 import { ChannelStore, closeModal, DraftType, FluxDispatcher, Menu, openModal,PendingReplyStore, SelectedChannelStore, UploadHandler } from "@webpack/common";
@@ -70,7 +69,7 @@ export function sendRemix(blob: Blob) {
 
 export default definePlugin({
     name: "RemixRevived",
-    get description() { return t("يُعيد ميزة Remix ويجلبها لنسخة سطح المكتب", "Brings back the Remix feature and brings it to desktop."); },
+    description: "Brings back the Remix feature and brings it to desktop.",
     tags: ["Customisation", "Fun"],
     authors: [EquicordDevs.MrDiamond, EquicordDevs.meowabyte],
     contextMenus: {

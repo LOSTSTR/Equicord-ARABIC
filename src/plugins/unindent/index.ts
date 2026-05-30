@@ -18,12 +18,11 @@
 
 import { MessageObject } from "@api/MessageEvents";
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "Unindent",
-    get description() { return t("يزيل المسافات البادئة من كتل الكود", "Removes indentation from code blocks"); },
+    description: "Removes indentation from code blocks",
     dependencies: ["MessageEventsAPI"],
     tags: ["Chat", "Utility"],
     authors: [Devs.Ven],

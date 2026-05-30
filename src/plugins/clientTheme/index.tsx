@@ -8,7 +8,6 @@ import "./clientTheme.css";
 
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType, StartAt } from "@utils/types";
 
 import { ResetThemeColorComponent, ThemeSettingsComponent } from "./components/Settings";
@@ -29,7 +28,7 @@ export const settings = definePluginSettings({
 export default definePlugin({
     name: "ClientTheme",
     authors: [Devs.Nuckyz],
-    get description() { return t("إعادة إنشاء تجربة الثيم القديم. أضف لونًا مخصصًا لثيم Discord الخاص بك", "Recreates the old theme experience. Add a custom color to your Discord theme"); },
+    description: "Recreates the old theme experience. Add a custom color to your Discord theme",
     tags: ["Appearance", "Customisation"],
     settings,
 

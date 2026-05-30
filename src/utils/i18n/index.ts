@@ -5,6 +5,7 @@
  */
 
 import { isArabicMode } from "@utils/esharqI18n";
+
 import pluginI18n from "~i18n";
 
 import type { LocalizedString } from "./types";

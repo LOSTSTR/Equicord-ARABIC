@@ -5,12 +5,11 @@
  */
 
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "HeaderBarAPI",
-    get description() { return t("واجهة برمجية لإضافة أزرار إلى شريط الرأس وشريط أدوات القناة.", "An API for adding buttons to the header bar and channel toolbar."); },
+    description: "An API for adding buttons to the header bar and channel toolbar.",
     authors: [Devs.prism],
 
     patches: [

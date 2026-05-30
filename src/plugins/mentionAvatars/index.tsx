@@ -11,7 +11,6 @@ import { definePluginSettings } from "@api/Settings";
 import ErrorBoundary from "@components/ErrorBoundary";
 import showMeYourName from "@plugins/showMeYourName";
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { User } from "@vencord/discord-types";
 import { GuildRoleStore, SelectedGuildStore, useState } from "@webpack/common";
@@ -20,7 +19,7 @@ import { JSX } from "react";
 const settings = definePluginSettings({
     showAtSymbol: {
         type: OptionType.BOOLEAN,
-        description: t("عرض رمز @ عند الإشارة إلى المستخدمين", "Show the @ symbol when mentioning users"),
+        description: "Show the @ symbol when mentioning users",
         default: true
     }
 });
@@ -48,7 +47,7 @@ function DefaultRoleIcon() {
 
 export default definePlugin({
     name: "MentionAvatars",
-    get description() { return t("يُضيف الأفاتار بجانب الذكر في الرسائل", "Adds avatars next to mentions in messages"); },
+    description: "Adds avatars next to mentions in messages",
     tags: ["Appearance", "Customisation"],
     authors: [Devs.Ven, Devs.SerStars],
     patches: [{

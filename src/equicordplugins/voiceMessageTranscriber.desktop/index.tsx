@@ -16,7 +16,6 @@ import { Heading } from "@components/Heading";
 import { Span } from "@components/Span";
 import { copyToClipboard } from "@utils/clipboard";
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType, PluginNative } from "@utils/types";
 import { RenderModalProps } from "@vencord/discord-types";
 import { findComponentByCodeLazy } from "@webpack";
@@ -31,7 +30,7 @@ let ManaBaseRadioGroup;
 const settings = definePluginSettings({
     selectedModel: {
         type: OptionType.SELECT,
-        description: t("حجم النموذج", "Model size"),
+        description: "Model size",
         options: [
             {
                 label: "Tiny (Fastest, lowest accuracy)",
@@ -55,7 +54,7 @@ const settings = definePluginSettings({
     },
     quantized: {
         type: OptionType.BOOLEAN,
-        description: t("استخدام النموذج المضغوط (حجم أصغر، دقة أقل قليلاً)", "Use quantized model (smaller size, slightly lower accuracy)"),
+        description: "Use quantized model (smaller size, slightly lower accuracy)",
         default: true,
         restartNeeded: false
     },
@@ -324,7 +323,7 @@ function TranscriptionModal(props: { modalProps: RenderModalProps, src: string, 
 export default definePlugin({
     name: "VoiceMessageTranscriber",
     authors: [Devs.TheSun],
-    get description() { return t("نسخ الرسائل الصوتية على الجهاز مباشرةً بواسطة Whisper v3", "Transcribe voice messages locally using Whisper v3."); },
+    description: "Transcribe voice messages locally using Whisper v3.",
     tags: ["Chat", "Media", "Utility", "Voice"],
     patches: [
         {

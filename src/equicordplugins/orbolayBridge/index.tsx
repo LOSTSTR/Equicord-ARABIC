@@ -6,7 +6,6 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { EquicordDevs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { ChannelStore, FluxDispatcher, GuildMemberStore, StreamerModeStore, Toasts, UserStore, VoiceStateStore } from "@webpack/common";
 
@@ -26,19 +25,19 @@ const liveUpdate = () => sendConfig();
 const settings = definePluginSettings({
     port: {
         type: OptionType.NUMBER,
-        description: t("المنفذ للاتصال به", "Port to connect to"),
+        description: "Port to connect to",
         default: 6888,
         restartNeeded: true
     },
     isKeybindEnabled: {
         type: OptionType.BOOLEAN,
-        description: t("تفعيل/تعطيل اختصار لوحة المفاتيح العام (Ctrl + `)", "Enable/disable global keybind (Ctrl + `)"),
+        description: "Enable/disable global keybind (Ctrl + `)",
         default: true,
         onChange: liveUpdate,
     },
     messageAlignment: {
         type: OptionType.SELECT,
-        description: t("محاذاة الرسائل في التراكب", "Message alignment in overlay"),
+        description: "Message alignment in overlay",
         options: [
             { label: "Top left", value: "topleft", default: true },
             { label: "Top right", value: "topright" },
@@ -66,7 +65,7 @@ const settings = definePluginSettings({
     },
     userAlignment: {
         type: OptionType.SELECT,
-        description: t("محاذاة المستخدمين في التراكب", "User alignment in overlay"),
+        description: "User alignment in overlay",
         options: [
             { label: "Top left", value: "topleft", default: true },
             { label: "Top right", value: "topright" },
@@ -94,13 +93,13 @@ const settings = definePluginSettings({
     },
     voiceSemitransparent: {
         type: OptionType.BOOLEAN,
-        description: t("جعل أعضاء القناة الصوتية شفافين", "Make voice channel members semi-transparent"),
+        description: "Make voice channel members semi-transparent",
         default: true,
         onChange: liveUpdate,
     },
     messagesSemitransparent: {
         type: OptionType.BOOLEAN,
-        description: t("جعل إشعارات الرسائل شفافة", "Make message notifications semi-transparent"),
+        description: "Make message notifications semi-transparent",
         default: false,
         onChange: liveUpdate,
     },
@@ -357,7 +356,7 @@ const createWebsocket = () => {
 
 export default definePlugin({
     name: "OrbolayBridge",
-    get description() { return t("إضافة جسر لربط Orbolay بديسكورد", "Bridge plugin to connect Orbolay with Discord"); },
+    description: "Bridge plugin to connect Orbolay with Discord",
     tags: ["Utility", "Voice"],
     authors: [EquicordDevs.SpikeHD],
     settings,

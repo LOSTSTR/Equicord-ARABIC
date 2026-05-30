@@ -8,7 +8,6 @@ import "./styles.css";
 
 import ErrorBoundary from "@components/ErrorBoundary";
 import { EquicordDevs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin, { StartAt } from "@utils/types";
 import { React } from "@webpack/common";
 import type { ReactElement } from "react";
@@ -27,7 +26,7 @@ const requiredFirstCharacters = ["r", "h", "#"].flatMap(v => [v, v.toUpperCase()
 export default definePlugin({
     authors: [EquicordDevs.Hen],
     name: "MessageColors",
-    get description() { return t("يعرض رموز الألوان مثل #FF0042 داخل الرسائل", "Displays color codes like #FF0042 inside messages"); },
+    description: "Displays color codes like #FF0042 inside messages",
     tags: ["Appearance", "Chat"],
     settings,
     patches: [

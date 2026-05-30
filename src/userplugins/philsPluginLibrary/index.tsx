@@ -24,7 +24,7 @@ import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "PhilsPluginLibrary",
-    get description() { return t("مكتبة لإضافات phil", "A library for phil's plugins."); },
+    description: "A library for phil's plugins.",
     authors: [Devs.viciouscal],
     patches: [
         {

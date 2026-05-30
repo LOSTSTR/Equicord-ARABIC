@@ -26,36 +26,36 @@ export const cl = classNameFactory("vc-boo-");
 export const settings = definePluginSettings({
     showIndicator: {
         type: OptionType.BOOLEAN,
-        description: t("يعرض عداد الأشباح أعلى قائمة السيرفرات", "Show ghost counter above the server list"),
+        description: "Show ghost counter above the server list",
         default: true,
         restartNeeded: false
     },
     showDmIcons: {
         type: OptionType.BOOLEAN,
-        description: t("إظهار أيقونات الشبح بجانب الرسائل المباشرة الفردية", "Show ghost icons next to individual DMs"),
+        description: "Show ghost icons next to individual DMs",
         default: true,
         restartNeeded: false
     },
     ignoreGroupDms: {
         type: OptionType.BOOLEAN,
-        description: t("استبعاد جميع رسائل المجموعات من التشبيح", "Exclude all group DMs from ghosting"),
+        description: "Exclude all group DMs from ghosting",
         default: false
     },
     exemptedChannels: {
         type: OptionType.STRING,
-        description: t("قائمة معرّفات القنوات المعفاة من التشبيح مفصولة بفواصل (انقر بزر الماوس الأيمن على قناة رسائل مباشرة لنسخ معرّفها)", "Comma-separated list of channel IDs exempt from ghosting (right-click a DM channel to copy its ID)"),
+        description: "Comma-separated list of channel IDs exempt from ghosting (right-click a DM channel to copy its ID)",
         default: "",
         restartNeeded: false
     },
     ignoreBots: {
         type: OptionType.BOOLEAN,
-        description: t("تجاهل الرسائل المباشرة من البوتات", "Ignore DMs from bots"),
+        description: "Ignore DMs from bots",
         default: true,
         restartNeeded: false
     },
     maxInactiveTimeMs: {
         type: OptionType.SELECT,
-        description: t("تشبيح الرسائل المباشرة النشطة فقط خلال هذا الإطار الزمني", "Only ghost DMs active within this timeframe"),
+        description: "Only ghost DMs active within this timeframe",
         options: [
             { label: t("بلا حد", "No limit"), value: 0, default: true },
             { label: t("ساعة واحدة", "1 hour"), value: 60 * 60 * 1000 },
@@ -145,7 +145,7 @@ function makeContextItem(props) {
 
 export default definePlugin({
     name: "Ghosted",
-    get description() { return t("يظهر شبح لطيف إذا لم تردّ على رسائلهم المباشرة", "Shows a ghost if you haven't replied to their DMs"); },
+    description: "Shows a ghost if you haven't replied to their DMs",
     tags: ["Chat", "Utility"],
     authors: [EquicordDevs.vei, Devs.sadan, EquicordDevs.justjxke, EquicordDevs.iamme],
     settings,

@@ -20,7 +20,6 @@ import "./styles.css";
 
 import { EquicordDevs } from "@utils/constants";
 import { classNameFactory } from "@utils/css";
-import { t } from "@utils/esharqI18n";
 import { classes } from "@utils/misc";
 import definePlugin from "@utils/types";
 import { findByPropsLazy, findCssClassesLazy } from "@webpack";
@@ -45,7 +44,7 @@ type EmojiDescriptor = {
 export default definePlugin({
     name: "DragFavoriteEmotes",
     authors: [EquicordDevs.PWall],
-    get description() { return t("يتيح إعادة ترتيب الإيموجي المفضلة بالسحب والإفلات", "Allows reordering favorite emotes by drag and drop"); },
+    description: "Allows reordering favorite emotes by drag and drop",
     tags: ["Customisation", "Chat", "Emotes"],
     patches: [
         {

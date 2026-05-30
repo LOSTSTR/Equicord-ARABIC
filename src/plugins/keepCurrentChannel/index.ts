@@ -18,7 +18,6 @@
 
 import * as DataStore from "@api/DataStore";
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 import { ChannelRouter, ChannelStore, NavigationRouter, SelectedChannelStore, SelectedGuildStore } from "@webpack/common";
 
@@ -43,7 +42,7 @@ let previousCache: PreviousChannel | undefined;
 
 export default definePlugin({
     name: "KeepCurrentChannel",
-    get description() { return t("يحاول العودة إلى القناة التي كنت فيها قبل تبديل الحساب أو إعادة تشغيل Discord", "Attempts to return to the channel you were in before switching accounts or restarting Discord"); },
+    description: "Attempts to return to the channel you were in before switching accounts or restarting Discord",
     tags: ["Utility", "Organisation"],
     authors: [Devs.Nuckyz],
 

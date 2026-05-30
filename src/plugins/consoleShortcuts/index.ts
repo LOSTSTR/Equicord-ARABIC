@@ -19,7 +19,6 @@
 import { loadLazyChunks } from "@debug/loadLazyChunks";
 import { Devs } from "@utils/constants";
 import { getCurrentChannel, getCurrentGuild } from "@utils/discord";
-import { t } from "@utils/esharqI18n";
 import { runtimeHashMessageKey } from "@utils/intlHash";
 import { SYM_LAZY_CACHED, SYM_LAZY_GET } from "@utils/lazy";
 import { sleep } from "@utils/misc";
@@ -243,7 +242,7 @@ const webpackModulesProbablyLoaded = Webpack.onceReady.then(() => sleep(1000));
 
 export default definePlugin({
     name: "ConsoleShortcuts",
-    get description() { return t("يضيف اختصارات مختصرة للعديد من الأشياء في الـ window. شغّل `shortcutList` للاطلاع على القائمة.", "Adds shorter aliases for many window things. Run `shortcutList` for the list."); },
+    description: "Adds shorter aliases for many window things. Run `shortcutList` for the list.",
     authors: [Devs.Ven],
     tags: ["Developers", "Console", "Shortcuts", "Utility"],
     startAt: StartAt.Init,

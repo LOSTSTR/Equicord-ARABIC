@@ -6,7 +6,6 @@
 
 import { Devs, EquicordDevs } from "@utils/constants";
 import { Logger } from "@utils/Logger";
-import { t } from "@utils/esharqI18n";
 import definePlugin, { ReporterTestable } from "@utils/types";
 
 import { migrateOldSettings } from "./migration";
@@ -73,7 +72,7 @@ function stopAllServices() {
 
 export default definePlugin({
     name: "RichPresence",
-    get description() { return t("مركز Rich Presence موحّد لـ AudioBookShelf وosu! وstats.fm وJellyfin وListenBrainz وGensokyo Radio.", "Unified Rich Presence hub for AudioBookShelf, osu!, stats.fm, Jellyfin, ListenBrainz, and Gensokyo Radio."); },
+    description: "Unified Rich Presence hub for AudioBookShelf, osu!, stats.fm, Jellyfin, ListenBrainz, and Gensokyo Radio.",
     tags: ["Activity"],
     authors: [
         EquicordDevs.vmohammad,

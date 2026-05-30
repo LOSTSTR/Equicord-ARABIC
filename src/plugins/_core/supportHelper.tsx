@@ -31,12 +31,12 @@ import customIdle from "@plugins/customIdle";
 import { gitHash, gitHashShort } from "@shared/vencordUserAgent";
 import { CONTRIB_ROLE_ID, Devs, DONOR_ROLE_ID, EQUICORD_TEAM, GUILD_ID, SUPPORT_CHANNEL_ID, SUPPORT_CHANNEL_IDS, VC_CONTRIB_ROLE_ID, VC_DONOR_ROLE_ID, VC_GUILD_ID, VC_REGULAR_ROLE_ID, VENCORD_CONTRIB_ROLE_ID } from "@utils/constants";
 import { sendMessage } from "@utils/discord";
+import { t } from "@utils/esharqI18n";
 import { Logger } from "@utils/Logger";
 import { Margins } from "@utils/margins";
 import { isAnyPluginDev, isEquicordGuild, isEquicordSupport, isSupportChannel, tryOrElse } from "@utils/misc";
 import { relaunch } from "@utils/native";
 import { onlyOnce } from "@utils/onlyOnce";
-import { t } from "@utils/esharqI18n";
 import { makeCodeblock } from "@utils/text";
 import definePlugin from "@utils/types";
 import { checkForUpdates, isOutdated, update } from "@utils/updater";
@@ -316,7 +316,7 @@ function DevBuildConfirmModal(props: RenderModalProps) {
 export default definePlugin({
     name: "SupportHelper",
     required: true,
-    get description() { return t("يساعدنا على تقديم الدعم الفني لك", "Helps us help you"); },
+    description: "Helps us help you",
     authors: [Devs.Ven],
     dependencies: ["UserSettingsAPI", "CommandsAPI", "MessageAccessoriesAPI"],
 

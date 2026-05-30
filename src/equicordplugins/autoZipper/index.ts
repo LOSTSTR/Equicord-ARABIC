@@ -6,7 +6,6 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { EquicordDevs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import { Logger } from "@utils/Logger";
 import definePlugin, { OptionType } from "@utils/types";
 import { ChannelStore, DraftType, SelectedChannelStore, UploadHandler } from "@webpack/common";
@@ -17,7 +16,7 @@ const logger = new Logger("AutoZipper");
 const settings = definePluginSettings({
     extensions: {
         type: OptionType.STRING,
-        description: t("قائمة امتدادات الملفات للضغط التلقائي مفصولة بفواصل (مثل: .psd,.blend,.exe,.dmg)", "Comma-separated list of file extensions to auto-zip (e.g. .psd,.blend,.exe,.dmg)"),
+        description: "Comma-separated list of file extensions to auto-zip (e.g. .psd,.blend,.exe,.dmg)",
         default: ".psd,.blend,.exe,.dmg,.app,.apk,.iso",
         onChange: () => {
             extensionsToZip.clear();
@@ -209,7 +208,7 @@ function handlePaste(event: ClipboardEvent) {
 
 export default definePlugin({
     name: "AutoZipper",
-    get description() { return t("يضغط تلقائياً أنواع الملفات والمجلدات المحددة قبل رفعها إلى ديسكورد", "Automatically zips specified file types and folders before uploading them to Discord"); },
+    description: "Automatically zips specified file types and folders before uploading them to Discord",
     tags: ["Chat", "Organisation"],
     authors: [EquicordDevs.SSnowly],
     settings,

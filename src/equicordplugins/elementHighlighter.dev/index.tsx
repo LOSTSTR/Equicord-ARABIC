@@ -11,7 +11,6 @@ import { Button } from "@components/Button";
 import { Devs, IS_MAC } from "@utils/constants";
 import { classNameFactory } from "@utils/css";
 import { copyWithToast } from "@utils/discord";
-import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { findComponentByCodeLazy } from "@webpack";
 import { useEffect, useState } from "@webpack/common";
@@ -95,48 +94,48 @@ function KeybindRecorder() {
 
 const settings = definePluginSettings({
     keybind: {
-        description: t("تفعيل/تعطيل أداة التمييز", "Enable/disable the highlighter tool"),
+        description: "Enable/disable the highlighter tool",
         type: OptionType.COMPONENT,
         default: DEFAULT_KEYBIND,
         component: KeybindRecorder
     },
     showClasses: {
-        description: t("عرض أسماء فئات CSS للعنصر في التلميح", "Show CSS class names of the element in the tooltip"),
+        description: "Show CSS class names of the element in the tooltip",
         type: OptionType.BOOLEAN,
         default: false
     },
     showId: {
-        description: t("عرض خاصية ID للعنصر في التلميح", "Show the ID attribute of the element in the tooltip"),
+        description: "Show the ID attribute of the element in the tooltip",
         type: OptionType.BOOLEAN,
         default: false
     },
     showFont: {
-        description: t("عرض عائلة الخط وحجمه المحسوب", "Show the computed font family and size"),
+        description: "Show the computed font family and size",
         type: OptionType.BOOLEAN,
         default: false
     },
     showPadding: {
-        description: t("عرض قيم الحشو للعنصر", "Show the padding values of the element"),
+        description: "Show the padding values of the element",
         type: OptionType.BOOLEAN,
         default: false
     },
     showMargin: {
-        description: t("عرض قيم الهامش للعنصر", "Show the margin values of the element"),
+        description: "Show the margin values of the element",
         type: OptionType.BOOLEAN,
         default: false
     },
     showBorderRadius: {
-        description: t("عرض قيم نصف قطر حدود العنصر", "Show the border radius values of the element"),
+        description: "Show the border radius values of the element",
         type: OptionType.BOOLEAN,
         default: false
     },
     showPosition: {
-        description: t("عرض نوع موضع CSS ومؤشر Z للعنصر", "Show the CSS position type and Z-index of the element"),
+        description: "Show the CSS position type and Z-index of the element",
         type: OptionType.BOOLEAN,
         default: false
     },
     showDisplay: {
-        description: t("عرض نوع العرض مع خصائص flex أو grid للعنصر", "Show the display type along with flex or grid properties of the element"),
+        description: "Show the display type along with flex or grid properties of the element",
         type: OptionType.BOOLEAN,
         default: false
     }
@@ -449,7 +448,7 @@ function onToggle(e: KeyboardEvent) {
 
 export default definePlugin({
     name: "ElementHighlighter",
-    get description() { return t("تمييز عناصر الواجهة وفحصها بسهولة.", "Highlight and inspect UI elements with ease."); },
+    description: "Highlight and inspect UI elements with ease.",
     tags: ["Developers"],
     authors: [Devs.prism],
     settings,

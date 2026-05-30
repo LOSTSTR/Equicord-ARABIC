@@ -18,7 +18,6 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { findByPropsLazy } from "@webpack";
 
@@ -27,19 +26,19 @@ const MessageRequestStore = findByPropsLazy("getMessageRequestsCount");
 const settings = definePluginSettings({
     hideFriendRequestsCount: {
         type: OptionType.BOOLEAN,
-        description: t("إخفاء عداد طلبات الصداقة الواردة", "Hide the incoming friend request count"),
+        description: "Hide the incoming friend request count",
         default: true,
         restartNeeded: true
     },
     hideMessageRequestsCount: {
         type: OptionType.BOOLEAN,
-        description: t("إخفاء عداد طلبات الرسائل", "Hide the message requests count"),
+        description: "Hide the message requests count",
         default: true,
         restartNeeded: true
     },
     hidePremiumOffersCount: {
         type: OptionType.BOOLEAN,
-        description: t("إخفاء عداد عروض Nitro", "Hide the Nitro offers count"),
+        description: "Hide the Nitro offers count",
         default: true,
         restartNeeded: true
     }
@@ -47,7 +46,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "NoPendingCount",
-    get description() { return t("يُزيل شارة العداد في أيقونة الطلبات المعلقة", "Removes the count badge from the pending requests icon"); },
+    description: "Removes the count badge from the pending requests icon",
     tags: ["Notifications", "Appearance"],
     authors: [Devs.amia],
 

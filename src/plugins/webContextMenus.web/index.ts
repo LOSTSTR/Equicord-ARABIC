@@ -19,7 +19,6 @@
 import { definePluginSettings } from "@api/Settings";
 import { copyToClipboard } from "@utils/clipboard";
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { saveFile } from "@utils/web";
 import { filters, mapMangledModuleLazy } from "@webpack";
@@ -53,7 +52,7 @@ const settings = definePluginSettings({
     // menu handler instead of the web one, which breaks the other menus that aren't enabled
     addBack: {
         type: OptionType.BOOLEAN,
-        description: t("إعادة قوائم سياق Discord للصور والروابط وشريط إدخال الدردشة", "Re-add Discord context menus for images, links, and the chat input bar"),
+        description: "Re-add Discord context menus for images, links, and the chat input bar",
         default: hideSetting,
         restartNeeded: true,
         // Web slate menu has proper spellcheck suggestions and image context menu is also pretty good,
@@ -88,7 +87,7 @@ function fixImageUrl(urlString: string) {
 
 export default definePlugin({
     name: "WebContextMenus",
-    get description() { return t("يُعيد قوائم السياق الأصلية في النسخة الويب", "Re-adds native context menus in the web version"); },
+    description: "Re-adds native context menus in the web version",
     tags: ["Utility"],
     authors: [Devs.Ven],
     enabledByDefault: true,

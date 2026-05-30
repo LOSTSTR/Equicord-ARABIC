@@ -18,7 +18,6 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType, ReporterTestable } from "@utils/types";
 import { FluxDispatcher } from "@webpack/common";
 
@@ -30,7 +29,7 @@ const enum Intensity {
 
 const settings = definePluginSettings({
     superIntensePartyMode: {
-        description: t("مستوى الحفلة", "Party intensity"),
+        description: "Party intensity",
         type: OptionType.SELECT,
         options: [
             { label: "Normal", value: Intensity.Normal, default: true },
@@ -44,7 +43,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "PartyMode",
-    get description() { return t("يتيح لك استخدام وضع الحفلة لأن الحفلة لا تنتهي أبداً ✨", "Lets you use party mode because the party never stops ✨"); },
+    description: "Lets you use party mode because the party never stops ✨",
     tags: ["Fun"],
     authors: [Devs.UwUDev],
     reporterTestable: ReporterTestable.None,

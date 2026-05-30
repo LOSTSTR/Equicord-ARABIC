@@ -23,7 +23,6 @@ import { definePluginSettings } from "@api/Settings";
 import ErrorBoundary from "@components/ErrorBoundary";
 import { Paragraph } from "@components/Paragraph";
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { findComponentByCodeLazy, findCssClassesLazy, findStoreLazy } from "@webpack";
 import { Constants, React, RestAPI, SettingsRouter, Tooltip } from "@webpack/common";
@@ -39,12 +38,12 @@ const BlobMask = findComponentByCodeLazy("!1,lowerBadgeSize:");
 const settings = definePluginSettings({
     backgroundCheck: {
         type: OptionType.BOOLEAN,
-        description: t("التحقق من الجلسات الجديدة في الخلفية وعرض إشعارات عند اكتشافها", "Check for new sessions in the background and display notifications when detected"),
+        description: "Check for new sessions in the background and display notifications when detected",
         default: false,
         restartNeeded: true
     },
     checkInterval: {
-        description: t("عدد الدقائق بين كل فحص للجلسات الجديدة في الخلفية (إذا كان مفعلاً)", "Minutes between each background check for new sessions (if enabled)"),
+        description: "Minutes between each background check for new sessions (if enabled)",
         type: OptionType.NUMBER,
         default: 20,
         restartNeeded: true
@@ -53,7 +52,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "BetterSessions",
-    get description() { return t("يُحسّن صفحة الجلسات بالأجهزة ويُضيف رموز تعريفية", "Enhances the devices sessions page and adds identifying labels"); },
+    description: "Enhances the devices sessions page and adds identifying labels",
     authors: [Devs.amia],
     tags: ["Notifications", "Customisation", "Utility"],
     settings: settings,

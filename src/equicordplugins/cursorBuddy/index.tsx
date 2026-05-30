@@ -82,7 +82,7 @@ function OnekoColorSettings() {
 
 const settings = definePluginSettings({
     buddy: {
-        description: t("اختر شخصية مؤشر الفأرة", "Choose your cursor buddy character"),
+        description: "Choose your cursor buddy character",
         type: OptionType.SELECT,
         options: [
             {
@@ -98,14 +98,14 @@ const settings = definePluginSettings({
         onChange: load,
     },
     speed: {
-        description: t("سرعة الشخصية", "Character speed"),
+        description: "Character speed",
         type: OptionType.NUMBER,
         default: 10,
         isValid: (value: number) => value >= 0 || "Speed must be bigger than 0",
         onChange: load,
     },
     fps: {
-        description: t("معدل إطارات الشخصية", "Character framerate"),
+        description: "Character framerate",
         type: OptionType.NUMBER,
         default: 24,
         isValid: (value: number) => value > 0 || "Framerate must be bigger than 0",
@@ -126,14 +126,14 @@ const settings = definePluginSettings({
         component: OnekoColorSettings,
     },
     furColor: {
-        description: t("لون الفراء بصيغة hex لـ Oneko", "Oneko fur color in hex"),
+        description: "Oneko fur color in hex",
         type: OptionType.STRING,
         default: "#FFFFFF",
         onChange: load,
         hidden: true,
     },
     outlineColor: {
-        description: t("لون الحدود بصيغة hex لـ Oneko", "Oneko outline color in hex"),
+        description: "Oneko outline color in hex",
         type: OptionType.STRING,
         default: "#000000",
         onChange: load,
@@ -150,26 +150,26 @@ const settings = definePluginSettings({
         ),
     },
     size: {
-        description: t("حجم الحصان", "Horse size"),
+        description: "Horse size",
         type: OptionType.NUMBER,
         default: 120,
         isValid: (value: number) => value > 0 || "Size must be bigger than 0",
         onChange: load
     },
     fade: {
-        description: t("تلاشي الحصان عند اقتراب المؤشر منه", "Fade the horse when cursor is nearby"),
+        description: "Fade the horse when cursor is nearby",
         type: OptionType.BOOLEAN,
         default: true,
         onChange: load
     },
     freeroam: {
-        description: t("تجوال الحصان بحرية عند التوقف", "Horse roams freely when idle"),
+        description: "Horse roams freely when idle",
         type: OptionType.BOOLEAN,
         default: true,
         onChange: load
     },
     shake: {
-        description: t("اهتزاز النافذة أثناء مشي الحصان", "Shake the window while the horse walks"),
+        description: "Shake the window while the horse walks",
         type: OptionType.BOOLEAN,
         default: false,
         onChange: load,
@@ -235,7 +235,7 @@ function load() {
 migratePluginSettings("CursorBuddy", "Oneko", "oneko");
 export default definePlugin({
     name: "CursorBuddy",
-    get description() { return t("يضيف شخصية متحركة تتبع مؤشر الفأرة", "Adds an animated character that follows your cursor"); },
+    description: "Adds an animated character that follows your cursor",
     tags: ["Appearance", "Customisation", "Fun"],
     authors: [Devs.Ven, Devs.adryd, EquicordDevs.nexpid, EquicordDevs.ZcraftElite],
     searchTerms: ["Oneko", "FatassHorse", "Pet"],

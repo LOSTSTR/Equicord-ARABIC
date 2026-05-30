@@ -6,7 +6,6 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { EquicordDevs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 
 const Millis = {
@@ -22,31 +21,31 @@ const Millis = {
 const settings = definePluginSettings({
     showForeverOnTop: {
         type: OptionType.BOOLEAN,
-        description: t("عرض خيار 'للأبد' في أعلى القائمة بدلاً من الأسفل.", "Show 'Forever' option at the top of the list instead of the bottom."),
+        description: "Show 'Forever' option at the top of the list instead of the bottom.",
         restartNeeded: true,
         default: true
     },
     extraSeconds: {
         type: OptionType.STRING,
-        description: t("ثوانٍ إضافية للإضافة، مفصولة بفواصل (مثل: 5, 10, 30)", "Extra seconds to add, separated by commas (e.g. 5, 10, 30)"),
+        description: "Extra seconds to add, separated by commas (e.g. 5, 10, 30)",
         restartNeeded: true,
         default: "15, 30, 45"
     },
     extraMinutes: {
         type: OptionType.STRING,
-        description: t("دقائق إضافية للإضافة، مفصولة بفواصل (مثل: 5, 10, 30)", "Extra minutes to add, separated by commas (e.g. 5, 10, 30)"),
+        description: "Extra minutes to add, separated by commas (e.g. 5, 10, 30)",
         restartNeeded: true,
         default: "5, 10, 30"
     },
     extraHours: {
         type: OptionType.STRING,
-        description: t("ساعات إضافية للإضافة، مفصولة بفواصل (مثل: 2, 4, 6, 12)", "Extra hours to add, separated by commas (e.g. 2, 4, 6, 12)"),
+        description: "Extra hours to add, separated by commas (e.g. 2, 4, 6, 12)",
         restartNeeded: true,
         default: "2, 4, 6, 12"
     },
     extraDays: {
         type: OptionType.STRING,
-        description: t("أيام إضافية للإضافة، مفصولة بفواصل (مثل: 1, 2)", "Extra days to add, separated by commas (e.g. 1, 2)"),
+        description: "Extra days to add, separated by commas (e.g. 1, 2)",
         restartNeeded: true,
         default: "1, 2"
     },
@@ -54,7 +53,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "CustomStatusTimeouts",
-    get description() { return t("يضيف إعدادات مسبقة قابلة للتخصيص لمدة انتهاء الحالة في قائمة الحضور", "Adds customizable preset durations for status timeouts in the presence menu"); },
+    description: "Adds customizable preset durations for status timeouts in the presence menu",
     tags: ["Activity", "Utility"],
     authors: [EquicordDevs.Kiri, EquicordDevs.thororen],
     settings,

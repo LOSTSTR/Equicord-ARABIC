@@ -6,14 +6,13 @@
 
 import { IconsDef } from "@equicordplugins/iconViewer/types";
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 export let iconsModule: IconsDef;
 
 export default definePlugin({
     name: "ConcatenatedModules",
-    get description() { return t("استخراج الوحدات التي دمجها المُجمِّع", "Extract modules concatenated by the bundler"); },
+    description: "Extract modules concatenated by the bundler",
     authors: [Devs.thororen],
     patches: [
         {

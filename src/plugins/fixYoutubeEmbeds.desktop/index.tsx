@@ -7,7 +7,6 @@
 import { definePluginSettings, migratePluginSettings } from "@api/Settings";
 import ErrorBoundary from "@components/ErrorBoundary";
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { Embed } from "@vencord/discord-types";
 import { useState } from "@webpack/common";
@@ -16,7 +15,7 @@ interface ToggleableDescriptionProps { embed: Embed, original: () => any; }
 
 const settings = definePluginSettings({
     youtubeDescription: {
-        description: t("يضيف وصف الفيديو داخل مشغلات YouTube المضمّنة", "Adds the video description inside embedded YouTube players"),
+        description: "Adds the video description inside embedded YouTube players",
         type: OptionType.BOOLEAN,
         default: false,
         restartNeeded: true
@@ -27,7 +26,7 @@ migratePluginSettings("FixYoutubeEmbeds", "YoutubeDescription");
 
 export default definePlugin({
     name: "FixYoutubeEmbeds",
-    get description() { return t("يُصلح معاينة مقاطع يوتيوب المضمّنة", "Fixes the preview of embedded YouTube videos"); },
+    description: "Fixes the preview of embedded YouTube videos",
     tags: ["Media", "Utility"],
     authors: [Devs.coolelectronics, Devs.arHSM],
     settings,

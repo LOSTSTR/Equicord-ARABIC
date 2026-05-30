@@ -24,7 +24,6 @@ import ErrorBoundary from "@components/ErrorBoundary";
 import { SafetyIcon } from "@components/Icons";
 import { TooltipContainer } from "@components/TooltipContainer";
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import { classes } from "@utils/misc";
 import definePlugin, { OptionType } from "@utils/types";
 import type { Guild, RoleOrUserPermission } from "@vencord/discord-types";
@@ -51,7 +50,7 @@ const enum MenuItemParentType {
 
 export const settings = definePluginSettings({
     permissionsSortOrder: {
-        description: t("طريقة الفرز لتحديد أي رتبة تمنح المستخدم صلاحية معينة", "The sort order to determine which role grants a user a specific permission"),
+        description: "The sort order to determine which role grants a user a specific permission",
         type: OptionType.SELECT,
         options: [
             { label: "Highest Role", value: PermissionsSortOrder.HighestRole, default: true },
@@ -160,7 +159,7 @@ function makeContextMenuPatch(childId: string | string[], type?: MenuItemParentT
 
 export default definePlugin({
     name: "PermissionsViewer",
-    get description() { return t("يعرض أذونات الخادم والأدوار بشكل مفصّل", "Shows server and role permissions in detail"); },
+    description: "Shows server and role permissions in detail",
     tags: ["Servers", "Roles", "Utility"],
     authors: [Devs.Nuckyz, Devs.Ven],
     settings,

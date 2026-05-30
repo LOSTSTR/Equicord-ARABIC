@@ -88,37 +88,37 @@ const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 const settings = definePluginSettings({
     copyRoles: {
         type: OptionType.BOOLEAN,
-        description: t("نسخ الأدوار من السيرفر الأصلي", "Copy roles from the source server"),
+        description: "Copy roles from the source server",
         default: true,
     },
     copyChannels: {
         type: OptionType.BOOLEAN,
-        description: t("نسخ القنوات والفئات من السيرفر الأصلي", "Copy channels and categories from the source server"),
+        description: "Copy channels and categories from the source server",
         default: true,
     },
     copyEmojis: {
         type: OptionType.BOOLEAN,
-        description: t("نسخ الإيموجي من السيرفر الأصلي", "Copy emojis from the source server"),
+        description: "Copy emojis from the source server",
         default: true,
     },
     copyStickers: {
         type: OptionType.BOOLEAN,
-        description: t("نسخ الستيكرات من السيرفر الأصلي", "Copy stickers from the source server"),
+        description: "Copy stickers from the source server",
         default: true,
     },
     copyBots: {
         type: OptionType.BOOLEAN,
-        description: t("إنشاء قناة #bots-list بروابط دعوة لجميع البوتات في السيرفر الأصلي", "Create a #bots-list channel with invite links for all bots in the source server"),
+        description: "Create a #bots-list channel with invite links for all bots in the source server",
         default: true,
     },
     emojiCount: {
         type: OptionType.NUMBER,
-        description: t("الحد الأقصى لعدد الإيموجي المنسوخة (لكل نوع: PNG وGIF)", "Maximum number of emojis to copy (per type: PNG and GIF)"),
+        description: "Maximum number of emojis to copy (per type: PNG and GIF)",
         default: 50,
     },
     stickerCount: {
         type: OptionType.NUMBER,
-        description: t("الحد الأقصى لعدد الستيكرات المنسوخة", "Maximum number of stickers to copy"),
+        description: "Maximum number of stickers to copy",
         default: 5,
     },
 });
@@ -499,7 +499,7 @@ const ctxMenuPatch: NavContextMenuPatchCallback = (children, props) => {
 
 export default definePlugin({
     name: "GuildCopier",
-    get description() { return t("نسخ سيرفر كامل بما يشمل القنوات والأدوار والأذونات والإيموجي والستيكرات والفئات لإنشاء سيرفر مطابق.", "Copy a full server including channels, roles, permissions, emojis, stickers, and categories to create an identical server."); },
+    description: "Copy a full server including channels, roles, permissions, emojis, stickers, and categories to create an identical server.",
     tags: ["Servers", "Utility"],
     authors: [{ name: "x2b", id: 0n }, { name: "nnenaza", id: 0n }],
     dependencies: [],

@@ -8,7 +8,6 @@ import "./style.css";
 
 import ErrorBoundary from "@components/ErrorBoundary";
 import { EquicordDevs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 import { useAuthorizationStore } from "./lib/stores/AuthorizationStore";
@@ -20,7 +19,7 @@ import WidgetSongs from "./ui/songs/WidgetSongs";
 
 export default definePlugin({
     name: "SongSpotlight",
-    get description() { return t("يعرض الأغاني التي تستمع إليها على ملفك الشخصي", "Shows the songs you're listening to on your profile"); },
+    description: "Shows the songs you're listening to on your profile",
     dependencies: ["ProfileCollectionsAPI"],
     tags: ["Appearance", "Media"],
     authors: [EquicordDevs.nexpid],

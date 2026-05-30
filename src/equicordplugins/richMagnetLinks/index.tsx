@@ -7,13 +7,12 @@
 import "./styles.css";
 
 import { EquicordDevs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     authors: [EquicordDevs.cassie, EquicordDevs.mochienya, EquicordDevs.secp192k1],
     name: "RichMagnetLinks",
-    get description() { return t("يعرض روابط المغناطيس كروابط رسائل تفاعلية", "Displays magnet links as interactive message links."); },
+    description: "Displays magnet links as interactive message links.",
     tags: ["Appearance", "Chat"],
     patches: [
         {

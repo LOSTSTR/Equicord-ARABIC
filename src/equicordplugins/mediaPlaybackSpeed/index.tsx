@@ -10,7 +10,6 @@ import { definePluginSettings } from "@api/Settings";
 import ErrorBoundary from "@components/ErrorBoundary";
 import { Devs } from "@utils/constants";
 import { classNameFactory } from "@utils/css";
-import { t } from "@utils/esharqI18n";
 import definePlugin, { makeRange, OptionType } from "@utils/types";
 import { ContextMenuApi, FluxDispatcher, Menu, React, Tooltip, useEffect } from "@webpack/common";
 import { RefObject } from "react";
@@ -27,19 +26,19 @@ const settings = definePluginSettings({
     defaultVoiceMessageSpeed: {
         type: OptionType.SLIDER,
         default: 1,
-        description: t("الرسائل الصوتية", "Voice messages"),
+        description: "Voice messages",
         markers: speeds,
     },
     defaultVideoSpeed: {
         type: OptionType.SLIDER,
         default: 1,
-        description: t("مقاطع الفيديو", "Videos"),
+        description: "Videos",
         markers: speeds,
     },
     defaultAudioSpeed: {
         type: OptionType.SLIDER,
         default: 1,
-        description: t("الملفات الصوتية", "Audio files"),
+        description: "Audio files",
         markers: speeds,
     },
 });
@@ -48,7 +47,7 @@ type MediaRef = RefObject<HTMLMediaElement> | undefined;
 
 export default definePlugin({
     name: "MediaPlaybackSpeed",
-    get description() { return t("يتيح تغيير سرعة تشغيل مقاطع الوسائط (الافتراضية)", "Allows changing the (default) playback speed of media"); },
+    description: "Allows changing the (default) playback speed of media",
     tags: ["Chat", "Media"],
     authors: [Devs.D3SOX],
     settings,

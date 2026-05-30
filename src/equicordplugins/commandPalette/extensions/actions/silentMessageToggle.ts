@@ -6,8 +6,8 @@
 
 import { isPluginEnabled, plugins } from "@api/PluginManager";
 import { openPluginModal } from "@components/settings/tabs";
-import { t } from "@utils/esharqI18n";
 import { toggleEnabled } from "@equicordplugins/equicordHelper/utils";
+import { t } from "@utils/esharqI18n";
 import { Toasts } from "@webpack/common";
 
 import { DEFAULT_CATEGORY_ID } from "../../metadata/categories";

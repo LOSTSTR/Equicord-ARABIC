@@ -5,7 +5,6 @@
  */
 
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 import * as KnownSettings from "./knownSettings";
@@ -14,7 +13,7 @@ import { openNewPluginsModal } from "./NewPluginsModal";
 
 export default definePlugin({
     name: "NewPluginsManager",
-    get description() { return t("أداة تُنبّهك عند إضافة إضافات جديدة إلى Equicord", "A tool that notifies you when new plugins are added to Equicord"); },
+    description: "A tool that notifies you when new plugins are added to Equicord",
     tags: ["Utility"],
     authors: [Devs.Sqaaakoi],
     enabledByDefault: true,

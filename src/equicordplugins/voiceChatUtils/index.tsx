@@ -8,7 +8,6 @@ import { NavContextMenuPatchCallback } from "@api/ContextMenu";
 import { definePluginSettings } from "@api/Settings";
 import { Devs, EquicordDevs } from "@utils/constants";
 import { insertTextIntoChatInputBox } from "@utils/discord";
-import { t } from "@utils/esharqI18n";
 import definePlugin, { makeRange, OptionType } from "@utils/types";
 import type { Channel } from "@vencord/discord-types";
 import { GuildChannelStore, Menu, React, RestAPI, UserStore, VoiceStateStore } from "@webpack/common";
@@ -160,13 +159,13 @@ const VoiceChannelContext: NavContextMenuPatchCallback = (children, { channel }:
 const settings = definePluginSettings({
     waitAfter: {
         type: OptionType.SLIDER,
-        description: t("عدد إجراءات API قبل الانتظار (لتجنب تجاوز حد الطلبات)", "Number of API actions before waiting (to avoid rate limiting)"),
+        description: "Number of API actions before waiting (to avoid rate limiting)",
         default: 5,
         markers: makeRange(1, 20),
     },
     waitSeconds: {
         type: OptionType.SLIDER,
-        description: t("وقت الانتظار بين كل إجراء (بالثواني)", "Wait time between actions (in seconds)"),
+        description: "Wait time between actions (in seconds)",
         default: 2,
         markers: makeRange(1, 10, .5),
     }
@@ -174,7 +173,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "VoiceChatUtilities",
-    get description() { return t("يتيح لك هذا الإضافة تنفيذ إجراءات متعددة على قناة كاملة (نقل، كتم، قطع الاتصال، إلخ) (من تطوير dutake في الأصل)", "This plugin allows you to perform multiple actions on a whole channel (move, mute, disconnect, etc.) (originally by dutake)"); },
+    description: "This plugin allows you to perform multiple actions on a whole channel (move, mute, disconnect, etc.) (originally by dutake)",
     tags: ["Chat", "Servers", "Voice"],
     authors: [Devs.D3SOX, EquicordDevs.nickwoah],
 

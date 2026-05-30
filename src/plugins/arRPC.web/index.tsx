@@ -22,7 +22,6 @@ import { HeadingSecondary } from "@components/Heading";
 import { Link } from "@components/Link";
 import { Paragraph } from "@components/Paragraph";
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin, { ReporterTestable } from "@utils/types";
 import { ApplicationAssetUtils, fetchApplicationsRPC, FluxDispatcher, Toasts } from "@webpack/common";
 
@@ -42,7 +41,7 @@ let ws: WebSocket;
 migratePluginSettings("WebRichPresence", "WebRichPresence (arRPC)");
 export default definePlugin({
     name: "WebRichPresence",
-    get description() { return t("إضافة عميل arRPC لتفعيل RPC على Discord Web (تجريبية)", "arRPC client for Discord Web (experimental)"); },
+    description: "arRPC client for Discord Web (experimental)",
     tags: ["Activity", "Utility"],
     authors: [Devs.Ducko],
     reporterTestable: ReporterTestable.None,

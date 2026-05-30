@@ -20,7 +20,6 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import { classes } from "@utils/misc";
 import definePlugin, { OptionType } from "@utils/types";
 import { ChannelStore, EmojiStore, RestAPI } from "@webpack/common";
@@ -70,17 +69,17 @@ export function Husk(props: IconProps) {
 
 const settings = definePluginSettings({
     findInServer: {
-        description: t("يبحث عن إيموجي بنفس الاسم في السيرفر قبل استخدام المعرّف من الإعدادات (مفيد بدون نيترو)", "Search for an emoji with the same name in the server before using the ID from settings (useful without Nitro)"),
+        description: "Search for an emoji with the same name in the server before using the ID from settings (useful without Nitro)",
         type: OptionType.BOOLEAN,
         default: true
     },
     emojiName: {
-        description: t("اسم الإيموجي (الافتراضي من سيرفر Vencord: husk)", "Emoji name (default from Vencord server: husk)"),
+        description: "Emoji name (default from Vencord server: husk)",
         type: OptionType.STRING,
         default: "husk"
     },
     emojiID: {
-        description: t("معرّف الإيموجي (الافتراضي من سيرفر Vencord: 1026532993923293184)", "Emoji ID (default from Vencord server: 1026532993923293184)"),
+        description: "Emoji ID (default from Vencord server: 1026532993923293184)",
         type: OptionType.BIGINT,
         default: 1026532993923293184n
     }
@@ -99,7 +98,7 @@ function getEmojiIdThatShouldBeUsed(guildId: string) {
 
 export default definePlugin({
     name: "Husk",
-    get description() { return t("يضيف زر Husk (راجع الإعدادات لتغيير الإيموجي المستخدم)", "Adds a Husk button (see settings to change the emoji used)"); },
+    description: "Adds a Husk button (see settings to change the emoji used)",
     dependencies: ["MessagePopoverAPI"],
     tags: ["Emotes", "Fun"],
     authors: [Devs.nin0dev],

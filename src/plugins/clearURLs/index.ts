@@ -20,7 +20,6 @@ import {
     MessageObject
 } from "@api/MessageEvents";
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 const CLEAR_URLS_JSON_URL = "https://raw.githubusercontent.com/ClearURLs/Rules/master/data.min.json";
@@ -50,7 +49,7 @@ interface RuleSet {
 
 export default definePlugin({
     name: "ClearURLs",
-    get description() { return t("يزيل تلقائيًا عناصر التتبع من الروابط التي ترسلها", "Automatically removes tracking elements from URLs you send"); },
+    description: "Automatically removes tracking elements from URLs you send",
     dependencies: ["MessageEventsAPI"],
     tags: ["Privacy", "Utility"],
     authors: [Devs.adryd, Devs.thororen],

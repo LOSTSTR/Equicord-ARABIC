@@ -11,7 +11,6 @@ import * as DataStore from "@api/DataStore";
 import { definePluginSettings } from "@api/Settings";
 import ErrorBoundary from "@components/ErrorBoundary";
 import { Devs, EquicordDevs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { Message, User } from "@vencord/discord-types";
 import { findByPropsLazy, findCssClassesLazy } from "@webpack";
@@ -45,54 +44,54 @@ const locale = findByPropsLazy("getLocale");
 export const settings = definePluginSettings({
     "Show Own Timezone": {
         type: OptionType.BOOLEAN,
-        description: t("يعرض منطقتك الزمنية في ملفك الشخصي ورؤوس الرسائل", "Shows your timezone in your profile and message headers"),
+        description: "Shows your timezone in your profile and message headers",
         default: true
     },
 
     "24h Time": {
         type: OptionType.BOOLEAN,
-        description: t("عرض الوقت بتنسيق 24 ساعة", "Show time in 24-hour format"),
+        description: "Show time in 24-hour format",
         default: false
     },
 
     showTimezoneInfo: {
         type: OptionType.BOOLEAN,
-        description: t("عرض معلومات المنطقة الزمنية بجانب الوقت", "Show timezone information next to the time"),
+        description: "Show timezone information next to the time",
         default: true
     },
 
     showMessageHeaderTime: {
         type: OptionType.BOOLEAN,
-        description: t("عرض الوقت في رؤوس الرسائل", "Show time in message headers"),
+        description: "Show time in message headers",
         default: true
     },
 
     showProfileTime: {
         type: OptionType.BOOLEAN,
-        description: t("عرض الوقت في الملفات الشخصية", "Show time in profiles"),
+        description: "Show time in profiles",
         default: true
     },
 
     useDatabase: {
         type: OptionType.BOOLEAN,
-        description: t("تفعيل قاعدة البيانات للحصول على مناطق زمنية المستخدمين", "Enable the database to get user timezones"),
+        description: "Enable the database to get user timezones",
         default: true
     },
 
     preferDatabaseOverLocal: {
         type: OptionType.BOOLEAN,
-        description: t("تفضيل قاعدة البيانات على التخزين المحلي للمناطق الزمنية", "Prefer the database over local storage for timezones"),
+        description: "Prefer the database over local storage for timezones",
         default: true
     },
 
     databaseUrl: {
         type: OptionType.STRING,
-        description: t("رابط URL لقاعدة بيانات تخزين المناطق الزمنية", "URL for the timezone database"),
+        description: "URL for the timezone database",
         default: "https://timezone.creations.works"
     },
 
     setDatabaseTimezone: {
-        description: t("ضبط منطقتك الزمنية في قاعدة البيانات", "Set your timezone in the database"),
+        description: "Set your timezone in the database",
         type: OptionType.COMPONENT,
         component: () => (
             <Button onClick={() => {
@@ -104,7 +103,7 @@ export const settings = definePluginSettings({
     },
 
     resetDatabaseTimezone: {
-        description: t("إعادة تعيين منطقتك الزمنية في قاعدة البيانات", "Reset your timezone in the database"),
+        description: "Reset your timezone in the database",
         type: OptionType.COMPONENT,
         component: () => (
             <Button
@@ -126,7 +125,7 @@ export const settings = definePluginSettings({
 
     askedTimezone: {
         type: OptionType.BOOLEAN,
-        description: t("ما إذا كان قد تم سؤال المستخدم عن ضبط منطقته الزمنية", "Whether the user has been asked to set their timezone"),
+        description: "Whether the user has been asked to set their timezone",
         hidden: true,
         default: false
     }
@@ -256,7 +255,7 @@ const userContextMenuPatch: NavContextMenuPatchCallback = (children, { user }: {
 export default definePlugin({
     name: "Timezones",
     authors: [Devs.Aria, EquicordDevs.creations],
-    get description() { return t("يعرض التوقيت المحلي للمستخدمين في الملفات الشخصية ورؤوس الرسائل", "Displays users' local time in profiles and message headers"); },
+    description: "Displays users' local time in profiles and message headers",
     tags: ["Appearance", "Chat", "Utility"],
     contextMenus: {
         "user-context": userContextMenuPatch

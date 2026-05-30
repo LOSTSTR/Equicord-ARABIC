@@ -13,12 +13,12 @@ import { FluxDispatcher, UserStore } from "@webpack/common";
 
 const settings = definePluginSettings({
     autoFillArguments: {
-        description: t("ملء الأمر تلقائياً بجميع المعطيات بدلاً من المطلوبة فقط", "Auto-fill command with all arguments instead of only required ones"),
+        description: "Auto-fill command with all arguments instead of only required ones",
         type: OptionType.BOOLEAN,
         default: true,
     },
     allowNewlinesInCommands: {
-        description: t("السماح بالأسطر الجديدة في مدخلات الأوامر (CTRL + Shift + Enter)", "Allow newlines in command inputs (CTRL + Shift + Enter)"),
+        description: "Allow newlines in command inputs (CTRL + Shift + Enter)",
         type: OptionType.BOOLEAN,
         default: true,
     }
@@ -33,7 +33,7 @@ function fetchIndex(target: object) {
 
 export default definePlugin({
     name: "BetterCommands",
-    get description() { return t("يُحسّن نظام الأوامر بتحسينات متعددة", "Enhances the commands system with multiple improvements"); },
+    description: "Enhances the commands system with multiple improvements",
     dependencies: ["CommandsAPI"],
     tags: ["Appearance", "Commands", "Shortcuts"],
     authors: [Devs.thororen],

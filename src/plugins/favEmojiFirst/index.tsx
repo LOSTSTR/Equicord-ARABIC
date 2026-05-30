@@ -15,7 +15,6 @@ import { PencilIcon } from "@components/Icons";
 import { Paragraph } from "@components/Paragraph";
 import { Devs, EquicordDevs } from "@utils/constants";
 import { classNameFactory } from "@utils/css";
-import { t } from "@utils/esharqI18n";
 import { Logger } from "@utils/Logger";
 import definePlugin, { OptionType } from "@utils/types";
 import { Emoji, Message } from "@vencord/discord-types";
@@ -111,12 +110,12 @@ const aliasResultCache = new Map<string, EmojiResult | null>();
 const settings = definePluginSettings({
     aliases: {
         type: OptionType.COMPONENT,
-        description: t("إدارة اختصارات الإيموجي الخاصة بك.", "Manage your emoji aliases."),
+        description: "Manage your emoji aliases.",
         component: AliasListSetting
     },
     clearAll: {
         type: OptionType.COMPONENT,
-        description: t("حذف جميع الاختصارات.", "Delete all aliases."),
+        description: "Delete all aliases.",
         component: ClearAllAliasesSetting
     }
 });
@@ -1102,7 +1101,7 @@ export default definePlugin({
     name: "FavoriteEmojiFirst",
     authors: [Devs.Aria, Devs.Ven, EquicordDevs.justjxke],
     tags: ["Emotes", "Customisation"],
-    get description() { return t("يُظهر إيموجيك المفضلة في مقدمة قائمة الإيموجي", "Shows your favorite emojis at the top of the emoji list"); },
+    description: "Shows your favorite emojis at the top of the emoji list",
     dependencies: ["MessagePopoverAPI"],
     settings,
     contextMenus: {

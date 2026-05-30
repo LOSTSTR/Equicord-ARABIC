@@ -22,7 +22,6 @@ import { definePluginSettings } from "@api/Settings";
 import ErrorBoundary from "@components/ErrorBoundary";
 import { Devs } from "@utils/constants";
 import { getStegCloak } from "@utils/dependencies";
-import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType, ReporterTestable } from "@utils/types";
 import { Message } from "@vencord/discord-types";
 import { ChannelStore, Constants, RestAPI, Tooltip } from "@webpack/common";
@@ -100,7 +99,7 @@ const settings = definePluginSettings({
     savedPasswords: {
         type: OptionType.STRING,
         default: "password, Password",
-        description: t("كلمات المرور المحفوظة (مفصولة بفاصلة)", "Saved passwords (comma separated)")
+        description: "Saved passwords (comma separated)"
     }
 });
 
@@ -149,7 +148,7 @@ export async function buildEmbed(message: any, revealed: string): Promise<void> 
 
 export default definePlugin({
     name: "InvisibleChat",
-    get description() { return t("تشفير رسائلك بطريقة غير مثيرة للشبهات!", "Encrypt your messages in a sneaky way!"); },
+    description: "Encrypt your messages in a sneaky way!",
     tags: ["Chat"],
     authors: [Devs.SammCheese],
     dependencies: ["MessageUpdaterAPI", "ChatInputButtonAPI", "MessagePopoverAPI"],

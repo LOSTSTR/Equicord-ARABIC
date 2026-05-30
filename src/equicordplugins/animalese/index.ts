@@ -6,8 +6,8 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { EquicordDevs } from "@utils/constants";
-import { Logger } from "@utils/Logger";
 import { t } from "@utils/esharqI18n";
+import { Logger } from "@utils/Logger";
 import definePlugin, { OptionType } from "@utils/types";
 import { SelectedChannelStore, UserStore } from "@webpack/common";
 
@@ -16,35 +16,35 @@ const logger = new Logger("Animalese");
 const settings = definePluginSettings({
     volume: {
         type: OptionType.SLIDER,
-        description: t("مستوى صوت الـ Animalese", "Animalese Volume"),
+        description: "Animalese Volume",
         default: 0.5,
         markers: [0, 0.1, 0.25, 0.5, 0.6, 0.75, 1],
     },
     speed: {
         type: OptionType.SLIDER,
-        description: t("سرعة صوت الـ Animalese", "Animalese Speed"),
+        description: "Animalese Speed",
         default: 1,
         markers: [0.5, 0.75, 1, 1.25, 1.5],
     },
     pitch: {
         type: OptionType.SLIDER,
-        description: t("مضاعف درجة الصوت", "Pitch Multiplier"),
+        description: "Pitch Multiplier",
         default: 1,
         markers: [0.75, 0.8, 0.85, 1, 1.15, 1.25, 1.35, 1.5],
     },
     messageLengthLimit: {
         type: OptionType.NUMBER,
-        description: t("الحد الأقصى لطول الرسالة المراد معالجتها", "Maximum message length to process"),
+        description: "Maximum message length to process",
         default: 50,
     },
     processOwnMessages: {
         type: OptionType.BOOLEAN,
-        description: t("تفعيل لتشغيل الصوت على رسائلك الخاصة أيضاً", "Enable to play sound for your own messages too"),
+        description: "Enable to play sound for your own messages too",
         default: true,
     },
     soundQuality: {
         type: OptionType.SELECT,
-        description: t("جودة الصوت المستخدم", "Sound quality to use"),
+        description: "Sound quality to use",
         options: [
             {
                 label: t("عالية", "High"),
@@ -196,7 +196,7 @@ async function playSound(buffer: AudioBuffer, volume: number) {
 
 export default definePlugin({
     name: "Animalese",
-    get description() { return t("يشغّل صوت Animalese من Animal Crossing لكل رسالة مرسلة", "Plays Animalese sounds from Animal Crossing for each sent message"); },
+    description: "Plays Animalese sounds from Animal Crossing for each sent message",
     tags: ["Customisation", "Fun"],
     authors: [EquicordDevs.ryanamay, EquicordDevs.Mocha],
     settings,

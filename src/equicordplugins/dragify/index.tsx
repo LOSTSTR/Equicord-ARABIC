@@ -89,7 +89,7 @@ function inspectDragTarget(event: DragEvent, runtime: Pick<DragifyRuntime, "getD
 const settings = definePluginSettings({
     userOutput: {
         type: OptionType.SELECT,
-        description: t("ناتج إفلات المستخدم.", "User drop output."),
+        description: "User drop output.",
         options: [
             { label: t("ذكر المستخدم", "Mention user"), value: "mention", default: true },
             { label: t("معرّف المستخدم", "User ID"), value: "id" },
@@ -97,7 +97,7 @@ const settings = definePluginSettings({
     },
     channelOutput: {
         type: OptionType.SELECT,
-        description: t("ناتج إفلات القناة.", "Channel drop output."),
+        description: "Channel drop output.",
         options: [
             { label: t("ذكر القناة", "#channel mention"), value: "mention", default: true },
             { label: t("رابط القناة", "Channel link"), value: "link" },
@@ -105,7 +105,7 @@ const settings = definePluginSettings({
     },
     inviteExpireAfter: {
         type: OptionType.SELECT,
-        description: t("انتهاء صلاحية الدعوة.", "Invite expiry time."),
+        description: "Invite expiry time.",
         options: [
             { label: t("30 دقيقة", "30 minutes"), value: 1800 },
             { label: t("ساعة واحدة", "1 hour"), value: 3600 },
@@ -118,7 +118,7 @@ const settings = definePluginSettings({
     },
     inviteMaxUses: {
         type: OptionType.SELECT,
-        description: t("الحد الأقصى لاستخدام الدعوة.", "Maximum invite uses."),
+        description: "Maximum invite uses.",
         options: [
             { label: t("بلا حدود", "No limit"), value: 0, default: true },
             { label: t("استخدام واحد", "1 use"), value: 1 },
@@ -132,24 +132,24 @@ const settings = definePluginSettings({
     inviteTemporaryMembership: {
         type: OptionType.BOOLEAN,
         default: false,
-        description: t("منح عضوية مؤقتة.", "Grant temporary membership."),
+        description: "Grant temporary membership.",
     },
     reuseExistingInvites: {
         type: OptionType.BOOLEAN,
         default: false,
-        description: t("إعادة استخدام الدعوة الموجودة بدلاً من إنشاء دعوة جديدة.", "Reuse existing invite instead of creating a new one."),
+        description: "Reuse existing invite instead of creating a new one.",
     },
     allowChatBodyDrop: {
         type: OptionType.BOOLEAN,
         default: false,
         restartNeeded: true,
-        description: t("السماح بالإفلات في جسم الدردشة الرئيسي لإدراج نص.", "Allow dropping in the main chat body to insert text."),
+        description: "Allow dropping in the main chat body to insert text.",
     },
 });
 
 export default definePlugin({
     name: "Dragify",
-    get description() { return t("اسحب المستخدمين أو القنوات أو السيرفرات إلى الدردشة لإدراج إشارات أو دعوات.", "Drag users, channels, or servers into chat to insert mentions or invites."); },
+    description: "Drag users, channels, or servers into chat to insert mentions or invites.",
     tags: ["Chat", "Servers", "Utility", "Voice"],
     authors: [EquicordDevs.justjxke],
     settings,

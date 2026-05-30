@@ -6,7 +6,6 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { EquicordDevs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 
 enum SteamStatus {
@@ -35,7 +34,7 @@ interface SettingsProto {
 export const settings = definePluginSettings({
     onlineStatus: {
         type: OptionType.SELECT,
-        description: t("حالة Steam عند الاتصال", "Steam status when online"),
+        description: "Steam status when online",
         options: [
             { label: "Online", value: SteamStatus.Online, default: true },
             { label: "Away", value: SteamStatus.Away },
@@ -46,7 +45,7 @@ export const settings = definePluginSettings({
     },
     idleStatus: {
         type: OptionType.SELECT,
-        description: t("حالة Steam عند الخمول", "Steam status when idle"),
+        description: "Steam status when idle",
         options: [
             { label: "Online", value: SteamStatus.Online },
             { label: "Away", value: SteamStatus.Away, default: true },
@@ -57,7 +56,7 @@ export const settings = definePluginSettings({
     },
     dndStatus: {
         type: OptionType.SELECT,
-        description: t("حالة Steam عند 'عدم الإزعاج'", "Steam status when on 'Do Not Disturb'"),
+        description: "Steam status when on 'Do Not Disturb'",
         options: [
             { label: "Online", value: SteamStatus.Online },
             { label: "Away", value: SteamStatus.Away },
@@ -68,7 +67,7 @@ export const settings = definePluginSettings({
     },
     invisibleStatus: {
         type: OptionType.SELECT,
-        description: t("حالة Steam عند الإخفاء", "Steam status when invisible"),
+        description: "Steam status when invisible",
         options: [
             { label: "Online", value: SteamStatus.Online },
             { label: "Away", value: SteamStatus.Away },
@@ -79,13 +78,13 @@ export const settings = definePluginSettings({
     },
     goInvisibleIfActivityIsHidden: {
         type: OptionType.BOOLEAN,
-        description: t("اذهب دائماً إلى وضع الإخفاء عند إخفاء نشاط اللعبة على Discord", "Always go invisible when hiding game activity on Discord")
+        description: "Always go invisible when hiding game activity on Discord"
     }
 });
 
 export default definePlugin({
     name: "SteamStatusSync",
-    get description() { return t("زامن حالتك مع Steam! (متصل، بعيد، مخفي، أو غير متصل.)", "Sync your status with Steam! (Online, Away, Invisible, or Offline.)"); },
+    description: "Sync your status with Steam! (Online, Away, Invisible, or Offline.)",
     tags: ["Activity", "Appearance", "Customisation"],
     authors: [EquicordDevs.niko],
 

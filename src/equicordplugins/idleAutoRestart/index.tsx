@@ -6,7 +6,6 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { EquicordDevs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import { Logger } from "@utils/Logger";
 import definePlugin, { OptionType } from "@utils/types";
 import { Menu, VoiceStateStore } from "@webpack/common";
@@ -17,12 +16,12 @@ let intervalId: ReturnType<typeof setInterval> | null = null;
 
 const settings = definePluginSettings({
     isEnabled: {
-        description: t("تفعيل إعادة التشغيل التلقائية عند الخمول", "Enable automatic restart when idle"),
+        description: "Enable automatic restart when idle",
         type: OptionType.BOOLEAN,
         default: true,
     },
     idleMinutes: {
-        description: t("دقائق الخمول قبل إعادة التشغيل (عند عدم التواجد في قناة صوتية)", "Idle minutes before restarting (when not in a voice channel)"),
+        description: "Idle minutes before restarting (when not in a voice channel)",
         type: OptionType.SLIDER,
         markers: [5, 10, 15, 30, 60, 120],
         default: 30,
@@ -36,7 +35,7 @@ function onActivity() {
 
 export default definePlugin({
     name: "IdleAutoRestart",
-    get description() { return t("يُعيد تشغيل العميل تلقائياً بعد فترة خمول قابلة للإعداد، مع تجنب إعادة التشغيل أثناء وجودك في قناة صوتية.", "Automatically restarts the client after a configurable idle period, avoiding restarts while you're in a voice channel."); },
+    description: "Automatically restarts the client after a configurable idle period, avoiding restarts while you're in a voice channel.",
     tags: ["Utility"],
     authors: [EquicordDevs.SteelTech],
     settings,

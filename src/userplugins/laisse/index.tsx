@@ -43,17 +43,17 @@ const settings = definePluginSettings({
     enabled: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: t("تفعيل إضافة Leash", "Enable the Leash plugin"),
+        description: "Enable the Leash plugin",
     },
     onlyWhenInVoice: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: t("نقل المستخدم فقط عندما تكون في قناة صوتية", "Only move the user when you are in a voice channel"),
+        description: "Only move the user when you are in a voice channel",
     },
     showNotifications: {
         type: OptionType.BOOLEAN,
         default: true,
-        description: t("عرض إشعارات عند عمليات النقل", "Show notifications when moves occur"),
+        description: "Show notifications when moves occur",
     },
 });
 
@@ -133,7 +133,7 @@ const UserContextMenuPatch: NavContextMenuPatchCallback = (
 
 export default definePlugin({
     name: "Leash",
-    get description() { return t("يربط مستخدماً بك عبر نقله تلقائياً إلى القناة الصوتية التي تنتقل إليها\n\n⚠️ WARNING: Moving users to voice channels without their consent may violate Discord's Terms of Service and community guidelines. This feature requires server moderation permissions. Use responsibly.\n\n⚠️ تحذير: نقل المستخدمين قسراً إلى القنوات الصوتية دون موافقتهم قد ينتهك شروط خدمة Discord وإرشادات المجتمع. تتطلب هذه الميزة صلاحيات الإشراف في السيرفر. استخدمها بمسؤولية.", "Leashes a user to you by automatically moving them to whatever voice channel you join.\n\n⚠️ WARNING: Moving users to voice channels without their consent may violate Discord's Terms of Service and community guidelines. This feature requires server moderation permissions. Use responsibly."); },
+    description: "Leashes a user to you by automatically moving them to whatever voice channel you join.\n\n⚠️ WARNING: Moving users to voice channels without their consent may violate Discord's Terms of Service and community guidelines. This feature requires server moderation permissions. Use responsibly.",
     tags: ["Utility"],
     authors: [{ name: "x2b", id: 0n }],
     settings,

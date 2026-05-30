@@ -8,7 +8,6 @@ import "./style.css";
 
 import ErrorBoundary from "@components/ErrorBoundary";
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 import type { Message } from "@vencord/discord-types";
 import { findCssClassesLazy } from "@webpack";
@@ -58,7 +57,7 @@ function ReplyTimestamp({
 
 export default definePlugin({
     name: "ReplyTimestamp",
-    get description() { return t("يعرض الوقت على معاينات الرسائل المردود عليها", "Shows the timestamp on replied message previews"); },
+    description: "Shows the timestamp on replied message previews",
     tags: ["Chat", "Appearance"],
     authors: [Devs.Kyuuhachi],
 

@@ -163,7 +163,7 @@ function setupKeybindListener() {
 
 export default definePlugin({
     name: "FakeDeafen",
-    get description() { return t("تظهر كأنك صامّ للصوت لكنك في الحقيقة لست كذلك.", "Appear as deafened to others while still being able to hear."); },
+    description: "Appear as deafened to others while still being able to hear.",
     dependencies: ["PhilsPluginLibrary"],
     authors: [Devs.desu,Devs.viciouscal],
 

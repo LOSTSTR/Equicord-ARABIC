@@ -6,7 +6,6 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { Message } from "@vencord/discord-types";
 import { RelationshipStore, SelectedChannelStore } from "@webpack/common";
@@ -21,12 +20,12 @@ interface IMessageCreate {
 const settings = definePluginSettings({
     regex: {
         type: OptionType.STRING,
-        description: t("نمط Regex الذي يُشغّل الأداة عند تطابقه", "Regex pattern that triggers the plugin when matched"),
+        description: "Regex pattern that triggers the plugin when matched",
         default: "hop on (?:fortnite|fn)"
     },
     url: {
         type: OptionType.STRING,
-        description: t("الرابط الذي يُفتح", "The URL that gets opened"),
+        description: "The URL that gets opened",
         default: "com.epicgames.launcher://apps/fn%3A4fe75bbc5a674f4f9b356b5c90567da5%3AFortnite?action=launch&silent=true"
     }
 });
@@ -48,7 +47,7 @@ function getRegex(): RegExp | null {
 
 export default definePlugin({
     name: "HopOn",
-    get description() { return t("اقفز! يفتح رابطاً قابلاً للإعداد عند تطابق رسالة مع تعبير منتظم مخصص في القناة الحالية.", "Hop on! Opens a configurable URL when a message matches a custom regex in the current channel."); },
+    description: "Hop on! Opens a configurable URL when a message matches a custom regex in the current channel.",
     tags: ["Fun"],
     authors: [Devs.ImLvna],
     settings,

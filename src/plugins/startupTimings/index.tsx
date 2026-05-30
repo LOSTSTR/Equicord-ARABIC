@@ -19,7 +19,6 @@
 import { ClockIcon } from "@components/Icons";
 import SettingsPlugin from "@plugins/_core/settings";
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import { removeFromArray } from "@utils/misc";
 import definePlugin from "@utils/types";
 
@@ -27,7 +26,7 @@ import StartupTimingPage from "./StartupTimingPage";
 
 export default definePlugin({
     name: "StartupTimings",
-    get description() { return t("يضيف توقيتات بدء التشغيل إلى قائمة الإعدادات", "Adds startup timings to the settings menu"); },
+    description: "Adds startup timings to the settings menu",
     tags: ["Developers"],
     authors: [Devs.Megu],
     start() {

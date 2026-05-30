@@ -22,25 +22,25 @@ const ChannelMessage = findComponentByCodeLazy("isFirstMessageInForumPost", "tra
 
 const settings = definePluginSettings({
     onLink: {
-        description: t("إظهار تلميح عند المرور على روابط الرسائل", "Show tooltip when hovering over message links"),
+        description: "Show tooltip when hovering over message links",
         type: OptionType.BOOLEAN,
         default: true,
         restartNeeded: true,
     },
     onReply: {
-        description: t("إظهار تلميح عند المرور على ردود الرسائل", "Show tooltip when hovering over message replies"),
+        description: "Show tooltip when hovering over message replies",
         type: OptionType.BOOLEAN,
         default: true,
         restartNeeded: true,
     },
     onForward: {
-        description: t("إظهار تلميح عند المرور على الرسائل المُعادة توجيهها", "Show tooltip when hovering over forwarded messages"),
+        description: "Show tooltip when hovering over forwarded messages",
         type: OptionType.BOOLEAN,
         default: true,
         restartNeeded: true,
     },
     display: {
-        description: t("نمط العرض", "Display mode"),
+        description: "Display mode",
         type: OptionType.SELECT,
         options: [
             {
@@ -62,7 +62,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "MessageLinkTooltip",
-    get description() { return t("يضيف تلميحاً بمعاينة الرسالة عند المرور على روابط الرسائل والردود والرسائل المُعادة توجيهها.", "Adds a message preview tooltip when hovering over message links, replies, and forwarded messages."); },
+    description: "Adds a message preview tooltip when hovering over message links, replies, and forwarded messages.",
     tags: ["Appearance", "Chat"],
     authors: [Devs.Kyuuhachi],
 

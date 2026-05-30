@@ -12,7 +12,6 @@ import { Heading, HeadingPrimary } from "@components/Heading";
 import { Link } from "@components/Link";
 import { Paragraph } from "@components/Paragraph";
 import { Devs, EquicordDevs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import { Margins } from "@utils/margins";
 import { useForceUpdater } from "@utils/react";
 import definePlugin, { OptionType } from "@utils/types";
@@ -75,7 +74,7 @@ const TimeRow = (props: TimeRowProps) => {
 const settings = definePluginSettings({
     formats: {
         type: OptionType.COMPONENT,
-        description: t("تخصيص تنسيقات التوقيت", "Customize timestamp formats"),
+        description: "Customize timestamp formats",
         component: componentProps => {
             const [settingsState, setSettingsState] = useState(useSettings().plugins?.CustomTimestamps?.formats ?? {});
 
@@ -125,7 +124,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "CustomTimestamps",
-    get description() { return t("تنسيقات وقت مخصصة للرسائل والتلميحات", "Custom time formats for messages and tooltips"); },
+    description: "Custom time formats for messages and tooltips",
     tags: ["Appearance", "Customisation"],
     authors: [Devs.Rini, EquicordDevs.nvhhr, EquicordDevs.Suffocate, Devs.Obsidian],
     settings,

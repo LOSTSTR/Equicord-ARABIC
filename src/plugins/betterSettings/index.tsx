@@ -11,7 +11,6 @@ import { buildPluginMenuEntries, buildThemeMenuEntries } from "@equicordplugins/
 import { Devs } from "@utils/constants";
 import { classNameFactory } from "@utils/css";
 import { getIntlMessage } from "@utils/discord";
-import { t } from "@utils/esharqI18n";
 import { Logger } from "@utils/Logger";
 import definePlugin, { OptionType } from "@utils/types";
 import { Icon } from "@vencord/discord-types";
@@ -38,19 +37,19 @@ const SECTION_ICONS: Record<string, Icon> = {
 
 const settings = definePluginSettings({
     disableFade: {
-        description: t("تعطيل تأثير الانتقال التدريجي", "Disable the fade transition effect"),
+        description: "Disable the fade transition effect",
         type: OptionType.BOOLEAN,
         default: true,
         restartNeeded: true
     },
     organizeMenu: {
-        description: t("تنظيم قائمة سياق أيقونة الإعدادات في فئات", "Organize the settings icon context menu into categories"),
+        description: "Organize the settings icon context menu into categories",
         type: OptionType.BOOLEAN,
         default: true,
         restartNeeded: true
     },
     eagerLoad: {
-        description: t("إزالة تأخير التحميل عند فتح القائمة لأول مرة", "Remove loading delay when opening the menu for the first time"),
+        description: "Remove loading delay when opening the menu for the first time",
         type: OptionType.BOOLEAN,
         default: true,
         restartNeeded: true
@@ -92,7 +91,7 @@ function Layer({ mode, baseLayer = false, ...props }: LayerProps) {
 
 export default definePlugin({
     name: "BetterSettings",
-    get description() { return t("يُحسّن واجهة إعدادات ديسكورد بتأثيرات بصرية", "Improves the Discord settings interface with visual effects"); },
+    description: "Improves the Discord settings interface with visual effects",
     authors: [Devs.Kyuuhachi],
     tags: ["Appearance", "Customisation", "Organisation"],
     settings,

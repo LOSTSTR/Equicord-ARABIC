@@ -73,66 +73,66 @@ const listener = async (channelId, msg) => {
 const settings = definePluginSettings({
     noMirroredCamera: {
         type: OptionType.BOOLEAN,
-        description: t("يمنع عكس صورة الكاميرا على شاشتك", "Prevents your camera from being mirrored on your screen"),
+        description: "Prevents your camera from being mirrored on your screen",
         restartNeeded: true,
         default: false,
     },
     removeActivitySection: {
         type: OptionType.BOOLEAN,
-        description: t("إزالة قسم النشاط فوق قائمة الأعضاء", "Remove the activity section above the member list"),
+        description: "Remove the activity section above the member list",
         restartNeeded: true,
         default: false,
     },
     showYourOwnActivityButtons: {
         type: OptionType.BOOLEAN,
-        description: t("يُظهر أزرار نشاطك الخاصة التي يخفيها ديسكورد لأسباب غير معروفة", "Shows your own activity buttons that Discord hides for unknown reasons"),
+        description: "Shows your own activity buttons that Discord hides for unknown reasons",
         restartNeeded: true,
         default: false,
     },
     refreshSlashCommands: {
         type: OptionType.BOOLEAN,
-        description: t("تحديث أوامر Slash لإظهار الأوامر المضافة حديثاً دون إعادة تشغيل العميل.", "Refresh slash commands to show newly added ones without restarting the client."),
+        description: "Refresh slash commands to show newly added ones without restarting the client.",
         default: false,
     },
     forceRoleIcon: {
         type: OptionType.BOOLEAN,
-        description: t("إجبار عرض أيقونات الرتب بجانب الرسائل في الوضع المضغوط", "Force display of role icons next to messages in compact mode"),
+        description: "Force display of role icons next to messages in compact mode",
         restartNeeded: true,
         default: false
     },
     accountStandingButton: {
         type: OptionType.BOOLEAN,
-        description: t("إظهار زر حالة الحساب في شريط الرأس", "Show account standing button in the header bar"),
+        description: "Show account standing button in the header bar",
         restartNeeded: true,
         default: false,
     },
     restoreFileDownloadButton: {
         type: OptionType.BOOLEAN,
-        description: t("استعادة زر التنزيل في الركن العلوي الأيمن من الملفات", "Restore the download button in the top right corner of files"),
+        description: "Restore the download button in the top right corner of files",
         restartNeeded: true,
         default: false
     },
     noBulletPoints: {
         type: OptionType.BOOLEAN,
-        description: t("منع كتابة نقاط القوائم بصيغة Markdown", "Prevent Markdown bullet points from being typed"),
+        description: "Prevent Markdown bullet points from being typed",
         restartNeeded: true,
         default: false
     },
     noModalAnimation: {
         type: OptionType.BOOLEAN,
-        description: t("إزالة الحركة التي تستغرق 300 مللي ثانية عند فتح أو إغلاق النوافذ المنبثقة", "Remove the 300ms animation when opening or closing modals"),
+        description: "Remove the 300ms animation when opening or closing modals",
         restartNeeded: true,
         default: false
     },
     disableAdoptTagPrompt: {
         type: OptionType.BOOLEAN,
-        description: t("تعطيل مطالبة تبني الشارات", "Disable the adopt tag prompt"),
+        description: "Disable the adopt tag prompt",
         restartNeeded: true,
         default: false,
     },
     jsonGateway: {
         type: OptionType.BOOLEAN,
-        description: t("إجبار استخدام JSON عند إعادة الاتصال بالبوابة", "Force JSON usage when reconnecting to the gateway"),
+        description: "Force JSON usage when reconnecting to the gateway",
         restartNeeded: true,
         default: false,
     },
@@ -146,7 +146,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "EquicordHelper",
-    get description() { return t("يُستخدم لتقديم الدعم وإصلاح الأعطال الناجمة عن ديسكورد وميزات متنوعة أخرى.", "Used for providing support and fixing bugs caused by Discord and various other features."); },
+    description: "Used for providing support and fixing bugs caused by Discord and various other features.",
     tags: ["Appearance", "Commands", "Utility"],
     dependencies: ["CommandsAPI", "HeaderBarAPI", "MessageAccessoriesAPI"],
     authors: [

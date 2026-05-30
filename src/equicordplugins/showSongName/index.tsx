@@ -5,12 +5,11 @@
  */
 
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "ShowSongName",
-    get description() { return t("يعرض اسم الأغنية بدلاً من الفنان في نشاط Spotify", "Shows the song name instead of the artist in Spotify activity."); },
+    description: "Shows the song name instead of the artist in Spotify activity.",
     tags: ["Activity"],
     authors: [Devs.prism],
 

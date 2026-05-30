@@ -27,7 +27,6 @@ import { Paragraph } from "@components/Paragraph";
 import { lastState as silentMessageEnabled } from "@plugins/silentMessageToggle";
 import { Devs } from "@utils/constants";
 import { classNameFactory } from "@utils/css";
-import { t } from "@utils/esharqI18n";
 import { Margins } from "@utils/margins";
 import { useAwaiter } from "@utils/react";
 import definePlugin, { OptionType } from "@utils/types";
@@ -69,12 +68,12 @@ const VoiceRecorder = IS_DISCORD_DESKTOP ? VoiceRecorderDesktop : VoiceRecorderW
 export const settings = definePluginSettings({
     noiseSuppression: {
         type: OptionType.BOOLEAN,
-        description: t("إلغاء الضوضاء", "Noise Suppression"),
+        description: "Noise Suppression",
         default: true,
     },
     echoCancellation: {
         type: OptionType.BOOLEAN,
-        description: t("إلغاء الصدى", "Echo Cancellation"),
+        description: "Echo Cancellation",
         default: true,
     },
 });
@@ -98,7 +97,7 @@ const ctxMenuPatch: NavContextMenuPatchCallback = (children, props) => {
 
 export default definePlugin({
     name: "VoiceMessages",
-    get description() { return t("يتيح إرسال رسائل صوتية كما في الجوال. انقر بالزر الأيمن على زر الرفع واختر إرسال رسالة صوتية.", "Allows you to send voice messages like on mobile. To do so, right click the upload button and click Send Voice Message"); },
+    description: "Allows you to send voice messages like on mobile. To do so, right click the upload button and click Send Voice Message",
     tags: ["Voice"],
     authors: [Devs.Ven, Devs.Vap, Devs.Nickyux],
     settings,

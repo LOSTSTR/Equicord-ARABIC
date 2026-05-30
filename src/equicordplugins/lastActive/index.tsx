@@ -6,7 +6,6 @@
 
 import { NavContextMenuPatchCallback } from "@api/ContextMenu";
 import { EquicordDevs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 import { Menu, NavigationRouter, RestAPI, Toasts, UserStore } from "@webpack/common";
 
@@ -135,7 +134,7 @@ export function LastActiveIcon() {
 
 export default definePlugin({
     name: "LastActive",
-    get description() { return t("يتيح الانتقال إلى آخر رسالة نشطة لك أو لمستخدم آخر في قناة أو سيرفر", "Allows jumping to the last active message from you or another user in a channel or server"); },
+    description: "Allows jumping to the last active message from you or another user in a channel or server",
     tags: ["Chat", "Utility"],
     authors: [EquicordDevs.Crxa],
     contextMenus: {

@@ -9,7 +9,6 @@ import "./styles.css";
 import { MessageOptions } from "@api/MessageEvents";
 import { definePluginSettings } from "@api/Settings";
 import { Devs, EquicordDevs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 
 import { isScheduleModeEnabled, ScheduledMessagesButton, setScheduleModeEnabled } from "./components/ChatBarButton";
@@ -33,14 +32,14 @@ import {
 export const settings = definePluginSettings({
     maxMessagesPerMinute: {
         type: OptionType.SLIDER,
-        description: t("الحد الأقصى للرسائل المجدولة في القناة الواحدة في نفس الدقيقة.", "Maximum scheduled messages per channel per minute."),
+        description: "Maximum scheduled messages per channel per minute.",
         markers: [1, 2, 3, 4, 5],
         default: 3,
         stickToMarkers: true
     },
     checkIntervalSeconds: {
         type: OptionType.SLIDER,
-        description: t("مدة الفترة الزمنية للتحقق من الرسائل المراد إرسالها (بالثواني).", "Time interval for checking messages to be sent (in seconds)."),
+        description: "Time interval for checking messages to be sent (in seconds).",
         markers: [5, 10, 15, 30, 60],
         default: 10,
         stickToMarkers: true,
@@ -51,12 +50,12 @@ export const settings = definePluginSettings({
     },
     showNotifications: {
         type: OptionType.BOOLEAN,
-        description: t("إظهار إشعارات عند إرسال الرسائل.", "Show notifications when messages are sent."),
+        description: "Show notifications when messages are sent.",
         default: true
     },
     showPhantomMessages: {
         type: OptionType.BOOLEAN,
-        description: t("إظهار الرسائل المجدولة كرسائل وهمية في الشات.", "Show scheduled messages as phantom messages in the chat."),
+        description: "Show scheduled messages as phantom messages in the chat.",
         default: true
     }
 });
@@ -86,7 +85,7 @@ function handleReactionEvent(event: FluxReactionEvent): void {
 
 export default definePlugin({
     name: "ScheduledMessages",
-    get description() { return t("جدولة الرسائل لإرسالها في وقت محدد أو بعد تأخير معين.", "Schedule messages to be sent at a specific time or after a delay."); },
+    description: "Schedule messages to be sent at a specific time or after a delay.",
     tags: ["Chat", "Utility"],
     dependencies: ["ChatInputButtonAPI", "MessageAccessoriesAPI", "MessageEventsAPI"],
     authors: [EquicordDevs.mmeta, Devs.prism],

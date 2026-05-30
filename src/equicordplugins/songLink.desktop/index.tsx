@@ -19,7 +19,7 @@ import SongLinker from "./SongLinker";
 export const settings = definePluginSettings({
     servicesSettings: {
         type: OptionType.CUSTOM,
-        description: t("إعدادات الخدمات", "Services settings"),
+        description: "Services settings",
         default: Object.fromEntries(Object.entries(Providers).map(([name, data]) => [name, {
             enabled: true,
             // @ts-ignore
@@ -28,12 +28,12 @@ export const settings = definePluginSettings({
     },
     userCountry: {
         type: OptionType.STRING,
-        description: t("الدولة المستخدمة للبحث (رمز دولة مؤلف من حرفين)", "Country used for searching (two-letter country code)"),
+        description: "Country used for searching (two-letter country code)",
         default: "US"
     },
     includeMetadata: {
         type: OptionType.BOOLEAN,
-        description: t("تضمين عنوان المقطوعة واسم الفنان كعنوان رئيسي.", "Include track title and artist name as a header."),
+        description: "Include track title and artist name as a header.",
         default: true,
     },
     servicesComponent: {
@@ -124,7 +124,7 @@ function SongLinkerList({ urls }: { urls: string[]; }) {
 
 export default definePlugin({
     name: "SongLink",
-    get description() { return t("يضيف أزرار خدمات البث أسفل روابط الأغاني", "Adds streaming service buttons below song links"); },
+    description: "Adds streaming service buttons below song links",
     dependencies: ["MessageAccessoriesAPI"],
     tags: ["Media", "Utility"],
     authors: [Devs.nin0dev, EquicordDevs.NassCT],

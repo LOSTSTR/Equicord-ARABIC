@@ -19,19 +19,18 @@
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
 import { copyWithToast } from "@utils/discord";
-import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 
 const settings = definePluginSettings({
     bothStyles: {
         type: OptionType.BOOLEAN,
-        description: t("عرض نقطة الرتبة والأسماء الملونة معاً", "Show both role dot and colored names"),
+        description: "Show both role dot and colored names",
         restartNeeded: true,
         default: false,
     },
     copyRoleColorInProfilePopout: {
         type: OptionType.BOOLEAN,
-        description: t("السماح بالنقر على نقطة الرتبة في بطاقة الملف الشخصي لنسخ لون الرتبة", "Allow clicking the role dot in profile cards to copy the role color"),
+        description: "Allow clicking the role dot in profile cards to copy the role color",
         restartNeeded: true,
         default: false
     }
@@ -40,7 +39,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "BetterRoleDot",
     authors: [Devs.Ven, Devs.AutumnVN],
-    get description() { return t("يستبدل لون النقطة في الاسم بالإيموجي المخصصة للأدوار", "Replaces the role color dot next to names with the role's custom emoji"); },
+    description: "Replaces the role color dot next to names with the role's custom emoji",
     tags: ["Roles", "Appearance"],
     settings,
 

@@ -23,7 +23,6 @@ import { updateMessage } from "@api/MessageUpdater";
 import { migratePluginSettings } from "@api/Settings";
 import { ImageInvisible, ImageVisible } from "@components/Icons";
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import { classes } from "@utils/misc";
 import definePlugin from "@utils/types";
 import { Message } from "@vencord/discord-types";
@@ -56,7 +55,7 @@ async function toggleHide(channelId: string, messageId: string) {
 
 export default definePlugin({
     name: "HideMedia",
-    get description() { return t("يُخفي المرفقات والـ Embeds لرسائل محددة عبر زر يظهر عند التحويم", "Hides attachments and embeds for specific messages via a button that appears on hover"); },
+    description: "Hides attachments and embeds for specific messages via a button that appears on hover",
     tags: ["Chat", "Appearance"],
     authors: [Devs.Ven],
     dependencies: ["MessageUpdaterAPI", "MessageAccessoriesAPI", "MessagePopoverAPI"],

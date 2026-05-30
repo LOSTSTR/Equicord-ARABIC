@@ -8,7 +8,6 @@ import { isPluginEnabled } from "@api/PluginManager";
 import { definePluginSettings, Settings } from "@api/Settings";
 import fakeNitro from "@plugins/fakeNitro";
 import { EquicordDevs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import { localStorage } from "@utils/localStorage";
 import definePlugin, { OptionType } from "@utils/types";
 
@@ -33,55 +32,55 @@ interface StreamQualityOpts {
 const settings = definePluginSettings({
     unlockQualityOptions: {
         type: OptionType.BOOLEAN,
-        description: t("فتح خيارات جودة البث بصرف النظر عن حالة النيترو", "Unlock stream quality options regardless of Nitro status"),
+        description: "Unlock stream quality options regardless of Nitro status",
         default: true,
         restartNeeded: true,
     },
     removeResolutionCap: {
         type: OptionType.BOOLEAN,
-        description: t("السماح بدقة أعلى من 720p عند 60 إطار في الثانية", "Allow resolutions above 720p at 60 frames per second"),
+        description: "Allow resolutions above 720p at 60 frames per second",
         default: true,
         restartNeeded: true,
     },
     forceEncoderSettings: {
         type: OptionType.BOOLEAN,
-        description: t("إجبار المشفّر على استخدام الدقة ومعدل الإطارات المضبوطين", "Force the encoder to use the configured resolution and framerate"),
+        description: "Force the encoder to use the configured resolution and framerate",
         default: true,
         restartNeeded: true,
     },
     preventDownscale: {
         type: OptionType.BOOLEAN,
-        description: t("منع Discord من تقليل دقة البث", "Prevent Discord from downscaling the stream resolution"),
+        description: "Prevent Discord from downscaling the stream resolution",
         default: true,
         restartNeeded: true,
     },
     keyframeInterval: {
         type: OptionType.NUMBER,
-        description: t("فترة الإطار الرئيسي بالمللي ثانية (0 = افتراضي المشفّر، 5000 = كل 5 ثوانٍ)", "Keyframe interval in milliseconds (0 = encoder default, 5000 = every 5 seconds)"),
+        description: "Keyframe interval in milliseconds (0 = encoder default, 5000 = every 5 seconds)",
         default: 5000,
         restartNeeded: true,
     },
     minBitrate: {
         type: OptionType.NUMBER,
-        description: t("الحد الأدنى لمعدل بت المشفّر بـ kbps", "Minimum encoder bitrate in kbps"),
+        description: "Minimum encoder bitrate in kbps",
         default: 500,
         restartNeeded: true,
     },
     raiseBitrateCaps: {
         type: OptionType.BOOLEAN,
-        description: t("رفع حدود معدل بت سطح المكتب الافتراضية (600kbps هدف ← 10Mbps، 3.5Mbps حد أقصى ← 40Mbps)", "Raise default desktop bitrate caps (600kbps target → 10Mbps, 3.5Mbps max → 40Mbps)"),
+        description: "Raise default desktop bitrate caps (600kbps target → 10Mbps, 3.5Mbps max → 40Mbps)",
         default: true,
         restartNeeded: true,
     },
     preventFramerateReduction: {
         type: OptionType.BOOLEAN,
-        description: t("منع Discord من تقليل معدل إطارات البث عند التوقف عن الكلام", "Prevent Discord from reducing the stream framerate when you stop speaking"),
+        description: "Prevent Discord from reducing the stream framerate when you stop speaking",
         default: true,
         restartNeeded: true,
     },
     bitsPerPixelPct: {
         type: OptionType.NUMBER,
-        description: t("نسبة بتات لكل بكسل لمعدل البت المستهدف (8 = 0.08 bpp، 12 = 0.12 bpp)", "Bits per pixel percentage for target bitrate (8 = 0.08 bpp, 12 = 0.12 bpp)"),
+        description: "Bits per pixel percentage for target bitrate (8 = 0.08 bpp, 12 = 0.12 bpp)",
         default: 8,
         restartNeeded: false,
     },
@@ -89,7 +88,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "EquibopStreamFixes",
-    get description() { return t("يحاول إصلاح جودة البث على Equibop عبر تعديل مشفّر Discord وقيود الجودة.", "Attempts to fix stream quality on Equibop by tweaking Discord's encoder and quality restrictions."); },
+    description: "Attempts to fix stream quality on Equibop by tweaking Discord's encoder and quality restrictions.",
     tags: ["Voice"],
     authors: [EquicordDevs.creations],
     settings,

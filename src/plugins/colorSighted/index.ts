@@ -17,12 +17,11 @@
 */
 
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "ColorSighted",
-    get description() { return t("يزيل أيقونات الحالة المخصصة لعمى الألوان، كما كانت في Discord بين 2015-2017", "Removes colorblind-specific status icons, as Discord was from 2015-2017"); },
+    description: "Removes colorblind-specific status icons, as Discord was from 2015-2017",
     authors: [Devs.lewisakura],
     tags: ["Appearance", "Accessibility"],
     patches: [

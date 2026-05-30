@@ -10,7 +10,6 @@ import { definePluginSettings } from "@api/Settings";
 import { disableStyle, enableStyle } from "@api/Styles";
 import usrbg from "@plugins/usrbg";
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { User } from "@vencord/discord-types";
 import { IconUtils, UserProfileStore } from "@webpack/common";
@@ -29,12 +28,12 @@ interface Nameplate {
 
 const settings = definePluginSettings({
     animate: {
-        description: t("تحريك البانرات المتحركة", "Animate animated banners"),
+        description: "Animate animated banners",
         type: OptionType.BOOLEAN,
         default: false
     },
     preferNameplate: {
-        description: t("تفضيل لوحة الاسم على البانر", "Prefer nameplate over banner"),
+        description: "Prefer nameplate over banner",
         type: OptionType.BOOLEAN,
         default: false
     },
@@ -44,7 +43,7 @@ const DATASTORE_KEY = "bannersEverywhere";
 
 export default definePlugin({
     name: "BannersEverywhere",
-    get description() { return t("يعرض البانرات في قائمة الأعضاء", "Displays banners in the member list"); },
+    description: "Displays banners in the member list",
     tags: ["Appearance", "Customisation"],
     authors: [Devs.ImLvna, Devs.AutumnVN],
     settings,

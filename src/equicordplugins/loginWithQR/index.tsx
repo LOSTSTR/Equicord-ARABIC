@@ -11,7 +11,6 @@ import { Paragraph } from "@components/Paragraph";
 import SettingsPlugin from "@plugins/_core/settings";
 import { EquicordDevs } from "@utils/constants";
 import { getIntlMessage } from "@utils/discord";
-import { t } from "@utils/esharqI18n";
 import { removeFromArray } from "@utils/misc";
 import definePlugin, { OptionType } from "@utils/types";
 import { Button } from "@webpack/common";
@@ -22,7 +21,7 @@ import openQrModal from "./ui/modals/QrModal";
 const settings = definePluginSettings({
     scanQr: {
         type: OptionType.COMPONENT,
-        description: t("مسح رمز QR", "Scan QR code"),
+        description: "Scan QR code",
         component() {
             if (!plugins.LoginWithQR.started)
                 return (
@@ -42,7 +41,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "LoginWithQR",
-    get description() { return t("يتيح لك تسجيل الدخول إلى جهاز آخر عن طريق مسح رمز QR للدخول، تماماً كما في الجوال!", "Allows you to log into another device by scanning a login QR code, just like on mobile!"); },
+    description: "Allows you to log into another device by scanning a login QR code, just like on mobile!",
     tags: ["Utility"],
     authors: [EquicordDevs.nexpid],
 

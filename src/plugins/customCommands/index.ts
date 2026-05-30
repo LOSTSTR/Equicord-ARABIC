@@ -90,7 +90,7 @@ export function registerTagCommand(tag: Tag) {
 migratePluginSettings("CustomCommands", "MessageTags");
 export default definePlugin({
     name: "CustomCommands",
-    get description() { return t("يُضيف أوامر مخصصة لاستبدال النصوص في رسائلك", "Adds custom commands to replace text in your messages"); },
+    description: "Adds custom commands to replace text in your messages",
     dependencies: ["CommandsAPI"],
     searchTerms: ["MessageTags"],
     authors: [Devs.Ven, Devs.Luna,],

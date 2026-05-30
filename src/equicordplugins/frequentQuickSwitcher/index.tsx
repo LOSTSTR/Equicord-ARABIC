@@ -5,7 +5,6 @@
  */
 
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 import { ChannelStore, UserSettingsActionCreators } from "@webpack/common";
 
@@ -37,7 +36,7 @@ function generateSearchResults(query) {
 
 export default definePlugin({
     name: "FrequentQuickSwitcher",
-    get description() { return t("يعيد ترتيب نتائج المبدّل السريع لعرض القنوات الأكثر استخداماً أولاً", "Reorders Quick Switcher results to show the most frequently used channels first"); },
+    description: "Reorders Quick Switcher results to show the most frequently used channels first",
     tags: ["Shortcuts", "Servers"],
     authors: [Devs.Samwich],
     generateSearchResults: generateSearchResults,

@@ -7,7 +7,6 @@
 import { NavContextMenuPatchCallback } from "@api/ContextMenu";
 import { copyToClipboard } from "@utils/clipboard";
 import { EquicordDevs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import { Logger } from "@utils/Logger";
 import definePlugin from "@utils/types";
 import { User } from "@vencord/discord-types";
@@ -114,7 +113,7 @@ const userContextMenuPatch: NavContextMenuPatchCallback = (children, { user, gui
 
 export default definePlugin({
     name: "CopyProfileColors",
-    get description() { return t("ينسخ ألوان تدرج ملف المستخدم الشخصي إلى الحافظة.", "Copies a user's profile gradient colors to the clipboard."); },
+    description: "Copies a user's profile gradient colors to the clipboard.",
     tags: ["Appearance", "Customisation"],
     authors: [EquicordDevs.Crxa, EquicordDevs.Cortex, EquicordDevs.Gir0fa],
     contextMenus: {

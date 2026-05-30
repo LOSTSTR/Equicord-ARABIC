@@ -25,7 +25,6 @@ import { Heading } from "@components/Heading";
 import { Link } from "@components/Link";
 import { Paragraph } from "@components/Paragraph";
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import { isTruthy } from "@utils/guards";
 import { Margins } from "@utils/margins";
 import { classes } from "@utils/misc";
@@ -254,7 +253,7 @@ function stopTimestampLoop() {
 
 export default definePlugin({
     name: "CustomRPC",
-    get description() { return t("يضيف حالة نشاط (Rich Presence) قابلة للتخصيص الكامل إلى ملفك الشخصي على Discord", "Adds a fully customizable Rich Presence activity to your Discord profile"); },
+    description: "Adds a fully customizable Rich Presence activity to your Discord profile",
     tags: ["Activity", "Customisation"],
     authors: [Devs.captain, Devs.AutumnVN, Devs.nin0dev],
     dependencies: ["UserSettingsAPI"],

@@ -6,7 +6,6 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { Devs, EquicordDevs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
 import { MessageJSON } from "@vencord/discord-types";
 import { MessageStore, UserStore } from "@webpack/common";
@@ -14,25 +13,25 @@ import { MessageStore, UserStore } from "@webpack/common";
 export const settings = definePluginSettings({
     alwaysPingOnReply: {
         type: OptionType.BOOLEAN,
-        description: t("يُنبّهك دائماً عند ردّ أحدهم على رسائلك", "Always notify you when someone replies to your messages"),
+        description: "Always notify you when someone replies to your messages",
         default: false,
     },
     replyPingWhitelist: {
         type: OptionType.STRING,
-        description: t("قائمة معرّفات المستخدمين مفصولة بفاصلة لاستقبال إشعارات الردود منهم دائماً", "Comma-separated list of user IDs to always receive reply notifications from"),
+        description: "Comma-separated list of user IDs to always receive reply notifications from",
         default: "",
         disabled: () => settings.store.alwaysPingOnReply,
     },
     replyPingBlacklist: {
         type: OptionType.STRING,
-        description: t("قائمة معرّفات المستخدمين مفصولة بفاصلة لعدم استقبال إشعارات الردود منهم أبداً", "Comma-separated list of user IDs to never receive reply notifications from"),
+        description: "Comma-separated list of user IDs to never receive reply notifications from",
         default: "",
     }
 });
 
 export default definePlugin({
     name: "ReplyPingControl",
-    get description() { return t("التحكم في استقبال إشعارات ردود الرسائل دائماً أو أبداً، مع ميزات القائمة البيضاء والسوداء", "Control whether to always or never receive reply notifications, with whitelist and blacklist features"); },
+    description: "Control whether to always or never receive reply notifications, with whitelist and blacklist features",
     tags: ["Chat", "Notifications"],
     authors: [Devs.ant0n, EquicordDevs.MrDiamond, EquicordDevs.keircn],
     settings,

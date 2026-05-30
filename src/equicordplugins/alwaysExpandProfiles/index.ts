@@ -5,12 +5,11 @@
  */
 
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "AlwaysExpandProfiles",
-    get description() { return t("يفتح ملفات المستخدمين بشكل موسّع دائماً في النافذة الكاملة", "Always opens user profiles in expanded full-window mode"); },
+    description: "Always opens user profiles in expanded full-window mode",
     tags: ["Appearance", "Utility"],
     authors: [Devs.thororen],
     patches: [

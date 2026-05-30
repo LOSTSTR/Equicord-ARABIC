@@ -5,12 +5,11 @@
  */
 
 import { EquicordDevs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "SelfForward",
-    get description() { return t("يضيف القناة الحالية إلى قائمة إعادة التوجيه المنبثقة", "Adds the current channel to the forward popup list."); },
+    description: "Adds the current channel to the forward popup list.",
     tags: ["Utility"],
     authors: [EquicordDevs.VillainsRule],
     patches: [

@@ -17,7 +17,6 @@
 */
 
 import { Devs, IS_MAC } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 import { findByPropsLazy } from "@webpack";
 import { ComponentDispatch, FluxDispatcher, NavigationRouter, SelectedGuildStore, SettingsRouter } from "@webpack/common";
@@ -26,7 +25,7 @@ const KeyBinds = findByPropsLazy("JUMP_TO_GUILD", "SERVER_NEXT");
 
 export default definePlugin({
     name: "WebKeybinds",
-    get description() { return t("يُعيد اختصارات لوحة المفاتيح المفقودة في نسخة Discord الويب: ctrl+t، ctrl+shift+t، ctrl+tab، ctrl+1-9، ctrl+,. يعمل بالكامل على Vesktop/Legcord فقط", "Re-adds keybinds missing from the Discord web version: ctrl+t, ctrl+shift+t, ctrl+tab, ctrl+1-9, ctrl+,. Only fully works on Vesktop/Legcord"); },
+    description: "Re-adds keybinds missing from the Discord web version: ctrl+t, ctrl+shift+t, ctrl+tab, ctrl+1-9, ctrl+,. Only fully works on Vesktop/Legcord",
     tags: ["Shortcuts"],
     authors: [Devs.Ven],
     enabledByDefault: true,

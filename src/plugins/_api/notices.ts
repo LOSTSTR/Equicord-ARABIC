@@ -17,12 +17,11 @@
 */
 
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "NoticesAPI",
-    get description() { return t("يمنع إغلاق الإشعارات تلقائياً", "Prevents notices from auto-closing"); },
+    description: "Prevents notices from auto-closing",
     authors: [Devs.Ven],
     required: true,
     patches: [

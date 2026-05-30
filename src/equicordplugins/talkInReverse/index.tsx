@@ -19,7 +19,6 @@
 import { ChatBarButton, ChatBarButtonFactory } from "@api/ChatButtons";
 import { addMessagePreSendListener, MessageSendListener, removeMessagePreSendListener } from "@api/MessageEvents";
 import { EquicordDevs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import definePlugin from "@utils/types";
 import { React, useEffect, useState } from "@webpack/common";
 
@@ -66,7 +65,7 @@ function ReverseMessageIcon() {
 export default definePlugin({
     name: "TalkInReverse",
     authors: [EquicordDevs.Tolgchu],
-    get description() { return t("يعكس محتوى الرسالة قبل إرسالها.", "Reverses the message content before sending it."); },
+    description: "Reverses the message content before sending it.",
     tags: ["Chat", "Fun"],
     dependencies: ["MessageEventsAPI", "ChatInputButtonAPI"],
     chatBarButton: {

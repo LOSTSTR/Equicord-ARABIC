@@ -21,7 +21,6 @@ import "./style.css";
 import { BaseText } from "@components/BaseText";
 import ErrorBoundary from "@components/ErrorBoundary";
 import { Devs } from "@utils/constants";
-import { t } from "@utils/esharqI18n";
 import { isNonNullish } from "@utils/guards";
 import { Logger } from "@utils/Logger";
 import definePlugin from "@utils/types";
@@ -87,7 +86,7 @@ const IS_PATCHED = Symbol("MutualGroupDMs.Patched");
 
 export default definePlugin({
     name: "MutualGroupDMs",
-    get description() { return t("يعرض المجموعات المشتركة في ملفات المستخدمين الشخصية", "Shows mutual group DMs in user profiles"); },
+    description: "Shows mutual group DMs in user profiles",
     tags: ["Friends", "Appearance"],
     authors: [Devs.amia],
 
