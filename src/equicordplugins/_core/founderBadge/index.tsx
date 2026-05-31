@@ -7,11 +7,9 @@
 import "./styles.css";
 
 import { addProfileBadge, BadgePosition, BadgeUserArgs, ProfileBadge, removeProfileBadge } from "@api/Badges";
-import ErrorBoundary from "@components/ErrorBoundary";
 import definePlugin from "@utils/types";
-import { Tooltip, useRef } from "@webpack/common";
-import type { JSX } from "react";
 
+import { CircleBadge } from "../_shared/CircleBadge";
 import { FOUNDERS_IMAGE } from "./image";
 
 const BADGE_ID = "esharq-founder";
@@ -24,53 +22,15 @@ const FOUNDER_IDS: ReadonlySet<string> = new Set([
     "1072961475125182564",
 ]);
 
-// ─── Badge visual — circular image with crimson ring ─────────────────────────
-function FounderIcon({ size }: { size: number; }): JSX.Element {
-    const clipId = useRef(`founder-${Math.random().toString(36).slice(2, 9)}`).current;
-    return (
-        <svg width={size} height={size} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden>
-            <defs>
-                <clipPath id={clipId}><circle cx="12" cy="12" r="10" /></clipPath>
-            </defs>
-            <circle cx="12" cy="12" r="12" fill={RING} />
-            <image
-                href={FOUNDERS_IMAGE}
-                x="2" y="2" width="20" height="20"
-                preserveAspectRatio="xMidYMid slice"
-                clipPath={`url(#${clipId})`}
-            />
-        </svg>
-    );
-}
-
-function FounderBadge({ size }: { size: number; }): JSX.Element {
-    return (
-        <ErrorBoundary noop>
-            <Tooltip text={NAME} position="top">
-                {({ onMouseEnter, onMouseLeave }) => (
-                    <div
-                        className="esharq-founder-badge"
-                        onMouseEnter={onMouseEnter}
-                        onMouseLeave={onMouseLeave}
-                        style={{ width: size, height: size }}
-                        role="img"
-                        aria-label={NAME}
-                    >
-                        <FounderIcon size={size} />
-                    </div>
-                )}
-            </Tooltip>
-        </ErrorBoundary>
-    );
-}
-
 const profileBadge: ProfileBadge = {
     id: BADGE_ID,
     key: BADGE_ID,
     description: NAME,
     position: BadgePosition.START,
     shouldShow: ({ userId }: BadgeUserArgs) => FOUNDER_IDS.has(userId),
-    component: () => <FounderBadge size={22} />,
+    component: () => (
+        <CircleBadge size={22} image={FOUNDERS_IMAGE} ring={RING} tooltip={NAME} className="esharq-founder-badge" />
+    ),
 };
 
 // required: true → cannot be disabled; hidden: true → not listed in settings
