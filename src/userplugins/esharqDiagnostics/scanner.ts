@@ -18,16 +18,23 @@ export interface RawPluginStat {
     hooks: number;       // slash commands
 }
 
-// UI surfaces a plugin can register — each present one = a UI injection.
-// Some are declarative objects (chatBarButton, messagePopoverButton), others
-// are render-factory functions; a truthy check covers both correctly.
+// Every UI surface a plugin can register (mirrors the declarative fields on
+// PluginDef in src/utils/types.ts). Some are objects, some are render-factory
+// functions; a truthy check counts both. `contextMenus` is counted separately.
 const UI_SURFACE_PROPS = [
-    "chatBarButton",
+    "userProfileBadge",
+    "userProfileBadges",
     "messagePopoverButton",
+    "chatBarButton",
+    "chatBarButtonWrapper",
+    "headerBarButton",
+    "userAreaButton",
     "renderMessageAccessory",
+    "renderMessageDecoration",
     "renderMemberListDecorator",
     "renderNicknameIcon",
-    "renderMessageDecoration",
+    "renderProfileSection",
+    "renderProfileCollection",
 ] as const;
 
 // Read the registry lazily at call time (avoids any static circular import).
