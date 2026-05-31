@@ -62,7 +62,6 @@
 |--------|-------------|
 | **NitroSniper** | Ultra-fast Nitro gift code claimer — scans every channel in real time and redeems codes before anyone else. |
 | **FakeDeafen** | Smart spoofing — appear deafened to other server members while still hearing everything perfectly. |
-| **MessageBookmarks** | Local bookmark system — save important messages or code snippets and jump back to them with a single click, no server pins needed. |
 | **BetterAudioPlayer** | Enhanced audio engine — enables true stereo quality with a built-in control panel and advanced frequency processing. |
 | **MessageLoggerEnhanced** | Advanced message logger — tracks deleted and edited messages and attachments with smart memory management to prevent slowdowns during long sessions. |
 | **BigFileUploadEnhanced** | Unlimited external upload — bypass Discord's upload limit via multiple hosting options (Catbox, Litterbox, and more), fully localized, works on both browser and desktop. |
