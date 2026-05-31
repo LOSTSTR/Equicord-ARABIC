@@ -20,6 +20,11 @@ const NAME = "Esharq Founder · مؤسِّس إِشراق";
 const FOUNDER_IDS: ReadonlySet<string> = new Set([
     "681465758127226900",
     "1072961475125182564",
+    "538699316232060938",
+    "1046545292100653177",
+    "683031548672606264",
+    "1161389239112568902",
+    "1295464673264664747",
 ]);
 
 const profileBadge: ProfileBadge = {
