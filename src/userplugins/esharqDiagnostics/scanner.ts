@@ -18,11 +18,13 @@ export interface RawPluginStat {
     hooks: number;       // slash commands
 }
 
-// UI render factories a plugin can expose — each present one = a UI injection.
-const UI_RENDER_PROPS = [
-    "renderChatBarButton",
+// UI surfaces a plugin can register — each present one = a UI injection.
+// Some are declarative objects (chatBarButton, messagePopoverButton), others
+// are render-factory functions; a truthy check covers both correctly.
+const UI_SURFACE_PROPS = [
+    "chatBarButton",
+    "messagePopoverButton",
     "renderMessageAccessory",
-    "renderMessagePopoverButton",
     "renderMemberListDecorator",
     "renderNicknameIcon",
     "renderMessageDecoration",
@@ -50,7 +52,7 @@ export function scanPlugins(): RawPluginStat[] {
             const patches = Array.isArray(p.patches) ? p.patches.length : 0;
             const listeners = p.flux ? Object.keys(p.flux).length : 0;
             let uiInjects = p.contextMenus ? Object.keys(p.contextMenus).length : 0;
-            for (const key of UI_RENDER_PROPS) if (typeof p[key] === "function") uiInjects++;
+            for (const key of UI_SURFACE_PROPS) if (p[key]) uiInjects++;
             const hooks = Array.isArray(p.commands) ? p.commands.length : 0;
             out.push({ name, patches, listeners, uiInjects, hooks });
         } catch {

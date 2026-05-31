@@ -9,8 +9,9 @@
 import "./styles.css";
 
 import { t } from "@utils/esharqI18n";
+import type { ModalProps } from "@utils/modal";
 import { saveFile } from "@utils/web";
-import { Modal, React, useState } from "@webpack/common";
+import { Button, Modal, React, TextInput, useState } from "@webpack/common";
 
 import type { ScoredPlugin } from "./scoring";
 
@@ -29,7 +30,7 @@ function exportJson(rows: ScoredPlugin[], heapMB: number | null) {
 }
 
 export function DiagnosticsModal({ modalProps, initial, heapMB, rescan }: {
-    modalProps: any;
+    modalProps: ModalProps;
     initial: ScoredPlugin[];
     heapMB: number | null;
     rescan: () => ScoredPlugin[];
@@ -73,25 +74,25 @@ export function DiagnosticsModal({ modalProps, initial, heapMB, rescan }: {
                 </div>
 
                 <div className="esharq-diag-toolbar">
-                    <input
-                        className="esharq-diag-search"
-                        type="text"
-                        placeholder={t("بحث...", "Search...")}
-                        value={search}
-                        onChange={e => setSearch((e.target as HTMLInputElement).value)}
-                    />
+                    <div className="esharq-diag-searchwrap">
+                        <TextInput
+                            placeholder={t("بحث...", "Search...")}
+                            value={search}
+                            onChange={setSearch}
+                        />
+                    </div>
                     <div className="esharq-diag-actions">
                         {heapMB != null && (
                             <span className="esharq-diag-heap" title={t("ذاكرة JS الحالية", "Current JS heap")}>
                                 Heap: {heapMB} MB
                             </span>
                         )}
-                        <button className="esharq-diag-btn" onClick={() => setRows(rescan())}>
+                        <Button size={Button.Sizes.SMALL} onClick={() => setRows(rescan())}>
                             {t("إعادة الفحص", "Re-scan")}
-                        </button>
-                        <button className="esharq-diag-btn" onClick={() => exportJson(view, heapMB)}>
+                        </Button>
+                        <Button size={Button.Sizes.SMALL} color={Button.Colors.PRIMARY} onClick={() => exportJson(view, heapMB)}>
                             {t("تصدير JSON", "Export JSON")}
-                        </button>
+                        </Button>
                     </div>
                 </div>
 

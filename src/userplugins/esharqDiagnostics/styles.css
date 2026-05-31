@@ -21,21 +21,9 @@
     flex-wrap: wrap;
 }
 
-.esharq-diag-search {
+.esharq-diag-searchwrap {
     flex: 1;
     min-width: 160px;
-    padding: 8px 12px;
-    border-radius: 8px;
-    background: var(--background-secondary);
-    border: 1.5px solid var(--background-modifier-accent);
-    color: var(--text-normal);
-    font-size: 14px;
-    outline: none;
-    transition: border-color 0.15s ease;
-}
-
-.esharq-diag-search:focus {
-    border-color: var(--brand-experiment);
 }
 
 .esharq-diag-actions {
@@ -51,23 +39,6 @@
     padding: 4px 8px;
     border-radius: 6px;
     background: var(--background-secondary);
-}
-
-.esharq-diag-btn {
-    padding: 6px 12px;
-    border-radius: 7px;
-    border: 1.5px solid var(--background-modifier-accent);
-    background: var(--background-secondary);
-    color: var(--text-normal);
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: border-color 0.15s ease, background 0.15s ease;
-}
-
-.esharq-diag-btn:hover {
-    background: var(--background-modifier-hover);
-    border-color: var(--brand-experiment);
 }
 
 .esharq-diag-tablewrap {
