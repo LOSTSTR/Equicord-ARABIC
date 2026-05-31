@@ -67,6 +67,7 @@
 | **MessageLoggerEnhanced** | Advanced message logger — tracks deleted and edited messages and attachments with smart memory management to prevent slowdowns during long sessions. |
 | **BigFileUploadEnhanced** | Unlimited external upload — bypass Discord's upload limit via multiple hosting options (Catbox, Litterbox, and more), fully localized, works on both browser and desktop. |
 | **MessageBookmarks** | Private message bookmarks — save any message to a personal list (unlike server Pins, only you can see these), categorize them as General / Important / Later, search across all saved messages, and jump back with one click. Stored locally. |
+| **EsharqDiagnostics** | On-demand plugin resource inspector — takes a one-shot snapshot of each enabled plugin's footprint (patches, listeners, UI injects) and ranks them by a computed risk score, so you can see which plugin is heavy. No background loops, zero cost when idle. |
 
 ---
 
