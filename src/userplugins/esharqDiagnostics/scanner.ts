@@ -14,7 +14,7 @@ import Plugins from "~plugins";
 export interface RawPluginStat {
     name: string;
     patches: number;     // webpack code patches
-    listeners: number;   // Flux/Dispatcher subscriptions
+    listeners: number;   // Flux events + message listeners
     uiInjects: number;   // context menus + every declarative UI surface
     hooks: number;       // slash commands
 }
@@ -30,8 +30,14 @@ export function scanPlugins(): RawPluginStat[] {
         if (!p) continue;
 
         const patches = p.patches?.length ?? 0;
-        const listeners = p.flux ? Object.keys(p.flux).length : 0;
         const hooks = p.commands?.length ?? 0;
+
+        // Flux events + the message listeners (each runs on a recurring event,
+        // so they belong with Flux subscriptions, not the UI surfaces below).
+        let listeners = p.flux ? Object.keys(p.flux).length : 0;
+        if (p.onMessageClick) listeners++;
+        if (p.onBeforeMessageSend) listeners++;
+        if (p.onBeforeMessageEdit) listeners++;
 
         // Count context menus + every UI surface a plugin can declare
         // (mirrors the declarative fields on PluginDef in src/utils/types.ts).
@@ -49,6 +55,7 @@ export function scanPlugins(): RawPluginStat[] {
         if (p.renderNicknameIcon) uiInjects++;
         if (p.renderProfileSection) uiInjects++;
         if (p.renderProfileCollection) uiInjects++;
+        if (p.toolboxActions) uiInjects++;
 
         out.push({ name, patches, listeners, uiInjects, hooks });
     }

@@ -47,7 +47,7 @@ export function DiagnosticsModal({ modalProps, initial, heapMB, rescan }: {
         { key: "listeners", label: t("مستمعون", "Listeners"), tip: t("اشتراكات Flux/Dispatcher", "Flux/Dispatcher subscriptions"), num: true },
         { key: "patches", label: t("ترقيعات", "Patches"), tip: t("ترقيعات كود webpack", "Webpack code patches"), num: true },
         { key: "uiInjects", label: t("حقن واجهة", "UI Injects"), tip: t("قوائم سياق + عناصر واجهة", "Context menus + UI render surfaces"), num: true },
-        { key: "risk", label: t("الخطورة", "Risk"), tip: "(patches×2)+(listeners×3)+(uiInjects×1.5)", num: true },
+        { key: "risk", label: t("الثِقل", "Load"), tip: "(patches×2)+(listeners×3)+(uiInjects×1.5)", num: true },
     ];
 
     function sortBy(key: SortKey) {

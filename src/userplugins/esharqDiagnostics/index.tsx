@@ -10,7 +10,7 @@ import ErrorBoundary from "@components/ErrorBoundary";
 import { EquicordDevs } from "@utils/constants";
 import { t } from "@utils/esharqI18n";
 import definePlugin, { OptionType } from "@utils/types";
-import { Button, openModal } from "@webpack/common";
+import { Button, openModal, React } from "@webpack/common";
 
 import { DiagnosticsModal } from "./DiagnosticsModal";
 import { sampleHeapMB, scanPlugins } from "./scanner";
@@ -33,7 +33,7 @@ function openDiagnostics() {
 }
 
 // activity / heartbeat icon
-function DiagnosticsIcon({ width = 20, height = 20, ...props }: { width?: number; height?: number; className?: string;[k: string]: any; }) {
+function DiagnosticsIcon({ width = 20, height = 20, ...props }: React.SVGProps<SVGSVGElement>) {
     return (
         <svg width={width} height={height} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
             <path d="M3 12h4l3 8 4-16 3 8h4" />
@@ -63,7 +63,7 @@ const settings = definePluginSettings({
 
 export default definePlugin({
     name: "EsharqDiagnostics",
-    description: "On-demand, one-shot snapshot of each enabled plugin's footprint (patches, listeners, UI injects, risk). Zero cost when idle.",
+    description: "On-demand, one-shot snapshot of each enabled plugin's footprint (patches, listeners, UI injects, load). Zero cost when idle.",
     tags: ["Utility"],
     authors: [EquicordDevs.LOSTSTR],
     dependencies: ["HeaderBarAPI"],
