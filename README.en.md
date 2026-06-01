@@ -21,6 +21,20 @@
 
 </div>
 
+> **A Note of Thanks & Respect**
+>
+> I am a beginner who is still learning and experimenting. I use AI tools to help me improve, add features, and test things out. If you find any mistakes or issues, please kindly let me know so I can learn and do better.
+>
+> This project is a fork of the original [Equicord](https://github.com/Equicord/Equicord). I deeply thank **thororen1234** and the entire Equicord team for their incredible work and for building such a solid foundation.
+>
+> My sincere gratitude also goes to **justjxke** for his respectful advice, patience, and understanding throughout this journey — your guidance truly helped me grow.
+>
+> I also want to thank the teams behind **x2b1** and **TestCord** for their amazing plugins and for continuously improving and maintaining them.
+>
+> My main goal is to make this project easier for Arabic speakers who may not be comfortable with English, so they can understand the plugins and options. However, I have kept English as the primary language for expansion and accessibility, and no English was removed. This is for everyone.
+>
+> Thank you all, and thank you to every contributor who helped make open-source what it is today. ❤️
+
 ---
 
 <div align="center">
