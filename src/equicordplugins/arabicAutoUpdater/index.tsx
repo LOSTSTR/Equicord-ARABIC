@@ -32,7 +32,10 @@ async function checkForUpdate() {
         if (!res.ok) return;
 
         const data = await res.json();
-        const remoteHash: string = (data.tag_name ?? "").replace(/^v/, "");
+        // The release tag is static (v1.0.0-stable); the real commit hash lives in
+        // the release title "Esharq <hash>" — same source the in-client updater reads.
+        const releaseName: string = data.name ?? "";
+        const remoteHash = releaseName.slice(releaseName.lastIndexOf(" ") + 1);
 
         if (!remoteHash || remoteHash === gitHash) return;
 
