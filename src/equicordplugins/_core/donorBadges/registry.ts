@@ -16,4 +16,6 @@ import type { DonorBadge } from "./types";
 // ملاحظة: شارة المؤسِّسين الخاصة (الكأس) ليست هنا — هي في
 // src/equicordplugins/_core/founderBadge/ (منفصلة عن المتبرعين).
 
+// TODO(placeholder): فارغة بشكل مقصود — ما دامت فارغة فإن EsharqDonorBadges
+// لا تسجّل أي شارة (start()/stop() بلا أثر). تُملأ عند انضمام متبرّعين.
 export const DONOR_BADGES: readonly DonorBadge[] = [];

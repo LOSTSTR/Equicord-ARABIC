@@ -5,6 +5,7 @@
  */
 
 import { t } from "@utils/esharqI18n";
+import { RenderModalProps } from "@vencord/discord-types";
 import { findByPropsLazy } from "@webpack";
 import { ChannelStore, GuildStore, Modal, React, showToast, Toasts, useEffect, useState } from "@webpack/common";
 
@@ -45,7 +46,7 @@ function relativeTime(savedAt: number): string {
     return t(`${d}ي`, `${d}d ago`);
 }
 
-export function BookmarksModal({ modalProps }: { modalProps: any; }) {
+export function BookmarksModal({ modalProps }: { modalProps: RenderModalProps; }) {
     const [bookmarks, setBookmarks] = useState<Bookmark[]>([]);
     const [search, setSearch] = useState("");
     const [activeTab, setActiveTab] = useState<BookmarkCategory | "all">("all");

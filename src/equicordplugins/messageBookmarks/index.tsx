@@ -20,7 +20,7 @@ import { BookmarksModal } from "./BookmarksModal";
 import { bookmarksCache, clearCache, getBookmarks, saveBookmarks } from "./store";
 import type { Bookmark } from "./types";
 
-function BookmarkIcon({ width = 20, height = 20, ...props }: { width?: number | string; height?: number | string; className?: string; [key: string]: any; }) {
+function BookmarkIcon({ width = 20, height = 20, ...props }: React.SVGProps<SVGSVGElement>) {
     return (
         <svg width={width} height={height} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
             <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
@@ -39,7 +39,7 @@ function HeaderBarBookmarkButton() {
     );
 }
 
-function BookmarkFilledIcon({ width = 20, height = 20, ...props }: { width?: number | string; height?: number | string; className?: string; [key: string]: any; }) {
+function BookmarkFilledIcon({ width = 20, height = 20, ...props }: React.SVGProps<SVGSVGElement>) {
     return (
         <svg width={width} height={height} viewBox="0 0 24 24" fill="currentColor" {...props}>
             <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
