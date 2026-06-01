@@ -12,6 +12,7 @@ import { Paragraph } from "@components/Paragraph";
 import { PluginCard } from "@components/settings/tabs/plugins/PluginCard";
 import { ChangeList } from "@utils/ChangeList";
 import { classNameFactory } from "@utils/css";
+import { t } from "@utils/esharqI18n";
 import { Margins } from "@utils/margins";
 import { useForceUpdater } from "@utils/react";
 import { React, Tooltip } from "@webpack/common";
@@ -66,7 +67,7 @@ export function NewPluginsSection({
         if (!deps) return null;
         return (
             <React.Fragment>
-                <Paragraph>This plugin is required by:</Paragraph>
+                <Paragraph>{t("هذه الإضافة مطلوبة من قِبل:", "This plugin is required by:")}</Paragraph>
                 {deps.map((dep: string) => (
                     <Paragraph key={dep} className="vc-changelog-dep-text">
                         {dep}
@@ -79,11 +80,11 @@ export function NewPluginsSection({
     return (
         <div className={cl("new-plugins-section")}>
             <Heading className={Margins.bottom8}>
-                New Plugins ({sortedPlugins.length})
+                {t("إضافات جديدة", "New Plugins")} ({sortedPlugins.length})
             </Heading>
 
             <Paragraph className={Margins.bottom16}>
-                The following plugins have been added in recent updates:
+                {t("أُضيفت الإضافات التالية في التحديثات الأخيرة:", "The following plugins have been added in recent updates:")}
             </Paragraph>
 
             <div className={cl("new-plugins-grid")}>
@@ -95,7 +96,7 @@ export function NewPluginsSection({
                         ) ||
                         plugin.name.endsWith("API");
                     const tooltipText = plugin.required
-                        ? "This plugin is required for Equicord to function."
+                        ? t("هذه الإضافة ضرورية لعمل Equicord.", "This plugin is required for Equicord to function.")
                         : makeDependencyList(
                             depMap[plugin.name]?.filter(
                                 d => settings.plugins[d].enabled,
@@ -153,7 +154,7 @@ export function NewPluginsSection({
                     <Tooltip
                         text={
                             <>
-                                The following plugins require a restart:
+                                {t("تتطلب الإضافات التالية إعادة تشغيل:", "The following plugins require a restart:")}
                                 <div className={Margins.bottom8} />
                                 <ul>
                                     {changes.map(p => (
@@ -171,7 +172,7 @@ export function NewPluginsSection({
                                 onClick={() => location.reload()}
                                 className={Margins.top16}
                             >
-                                Restart Required
+                                {t("يتطلب إعادة تشغيل", "Restart Required")}
                             </Button>
                         )}
                     </Tooltip>
@@ -203,9 +204,9 @@ function CompactPluginCard({
         depMap[plugin.name]?.some(d => settings.plugins[d].enabled);
 
     const tooltipText = plugin.required
-        ? "This plugin is required for Equicord to function."
+        ? t("هذه الإضافة ضرورية لعمل Equicord.", "This plugin is required for Equicord to function.")
         : depMap[plugin.name]?.length > 0
-            ? `This plugin is required by: ${depMap[plugin.name]
+            ? `${t("هذه الإضافة مطلوبة من قِبل:", "This plugin is required by:")} ${depMap[plugin.name]
                 ?.filter(d => settings.plugins[d].enabled)
                 .join(", ")}`
             : null;
@@ -218,11 +219,11 @@ function CompactPluginCard({
                     {isRequired && " *"}
                 </span>
                 <span className="vc-changelog-entry-author">
-                    {plugin.authors?.[0]?.name || "Unknown"}
+                    {plugin.authors?.[0]?.name || t("غير معروف", "Unknown")}
                 </span>
             </div>
             <div className="vc-changelog-entry-message">
-                {plugin.description || "No description available"}
+                {plugin.description || t("لا يوجد وصف متاح", "No description available")}
             </div>
             {tooltipText && (
                 <div className="vc-changelog-dep-text">{tooltipText}</div>
@@ -273,7 +274,7 @@ export function NewPluginsCompact({
                 {hasMore && (
                     <div className="vc-changelog-entry">
                         <div className="vc-changelog-entry-message">
-                            +{newPlugins.length - maxDisplay} more plugins
+                            +{newPlugins.length - maxDisplay} {t("إضافة أخرى", "more plugins")}
                         </div>
                     </div>
                 )}
