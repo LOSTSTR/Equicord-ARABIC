@@ -27,7 +27,7 @@
 >
 > This project is a fork of the original [Equicord](https://github.com/Equicord/Equicord). I deeply thank **thororen1234** and the entire Equicord team for their incredible work and for building such a solid foundation.
 >
-> My sincere gratitude also goes to **justjxke** for his respectful advice, patience, and understanding throughout this journey — your guidance truly helped me grow.
+> **justjxke**, thank you from the heart for your advice and respect.
 >
 > I also want to thank the teams behind **x2b1** and **TestCord** for their amazing plugins and for continuously improving and maintaining them.
 >
