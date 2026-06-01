@@ -14,7 +14,7 @@ import { FOUNDERS_IMAGE } from "./image";
 
 const BADGE_ID = "esharq-founder";
 const RING = "#a01b2d";
-const NAME = "Esharq Founder · مؤسِّس إِشراق";
+const NAME = "Esharq Staff · إدارة إِشراق";
 
 // ─── Authorized IDs — هذه الشارة الخاصة تظهر فقط لهؤلاء ──────────────────────
 const FOUNDER_IDS: ReadonlySet<string> = new Set([
@@ -41,7 +41,7 @@ const profileBadge: ProfileBadge = {
 // required: true → cannot be disabled; hidden: true → not listed in settings
 export default definePlugin({
     name: "EsharqFounderBadge",
-    description: "Special Esharq founder badge",
+    description: "Special Esharq staff badge",
     authors: [],
     required: true,
     hidden: true,
