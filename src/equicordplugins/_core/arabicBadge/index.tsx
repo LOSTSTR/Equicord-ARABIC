@@ -65,7 +65,7 @@ export default definePlugin({
     authors: [],
     required: true,
     hidden: true,
-    dependencies: ["BadgesAPI", "MessageDecorationsAPI"],
+    dependencies: ["BadgeAPI", "MessageDecorationsAPI"],
 
     start() {
         addProfileBadge(profileBadge);

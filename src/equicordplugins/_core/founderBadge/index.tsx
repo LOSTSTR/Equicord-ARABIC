@@ -45,7 +45,7 @@ export default definePlugin({
     authors: [],
     required: true,
     hidden: true,
-    dependencies: ["BadgesAPI"],
+    dependencies: ["BadgeAPI"],
 
     start() {
         addProfileBadge(profileBadge);

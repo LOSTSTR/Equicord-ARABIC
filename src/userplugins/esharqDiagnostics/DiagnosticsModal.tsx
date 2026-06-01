@@ -8,8 +8,8 @@
 
 import "./styles.css";
 
+import type { RenderModalProps } from "@vencord/discord-types";
 import { t } from "@utils/esharqI18n";
-import type { ModalProps } from "@utils/modal";
 import { saveFile } from "@utils/web";
 import { Button, Modal, React, TextInput, useState } from "@webpack/common";
 
@@ -30,7 +30,7 @@ function exportJson(rows: ScoredPlugin[], heapMB: number | null) {
 }
 
 export function DiagnosticsModal({ modalProps, initial, heapMB, rescan }: {
-    modalProps: ModalProps;
+    modalProps: RenderModalProps;
     initial: ScoredPlugin[];
     heapMB: number | null;
     rescan: () => ScoredPlugin[];
